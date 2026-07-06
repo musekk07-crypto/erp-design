@@ -457,6 +457,13 @@
   padding-bottom: 2px;
 }
 
+/* 회원정보 1열 입력폼 너비 — 휴대폰번호 등 기준 */
+.app-content .content-form-body table .form-slot-input {
+  display: block;
+  width: 100%;
+  max-width: calc((100% - 13rem) / 2);
+}
+
 .app-content .content-member-header {
   padding: 6px 8px !important;
   margin-bottom: 8px !important;
