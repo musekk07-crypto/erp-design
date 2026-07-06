@@ -485,12 +485,15 @@
   width: calc((100% - 208px) / 2);
 }
 
-/* 일반회원정보·로그인 — 좌·우 입력열 동일 너비, 라벨↔입력 간격 10px */
+/* 일반회원정보·로그인 — 라벨↔입력 10px, 좌입력↔우라벨 20px */
 .app-content .content-form-body table.content-form-grid--member {
   --form-label-w: 108px;
   --form-label-mid-w: 100px;
   --form-gap: 10px;
+  --form-col-gap: 20px;
   --form-side-field-w: calc((100% - var(--form-label-w) * 2) / 2);
+  --form-side-field-left-w: calc(var(--form-side-field-w) - 14px);
+  --form-side-field-right-w: calc(var(--form-side-field-w) + 14px);
 }
 
 .app-content .content-form-body table.content-form-grid--member .col-label-1,
@@ -503,17 +506,21 @@
 }
 
 .app-content .content-form-body table.content-form-grid--member .col-field-3 {
-  width: var(--form-side-field-w);
+  width: var(--form-side-field-right-w);
 }
 
 .app-content .content-form-body table.content-form-grid--member .col-field-1,
 .app-content .content-form-body table.content-form-grid--member .col-field-2 {
-  width: calc((var(--form-side-field-w) - var(--form-label-mid-w)) / 2);
+  width: calc((var(--form-side-field-left-w) - var(--form-label-mid-w)) / 2);
 }
 
 .app-content .content-form-body table.content-form-grid--member td {
   padding-right: var(--form-gap);
   padding-left: 0;
+}
+
+.app-content .content-form-body table.content-form-grid--member td[colspan="3"] {
+  padding-right: var(--form-col-gap) !important;
 }
 
 .app-content .content-form-body table.content-form-grid--member td:last-child {
