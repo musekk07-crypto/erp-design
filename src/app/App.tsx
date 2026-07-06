@@ -1755,7 +1755,12 @@ function MemberDetail({ memberId, listOpen, formColumnWidth }: { memberId: numbe
                     <button className="shrink-0" style={{ fontSize: 12, padding: "3px 12px", background: "var(--surface-button-muted)", color: "var(--foreground)", border: "1px solid var(--border)", borderRadius: 4 }}>검색</button>
                   </div>
                 </td>
-                <td colSpan={2} />
+                <td style={{ padding: "3px 10px 3px 0", whiteSpace: "nowrap", verticalAlign: "middle" }}>
+                  <span style={{ fontSize: "12px", color: "var(--form-label-color)", fontWeight: 500 }}>휴대폰번호</span>
+                </td>
+                <td style={{ padding: "3px 0 3px 0", verticalAlign: "middle" }}>
+                  <input key={`phone-${member.id}`} defaultValue={member.phone} className="w-full rounded outline-none transition-all duration-200" style={{ fontSize: 12, padding: "3px 8px", background: "var(--input-background)", border: "none", color: "var(--foreground)" }} onFocus={(e) => { e.target.style.background = "var(--input-focus-bg)"; }} onBlur={(e) => { e.target.style.background = "var(--input-background)"; }} />
+                </td>
               </tr>
               <tr>
                 <td style={{ padding: "3px 10px 3px 0", whiteSpace: "nowrap", verticalAlign: "middle" }}>
@@ -1769,20 +1774,6 @@ function MemberDetail({ memberId, listOpen, formColumnWidth }: { memberId: numbe
                 </td>
                 <td style={{ padding: "3px 0 3px 0", verticalAlign: "middle" }}>
                   <input defaultValue="02-3456-7890" className="w-full rounded outline-none transition-all duration-200" style={{ fontSize: 12, padding: "3px 8px", background: "var(--input-background)", border: "none", color: "var(--foreground)" }} onFocus={(e) => { e.target.style.background = "var(--input-focus-bg)"; }} onBlur={(e) => { e.target.style.background = "var(--input-background)"; }} />
-                </td>
-              </tr>
-              <tr>
-                <td style={{ padding: "3px 10px 3px 0", whiteSpace: "nowrap", verticalAlign: "middle" }}>
-                  <span style={{ fontSize: "12px", color: "var(--form-label-color)", fontWeight: 500 }}>휴대폰번호</span>
-                </td>
-                <td colSpan={3} style={{ padding: "3px 10px 3px 0", verticalAlign: "middle" }}>
-                  <input key={`phone-${member.id}`} defaultValue={member.phone} className="w-full rounded outline-none transition-all duration-200" style={{ fontSize: 12, padding: "3px 8px", background: "var(--input-background)", border: "none", color: "var(--foreground)" }} onFocus={(e) => { e.target.style.background = "var(--input-focus-bg)"; }} onBlur={(e) => { e.target.style.background = "var(--input-background)"; }} />
-                </td>
-                <td style={{ padding: "3px 10px 3px 0", whiteSpace: "nowrap", verticalAlign: "middle" }}>
-                  <span style={{ fontSize: "12px", color: "var(--form-label-color)", fontWeight: 500 }}>세금신고번호</span>
-                </td>
-                <td style={{ padding: "3px 0 3px 0", verticalAlign: "middle" }}>
-                  <input defaultValue="220-81-12345" className="w-full rounded outline-none transition-all duration-200" style={{ fontSize: 12, padding: "3px 8px", background: "var(--input-background)", border: "none", color: "var(--foreground)" }} onFocus={(e) => { e.target.style.background = "var(--input-focus-bg)"; }} onBlur={(e) => { e.target.style.background = "var(--input-background)"; }} />
                 </td>
               </tr>
               <tr>
@@ -1800,7 +1791,12 @@ function MemberDetail({ memberId, listOpen, formColumnWidth }: { memberId: numbe
                     onBlur={(e) => { e.target.style.background = "var(--input-background)"; }}
                   />
                 </td>
-                <td colSpan={2} />
+                <td style={{ padding: "3px 10px 3px 0", whiteSpace: "nowrap", verticalAlign: "middle" }}>
+                  <span style={{ fontSize: "12px", color: "var(--form-label-color)", fontWeight: 500 }}>세금신고번호</span>
+                </td>
+                <td style={{ padding: "3px 0 3px 0", verticalAlign: "middle" }}>
+                  <input defaultValue="220-81-12345" className="w-full rounded outline-none transition-all duration-200" style={{ fontSize: 12, padding: "3px 8px", background: "var(--input-background)", border: "none", color: "var(--foreground)" }} onFocus={(e) => { e.target.style.background = "var(--input-focus-bg)"; }} onBlur={(e) => { e.target.style.background = "var(--input-background)"; }} />
+                </td>
               </tr>
             </tbody>
           </table>
