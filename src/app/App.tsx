@@ -27,7 +27,8 @@ const APP_MIN_WIDTH = 1280;
 const LIST_PANEL_TRANSITION_MS = 250;
 const LAYOUT_TRANSITION = `width ${LIST_PANEL_TRANSITION_MS}ms ease, min-width ${LIST_PANEL_TRANSITION_MS}ms ease`;
 const ORG_CARD_W = 118;
-const ORG_CARD_H = 104;
+const ORG_CARD_H = 114;
+const ORG_CHILD_CHIP_H = 38;
 const ORG_COL_GAP = 16;
 const ORG_HPAD = 6;
 const ORG_FOREIGN_PAD = 2;
@@ -76,7 +77,8 @@ const LABEL_GRAY = "var(--org-label)";
 const BORDER_GRAY = "var(--org-border)";
 const CARD_W = ORG_CARD_W;
 const CARD_H = ORG_CARD_H;
-const EXTRA_H = 30;
+const CHILD_CHIP_H = ORG_CHILD_CHIP_H;
+const EXTRA_H = 34;
 const GAP = 7;
 const COL_GAP = ORG_COL_GAP;
 
@@ -91,7 +93,7 @@ function Card({ label, name, id, date, rank, score, isSelf = false }: {
       borderRadius: 6,
       background: "var(--org-card-bg)",
       textAlign: "center",
-      padding: "7px 6px 6px",
+      padding: "8px 6px 8px",
       position: "relative",
       boxSizing: "border-box",
       flexShrink: 0,
@@ -131,7 +133,6 @@ function ExtraBox({ label }: { label: string }) {
 }
 
 function ChildChip({ name, id }: { name: string; id: number }) {
-  const CHILD_CHIP_H = 34;
   return (
     <div style={{
       border: `1px solid ${BORDER_GRAY}`,
@@ -184,7 +185,6 @@ function OrgChartSvg({
 }) {
   const HPAD = ORG_HPAD;
   const VPAD = 8;
-  const CHILD_CHIP_H = 34;
   const col1X = HPAD;
   const col2X = col1X + CARD_W + COL_GAP;
   const col3X = col2X + CARD_W + COL_GAP;
