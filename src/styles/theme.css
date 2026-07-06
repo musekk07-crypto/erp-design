@@ -457,11 +457,32 @@
   padding-bottom: 2px;
 }
 
-/* 회원정보 1열 입력폼 너비 — 휴대폰번호 등 기준 */
-.app-content .content-form-body table .form-slot-input {
-  display: block;
+/* 회원정보·거래은행 폼 — 열 너비 정렬 (4열 기준) */
+.app-content .content-form-body table.content-form-grid {
+  table-layout: fixed;
   width: 100%;
-  max-width: calc((100% - 13rem) / 2);
+}
+
+.app-content .content-form-body table.content-form-grid .col-label-1 {
+  width: 108px;
+}
+
+.app-content .content-form-body table.content-form-grid .col-label-2 {
+  width: 100px;
+}
+
+.app-content .content-form-body table.content-form-grid .col-field-1,
+.app-content .content-form-body table.content-form-grid .col-field-2 {
+  width: calc((100% - 208px) / 2);
+}
+
+/* 거래은행 6열 — 1열 입력폭을 회원정보와 동일하게 */
+.app-content .content-form-body table.content-form-grid--6 .col-label-3 {
+  width: 100px;
+}
+
+.app-content .content-form-body table.content-form-grid--6 .col-field-1 {
+  width: calc((100% - 208px) / 2);
 }
 
 .app-content .content-member-header {
