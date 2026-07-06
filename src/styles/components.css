@@ -31,10 +31,10 @@
   flex-shrink: 0;
   width: 100%;
   margin-bottom: 8px;
-  background: var(--surface-panel);
-  border: 1px solid var(--border);
-  border-radius: 6px;
-  overflow: hidden;
+  background: transparent;
+  border: none;
+  border-radius: 0;
+  overflow: visible;
 }
 
 .member-page-chrome .detail-tab-bar {
@@ -59,7 +59,7 @@
 }
 
 .member-page-chrome .detail-tab.is-active {
-  padding-top: 4px;
+  padding-top: 6px;
 }
 
 .member-page-chrome .detail-tab-divider {
@@ -73,7 +73,7 @@
   padding: 0 8px;
   min-height: 34px;
   background: transparent;
-  border-bottom: 1px solid var(--detail-tab-bar-line);
+  border-bottom: none;
 }
 
 .detail-tab-list {
@@ -114,13 +114,11 @@
 .detail-tab.is-active {
   font-weight: 600;
   color: var(--text-body);
-  background: var(--surface-panel);
-  border: 1px solid var(--detail-tab-bar-line);
-  border-top: 3px solid var(--detail-tab-active-top);
-  border-bottom-color: var(--surface-panel);
-  margin-bottom: -1px;
-  padding-top: 5px;
-  border-radius: 3px 3px 0 0;
+  background: transparent;
+  border: none;
+  margin-bottom: 0;
+  padding-top: 7px;
+  border-radius: 0;
 }
 
 .detail-action-bar {
@@ -128,7 +126,7 @@
   align-items: center;
   gap: 6px;
   padding: 5px 8px;
-  background: var(--surface-panel);
-  border-bottom: 1px solid var(--border);
+  background: transparent;
+  border-bottom: none;
   min-height: 36px;
 }
