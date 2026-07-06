@@ -1577,43 +1577,53 @@ function MemberDetail({ memberId, listOpen, formColumnWidth }: { memberId: numbe
 
         {/* Login Info */}
         <FormSection title="로그인 사용정보" icon={<Shield size={12} />}>
-          <table style={{ width: "100%", borderCollapse: "collapse" }}>
+          <table className="content-form-grid content-form-grid--6 content-form-grid--member" style={{ width: "100%", borderCollapse: "collapse" }}>
+            <colgroup>
+              <col className="col-label-1" />
+              <col className="col-field-1" />
+              <col className="col-label-2" />
+              <col className="col-field-2" />
+              <col className="col-label-3" />
+              <col className="col-field-3" />
+            </colgroup>
             <tbody>
-              {[
-                [{ label: "* 회원번호", value: member.no, mono: true }, { label: "* 아이디", value: member.loginId, mono: true }],
-                [{ label: "비밀번호", placeholder: "변경 시에만 입력", type: "password" }, { label: "보안 비밀번호", placeholder: "····", type: "password" }],
-                [{ label: "전자메일주소", value: `${member.loginId}@email.com`, type: "email" }],
-              ].map((row, ri) => (
-                <tr key={ri}>
-                  {row.map((cell: any, ci) => (
-                    <React.Fragment key={ci}>
-                      <td style={{ padding: "3px 10px 3px 0", width: 108, whiteSpace: "nowrap", verticalAlign: "middle" }}>
-                        <span style={{ fontSize: "12px", color: cell.label.startsWith("*") ? "var(--accent-primary)" : "var(--form-label-color)", fontWeight: 500 }}>
-                          {cell.label}
-                        </span>
-                      </td>
-                      <td colSpan={cell.colSpan === 2 ? 3 : 1} style={{ padding: "3px 10px 3px 0", verticalAlign: "middle" }}>
-                        <input
-                          type={cell.type || "text"}
-                          defaultValue={cell.value}
-                          placeholder={cell.placeholder}
-                          className="w-full rounded outline-none transition-all duration-200"
-                          style={{
-                            fontSize: 12,
-                            padding: "3px 8px",
-                            background: "var(--input-background)",
-                            border: "none",
-                            color: "var(--foreground)",
-                            fontFamily: "inherit",
-                          }}
-                          onFocus={(e) => { e.target.style.background = "var(--input-focus-bg)"; }}
-                          onBlur={(e) => { e.target.style.background = "var(--input-background)"; }}
-                        />
-                      </td>
-                    </React.Fragment>
-                  ))}
-                </tr>
-              ))}
+              <tr>
+                <td style={{ padding: "3px 10px 3px 0", whiteSpace: "nowrap", verticalAlign: "middle" }}>
+                  <span style={{ fontSize: "12px", color: "var(--accent-primary)", fontWeight: 500 }}>* 회원번호</span>
+                </td>
+                <td colSpan={3} style={{ padding: "3px 10px 3px 0", verticalAlign: "middle" }}>
+                  <input type="text" defaultValue={member.no} className="w-full rounded outline-none transition-all duration-200" style={{ fontSize: 12, padding: "3px 8px", background: "var(--input-background)", border: "none", color: "var(--foreground)", fontFamily: "monospace" }} onFocus={(e) => { e.target.style.background = "var(--input-focus-bg)"; }} onBlur={(e) => { e.target.style.background = "var(--input-background)"; }} />
+                </td>
+                <td style={{ padding: "3px 10px 3px 0", whiteSpace: "nowrap", verticalAlign: "middle" }}>
+                  <span style={{ fontSize: "12px", color: "var(--accent-primary)", fontWeight: 500 }}>* 아이디</span>
+                </td>
+                <td style={{ padding: "3px 0 3px 0", verticalAlign: "middle" }}>
+                  <input type="text" defaultValue={member.loginId} className="w-full rounded outline-none transition-all duration-200" style={{ fontSize: 12, padding: "3px 8px", background: "var(--input-background)", border: "none", color: "var(--foreground)", fontFamily: "monospace" }} onFocus={(e) => { e.target.style.background = "var(--input-focus-bg)"; }} onBlur={(e) => { e.target.style.background = "var(--input-background)"; }} />
+                </td>
+              </tr>
+              <tr>
+                <td style={{ padding: "3px 10px 3px 0", whiteSpace: "nowrap", verticalAlign: "middle" }}>
+                  <span style={{ fontSize: "12px", color: "var(--form-label-color)", fontWeight: 500 }}>비밀번호</span>
+                </td>
+                <td colSpan={3} style={{ padding: "3px 10px 3px 0", verticalAlign: "middle" }}>
+                  <input type="password" placeholder="변경 시에만 입력" className="w-full rounded outline-none transition-all duration-200" style={{ fontSize: 12, padding: "3px 8px", background: "var(--input-background)", border: "none", color: "var(--foreground)" }} onFocus={(e) => { e.target.style.background = "var(--input-focus-bg)"; }} onBlur={(e) => { e.target.style.background = "var(--input-background)"; }} />
+                </td>
+                <td style={{ padding: "3px 10px 3px 0", whiteSpace: "nowrap", verticalAlign: "middle" }}>
+                  <span style={{ fontSize: "12px", color: "var(--form-label-color)", fontWeight: 500 }}>보안 비밀번호</span>
+                </td>
+                <td style={{ padding: "3px 0 3px 0", verticalAlign: "middle" }}>
+                  <input type="password" placeholder="····" className="w-full rounded outline-none transition-all duration-200" style={{ fontSize: 12, padding: "3px 8px", background: "var(--input-background)", border: "none", color: "var(--foreground)" }} onFocus={(e) => { e.target.style.background = "var(--input-focus-bg)"; }} onBlur={(e) => { e.target.style.background = "var(--input-background)"; }} />
+                </td>
+              </tr>
+              <tr>
+                <td style={{ padding: "3px 10px 3px 0", whiteSpace: "nowrap", verticalAlign: "middle" }}>
+                  <span style={{ fontSize: "12px", color: "var(--form-label-color)", fontWeight: 500 }}>전자메일주소</span>
+                </td>
+                <td colSpan={3} style={{ padding: "3px 10px 3px 0", verticalAlign: "middle" }}>
+                  <input type="email" defaultValue={`${member.loginId}@email.com`} className="w-full rounded outline-none transition-all duration-200" style={{ fontSize: 12, padding: "3px 8px", background: "var(--input-background)", border: "none", color: "var(--foreground)" }} onFocus={(e) => { e.target.style.background = "var(--input-focus-bg)"; }} onBlur={(e) => { e.target.style.background = "var(--input-background)"; }} />
+                </td>
+                <td colSpan={2} />
+              </tr>
             </tbody>
           </table>
         </FormSection>
