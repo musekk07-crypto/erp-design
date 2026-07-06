@@ -1510,7 +1510,32 @@ function GenderToggleInline() {
   );
 }
 
-function MemberDetail({
+function MemberHeaderCard({ member }: { member: Member }) {
+  const memberType = member.type === "소비자" ? "소비자" : "일반";
+  return (
+    <div
+      className="rounded content-member-header p-1.5 mb-2"
+      style={{ background: "var(--surface-panel)", border: "1px solid var(--border)" }}
+    >
+      <div className="flex items-center gap-3">
+        <div
+          className="w-8 h-8 rounded flex items-center justify-center font-bold shrink-0"
+          style={{ background: "var(--brand-gradient)", color: "var(--on-accent)", fontSize: 12 }}
+        >
+          {member.name.charAt(0)}
+        </div>
+        <div className="flex items-center gap-2 min-w-0">
+          <span style={{ color: "var(--muted-foreground)", fontSize: 13 }}>{member.name} · {member.loginId}</span>
+          <span style={{ width: 1, height: 14, background: "var(--border)", display: "inline-block" }} />
+          <span style={{ fontSize: 13, fontWeight: 600, color: "var(--text-body)" }}>{member.no}</span>
+          <MemberTypeToggle type={memberType} />
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function MemberManagementView({
   memberId,
   listOpen,
   formColumnWidth,
@@ -1524,22 +1549,23 @@ function MemberDetail({
   onTabChange: (tab: string) => void;
 }) {
   const member = getMemberById(memberId);
+  const isMemberInfoTab = activeTab === "회원정보";
   const detailContentWidth = getDetailContentWidth(formColumnWidth);
-  const memberType = member.type === "소비자" ? "소비자" : "일반";
+  const contentAlignWidth = isMemberInfoTab && listOpen ? detailContentWidth : "100%";
 
   return (
     <div
-      className="flex flex-col h-full"
+      className="flex flex-col h-full w-full min-h-0"
       style={{
-        width: listOpen ? getDetailPanelWidth(formColumnWidth) : "100%",
-        minWidth: listOpen ? getDetailPanelWidth(formColumnWidth) : 0,
-        flexShrink: 0,
+        width: isMemberInfoTab && listOpen ? getDetailPanelWidth(formColumnWidth) : "100%",
+        minWidth: isMemberInfoTab && listOpen ? getDetailPanelWidth(formColumnWidth) : 0,
+        flexShrink: isMemberInfoTab && listOpen ? 0 : undefined,
       }}
     >
       <div
-        className="flex-1 content-scroll"
+        className={`flex flex-col flex-1 min-h-0${isMemberInfoTab ? " content-scroll" : ""}`}
         style={{
-          overflowY: "auto",
+          overflowY: isMemberInfoTab ? "auto" : "hidden",
           overflowX: "hidden",
           scrollbarWidth: "thin",
           background: "var(--surface-page)",
@@ -1548,39 +1574,56 @@ function MemberDetail({
       >
         <div
           key={member.id}
+          className={isMemberInfoTab ? undefined : "flex flex-col flex-1 min-h-0"}
           style={{
-            width: listOpen ? detailContentWidth : "100%",
-            minWidth: listOpen ? detailContentWidth : 0,
+            width: contentAlignWidth,
+            minWidth: isMemberInfoTab && listOpen ? detailContentWidth : 0,
             boxSizing: "border-box",
           }}
         >
-        <MemberPageChrome activeTab={activeTab} onTabChange={onTabChange} />
+          <MemberPageChrome activeTab={activeTab} onTabChange={onTabChange} />
+          <MemberHeaderCard member={member} />
 
-        {/* Member Header Card */}
-        <div
-          className="rounded content-member-header p-1.5 mb-2"
-          style={{ background: "var(--surface-panel)", border: "1px solid var(--border)" }}
-        >
-          <div className="flex items-center gap-3">
-            <div
-              className="w-8 h-8 rounded flex items-center justify-center font-bold shrink-0"
-              style={{ background: "var(--brand-gradient)", color: "var(--on-accent)", fontSize: 12 }}
-            >
-              {member.name.charAt(0)}
+          {isMemberInfoTab ? (
+            <MemberInfoBody memberId={memberId} listOpen={listOpen} formColumnWidth={formColumnWidth} member={member} />
+          ) : activeTab === "주문서내역" ? (
+            <div className="flex-1 min-h-0 overflow-hidden">
+              <OrderHistoryView memberId={memberId} />
             </div>
-            <div className="flex items-center gap-2 min-w-0">
-              <span style={{ color: "var(--muted-foreground)", fontSize: 13 }}>{member.name} · {member.loginId}</span>
-              <span style={{ width: 1, height: 14, background: "var(--border)", display: "inline-block" }} />
-              <span style={{ fontSize: 13, fontWeight: 600, color: "var(--text-body)" }}>{member.no}</span>
-              <MemberTypeToggle type={memberType} />
+          ) : activeTab === "수당내역" ? (
+            <div className="flex-1 min-h-0 overflow-hidden">
+              <AllowanceHistoryView memberId={memberId} />
             </div>
-          </div>
+          ) : (
+            <div className="flex items-center justify-center flex-1" style={{ color: "var(--text-muted)", fontSize: 14, minHeight: 200 }}>
+              {activeTab} 화면 준비 중입니다.
+            </div>
+          )}
         </div>
+      </div>
+    </div>
+  );
+}
 
+function MemberInfoBody({
+  memberId,
+  listOpen,
+  formColumnWidth,
+  member,
+}: {
+  memberId: number;
+  listOpen: boolean;
+  formColumnWidth: number;
+  member: Member;
+}) {
+  const detailContentWidth = getDetailContentWidth(formColumnWidth);
+
+  return (
         <div
           className="flex items-start"
           style={{
-            width: "100%",
+            width: listOpen ? detailContentWidth : "100%",
+            minWidth: listOpen ? detailContentWidth : 0,
             gap: DETAIL_CONTENT_GAP,
             boxSizing: "border-box",
           }}
@@ -1992,9 +2035,6 @@ function MemberDetail({
           </FormSection>
         </div>
 
-        </div>{/* flex row 끝 */}
-        </div>{/* content-detail-align 끝 */}
-      </div>
     </div>
   );
 }
@@ -2787,23 +2827,13 @@ export default function App() {
             overflow: "hidden",
           }}
         >
-          {isMemberInfoTab ? (
-            <MemberDetail
-              memberId={selectedMember}
-              listOpen={listOpen}
-              formColumnWidth={formColumnWidth}
-              activeTab={activeTab}
-              onTabChange={setActiveTab}
-            />
-          ) : activeTab === "주문서내역" ? (
-            <OrderHistoryView memberId={selectedMember} />
-          ) : activeTab === "수당내역" ? (
-            <AllowanceHistoryView memberId={selectedMember} />
-          ) : (
-            <div className="flex items-center justify-center h-full" style={{ color: "var(--text-muted)", fontSize: 14 }}>
-              {activeTab} 화면 준비 중입니다.
-            </div>
-          )}
+          <MemberManagementView
+            memberId={selectedMember}
+            listOpen={listOpen}
+            formColumnWidth={formColumnWidth}
+            activeTab={activeTab}
+            onTabChange={setActiveTab}
+          />
         </div>
           </div>
         </div>
