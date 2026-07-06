@@ -27,7 +27,7 @@ const APP_MIN_WIDTH = 1280;
 const LIST_PANEL_TRANSITION_MS = 250;
 const LAYOUT_TRANSITION = `width ${LIST_PANEL_TRANSITION_MS}ms ease, min-width ${LIST_PANEL_TRANSITION_MS}ms ease`;
 const ORG_CARD_W = 118;
-const ORG_CARD_H = 114;
+const ORG_CARD_H = 126;
 const ORG_CHILD_CHIP_H = 38;
 const ORG_COL_GAP = 16;
 const ORG_HPAD = 6;
@@ -93,7 +93,7 @@ function Card({ label, name, id, date, rank, score, isSelf = false }: {
       borderRadius: 6,
       background: "var(--org-card-bg)",
       textAlign: "center",
-      padding: "8px 6px 8px",
+      padding: "8px 6px 11px",
       position: "relative",
       boxSizing: "border-box",
       flexShrink: 0,
@@ -113,7 +113,7 @@ function Card({ label, name, id, date, rank, score, isSelf = false }: {
       </div>
       <div style={{ fontSize: 12, color: "var(--org-text-muted)", marginBottom: 1 }}>{date}</div>
       <div style={{ fontSize: 12, color: "var(--org-text-muted)", marginBottom: 3 }}>{rank}</div>
-      <div style={{ fontSize: 13, fontWeight: 700, color: "var(--org-text)" }}>{score}</div>
+      <div style={{ fontSize: 13, fontWeight: 700, color: "var(--org-text)", lineHeight: 1.35 }}>{score}</div>
     </div>
   );
 }
