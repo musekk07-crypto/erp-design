@@ -106,7 +106,7 @@ function Card({ label, name, id, date, rank, score, isSelf = false }: {
       <div style={{ fontSize: 12, color: LABEL_GRAY, marginBottom: 3 }}>
         {isSelf ? "나" : label}
       </div>
-      <div style={{ fontSize: 11.5, fontWeight: 700, color: "var(--org-text)", marginBottom: 2 }}>
+      <div style={{ fontSize: 12.5, fontWeight: 700, color: "var(--org-text)", marginBottom: 2 }}>
         {name}({id})
       </div>
       <div style={{ fontSize: 12, color: "var(--org-text-muted)", marginBottom: 1 }}>{date}</div>

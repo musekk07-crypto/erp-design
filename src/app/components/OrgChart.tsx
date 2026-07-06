@@ -41,7 +41,7 @@ function Card({ label, name, id, date, rank, score, isSelf = false }: {
       <div style={{ fontSize: 11, color: LABEL_GRAY, marginBottom: 4 }}>
         {isSelf ? "나" : label}
       </div>
-      <div style={{ fontSize: 11.5, fontWeight: 700, color: isSelf ? TEXT_BLUE : "#1e2130", marginBottom: 2 }}>
+      <div style={{ fontSize: 12.5, fontWeight: 700, color: isSelf ? TEXT_BLUE : "#1e2130", marginBottom: 2 }}>
         {name}({id})
       </div>
       <div style={{ fontSize: 11, color: isSelf ? TEXT_BLUE : "#64748b", marginBottom: 1 }}>{date}</div>
