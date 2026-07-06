@@ -8,8 +8,10 @@
   --nav-text: #ffffff;
   --nav-text-muted: rgba(255,255,255,0.7);
   --nav-active-border: #ffffff;
-  --nav-active-bg: rgba(255, 255, 255, 0.14);
-  --nav-hover-bg: rgba(255, 255, 255, 0.08);
+  --nav-active-bg: #7c3aed;
+  --nav-active-text: #ffffff;
+  --nav-hover-bg: #7c3aed;
+  --nav-hover-text: #ffffff;
   --nav-divider: rgba(255,255,255,0.3);
   --nav-avatar-bg: rgba(255,255,255,0.2);
   --sidebar-bg: #f1f2ff;
@@ -42,8 +44,10 @@
   --nav-text: #1e2130;
   --nav-text-muted: #6b7280;
   --nav-active-border: #0ea5e9;
-  --nav-active-bg: rgba(51, 46, 126, 0.1);
-  --nav-hover-bg: rgba(0, 0, 0, 0.05);
+  --nav-active-bg: #332e7e;
+  --nav-active-text: #ffffff;
+  --nav-hover-bg: #4a44a8;
+  --nav-hover-text: #ffffff;
   --nav-divider: #d1d5db;
   --nav-avatar-bg: #e5e7eb;
   --sidebar-bg: #f5f6fa;
@@ -74,8 +78,10 @@
   --nav-text: #e2e8f0;
   --nav-text-muted: rgba(226, 232, 240, 0.65);
   --nav-active-border: #5ecfff;
-  --nav-active-bg: rgba(94, 207, 255, 0.12);
-  --nav-hover-bg: rgba(255, 255, 255, 0.06);
+  --nav-active-bg: #7c3aed;
+  --nav-active-text: #ffffff;
+  --nav-hover-bg: #7c3aed;
+  --nav-hover-text: #ffffff;
   --nav-divider: rgba(255, 255, 255, 0.12);
   --nav-avatar-bg: rgba(94, 207, 255, 0.2);
   --sidebar-bg: #323a4d;
@@ -688,14 +694,15 @@
   font-size: 11px;
 }
 
-/* GNB 메인 메뉴 — 선택 시 배경 하이라이트 */
+/* GNB 메인 메뉴 — 선택·호버 시 단색 배경 꽉 채움 */
 .main-nav-item {
   display: flex;
   align-items: center;
   flex-shrink: 0;
   white-space: nowrap;
-  margin: 0 2px;
-  padding: 6px 14px;
+  height: 100%;
+  margin: 0 1px;
+  padding: 0 16px;
   font-size: 14px;
   font-weight: 400;
   color: var(--nav-text-muted, rgba(255, 255, 255, 0.7));
@@ -708,13 +715,13 @@
 
 .main-nav-item.is-active {
   font-weight: 600;
-  color: var(--nav-text, #fff);
-  background: var(--nav-active-bg, rgba(255, 255, 255, 0.14));
+  color: var(--nav-active-text, #fff);
+  background: var(--nav-active-bg, #7c3aed);
 }
 
 .main-nav-item:not(.is-active):hover {
-  color: var(--nav-text, #fff);
-  background: var(--nav-hover-bg, rgba(255, 255, 255, 0.08));
+  color: var(--nav-hover-text, #fff);
+  background: var(--nav-hover-bg, #7c3aed);
 }
 
 .detail-tab-bar {
