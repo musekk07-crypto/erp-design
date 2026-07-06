@@ -1804,7 +1804,7 @@ function MemberDetail({ memberId, listOpen, formColumnWidth }: { memberId: numbe
 
         {/* 거래은행 정보 */}
         <FormSection title="거래은행 정보" icon={<CreditCard size={12} />}>
-          <table className="content-form-grid content-form-grid--6" style={{ width: "100%", borderCollapse: "collapse" }}>
+          <table className="content-form-grid content-form-grid--6 content-form-grid--member content-form-grid--bank" style={{ width: "100%", borderCollapse: "collapse" }}>
             <colgroup>
               <col className="col-label-1" />
               <col className="col-field-1" />
@@ -1814,7 +1814,7 @@ function MemberDetail({ memberId, listOpen, formColumnWidth }: { memberId: numbe
               <col className="col-field-3" />
             </colgroup>
             <tbody>
-              <tr>
+              <tr className="bank-row-triple">
                 <td style={{ padding: "3px 10px 3px 0", whiteSpace: "nowrap", verticalAlign: "middle" }}>
                   <span style={{ fontSize: "12px", color: "var(--form-label-color)", fontWeight: 500 }}>은행명</span>
                 </td>
