@@ -1731,10 +1731,10 @@ function MemberDetail({ memberId, listOpen, formColumnWidth }: { memberId: numbe
                 <td style={{ padding: "3px 10px 3px 0", width: 108, whiteSpace: "nowrap", verticalAlign: "middle" }}>
                   <span style={{ fontSize: "12px", color: "var(--form-label-color)", fontWeight: 500 }}>주소지</span>
                 </td>
-                <td colSpan={3} style={{ padding: "3px 0 3px 0", verticalAlign: "middle" }}>
+                <td style={{ padding: "3px 10px 3px 0", verticalAlign: "middle" }}>
                   <div className="flex gap-2">
-                    <input key={`addr-${member.id}`} defaultValue={member.region} className="flex-1 rounded outline-none transition-all duration-200" style={{ fontSize: 12, padding: "3px 8px", background: "var(--input-background)", border: "none", color: "var(--foreground)" }} onFocus={(e) => { e.target.style.background = "var(--input-focus-bg)"; }} onBlur={(e) => { e.target.style.background = "var(--input-background)"; }} />
-                    <button style={{ fontSize: 12, padding: "3px 12px", background: "var(--surface-button-muted)", color: "var(--foreground)", border: "1px solid var(--border)", borderRadius: 4 }}>검색</button>
+                    <input key={`addr-${member.id}`} defaultValue={member.region} className="flex-1 min-w-0 rounded outline-none transition-all duration-200" style={{ fontSize: 12, padding: "3px 8px", background: "var(--input-background)", border: "none", color: "var(--foreground)" }} onFocus={(e) => { e.target.style.background = "var(--input-focus-bg)"; }} onBlur={(e) => { e.target.style.background = "var(--input-background)"; }} />
+                    <button className="shrink-0" style={{ fontSize: 12, padding: "3px 12px", background: "var(--surface-button-muted)", color: "var(--foreground)", border: "1px solid var(--border)", borderRadius: 4 }}>검색</button>
                   </div>
                 </td>
               </tr>
