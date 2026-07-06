@@ -2403,7 +2403,7 @@ function MemberPageChrome({ activeTab, onTabChange }: MemberPageChromeProps) {
                 type="button"
                 className="flex items-center justify-center gap-1 px-2 py-0.5 rounded shrink-0 whitespace-nowrap transition-all duration-150"
                 style={{
-                  fontSize: 13,
+                  fontSize: 14,
                   fontWeight: 500,
                   background:
                     btn.variant === "primary" ? "var(--accent-light)"
@@ -2424,7 +2424,7 @@ function MemberPageChrome({ activeTab, onTabChange }: MemberPageChromeProps) {
         <button
           type="button"
           className="flex items-center justify-center px-2 py-0.5 rounded shrink-0 whitespace-nowrap"
-          style={{ fontSize: 13, fontWeight: 500, background: "var(--accent-light)", color: "var(--accent-primary)", border: "none" }}
+          style={{ fontSize: 14, fontWeight: 500, background: "var(--accent-light)", color: "var(--accent-primary)", border: "none" }}
         >
           회원등록
         </button>
