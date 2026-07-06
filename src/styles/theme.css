@@ -432,6 +432,15 @@
   margin-bottom: 6px;
 }
 
+.app-content .content-form-section--org > button {
+  padding-top: 8px !important;
+  padding-bottom: 8px !important;
+}
+
+.app-content .content-form-section--org .content-form-body {
+  padding: 16px 20px 12px !important;
+}
+
 .app-content .content-form-section > button {
   padding-top: 6px !important;
   padding-bottom: 6px !important;

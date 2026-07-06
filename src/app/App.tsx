@@ -27,12 +27,12 @@ const APP_MIN_WIDTH = 1280;
 const LIST_PANEL_TRANSITION_MS = 250;
 const LAYOUT_TRANSITION = `width ${LIST_PANEL_TRANSITION_MS}ms ease, min-width ${LIST_PANEL_TRANSITION_MS}ms ease`;
 const ORG_CARD_W = 118;
-const ORG_CARD_H = 96;
-const ORG_COL_GAP = 12;
+const ORG_CARD_H = 104;
+const ORG_COL_GAP = 16;
 const ORG_HPAD = 6;
 const ORG_FOREIGN_PAD = 2;
-const ORG_CHART_SIDE_PAD = 16;
-const ORG_CHART_CONTENT_TOP = 8;
+const ORG_CHART_SIDE_PAD = 20;
+const ORG_CHART_CONTENT_TOP = 12;
 
 function getOrgChartTopShift(contentTop: number) {
   return Math.max(ORG_CHART_CONTENT_TOP, ORG_CHART_CONTENT_TOP - contentTop);
@@ -76,7 +76,7 @@ const LABEL_GRAY = "var(--org-label)";
 const BORDER_GRAY = "var(--org-border)";
 const CARD_W = ORG_CARD_W;
 const CARD_H = ORG_CARD_H;
-const EXTRA_H = 26;
+const EXTRA_H = 30;
 const GAP = 7;
 const COL_GAP = ORG_COL_GAP;
 
@@ -91,7 +91,7 @@ function Card({ label, name, id, date, rank, score, isSelf = false }: {
       borderRadius: 6,
       background: "var(--org-card-bg)",
       textAlign: "center",
-      padding: "5px 6px 5px",
+      padding: "7px 6px 6px",
       position: "relative",
       boxSizing: "border-box",
       flexShrink: 0,
@@ -103,14 +103,14 @@ function Card({ label, name, id, date, rank, score, isSelf = false }: {
           fontSize: 11, padding: "2px 7px", borderRadius: 10, fontWeight: 700, lineHeight: 1.2,
         }}>자신</span>
       )}
-      <div style={{ fontSize: 12, color: LABEL_GRAY, marginBottom: 3 }}>
+      <div style={{ fontSize: 12, color: LABEL_GRAY, marginBottom: 4 }}>
         {isSelf ? "나" : label}
       </div>
       <div style={{ fontSize: 12.5, fontWeight: 700, color: "var(--org-text)", marginBottom: 2 }}>
         {name}({id})
       </div>
       <div style={{ fontSize: 12, color: "var(--org-text-muted)", marginBottom: 1 }}>{date}</div>
-      <div style={{ fontSize: 12, color: "var(--org-text-muted)", marginBottom: 2 }}>{rank}</div>
+      <div style={{ fontSize: 12, color: "var(--org-text-muted)", marginBottom: 3 }}>{rank}</div>
       <div style={{ fontSize: 13, fontWeight: 700, color: "var(--org-text)" }}>{score}</div>
     </div>
   );
@@ -131,7 +131,7 @@ function ExtraBox({ label }: { label: string }) {
 }
 
 function ChildChip({ name, id }: { name: string; id: number }) {
-  const CHILD_CHIP_H = 30;
+  const CHILD_CHIP_H = 34;
   return (
     <div style={{
       border: `1px solid ${BORDER_GRAY}`,
@@ -184,7 +184,7 @@ function OrgChartSvg({
 }) {
   const HPAD = ORG_HPAD;
   const VPAD = 8;
-  const CHILD_CHIP_H = 30;
+  const CHILD_CHIP_H = 34;
   const col1X = HPAD;
   const col2X = col1X + CARD_W + COL_GAP;
   const col3X = col2X + CARD_W + COL_GAP;
@@ -1383,12 +1383,12 @@ function StatBento({ label, value, color }: { label: string; value: string; colo
   );
 }
 
-function FormSection({ title, icon, subtitle, children, bodyPadding = "6px 12px 8px", clipBody = true }: {
-  title: string; icon: React.ReactNode; subtitle?: string; children: React.ReactNode; bodyPadding?: string; clipBody?: boolean;
+function FormSection({ title, icon, subtitle, children, bodyPadding = "6px 12px 8px", clipBody = true, className = "" }: {
+  title: string; icon: React.ReactNode; subtitle?: string; children: React.ReactNode; bodyPadding?: string; clipBody?: boolean; className?: string;
 }) {
   const [open, setOpen] = useState(true);
   return (
-    <div className="rounded content-form-section" style={{ background: "var(--surface-panel)", border: "1px solid var(--border)" }}>
+    <div className={`rounded content-form-section ${className}`.trim()} style={{ background: "var(--surface-panel)", border: "1px solid var(--border)" }}>
       <button
         onClick={() => setOpen((v) => !v)}
         className="w-full flex items-center gap-2 px-4 transition-all duration-150"
@@ -1930,7 +1930,7 @@ function MemberDetail({ memberId, listOpen, formColumnWidth }: { memberId: numbe
 
         {/* 오른쪽: 조직도 카드 — 네임카드·폼과 동일한 행 너비 안에 고정 */}
         <div style={{ flex: `0 0 ${ORG_CHART_WIDTH}px`, width: ORG_CHART_WIDTH, overflow: "hidden" }}>
-          <FormSection title="조직도" icon={<GitFork size={12} />} bodyPadding={`16px ${ORG_CHART_SIDE_PAD}px 8px`} clipBody={true}>
+          <FormSection title="조직도" icon={<GitFork size={12} />} className="content-form-section--org" bodyPadding={`16px ${ORG_CHART_SIDE_PAD}px 12px`} clipBody={true}>
             <OrgChart memberId={member.id} memberName={member.name} />
           </FormSection>
         </div>
