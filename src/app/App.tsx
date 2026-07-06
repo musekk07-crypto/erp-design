@@ -1887,7 +1887,6 @@ function MemberDetail({ memberId, listOpen, formColumnWidth }: { memberId: numbe
                 </button>
               </div>
             </div>
-            <div className="member-relation-divider" aria-hidden />
             <div className="member-relation-segment">
               <div className="member-relation-group">
                 <span style={{ fontSize: "12px", color: "var(--accent-primary)", fontWeight: 500 }}>* 후원인</span>
@@ -1899,7 +1898,6 @@ function MemberDetail({ memberId, listOpen, formColumnWidth }: { memberId: numbe
                 </button>
               </div>
             </div>
-            <div className="member-relation-divider" aria-hidden />
             <div className="member-relation-segment">
               <div className="member-relation-group">
                 <span style={{ fontSize: "12px", color: "var(--form-label-color)", fontWeight: 600 }}>소속 그룹 정보</span>
@@ -1920,7 +1918,6 @@ function MemberDetail({ memberId, listOpen, formColumnWidth }: { memberId: numbe
                 </div>
               </div>
             </div>
-            <div className="member-relation-divider" aria-hidden />
             <div className="member-relation-segment">
               <div className="member-relation-group">
                 <span style={{ fontSize: "12px", color: "var(--form-label-color)", fontWeight: 500 }}>직급</span>

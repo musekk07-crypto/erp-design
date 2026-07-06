@@ -556,10 +556,10 @@
 /* 상위 회원 관계 — 전체 너비 4구역 균등 배치 */
 .app-content .member-relation-row {
   display: grid;
-  grid-template-columns: minmax(0, 1.15fr) auto minmax(0, 1.15fr) auto minmax(0, 1fr) auto minmax(0, 0.85fr);
+  grid-template-columns: minmax(0, 1.15fr) minmax(0, 1.15fr) minmax(0, 1fr) minmax(0, 0.85fr);
   width: 100%;
   align-items: center;
-  column-gap: 16px;
+  column-gap: 20px;
 }
 
 .app-content .member-relation-segment {
@@ -602,13 +602,6 @@
   background: var(--surface-input-readonly);
   border: none;
   color: var(--foreground);
-}
-
-.app-content .member-relation-divider {
-  width: 1px;
-  height: 20px;
-  background: var(--border);
-  justify-self: center;
 }
 
 .app-content .member-relation-select {
