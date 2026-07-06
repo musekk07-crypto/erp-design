@@ -165,22 +165,43 @@
   min-height: 36px;
 }
 
-/* 회원관리2 — 프로필 카드 + 사이드 섹션 */
+/* 회원관리2 — 프로필 카드 + 사이드 섹션 + 조직도 */
 .mm2-view {
   display: flex;
   flex-direction: column;
   height: 100%;
   min-height: 0;
   width: 100%;
+  overflow: hidden;
+}
+
+.mm2-layout {
+  display: flex;
+  align-items: flex-start;
+  flex: 1;
+  min-height: 0;
+  height: 100%;
+  padding: 8px;
+  box-sizing: border-box;
+  background: var(--surface-page);
+  overflow: hidden;
 }
 
 .mm2-scroll {
-  flex: 1;
+  flex: 1 1 0;
+  min-width: 720px;
   min-height: 0;
   overflow-y: auto;
   overflow-x: hidden;
-  padding: 8px;
-  background: var(--surface-page);
+  background: transparent;
+}
+
+.mm2-org-chart {
+  flex-shrink: 0;
+  align-self: flex-start;
+  position: sticky;
+  top: 0;
+  overflow: hidden;
 }
 
 .mm2-profile-card {
@@ -377,4 +398,23 @@
   font-weight: 500;
   color: #16a34a;
   background: #dcfce7;
+}
+
+.mm2-consent-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px 20px;
+}
+
+.mm2-consent-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 12px;
+  color: var(--text-body);
+  cursor: default;
+}
+
+.mm2-consent-item input {
+  accent-color: var(--accent-primary);
 }

@@ -5,7 +5,7 @@ import {
   BarChart2, ShoppingCart, Settings, Bell, HelpCircle, Home,
   Pin, Clock, ChevronLeft, ChevronRight, RefreshCw,
   FilePlus, Save, Trash2, Award, Briefcase, MessageCircle, Key, Printer,
-  Globe, Landmark, Contact, CheckCircle2, Search, Calendar,
+  Globe, Landmark, Contact, CheckCircle2, Calendar,
 } from "lucide-react";
 
 // ─────────────────────────────────────────────
@@ -62,6 +62,12 @@ function calcFormColumnWidth(availableDetailWidth: number) {
     return idealForm;
   }
   return FORM_COLUMN_WIDTH_MIN;
+}
+
+const MM2_MAIN_MIN_WIDTH = 720;
+
+function getMm2PanelMinWidth() {
+  return MM2_MAIN_MIN_WIDTH + ORG_CHART_WIDTH + DETAIL_CONTENT_GAP + DETAIL_PANEL_PAD * 2;
 }
 
 function clampMemberListWidth(width: number) {
@@ -1538,6 +1544,7 @@ function MemberHeaderCard({ member }: { member: Member }) {
 }
 
 const mm2Sections = [
+  { id: "login", label: "1. 로그인 정보", icon: Key },
   { id: "name", label: "2. 이름 정보", icon: Contact },
   { id: "personal", label: "3. 개인 정보", icon: User },
   { id: "country", label: "4. 국가 및 기타 정보", icon: Globe },
@@ -1571,9 +1578,28 @@ function Mm2FieldValue({ children, suffix }: { children: React.ReactNode; suffix
   );
 }
 
+function Mm2ConsentList() {
+  const items = [
+    { label: "SMS 동의", checked: true },
+    { label: "이메일 수신", checked: true },
+    { label: "신분증 제출", checked: false },
+    { label: "통장 사본등록", checked: false },
+  ];
+  return (
+    <div className="mm2-consent-list">
+      {items.map((item) => (
+        <label key={item.label} className="mm2-consent-item">
+          <input type="checkbox" defaultChecked={item.checked} readOnly />
+          <span>{item.label}</span>
+        </label>
+      ))}
+    </div>
+  );
+}
+
 function MemberManagement2View({ memberId }: { memberId: number }) {
   const member = getMemberById(memberId);
-  const [activeSection, setActiveSection] = useState<Mm2SectionId>("personal");
+  const [activeSection, setActiveSection] = useState<Mm2SectionId>("name");
   const activeMeta = mm2Sections.find((s) => s.id === activeSection)!;
   const ActiveIcon = activeMeta.icon;
 
@@ -1596,12 +1622,19 @@ function MemberManagement2View({ memberId }: { memberId: number }) {
   ];
 
   const sectionRows: Record<Mm2SectionId, { label: string; value: React.ReactNode }[]> = {
+    login: [
+      { label: "회원번호", value: <strong>{member.no}</strong> },
+      { label: "아이디", value: member.loginId },
+      { label: "비밀번호", value: <span style={{ color: "var(--muted-foreground)" }}>변경 시에만 입력</span> },
+      { label: "보안비밀번호", value: "····" },
+      { label: "회원등록일자", value: <Mm2FieldValue suffix={<Calendar size={14} className="mm2-field-icon" />}>{member.regDate}</Mm2FieldValue> },
+    ],
     name: [
-      { label: "한글 성명", value: member.name },
-      { label: "영문 성명", value: "Han Mee Chae" },
-      { label: "법적 성명", value: member.name },
-      { label: "닉네임", value: member.loginId },
-      { label: "표시명", value: member.name },
+      { label: "성명", value: <Mm2FieldValue>Minsoo <span style={{ color: "var(--text-subtle)", margin: "0 4px" }}>|</span> Kim</Mm2FieldValue> },
+      { label: "한글명", value: member.name },
+      { label: "닉네임", value: "Minsoo Kim" },
+      { label: "Business Name", value: "" },
+      { label: "Legal Name", value: "" },
     ],
     personal: [
       { label: "생년월일", value: <Mm2FieldValue suffix={<Calendar size={14} className="mm2-field-icon" />}>1989-12-03</Mm2FieldValue> },
@@ -1615,96 +1648,136 @@ function MemberManagement2View({ memberId }: { memberId: number }) {
       },
       { label: "성별", value: <Mm2FieldValue suffix={<ChevronDown size={14} className="mm2-field-icon" />}>남</Mm2FieldValue> },
       { label: "연락처", value: "02-583-9201" },
-      { label: "휴대폰번호", value: member.phone },
+      { label: "휴대폰번호", value: "010-3948-2918" },
       { label: "우편번호", value: <Mm2FieldValue suffix={<Search size={14} className="mm2-field-icon" />}>06123</Mm2FieldValue> },
       { label: "기본주소", value: "서울특별시 강남구 테헤란로 123" },
       { label: "상세주소", value: "삼원빌딩 5층" },
-      { label: "이메일", value: `${member.loginId}@viable.co.kr` },
     ],
     country: [
-      { label: "국가", value: "대한민국" },
-      { label: "언어", value: "한국어" },
-      { label: "타임존", value: "Asia/Seoul (UTC+9)" },
-      { label: "통화", value: "KRW" },
-      { label: "메모", value: member.region },
+      { label: "국가", value: <Mm2FieldValue suffix={<ChevronDown size={14} className="mm2-field-icon" />}>대한민국</Mm2FieldValue> },
+      { label: "State", value: "강남구" },
+      { label: "City", value: "서울특별시" },
+      { label: "비자종류", value: <Mm2FieldValue suffix={<ChevronDown size={14} className="mm2-field-icon" />}>내국인</Mm2FieldValue> },
+      { label: "체류만료일자", value: <Mm2FieldValue suffix={<Calendar size={14} className="mm2-field-icon" />}>2029-12-31</Mm2FieldValue> },
+      { label: "EIN Number", value: "미국 사업자 번호" },
+      { label: "세금신고번호", value: "120-00-11111" },
+      { label: "특이사항", value: "우수 대리점장 관리대상. 추천 수당 가산 2% 적용 회원." },
     ],
     account: [
-      { label: "은행명", value: "국민은행" },
-      { label: "계좌번호", value: "123-456-789012" },
+      { label: "은행명", value: <Mm2FieldValue suffix={<ChevronDown size={14} className="mm2-field-icon" />}>국민은행</Mm2FieldValue> },
+      {
+        label: "계좌번호",
+        value: (
+          <Mm2FieldValue suffix={<span className="mm2-verified-badge"><CheckCircle2 size={12} /> 인증완료</span>}>
+            482901-01-293819
+          </Mm2FieldValue>
+        ),
+      },
       { label: "예금주", value: member.name },
-      { label: "SWIFT 코드", value: "CZNBKRSE" },
-      { label: "지점번호", value: "001-234" },
+      { label: "SwiftCode", value: "SHBKKRSE" },
+      { label: "Branch Number", value: "0234" },
+      { label: "은행 거래번호", value: "88012345" },
     ],
     relation: [
-      { label: "추천인", value: "김성남 (N26455673)" },
-      { label: "후원인", value: "이숙련 (N26414074)" },
-      { label: "센터", value: "서울센터" },
-      { label: "영업소", value: "강남영업소" },
-      { label: "마케팅 동의", value: "동의" },
-      { label: "개인정보 수집 동의", value: "동의" },
+      {
+        label: "추천인",
+        value: (
+          <Mm2FieldValue suffix={<Search size={14} className="mm2-field-icon" />}>
+            10001150 <span style={{ color: "var(--text-subtle)", margin: "0 4px" }}>|</span> 이순신 <span style={{ color: "var(--text-subtle)", margin: "0 4px" }}>|</span> 12명
+          </Mm2FieldValue>
+        ),
+      },
+      {
+        label: "후원인",
+        value: (
+          <Mm2FieldValue suffix={<Search size={14} className="mm2-field-icon" />}>
+            10001201 <span style={{ color: "var(--text-subtle)", margin: "0 4px" }}>|</span> 홍길동 <span style={{ color: "var(--text-subtle)", margin: "0 4px" }}>|</span> 6명
+          </Mm2FieldValue>
+        ),
+      },
+      { label: "센터", value: <Mm2FieldValue suffix={<ChevronDown size={14} className="mm2-field-icon" />}>서울본점</Mm2FieldValue> },
+      { label: "영업소", value: <Mm2FieldValue suffix={<ChevronDown size={14} className="mm2-field-icon" />}>구로점</Mm2FieldValue> },
+      { label: "동의 항목", value: <Mm2ConsentList /> },
     ],
   };
 
   return (
     <div className="mm2-view">
-      <div className="mm2-scroll content-scroll">
-        <div className="mm2-profile-card">
-          <div className="mm2-profile-avatar" aria-hidden>
-            {member.name.charAt(0)}
-          </div>
-          <div className="mm2-profile-grid">
-            <div className="mm2-profile-col">
-              {profileLeft.map((row) => (
-                <div key={row.label} className="mm2-profile-row">
-                  <span className="mm2-profile-label">{row.label}</span>
-                  <span className="mm2-profile-colon">:</span>
-                  <span className="mm2-profile-value">{row.value}</span>
-                </div>
-              ))}
+      <div className="mm2-layout" style={{ gap: DETAIL_CONTENT_GAP }}>
+        <div className="mm2-scroll content-scroll">
+          <div className="mm2-profile-card">
+            <div className="mm2-profile-avatar" aria-hidden>
+              {member.name.charAt(0)}
             </div>
-            <div className="mm2-profile-col">
-              {profileRight.map((row) => (
-                <div key={row.label} className="mm2-profile-row">
-                  <span className="mm2-profile-label">{row.label}</span>
-                  <span className="mm2-profile-colon">:</span>
-                  <span className="mm2-profile-value">{row.value}</span>
-                </div>
-              ))}
+            <div className="mm2-profile-grid">
+              <div className="mm2-profile-col">
+                {profileLeft.map((row) => (
+                  <div key={row.label} className="mm2-profile-row">
+                    <span className="mm2-profile-label">{row.label}</span>
+                    <span className="mm2-profile-colon">:</span>
+                    <span className="mm2-profile-value">{row.value}</span>
+                  </div>
+                ))}
+              </div>
+              <div className="mm2-profile-col">
+                {profileRight.map((row) => (
+                  <div key={row.label} className="mm2-profile-row">
+                    <span className="mm2-profile-label">{row.label}</span>
+                    <span className="mm2-profile-colon">:</span>
+                    <span className="mm2-profile-value">{row.value}</span>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+
+          <div className="mm2-body">
+            <nav className="mm2-sidebar">
+              {mm2Sections.map((section) => {
+                const Icon = section.icon;
+                const isActive = section.id === activeSection;
+                return (
+                  <button
+                    key={section.id}
+                    type="button"
+                    className={`mm2-sidebar-item${isActive ? " is-active" : ""}`}
+                    onClick={() => setActiveSection(section.id)}
+                  >
+                    <Icon size={16} strokeWidth={1.5} />
+                    <span>{section.label}</span>
+                  </button>
+                );
+              })}
+            </nav>
+
+            <div className="mm2-detail-panel">
+              <div className="mm2-detail-header">
+                <span className="mm2-detail-header-icon">
+                  <ActiveIcon size={14} />
+                </span>
+                <span className="mm2-detail-header-title">{activeMeta.label}</span>
+                <ChevronUp size={14} className="mm2-detail-header-chevron" />
+              </div>
+              <div className="mm2-detail-body">
+                <Mm2DetailTable rows={sectionRows[activeSection]} />
+              </div>
             </div>
           </div>
         </div>
 
-        <div className="mm2-body">
-          <nav className="mm2-sidebar">
-            {mm2Sections.map((section) => {
-              const Icon = section.icon;
-              const isActive = section.id === activeSection;
-              return (
-                <button
-                  key={section.id}
-                  type="button"
-                  className={`mm2-sidebar-item${isActive ? " is-active" : ""}`}
-                  onClick={() => setActiveSection(section.id)}
-                >
-                  <Icon size={16} strokeWidth={1.5} />
-                  <span>{section.label}</span>
-                </button>
-              );
-            })}
-          </nav>
-
-          <div className="mm2-detail-panel">
-            <div className="mm2-detail-header">
-              <span className="mm2-detail-header-icon">
-                <ActiveIcon size={14} />
-              </span>
-              <span className="mm2-detail-header-title">{activeMeta.label}</span>
-              <ChevronUp size={14} className="mm2-detail-header-chevron" />
-            </div>
-            <div className="mm2-detail-body">
-              <Mm2DetailTable rows={sectionRows[activeSection]} />
-            </div>
-          </div>
+        <div
+          className="mm2-org-chart"
+          style={{ flex: `0 0 ${ORG_CHART_WIDTH}px`, width: ORG_CHART_WIDTH }}
+        >
+          <FormSection
+            title="조직도"
+            icon={<GitFork size={12} />}
+            className="content-form-section--org"
+            bodyPadding={`16px ${ORG_CHART_SIDE_PAD}px 12px`}
+            clipBody={true}
+          >
+            <OrgChart memberId={member.id} memberName={member.name} />
+          </FormSection>
         </div>
       </div>
     </div>
@@ -2803,11 +2876,10 @@ export default function App() {
 
   const isMemberManagement2 = activeMainMenu === "회원관리2";
   const isMemberInfoTab = activeMainMenu === "회원관리" && activeTab === "회원정보";
-  const MM2_PANEL_MIN_WIDTH = 920;
 
   const detailPanelMinWidth = useMemo(() => {
     if (isMemberManagement2) {
-      return MM2_PANEL_MIN_WIDTH;
+      return getMm2PanelMinWidth();
     }
     if (isMemberInfoTab) {
       return getDetailPanelWidth(formColumnWidth);
