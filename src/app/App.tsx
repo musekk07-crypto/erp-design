@@ -1583,7 +1583,7 @@ function MemberManagementView({
           }}
         >
           <MemberPageChrome activeTab={activeTab} onTabChange={onTabChange} />
-          <MemberHeaderCard member={member} />
+          {isMemberInfoTab && <MemberHeaderCard member={member} />}
 
           {isMemberInfoTab ? (
             <MemberInfoBody memberId={memberId} listOpen={listOpen} formColumnWidth={formColumnWidth} member={member} />
