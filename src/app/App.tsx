@@ -1876,7 +1876,7 @@ function MemberDetail({ memberId, listOpen, formColumnWidth }: { memberId: numbe
         {/* 상위 회원과의 관계 + 소속 그룹 정보 */}
         <FormSection title="상위 회원과의 관계" icon={<Users size={12} />}>
           <div className="flex flex-col gap-3">
-            <div className="flex items-center gap-4 flex-wrap">
+            <div className="flex items-center gap-2 flex-wrap">
               <span className="shrink-0" style={{ fontSize: "12px", color: "var(--accent-primary)", fontWeight: 500 }}>* 추천인</span>
               <input readOnly value="100012" className="rounded px-2 py-1 outline-none" style={{ fontSize: 12, width: 72, background: "var(--surface-input-readonly)", border: "none", color: "var(--foreground)", fontFamily: "monospace" }} />
               <input readOnly value="박민수" className="rounded px-2 py-1 outline-none" style={{ fontSize: 12, width: 60, background: "var(--surface-input-readonly)", border: "none", color: "var(--foreground)" }} />
@@ -1884,7 +1884,7 @@ function MemberDetail({ memberId, listOpen, formColumnWidth }: { memberId: numbe
               <button className="rounded p-1 flex items-center justify-center" style={{ background: "var(--surface-button-muted)", border: "1px solid var(--border)", color: "var(--muted-foreground)" }}>
                 <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
               </button>
-              <div style={{ width: 1, height: 20, background: "var(--border)", margin: "0 4px" }} />
+              <div style={{ width: 1, height: 20, background: "var(--border)", margin: "0 2px" }} />
               <span className="shrink-0" style={{ fontSize: "12px", color: "var(--accent-primary)", fontWeight: 500 }}>* 후원인</span>
               <input readOnly value="100008" className="rounded px-2 py-1 outline-none" style={{ fontSize: 12, width: 72, background: "var(--surface-input-readonly)", border: "none", color: "var(--foreground)", fontFamily: "monospace" }} />
               <input readOnly value="이정환" className="rounded px-2 py-1 outline-none" style={{ fontSize: 12, width: 60, background: "var(--surface-input-readonly)", border: "none", color: "var(--foreground)" }} />
