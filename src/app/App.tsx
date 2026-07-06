@@ -1747,63 +1747,64 @@ function MemberManagement2View({
           <MemberPageChrome activeTab={activeTab} onTabChange={onTabChange} />
 
           {isMemberInfoTab ? (
-            <div className="mm2-page">
-              <div className="mm2-profile-card">
-                <div className="mm2-profile-avatar" aria-hidden>
-                  {member.name.charAt(0)}
+            <div className="mm2-content-row" style={{ gap: DETAIL_CONTENT_GAP }}>
+              <div className="mm2-info-group">
+                <div className="mm2-profile-card">
+                  <div className="mm2-profile-avatar" aria-hidden>
+                    {member.name.charAt(0)}
+                  </div>
+                  <div className="mm2-profile-grid">
+                    <div className="mm2-profile-col">
+                      {profileLeft.map((row) => (
+                        <div key={row.label} className="mm2-profile-row">
+                          <span className="mm2-profile-label">{row.label}</span>
+                          <span className="mm2-profile-colon">:</span>
+                          <span className="mm2-profile-value">{row.value}</span>
+                        </div>
+                      ))}
+                    </div>
+                    <div className="mm2-profile-col">
+                      {profileRight.map((row) => (
+                        <div key={row.label} className="mm2-profile-row">
+                          <span className="mm2-profile-label">{row.label}</span>
+                          <span className="mm2-profile-colon">:</span>
+                          <span className="mm2-profile-value">{row.value}</span>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
                 </div>
-                <div className="mm2-profile-grid">
-                  <div className="mm2-profile-col">
-                    {profileLeft.map((row) => (
-                      <div key={row.label} className="mm2-profile-row">
-                        <span className="mm2-profile-label">{row.label}</span>
-                        <span className="mm2-profile-colon">:</span>
-                        <span className="mm2-profile-value">{row.value}</span>
-                      </div>
-                    ))}
-                  </div>
-                  <div className="mm2-profile-col">
-                    {profileRight.map((row) => (
-                      <div key={row.label} className="mm2-profile-row">
-                        <span className="mm2-profile-label">{row.label}</span>
-                        <span className="mm2-profile-colon">:</span>
-                        <span className="mm2-profile-value">{row.value}</span>
-                      </div>
-                    ))}
-                  </div>
-                </div>
-              </div>
 
-              <div className="mm2-content-row" style={{ gap: DETAIL_CONTENT_GAP }}>
-              <div className="mm2-body">
-                <nav className="mm2-sidebar">
-                  {mm2Sections.map((section) => {
-                    const Icon = section.icon;
-                    const isActive = section.id === activeSection;
-                    return (
-                      <button
-                        key={section.id}
-                        type="button"
-                        className={`mm2-sidebar-item${isActive ? " is-active" : ""}`}
-                        onClick={() => setActiveSection(section.id)}
-                      >
-                        <Icon size={16} strokeWidth={1.5} />
-                        <span>{section.label}</span>
-                      </button>
-                    );
-                  })}
-                </nav>
+                <div className="mm2-body">
+                  <nav className="mm2-sidebar">
+                    {mm2Sections.map((section) => {
+                      const Icon = section.icon;
+                      const isActive = section.id === activeSection;
+                      return (
+                        <button
+                          key={section.id}
+                          type="button"
+                          className={`mm2-sidebar-item${isActive ? " is-active" : ""}`}
+                          onClick={() => setActiveSection(section.id)}
+                        >
+                          <Icon size={16} strokeWidth={1.5} />
+                          <span>{section.label}</span>
+                        </button>
+                      );
+                    })}
+                  </nav>
 
-                <div className="mm2-detail-panel">
-                  <div className="mm2-detail-header">
-                    <span className="mm2-detail-header-icon">
-                      <ActiveIcon size={14} />
-                    </span>
-                    <span className="mm2-detail-header-title">{activeMeta.label}</span>
-                    <ChevronUp size={14} className="mm2-detail-header-chevron" />
-                  </div>
-                  <div className="mm2-detail-body">
-                    <Mm2DetailTable rows={sectionRows[activeSection]} />
+                  <div className="mm2-detail-panel">
+                    <div className="mm2-detail-header">
+                      <span className="mm2-detail-header-icon">
+                        <ActiveIcon size={14} />
+                      </span>
+                      <span className="mm2-detail-header-title">{activeMeta.label}</span>
+                      <ChevronUp size={14} className="mm2-detail-header-chevron" />
+                    </div>
+                    <div className="mm2-detail-body">
+                      <Mm2DetailTable rows={sectionRows[activeSection]} />
+                    </div>
                   </div>
                 </div>
               </div>
@@ -1821,7 +1822,6 @@ function MemberManagement2View({
                 >
                   <OrgChart memberId={member.id} memberName={member.name} />
                 </FormSection>
-              </div>
               </div>
             </div>
           ) : activeTab === "주문서내역" ? (
