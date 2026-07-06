@@ -571,9 +571,37 @@
 .app-content .member-relation-group {
   display: flex;
   align-items: center;
-  flex-wrap: wrap;
+  flex-wrap: nowrap;
   gap: 8px;
   width: 100%;
+}
+
+.app-content .member-relation-group > span,
+.app-content .member-relation-group > button {
+  flex-shrink: 0;
+}
+
+.app-content .member-relation-input-id {
+  flex: 1.15 1 0;
+  min-width: 72px;
+  width: auto;
+  font-size: 12px;
+  padding: 3px 8px;
+  background: var(--surface-input-readonly);
+  border: none;
+  color: var(--foreground);
+  font-family: monospace;
+}
+
+.app-content .member-relation-input-name {
+  flex: 1 1 0;
+  min-width: 56px;
+  width: auto;
+  font-size: 12px;
+  padding: 3px 8px;
+  background: var(--surface-input-readonly);
+  border: none;
+  color: var(--foreground);
 }
 
 .app-content .member-relation-divider {
@@ -584,9 +612,9 @@
 }
 
 .app-content .member-relation-select {
-  flex: 1 1 72px;
-  min-width: 72px;
-  max-width: 120px;
+  flex: 1 1 0;
+  min-width: 80px;
+  width: auto;
 }
 
 /* 회원 테이블 행 — 테마 대응 */
