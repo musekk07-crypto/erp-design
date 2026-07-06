@@ -478,16 +478,46 @@
 
 /* 거래은행 6열 — 1열 입력폭을 회원정보와 동일하게 */
 .app-content .content-form-body table.content-form-grid--6 .col-label-3 {
-  width: 100px;
+  width: 108px;
 }
 
 .app-content .content-form-body table.content-form-grid--6 .col-field-1 {
   width: calc((100% - 208px) / 2);
 }
 
-/* 일반회원정보 — 은행통합거래번호(colspan=3)와 동일 입력폭 */
-.app-content .content-form-body table.content-form-grid--member td[colspan="3"] {
-  width: calc(100% - 108px);
+/* 일반회원정보·로그인 — 좌·우 입력열 동일 너비, 라벨↔입력 간격 10px */
+.app-content .content-form-body table.content-form-grid--member {
+  --form-label-w: 108px;
+  --form-label-mid-w: 100px;
+  --form-gap: 10px;
+  --form-side-field-w: calc((100% - var(--form-label-w) * 2) / 2);
+}
+
+.app-content .content-form-body table.content-form-grid--member .col-label-1,
+.app-content .content-form-body table.content-form-grid--member .col-label-3 {
+  width: var(--form-label-w);
+}
+
+.app-content .content-form-body table.content-form-grid--member .col-label-2 {
+  width: var(--form-label-mid-w);
+}
+
+.app-content .content-form-body table.content-form-grid--member .col-field-3 {
+  width: var(--form-side-field-w);
+}
+
+.app-content .content-form-body table.content-form-grid--member .col-field-1,
+.app-content .content-form-body table.content-form-grid--member .col-field-2 {
+  width: calc((var(--form-side-field-w) - var(--form-label-mid-w)) / 2);
+}
+
+.app-content .content-form-body table.content-form-grid--member td {
+  padding-right: var(--form-gap);
+  padding-left: 0;
+}
+
+.app-content .content-form-body table.content-form-grid--member td:last-child {
+  padding-right: 0;
 }
 
 .app-content .content-member-header {
