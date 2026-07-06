@@ -1620,22 +1620,24 @@ function MemberDetail({ memberId, listOpen, formColumnWidth }: { memberId: numbe
 
         {/* 일반 회원정보 */}
         <FormSection title="일반 회원정보" subtitle="16개 항목" icon={<User size={12} />}>
-          <table className="content-form-grid" style={{ width: "100%", borderCollapse: "collapse" }}>
+          <table className="content-form-grid content-form-grid--6 content-form-grid--member" style={{ width: "100%", borderCollapse: "collapse" }}>
             <colgroup>
               <col className="col-label-1" />
               <col className="col-field-1" />
               <col className="col-label-2" />
               <col className="col-field-2" />
+              <col className="col-label-3" />
+              <col className="col-field-3" />
             </colgroup>
             <tbody>
               <tr>
-                <td style={{ padding: "3px 10px 3px 0", width: 108, whiteSpace: "nowrap", verticalAlign: "middle" }}>
+                <td style={{ padding: "3px 10px 3px 0", whiteSpace: "nowrap", verticalAlign: "middle" }}>
                   <span style={{ fontSize: "12px", color: "var(--accent-primary)", fontWeight: 500 }}>* 회원 등록일자</span>
                 </td>
-                <td style={{ padding: "3px 10px 3px 0", verticalAlign: "middle" }}>
+                <td colSpan={3} style={{ padding: "3px 10px 3px 0", verticalAlign: "middle" }}>
                   <input type="date" key={`reg-${member.id}`} defaultValue={member.regDate} className="w-full rounded outline-none transition-all duration-200" style={{ fontSize: 12, padding: "3px 8px", background: "var(--input-background)", border: "none", color: "var(--foreground)" }} onFocus={(e) => { e.target.style.background = "var(--input-focus-bg)"; }} onBlur={(e) => { e.target.style.background = "var(--input-background)"; }} />
                 </td>
-                <td style={{ padding: "3px 10px 3px 0", width: 100, whiteSpace: "nowrap", verticalAlign: "middle" }}>
+                <td style={{ padding: "3px 10px 3px 0", whiteSpace: "nowrap", verticalAlign: "middle" }}>
                   <span style={{ fontSize: "12px", color: "var(--form-label-color)", fontWeight: 500 }}>한글명</span>
                 </td>
                 <td style={{ padding: "3px 0 3px 0", verticalAlign: "middle" }}>
@@ -1643,16 +1645,16 @@ function MemberDetail({ memberId, listOpen, formColumnWidth }: { memberId: numbe
                 </td>
               </tr>
               <tr>
-                <td style={{ padding: "3px 10px 3px 0", width: 108, whiteSpace: "nowrap", verticalAlign: "middle" }}>
+                <td style={{ padding: "3px 10px 3px 0", whiteSpace: "nowrap", verticalAlign: "middle" }}>
                   <span style={{ fontSize: "12px", color: "var(--accent-primary)", fontWeight: 500 }}>* 고객 이름/성</span>
                 </td>
-                <td style={{ padding: "3px 10px 3px 0", verticalAlign: "middle" }}>
+                <td colSpan={3} style={{ padding: "3px 10px 3px 0", verticalAlign: "middle" }}>
                   <div className="flex gap-2">
                     <input defaultValue="미채" className="flex-1 min-w-0 rounded outline-none transition-all duration-200" style={{ fontSize: 12, padding: "3px 8px", background: "var(--input-background)", border: "none", color: "var(--foreground)" }} onFocus={(e) => { e.target.style.background = "var(--input-focus-bg)"; }} onBlur={(e) => { e.target.style.background = "var(--input-background)"; }} />
                     <input defaultValue="Mi-chae" className="flex-1 min-w-0 rounded outline-none transition-all duration-200" style={{ fontSize: 12, padding: "3px 8px", background: "var(--input-background)", border: "none", color: "var(--foreground)" }} onFocus={(e) => { e.target.style.background = "var(--input-focus-bg)"; }} onBlur={(e) => { e.target.style.background = "var(--input-background)"; }} />
                   </div>
                 </td>
-                <td style={{ padding: "3px 10px 3px 0", width: 100, whiteSpace: "nowrap", verticalAlign: "middle" }}>
+                <td style={{ padding: "3px 10px 3px 0", whiteSpace: "nowrap", verticalAlign: "middle" }}>
                   <span style={{ fontSize: "12px", color: "var(--form-label-color)", fontWeight: 500 }}>성</span>
                 </td>
                 <td style={{ padding: "3px 0 3px 0", verticalAlign: "middle" }}>
@@ -1660,13 +1662,13 @@ function MemberDetail({ memberId, listOpen, formColumnWidth }: { memberId: numbe
                 </td>
               </tr>
               <tr>
-                <td style={{ padding: "3px 10px 3px 0", width: 108, whiteSpace: "nowrap", verticalAlign: "middle" }}>
+                <td style={{ padding: "3px 10px 3px 0", whiteSpace: "nowrap", verticalAlign: "middle" }}>
                   <span style={{ fontSize: "12px", color: "var(--form-label-color)", fontWeight: 500 }}>Nick Name</span>
                 </td>
-                <td style={{ padding: "3px 10px 3px 0", verticalAlign: "middle" }}>
+                <td colSpan={3} style={{ padding: "3px 10px 3px 0", verticalAlign: "middle" }}>
                   <input placeholder="닉네임" className="w-full rounded outline-none transition-all duration-200" style={{ fontSize: 12, padding: "3px 8px", background: "var(--input-background)", border: "none", color: "var(--foreground)" }} onFocus={(e) => { e.target.style.background = "var(--input-focus-bg)"; }} onBlur={(e) => { e.target.style.background = "var(--input-background)"; }} />
                 </td>
-                <td style={{ padding: "3px 10px 3px 0", width: 100, whiteSpace: "nowrap", verticalAlign: "middle" }}>
+                <td style={{ padding: "3px 10px 3px 0", whiteSpace: "nowrap", verticalAlign: "middle" }}>
                   <span style={{ fontSize: "12px", color: "var(--form-label-color)", fontWeight: 500 }}>Business Name</span>
                 </td>
                 <td style={{ padding: "3px 0 3px 0", verticalAlign: "middle" }}>
@@ -1674,13 +1676,13 @@ function MemberDetail({ memberId, listOpen, formColumnWidth }: { memberId: numbe
                 </td>
               </tr>
               <tr>
-                <td style={{ padding: "3px 10px 3px 0", width: 108, whiteSpace: "nowrap", verticalAlign: "middle" }}>
+                <td style={{ padding: "3px 10px 3px 0", whiteSpace: "nowrap", verticalAlign: "middle" }}>
                   <span style={{ fontSize: "12px", color: "var(--form-label-color)", fontWeight: 500 }}>Legal Name</span>
                 </td>
-                <td style={{ padding: "3px 10px 3px 0", verticalAlign: "middle" }}>
+                <td colSpan={3} style={{ padding: "3px 10px 3px 0", verticalAlign: "middle" }}>
                   <input placeholder="법적 이름" className="w-full rounded outline-none transition-all duration-200" style={{ fontSize: 12, padding: "3px 8px", background: "var(--input-background)", border: "none", color: "var(--foreground)" }} onFocus={(e) => { e.target.style.background = "var(--input-focus-bg)"; }} onBlur={(e) => { e.target.style.background = "var(--input-background)"; }} />
                 </td>
-                <td style={{ padding: "3px 10px 3px 0", width: 100, whiteSpace: "nowrap", verticalAlign: "middle" }}>
+                <td style={{ padding: "3px 10px 3px 0", whiteSpace: "nowrap", verticalAlign: "middle" }}>
                   <span style={{ fontSize: "12px", color: "var(--form-label-color)", fontWeight: 500 }}>생년월일</span>
                 </td>
                 <td style={{ padding: "3px 0 3px 0", verticalAlign: "middle" }}>
@@ -1688,10 +1690,10 @@ function MemberDetail({ memberId, listOpen, formColumnWidth }: { memberId: numbe
                 </td>
               </tr>
               <tr>
-                <td style={{ padding: "3px 10px 3px 0", width: 108, whiteSpace: "nowrap", verticalAlign: "middle" }}>
+                <td style={{ padding: "3px 10px 3px 0", whiteSpace: "nowrap", verticalAlign: "middle" }}>
                   <span style={{ fontSize: "12px", color: "var(--form-label-color)", fontWeight: 500 }}>주민등록번호</span>
                 </td>
-                <td style={{ padding: "3px 10px 3px 0", verticalAlign: "middle" }}>
+                <td colSpan={3} style={{ padding: "3px 10px 3px 0", verticalAlign: "middle" }}>
                   <div className="flex gap-1 items-center">
                     <input key={`ssn-${member.id}`} defaultValue={member.ssn} className="flex-1 rounded outline-none transition-all duration-200" style={{ fontSize: 12, padding: "3px 8px", background: "var(--input-background)", border: "none", color: "var(--foreground)" }} onFocus={(e) => { e.target.style.background = "var(--input-focus-bg)"; }} onBlur={(e) => { e.target.style.background = "var(--input-background)"; }} />
                     <div className="relative" style={{ flexShrink: 0 }}>
@@ -1704,7 +1706,7 @@ function MemberDetail({ memberId, listOpen, formColumnWidth }: { memberId: numbe
                     <button style={{ fontSize: 12, padding: "3px 8px", background: "var(--surface-button-muted)", color: "var(--accent-primary)", border: "1px solid var(--accent-border)", borderRadius: 4, whiteSpace: "nowrap" }}>✓ 실명인증</button>
                   </div>
                 </td>
-                <td style={{ padding: "3px 10px 3px 0", width: 100, whiteSpace: "nowrap", verticalAlign: "middle" }}>
+                <td style={{ padding: "3px 10px 3px 0", whiteSpace: "nowrap", verticalAlign: "middle" }}>
                   <span style={{ fontSize: "12px", color: "var(--form-label-color)", fontWeight: 500 }}>EIN Number</span>
                 </td>
                 <td style={{ padding: "3px 0 3px 0", verticalAlign: "middle" }}>
@@ -1712,10 +1714,10 @@ function MemberDetail({ memberId, listOpen, formColumnWidth }: { memberId: numbe
                 </td>
               </tr>
               <tr>
-                <td style={{ padding: "3px 10px 3px 0", width: 108, whiteSpace: "nowrap", verticalAlign: "middle" }}>
+                <td style={{ padding: "3px 10px 3px 0", whiteSpace: "nowrap", verticalAlign: "middle" }}>
                   <span style={{ fontSize: "12px", color: "var(--form-label-color)", fontWeight: 500 }}>비자종류</span>
                 </td>
-                <td style={{ padding: "3px 10px 3px 0", verticalAlign: "middle" }}>
+                <td colSpan={3} style={{ padding: "3px 10px 3px 0", verticalAlign: "middle" }}>
                   <div className="relative" style={{ display: "inline-block", width: "100%" }}>
                     <select className="w-full rounded outline-none appearance-none" style={{ fontSize: 12, padding: "4px 28px 4px 8px", background: "var(--input-background)", border: "none", color: "var(--foreground)" }}>
                       <option>() 내국인</option>
@@ -1726,7 +1728,7 @@ function MemberDetail({ memberId, listOpen, formColumnWidth }: { memberId: numbe
                     <ChevronDown size={12} style={{ position: "absolute", right: 7, top: "50%", transform: "translateY(-50%)", color: "var(--muted-foreground)", pointerEvents: "none" }} />
                   </div>
                 </td>
-                <td style={{ padding: "3px 10px 3px 0", width: 100, whiteSpace: "nowrap", verticalAlign: "middle" }}>
+                <td style={{ padding: "3px 10px 3px 0", whiteSpace: "nowrap", verticalAlign: "middle" }}>
                   <span style={{ fontSize: "12px", color: "var(--form-label-color)", fontWeight: 500 }}>체류기간 만료일자</span>
                 </td>
                 <td style={{ padding: "3px 0 3px 0", verticalAlign: "middle" }}>
@@ -1734,24 +1736,25 @@ function MemberDetail({ memberId, listOpen, formColumnWidth }: { memberId: numbe
                 </td>
               </tr>
               <tr>
-                <td style={{ padding: "3px 10px 3px 0", width: 108, whiteSpace: "nowrap", verticalAlign: "middle" }}>
+                <td style={{ padding: "3px 10px 3px 0", whiteSpace: "nowrap", verticalAlign: "middle" }}>
                   <span style={{ fontSize: "12px", color: "var(--form-label-color)", fontWeight: 500 }}>주소지</span>
                 </td>
-                <td style={{ padding: "3px 10px 3px 0", verticalAlign: "middle" }}>
+                <td colSpan={3} style={{ padding: "3px 10px 3px 0", verticalAlign: "middle" }}>
                   <div className="flex gap-2">
                     <input key={`addr-${member.id}`} defaultValue={member.region} className="flex-1 min-w-0 rounded outline-none transition-all duration-200" style={{ fontSize: 12, padding: "3px 8px", background: "var(--input-background)", border: "none", color: "var(--foreground)" }} onFocus={(e) => { e.target.style.background = "var(--input-focus-bg)"; }} onBlur={(e) => { e.target.style.background = "var(--input-background)"; }} />
                     <button className="shrink-0" style={{ fontSize: 12, padding: "3px 12px", background: "var(--surface-button-muted)", color: "var(--foreground)", border: "1px solid var(--border)", borderRadius: 4 }}>검색</button>
                   </div>
                 </td>
+                <td colSpan={2} />
               </tr>
               <tr>
-                <td style={{ padding: "3px 10px 3px 0", width: 108, whiteSpace: "nowrap", verticalAlign: "middle" }}>
+                <td style={{ padding: "3px 10px 3px 0", whiteSpace: "nowrap", verticalAlign: "middle" }}>
                   <span style={{ fontSize: "12px", color: "var(--form-label-color)", fontWeight: 500 }}>우편번호</span>
                 </td>
-                <td style={{ padding: "3px 10px 3px 0", verticalAlign: "middle" }}>
+                <td colSpan={3} style={{ padding: "3px 10px 3px 0", verticalAlign: "middle" }}>
                   <input defaultValue="06236" className="w-full rounded outline-none transition-all duration-200" style={{ fontSize: 12, padding: "3px 8px", background: "var(--input-background)", border: "none", color: "var(--foreground)" }} onFocus={(e) => { e.target.style.background = "var(--input-focus-bg)"; }} onBlur={(e) => { e.target.style.background = "var(--input-background)"; }} />
                 </td>
-                <td style={{ padding: "3px 10px 3px 0", width: 100, whiteSpace: "nowrap", verticalAlign: "middle" }}>
+                <td style={{ padding: "3px 10px 3px 0", whiteSpace: "nowrap", verticalAlign: "middle" }}>
                   <span style={{ fontSize: "12px", color: "var(--form-label-color)", fontWeight: 500 }}>연락처</span>
                 </td>
                 <td style={{ padding: "3px 0 3px 0", verticalAlign: "middle" }}>
@@ -1759,13 +1762,13 @@ function MemberDetail({ memberId, listOpen, formColumnWidth }: { memberId: numbe
                 </td>
               </tr>
               <tr>
-                <td style={{ padding: "3px 10px 3px 0", width: 108, whiteSpace: "nowrap", verticalAlign: "middle" }}>
+                <td style={{ padding: "3px 10px 3px 0", whiteSpace: "nowrap", verticalAlign: "middle" }}>
                   <span style={{ fontSize: "12px", color: "var(--form-label-color)", fontWeight: 500 }}>휴대폰번호</span>
                 </td>
-                <td style={{ padding: "3px 10px 3px 0", verticalAlign: "middle" }}>
+                <td colSpan={3} style={{ padding: "3px 10px 3px 0", verticalAlign: "middle" }}>
                   <input key={`phone-${member.id}`} defaultValue={member.phone} className="w-full rounded outline-none transition-all duration-200" style={{ fontSize: 12, padding: "3px 8px", background: "var(--input-background)", border: "none", color: "var(--foreground)" }} onFocus={(e) => { e.target.style.background = "var(--input-focus-bg)"; }} onBlur={(e) => { e.target.style.background = "var(--input-background)"; }} />
                 </td>
-                <td style={{ padding: "3px 10px 3px 0", width: 100, whiteSpace: "nowrap", verticalAlign: "middle" }}>
+                <td style={{ padding: "3px 10px 3px 0", whiteSpace: "nowrap", verticalAlign: "middle" }}>
                   <span style={{ fontSize: "12px", color: "var(--form-label-color)", fontWeight: 500 }}>세금신고번호</span>
                 </td>
                 <td style={{ padding: "3px 0 3px 0", verticalAlign: "middle" }}>
@@ -1773,10 +1776,10 @@ function MemberDetail({ memberId, listOpen, formColumnWidth }: { memberId: numbe
                 </td>
               </tr>
               <tr>
-                <td style={{ padding: "3px 10px 3px 0", width: 108, whiteSpace: "nowrap", verticalAlign: "top", paddingTop: 8 }}>
+                <td style={{ padding: "3px 10px 3px 0", whiteSpace: "nowrap", verticalAlign: "top", paddingTop: 8 }}>
                   <span style={{ fontSize: "12px", color: "var(--form-label-color)", fontWeight: 500 }}>메모</span>
                 </td>
-                <td style={{ padding: "3px 10px 3px 0", verticalAlign: "middle" }}>
+                <td colSpan={3} style={{ padding: "3px 10px 3px 0", verticalAlign: "middle" }}>
                   <textarea
                     key={`memo-${member.id}`}
                     defaultValue={`${member.name} · ${member.rank} · ${member.grade} · ${member.region} (${member.status})`}
@@ -1787,6 +1790,7 @@ function MemberDetail({ memberId, listOpen, formColumnWidth }: { memberId: numbe
                     onBlur={(e) => { e.target.style.background = "var(--input-background)"; }}
                   />
                 </td>
+                <td colSpan={2} />
               </tr>
             </tbody>
           </table>

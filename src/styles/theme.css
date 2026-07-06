@@ -485,6 +485,11 @@
   width: calc((100% - 208px) / 2);
 }
 
+/* 일반회원정보 — 은행통합거래번호(colspan=3)와 동일 입력폭 */
+.app-content .content-form-body table.content-form-grid--member td[colspan="3"] {
+  width: calc(100% - 108px);
+}
+
 .app-content .content-member-header {
   padding: 6px 8px !important;
   margin-bottom: 8px !important;
