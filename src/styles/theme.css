@@ -641,8 +641,8 @@
   background: var(--surface-row-checked);
 }
 
-/* 상세 패널 — 폴더 탭 */
-.detail-panel-chrome {
+/* 상세 패널 — 폴더 탭 (회원정보 페이지 내부) */
+.member-page-chrome {
   flex-shrink: 0;
   background: var(--surface-panel);
 }

@@ -1510,7 +1510,19 @@ function GenderToggleInline() {
   );
 }
 
-function MemberDetail({ memberId, listOpen, formColumnWidth }: { memberId: number; listOpen: boolean; formColumnWidth: number }) {
+function MemberDetail({
+  memberId,
+  listOpen,
+  formColumnWidth,
+  activeTab,
+  onTabChange,
+}: {
+  memberId: number;
+  listOpen: boolean;
+  formColumnWidth: number;
+  activeTab: string;
+  onTabChange: (tab: string) => void;
+}) {
   const member = getMemberById(memberId);
   const detailContentWidth = getDetailContentWidth(formColumnWidth);
   const memberType = member.type === "소비자" ? "소비자" : "일반";
@@ -1524,6 +1536,7 @@ function MemberDetail({ memberId, listOpen, formColumnWidth }: { memberId: numbe
         flexShrink: 0,
       }}
     >
+      <MemberPageChrome activeTab={activeTab} onTabChange={onTabChange} />
       <div
         className="flex-1 content-scroll"
         style={{
@@ -2314,14 +2327,14 @@ interface TopNavProps {
   onListToggle: () => void;
 }
 
-interface DetailPanelChromeProps {
+interface MemberPageChromeProps {
   activeTab: string;
   onTabChange: (tab: string) => void;
 }
 
-function DetailPanelChrome({ activeTab, onTabChange }: DetailPanelChromeProps) {
+function MemberPageChrome({ activeTab, onTabChange }: MemberPageChromeProps) {
   return (
-    <div className="detail-panel-chrome">
+    <div className="member-page-chrome">
       <div className="detail-tab-bar">
         <div className="detail-tab-list">
           {subTabs.map((tab, i) => {
@@ -2370,15 +2383,13 @@ function DetailPanelChrome({ activeTab, onTabChange }: DetailPanelChromeProps) {
             </React.Fragment>
           ))}
         </div>
-        {activeTab === "회원정보" && (
-          <button
-            type="button"
-            className="flex items-center justify-center px-2 py-0.5 rounded shrink-0 whitespace-nowrap"
-            style={{ fontSize: 13, fontWeight: 500, background: "var(--accent-light)", color: "var(--accent-primary)", border: "none" }}
-          >
-            회원등록
-          </button>
-        )}
+        <button
+          type="button"
+          className="flex items-center justify-center px-2 py-0.5 rounded shrink-0 whitespace-nowrap"
+          style={{ fontSize: 13, fontWeight: 500, background: "var(--accent-light)", color: "var(--accent-primary)", border: "none" }}
+        >
+          회원등록
+        </button>
       </div>
     </div>
   );
@@ -2775,10 +2786,14 @@ export default function App() {
             overflow: "hidden",
           }}
         >
-          <DetailPanelChrome activeTab={activeTab} onTabChange={setActiveTab} />
-          <div style={{ flex: 1, minHeight: 0, overflow: "hidden", display: "flex", flexDirection: "column" }}>
           {isMemberInfoTab ? (
-            <MemberDetail memberId={selectedMember} listOpen={listOpen} formColumnWidth={formColumnWidth} />
+            <MemberDetail
+              memberId={selectedMember}
+              listOpen={listOpen}
+              formColumnWidth={formColumnWidth}
+              activeTab={activeTab}
+              onTabChange={setActiveTab}
+            />
           ) : activeTab === "주문서내역" ? (
             <OrderHistoryView memberId={selectedMember} />
           ) : activeTab === "수당내역" ? (
@@ -2788,7 +2803,6 @@ export default function App() {
               {activeTab} 화면 준비 중입니다.
             </div>
           )}
-          </div>
         </div>
           </div>
         </div>
