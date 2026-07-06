@@ -553,24 +553,40 @@
   overflow: hidden;
 }
 
-/* 상위 회원 관계 — 그룹별 여백 */
+/* 상위 회원 관계 — 전체 너비 4구역 균등 배치 */
 .app-content .member-relation-row {
-  column-gap: 12px;
-  row-gap: 8px;
+  display: grid;
+  grid-template-columns: minmax(0, 1.15fr) auto minmax(0, 1.15fr) auto minmax(0, 1fr) auto minmax(0, 0.85fr);
+  width: 100%;
+  align-items: center;
+  column-gap: 16px;
+}
+
+.app-content .member-relation-segment {
+  min-width: 0;
+  display: flex;
+  align-items: center;
 }
 
 .app-content .member-relation-group {
-  gap: 6px;
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px;
+  width: 100%;
 }
 
 .app-content .member-relation-divider {
   width: 1px;
   height: 20px;
   background: var(--border);
+  justify-self: center;
 }
 
-.app-content .member-relation-subgap {
-  margin-left: 4px;
+.app-content .member-relation-select {
+  flex: 1 1 72px;
+  min-width: 72px;
+  max-width: 120px;
 }
 
 /* 회원 테이블 행 — 테마 대응 */
