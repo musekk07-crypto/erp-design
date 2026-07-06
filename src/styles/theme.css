@@ -169,7 +169,7 @@
 }
 
 :root {
-  --font-size: 14px;
+  --font-size: 15px;
   --background: #f9f9f9;
   --foreground: #1e2130;
   --card: #ffffff;
@@ -290,12 +290,12 @@
 }
 
 @theme inline {
-  --text-xs: 12px;
-  --text-sm: 14px;
-  --text-base: 16px;
-  --text-lg: 18px;
-  --text-xl: 20px;
-  --text-2xl: 24px;
+  --text-xs: 13px;
+  --text-sm: 15px;
+  --text-base: 17px;
+  --text-lg: 19px;
+  --text-xl: 21px;
+  --text-2xl: 25px;
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   --color-card: var(--card);
@@ -400,9 +400,9 @@
 
 /* 본문 컨텐츠 영역 — 탑 메뉴 제외, 조밀하게 */
 .app-content {
-  --content-text-xs: 11px;
-  --content-text-sm: 12px;
-  --content-text-base: 13px;
+  --content-text-xs: 12px;
+  --content-text-sm: 13px;
+  --content-text-base: 14px;
   font-size: var(--content-text-base);
 }
 
@@ -419,7 +419,7 @@
 .app-content input,
 .app-content select,
 .app-content textarea {
-  font-size: 12px !important;
+  font-size: 13px !important;
 }
 
 .app-content table th,

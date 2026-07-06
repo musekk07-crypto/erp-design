@@ -46,12 +46,12 @@ export function TopNav({ activeTab, onTabChange, listOpen, onListToggle }: TopNa
         <div className="flex items-center gap-2 mr-6">
           <div
             className="flex items-center justify-center rounded"
-            style={{ width: 28, height: 28, background: "var(--logo-bg, #7c3aed)", fontSize: 11, fontWeight: 700, color: "#fff" }}
+            style={{ width: 28, height: 28, background: "var(--logo-bg, #7c3aed)", fontSize: 12, fontWeight: 700, color: "#fff" }}
           >
             VB
           </div>
-          <span style={{ fontSize: 13, fontWeight: 600, color: "var(--nav-text, #fff)" }}>(주)비아블</span>
-          <span style={{ fontSize: 11, color: "var(--nav-text-muted, rgba(255,255,255,0.6))", marginLeft: 4 }}>ERP</span>
+          <span style={{ fontSize: 14, fontWeight: 600, color: "var(--nav-text, #fff)" }}>(주)비아블</span>
+          <span style={{ fontSize: 12, color: "var(--nav-text-muted, rgba(255,255,255,0.6))", marginLeft: 4 }}>ERP</span>
         </div>
         <div className="flex items-center h-full flex-1">
           {mainMenus.map((menu) => {
@@ -62,7 +62,7 @@ export function TopNav({ activeTab, onTabChange, listOpen, onListToggle }: TopNa
                 onClick={menu === "회원관리" ? onListToggle : undefined}
                 className="flex items-center h-full px-4 transition-all duration-150"
                 style={{
-                  fontSize: 13,
+                  fontSize: 14,
                   fontWeight: isActive ? 600 : 400,
                   color: isActive ? "var(--nav-text, #fff)" : "var(--nav-text-muted, rgba(255,255,255,0.7))",
                   borderBottom: isActive ? `2px solid var(--nav-active-border, #fff)` : "2px solid transparent",
@@ -78,19 +78,19 @@ export function TopNav({ activeTab, onTabChange, listOpen, onListToggle }: TopNa
         <div className="flex items-center gap-3 ml-4">
           <div
             className="flex items-center justify-center rounded"
-            style={{ width: 26, height: 26, background: "var(--nav-avatar-bg, rgba(255,255,255,0.2))", fontSize: 11, fontWeight: 600, color: "var(--nav-text, #fff)" }}
+            style={{ width: 26, height: 26, background: "var(--nav-avatar-bg, rgba(255,255,255,0.2))", fontSize: 12, fontWeight: 600, color: "var(--nav-text, #fff)" }}
           >
             KR
           </div>
           <div
             className="flex items-center justify-center rounded-full"
-            style={{ width: 26, height: 26, background: "#4f7ef8", fontSize: 11, fontWeight: 700, color: "#fff" }}
+            style={{ width: 26, height: 26, background: "#4f7ef8", fontSize: 12, fontWeight: 700, color: "#fff" }}
           >
             디
           </div>
-          <span style={{ fontSize: 13, color: "var(--nav-text, #fff)" }}>디자인</span>
+          <span style={{ fontSize: 14, color: "var(--nav-text, #fff)" }}>디자인</span>
           <div style={{ width: 1, height: 14, background: "var(--nav-divider, rgba(255,255,255,0.3))" }} />
-          <button style={{ fontSize: 13, color: "var(--nav-text-muted, rgba(255,255,255,0.7))" }}>로그아웃</button>
+          <button style={{ fontSize: 14, color: "var(--nav-text-muted, rgba(255,255,255,0.7))" }}>로그아웃</button>
         </div>
       </div>
 
@@ -108,7 +108,7 @@ export function TopNav({ activeTab, onTabChange, listOpen, onListToggle }: TopNa
                 onClick={() => onTabChange(tab)}
                 className="flex items-center h-full px-3 whitespace-nowrap transition-all duration-150"
                 style={{
-                  fontSize: 13,
+                  fontSize: 14,
                   fontWeight: isActive ? 600 : 400,
                   color: isActive ? "var(--accent-primary)" : "var(--muted-foreground)",
                   borderBottom: isActive ? "2px solid var(--accent-primary)" : "2px solid transparent",
@@ -134,7 +134,7 @@ export function TopNav({ activeTab, onTabChange, listOpen, onListToggle }: TopNa
               <button
                 className="flex items-center justify-center gap-1 px-2 py-0.5 rounded transition-all duration-150"
                 style={{
-                  fontSize: 12,
+                  fontSize: 13,
                   fontWeight: 500,
                   background:
                     btn.variant === "primary" ? "var(--accent-light)"
@@ -154,7 +154,7 @@ export function TopNav({ activeTab, onTabChange, listOpen, onListToggle }: TopNa
         </div>
         <button
           className="flex items-center justify-center px-2 py-0.5 rounded"
-          style={{ fontSize: 12, fontWeight: 500, background: "var(--accent-light)", color: "var(--accent-primary)", border: "none" }}
+          style={{ fontSize: 13, fontWeight: 500, background: "var(--accent-light)", color: "var(--accent-primary)", border: "none" }}
         >
           회원등록
         </button>

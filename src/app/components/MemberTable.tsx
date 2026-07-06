@@ -116,10 +116,10 @@ function SortIcon({ col }: { col: string }) {
             placeholder="이름 또는 회원번호 검색"
             value={search}
             onChange={(e) => setSearch(e.target.value)}
-            style={{ fontSize: "12px", color: "var(--foreground)" }}
+            style={{ fontSize: "13px", color: "var(--foreground)" }}
           />
         </div>
-        <span style={{ fontSize: "12px", color: "var(--muted-foreground)" }}>
+        <span style={{ fontSize: "13px", color: "var(--muted-foreground)" }}>
           총 <strong style={{ color: "var(--foreground)" }}>{sorted.length}</strong>명
         </span>
       </div>
@@ -157,7 +157,7 @@ function SortIcon({ col }: { col: string }) {
                   style={{
                     padding: "8px 10px",
                     textAlign: "left",
-                    fontSize: 12,
+                    fontSize: 13,
                     fontWeight: 600,
                     color: sortKey === col.key ? "#7c3aed" : "#64748b",
                     cursor: "pointer",
@@ -194,22 +194,22 @@ function SortIcon({ col }: { col: string }) {
                   <td style={{ padding: "7px 12px", textAlign: "center" }} onClick={(e) => e.stopPropagation()}>
                     <input type="checkbox" checked={isChecked} onChange={() => toggleOne(member.id)} style={{ accentColor: "#7c3aed", cursor: "pointer" }} />
                   </td>
-                  <td style={{ ...cellBase, fontSize: 12, color: "#94a3b8" }}>{member.id}</td>
-                  <td style={{ ...cellBase, fontSize: 12, fontFamily: "monospace", color: isSelected ? "#7c3aed" : "#1e2130", fontWeight: isSelected ? 600 : 400 }}>{member.no}</td>
-                  <td style={{ ...cellBase, fontSize: 12, color: "#475569" }}>{member.loginId}</td>
-                  <td style={{ ...cellBase, fontSize: 12, color: isSelected ? "#7c3aed" : "#1e2130", fontWeight: isSelected ? 600 : 500 }}>{member.name}</td>
+                  <td style={{ ...cellBase, fontSize: 13, color: "#94a3b8" }}>{member.id}</td>
+                  <td style={{ ...cellBase, fontSize: 13, fontFamily: "monospace", color: isSelected ? "#7c3aed" : "#1e2130", fontWeight: isSelected ? 600 : 400 }}>{member.no}</td>
+                  <td style={{ ...cellBase, fontSize: 13, color: "#475569" }}>{member.loginId}</td>
+                  <td style={{ ...cellBase, fontSize: 13, color: isSelected ? "#7c3aed" : "#1e2130", fontWeight: isSelected ? 600 : 500 }}>{member.name}</td>
                   <td style={{ ...cellBase }}>
-                    <span style={{ fontSize: 12, padding: "2px 7px", borderRadius: 4, background: member.type === "소비자" ? "#cffafe" : "#f1f5f9", color: member.type === "소비자" ? "#0891b2" : "#64748b" }}>{member.type}</span>
+                    <span style={{ fontSize: 13, padding: "2px 7px", borderRadius: 4, background: member.type === "소비자" ? "#cffafe" : "#f1f5f9", color: member.type === "소비자" ? "#0891b2" : "#64748b" }}>{member.type}</span>
                   </td>
-                  <td style={{ ...cellBase, fontSize: 12, color: "#64748b" }}>{member.regDate}</td>
+                  <td style={{ ...cellBase, fontSize: 13, color: "#64748b" }}>{member.regDate}</td>
                   <td style={{ ...cellBase }}>
-                    <span style={{ fontSize: 12, padding: "2px 7px", borderRadius: 4, background: member.status === "탈퇴" ? "#fee2e2" : "#dcfce7", color: member.status === "탈퇴" ? "#dc2626" : "#16a34a" }}>{member.status}</span>
+                    <span style={{ fontSize: 13, padding: "2px 7px", borderRadius: 4, background: member.status === "탈퇴" ? "#fee2e2" : "#dcfce7", color: member.status === "탈퇴" ? "#dc2626" : "#16a34a" }}>{member.status}</span>
                   </td>
-                  <td style={{ ...cellBase, fontSize: 12, color: "#475569" }}>{member.rank}</td>
-                  <td style={{ ...cellBase, fontSize: 12, color: "#475569" }}>{member.grade}</td>
-                  <td style={{ ...cellBase, fontSize: 12, color: "#475569", fontFamily: "monospace" }}>{member.phone}</td>
-                  <td style={{ ...cellBase, fontSize: 12, color: "#94a3b8", fontFamily: "monospace" }}>{member.ssn}</td>
-                  <td style={{ ...cellBase, fontSize: 12, color: "#475569" }}>{member.region}</td>
+                  <td style={{ ...cellBase, fontSize: 13, color: "#475569" }}>{member.rank}</td>
+                  <td style={{ ...cellBase, fontSize: 13, color: "#475569" }}>{member.grade}</td>
+                  <td style={{ ...cellBase, fontSize: 13, color: "#475569", fontFamily: "monospace" }}>{member.phone}</td>
+                  <td style={{ ...cellBase, fontSize: 13, color: "#94a3b8", fontFamily: "monospace" }}>{member.ssn}</td>
+                  <td style={{ ...cellBase, fontSize: 13, color: "#475569" }}>{member.region}</td>
                 </tr>
               );
             })}

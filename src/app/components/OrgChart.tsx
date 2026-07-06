@@ -35,18 +35,18 @@ function Card({ label, name, id, date, rank, score, isSelf = false }: {
         <span style={{
           position: "absolute", top: 5, right: 5,
           background: BORDER_BLUE, color: "#fff",
-          fontSize: 9, padding: "1px 5px", borderRadius: 8, fontWeight: 700,
+          fontSize: 10, padding: "1px 5px", borderRadius: 8, fontWeight: 700,
         }}>자신</span>
       )}
-      <div style={{ fontSize: 10, color: LABEL_GRAY, marginBottom: 4 }}>
+      <div style={{ fontSize: 11, color: LABEL_GRAY, marginBottom: 4 }}>
         {isSelf ? "나" : label}
       </div>
       <div style={{ fontSize: 11.5, fontWeight: 700, color: isSelf ? TEXT_BLUE : "#1e2130", marginBottom: 2 }}>
         {name}({id})
       </div>
-      <div style={{ fontSize: 10, color: isSelf ? TEXT_BLUE : "#64748b", marginBottom: 1 }}>{date}</div>
-      <div style={{ fontSize: 10, color: isSelf ? TEXT_BLUE : "#64748b", marginBottom: 3 }}>{rank}</div>
-      <div style={{ fontSize: 12, fontWeight: 700, color: isSelf ? TEXT_BLUE : "#1e2130" }}>{score}</div>
+      <div style={{ fontSize: 11, color: isSelf ? TEXT_BLUE : "#64748b", marginBottom: 1 }}>{date}</div>
+      <div style={{ fontSize: 11, color: isSelf ? TEXT_BLUE : "#64748b", marginBottom: 3 }}>{rank}</div>
+      <div style={{ fontSize: 13, fontWeight: 700, color: isSelf ? TEXT_BLUE : "#1e2130" }}>{score}</div>
     </div>
   );
 }
@@ -58,7 +58,7 @@ function ExtraBox({ label }: { label: string }) {
       border: `1px dashed ${BORDER_GRAY}`,
       borderRadius: 6, background: "#f8fafc",
       display: "flex", alignItems: "center", justifyContent: "center",
-      fontSize: 11, color: LABEL_GRAY, boxSizing: "border-box", flexShrink: 0,
+      fontSize: 12, color: LABEL_GRAY, boxSizing: "border-box", flexShrink: 0,
     }}>
       {label}
     </div>
@@ -146,7 +146,7 @@ export function OrgChart({ memberId, memberName }: OrgChartProps) {
           <div style={{
             border: `1px solid ${BORDER_GRAY}`, borderRadius: 6,
             background: "#fff", display: "flex", alignItems: "center", justifyContent: "center",
-            height: 32, fontSize: 12, fontWeight: 600, color: "#1e2130",
+            height: 32, fontSize: 13, fontWeight: 600, color: "#1e2130",
           }}>
             {child.name} ({child.id})
           </div>
