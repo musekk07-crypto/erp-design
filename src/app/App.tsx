@@ -1565,16 +1565,14 @@ type Mm2SectionId = (typeof mm2Sections)[number]["id"];
 
 function Mm2DetailTable({ rows }: { rows: { label: string; value: React.ReactNode }[] }) {
   return (
-    <table className="mm2-detail-table">
-      <tbody>
-        {rows.map((row) => (
-          <tr key={row.label}>
-            <td className="mm2-detail-label">{row.label}</td>
-            <td className="mm2-detail-value">{row.value}</td>
-          </tr>
-        ))}
-      </tbody>
-    </table>
+    <div className="mm2-detail-table">
+      {rows.map((row) => (
+        <div key={row.label} className="mm2-detail-row">
+          <div className="mm2-detail-label">{row.label}</div>
+          <div className="mm2-detail-value">{row.value}</div>
+        </div>
+      ))}
+    </div>
   );
 }
 
