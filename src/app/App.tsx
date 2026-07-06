@@ -21,7 +21,7 @@ const MEMBER_LIST_DEFAULT_WIDTH = 240;
 const MEMBER_LIST_PAGE_SIZE = 15;
 const MEMBER_LIST_MAX_WIDTH =
   36 + 36 + 96 + 100 + 54 + 62 + 84 + 56 + 54 + 54 + 108 + 108 + 84;
-const FORM_COLUMN_WIDTH_MIN = 680;
+const FORM_COLUMN_WIDTH_MIN = 700;
 const ORDER_PANEL_MIN_WIDTH = 1080;
 const APP_MIN_WIDTH = 1280;
 const LIST_PANEL_TRANSITION_MS = 250;
@@ -1558,7 +1558,7 @@ function MemberDetail({ memberId, listOpen, formColumnWidth }: { memberId: numbe
             boxSizing: "border-box",
           }}
         >
-        {/* 왼쪽 폼 — 최소 680px 유지, 넓으면 자동 확장 */}
+        {/* 왼쪽 폼 — 최소 700px 유지, 넓으면 자동 확장 */}
         <div
           style={
             listOpen
