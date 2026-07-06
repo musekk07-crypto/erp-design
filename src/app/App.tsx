@@ -62,17 +62,8 @@ function calcFormColumnWidth(availableDetailWidth: number) {
   return FORM_COLUMN_WIDTH_MIN;
 }
 
-function getMaxMemberListWidth(appContentWidth: number) {
-  const detailNeed = getDetailPanelWidth(FORM_COLUMN_WIDTH_MIN);
-  return Math.max(MEMBER_LIST_MIN_WIDTH, appContentWidth - detailNeed);
-}
-
-function clampMemberListWidth(width: number, appContentWidth = 0) {
-  const maxW =
-    appContentWidth > 0
-      ? Math.min(MEMBER_LIST_MAX_WIDTH, getMaxMemberListWidth(appContentWidth))
-      : MEMBER_LIST_MAX_WIDTH;
-  return Math.max(MEMBER_LIST_MIN_WIDTH, Math.min(maxW, width));
+function clampMemberListWidth(width: number) {
+  return Math.max(MEMBER_LIST_MIN_WIDTH, Math.min(MEMBER_LIST_MAX_WIDTH, width));
 }
 
 // ─────────────────────────────────────────────
@@ -680,9 +671,10 @@ interface MemberTableProps {
   selectedId: number | null;
   onSelect: (id: number) => void;
   listOpen?: boolean;
+  listWidth?: number;
 }
 
-function MemberTable({ selectedId, onSelect, listOpen = false }: MemberTableProps) {
+function MemberTable({ selectedId, onSelect, listOpen = false, listWidth = MEMBER_LIST_DEFAULT_WIDTH }: MemberTableProps) {
   const [search, setSearch] = useState("");
   const [sortKey, setSortKey] = useState<SortKey>(null);
   const [sortDir, setSortDir] = useState<SortDir>("asc");
@@ -745,10 +737,10 @@ function MemberTable({ selectedId, onSelect, listOpen = false }: MemberTableProp
   }, [page, totalPages]);
 
   useEffect(() => {
-    if (listOpen) {
+    if (listOpen && listWidth >= MEMBER_LIST_MAX_WIDTH) {
       syncTableOffset(0);
     }
-  }, [listOpen]);
+  }, [listOpen, listWidth]);
 
   function toggleAll() {
     const pageIds = paged.map((m) => m.id);
@@ -971,7 +963,7 @@ function MemberTable({ selectedId, onSelect, listOpen = false }: MemberTableProp
 
         <div className="flex-1 min-h-0 shrink" aria-hidden />
 
-        {!listOpen && (
+        {!listOpen || listWidth < MEMBER_LIST_MAX_WIDTH ? (
         <div
           ref={hScrollRef}
           className="overflow-x-auto shrink-0"
@@ -990,7 +982,7 @@ function MemberTable({ selectedId, onSelect, listOpen = false }: MemberTableProp
         >
           <div style={{ width: MEMBER_LIST_MAX_WIDTH, height: 1 }} />
         </div>
-        )}
+        ) : null}
       </div>
     </div>
   );
@@ -2663,15 +2655,11 @@ export default function App() {
 
   useEffect(() => {
     function onWindowResize() {
-      setListWidth((w) => clampMemberListWidth(w, appContentWidth));
+      setListWidth((w) => clampMemberListWidth(w));
     }
     window.addEventListener("resize", onWindowResize);
     return () => window.removeEventListener("resize", onWindowResize);
-  }, [appContentWidth]);
-
-  useEffect(() => {
-    setListWidth((w) => clampMemberListWidth(w, appContentWidth));
-  }, [appContentWidth]);
+  }, []);
 
   const onResizeStart = useCallback((e: React.MouseEvent) => {
     e.preventDefault();
@@ -2681,8 +2669,7 @@ export default function App() {
       if (!resizing.current) return;
       const sidebarOffset = SIDEBAR_WIDTH;
       const newWidth = ev.clientX - sidebarOffset;
-      const contentWidth = appContentRef.current?.clientWidth ?? 0;
-      setListWidth(clampMemberListWidth(newWidth, contentWidth));
+      setListWidth(clampMemberListWidth(newWidth));
     }
     function onUp() {
       resizing.current = false;
@@ -2749,8 +2736,13 @@ export default function App() {
             height: "100%",
           }}
         >
-          <div style={{ width: Math.min(listWidth, MEMBER_LIST_MAX_WIDTH), height: "100%" }}>
-            <MemberTable selectedId={selectedMember} onSelect={setSelectedMember} listOpen={listOpen} />
+          <div style={{ width: listOpen ? listWidth : MEMBER_LIST_MAX_WIDTH, height: "100%" }}>
+            <MemberTable
+              selectedId={selectedMember}
+              onSelect={setSelectedMember}
+              listOpen={listOpen}
+              listWidth={listWidth}
+            />
           </div>
           {listOpen && (
             <div
