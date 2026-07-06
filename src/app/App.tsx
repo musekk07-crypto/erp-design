@@ -2363,10 +2363,7 @@ function RecentPinRail({
   );
 }
 
-interface TopNavProps {
-  listOpen: boolean;
-  onListToggle: () => void;
-}
+interface TopNavProps {}
 
 interface MemberPageChromeProps {
   activeTab: string;
@@ -2436,7 +2433,7 @@ function MemberPageChrome({ activeTab, onTabChange }: MemberPageChromeProps) {
   );
 }
 
-function TopNav({ listOpen, onListToggle }: TopNavProps) {
+function TopNav(_props: TopNavProps) {
   return (
     <div style={{ flexShrink: 0, minWidth: APP_MIN_WIDTH }}>
       {/* Main nav */}
@@ -2461,7 +2458,6 @@ function TopNav({ listOpen, onListToggle }: TopNavProps) {
               <button
                 key={menu}
                 type="button"
-                onClick={menu === "회원관리" ? onListToggle : undefined}
                 className={`main-nav-item${isActive ? " is-active" : ""}`}
               >
                 {menu}
@@ -2485,7 +2481,7 @@ function TopNav({ listOpen, onListToggle }: TopNavProps) {
           </div>
           <span style={{ fontSize: 14, color: "var(--nav-text, #fff)" }}>디자인</span>
           <div style={{ width: 1, height: 14, background: "var(--nav-divider, rgba(255,255,255,0.3))" }} />
-          <button style={{ fontSize: 14, color: "var(--nav-text-muted, rgba(255,255,255,0.7))" }}>로그아웃</button>
+          <button type="button" style={{ fontSize: 14, color: "var(--nav-text-muted, rgba(255,255,255,0.7))" }}>로그아웃</button>
         </div>
       </div>
     </div>
@@ -2734,10 +2730,7 @@ export default function App() {
         className="flex flex-col"
         style={{ minWidth: APP_MIN_WIDTH, width: "100%", height: "100%", flex: "1 0 auto" }}
       >
-      <TopNav
-        listOpen={listOpen}
-        onListToggle={() => setListOpen((v) => !v)}
-      />
+      <TopNav />
 
       {/* 본문 — 가로 스크롤 영역과 방문기록 패널 분리 */}
       <div
