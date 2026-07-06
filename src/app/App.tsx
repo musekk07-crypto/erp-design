@@ -1601,12 +1601,18 @@ function MemberDetail({ memberId, listOpen, formColumnWidth }: { memberId: numbe
                   <input type="text" defaultValue={member.loginId} className="w-full rounded outline-none transition-all duration-200" style={{ fontSize: 12, padding: "3px 8px", background: "var(--input-background)", border: "none", color: "var(--foreground)", fontFamily: "monospace" }} onFocus={(e) => { e.target.style.background = "var(--input-focus-bg)"; }} onBlur={(e) => { e.target.style.background = "var(--input-background)"; }} />
                 </td>
               </tr>
-              <tr>
+              <tr className="form-row-triple">
                 <td style={{ padding: "3px 10px 3px 0", whiteSpace: "nowrap", verticalAlign: "middle" }}>
                   <span style={{ fontSize: "12px", color: "var(--form-label-color)", fontWeight: 500 }}>비밀번호</span>
                 </td>
-                <td colSpan={3} style={{ padding: "3px 10px 3px 0", verticalAlign: "middle" }}>
+                <td style={{ padding: "3px 10px 3px 0", verticalAlign: "middle" }}>
                   <input type="password" placeholder="변경 시에만 입력" className="w-full rounded outline-none transition-all duration-200" style={{ fontSize: 12, padding: "3px 8px", background: "var(--input-background)", border: "none", color: "var(--foreground)" }} onFocus={(e) => { e.target.style.background = "var(--input-focus-bg)"; }} onBlur={(e) => { e.target.style.background = "var(--input-background)"; }} />
+                </td>
+                <td style={{ padding: "3px 10px 3px 0", whiteSpace: "nowrap", verticalAlign: "middle" }}>
+                  <span style={{ fontSize: "12px", color: "var(--form-label-color)", fontWeight: 500 }}>전자메일주소</span>
+                </td>
+                <td style={{ padding: "3px 10px 3px 0", verticalAlign: "middle" }}>
+                  <input type="email" defaultValue={`${member.loginId}@email.com`} className="w-full rounded outline-none transition-all duration-200" style={{ fontSize: 12, padding: "3px 8px", background: "var(--input-background)", border: "none", color: "var(--foreground)" }} onFocus={(e) => { e.target.style.background = "var(--input-focus-bg)"; }} onBlur={(e) => { e.target.style.background = "var(--input-background)"; }} />
                 </td>
                 <td style={{ padding: "3px 10px 3px 0", whiteSpace: "nowrap", verticalAlign: "middle" }}>
                   <span style={{ fontSize: "12px", color: "var(--form-label-color)", fontWeight: 500 }}>보안 비밀번호</span>
@@ -1614,15 +1620,6 @@ function MemberDetail({ memberId, listOpen, formColumnWidth }: { memberId: numbe
                 <td style={{ padding: "3px 0 3px 0", verticalAlign: "middle" }}>
                   <input type="password" placeholder="····" className="w-full rounded outline-none transition-all duration-200" style={{ fontSize: 12, padding: "3px 8px", background: "var(--input-background)", border: "none", color: "var(--foreground)" }} onFocus={(e) => { e.target.style.background = "var(--input-focus-bg)"; }} onBlur={(e) => { e.target.style.background = "var(--input-background)"; }} />
                 </td>
-              </tr>
-              <tr>
-                <td style={{ padding: "3px 10px 3px 0", whiteSpace: "nowrap", verticalAlign: "middle" }}>
-                  <span style={{ fontSize: "12px", color: "var(--form-label-color)", fontWeight: 500 }}>전자메일주소</span>
-                </td>
-                <td colSpan={3} style={{ padding: "3px 10px 3px 0", verticalAlign: "middle" }}>
-                  <input type="email" defaultValue={`${member.loginId}@email.com`} className="w-full rounded outline-none transition-all duration-200" style={{ fontSize: 12, padding: "3px 8px", background: "var(--input-background)", border: "none", color: "var(--foreground)" }} onFocus={(e) => { e.target.style.background = "var(--input-focus-bg)"; }} onBlur={(e) => { e.target.style.background = "var(--input-background)"; }} />
-                </td>
-                <td colSpan={2} />
               </tr>
             </tbody>
           </table>
@@ -1814,7 +1811,7 @@ function MemberDetail({ memberId, listOpen, formColumnWidth }: { memberId: numbe
               <col className="col-field-3" />
             </colgroup>
             <tbody>
-              <tr className="bank-row-triple">
+              <tr className="form-row-triple">
                 <td style={{ padding: "3px 10px 3px 0", whiteSpace: "nowrap", verticalAlign: "middle" }}>
                   <span style={{ fontSize: "12px", color: "var(--form-label-color)", fontWeight: 500 }}>은행명</span>
                 </td>

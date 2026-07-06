@@ -527,9 +527,9 @@
   padding-right: 0;
 }
 
-/* 거래은행 1행(3열) — 입력↔다음 라벨 간격 20px */
-.app-content .content-form-body table.content-form-grid--bank tr.bank-row-triple td:nth-child(2),
-.app-content .content-form-body table.content-form-grid--bank tr.bank-row-triple td:nth-child(4) {
+/* 3열 폼 행(은행명·비밀번호 등) — 입력↔다음 라벨 간격 20px */
+.app-content .content-form-body table.content-form-grid--member tr.form-row-triple td:nth-child(2),
+.app-content .content-form-body table.content-form-grid--member tr.form-row-triple td:nth-child(4) {
   padding-right: var(--form-col-gap) !important;
 }
 
