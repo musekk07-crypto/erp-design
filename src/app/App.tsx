@@ -5,6 +5,7 @@ import {
   BarChart2, ShoppingCart, Settings, Bell, HelpCircle, Home,
   Pin, Clock, ChevronLeft, ChevronRight, RefreshCw,
   FilePlus, Save, Trash2, Award, Briefcase, MessageCircle, Key, Printer,
+  Globe, Landmark, Contact, CheckCircle2, Search, Calendar,
 } from "lucide-react";
 
 // ─────────────────────────────────────────────
@@ -1536,6 +1537,180 @@ function MemberHeaderCard({ member }: { member: Member }) {
   );
 }
 
+const mm2Sections = [
+  { id: "name", label: "2. 이름 정보", icon: Contact },
+  { id: "personal", label: "3. 개인 정보", icon: User },
+  { id: "country", label: "4. 국가 및 기타 정보", icon: Globe },
+  { id: "account", label: "5. 계좌 정보", icon: Landmark },
+  { id: "relation", label: "6. 소속/관계 및 동의 여부", icon: Users },
+] as const;
+
+type Mm2SectionId = (typeof mm2Sections)[number]["id"];
+
+function Mm2DetailTable({ rows }: { rows: { label: string; value: React.ReactNode }[] }) {
+  return (
+    <table className="mm2-detail-table">
+      <tbody>
+        {rows.map((row) => (
+          <tr key={row.label}>
+            <td className="mm2-detail-label">{row.label}</td>
+            <td className="mm2-detail-value">{row.value}</td>
+          </tr>
+        ))}
+      </tbody>
+    </table>
+  );
+}
+
+function Mm2FieldValue({ children, suffix }: { children: React.ReactNode; suffix?: React.ReactNode }) {
+  return (
+    <span className="mm2-field-value">
+      {children}
+      {suffix}
+    </span>
+  );
+}
+
+function MemberManagement2View({ memberId }: { memberId: number }) {
+  const member = getMemberById(memberId);
+  const [activeSection, setActiveSection] = useState<Mm2SectionId>("personal");
+  const activeMeta = mm2Sections.find((s) => s.id === activeSection)!;
+  const ActiveIcon = activeMeta.icon;
+
+  const profileLeft = [
+    { label: "회원번호", value: member.no },
+    { label: "아이디", value: member.loginId },
+    { label: "성명", value: member.name },
+    { label: "회원등록일자", value: member.regDate },
+    { label: "주민등록번호", value: member.ssn },
+    { label: "휴대폰 번호", value: member.phone },
+  ];
+
+  const profileRight = [
+    { label: "비밀번호", value: "········" },
+    { label: "우편번호", value: "06123" },
+    { label: "주소", value: member.region },
+    { label: "은행명, 계좌번호, 예금주", value: "국민은행 / 123-456-789012 / " + member.name },
+    { label: "추천인, 후원인", value: "김성남 / 이숙련" },
+    { label: "센터, 영업소", value: "서울센터 / 강남영업소" },
+  ];
+
+  const sectionRows: Record<Mm2SectionId, { label: string; value: React.ReactNode }[]> = {
+    name: [
+      { label: "한글 성명", value: member.name },
+      { label: "영문 성명", value: "Han Mee Chae" },
+      { label: "법적 성명", value: member.name },
+      { label: "닉네임", value: member.loginId },
+      { label: "표시명", value: member.name },
+    ],
+    personal: [
+      { label: "생년월일", value: <Mm2FieldValue suffix={<Calendar size={14} className="mm2-field-icon" />}>1989-12-03</Mm2FieldValue> },
+      {
+        label: "주민등록번호",
+        value: (
+          <Mm2FieldValue suffix={<span className="mm2-verified-badge"><CheckCircle2 size={12} /> 인증완료</span>}>
+            891203-1002399
+          </Mm2FieldValue>
+        ),
+      },
+      { label: "성별", value: <Mm2FieldValue suffix={<ChevronDown size={14} className="mm2-field-icon" />}>남</Mm2FieldValue> },
+      { label: "연락처", value: "02-583-9201" },
+      { label: "휴대폰번호", value: member.phone },
+      { label: "우편번호", value: <Mm2FieldValue suffix={<Search size={14} className="mm2-field-icon" />}>06123</Mm2FieldValue> },
+      { label: "기본주소", value: "서울특별시 강남구 테헤란로 123" },
+      { label: "상세주소", value: "삼원빌딩 5층" },
+      { label: "이메일", value: `${member.loginId}@viable.co.kr` },
+    ],
+    country: [
+      { label: "국가", value: "대한민국" },
+      { label: "언어", value: "한국어" },
+      { label: "타임존", value: "Asia/Seoul (UTC+9)" },
+      { label: "통화", value: "KRW" },
+      { label: "메모", value: member.region },
+    ],
+    account: [
+      { label: "은행명", value: "국민은행" },
+      { label: "계좌번호", value: "123-456-789012" },
+      { label: "예금주", value: member.name },
+      { label: "SWIFT 코드", value: "CZNBKRSE" },
+      { label: "지점번호", value: "001-234" },
+    ],
+    relation: [
+      { label: "추천인", value: "김성남 (N26455673)" },
+      { label: "후원인", value: "이숙련 (N26414074)" },
+      { label: "센터", value: "서울센터" },
+      { label: "영업소", value: "강남영업소" },
+      { label: "마케팅 동의", value: "동의" },
+      { label: "개인정보 수집 동의", value: "동의" },
+    ],
+  };
+
+  return (
+    <div className="mm2-view">
+      <div className="mm2-scroll content-scroll">
+        <div className="mm2-profile-card">
+          <div className="mm2-profile-avatar" aria-hidden>
+            {member.name.charAt(0)}
+          </div>
+          <div className="mm2-profile-grid">
+            <div className="mm2-profile-col">
+              {profileLeft.map((row) => (
+                <div key={row.label} className="mm2-profile-row">
+                  <span className="mm2-profile-label">{row.label}</span>
+                  <span className="mm2-profile-colon">:</span>
+                  <span className="mm2-profile-value">{row.value}</span>
+                </div>
+              ))}
+            </div>
+            <div className="mm2-profile-col">
+              {profileRight.map((row) => (
+                <div key={row.label} className="mm2-profile-row">
+                  <span className="mm2-profile-label">{row.label}</span>
+                  <span className="mm2-profile-colon">:</span>
+                  <span className="mm2-profile-value">{row.value}</span>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+
+        <div className="mm2-body">
+          <nav className="mm2-sidebar">
+            {mm2Sections.map((section) => {
+              const Icon = section.icon;
+              const isActive = section.id === activeSection;
+              return (
+                <button
+                  key={section.id}
+                  type="button"
+                  className={`mm2-sidebar-item${isActive ? " is-active" : ""}`}
+                  onClick={() => setActiveSection(section.id)}
+                >
+                  <Icon size={16} strokeWidth={1.5} />
+                  <span>{section.label}</span>
+                </button>
+              );
+            })}
+          </nav>
+
+          <div className="mm2-detail-panel">
+            <div className="mm2-detail-header">
+              <span className="mm2-detail-header-icon">
+                <ActiveIcon size={14} />
+              </span>
+              <span className="mm2-detail-header-title">{activeMeta.label}</span>
+              <ChevronUp size={14} className="mm2-detail-header-chevron" />
+            </div>
+            <div className="mm2-detail-body">
+              <Mm2DetailTable rows={sectionRows[activeSection]} />
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
 function MemberManagementView({
   memberId,
   listOpen,
@@ -2365,7 +2540,10 @@ function RecentPinRail({
   );
 }
 
-interface TopNavProps {}
+interface TopNavProps {
+  activeMainMenu: string;
+  onMainMenuChange: (menu: string) => void;
+}
 
 interface MemberPageChromeProps {
   activeTab: string;
@@ -2416,7 +2594,7 @@ function MemberPageChrome({ activeTab, onTabChange }: MemberPageChromeProps) {
   );
 }
 
-function TopNav(_props: TopNavProps) {
+function TopNav({ activeMainMenu, onMainMenuChange }: TopNavProps) {
   return (
     <div style={{ flexShrink: 0, minWidth: APP_MIN_WIDTH }}>
       {/* Main nav */}
@@ -2436,11 +2614,12 @@ function TopNav(_props: TopNavProps) {
         </div>
         <div className="flex items-stretch flex-1 min-w-0 self-stretch">
           {mainMenus.map((menu) => {
-            const isActive = menu === "회원관리";
+            const isActive = menu === activeMainMenu;
             return (
               <button
                 key={menu}
                 type="button"
+                onClick={() => onMainMenuChange(menu)}
                 className={`main-nav-item${isActive ? " is-active" : ""}`}
               >
                 {menu}
@@ -2599,6 +2778,7 @@ export default function App() {
   const [isListResizing, setIsListResizing] = useState(false);
   const [listWidth, setListWidth] = useState(() => clampMemberListWidth(MEMBER_LIST_DEFAULT_WIDTH));
   const [activeTab, setActiveTab] = useState("회원정보");
+  const [activeMainMenu, setActiveMainMenu] = useState("회원관리");
   const [theme, setTheme] = useState<Theme>("deep-purple");
   const [historyRailExpanded, setHistoryRailExpanded] = useState(false);
   const [pinnedPages, setPinnedPages] = useState<PageHistoryItem[]>([
@@ -2621,16 +2801,21 @@ export default function App() {
     return calcFormColumnWidth(availableDetail);
   }, [listOpen, listWidth, appContentWidth]);
 
-  const isMemberInfoTab = activeTab === "회원정보";
+  const isMemberManagement2 = activeMainMenu === "회원관리2";
+  const isMemberInfoTab = activeMainMenu === "회원관리" && activeTab === "회원정보";
+  const MM2_PANEL_MIN_WIDTH = 920;
 
   const detailPanelMinWidth = useMemo(() => {
+    if (isMemberManagement2) {
+      return MM2_PANEL_MIN_WIDTH;
+    }
     if (isMemberInfoTab) {
       return getDetailPanelWidth(formColumnWidth);
     }
     return ORDER_PANEL_MIN_WIDTH;
-  }, [isMemberInfoTab, formColumnWidth]);
+  }, [isMemberManagement2, isMemberInfoTab, formColumnWidth]);
 
-  const isFixedDetailWidth = listOpen && !isMemberInfoTab;
+  const isFixedDetailWidth = listOpen && activeMainMenu === "회원관리" && !isMemberInfoTab;
 
   const contentRowMinWidth = listOpen
     ? listWidth + detailPanelMinWidth
@@ -2713,7 +2898,7 @@ export default function App() {
         className="flex flex-col"
         style={{ minWidth: APP_MIN_WIDTH, width: "100%", height: "100%", flex: "1 0 auto" }}
       >
-      <TopNav />
+      <TopNav activeMainMenu={activeMainMenu} onMainMenuChange={setActiveMainMenu} />
 
       {/* 본문 — 가로 스크롤 영역과 방문기록 패널 분리 */}
       <div
@@ -2797,13 +2982,17 @@ export default function App() {
             overflow: "hidden",
           }}
         >
-          <MemberManagementView
-            memberId={selectedMember}
-            listOpen={listOpen}
-            formColumnWidth={formColumnWidth}
-            activeTab={activeTab}
-            onTabChange={setActiveTab}
-          />
+          {activeMainMenu === "회원관리2" ? (
+            <MemberManagement2View memberId={selectedMember} />
+          ) : (
+            <MemberManagementView
+              memberId={selectedMember}
+              listOpen={listOpen}
+              formColumnWidth={formColumnWidth}
+              activeTab={activeTab}
+              onTabChange={setActiveTab}
+            />
+          )}
         </div>
           </div>
         </div>

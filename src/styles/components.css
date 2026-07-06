@@ -164,3 +164,217 @@
   border-bottom: none;
   min-height: 36px;
 }
+
+/* 회원관리2 — 프로필 카드 + 사이드 섹션 */
+.mm2-view {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  min-height: 0;
+  width: 100%;
+}
+
+.mm2-scroll {
+  flex: 1;
+  min-height: 0;
+  overflow-y: auto;
+  overflow-x: hidden;
+  padding: 8px;
+  background: var(--surface-page);
+}
+
+.mm2-profile-card {
+  display: flex;
+  gap: 16px;
+  padding: 14px 16px;
+  margin-bottom: 10px;
+  background: var(--surface-panel);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+}
+
+.mm2-profile-avatar {
+  width: 88px;
+  height: 88px;
+  flex-shrink: 0;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--brand-gradient);
+  color: var(--on-accent);
+  font-size: 32px;
+  font-weight: 700;
+}
+
+.mm2-profile-grid {
+  flex: 1;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px 24px;
+  min-width: 0;
+}
+
+.mm2-profile-row {
+  display: flex;
+  align-items: baseline;
+  gap: 6px;
+  font-size: 12px;
+  line-height: 1.5;
+}
+
+.mm2-profile-label {
+  flex-shrink: 0;
+  color: var(--form-label-color);
+  min-width: 108px;
+}
+
+.mm2-profile-colon {
+  color: var(--text-subtle);
+}
+
+.mm2-profile-value {
+  color: var(--text-body);
+  min-width: 0;
+  word-break: break-all;
+}
+
+.mm2-body {
+  display: flex;
+  gap: 10px;
+  align-items: flex-start;
+  min-height: 0;
+}
+
+.mm2-sidebar {
+  flex: 0 0 200px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.mm2-sidebar-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  width: 100%;
+  padding: 10px 12px;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  background: var(--surface-panel);
+  color: var(--text-muted);
+  font-size: 12px;
+  text-align: left;
+  cursor: pointer;
+  transition: background 0.15s, border-color 0.15s, color 0.15s;
+}
+
+.mm2-sidebar-item:hover {
+  background: var(--surface-row-hover);
+  color: var(--text-body);
+}
+
+.mm2-sidebar-item.is-active {
+  border-color: var(--accent-border);
+  background: var(--accent-light);
+  color: var(--accent-primary);
+  font-weight: 600;
+}
+
+.mm2-detail-panel {
+  flex: 1;
+  min-width: 0;
+  background: var(--surface-panel);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  overflow: hidden;
+}
+
+.mm2-detail-header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 12px;
+  border-bottom: 1px solid var(--border);
+  background: var(--surface-toolbar);
+}
+
+.mm2-detail-header-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 22px;
+  height: 22px;
+  border-radius: 4px;
+  background: var(--section-icon-bg);
+  color: var(--accent-primary);
+}
+
+.mm2-detail-header-title {
+  flex: 1;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--text-body);
+}
+
+.mm2-detail-header-chevron {
+  color: var(--muted-foreground);
+}
+
+.mm2-detail-body {
+  padding: 0;
+}
+
+.mm2-detail-table {
+  width: 100%;
+  border-collapse: collapse;
+  table-layout: fixed;
+}
+
+.mm2-detail-label {
+  width: 140px;
+  padding: 8px 12px;
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--form-label-color);
+  background: var(--surface-toolbar);
+  border-bottom: 1px solid var(--border);
+  vertical-align: middle;
+}
+
+.mm2-detail-value {
+  padding: 8px 12px;
+  font-size: 12px;
+  color: var(--text-body);
+  background: var(--surface-panel);
+  border-bottom: 1px solid var(--border);
+  vertical-align: middle;
+}
+
+.mm2-detail-table tr:last-child .mm2-detail-label,
+.mm2-detail-table tr:last-child .mm2-detail-value {
+  border-bottom: none;
+}
+
+.mm2-field-value {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.mm2-field-icon {
+  color: var(--muted-foreground);
+  flex-shrink: 0;
+}
+
+.mm2-verified-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 2px 8px;
+  border-radius: 999px;
+  font-size: 11px;
+  font-weight: 500;
+  color: #16a34a;
+  background: #dcfce7;
+}
