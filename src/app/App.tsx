@@ -1747,7 +1747,7 @@ function MemberManagement2View({
           <MemberPageChrome activeTab={activeTab} onTabChange={onTabChange} />
 
           {isMemberInfoTab ? (
-            <div className="mm2-page-grid" style={{ columnGap: DETAIL_CONTENT_GAP }}>
+            <div className="mm2-page">
               <div className="mm2-profile-card">
                 <div className="mm2-profile-avatar" aria-hidden>
                   {member.name.charAt(0)}
@@ -1774,6 +1774,7 @@ function MemberManagement2View({
                 </div>
               </div>
 
+              <div className="mm2-content-row" style={{ gap: DETAIL_CONTENT_GAP }}>
               <div className="mm2-body">
                 <nav className="mm2-sidebar">
                   {mm2Sections.map((section) => {
@@ -1820,6 +1821,7 @@ function MemberManagement2View({
                 >
                   <OrgChart memberId={member.id} memberName={member.name} />
                 </FormSection>
+              </div>
               </div>
             </div>
           ) : activeTab === "주문서내역" ? (
