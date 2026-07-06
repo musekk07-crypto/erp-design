@@ -492,8 +492,8 @@
   --form-gap: 10px;
   --form-col-gap: 20px;
   --form-side-field-w: calc((100% - var(--form-label-w) * 2) / 2);
-  --form-side-field-left-w: calc(var(--form-side-field-w) - 30px);
-  --form-side-field-right-w: calc(var(--form-side-field-w) + 30px);
+  --form-side-field-left-w: calc(var(--form-side-field-w) - 40px);
+  --form-side-field-right-w: calc(var(--form-side-field-w) + 40px);
 }
 
 .app-content .content-form-body table.content-form-grid--member .col-label-1,
