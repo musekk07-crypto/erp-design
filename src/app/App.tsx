@@ -2310,30 +2310,84 @@ function RecentPinRail({
 }
 
 interface TopNavProps {
-  activeTab: string;
-  onTabChange: (tab: string) => void;
   listOpen: boolean;
   onListToggle: () => void;
 }
 
-function TopNav({ activeTab, onTabChange, listOpen, onListToggle }: TopNavProps) {
-  const [memberType, setMemberType] = useState<"일반" | "소비자">("일반");
-  const [time, setTime] = useState(() => {
-    const now = new Date();
-    return `${String(now.getHours()).padStart(2, "0")}:${String(now.getMinutes()).padStart(2, "0")}`;
-  });
+interface DetailPanelChromeProps {
+  activeTab: string;
+  onTabChange: (tab: string) => void;
+}
 
-  useEffect(() => {
-    const timer = setInterval(() => {
-      const now = new Date();
-      setTime(`${String(now.getHours()).padStart(2, "0")}:${String(now.getMinutes()).padStart(2, "0")}`);
-    }, 60000);
-    return () => clearInterval(timer);
-  }, []);
+function DetailPanelChrome({ activeTab, onTabChange }: DetailPanelChromeProps) {
+  return (
+    <div className="detail-panel-chrome">
+      <div className="detail-tab-bar">
+        <div className="detail-tab-list">
+          {subTabs.map((tab, i) => {
+            const isActive = tab === activeTab;
+            const prevTab = i > 0 ? subTabs[i - 1] : null;
+            const showDivider = i > 0 && !isActive && prevTab !== activeTab;
+            return (
+              <React.Fragment key={tab}>
+                {showDivider && <span className="detail-tab-divider" aria-hidden>|</span>}
+                <button
+                  type="button"
+                  className={`detail-tab${isActive ? " is-active" : ""}`}
+                  onClick={() => onTabChange(tab)}
+                >
+                  {tab}
+                </button>
+              </React.Fragment>
+            );
+          })}
+        </div>
+      </div>
+      <div className="detail-action-bar">
+        <div className="flex items-center gap-1.5 flex-1 min-w-0">
+          {actionButtons.map((btn, i) => (
+            <React.Fragment key={btn.label}>
+              {i === 3 && <div className="shrink-0" style={{ width: 1, height: 16, background: "var(--border)", margin: "0 2px" }} />}
+              <button
+                type="button"
+                className="flex items-center justify-center gap-1 px-2 py-0.5 rounded shrink-0 whitespace-nowrap transition-all duration-150"
+                style={{
+                  fontSize: 13,
+                  fontWeight: 500,
+                  background:
+                    btn.variant === "primary" ? "var(--accent-light)"
+                    : btn.variant === "danger" ? "var(--action-btn-danger-bg)"
+                    : "var(--action-btn-default-bg)",
+                  color:
+                    btn.variant === "primary" ? "var(--accent-primary)"
+                    : btn.variant === "danger" ? "var(--action-btn-danger-fg)"
+                    : "var(--foreground)",
+                  border: "none",
+                }}
+              >
+                {btn.label}
+              </button>
+            </React.Fragment>
+          ))}
+        </div>
+        {activeTab === "회원정보" && (
+          <button
+            type="button"
+            className="flex items-center justify-center px-2 py-0.5 rounded shrink-0 whitespace-nowrap"
+            style={{ fontSize: 13, fontWeight: 500, background: "var(--accent-light)", color: "var(--accent-primary)", border: "none" }}
+          >
+            회원등록
+          </button>
+        )}
+      </div>
+    </div>
+  );
+}
 
+function TopNav({ listOpen, onListToggle }: TopNavProps) {
   return (
     <div style={{ flexShrink: 0, minWidth: APP_MIN_WIDTH }}>
-      {/* Row 1: Main nav */}
+      {/* Main nav */}
       <div
         className="flex items-center flex-nowrap px-4"
         style={{ background: "var(--nav-bg, #1a0a6b)", borderBottom: "1px solid var(--nav-border, #140854)", height: 40 }}
@@ -2387,72 +2441,6 @@ function TopNav({ activeTab, onTabChange, listOpen, onListToggle }: TopNavProps)
           <div style={{ width: 1, height: 14, background: "var(--nav-divider, rgba(255,255,255,0.3))" }} />
           <button style={{ fontSize: 14, color: "var(--nav-text-muted, rgba(255,255,255,0.7))" }}>로그아웃</button>
         </div>
-      </div>
-
-      {/* Row 2: Sub tabs + 회원등록 버튼 */}
-      <div
-        className="flex items-center flex-nowrap px-4"
-        style={{ background: "var(--surface-subnav)", borderBottom: "1px solid var(--border)", height: 34 }}
-      >
-        <div className="flex items-center flex-1 min-w-0 h-full">
-          {subTabs.map((tab) => {
-            const isActive = tab === activeTab;
-            return (
-              <button
-                key={tab}
-                onClick={() => onTabChange(tab)}
-                className="flex items-center h-full px-3 shrink-0 whitespace-nowrap transition-all duration-150"
-                style={{
-                  fontSize: 14,
-                  fontWeight: isActive ? 600 : 400,
-                  color: isActive ? "var(--accent-primary)" : "var(--muted-foreground)",
-                  borderBottom: isActive ? "2px solid var(--accent-primary)" : "2px solid transparent",
-                  background: "transparent",
-                }}
-              >
-                {tab}
-              </button>
-            );
-          })}
-        </div>
-      </div>
-
-      {/* Row 3: Action buttons */}
-      <div
-        className="flex items-center flex-nowrap gap-1.5 px-4"
-        style={{ background: "var(--surface-subnav)", borderBottom: "1px solid var(--border)", height: 36 }}
-      >
-        <div className="flex items-center gap-1.5 flex-1 min-w-0">
-          {actionButtons.map((btn, i) => (
-            <React.Fragment key={btn.label}>
-              {i === 3 && <div className="shrink-0" style={{ width: 1, height: 16, background: "var(--border)", margin: "0 2px" }} />}
-              <button
-                className="flex items-center justify-center gap-1 px-2 py-0.5 rounded shrink-0 whitespace-nowrap transition-all duration-150"
-                style={{
-                  fontSize: 13,
-                  fontWeight: 500,
-                  background:
-                    btn.variant === "primary" ? "var(--accent-light)"
-                    : btn.variant === "danger" ? "var(--action-btn-danger-bg)"
-                    : "var(--action-btn-default-bg)",
-                  color:
-                    btn.variant === "primary" ? "var(--accent-primary)"
-                    : btn.variant === "danger" ? "var(--action-btn-danger-fg)"
-                    : "var(--foreground)",
-                  border: "none",
-                }}
-              >
-                {btn.label}
-              </button>
-            </React.Fragment>
-          ))}
-        </div>
-        <button
-          className="flex items-center justify-center px-2 py-0.5 rounded shrink-0 whitespace-nowrap"
-          style={{ fontSize: 13, fontWeight: 500, background: "var(--accent-light)", color: "var(--accent-primary)", border: "none" }}
-        >
-          회원등록
-        </button>
       </div>
     </div>
   );
@@ -2701,8 +2689,6 @@ export default function App() {
         style={{ minWidth: APP_MIN_WIDTH, width: "100%", height: "100%", flex: "1 0 auto" }}
       >
       <TopNav
-        activeTab={activeTab}
-        onTabChange={setActiveTab}
         listOpen={listOpen}
         onListToggle={() => setListOpen((v) => !v)}
       />
@@ -2789,6 +2775,8 @@ export default function App() {
             overflow: "hidden",
           }}
         >
+          <DetailPanelChrome activeTab={activeTab} onTabChange={setActiveTab} />
+          <div style={{ flex: 1, minHeight: 0, overflow: "hidden", display: "flex", flexDirection: "column" }}>
           {isMemberInfoTab ? (
             <MemberDetail memberId={selectedMember} listOpen={listOpen} formColumnWidth={formColumnWidth} />
           ) : activeTab === "주문서내역" ? (
@@ -2800,6 +2788,7 @@ export default function App() {
               {activeTab} 화면 준비 중입니다.
             </div>
           )}
+          </div>
         </div>
           </div>
         </div>
