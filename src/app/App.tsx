@@ -1582,7 +1582,7 @@ function MemberDetail({ memberId, listOpen, formColumnWidth }: { memberId: numbe
               {[
                 [{ label: "* 회원번호", value: member.no, mono: true }, { label: "* 아이디", value: member.loginId, mono: true }],
                 [{ label: "비밀번호", placeholder: "변경 시에만 입력", type: "password" }, { label: "보안 비밀번호", placeholder: "····", type: "password" }],
-                [{ label: "전자메일주소", value: `${member.loginId}@email.com`, type: "email", colSpan: 2 }],
+                [{ label: "전자메일주소", value: `${member.loginId}@email.com`, type: "email" }],
               ].map((row, ri) => (
                 <tr key={ri}>
                   {row.map((cell: any, ci) => (
@@ -1640,12 +1640,17 @@ function MemberDetail({ memberId, listOpen, formColumnWidth }: { memberId: numbe
                 <td style={{ padding: "3px 10px 3px 0", width: 108, whiteSpace: "nowrap", verticalAlign: "middle" }}>
                   <span style={{ fontSize: "12px", color: "var(--accent-primary)", fontWeight: 500 }}>* 고객 이름/성</span>
                 </td>
-                <td colSpan={3} style={{ padding: "3px 0 3px 0", verticalAlign: "middle" }}>
+                <td style={{ padding: "3px 10px 3px 0", verticalAlign: "middle" }}>
                   <div className="flex gap-2">
-                    <input defaultValue="미채" className="flex-1 rounded outline-none transition-all duration-200" style={{ fontSize: 12, padding: "3px 8px", background: "var(--input-background)", border: "none", color: "var(--foreground)" }} onFocus={(e) => { e.target.style.background = "var(--input-focus-bg)"; }} onBlur={(e) => { e.target.style.background = "var(--input-background)"; }} />
-                    <input defaultValue="Mi-chae" className="flex-1 rounded outline-none transition-all duration-200" style={{ fontSize: 12, padding: "3px 8px", background: "var(--input-background)", border: "none", color: "var(--foreground)" }} onFocus={(e) => { e.target.style.background = "var(--input-focus-bg)"; }} onBlur={(e) => { e.target.style.background = "var(--input-background)"; }} />
-                    <input defaultValue="Han" className="flex-1 rounded outline-none transition-all duration-200" style={{ fontSize: 12, padding: "3px 8px", background: "var(--input-background)", border: "none", color: "var(--foreground)" }} onFocus={(e) => { e.target.style.background = "var(--input-focus-bg)"; }} onBlur={(e) => { e.target.style.background = "var(--input-background)"; }} />
+                    <input defaultValue="미채" className="flex-1 min-w-0 rounded outline-none transition-all duration-200" style={{ fontSize: 12, padding: "3px 8px", background: "var(--input-background)", border: "none", color: "var(--foreground)" }} onFocus={(e) => { e.target.style.background = "var(--input-focus-bg)"; }} onBlur={(e) => { e.target.style.background = "var(--input-background)"; }} />
+                    <input defaultValue="Mi-chae" className="flex-1 min-w-0 rounded outline-none transition-all duration-200" style={{ fontSize: 12, padding: "3px 8px", background: "var(--input-background)", border: "none", color: "var(--foreground)" }} onFocus={(e) => { e.target.style.background = "var(--input-focus-bg)"; }} onBlur={(e) => { e.target.style.background = "var(--input-background)"; }} />
                   </div>
+                </td>
+                <td style={{ padding: "3px 10px 3px 0", width: 100, whiteSpace: "nowrap", verticalAlign: "middle" }}>
+                  <span style={{ fontSize: "12px", color: "var(--form-label-color)", fontWeight: 500 }}>성</span>
+                </td>
+                <td style={{ padding: "3px 0 3px 0", verticalAlign: "middle" }}>
+                  <input defaultValue="Han" className="w-full rounded outline-none transition-all duration-200" style={{ fontSize: 12, padding: "3px 8px", background: "var(--input-background)", border: "none", color: "var(--foreground)" }} onFocus={(e) => { e.target.style.background = "var(--input-focus-bg)"; }} onBlur={(e) => { e.target.style.background = "var(--input-background)"; }} />
                 </td>
               </tr>
               <tr>
