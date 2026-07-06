@@ -1770,7 +1770,7 @@ function MemberDetail({ memberId, listOpen, formColumnWidth }: { memberId: numbe
                 <td style={{ padding: "3px 10px 3px 0", width: 108, whiteSpace: "nowrap", verticalAlign: "top", paddingTop: 8 }}>
                   <span style={{ fontSize: "12px", color: "var(--form-label-color)", fontWeight: 500 }}>메모</span>
                 </td>
-                <td colSpan={3} style={{ padding: "3px 0 3px 0", verticalAlign: "middle" }}>
+                <td style={{ padding: "3px 10px 3px 0", verticalAlign: "middle" }}>
                   <textarea
                     key={`memo-${member.id}`}
                     defaultValue={`${member.name} · ${member.rank} · ${member.grade} · ${member.region} (${member.status})`}
@@ -1791,33 +1791,27 @@ function MemberDetail({ memberId, listOpen, formColumnWidth }: { memberId: numbe
           <table style={{ width: "100%", borderCollapse: "collapse" }}>
             <tbody>
               <tr>
-                <td style={{ padding: "3px 10px 3px 0", width: 100, whiteSpace: "nowrap", verticalAlign: "middle" }}>
+                <td style={{ padding: "3px 10px 3px 0", width: 108, whiteSpace: "nowrap", verticalAlign: "middle" }}>
                   <span style={{ fontSize: "12px", color: "var(--form-label-color)", fontWeight: 500 }}>은행명</span>
                 </td>
                 <td style={{ padding: "3px 10px 3px 0", verticalAlign: "middle" }}>
                   <input defaultValue="신한은행" className="w-full rounded outline-none transition-all duration-200" style={{ fontSize: 12, padding: "3px 8px", background: "var(--input-background)", border: "none", color: "var(--foreground)" }} onFocus={(e) => { e.target.style.background = "var(--input-focus-bg)"; }} onBlur={(e) => { e.target.style.background = "var(--input-background)"; }} />
                 </td>
-                <td style={{ padding: "3px 10px 3px 0", width: 80, whiteSpace: "nowrap", verticalAlign: "middle" }}>
+                <td style={{ padding: "3px 10px 3px 0", width: 100, whiteSpace: "nowrap", verticalAlign: "middle" }}>
                   <span style={{ fontSize: "12px", color: "var(--form-label-color)", fontWeight: 500 }}>계좌번호</span>
                 </td>
-                <td style={{ padding: "3px 10px 3px 0", verticalAlign: "middle" }}>
-                  <input defaultValue="110-234-567890" className="w-full rounded outline-none transition-all duration-200" style={{ fontSize: 12, padding: "3px 8px", background: "var(--input-background)", border: "none", color: "var(--foreground)" }} onFocus={(e) => { e.target.style.background = "var(--input-focus-bg)"; }} onBlur={(e) => { e.target.style.background = "var(--input-background)"; }} />
-                </td>
-                <td style={{ padding: "3px 10px 3px 0", width: 60, whiteSpace: "nowrap", verticalAlign: "middle" }}>
-                  <span style={{ fontSize: "12px", color: "var(--form-label-color)", fontWeight: 500 }}>예금주</span>
-                </td>
                 <td style={{ padding: "3px 0 3px 0", verticalAlign: "middle" }}>
-                  <input key={`holder-${member.id}`} defaultValue={member.name} className="w-full rounded outline-none transition-all duration-200" style={{ fontSize: 12, padding: "3px 8px", background: "var(--input-background)", border: "none", color: "var(--foreground)" }} onFocus={(e) => { e.target.style.background = "var(--input-focus-bg)"; }} onBlur={(e) => { e.target.style.background = "var(--input-background)"; }} />
+                  <input defaultValue="110-234-567890" className="w-full rounded outline-none transition-all duration-200" style={{ fontSize: 12, padding: "3px 8px", background: "var(--input-background)", border: "none", color: "var(--foreground)" }} onFocus={(e) => { e.target.style.background = "var(--input-focus-bg)"; }} onBlur={(e) => { e.target.style.background = "var(--input-background)"; }} />
                 </td>
               </tr>
               <tr>
+                <td style={{ padding: "3px 10px 3px 0", width: 108, whiteSpace: "nowrap", verticalAlign: "middle" }}>
+                  <span style={{ fontSize: "12px", color: "var(--form-label-color)", fontWeight: 500 }}>예금주</span>
+                </td>
+                <td style={{ padding: "3px 10px 3px 0", verticalAlign: "middle" }}>
+                  <input key={`holder-${member.id}`} defaultValue={member.name} className="w-full rounded outline-none transition-all duration-200" style={{ fontSize: 12, padding: "3px 8px", background: "var(--input-background)", border: "none", color: "var(--foreground)" }} onFocus={(e) => { e.target.style.background = "var(--input-focus-bg)"; }} onBlur={(e) => { e.target.style.background = "var(--input-background)"; }} />
+                </td>
                 <td style={{ padding: "3px 10px 3px 0", width: 100, whiteSpace: "nowrap", verticalAlign: "middle" }}>
-                  <span style={{ fontSize: "12px", color: "var(--form-label-color)", fontWeight: 500 }}>SwiftCode</span>
-                </td>
-                <td colSpan={3} style={{ padding: "3px 10px 3px 0", verticalAlign: "middle" }}>
-                  <input defaultValue="SHBKKRSE" className="w-full rounded outline-none transition-all duration-200" style={{ fontSize: 12, padding: "3px 8px", background: "var(--input-background)", border: "none", color: "var(--foreground)" }} onFocus={(e) => { e.target.style.background = "var(--input-focus-bg)"; }} onBlur={(e) => { e.target.style.background = "var(--input-background)"; }} />
-                </td>
-                <td style={{ padding: "3px 10px 3px 0", width: 60, whiteSpace: "nowrap", verticalAlign: "middle" }}>
                   <span style={{ fontSize: "12px", color: "var(--form-label-color)", fontWeight: 500 }}>Branch Number</span>
                 </td>
                 <td style={{ padding: "3px 0 3px 0", verticalAlign: "middle" }}>
@@ -1825,13 +1819,21 @@ function MemberDetail({ memberId, listOpen, formColumnWidth }: { memberId: numbe
                 </td>
               </tr>
               <tr>
-                <td style={{ padding: "3px 10px 3px 0", width: 100, whiteSpace: "nowrap", verticalAlign: "middle" }}>
+                <td style={{ padding: "3px 10px 3px 0", width: 108, whiteSpace: "nowrap", verticalAlign: "middle" }}>
+                  <span style={{ fontSize: "12px", color: "var(--form-label-color)", fontWeight: 500 }}>SwiftCode</span>
+                </td>
+                <td style={{ padding: "3px 10px 3px 0", verticalAlign: "middle" }}>
+                  <input defaultValue="SHBKKRSE" className="w-full rounded outline-none transition-all duration-200" style={{ fontSize: 12, padding: "3px 8px", background: "var(--input-background)", border: "none", color: "var(--foreground)" }} onFocus={(e) => { e.target.style.background = "var(--input-focus-bg)"; }} onBlur={(e) => { e.target.style.background = "var(--input-background)"; }} />
+                </td>
+              </tr>
+              <tr>
+                <td style={{ padding: "3px 10px 3px 0", width: 108, whiteSpace: "nowrap", verticalAlign: "middle" }}>
                   <span style={{ fontSize: "12px", color: "var(--form-label-color)", fontWeight: 500 }}>은행동합 거래번호</span>
                 </td>
-                <td colSpan={3} style={{ padding: "3px 10px 3px 0", verticalAlign: "middle" }}>
+                <td style={{ padding: "3px 10px 3px 0", verticalAlign: "middle" }}>
                   <input defaultValue="88012345" className="w-full rounded outline-none transition-all duration-200" style={{ fontSize: 12, padding: "3px 8px", background: "var(--input-background)", border: "none", color: "var(--foreground)" }} onFocus={(e) => { e.target.style.background = "var(--input-focus-bg)"; }} onBlur={(e) => { e.target.style.background = "var(--input-background)"; }} />
                 </td>
-                <td style={{ padding: "3px 10px 3px 0", width: 60, whiteSpace: "nowrap", verticalAlign: "middle" }}>
+                <td style={{ padding: "3px 10px 3px 0", width: 100, whiteSpace: "nowrap", verticalAlign: "middle" }}>
                   <span style={{ fontSize: "12px", color: "var(--form-label-color)", fontWeight: 500 }}>실명계좌 인증</span>
                 </td>
                 <td style={{ padding: "3px 0 3px 0", verticalAlign: "middle" }}>
