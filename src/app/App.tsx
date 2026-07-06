@@ -1536,7 +1536,6 @@ function MemberDetail({
         flexShrink: 0,
       }}
     >
-      <MemberPageChrome activeTab={activeTab} onTabChange={onTabChange} />
       <div
         className="flex-1 content-scroll"
         style={{
@@ -1555,6 +1554,8 @@ function MemberDetail({
             boxSizing: "border-box",
           }}
         >
+        <MemberPageChrome activeTab={activeTab} onTabChange={onTabChange} />
+
         {/* Member Header Card */}
         <div
           className="rounded content-member-header p-1.5 mb-2"
