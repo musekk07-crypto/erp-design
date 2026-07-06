@@ -4,6 +4,7 @@ import {
   User, Shield, GitFork, CreditCard, Users, Info,
   BarChart2, ShoppingCart, Settings, Bell, HelpCircle, Home,
   Pin, Clock, ChevronLeft, ChevronRight, RefreshCw,
+  FilePlus, Save, Trash2, Award, Briefcase, MessageCircle, Key, Printer,
 } from "lucide-react";
 
 // ─────────────────────────────────────────────
@@ -2047,18 +2048,19 @@ const mainMenus = ["기초관리", "회원관리", "주문관리", "수당관리
 
 const subTabs = ["회원정보", "주문서내역", "수당내역", "로그히스토리", "상담내역", "마일리지", "사용자설정", "마이페이지"];
 
-const actionButtons = [
-  { label: "새로만들기", variant: "primary" },
-  { label: "저장", variant: "primary" },
-  { label: "삭제", variant: "danger" },
-  { label: "조직도", variant: "default" },
-  { label: "직급조정", variant: "default" },
-  { label: "사업자정보", variant: "default" },
-  { label: "주문서", variant: "default" },
-  { label: "메세지", variant: "default" },
-  { label: "새비밀번호", variant: "default" },
-  { label: "인쇄", variant: "default" },
-];
+const memberInfoToolbarItems = [
+  { label: "새로 만들기", icon: FilePlus },
+  { label: "저장", icon: Save },
+  { label: "삭제", icon: Trash2 },
+  null,
+  { label: "조직도", icon: GitFork },
+  { label: "직급조정", icon: Award },
+  { label: "사업자정보", icon: Briefcase },
+  { label: "주문서", icon: ShoppingCart },
+  { label: "메세지", icon: MessageCircle },
+  { label: "새비밀번호", icon: Key },
+  { label: "인쇄", icon: Printer },
+] as const;
 
 interface PageHistoryItem {
   id: string;
@@ -2371,6 +2373,8 @@ interface MemberPageChromeProps {
 }
 
 function MemberPageChrome({ activeTab, onTabChange }: MemberPageChromeProps) {
+  const isMemberInfoTab = activeTab === "회원정보";
+
   return (
     <div className="member-page-chrome">
       <div className="detail-tab-bar">
@@ -2394,41 +2398,20 @@ function MemberPageChrome({ activeTab, onTabChange }: MemberPageChromeProps) {
           })}
         </div>
       </div>
-      <div className="detail-action-bar">
-        <div className="flex items-center gap-1.5 flex-1 min-w-0">
-          {actionButtons.map((btn, i) => (
-            <React.Fragment key={btn.label}>
-              {i === 3 && <div className="shrink-0" style={{ width: 1, height: 16, background: "var(--border)", margin: "0 2px" }} />}
-              <button
-                type="button"
-                className="flex items-center justify-center gap-1 px-2 py-0.5 rounded shrink-0 whitespace-nowrap transition-all duration-150"
-                style={{
-                  fontSize: 14,
-                  fontWeight: 500,
-                  background:
-                    btn.variant === "primary" ? "var(--accent-light)"
-                    : btn.variant === "danger" ? "var(--action-btn-danger-bg)"
-                    : "var(--action-btn-default-bg)",
-                  color:
-                    btn.variant === "primary" ? "var(--accent-primary)"
-                    : btn.variant === "danger" ? "var(--action-btn-danger-fg)"
-                    : "var(--foreground)",
-                  border: "none",
-                }}
-              >
-                {btn.label}
+      {isMemberInfoTab && (
+        <div className="member-info-toolbar">
+          {memberInfoToolbarItems.map((item, i) =>
+            item === null ? (
+              <div key={`sep-${i}`} className="member-info-toolbar-separator" aria-hidden />
+            ) : (
+              <button key={item.label} type="button" className="member-info-toolbar-item">
+                <item.icon size={18} strokeWidth={1.5} style={{ color: "var(--text-muted)" }} />
+                <span>{item.label}</span>
               </button>
-            </React.Fragment>
-          ))}
+            ),
+          )}
         </div>
-        <button
-          type="button"
-          className="flex items-center justify-center px-2 py-0.5 rounded shrink-0 whitespace-nowrap"
-          style={{ fontSize: 14, fontWeight: 500, background: "var(--accent-light)", color: "var(--accent-primary)", border: "none" }}
-        >
-          회원등록
-        </button>
-      </div>
+      )}
     </div>
   );
 }

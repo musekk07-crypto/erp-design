@@ -42,24 +42,13 @@
   min-height: 32px;
 }
 
-.member-page-chrome .detail-action-bar {
-  padding: 4px 6px;
-  min-height: 34px;
-  gap: 4px;
-}
-
-.member-page-chrome .detail-action-bar button {
-  font-size: 13px !important;
-  padding: 2px 6px !important;
-}
-
 .member-page-chrome .detail-tab {
   padding: 6px 12px 5px;
   font-size: 13px;
 }
 
 .member-page-chrome .detail-tab.is-active {
-  padding-top: 6px;
+  padding-top: 4px;
 }
 
 .member-page-chrome .detail-tab-divider {
@@ -72,8 +61,8 @@
   align-items: flex-end;
   padding: 0 8px;
   min-height: 34px;
-  background: transparent;
-  border-bottom: none;
+  background: var(--detail-tab-bar-bg);
+  border-bottom: 1px solid var(--detail-tab-bar-line);
 }
 
 .detail-tab-list {
@@ -114,11 +103,56 @@
 .detail-tab.is-active {
   font-weight: 600;
   color: var(--text-body);
-  background: transparent;
+  background: var(--surface-panel);
+  border: 1px solid var(--detail-tab-bar-line);
+  border-top: 3px solid var(--detail-tab-active-top);
+  border-bottom-color: var(--surface-panel);
+  margin-bottom: -1px;
+  padding-top: 5px;
+  border-radius: 3px 3px 0 0;
+}
+
+/* 회원정보 탭 전용 — 아이콘 툴바 (참고 UI) */
+.member-info-toolbar {
+  display: flex;
+  align-items: flex-start;
+  flex-wrap: wrap;
+  gap: 2px;
+  padding: 6px 8px 8px;
+  background: var(--surface-panel);
+  border-bottom: 1px solid var(--border);
+}
+
+.member-info-toolbar-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  min-width: 54px;
+  padding: 4px 8px;
   border: none;
-  margin-bottom: 0;
-  padding-top: 7px;
-  border-radius: 0;
+  border-radius: 4px;
+  background: transparent;
+  cursor: pointer;
+  color: var(--text-body);
+  font-size: 12px;
+  line-height: 1.2;
+  white-space: nowrap;
+  transition: background 0.15s;
+}
+
+.member-info-toolbar-item:hover {
+  background: var(--surface-row-hover);
+}
+
+.member-info-toolbar-separator {
+  width: 1px;
+  height: 38px;
+  margin: 2px 6px 0;
+  background: var(--border);
+  flex-shrink: 0;
+  align-self: center;
 }
 
 .detail-action-bar {
