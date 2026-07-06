@@ -1875,52 +1875,58 @@ function MemberDetail({ memberId, listOpen, formColumnWidth }: { memberId: numbe
 
         {/* 상위 회원과의 관계 + 소속 그룹 정보 */}
         <FormSection title="상위 회원과의 관계" icon={<Users size={12} />}>
-          <div className="flex items-center gap-2 flex-wrap">
-            <span className="shrink-0" style={{ fontSize: "12px", color: "var(--accent-primary)", fontWeight: 500 }}>* 추천인</span>
-            <input readOnly value="100012" className="rounded px-2 py-1 outline-none shrink-0" style={{ fontSize: 12, width: 72, background: "var(--surface-input-readonly)", border: "none", color: "var(--foreground)", fontFamily: "monospace" }} />
-            <input readOnly value="박민수" className="rounded px-2 py-1 outline-none shrink-0" style={{ fontSize: 12, width: 60, background: "var(--surface-input-readonly)", border: "none", color: "var(--foreground)" }} />
-            <span className="shrink-0" style={{ fontSize: 12, padding: "2px 8px", background: "var(--accent-light)", color: "var(--accent-primary)", border: "1px solid var(--accent-border)", borderRadius: 4, whiteSpace: "nowrap" }}>38명</span>
-            <button className="rounded p-1 flex items-center justify-center shrink-0" style={{ background: "var(--surface-button-muted)", border: "1px solid var(--border)", color: "var(--muted-foreground)" }}>
-              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
-            </button>
-            <div className="shrink-0" style={{ width: 1, height: 20, background: "var(--border)", margin: "0 2px" }} />
-            <span className="shrink-0" style={{ fontSize: "12px", color: "var(--accent-primary)", fontWeight: 500 }}>* 후원인</span>
-            <input readOnly value="100008" className="rounded px-2 py-1 outline-none shrink-0" style={{ fontSize: 12, width: 72, background: "var(--surface-input-readonly)", border: "none", color: "var(--foreground)", fontFamily: "monospace" }} />
-            <input readOnly value="이정환" className="rounded px-2 py-1 outline-none shrink-0" style={{ fontSize: 12, width: 60, background: "var(--surface-input-readonly)", border: "none", color: "var(--foreground)" }} />
-            <span className="shrink-0" style={{ fontSize: 12, padding: "2px 8px", background: "var(--accent-light)", color: "var(--accent-primary)", border: "1px solid var(--accent-border)", borderRadius: 4, whiteSpace: "nowrap" }}>12명</span>
-            <button className="rounded p-1 flex items-center justify-center shrink-0" style={{ background: "var(--surface-button-muted)", border: "1px solid var(--border)", color: "var(--muted-foreground)" }}>
-              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
-            </button>
-            <div className="shrink-0" style={{ width: 1, height: 20, background: "var(--border)", margin: "0 2px" }} />
-            <span className="shrink-0" style={{ fontSize: "12px", color: "var(--form-label-color)", fontWeight: 600 }}>소속 그룹 정보</span>
-            <span className="shrink-0" style={{ fontSize: "12px", color: "var(--accent-primary)", fontWeight: 500 }}>* 센터</span>
-            <div className="relative shrink-0" style={{ width: 100 }}>
-              <select
-                className="w-full rounded py-1.5 text-sm outline-none appearance-none"
-                style={{ background: "var(--input-background)", border: "none", color: "var(--foreground)", paddingLeft: 10, paddingRight: 28, fontSize: 13 }}
-              >
-                <option>본사</option>
-                <option>광주 수완</option>
-                <option>서울 강남</option>
-                <option>부산 해운대</option>
-              </select>
-              <div className="absolute right-0 top-0 bottom-0 flex items-center justify-center pointer-events-none" style={{ width: 24 }}>
-                <ChevronDown size={13} style={{ color: "var(--muted-foreground)" }} />
-              </div>
+          <div className="member-relation-row flex items-center flex-wrap">
+            <div className="member-relation-group flex items-center shrink-0">
+              <span className="shrink-0" style={{ fontSize: "12px", color: "var(--accent-primary)", fontWeight: 500 }}>* 추천인</span>
+              <input readOnly value="100012" className="rounded px-2 py-1 outline-none shrink-0" style={{ fontSize: 12, width: 72, background: "var(--surface-input-readonly)", border: "none", color: "var(--foreground)", fontFamily: "monospace" }} />
+              <input readOnly value="박민수" className="rounded px-2 py-1 outline-none shrink-0" style={{ fontSize: 12, width: 60, background: "var(--surface-input-readonly)", border: "none", color: "var(--foreground)" }} />
+              <span className="shrink-0" style={{ fontSize: 12, padding: "2px 8px", background: "var(--accent-light)", color: "var(--accent-primary)", border: "1px solid var(--accent-border)", borderRadius: 4, whiteSpace: "nowrap" }}>38명</span>
+              <button className="rounded p-1 flex items-center justify-center shrink-0" style={{ background: "var(--surface-button-muted)", border: "1px solid var(--border)", color: "var(--muted-foreground)" }}>
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+              </button>
             </div>
-            <span className="shrink-0" style={{ fontSize: "12px", color: "var(--form-label-color)", fontWeight: 500 }}>직급</span>
-            <div className="relative shrink-0" style={{ width: 100 }}>
-              <select
-                className="w-full rounded py-1.5 text-sm outline-none appearance-none"
-                style={{ background: "var(--input-background)", border: "none", color: "var(--foreground)", paddingLeft: 10, paddingRight: 28, fontSize: 13 }}
-              >
-                <option>다이아몬드</option>
-                <option>플래티넘</option>
-                <option>골드</option>
-                <option>실버</option>
-              </select>
-              <div className="absolute right-0 top-0 bottom-0 flex items-center justify-center pointer-events-none" style={{ width: 24 }}>
-                <ChevronDown size={13} style={{ color: "var(--muted-foreground)" }} />
+            <div className="member-relation-divider shrink-0" aria-hidden />
+            <div className="member-relation-group flex items-center shrink-0">
+              <span className="shrink-0" style={{ fontSize: "12px", color: "var(--accent-primary)", fontWeight: 500 }}>* 후원인</span>
+              <input readOnly value="100008" className="rounded px-2 py-1 outline-none shrink-0" style={{ fontSize: 12, width: 72, background: "var(--surface-input-readonly)", border: "none", color: "var(--foreground)", fontFamily: "monospace" }} />
+              <input readOnly value="이정환" className="rounded px-2 py-1 outline-none shrink-0" style={{ fontSize: 12, width: 60, background: "var(--surface-input-readonly)", border: "none", color: "var(--foreground)" }} />
+              <span className="shrink-0" style={{ fontSize: 12, padding: "2px 8px", background: "var(--accent-light)", color: "var(--accent-primary)", border: "1px solid var(--accent-border)", borderRadius: 4, whiteSpace: "nowrap" }}>12명</span>
+              <button className="rounded p-1 flex items-center justify-center shrink-0" style={{ background: "var(--surface-button-muted)", border: "1px solid var(--border)", color: "var(--muted-foreground)" }}>
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+              </button>
+            </div>
+            <div className="member-relation-divider shrink-0" aria-hidden />
+            <div className="member-relation-group flex items-center shrink-0">
+              <span className="shrink-0" style={{ fontSize: "12px", color: "var(--form-label-color)", fontWeight: 600 }}>소속 그룹 정보</span>
+              <span className="shrink-0" style={{ fontSize: "12px", color: "var(--accent-primary)", fontWeight: 500 }}>* 센터</span>
+              <div className="relative shrink-0" style={{ width: 96 }}>
+                <select
+                  className="w-full rounded py-1.5 text-sm outline-none appearance-none"
+                  style={{ background: "var(--input-background)", border: "none", color: "var(--foreground)", paddingLeft: 10, paddingRight: 28, fontSize: 13 }}
+                >
+                  <option>본사</option>
+                  <option>광주 수완</option>
+                  <option>서울 강남</option>
+                  <option>부산 해운대</option>
+                </select>
+                <div className="absolute right-0 top-0 bottom-0 flex items-center justify-center pointer-events-none" style={{ width: 24 }}>
+                  <ChevronDown size={13} style={{ color: "var(--muted-foreground)" }} />
+                </div>
+              </div>
+              <span className="shrink-0 member-relation-subgap" style={{ fontSize: "12px", color: "var(--form-label-color)", fontWeight: 500 }}>직급</span>
+              <div className="relative shrink-0" style={{ width: 96 }}>
+                <select
+                  className="w-full rounded py-1.5 text-sm outline-none appearance-none"
+                  style={{ background: "var(--input-background)", border: "none", color: "var(--foreground)", paddingLeft: 10, paddingRight: 28, fontSize: 13 }}
+                >
+                  <option>다이아몬드</option>
+                  <option>플래티넘</option>
+                  <option>골드</option>
+                  <option>실버</option>
+                </select>
+                <div className="absolute right-0 top-0 bottom-0 flex items-center justify-center pointer-events-none" style={{ width: 24 }}>
+                  <ChevronDown size={13} style={{ color: "var(--muted-foreground)" }} />
+                </div>
               </div>
             </div>
           </div>

@@ -553,6 +553,26 @@
   overflow: hidden;
 }
 
+/* 상위 회원 관계 — 그룹별 여백 */
+.app-content .member-relation-row {
+  column-gap: 12px;
+  row-gap: 8px;
+}
+
+.app-content .member-relation-group {
+  gap: 6px;
+}
+
+.app-content .member-relation-divider {
+  width: 1px;
+  height: 20px;
+  background: var(--border);
+}
+
+.app-content .member-relation-subgap {
+  margin-left: 4px;
+}
+
 /* 회원 테이블 행 — 테마 대응 */
 .member-table-row {
   cursor: pointer;
