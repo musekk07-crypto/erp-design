@@ -66,8 +66,17 @@ function calcFormColumnWidth(availableDetailWidth: number) {
 
 const MM2_MAIN_MIN_WIDTH = 720;
 
+function calcMm2InfoGroupWidth(availableDetailWidth: number) {
+  const innerWidth = Math.max(0, availableDetailWidth - DETAIL_PANEL_PAD * 2);
+  const idealInfo = innerWidth - ORG_CHART_WIDTH - DETAIL_CONTENT_GAP;
+  if (idealInfo >= MM2_MAIN_MIN_WIDTH) {
+    return idealInfo;
+  }
+  return MM2_MAIN_MIN_WIDTH;
+}
+
 function getMm2PanelMinWidth() {
-  return MM2_MAIN_MIN_WIDTH + ORG_CHART_WIDTH + DETAIL_CONTENT_GAP + DETAIL_PANEL_PAD * 2;
+  return getDetailPanelWidth(MM2_MAIN_MIN_WIDTH);
 }
 
 function clampMemberListWidth(width: number) {
@@ -1600,19 +1609,19 @@ function Mm2ConsentList() {
 function MemberManagement2View({
   memberId,
   listOpen,
-  formColumnWidth,
+  infoGroupWidth,
   activeTab,
   onTabChange,
 }: {
   memberId: number;
   listOpen: boolean;
-  formColumnWidth: number;
+  infoGroupWidth: number;
   activeTab: string;
   onTabChange: (tab: string) => void;
 }) {
   const member = getMemberById(memberId);
   const isMemberInfoTab = activeTab === "회원정보";
-  const detailContentWidth = getDetailContentWidth(formColumnWidth);
+  const detailContentWidth = getDetailContentWidth(infoGroupWidth);
   const contentAlignWidth = isMemberInfoTab && listOpen ? detailContentWidth : "100%";
   const [activeSection, setActiveSection] = useState<Mm2SectionId>("name");
   const activeMeta = mm2Sections.find((s) => s.id === activeSection)!;
@@ -1720,8 +1729,8 @@ function MemberManagement2View({
     <div
       className="flex flex-col h-full w-full min-h-0"
       style={{
-        width: isMemberInfoTab && listOpen ? getDetailPanelWidth(formColumnWidth) : "100%",
-        minWidth: isMemberInfoTab && listOpen ? getDetailPanelWidth(formColumnWidth) : 0,
+        width: isMemberInfoTab && listOpen ? getDetailPanelWidth(infoGroupWidth) : "100%",
+        minWidth: isMemberInfoTab && listOpen ? getDetailPanelWidth(infoGroupWidth) : 0,
         flexShrink: isMemberInfoTab && listOpen ? 0 : undefined,
       }}
     >
@@ -2933,18 +2942,26 @@ export default function App() {
     return calcFormColumnWidth(availableDetail);
   }, [listOpen, listWidth, appContentWidth]);
 
+  const mm2InfoGroupWidth = useMemo(() => {
+    if (!listOpen || appContentWidth <= 0) {
+      return MM2_MAIN_MIN_WIDTH;
+    }
+    const availableDetail = appContentWidth - listWidth;
+    return calcMm2InfoGroupWidth(availableDetail);
+  }, [listOpen, listWidth, appContentWidth]);
+
   const isMm2MemberInfoTab = activeMainMenu === "회원관리2" && activeTab === "회원정보";
   const isMemberInfoTab = activeMainMenu === "회원관리" && activeTab === "회원정보";
 
   const detailPanelMinWidth = useMemo(() => {
     if (isMm2MemberInfoTab) {
-      return getMm2PanelMinWidth();
+      return getDetailPanelWidth(mm2InfoGroupWidth);
     }
     if (isMemberInfoTab) {
       return getDetailPanelWidth(formColumnWidth);
     }
     return ORDER_PANEL_MIN_WIDTH;
-  }, [isMm2MemberInfoTab, isMemberInfoTab, formColumnWidth]);
+  }, [isMm2MemberInfoTab, isMemberInfoTab, mm2InfoGroupWidth, formColumnWidth]);
 
   const isFixedDetailWidth =
     listOpen &&
@@ -3120,7 +3137,7 @@ export default function App() {
             <MemberManagement2View
               memberId={selectedMember}
               listOpen={listOpen}
-              formColumnWidth={formColumnWidth}
+              infoGroupWidth={mm2InfoGroupWidth}
               activeTab={activeTab}
               onTabChange={setActiveTab}
             />

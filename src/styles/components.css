@@ -171,6 +171,7 @@
   align-items: stretch;
   width: 100%;
   min-width: 0;
+  flex-shrink: 0;
 }
 
 .mm2-info-group {
