@@ -679,9 +679,10 @@ const columns = [
 interface MemberTableProps {
   selectedId: number | null;
   onSelect: (id: number) => void;
+  listOpen?: boolean;
 }
 
-function MemberTable({ selectedId, onSelect }: MemberTableProps) {
+function MemberTable({ selectedId, onSelect, listOpen = false }: MemberTableProps) {
   const [search, setSearch] = useState("");
   const [sortKey, setSortKey] = useState<SortKey>(null);
   const [sortDir, setSortDir] = useState<SortDir>("asc");
@@ -742,6 +743,12 @@ function MemberTable({ selectedId, onSelect }: MemberTableProps) {
   useEffect(() => {
     if (page > totalPages) setPage(totalPages);
   }, [page, totalPages]);
+
+  useEffect(() => {
+    if (listOpen) {
+      syncTableOffset(0);
+    }
+  }, [listOpen]);
 
   function toggleAll() {
     const pageIds = paged.map((m) => m.id);
@@ -964,6 +971,7 @@ function MemberTable({ selectedId, onSelect }: MemberTableProps) {
 
         <div className="flex-1 min-h-0 shrink" aria-hidden />
 
+        {!listOpen && (
         <div
           ref={hScrollRef}
           className="overflow-x-auto shrink-0"
@@ -982,6 +990,7 @@ function MemberTable({ selectedId, onSelect }: MemberTableProps) {
         >
           <div style={{ width: MEMBER_LIST_MAX_WIDTH, height: 1 }} />
         </div>
+        )}
       </div>
     </div>
   );
@@ -1527,7 +1536,7 @@ function MemberDetail({ memberId, listOpen, formColumnWidth }: { memberId: numbe
         className="flex-1 content-scroll"
         style={{
           overflowY: "auto",
-          overflowX: listOpen ? "auto" : "hidden",
+          overflowX: "hidden",
           scrollbarWidth: "thin",
           background: "var(--surface-page)",
           padding: DETAIL_PANEL_PAD,
@@ -2689,7 +2698,7 @@ export default function App() {
     <div
       className="flex flex-col"
       data-theme={theme}
-      style={{ height: "100vh", width: "100%", overflowX: "auto", overflowY: "hidden", background: "var(--surface-page)" }}
+      style={{ height: "100vh", width: "100%", overflowX: "hidden", overflowY: "hidden", background: "var(--surface-page)" }}
     >
       <div
         className="flex flex-col"
@@ -2741,7 +2750,7 @@ export default function App() {
           }}
         >
           <div style={{ width: Math.min(listWidth, MEMBER_LIST_MAX_WIDTH), height: "100%" }}>
-            <MemberTable selectedId={selectedMember} onSelect={setSelectedMember} />
+            <MemberTable selectedId={selectedMember} onSelect={setSelectedMember} listOpen={listOpen} />
           </div>
           {listOpen && (
             <div
