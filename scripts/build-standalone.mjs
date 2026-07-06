@@ -48,6 +48,16 @@ await esbuild.build({
 })
 
 const css = fs.readFileSync(cssOut, 'utf8')
+const componentsCssPath = path.join(root, 'src/styles/components.css')
+const componentsCss = fs.existsSync(componentsCssPath)
+  ? fs.readFileSync(componentsCssPath, 'utf8')
+  : ''
+const bundledCss = componentsCss && !css.includes('.main-nav-item')
+  ? `${css}\n${componentsCss}`
+  : css
+if (bundledCss !== css) {
+  fs.writeFileSync(cssOut, bundledCss, 'utf8')
+}
 const js = fs.readFileSync(jsOut, 'utf8')
 
 const standalone = `<!DOCTYPE html>
@@ -59,7 +69,7 @@ const standalone = `<!DOCTYPE html>
     <meta name="description" content="ERP 디자인 초안" />
     <meta name="robots" content="noindex, nofollow" />
     <style>html, body { height: 100%; margin: 0; } #root { height: 100%; }</style>
-    <style>${css}</style>
+    <style>${bundledCss}</style>
   </head>
   <body>
     <div id="root"></div>

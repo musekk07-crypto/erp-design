@@ -2441,7 +2441,7 @@ function TopNav({ listOpen, onListToggle }: TopNavProps) {
     <div style={{ flexShrink: 0, minWidth: APP_MIN_WIDTH }}>
       {/* Main nav */}
       <div
-        className="flex items-center flex-nowrap px-4"
+        className="flex items-stretch flex-nowrap px-4"
         style={{ background: "var(--nav-bg, #1a0a6b)", borderBottom: "1px solid var(--nav-border, #140854)", height: 40 }}
       >
         <div className="flex items-center gap-2 mr-6 shrink-0">
@@ -2454,7 +2454,7 @@ function TopNav({ listOpen, onListToggle }: TopNavProps) {
           <span style={{ fontSize: 14, fontWeight: 600, color: "var(--nav-text, #fff)" }}>(주)비아블</span>
           <span style={{ fontSize: 12, color: "var(--nav-text-muted, rgba(255,255,255,0.6))", marginLeft: 4 }}>ERP</span>
         </div>
-        <div className="flex items-center h-full flex-1 min-w-0 gap-0.5">
+        <div className="flex items-stretch flex-1 min-w-0 self-stretch">
           {mainMenus.map((menu) => {
             const isActive = menu === "회원관리";
             return (
