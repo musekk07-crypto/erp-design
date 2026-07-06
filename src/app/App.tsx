@@ -1850,16 +1850,15 @@ function MemberDetail({ memberId, listOpen, formColumnWidth }: { memberId: numbe
                   <span style={{ fontSize: "12px", color: "var(--form-label-color)", fontWeight: 500 }}>은행통합 거래번호</span>
                 </td>
                 <td colSpan={3} style={{ padding: "3px 10px 3px 0", verticalAlign: "middle" }}>
-                  <input defaultValue="88012345" className="w-full rounded outline-none transition-all duration-200" style={{ fontSize: 12, padding: "3px 8px", background: "var(--input-background)", border: "none", color: "var(--foreground)" }} onFocus={(e) => { e.target.style.background = "var(--input-focus-bg)"; }} onBlur={(e) => { e.target.style.background = "var(--input-background)"; }} />
+                  <div className="flex gap-1 items-center">
+                    <input defaultValue="88012345" className="flex-1 min-w-0 rounded outline-none transition-all duration-200" style={{ fontSize: 12, padding: "3px 8px", background: "var(--input-background)", border: "none", color: "var(--foreground)" }} onFocus={(e) => { e.target.style.background = "var(--input-focus-bg)"; }} onBlur={(e) => { e.target.style.background = "var(--input-background)"; }} />
+                    <div style={{ width: 58, flexShrink: 0 }} aria-hidden="true" />
+                    <span className="shrink-0" style={{ fontSize: 12, padding: "3px 8px", background: "var(--badge-status-active-bg)", color: "var(--accent-primary)", border: "1px solid var(--accent-border)", borderRadius: 4, whiteSpace: "nowrap", display: "inline-flex", alignItems: "center", gap: 4 }}>
+                      ✓ 인증완료
+                    </span>
+                  </div>
                 </td>
-                <td style={{ padding: "3px 10px 3px 0", whiteSpace: "nowrap", verticalAlign: "middle" }}>
-                  <span style={{ fontSize: "12px", color: "var(--form-label-color)", fontWeight: 500 }}>실명계좌 인증</span>
-                </td>
-                <td style={{ padding: "3px 0 3px 0", verticalAlign: "middle" }}>
-                  <span style={{ fontSize: 12, padding: "3px 10px", background: "var(--badge-status-active-bg)", color: "var(--accent-primary)", border: "1px solid var(--accent-border)", borderRadius: 4, whiteSpace: "nowrap", display: "inline-flex", alignItems: "center", gap: 4 }}>
-                    ✓ 인증완료
-                  </span>
-                </td>
+                <td colSpan={2} />
               </tr>
             </tbody>
           </table>
