@@ -100,18 +100,18 @@ function Card({ label, name, id, date, rank, score, isSelf = false }: {
         <span style={{
           position: "absolute", top: 4, right: 4,
           background: ORG_SELF_ACCENT, color: "var(--on-accent)",
-          fontSize: 9, padding: "2px 7px", borderRadius: 10, fontWeight: 700, lineHeight: 1.2,
+          fontSize: 10, padding: "2px 7px", borderRadius: 10, fontWeight: 700, lineHeight: 1.2,
         }}>자신</span>
       )}
-      <div style={{ fontSize: 10, color: LABEL_GRAY, marginBottom: 4 }}>
+      <div style={{ fontSize: 11, color: LABEL_GRAY, marginBottom: 4 }}>
         {isSelf ? "나" : label}
       </div>
       <div style={{ fontSize: 10.5, fontWeight: 700, color: "var(--org-text)", marginBottom: 2 }}>
         {name}({id})
       </div>
-      <div style={{ fontSize: 10, color: "var(--org-text-muted)", marginBottom: 1 }}>{date}</div>
-      <div style={{ fontSize: 10, color: "var(--org-text-muted)", marginBottom: 3 }}>{rank}</div>
-      <div style={{ fontSize: 11, fontWeight: 700, color: "var(--org-text)" }}>{score}</div>
+      <div style={{ fontSize: 11, color: "var(--org-text-muted)", marginBottom: 1 }}>{date}</div>
+      <div style={{ fontSize: 11, color: "var(--org-text-muted)", marginBottom: 3 }}>{rank}</div>
+      <div style={{ fontSize: 12, fontWeight: 700, color: "var(--org-text)" }}>{score}</div>
     </div>
   );
 }
@@ -123,7 +123,7 @@ function ExtraBox({ label }: { label: string }) {
       border: `1px dashed ${BORDER_GRAY}`,
       borderRadius: 6, background: "var(--org-extra-bg)",
       display: "flex", alignItems: "center", justifyContent: "center",
-      fontSize: 10, color: LABEL_GRAY, boxSizing: "border-box", flexShrink: 0,
+      fontSize: 11, color: LABEL_GRAY, boxSizing: "border-box", flexShrink: 0,
     }}>
       {label}
     </div>
@@ -142,7 +142,7 @@ function ChildChip({ name, id }: { name: string; id: number }) {
       justifyContent: "center",
       height: CHILD_CHIP_H,
       width: CARD_W,
-      fontSize: 11,
+      fontSize: 12,
       fontWeight: 600,
       color: "var(--org-text)",
       boxSizing: "border-box",
@@ -781,10 +781,10 @@ function MemberTable({ selectedId, onSelect }: MemberTableProps) {
             placeholder="이름 또는 회원번호 검색"
             value={search}
             onChange={(e) => setSearch(e.target.value)}
-            style={{ fontSize: "10px", color: "var(--foreground)" }}
+            style={{ fontSize: "11px", color: "var(--foreground)" }}
           />
         </div>
-        <span className="shrink-0 whitespace-nowrap" style={{ fontSize: "10px", color: "var(--muted-foreground)" }}>
+        <span className="shrink-0 whitespace-nowrap" style={{ fontSize: "11px", color: "var(--muted-foreground)" }}>
           총 <strong style={{ color: "var(--foreground)" }}>{sorted.length}</strong>명
         </span>
       </div>
@@ -819,7 +819,7 @@ function MemberTable({ selectedId, onSelect }: MemberTableProps) {
                   style={{
                     padding: "8px 6px",
                     textAlign: "left",
-                    fontSize: 10,
+                    fontSize: 11,
                     fontWeight: 600,
                     color: sortKey === col.key ? "var(--accent-primary)" : "var(--text-muted)",
                     cursor: "pointer",
@@ -856,22 +856,22 @@ function MemberTable({ selectedId, onSelect }: MemberTableProps) {
                   <td style={{ padding: "7px 6px", textAlign: "center" }} onClick={(e) => e.stopPropagation()}>
                     <input type="checkbox" checked={isChecked} onChange={() => toggleOne(member.id)} style={{ accentColor: "var(--accent-primary)", cursor: "pointer" }} />
                   </td>
-                  <td style={{ ...cellBase, fontSize: 10, color: "var(--text-subtle)" }}>{member.id}</td>
-                  <td style={{ ...cellBase, fontSize: 10, fontFamily: "monospace", color: isSelected ? "var(--accent-primary)" : "var(--text-body)", fontWeight: isSelected ? 600 : 400 }}>{member.no}</td>
-                  <td style={{ ...cellBase, fontSize: 10, color: "var(--text-secondary)" }}>{member.loginId}</td>
-                  <td style={{ ...cellBase, fontSize: 10, color: isSelected ? "var(--accent-primary)" : "var(--text-body)", fontWeight: isSelected ? 600 : 500 }}>{member.name}</td>
+                  <td style={{ ...cellBase, fontSize: 11, color: "var(--text-subtle)" }}>{member.id}</td>
+                  <td style={{ ...cellBase, fontSize: 11, fontFamily: "monospace", color: isSelected ? "var(--accent-primary)" : "var(--text-body)", fontWeight: isSelected ? 600 : 400 }}>{member.no}</td>
+                  <td style={{ ...cellBase, fontSize: 11, color: "var(--text-secondary)" }}>{member.loginId}</td>
+                  <td style={{ ...cellBase, fontSize: 11, color: isSelected ? "var(--accent-primary)" : "var(--text-body)", fontWeight: isSelected ? 600 : 500 }}>{member.name}</td>
                   <td style={{ ...cellBase }}>
-                    <span style={{ fontSize: 10, padding: "2px 7px", borderRadius: 4, background: member.type === "소비자" ? "var(--badge-type-consumer-bg)" : "var(--badge-type-general-bg)", color: member.type === "소비자" ? "var(--badge-type-consumer-fg)" : "var(--badge-type-general-fg)" }}>{member.type}</span>
+                    <span style={{ fontSize: 11, padding: "2px 7px", borderRadius: 4, background: member.type === "소비자" ? "var(--badge-type-consumer-bg)" : "var(--badge-type-general-bg)", color: member.type === "소비자" ? "var(--badge-type-consumer-fg)" : "var(--badge-type-general-fg)" }}>{member.type}</span>
                   </td>
-                  <td style={{ ...cellBase, fontSize: 10, color: "var(--text-muted)" }}>{member.regDate}</td>
+                  <td style={{ ...cellBase, fontSize: 11, color: "var(--text-muted)" }}>{member.regDate}</td>
                   <td style={{ ...cellBase }}>
-                    <span style={{ fontSize: 10, padding: "2px 7px", borderRadius: 4, background: member.status === "탈퇴" ? "var(--badge-status-withdraw-bg)" : "var(--badge-status-active-bg)", color: member.status === "탈퇴" ? "var(--badge-status-withdraw-fg)" : "var(--badge-status-active-fg)" }}>{member.status}</span>
+                    <span style={{ fontSize: 11, padding: "2px 7px", borderRadius: 4, background: member.status === "탈퇴" ? "var(--badge-status-withdraw-bg)" : "var(--badge-status-active-bg)", color: member.status === "탈퇴" ? "var(--badge-status-withdraw-fg)" : "var(--badge-status-active-fg)" }}>{member.status}</span>
                   </td>
-                  <td style={{ ...cellBase, fontSize: 10, color: "var(--text-secondary)" }}>{member.rank}</td>
-                  <td style={{ ...cellBase, fontSize: 10, color: "var(--text-secondary)" }}>{member.grade}</td>
-                  <td style={{ ...cellBase, fontSize: 10, color: "var(--text-secondary)", fontFamily: "monospace" }}>{member.phone}</td>
-                  <td style={{ ...cellBase, fontSize: 10, color: "var(--text-subtle)", fontFamily: "monospace" }}>{member.ssn}</td>
-                  <td style={{ ...cellBase, fontSize: 10, color: "var(--text-secondary)" }}>{member.region}</td>
+                  <td style={{ ...cellBase, fontSize: 11, color: "var(--text-secondary)" }}>{member.rank}</td>
+                  <td style={{ ...cellBase, fontSize: 11, color: "var(--text-secondary)" }}>{member.grade}</td>
+                  <td style={{ ...cellBase, fontSize: 11, color: "var(--text-secondary)", fontFamily: "monospace" }}>{member.phone}</td>
+                  <td style={{ ...cellBase, fontSize: 11, color: "var(--text-subtle)", fontFamily: "monospace" }}>{member.ssn}</td>
+                  <td style={{ ...cellBase, fontSize: 11, color: "var(--text-secondary)" }}>{member.region}</td>
                 </tr>
               );
             })}
@@ -893,7 +893,7 @@ function MemberTable({ selectedId, onSelect }: MemberTableProps) {
             style={{
               width: 24,
               height: 24,
-              fontSize: 14,
+              fontSize: 15,
               lineHeight: 1,
               border: "1px solid var(--border)",
               background: "var(--surface-button-muted)",
@@ -916,7 +916,7 @@ function MemberTable({ selectedId, onSelect }: MemberTableProps) {
                   minWidth: 24,
                   height: 24,
                   padding: "0 6px",
-                  fontSize: 10,
+                  fontSize: 11,
                   fontWeight: isActive ? 600 : 400,
                   border: isActive ? "1px solid var(--accent-border)" : "1px solid var(--border)",
                   background: isActive ? "var(--accent-light)" : "var(--surface-button-muted)",
@@ -936,7 +936,7 @@ function MemberTable({ selectedId, onSelect }: MemberTableProps) {
             style={{
               width: 24,
               height: 24,
-              fontSize: 14,
+              fontSize: 15,
               lineHeight: 1,
               border: "1px solid var(--border)",
               background: "var(--surface-button-muted)",
@@ -994,7 +994,7 @@ function SplitTableBlock({
 
   const cellStyle: React.CSSProperties = {
     padding: "7px 6px",
-    fontSize: 10,
+    fontSize: 11,
     color: "var(--text-body)",
     whiteSpace: "nowrap",
     overflow: "hidden",
@@ -1022,7 +1022,7 @@ function SplitTableBlock({
                   style={{
                     padding: "8px 6px",
                     textAlign: "left",
-                    fontSize: 10,
+                    fontSize: 11,
                     fontWeight: 600,
                     color: "var(--text-muted)",
                     whiteSpace: "nowrap",
@@ -1088,7 +1088,7 @@ function DetailSplitPanelView({
         type="button"
         className="flex items-center gap-1.5 shrink-0 self-start mb-2 rounded transition-colors"
         style={{
-          fontSize: 11,
+          fontSize: 12,
           color: "var(--text-body)",
           padding: "4px 8px",
           background: "transparent",
@@ -1345,7 +1345,7 @@ function MemberTypeToggle({ type }: { type: "일반" | "소비자" }) {
           key={t}
           onClick={() => setSelected(t)}
           style={{
-            fontSize: "10px",
+            fontSize: "11px",
             padding: "2px 10px",
             borderRadius: 20,
             border: "none",
@@ -1373,10 +1373,10 @@ function StatBento({ label, value, color }: { label: string; value: string; colo
         minWidth: 90,
       }}
     >
-      <span style={{ fontSize: 10, fontWeight: 600, color, fontFamily: "monospace" }}>
+      <span style={{ fontSize: 11, fontWeight: 600, color, fontFamily: "monospace" }}>
         {value}
       </span>
-      <span className="mt-0.5" style={{ fontSize: "10px", color: "var(--muted-foreground)" }}>
+      <span className="mt-0.5" style={{ fontSize: "11px", color: "var(--muted-foreground)" }}>
         {label}
       </span>
     </div>
@@ -1425,7 +1425,7 @@ function FormField({ label, value, placeholder, type = "text", full = false, mon
 }) {
   return (
     <div className={full ? "col-span-2" : ""}>
-      <label className="block mb-1.5" style={{ fontSize: "10px", color: "var(--form-label-color)" }}>{label}</label>
+      <label className="block mb-1.5" style={{ fontSize: "11px", color: "var(--form-label-color)" }}>{label}</label>
       <input
         type={type}
         defaultValue={value}
@@ -1452,7 +1452,7 @@ function GenderToggle() {
   const [selected, setSelected] = useState("남");
   return (
     <div>
-      <label className="block mb-1.5" style={{ fontSize: "10px", color: "var(--form-label-color)" }}>성별</label>
+      <label className="block mb-1.5" style={{ fontSize: "11px", color: "var(--form-label-color)" }}>성별</label>
       <div className="flex gap-2">
         {["남", "여"].map((g) => (
           <button
@@ -1483,7 +1483,7 @@ function GenderToggleInline() {
           onClick={() => setSelected(g)}
           className="rounded font-medium transition-all duration-200"
           style={{
-            fontSize: 10,
+            fontSize: 11,
             padding: "3px 14px",
             background: selected === g ? "var(--accent-gradient)" : "var(--input-background)",
             color: selected === g ? "var(--on-accent)" : "var(--muted-foreground)",
@@ -1537,14 +1537,14 @@ function MemberDetail({ memberId, listOpen, formColumnWidth }: { memberId: numbe
           <div className="flex items-center gap-3">
             <div
               className="w-8 h-8 rounded flex items-center justify-center font-bold shrink-0"
-              style={{ background: "var(--brand-gradient)", color: "var(--on-accent)", fontSize: 10 }}
+              style={{ background: "var(--brand-gradient)", color: "var(--on-accent)", fontSize: 11 }}
             >
               {member.name.charAt(0)}
             </div>
             <div className="flex items-center gap-2 min-w-0">
-              <span style={{ color: "var(--muted-foreground)", fontSize: 11 }}>{member.name} · {member.loginId}</span>
+              <span style={{ color: "var(--muted-foreground)", fontSize: 12 }}>{member.name} · {member.loginId}</span>
               <span style={{ width: 1, height: 14, background: "var(--border)", display: "inline-block" }} />
-              <span style={{ fontSize: 11, fontWeight: 600, color: "var(--text-body)" }}>{member.no}</span>
+              <span style={{ fontSize: 12, fontWeight: 600, color: "var(--text-body)" }}>{member.no}</span>
               <MemberTypeToggle type={memberType} />
             </div>
           </div>
@@ -1588,7 +1588,7 @@ function MemberDetail({ memberId, listOpen, formColumnWidth }: { memberId: numbe
                   {row.map((cell: any, ci) => (
                     <React.Fragment key={ci}>
                       <td style={{ padding: "4px 12px 4px 0", width: 108, whiteSpace: "nowrap", verticalAlign: "middle" }}>
-                        <span style={{ fontSize: "10px", color: cell.label.startsWith("*") ? "var(--accent-primary)" : "var(--form-label-color)", fontWeight: 500 }}>
+                        <span style={{ fontSize: "11px", color: cell.label.startsWith("*") ? "var(--accent-primary)" : "var(--form-label-color)", fontWeight: 500 }}>
                           {cell.label}
                         </span>
                       </td>
@@ -1599,7 +1599,7 @@ function MemberDetail({ memberId, listOpen, formColumnWidth }: { memberId: numbe
                           placeholder={cell.placeholder}
                           className="w-full rounded outline-none transition-all duration-200"
                           style={{
-                            fontSize: 10,
+                            fontSize: 11,
                             padding: "4px 10px",
                             background: "var(--input-background)",
                             border: "none",
@@ -1624,89 +1624,89 @@ function MemberDetail({ memberId, listOpen, formColumnWidth }: { memberId: numbe
             <tbody>
               <tr>
                 <td style={{ padding: "4px 12px 4px 0", width: 108, whiteSpace: "nowrap", verticalAlign: "middle" }}>
-                  <span style={{ fontSize: "10px", color: "var(--accent-primary)", fontWeight: 500 }}>* 회원 등록일자</span>
+                  <span style={{ fontSize: "11px", color: "var(--accent-primary)", fontWeight: 500 }}>* 회원 등록일자</span>
                 </td>
                 <td style={{ padding: "4px 12px 4px 0", verticalAlign: "middle" }}>
-                  <input type="date" key={`reg-${member.id}`} defaultValue={member.regDate} className="w-full rounded outline-none transition-all duration-200" style={{ fontSize: 10, padding: "4px 10px", background: "var(--input-background)", border: "none", color: "var(--foreground)" }} onFocus={(e) => { e.target.style.background = "var(--input-focus-bg)"; }} onBlur={(e) => { e.target.style.background = "var(--input-background)"; }} />
+                  <input type="date" key={`reg-${member.id}`} defaultValue={member.regDate} className="w-full rounded outline-none transition-all duration-200" style={{ fontSize: 11, padding: "4px 10px", background: "var(--input-background)", border: "none", color: "var(--foreground)" }} onFocus={(e) => { e.target.style.background = "var(--input-focus-bg)"; }} onBlur={(e) => { e.target.style.background = "var(--input-background)"; }} />
                 </td>
                 <td style={{ padding: "4px 12px 4px 0", width: 100, whiteSpace: "nowrap", verticalAlign: "middle" }}>
-                  <span style={{ fontSize: "10px", color: "var(--form-label-color)", fontWeight: 500 }}>한글명</span>
+                  <span style={{ fontSize: "11px", color: "var(--form-label-color)", fontWeight: 500 }}>한글명</span>
                 </td>
                 <td style={{ padding: "4px 0 4px 0", verticalAlign: "middle" }}>
-                  <input key={`name-${member.id}`} defaultValue={member.name} className="w-full rounded outline-none transition-all duration-200" style={{ fontSize: 10, padding: "4px 10px", background: "var(--input-background)", border: "none", color: "var(--foreground)" }} onFocus={(e) => { e.target.style.background = "var(--input-focus-bg)"; }} onBlur={(e) => { e.target.style.background = "var(--input-background)"; }} />
+                  <input key={`name-${member.id}`} defaultValue={member.name} className="w-full rounded outline-none transition-all duration-200" style={{ fontSize: 11, padding: "4px 10px", background: "var(--input-background)", border: "none", color: "var(--foreground)" }} onFocus={(e) => { e.target.style.background = "var(--input-focus-bg)"; }} onBlur={(e) => { e.target.style.background = "var(--input-background)"; }} />
                 </td>
               </tr>
               <tr>
                 <td style={{ padding: "4px 12px 4px 0", width: 108, whiteSpace: "nowrap", verticalAlign: "middle" }}>
-                  <span style={{ fontSize: "10px", color: "var(--accent-primary)", fontWeight: 500 }}>* 고객 이름/성</span>
+                  <span style={{ fontSize: "11px", color: "var(--accent-primary)", fontWeight: 500 }}>* 고객 이름/성</span>
                 </td>
                 <td colSpan={3} style={{ padding: "4px 0 4px 0", verticalAlign: "middle" }}>
                   <div className="flex gap-2">
-                    <input defaultValue="미채" className="flex-1 rounded outline-none transition-all duration-200" style={{ fontSize: 10, padding: "4px 10px", background: "var(--input-background)", border: "none", color: "var(--foreground)" }} onFocus={(e) => { e.target.style.background = "var(--input-focus-bg)"; }} onBlur={(e) => { e.target.style.background = "var(--input-background)"; }} />
-                    <input defaultValue="Mi-chae" className="flex-1 rounded outline-none transition-all duration-200" style={{ fontSize: 10, padding: "4px 10px", background: "var(--input-background)", border: "none", color: "var(--foreground)" }} onFocus={(e) => { e.target.style.background = "var(--input-focus-bg)"; }} onBlur={(e) => { e.target.style.background = "var(--input-background)"; }} />
-                    <input defaultValue="Han" className="flex-1 rounded outline-none transition-all duration-200" style={{ fontSize: 10, padding: "4px 10px", background: "var(--input-background)", border: "none", color: "var(--foreground)" }} onFocus={(e) => { e.target.style.background = "var(--input-focus-bg)"; }} onBlur={(e) => { e.target.style.background = "var(--input-background)"; }} />
+                    <input defaultValue="미채" className="flex-1 rounded outline-none transition-all duration-200" style={{ fontSize: 11, padding: "4px 10px", background: "var(--input-background)", border: "none", color: "var(--foreground)" }} onFocus={(e) => { e.target.style.background = "var(--input-focus-bg)"; }} onBlur={(e) => { e.target.style.background = "var(--input-background)"; }} />
+                    <input defaultValue="Mi-chae" className="flex-1 rounded outline-none transition-all duration-200" style={{ fontSize: 11, padding: "4px 10px", background: "var(--input-background)", border: "none", color: "var(--foreground)" }} onFocus={(e) => { e.target.style.background = "var(--input-focus-bg)"; }} onBlur={(e) => { e.target.style.background = "var(--input-background)"; }} />
+                    <input defaultValue="Han" className="flex-1 rounded outline-none transition-all duration-200" style={{ fontSize: 11, padding: "4px 10px", background: "var(--input-background)", border: "none", color: "var(--foreground)" }} onFocus={(e) => { e.target.style.background = "var(--input-focus-bg)"; }} onBlur={(e) => { e.target.style.background = "var(--input-background)"; }} />
                   </div>
                 </td>
               </tr>
               <tr>
                 <td style={{ padding: "4px 12px 4px 0", width: 108, whiteSpace: "nowrap", verticalAlign: "middle" }}>
-                  <span style={{ fontSize: "10px", color: "var(--form-label-color)", fontWeight: 500 }}>Nick Name</span>
+                  <span style={{ fontSize: "11px", color: "var(--form-label-color)", fontWeight: 500 }}>Nick Name</span>
                 </td>
                 <td style={{ padding: "4px 12px 4px 0", verticalAlign: "middle" }}>
-                  <input placeholder="닉네임" className="w-full rounded outline-none transition-all duration-200" style={{ fontSize: 10, padding: "4px 10px", background: "var(--input-background)", border: "none", color: "var(--foreground)" }} onFocus={(e) => { e.target.style.background = "var(--input-focus-bg)"; }} onBlur={(e) => { e.target.style.background = "var(--input-background)"; }} />
+                  <input placeholder="닉네임" className="w-full rounded outline-none transition-all duration-200" style={{ fontSize: 11, padding: "4px 10px", background: "var(--input-background)", border: "none", color: "var(--foreground)" }} onFocus={(e) => { e.target.style.background = "var(--input-focus-bg)"; }} onBlur={(e) => { e.target.style.background = "var(--input-background)"; }} />
                 </td>
                 <td style={{ padding: "4px 12px 4px 0", width: 100, whiteSpace: "nowrap", verticalAlign: "middle" }}>
-                  <span style={{ fontSize: "10px", color: "var(--form-label-color)", fontWeight: 500 }}>Business Name</span>
+                  <span style={{ fontSize: "11px", color: "var(--form-label-color)", fontWeight: 500 }}>Business Name</span>
                 </td>
                 <td style={{ padding: "4px 0 4px 0", verticalAlign: "middle" }}>
-                  <input placeholder="사업자명" className="w-full rounded outline-none transition-all duration-200" style={{ fontSize: 10, padding: "4px 10px", background: "var(--input-background)", border: "none", color: "var(--foreground)" }} onFocus={(e) => { e.target.style.background = "var(--input-focus-bg)"; }} onBlur={(e) => { e.target.style.background = "var(--input-background)"; }} />
+                  <input placeholder="사업자명" className="w-full rounded outline-none transition-all duration-200" style={{ fontSize: 11, padding: "4px 10px", background: "var(--input-background)", border: "none", color: "var(--foreground)" }} onFocus={(e) => { e.target.style.background = "var(--input-focus-bg)"; }} onBlur={(e) => { e.target.style.background = "var(--input-background)"; }} />
                 </td>
               </tr>
               <tr>
                 <td style={{ padding: "4px 12px 4px 0", width: 108, whiteSpace: "nowrap", verticalAlign: "middle" }}>
-                  <span style={{ fontSize: "10px", color: "var(--form-label-color)", fontWeight: 500 }}>Legal Name</span>
+                  <span style={{ fontSize: "11px", color: "var(--form-label-color)", fontWeight: 500 }}>Legal Name</span>
                 </td>
                 <td style={{ padding: "4px 12px 4px 0", verticalAlign: "middle" }}>
-                  <input placeholder="법적 이름" className="w-full rounded outline-none transition-all duration-200" style={{ fontSize: 10, padding: "4px 10px", background: "var(--input-background)", border: "none", color: "var(--foreground)" }} onFocus={(e) => { e.target.style.background = "var(--input-focus-bg)"; }} onBlur={(e) => { e.target.style.background = "var(--input-background)"; }} />
+                  <input placeholder="법적 이름" className="w-full rounded outline-none transition-all duration-200" style={{ fontSize: 11, padding: "4px 10px", background: "var(--input-background)", border: "none", color: "var(--foreground)" }} onFocus={(e) => { e.target.style.background = "var(--input-focus-bg)"; }} onBlur={(e) => { e.target.style.background = "var(--input-background)"; }} />
                 </td>
                 <td style={{ padding: "4px 12px 4px 0", width: 100, whiteSpace: "nowrap", verticalAlign: "middle" }}>
-                  <span style={{ fontSize: "10px", color: "var(--form-label-color)", fontWeight: 500 }}>생년월일</span>
+                  <span style={{ fontSize: "11px", color: "var(--form-label-color)", fontWeight: 500 }}>생년월일</span>
                 </td>
                 <td style={{ padding: "4px 0 4px 0", verticalAlign: "middle" }}>
-                  <input type="date" className="w-full rounded outline-none transition-all duration-200" style={{ fontSize: 10, padding: "4px 10px", background: "var(--input-background)", border: "none", color: "var(--foreground)" }} onFocus={(e) => { e.target.style.background = "var(--input-focus-bg)"; }} onBlur={(e) => { e.target.style.background = "var(--input-background)"; }} />
+                  <input type="date" className="w-full rounded outline-none transition-all duration-200" style={{ fontSize: 11, padding: "4px 10px", background: "var(--input-background)", border: "none", color: "var(--foreground)" }} onFocus={(e) => { e.target.style.background = "var(--input-focus-bg)"; }} onBlur={(e) => { e.target.style.background = "var(--input-background)"; }} />
                 </td>
               </tr>
               <tr>
                 <td style={{ padding: "4px 12px 4px 0", width: 108, whiteSpace: "nowrap", verticalAlign: "middle" }}>
-                  <span style={{ fontSize: "10px", color: "var(--form-label-color)", fontWeight: 500 }}>주민등록번호</span>
+                  <span style={{ fontSize: "11px", color: "var(--form-label-color)", fontWeight: 500 }}>주민등록번호</span>
                 </td>
                 <td style={{ padding: "4px 12px 4px 0", verticalAlign: "middle" }}>
                   <div className="flex gap-1 items-center">
-                    <input key={`ssn-${member.id}`} defaultValue={member.ssn} className="flex-1 rounded outline-none transition-all duration-200" style={{ fontSize: 10, padding: "4px 10px", background: "var(--input-background)", border: "none", color: "var(--foreground)" }} onFocus={(e) => { e.target.style.background = "var(--input-focus-bg)"; }} onBlur={(e) => { e.target.style.background = "var(--input-background)"; }} />
+                    <input key={`ssn-${member.id}`} defaultValue={member.ssn} className="flex-1 rounded outline-none transition-all duration-200" style={{ fontSize: 11, padding: "4px 10px", background: "var(--input-background)", border: "none", color: "var(--foreground)" }} onFocus={(e) => { e.target.style.background = "var(--input-focus-bg)"; }} onBlur={(e) => { e.target.style.background = "var(--input-background)"; }} />
                     <div className="relative" style={{ flexShrink: 0 }}>
-                      <select defaultValue="여" className="rounded outline-none appearance-none" style={{ fontSize: 10, padding: "4px 28px 4px 8px", background: "var(--input-background)", border: "none", color: "var(--foreground)" }}>
+                      <select defaultValue="여" className="rounded outline-none appearance-none" style={{ fontSize: 11, padding: "4px 28px 4px 8px", background: "var(--input-background)", border: "none", color: "var(--foreground)" }}>
                         <option value="남">남</option>
                         <option value="여">여</option>
                       </select>
                       <ChevronDown size={12} style={{ position: "absolute", right: 7, top: "50%", transform: "translateY(-50%)", color: "var(--muted-foreground)", pointerEvents: "none" }} />
                     </div>
-                    <button style={{ fontSize: 10, padding: "4px 10px", background: "var(--surface-button-muted)", color: "var(--accent-primary)", border: "1px solid var(--accent-border)", borderRadius: 4, whiteSpace: "nowrap" }}>✓ 실명인증</button>
+                    <button style={{ fontSize: 11, padding: "4px 10px", background: "var(--surface-button-muted)", color: "var(--accent-primary)", border: "1px solid var(--accent-border)", borderRadius: 4, whiteSpace: "nowrap" }}>✓ 실명인증</button>
                   </div>
                 </td>
                 <td style={{ padding: "4px 12px 4px 0", width: 100, whiteSpace: "nowrap", verticalAlign: "middle" }}>
-                  <span style={{ fontSize: "10px", color: "var(--form-label-color)", fontWeight: 500 }}>EIN Number</span>
+                  <span style={{ fontSize: "11px", color: "var(--form-label-color)", fontWeight: 500 }}>EIN Number</span>
                 </td>
                 <td style={{ padding: "4px 0 4px 0", verticalAlign: "middle" }}>
-                  <input placeholder="미국 사업자 번호" className="w-full rounded outline-none transition-all duration-200" style={{ fontSize: 10, padding: "4px 10px", background: "var(--input-background)", border: "none", color: "var(--foreground)" }} onFocus={(e) => { e.target.style.background = "var(--input-focus-bg)"; }} onBlur={(e) => { e.target.style.background = "var(--input-background)"; }} />
+                  <input placeholder="미국 사업자 번호" className="w-full rounded outline-none transition-all duration-200" style={{ fontSize: 11, padding: "4px 10px", background: "var(--input-background)", border: "none", color: "var(--foreground)" }} onFocus={(e) => { e.target.style.background = "var(--input-focus-bg)"; }} onBlur={(e) => { e.target.style.background = "var(--input-background)"; }} />
                 </td>
               </tr>
               <tr>
                 <td style={{ padding: "4px 12px 4px 0", width: 108, whiteSpace: "nowrap", verticalAlign: "middle" }}>
-                  <span style={{ fontSize: "10px", color: "var(--form-label-color)", fontWeight: 500 }}>비자종류</span>
+                  <span style={{ fontSize: "11px", color: "var(--form-label-color)", fontWeight: 500 }}>비자종류</span>
                 </td>
                 <td style={{ padding: "4px 12px 4px 0", verticalAlign: "middle" }}>
                   <div className="relative" style={{ display: "inline-block", width: "100%" }}>
-                    <select className="w-full rounded outline-none appearance-none" style={{ fontSize: 10, padding: "4px 28px 4px 8px", background: "var(--input-background)", border: "none", color: "var(--foreground)" }}>
+                    <select className="w-full rounded outline-none appearance-none" style={{ fontSize: 11, padding: "4px 28px 4px 8px", background: "var(--input-background)", border: "none", color: "var(--foreground)" }}>
                       <option>() 내국인</option>
                       <option>F-2 거주</option>
                       <option>F-4 재외동포</option>
@@ -1716,54 +1716,54 @@ function MemberDetail({ memberId, listOpen, formColumnWidth }: { memberId: numbe
                   </div>
                 </td>
                 <td style={{ padding: "4px 12px 4px 0", width: 100, whiteSpace: "nowrap", verticalAlign: "middle" }}>
-                  <span style={{ fontSize: "10px", color: "var(--form-label-color)", fontWeight: 500 }}>체류기간 만료일자</span>
+                  <span style={{ fontSize: "11px", color: "var(--form-label-color)", fontWeight: 500 }}>체류기간 만료일자</span>
                 </td>
                 <td style={{ padding: "4px 0 4px 0", verticalAlign: "middle" }}>
-                  <input type="date" placeholder="YYYY-MM-DD" className="w-full rounded outline-none transition-all duration-200" style={{ fontSize: 10, padding: "4px 10px", background: "var(--input-background)", border: "none", color: "var(--foreground)" }} onFocus={(e) => { e.target.style.background = "var(--input-focus-bg)"; }} onBlur={(e) => { e.target.style.background = "var(--input-background)"; }} />
+                  <input type="date" placeholder="YYYY-MM-DD" className="w-full rounded outline-none transition-all duration-200" style={{ fontSize: 11, padding: "4px 10px", background: "var(--input-background)", border: "none", color: "var(--foreground)" }} onFocus={(e) => { e.target.style.background = "var(--input-focus-bg)"; }} onBlur={(e) => { e.target.style.background = "var(--input-background)"; }} />
                 </td>
               </tr>
               <tr>
                 <td style={{ padding: "4px 12px 4px 0", width: 108, whiteSpace: "nowrap", verticalAlign: "middle" }}>
-                  <span style={{ fontSize: "10px", color: "var(--form-label-color)", fontWeight: 500 }}>주소지</span>
+                  <span style={{ fontSize: "11px", color: "var(--form-label-color)", fontWeight: 500 }}>주소지</span>
                 </td>
                 <td colSpan={3} style={{ padding: "4px 0 4px 0", verticalAlign: "middle" }}>
                   <div className="flex gap-2">
-                    <input key={`addr-${member.id}`} defaultValue={member.region} className="flex-1 rounded outline-none transition-all duration-200" style={{ fontSize: 10, padding: "4px 10px", background: "var(--input-background)", border: "none", color: "var(--foreground)" }} onFocus={(e) => { e.target.style.background = "var(--input-focus-bg)"; }} onBlur={(e) => { e.target.style.background = "var(--input-background)"; }} />
-                    <button style={{ fontSize: 10, padding: "4px 12px", background: "var(--surface-button-muted)", color: "var(--foreground)", border: "1px solid var(--border)", borderRadius: 4 }}>검색</button>
+                    <input key={`addr-${member.id}`} defaultValue={member.region} className="flex-1 rounded outline-none transition-all duration-200" style={{ fontSize: 11, padding: "4px 10px", background: "var(--input-background)", border: "none", color: "var(--foreground)" }} onFocus={(e) => { e.target.style.background = "var(--input-focus-bg)"; }} onBlur={(e) => { e.target.style.background = "var(--input-background)"; }} />
+                    <button style={{ fontSize: 11, padding: "4px 12px", background: "var(--surface-button-muted)", color: "var(--foreground)", border: "1px solid var(--border)", borderRadius: 4 }}>검색</button>
                   </div>
                 </td>
               </tr>
               <tr>
                 <td style={{ padding: "4px 12px 4px 0", width: 108, whiteSpace: "nowrap", verticalAlign: "middle" }}>
-                  <span style={{ fontSize: "10px", color: "var(--form-label-color)", fontWeight: 500 }}>우편번호</span>
+                  <span style={{ fontSize: "11px", color: "var(--form-label-color)", fontWeight: 500 }}>우편번호</span>
                 </td>
                 <td style={{ padding: "4px 12px 4px 0", verticalAlign: "middle" }}>
-                  <input defaultValue="06236" className="w-full rounded outline-none transition-all duration-200" style={{ fontSize: 10, padding: "4px 10px", background: "var(--input-background)", border: "none", color: "var(--foreground)" }} onFocus={(e) => { e.target.style.background = "var(--input-focus-bg)"; }} onBlur={(e) => { e.target.style.background = "var(--input-background)"; }} />
+                  <input defaultValue="06236" className="w-full rounded outline-none transition-all duration-200" style={{ fontSize: 11, padding: "4px 10px", background: "var(--input-background)", border: "none", color: "var(--foreground)" }} onFocus={(e) => { e.target.style.background = "var(--input-focus-bg)"; }} onBlur={(e) => { e.target.style.background = "var(--input-background)"; }} />
                 </td>
                 <td style={{ padding: "4px 12px 4px 0", width: 100, whiteSpace: "nowrap", verticalAlign: "middle" }}>
-                  <span style={{ fontSize: "10px", color: "var(--form-label-color)", fontWeight: 500 }}>연락처</span>
+                  <span style={{ fontSize: "11px", color: "var(--form-label-color)", fontWeight: 500 }}>연락처</span>
                 </td>
                 <td style={{ padding: "4px 0 4px 0", verticalAlign: "middle" }}>
-                  <input defaultValue="02-3456-7890" className="w-full rounded outline-none transition-all duration-200" style={{ fontSize: 10, padding: "4px 10px", background: "var(--input-background)", border: "none", color: "var(--foreground)" }} onFocus={(e) => { e.target.style.background = "var(--input-focus-bg)"; }} onBlur={(e) => { e.target.style.background = "var(--input-background)"; }} />
+                  <input defaultValue="02-3456-7890" className="w-full rounded outline-none transition-all duration-200" style={{ fontSize: 11, padding: "4px 10px", background: "var(--input-background)", border: "none", color: "var(--foreground)" }} onFocus={(e) => { e.target.style.background = "var(--input-focus-bg)"; }} onBlur={(e) => { e.target.style.background = "var(--input-background)"; }} />
                 </td>
               </tr>
               <tr>
                 <td style={{ padding: "4px 12px 4px 0", width: 108, whiteSpace: "nowrap", verticalAlign: "middle" }}>
-                  <span style={{ fontSize: "10px", color: "var(--form-label-color)", fontWeight: 500 }}>휴대폰번호</span>
+                  <span style={{ fontSize: "11px", color: "var(--form-label-color)", fontWeight: 500 }}>휴대폰번호</span>
                 </td>
                 <td style={{ padding: "4px 12px 4px 0", verticalAlign: "middle" }}>
-                  <input key={`phone-${member.id}`} defaultValue={member.phone} className="w-full rounded outline-none transition-all duration-200" style={{ fontSize: 10, padding: "4px 10px", background: "var(--input-background)", border: "none", color: "var(--foreground)" }} onFocus={(e) => { e.target.style.background = "var(--input-focus-bg)"; }} onBlur={(e) => { e.target.style.background = "var(--input-background)"; }} />
+                  <input key={`phone-${member.id}`} defaultValue={member.phone} className="w-full rounded outline-none transition-all duration-200" style={{ fontSize: 11, padding: "4px 10px", background: "var(--input-background)", border: "none", color: "var(--foreground)" }} onFocus={(e) => { e.target.style.background = "var(--input-focus-bg)"; }} onBlur={(e) => { e.target.style.background = "var(--input-background)"; }} />
                 </td>
                 <td style={{ padding: "4px 12px 4px 0", width: 100, whiteSpace: "nowrap", verticalAlign: "middle" }}>
-                  <span style={{ fontSize: "10px", color: "var(--form-label-color)", fontWeight: 500 }}>세금신고번호</span>
+                  <span style={{ fontSize: "11px", color: "var(--form-label-color)", fontWeight: 500 }}>세금신고번호</span>
                 </td>
                 <td style={{ padding: "4px 0 4px 0", verticalAlign: "middle" }}>
-                  <input defaultValue="220-81-12345" className="w-full rounded outline-none transition-all duration-200" style={{ fontSize: 10, padding: "4px 10px", background: "var(--input-background)", border: "none", color: "var(--foreground)" }} onFocus={(e) => { e.target.style.background = "var(--input-focus-bg)"; }} onBlur={(e) => { e.target.style.background = "var(--input-background)"; }} />
+                  <input defaultValue="220-81-12345" className="w-full rounded outline-none transition-all duration-200" style={{ fontSize: 11, padding: "4px 10px", background: "var(--input-background)", border: "none", color: "var(--foreground)" }} onFocus={(e) => { e.target.style.background = "var(--input-focus-bg)"; }} onBlur={(e) => { e.target.style.background = "var(--input-background)"; }} />
                 </td>
               </tr>
               <tr>
                 <td style={{ padding: "4px 12px 4px 0", width: 108, whiteSpace: "nowrap", verticalAlign: "top", paddingTop: 8 }}>
-                  <span style={{ fontSize: "10px", color: "var(--form-label-color)", fontWeight: 500 }}>메모</span>
+                  <span style={{ fontSize: "11px", color: "var(--form-label-color)", fontWeight: 500 }}>메모</span>
                 </td>
                 <td colSpan={3} style={{ padding: "4px 0 4px 0", verticalAlign: "middle" }}>
                   <textarea
@@ -1771,7 +1771,7 @@ function MemberDetail({ memberId, listOpen, formColumnWidth }: { memberId: numbe
                     defaultValue={`${member.name} · ${member.rank} · ${member.grade} · ${member.region} (${member.status})`}
                     rows={3}
                     className="w-full rounded outline-none transition-all duration-200 resize-none"
-                    style={{ fontSize: 10, padding: "4px 10px", background: "var(--input-background)", border: "none", color: "var(--foreground)" }}
+                    style={{ fontSize: 11, padding: "4px 10px", background: "var(--input-background)", border: "none", color: "var(--foreground)" }}
                     onFocus={(e) => { e.target.style.background = "var(--input-focus-bg)"; }}
                     onBlur={(e) => { e.target.style.background = "var(--input-background)"; }}
                   />
@@ -1787,50 +1787,50 @@ function MemberDetail({ memberId, listOpen, formColumnWidth }: { memberId: numbe
             <tbody>
               <tr>
                 <td style={{ padding: "4px 12px 4px 0", width: 100, whiteSpace: "nowrap", verticalAlign: "middle" }}>
-                  <span style={{ fontSize: "10px", color: "var(--form-label-color)", fontWeight: 500 }}>은행명</span>
+                  <span style={{ fontSize: "11px", color: "var(--form-label-color)", fontWeight: 500 }}>은행명</span>
                 </td>
                 <td style={{ padding: "4px 12px 4px 0", verticalAlign: "middle" }}>
-                  <input defaultValue="신한은행" className="w-full rounded outline-none transition-all duration-200" style={{ fontSize: 10, padding: "4px 10px", background: "var(--input-background)", border: "none", color: "var(--foreground)" }} onFocus={(e) => { e.target.style.background = "var(--input-focus-bg)"; }} onBlur={(e) => { e.target.style.background = "var(--input-background)"; }} />
+                  <input defaultValue="신한은행" className="w-full rounded outline-none transition-all duration-200" style={{ fontSize: 11, padding: "4px 10px", background: "var(--input-background)", border: "none", color: "var(--foreground)" }} onFocus={(e) => { e.target.style.background = "var(--input-focus-bg)"; }} onBlur={(e) => { e.target.style.background = "var(--input-background)"; }} />
                 </td>
                 <td style={{ padding: "4px 12px 4px 0", width: 80, whiteSpace: "nowrap", verticalAlign: "middle" }}>
-                  <span style={{ fontSize: "10px", color: "var(--form-label-color)", fontWeight: 500 }}>계좌번호</span>
+                  <span style={{ fontSize: "11px", color: "var(--form-label-color)", fontWeight: 500 }}>계좌번호</span>
                 </td>
                 <td style={{ padding: "4px 12px 4px 0", verticalAlign: "middle" }}>
-                  <input defaultValue="110-234-567890" className="w-full rounded outline-none transition-all duration-200" style={{ fontSize: 10, padding: "4px 10px", background: "var(--input-background)", border: "none", color: "var(--foreground)" }} onFocus={(e) => { e.target.style.background = "var(--input-focus-bg)"; }} onBlur={(e) => { e.target.style.background = "var(--input-background)"; }} />
+                  <input defaultValue="110-234-567890" className="w-full rounded outline-none transition-all duration-200" style={{ fontSize: 11, padding: "4px 10px", background: "var(--input-background)", border: "none", color: "var(--foreground)" }} onFocus={(e) => { e.target.style.background = "var(--input-focus-bg)"; }} onBlur={(e) => { e.target.style.background = "var(--input-background)"; }} />
                 </td>
                 <td style={{ padding: "4px 12px 4px 0", width: 60, whiteSpace: "nowrap", verticalAlign: "middle" }}>
-                  <span style={{ fontSize: "10px", color: "var(--form-label-color)", fontWeight: 500 }}>예금주</span>
+                  <span style={{ fontSize: "11px", color: "var(--form-label-color)", fontWeight: 500 }}>예금주</span>
                 </td>
                 <td style={{ padding: "4px 0 4px 0", verticalAlign: "middle" }}>
-                  <input key={`holder-${member.id}`} defaultValue={member.name} className="w-full rounded outline-none transition-all duration-200" style={{ fontSize: 10, padding: "4px 10px", background: "var(--input-background)", border: "none", color: "var(--foreground)" }} onFocus={(e) => { e.target.style.background = "var(--input-focus-bg)"; }} onBlur={(e) => { e.target.style.background = "var(--input-background)"; }} />
+                  <input key={`holder-${member.id}`} defaultValue={member.name} className="w-full rounded outline-none transition-all duration-200" style={{ fontSize: 11, padding: "4px 10px", background: "var(--input-background)", border: "none", color: "var(--foreground)" }} onFocus={(e) => { e.target.style.background = "var(--input-focus-bg)"; }} onBlur={(e) => { e.target.style.background = "var(--input-background)"; }} />
                 </td>
               </tr>
               <tr>
                 <td style={{ padding: "4px 12px 4px 0", width: 100, whiteSpace: "nowrap", verticalAlign: "middle" }}>
-                  <span style={{ fontSize: "10px", color: "var(--form-label-color)", fontWeight: 500 }}>SwiftCode</span>
+                  <span style={{ fontSize: "11px", color: "var(--form-label-color)", fontWeight: 500 }}>SwiftCode</span>
                 </td>
                 <td colSpan={3} style={{ padding: "4px 12px 4px 0", verticalAlign: "middle" }}>
-                  <input defaultValue="SHBKKRSE" className="w-full rounded outline-none transition-all duration-200" style={{ fontSize: 10, padding: "4px 10px", background: "var(--input-background)", border: "none", color: "var(--foreground)" }} onFocus={(e) => { e.target.style.background = "var(--input-focus-bg)"; }} onBlur={(e) => { e.target.style.background = "var(--input-background)"; }} />
+                  <input defaultValue="SHBKKRSE" className="w-full rounded outline-none transition-all duration-200" style={{ fontSize: 11, padding: "4px 10px", background: "var(--input-background)", border: "none", color: "var(--foreground)" }} onFocus={(e) => { e.target.style.background = "var(--input-focus-bg)"; }} onBlur={(e) => { e.target.style.background = "var(--input-background)"; }} />
                 </td>
                 <td style={{ padding: "4px 12px 4px 0", width: 60, whiteSpace: "nowrap", verticalAlign: "middle" }}>
-                  <span style={{ fontSize: "10px", color: "var(--form-label-color)", fontWeight: 500 }}>Branch Number</span>
+                  <span style={{ fontSize: "11px", color: "var(--form-label-color)", fontWeight: 500 }}>Branch Number</span>
                 </td>
                 <td style={{ padding: "4px 0 4px 0", verticalAlign: "middle" }}>
-                  <input defaultValue="0234" className="w-full rounded outline-none transition-all duration-200" style={{ fontSize: 10, padding: "4px 10px", background: "var(--input-background)", border: "none", color: "var(--foreground)" }} onFocus={(e) => { e.target.style.background = "var(--input-focus-bg)"; }} onBlur={(e) => { e.target.style.background = "var(--input-background)"; }} />
+                  <input defaultValue="0234" className="w-full rounded outline-none transition-all duration-200" style={{ fontSize: 11, padding: "4px 10px", background: "var(--input-background)", border: "none", color: "var(--foreground)" }} onFocus={(e) => { e.target.style.background = "var(--input-focus-bg)"; }} onBlur={(e) => { e.target.style.background = "var(--input-background)"; }} />
                 </td>
               </tr>
               <tr>
                 <td style={{ padding: "4px 12px 4px 0", width: 100, whiteSpace: "nowrap", verticalAlign: "middle" }}>
-                  <span style={{ fontSize: "10px", color: "var(--form-label-color)", fontWeight: 500 }}>은행동합 거래번호</span>
+                  <span style={{ fontSize: "11px", color: "var(--form-label-color)", fontWeight: 500 }}>은행동합 거래번호</span>
                 </td>
                 <td colSpan={3} style={{ padding: "4px 12px 4px 0", verticalAlign: "middle" }}>
-                  <input defaultValue="88012345" className="w-full rounded outline-none transition-all duration-200" style={{ fontSize: 10, padding: "4px 10px", background: "var(--input-background)", border: "none", color: "var(--foreground)" }} onFocus={(e) => { e.target.style.background = "var(--input-focus-bg)"; }} onBlur={(e) => { e.target.style.background = "var(--input-background)"; }} />
+                  <input defaultValue="88012345" className="w-full rounded outline-none transition-all duration-200" style={{ fontSize: 11, padding: "4px 10px", background: "var(--input-background)", border: "none", color: "var(--foreground)" }} onFocus={(e) => { e.target.style.background = "var(--input-focus-bg)"; }} onBlur={(e) => { e.target.style.background = "var(--input-background)"; }} />
                 </td>
                 <td style={{ padding: "4px 12px 4px 0", width: 60, whiteSpace: "nowrap", verticalAlign: "middle" }}>
-                  <span style={{ fontSize: "10px", color: "var(--form-label-color)", fontWeight: 500 }}>실명계좌 인증</span>
+                  <span style={{ fontSize: "11px", color: "var(--form-label-color)", fontWeight: 500 }}>실명계좌 인증</span>
                 </td>
                 <td style={{ padding: "4px 0 4px 0", verticalAlign: "middle" }}>
-                  <span style={{ fontSize: 10, padding: "3px 10px", background: "var(--badge-status-active-bg)", color: "var(--accent-primary)", border: "1px solid var(--accent-border)", borderRadius: 4, whiteSpace: "nowrap", display: "inline-flex", alignItems: "center", gap: 4 }}>
+                  <span style={{ fontSize: 11, padding: "3px 10px", background: "var(--badge-status-active-bg)", color: "var(--accent-primary)", border: "1px solid var(--accent-border)", borderRadius: 4, whiteSpace: "nowrap", display: "inline-flex", alignItems: "center", gap: 4 }}>
                     ✓ 인증완료
                   </span>
                 </td>
@@ -1843,30 +1843,30 @@ function MemberDetail({ memberId, listOpen, formColumnWidth }: { memberId: numbe
         <FormSection title="상위 회원과의 관계" icon={<Users size={12} />}>
           <div className="flex flex-col gap-3">
             <div className="flex items-center gap-4 flex-wrap">
-              <span className="shrink-0" style={{ fontSize: "10px", color: "var(--accent-primary)", fontWeight: 500 }}>* 추천인</span>
-              <input readOnly value="100012" className="rounded px-2 py-1 outline-none" style={{ fontSize: 10, width: 72, background: "var(--surface-input-readonly)", border: "none", color: "var(--foreground)", fontFamily: "monospace" }} />
-              <input readOnly value="박민수" className="rounded px-2 py-1 outline-none" style={{ fontSize: 10, width: 60, background: "var(--surface-input-readonly)", border: "none", color: "var(--foreground)" }} />
-              <span style={{ fontSize: 10, padding: "2px 8px", background: "var(--accent-light)", color: "var(--accent-primary)", border: "1px solid var(--accent-border)", borderRadius: 4, whiteSpace: "nowrap" }}>38명</span>
+              <span className="shrink-0" style={{ fontSize: "11px", color: "var(--accent-primary)", fontWeight: 500 }}>* 추천인</span>
+              <input readOnly value="100012" className="rounded px-2 py-1 outline-none" style={{ fontSize: 11, width: 72, background: "var(--surface-input-readonly)", border: "none", color: "var(--foreground)", fontFamily: "monospace" }} />
+              <input readOnly value="박민수" className="rounded px-2 py-1 outline-none" style={{ fontSize: 11, width: 60, background: "var(--surface-input-readonly)", border: "none", color: "var(--foreground)" }} />
+              <span style={{ fontSize: 11, padding: "2px 8px", background: "var(--accent-light)", color: "var(--accent-primary)", border: "1px solid var(--accent-border)", borderRadius: 4, whiteSpace: "nowrap" }}>38명</span>
               <button className="rounded p-1 flex items-center justify-center" style={{ background: "var(--surface-button-muted)", border: "1px solid var(--border)", color: "var(--muted-foreground)" }}>
                 <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
               </button>
               <div style={{ width: 1, height: 20, background: "var(--border)", margin: "0 4px" }} />
-              <span className="shrink-0" style={{ fontSize: "10px", color: "var(--accent-primary)", fontWeight: 500 }}>* 후원인</span>
-              <input readOnly value="100008" className="rounded px-2 py-1 outline-none" style={{ fontSize: 10, width: 72, background: "var(--surface-input-readonly)", border: "none", color: "var(--foreground)", fontFamily: "monospace" }} />
-              <input readOnly value="이정환" className="rounded px-2 py-1 outline-none" style={{ fontSize: 10, width: 60, background: "var(--surface-input-readonly)", border: "none", color: "var(--foreground)" }} />
-              <span style={{ fontSize: 10, padding: "2px 8px", background: "var(--accent-light)", color: "var(--accent-primary)", border: "1px solid var(--accent-border)", borderRadius: 4, whiteSpace: "nowrap" }}>12명</span>
+              <span className="shrink-0" style={{ fontSize: "11px", color: "var(--accent-primary)", fontWeight: 500 }}>* 후원인</span>
+              <input readOnly value="100008" className="rounded px-2 py-1 outline-none" style={{ fontSize: 11, width: 72, background: "var(--surface-input-readonly)", border: "none", color: "var(--foreground)", fontFamily: "monospace" }} />
+              <input readOnly value="이정환" className="rounded px-2 py-1 outline-none" style={{ fontSize: 11, width: 60, background: "var(--surface-input-readonly)", border: "none", color: "var(--foreground)" }} />
+              <span style={{ fontSize: 11, padding: "2px 8px", background: "var(--accent-light)", color: "var(--accent-primary)", border: "1px solid var(--accent-border)", borderRadius: 4, whiteSpace: "nowrap" }}>12명</span>
               <button className="rounded p-1 flex items-center justify-center" style={{ background: "var(--surface-button-muted)", border: "1px solid var(--border)", color: "var(--muted-foreground)" }}>
                 <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
               </button>
             </div>
             <div style={{ height: 1, background: "var(--border)" }} />
             <div className="flex items-center gap-4 flex-wrap">
-              <span className="shrink-0" style={{ fontSize: "10px", color: "var(--form-label-color)", fontWeight: 600 }}>소속 그룹 정보</span>
-              <span className="shrink-0" style={{ fontSize: "10px", color: "var(--accent-primary)", fontWeight: 500 }}>* 센터</span>
+              <span className="shrink-0" style={{ fontSize: "11px", color: "var(--form-label-color)", fontWeight: 600 }}>소속 그룹 정보</span>
+              <span className="shrink-0" style={{ fontSize: "11px", color: "var(--accent-primary)", fontWeight: 500 }}>* 센터</span>
               <div className="relative" style={{ flex: "1 1 140px", minWidth: 120, maxWidth: 200 }}>
                 <select
                   className="w-full rounded py-1.5 text-sm outline-none appearance-none"
-                  style={{ background: "var(--input-background)", border: "none", color: "var(--foreground)", paddingLeft: 10, paddingRight: 36, fontSize: 11 }}
+                  style={{ background: "var(--input-background)", border: "none", color: "var(--foreground)", paddingLeft: 10, paddingRight: 36, fontSize: 12 }}
                 >
                   <option>본사</option>
                   <option>광주 수완</option>
@@ -1877,11 +1877,11 @@ function MemberDetail({ memberId, listOpen, formColumnWidth }: { memberId: numbe
                   <ChevronDown size={13} style={{ color: "var(--muted-foreground)" }} />
                 </div>
               </div>
-              <span className="shrink-0" style={{ fontSize: "10px", color: "var(--form-label-color)", fontWeight: 500 }}>직급</span>
+              <span className="shrink-0" style={{ fontSize: "11px", color: "var(--form-label-color)", fontWeight: 500 }}>직급</span>
               <div className="relative" style={{ flex: "1 1 140px", minWidth: 120, maxWidth: 200 }}>
                 <select
                   className="w-full rounded py-1.5 text-sm outline-none appearance-none"
-                  style={{ background: "var(--input-background)", border: "none", color: "var(--foreground)", paddingLeft: 10, paddingRight: 36, fontSize: 11 }}
+                  style={{ background: "var(--input-background)", border: "none", color: "var(--foreground)", paddingLeft: 10, paddingRight: 36, fontSize: 12 }}
                 >
                   <option>다이아몬드</option>
                   <option>플래티넘</option>
@@ -1911,7 +1911,7 @@ function MemberDetail({ memberId, listOpen, formColumnWidth }: { memberId: numbe
                   defaultChecked={item.checked}
                   style={{ accentColor: "var(--accent-primary)", width: 14, height: 14, cursor: "pointer" }}
                 />
-                <span style={{ fontSize: 10, color: "var(--foreground)" }}>{item.label}</span>
+                <span style={{ fontSize: 11, color: "var(--foreground)" }}>{item.label}</span>
               </label>
             ))}
           </div>
@@ -1921,7 +1921,7 @@ function MemberDetail({ memberId, listOpen, formColumnWidth }: { memberId: numbe
         <div className="flex justify-end pt-2 pb-6">
           <button
             className="rounded font-medium transition-all duration-200"
-            style={{ fontSize: 10, padding: "7px 13px", background: "var(--save-btn-bg, var(--accent-gradient))", color: "var(--on-accent)", border: "none" }}
+            style={{ fontSize: 11, padding: "7px 13px", background: "var(--save-btn-bg, var(--accent-gradient))", color: "var(--on-accent)", border: "none" }}
           >
             등록/저장
           </button>
@@ -2011,7 +2011,7 @@ function HistoryItemButton({ item, isActive, onSelect, onRemove }: HistoryItemBu
         <div className="min-w-0 flex-1">
           <div
             style={{
-              fontSize: 11,
+              fontSize: 12,
               fontWeight: isActive ? 600 : 500,
               color: isActive ? "var(--accent-primary)" : "var(--text-body)",
               overflow: "hidden",
@@ -2023,7 +2023,7 @@ function HistoryItemButton({ item, isActive, onSelect, onRemove }: HistoryItemBu
           </div>
           <div
             style={{
-              fontSize: 10,
+              fontSize: 11,
               fontFamily: "monospace",
               color: "var(--text-muted)",
               marginTop: 2,
@@ -2036,7 +2036,7 @@ function HistoryItemButton({ item, isActive, onSelect, onRemove }: HistoryItemBu
           </div>
           <div
             style={{
-              fontSize: 10,
+              fontSize: 11,
               color: "var(--text-subtle)",
               marginTop: 1,
               overflow: "hidden",
@@ -2055,7 +2055,7 @@ function HistoryItemButton({ item, isActive, onSelect, onRemove }: HistoryItemBu
               onRemove(item.id);
             }}
             className="shrink-0 opacity-0 group-hover:opacity-50 hover:!opacity-100 transition-opacity"
-            style={{ fontSize: 14, lineHeight: 1, color: "var(--text-muted)", padding: "0 2px" }}
+            style={{ fontSize: 15, lineHeight: 1, color: "var(--text-muted)", padding: "0 2px" }}
           >
             ×
           </span>
@@ -2082,7 +2082,7 @@ function RailTooltip({ label, align = "left" }: { label: string; align?: "left" 
       className={`absolute top-1/2 -translate-y-1/2 px-2 py-1 rounded whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity duration-200 pointer-events-none z-50 ${
         align === "right" ? "right-full mr-1.5" : "left-12"
       }`}
-      style={{ background: "var(--tooltip-bg)", color: "var(--tooltip-fg)", fontSize: "10px" }}
+      style={{ background: "var(--tooltip-bg)", color: "var(--tooltip-fg)", fontSize: "11px" }}
     >
       {label}
     </span>
@@ -2140,7 +2140,7 @@ function RecentPinRail({
           {pinned.length > 0 && (
             <span
               style={{
-                fontSize: 9,
+                fontSize: 10,
                 fontWeight: 600,
                 color: "var(--accent-primary)",
                 background: "var(--accent-light)",
@@ -2164,7 +2164,7 @@ function RecentPinRail({
           {recent.length > 0 && (
             <span
               style={{
-                fontSize: 9,
+                fontSize: 10,
                 fontWeight: 600,
                 color: "var(--text-muted)",
                 background: "var(--surface-button-muted)",
@@ -2198,7 +2198,7 @@ function RecentPinRail({
         className="flex items-center justify-between px-3 shrink-0"
         style={{ height: 40, borderBottom: "1px solid var(--border)" }}
       >
-        <span style={{ fontSize: 11, fontWeight: 600, color: "var(--text-body)" }}>방문 기록</span>
+        <span style={{ fontSize: 12, fontWeight: 600, color: "var(--text-body)" }}>방문 기록</span>
         <div className="flex items-center gap-1">
           <button
             type="button"
@@ -2223,10 +2223,10 @@ function RecentPinRail({
       <div className="flex-1 overflow-y-auto px-2 py-2" style={{ scrollbarWidth: "thin" }}>
         <div className="flex items-center gap-1.5 px-1 mb-1.5">
           <Pin size={11} style={{ color: "var(--accent-primary)" }} />
-          <span style={{ fontSize: 10, fontWeight: 600, color: "var(--text-muted)" }}>고정</span>
+          <span style={{ fontSize: 11, fontWeight: 600, color: "var(--text-muted)" }}>고정</span>
         </div>
         {pinned.length === 0 ? (
-          <p style={{ fontSize: 10, color: "var(--text-subtle)", padding: "4px 8px 12px" }}>
+          <p style={{ fontSize: 11, color: "var(--text-subtle)", padding: "4px 8px 12px" }}>
             고정 버튼으로 현재 화면을 고정하세요
           </p>
         ) : (
@@ -2245,10 +2245,10 @@ function RecentPinRail({
 
         <div className="flex items-center gap-1.5 px-1 mb-1.5">
           <Clock size={11} style={{ color: "var(--text-muted)" }} />
-          <span style={{ fontSize: 10, fontWeight: 600, color: "var(--text-muted)" }}>최근</span>
+          <span style={{ fontSize: 11, fontWeight: 600, color: "var(--text-muted)" }}>최근</span>
         </div>
         {recent.length === 0 ? (
-          <p style={{ fontSize: 10, color: "var(--text-subtle)", padding: "4px 8px" }}>
+          <p style={{ fontSize: 11, color: "var(--text-subtle)", padding: "4px 8px" }}>
             방문한 화면이 여기에 표시됩니다
           </p>
         ) : (
@@ -2298,12 +2298,12 @@ function TopNav({ activeTab, onTabChange, listOpen, onListToggle }: TopNavProps)
         <div className="flex items-center gap-2 mr-6 shrink-0">
           <div
             className="flex items-center justify-center rounded"
-            style={{ width: 28, height: 28, background: "var(--logo-bg, #7c3aed)", fontSize: 10, fontWeight: 700, color: "var(--on-accent)" }}
+            style={{ width: 28, height: 28, background: "var(--logo-bg, #7c3aed)", fontSize: 11, fontWeight: 700, color: "var(--on-accent)" }}
           >
             VB
           </div>
-          <span style={{ fontSize: 12, fontWeight: 600, color: "var(--nav-text, #fff)" }}>(주)비아블</span>
-          <span style={{ fontSize: 10, color: "var(--nav-text-muted, rgba(255,255,255,0.6))", marginLeft: 4 }}>ERP</span>
+          <span style={{ fontSize: 13, fontWeight: 600, color: "var(--nav-text, #fff)" }}>(주)비아블</span>
+          <span style={{ fontSize: 11, color: "var(--nav-text-muted, rgba(255,255,255,0.6))", marginLeft: 4 }}>ERP</span>
         </div>
         <div className="flex items-center h-full flex-1 min-w-0">
           {mainMenus.map((menu) => {
@@ -2314,7 +2314,7 @@ function TopNav({ activeTab, onTabChange, listOpen, onListToggle }: TopNavProps)
                 onClick={menu === "회원관리" ? onListToggle : undefined}
                 className="flex items-center h-full px-4 shrink-0 whitespace-nowrap transition-all duration-150"
                 style={{
-                  fontSize: 12,
+                  fontSize: 13,
                   fontWeight: isActive ? 600 : 400,
                   color: isActive ? "var(--nav-text, #fff)" : "var(--nav-text-muted, rgba(255,255,255,0.7))",
                   borderBottom: isActive ? `2px solid var(--nav-active-border, #fff)` : "2px solid transparent",
@@ -2330,19 +2330,19 @@ function TopNav({ activeTab, onTabChange, listOpen, onListToggle }: TopNavProps)
         <div className="flex items-center gap-3 ml-4 shrink-0 whitespace-nowrap">
           <div
             className="flex items-center justify-center rounded"
-            style={{ width: 26, height: 26, background: "var(--nav-avatar-bg, rgba(255,255,255,0.2))", fontSize: 10, fontWeight: 600, color: "var(--nav-text, #fff)" }}
+            style={{ width: 26, height: 26, background: "var(--nav-avatar-bg, rgba(255,255,255,0.2))", fontSize: 11, fontWeight: 600, color: "var(--nav-text, #fff)" }}
           >
             KR
           </div>
           <div
             className="flex items-center justify-center rounded-full"
-            style={{ width: 26, height: 26, background: "#4f7ef8", fontSize: 10, fontWeight: 700, color: "var(--on-accent)" }}
+            style={{ width: 26, height: 26, background: "#4f7ef8", fontSize: 11, fontWeight: 700, color: "var(--on-accent)" }}
           >
             디
           </div>
-          <span style={{ fontSize: 12, color: "var(--nav-text, #fff)" }}>디자인</span>
+          <span style={{ fontSize: 13, color: "var(--nav-text, #fff)" }}>디자인</span>
           <div style={{ width: 1, height: 14, background: "var(--nav-divider, rgba(255,255,255,0.3))" }} />
-          <button style={{ fontSize: 12, color: "var(--nav-text-muted, rgba(255,255,255,0.7))" }}>로그아웃</button>
+          <button style={{ fontSize: 13, color: "var(--nav-text-muted, rgba(255,255,255,0.7))" }}>로그아웃</button>
         </div>
       </div>
 
@@ -2360,7 +2360,7 @@ function TopNav({ activeTab, onTabChange, listOpen, onListToggle }: TopNavProps)
                 onClick={() => onTabChange(tab)}
                 className="flex items-center h-full px-3 shrink-0 whitespace-nowrap transition-all duration-150"
                 style={{
-                  fontSize: 12,
+                  fontSize: 13,
                   fontWeight: isActive ? 600 : 400,
                   color: isActive ? "var(--accent-primary)" : "var(--muted-foreground)",
                   borderBottom: isActive ? "2px solid var(--accent-primary)" : "2px solid transparent",
@@ -2386,7 +2386,7 @@ function TopNav({ activeTab, onTabChange, listOpen, onListToggle }: TopNavProps)
               <button
                 className="flex items-center justify-center gap-1 px-2 py-0.5 rounded shrink-0 whitespace-nowrap transition-all duration-150"
                 style={{
-                  fontSize: 11,
+                  fontSize: 12,
                   fontWeight: 500,
                   background:
                     btn.variant === "primary" ? "var(--accent-light)"
@@ -2406,7 +2406,7 @@ function TopNav({ activeTab, onTabChange, listOpen, onListToggle }: TopNavProps)
         </div>
         <button
           className="flex items-center justify-center px-2 py-0.5 rounded shrink-0 whitespace-nowrap"
-          style={{ fontSize: 11, fontWeight: 500, background: "var(--accent-light)", color: "var(--accent-primary)", border: "none" }}
+          style={{ fontSize: 12, fontWeight: 500, background: "var(--accent-light)", color: "var(--accent-primary)", border: "none" }}
         >
           회원등록
         </button>
@@ -2468,7 +2468,7 @@ function Sidebar({ activePanel, onPanelToggle, theme, onThemeChange }: SidebarPr
               <item.icon size={18} style={{ color: isActive ? "var(--accent-primary)" : "var(--sidebar-foreground)" }} />
               <span
                 className="absolute left-10 px-2 py-1 rounded whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity duration-200 pointer-events-none z-50"
-                style={{ background: "var(--tooltip-bg)", color: "var(--tooltip-fg)", fontSize: "10px" }}
+                style={{ background: "var(--tooltip-bg)", color: "var(--tooltip-fg)", fontSize: "11px" }}
               >
                 {item.label}
               </span>
@@ -2486,7 +2486,7 @@ function Sidebar({ activePanel, onPanelToggle, theme, onThemeChange }: SidebarPr
             <item.icon size={18} style={{ color: "var(--sidebar-foreground)" }} />
             <span
               className="absolute left-10 px-2 py-1 rounded whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity duration-200 pointer-events-none z-50"
-              style={{ background: "var(--tooltip-bg)", color: "var(--tooltip-fg)", fontSize: "10px" }}
+              style={{ background: "var(--tooltip-bg)", color: "var(--tooltip-fg)", fontSize: "11px" }}
             >
               {item.label}
             </span>
@@ -2514,7 +2514,7 @@ function Sidebar({ activePanel, onPanelToggle, theme, onThemeChange }: SidebarPr
             >
               <span
                 className="absolute left-6 px-2 py-1 rounded whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity duration-200 pointer-events-none z-50"
-                style={{ background: "var(--tooltip-bg)", color: "var(--tooltip-fg)", fontSize: "10px" }}
+                style={{ background: "var(--tooltip-bg)", color: "var(--tooltip-fg)", fontSize: "11px" }}
               >
                 {t.label}
               </span>
@@ -2744,7 +2744,7 @@ export default function App() {
           ) : activeTab === "수당내역" ? (
             <AllowanceHistoryView memberId={selectedMember} />
           ) : (
-            <div className="flex items-center justify-center h-full" style={{ color: "var(--text-muted)", fontSize: 12 }}>
+            <div className="flex items-center justify-center h-full" style={{ color: "var(--text-muted)", fontSize: 13 }}>
               {activeTab} 화면 준비 중입니다.
             </div>
           )}

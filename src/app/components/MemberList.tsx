@@ -94,7 +94,7 @@ export function MemberList({ selectedId, onSelect }: MemberListProps) {
                     <div className="text-xs font-semibold truncate" style={{ color: isSelected ? "#7c3aed" : "var(--foreground)" }}>
                       {member.name}
                     </div>
-                    <div className="text-xs truncate mt-0.5" style={{ color: "var(--muted-foreground)", fontFamily: "monospace", fontSize: 9 }}>
+                    <div className="text-xs truncate mt-0.5" style={{ color: "var(--muted-foreground)", fontFamily: "monospace", fontSize: 10 }}>
                       {member.no}
                     </div>
                   </div>
@@ -138,19 +138,19 @@ export function MemberList({ selectedId, onSelect }: MemberListProps) {
                   >
                     <div className="flex items-center gap-1.5 mb-1.5">
                       <Phone size={10} style={{ color: "#7c3aed" }} />
-                      <span className="text-xs" style={{ color: "var(--foreground)", fontFamily: "monospace", fontSize: 10 }}>
+                      <span className="text-xs" style={{ color: "var(--foreground)", fontFamily: "monospace", fontSize: 11 }}>
                         {member.phone}
                       </span>
                     </div>
                     <div className="flex items-center gap-1.5 mb-1.5">
                       <Mail size={10} style={{ color: "#7c3aed" }} />
-                      <span className="text-xs truncate" style={{ color: "var(--muted-foreground)", fontSize: 10 }}>
+                      <span className="text-xs truncate" style={{ color: "var(--muted-foreground)", fontSize: 11 }}>
                         {member.email}
                       </span>
                     </div>
                     <div
                       className="text-xs mt-2 pt-2"
-                      style={{ color: "var(--muted-foreground)", borderTop: "1px solid #ede9fe", fontSize: 10 }}
+                      style={{ color: "var(--muted-foreground)", borderTop: "1px solid #ede9fe", fontSize: 11 }}
                     >
                       가입일 <span style={{ color: "#7c3aed", fontFamily: "monospace" }}>{member.joinDate}</span>
                     </div>
