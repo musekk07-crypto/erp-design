@@ -1787,24 +1787,23 @@ function MemberDetail({ memberId, listOpen, formColumnWidth }: { memberId: numbe
                 </td>
               </tr>
               <tr>
-                <td style={{ padding: "3px 10px 3px 0", whiteSpace: "nowrap", verticalAlign: "top", paddingTop: 8 }}>
+                <td style={{ padding: "3px 10px 3px 0", whiteSpace: "nowrap", verticalAlign: "middle" }}>
                   <span style={{ fontSize: "12px", color: "var(--form-label-color)", fontWeight: 500 }}>메모</span>
                 </td>
-                <td colSpan={3} style={{ padding: "3px 10px 3px 0", verticalAlign: "top", paddingTop: 8 }}>
-                  <textarea
+                <td colSpan={3} style={{ padding: "3px 10px 3px 0", verticalAlign: "middle" }}>
+                  <input
                     key={`memo-${member.id}`}
                     defaultValue={`${member.name} · ${member.rank} · ${member.grade} · ${member.region} (${member.status})`}
-                    rows={3}
-                    className="w-full rounded outline-none transition-all duration-200 resize-none"
+                    className="w-full rounded outline-none transition-all duration-200"
                     style={{ fontSize: 12, padding: "3px 8px", background: "var(--input-background)", border: "none", color: "var(--foreground)" }}
                     onFocus={(e) => { e.target.style.background = "var(--input-focus-bg)"; }}
                     onBlur={(e) => { e.target.style.background = "var(--input-background)"; }}
                   />
                 </td>
-                <td style={{ padding: "3px 10px 3px 0", whiteSpace: "nowrap", verticalAlign: "top", paddingTop: 8 }}>
+                <td style={{ padding: "3px 10px 3px 0", whiteSpace: "nowrap", verticalAlign: "middle" }}>
                   <span style={{ fontSize: "12px", color: "var(--form-label-color)", fontWeight: 500 }}>세금신고번호</span>
                 </td>
-                <td style={{ padding: "3px 0 3px 0", verticalAlign: "top", paddingTop: 8 }}>
+                <td style={{ padding: "3px 0 3px 0", verticalAlign: "middle" }}>
                   <input defaultValue="220-81-12345" className="w-full rounded outline-none transition-all duration-200" style={{ fontSize: 12, padding: "3px 8px", background: "var(--input-background)", border: "none", color: "var(--foreground)" }} onFocus={(e) => { e.target.style.background = "var(--input-focus-bg)"; }} onBlur={(e) => { e.target.style.background = "var(--input-background)"; }} />
                 </td>
               </tr>
