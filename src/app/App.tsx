@@ -2454,21 +2454,15 @@ function TopNav({ listOpen, onListToggle }: TopNavProps) {
           <span style={{ fontSize: 14, fontWeight: 600, color: "var(--nav-text, #fff)" }}>(주)비아블</span>
           <span style={{ fontSize: 12, color: "var(--nav-text-muted, rgba(255,255,255,0.6))", marginLeft: 4 }}>ERP</span>
         </div>
-        <div className="flex items-center h-full flex-1 min-w-0">
+        <div className="flex items-center flex-1 min-w-0 gap-0.5">
           {mainMenus.map((menu) => {
             const isActive = menu === "회원관리";
             return (
               <button
                 key={menu}
+                type="button"
                 onClick={menu === "회원관리" ? onListToggle : undefined}
-                className="flex items-center h-full px-4 shrink-0 whitespace-nowrap transition-all duration-150"
-                style={{
-                  fontSize: 14,
-                  fontWeight: isActive ? 600 : 400,
-                  color: isActive ? "var(--nav-text, #fff)" : "var(--nav-text-muted, rgba(255,255,255,0.7))",
-                  borderBottom: isActive ? `2px solid var(--nav-active-border, #fff)` : "2px solid transparent",
-                  background: "transparent",
-                }}
+                className={`main-nav-item${isActive ? " is-active" : ""}`}
               >
                 {menu}
               </button>
