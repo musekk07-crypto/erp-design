@@ -551,7 +551,6 @@
 
 .app-content-detail {
   overflow: hidden;
-  min-width: 0;
 }
 
 /* 회원 테이블 행 — 테마 대응 */

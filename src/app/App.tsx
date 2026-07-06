@@ -21,7 +21,7 @@ const MEMBER_LIST_DEFAULT_WIDTH = 240;
 const MEMBER_LIST_PAGE_SIZE = 15;
 const MEMBER_LIST_MAX_WIDTH =
   36 + 36 + 96 + 100 + 54 + 62 + 84 + 56 + 54 + 54 + 108 + 108 + 84;
-const FORM_COLUMN_WIDTH_MIN = 620;
+const FORM_COLUMN_WIDTH_MIN = 900;
 const ORDER_PANEL_MIN_WIDTH = 1080;
 const APP_MIN_WIDTH = 1280;
 const LIST_PANEL_TRANSITION_MS = 250;
@@ -56,11 +56,23 @@ function getDetailPanelWidth(formColumnWidth: number) {
 function calcFormColumnWidth(availableDetailWidth: number) {
   const innerWidth = Math.max(0, availableDetailWidth - DETAIL_PANEL_PAD * 2);
   const idealForm = innerWidth - ORG_CHART_WIDTH - DETAIL_CONTENT_GAP;
-  return Math.max(FORM_COLUMN_WIDTH_MIN, idealForm);
+  if (idealForm >= FORM_COLUMN_WIDTH_MIN) {
+    return idealForm;
+  }
+  return FORM_COLUMN_WIDTH_MIN;
 }
 
-function clampMemberListWidth(width: number) {
-  return Math.max(MEMBER_LIST_MIN_WIDTH, Math.min(MEMBER_LIST_MAX_WIDTH, width));
+function getMaxMemberListWidth(appContentWidth: number) {
+  const detailNeed = getDetailPanelWidth(FORM_COLUMN_WIDTH_MIN);
+  return Math.max(MEMBER_LIST_MIN_WIDTH, appContentWidth - detailNeed);
+}
+
+function clampMemberListWidth(width: number, appContentWidth = 0) {
+  const maxW =
+    appContentWidth > 0
+      ? Math.min(MEMBER_LIST_MAX_WIDTH, getMaxMemberListWidth(appContentWidth))
+      : MEMBER_LIST_MAX_WIDTH;
+  return Math.max(MEMBER_LIST_MIN_WIDTH, Math.min(maxW, width));
 }
 
 // ─────────────────────────────────────────────
@@ -1515,7 +1527,7 @@ function MemberDetail({ memberId, listOpen, formColumnWidth }: { memberId: numbe
         className="flex-1 content-scroll"
         style={{
           overflowY: "auto",
-          overflowX: "hidden",
+          overflowX: listOpen ? "auto" : "hidden",
           scrollbarWidth: "thin",
           background: "var(--surface-page)",
           padding: DETAIL_PANEL_PAD,
@@ -1558,7 +1570,7 @@ function MemberDetail({ memberId, listOpen, formColumnWidth }: { memberId: numbe
             boxSizing: "border-box",
           }}
         >
-        {/* 왼쪽 폼 — 최소 560px 유지, 넓으면 자동 확장 */}
+        {/* 왼쪽 폼 — 최소 900px 유지, 넓으면 자동 확장 */}
         <div
           style={
             listOpen
@@ -2642,11 +2654,15 @@ export default function App() {
 
   useEffect(() => {
     function onWindowResize() {
-      setListWidth((w) => clampMemberListWidth(w));
+      setListWidth((w) => clampMemberListWidth(w, appContentWidth));
     }
     window.addEventListener("resize", onWindowResize);
     return () => window.removeEventListener("resize", onWindowResize);
-  }, []);
+  }, [appContentWidth]);
+
+  useEffect(() => {
+    setListWidth((w) => clampMemberListWidth(w, appContentWidth));
+  }, [appContentWidth]);
 
   const onResizeStart = useCallback((e: React.MouseEvent) => {
     e.preventDefault();
@@ -2656,7 +2672,8 @@ export default function App() {
       if (!resizing.current) return;
       const sidebarOffset = SIDEBAR_WIDTH;
       const newWidth = ev.clientX - sidebarOffset;
-      setListWidth(clampMemberListWidth(newWidth));
+      const contentWidth = appContentRef.current?.clientWidth ?? 0;
+      setListWidth(clampMemberListWidth(newWidth, contentWidth));
     }
     function onUp() {
       resizing.current = false;
@@ -2745,11 +2762,15 @@ export default function App() {
         <div
           className="app-content-detail"
           style={{
-            width: isFixedDetailWidth ? ORDER_PANEL_MIN_WIDTH : listOpen ? undefined : "100%",
+            width: isFixedDetailWidth
+              ? ORDER_PANEL_MIN_WIDTH
+              : listOpen
+                ? detailPanelMinWidth
+                : "100%",
             minWidth: listOpen ? detailPanelMinWidth : 0,
             maxWidth: isFixedDetailWidth ? ORDER_PANEL_MIN_WIDTH : undefined,
-            flexShrink: listOpen ? 0 : 1,
-            flexGrow: isFixedDetailWidth ? 0 : 1,
+            flexShrink: 0,
+            flexGrow: 0,
             display: "flex",
             flexDirection: "column",
             height: "100%",
