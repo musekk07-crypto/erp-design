@@ -495,6 +495,12 @@
   --form-side-field-w: calc((100% - var(--form-label-w) * 2) / 2);
   --form-side-field-left-w: calc(var(--form-side-field-w) - 40px);
   --form-side-field-right-w: calc(var(--form-side-field-w) + 40px);
+  --form-field-half-w: calc((var(--form-side-field-left-w) - var(--form-label-mid-w)) / 2);
+  /* 보안 비밀번호 입력 끝선 — 비밀번호+라벨+보안비밀번호 입력 너비 합 */
+  --form-field-match-w: calc(var(--form-field-half-w) * var(--form-field-width));
+  --form-left-input-end-w: calc(
+    var(--form-field-match-w) * 2 + var(--form-col-gap) + var(--form-label-mid-w) + var(--form-gap)
+  );
 }
 
 .app-content .content-form-body table.content-form-grid--member .col-label-1,
@@ -512,7 +518,28 @@
 
 .app-content .content-form-body table.content-form-grid--member .col-field-1,
 .app-content .content-form-body table.content-form-grid--member .col-field-2 {
-  width: calc((var(--form-side-field-left-w) - var(--form-label-mid-w)) / 2);
+  width: var(--form-field-half-w);
+}
+
+.app-content .content-form-body table.content-form-grid--member td[colspan="3"] > :is(input, select, textarea),
+.app-content .content-form-body table.content-form-grid--member td[colspan="3"] > .flex {
+  width: var(--form-left-input-end-w) !important;
+  max-width: var(--form-left-input-end-w);
+}
+
+.app-content .content-form-body table.content-form-grid--member tr:not(.form-row-triple) > td:last-child > :is(input, select, textarea) {
+  width: var(--form-field-match-w) !important;
+  max-width: var(--form-field-match-w);
+}
+
+.app-content .content-form-body table.content-form-grid--member tr.form-row-triple > td:nth-child(6) > :is(input, select, textarea) {
+  width: var(--form-field-match-w) !important;
+  max-width: var(--form-field-match-w);
+}
+
+.app-content .content-form-body table.content-form-grid--member tr.form-row-triple > td:nth-child(6) > .flex {
+  width: var(--form-field-match-w);
+  max-width: var(--form-field-match-w);
 }
 
 .app-content .content-form-body table.content-form-grid--member td {
