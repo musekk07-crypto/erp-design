@@ -1579,8 +1579,8 @@ function Mm2DetailTable({ rows }: { rows: { label: string; value: React.ReactNod
 function Mm2FieldValue({ children, suffix }: { children: React.ReactNode; suffix?: React.ReactNode }) {
   return (
     <span className="mm2-field-value">
-      {children}
-      {suffix}
+      <span className="mm2-field-text">{children}</span>
+      {suffix ? <span className="mm2-field-suffix">{suffix}</span> : null}
     </span>
   );
 }
@@ -1658,14 +1658,21 @@ function MemberManagement2View({
 
   const sectionRows: Record<Mm2SectionId, { label: string; value: React.ReactNode }[]> = {
     login: [
-      { label: "회원번호", value: <strong>{member.no}</strong> },
+      { label: "회원번호", value: <span className="mm2-field-highlight">{member.no}</span> },
       { label: "아이디", value: member.loginId },
-      { label: "비밀번호", value: <span style={{ color: "var(--muted-foreground)" }}>변경 시에만 입력</span> },
-      { label: "보안비밀번호", value: "····" },
+      { label: "비밀번호", value: <span className="mm2-field-muted">변경 시에만 입력</span> },
+      { label: "보안비밀번호", value: <span className="mm2-field-masked">····</span> },
       { label: "회원등록일자", value: <Mm2FieldValue suffix={<Calendar size={14} className="mm2-field-icon" />}>{member.regDate}</Mm2FieldValue> },
     ],
     name: [
-      { label: "성명", value: <Mm2FieldValue>Minsoo <span style={{ color: "var(--text-subtle)", margin: "0 4px" }}>|</span> Kim</Mm2FieldValue> },
+      {
+        label: "성명",
+        value: (
+          <Mm2FieldValue>
+            Minsoo <span className="mm2-field-sep">|</span> Kim
+          </Mm2FieldValue>
+        ),
+      },
       { label: "한글명", value: member.name },
       { label: "닉네임", value: "Minsoo Kim" },
       { label: "Business Name", value: "" },
@@ -1718,7 +1725,7 @@ function MemberManagement2View({
         label: "추천인",
         value: (
           <Mm2FieldValue suffix={<Search size={14} className="mm2-field-icon" />}>
-            10001150 <span style={{ color: "var(--text-subtle)", margin: "0 4px" }}>|</span> 이순신 <span style={{ color: "var(--text-subtle)", margin: "0 4px" }}>|</span> 12명
+            10001150 <span className="mm2-field-sep">|</span> 이순신 <span className="mm2-field-sep">|</span> 12명
           </Mm2FieldValue>
         ),
       },
@@ -1726,7 +1733,7 @@ function MemberManagement2View({
         label: "후원인",
         value: (
           <Mm2FieldValue suffix={<Search size={14} className="mm2-field-icon" />}>
-            10001201 <span style={{ color: "var(--text-subtle)", margin: "0 4px" }}>|</span> 홍길동 <span style={{ color: "var(--text-subtle)", margin: "0 4px" }}>|</span> 6명
+            10001201 <span className="mm2-field-sep">|</span> 홍길동 <span className="mm2-field-sep">|</span> 6명
           </Mm2FieldValue>
         ),
       },

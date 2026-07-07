@@ -427,6 +427,7 @@
 .mm2-detail-row {
   flex: 0 0 auto;
   display: flex;
+  align-items: stretch;
   min-height: 52px;
   border-bottom: 1px solid var(--border);
 }
@@ -439,9 +440,11 @@
   flex: 0 0 140px;
   display: flex;
   align-items: center;
+  align-self: stretch;
   padding: 12px;
   font-size: 12px;
   font-weight: 500;
+  line-height: 1.45;
   color: var(--form-label-color);
   background: var(--surface-toolbar);
 }
@@ -450,22 +453,66 @@
   flex: 1;
   display: flex;
   align-items: center;
+  align-self: stretch;
   min-width: 0;
   padding: 12px;
   font-size: 12px;
+  line-height: 1.45;
   color: var(--text-body);
   background: var(--surface-panel);
 }
 
 .mm2-field-value {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  width: 100%;
+  min-height: 28px;
+}
+
+.mm2-field-text {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 4px;
+}
+
+.mm2-field-suffix {
+  flex-shrink: 0;
   display: inline-flex;
   align-items: center;
-  gap: 8px;
+}
+
+.mm2-field-sep {
+  color: var(--text-subtle);
+  margin: 0 2px;
+}
+
+.mm2-field-highlight {
+  font-weight: 700;
+  font-size: 13px;
+  line-height: 1.45;
+  color: var(--member-no-color, var(--accent-primary));
+}
+
+.mm2-field-muted {
+  color: var(--muted-foreground);
+  line-height: 1.45;
+}
+
+.mm2-field-masked {
+  letter-spacing: 2px;
+  color: var(--text-muted);
+  line-height: 1.45;
 }
 
 .mm2-field-icon {
   color: var(--muted-foreground);
   flex-shrink: 0;
+  display: block;
 }
 
 .mm2-verified-badge {
@@ -483,7 +530,11 @@
 .mm2-consent-list {
   display: flex;
   flex-wrap: wrap;
+  align-items: center;
+  align-content: center;
   gap: 12px 20px;
+  width: 100%;
+  min-height: 28px;
 }
 
 .mm2-consent-item {
@@ -491,10 +542,16 @@
   align-items: center;
   gap: 6px;
   font-size: 12px;
+  line-height: 1.45;
   color: var(--text-body);
   cursor: default;
+  margin: 0;
 }
 
 .mm2-consent-item input {
   accent-color: var(--accent-primary);
+  width: 14px;
+  height: 14px;
+  margin: 0;
+  flex-shrink: 0;
 }
