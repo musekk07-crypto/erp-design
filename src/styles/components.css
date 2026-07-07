@@ -339,6 +339,10 @@
   color: var(--member-no-color, var(--accent-primary));
 }
 
+.mm2-profile-stack-value.is-bold {
+  font-weight: 600;
+}
+
 .mm2-profile-masked {
   letter-spacing: 2px;
   color: var(--text-muted);

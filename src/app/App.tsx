@@ -1629,14 +1629,18 @@ function Mm2FieldValue({ children, suffix }: { children: React.ReactNode; suffix
 function Mm2ProfileFieldColumn({
   rows,
 }: {
-  rows: { label: string; value: React.ReactNode; highlight?: boolean }[];
+  rows: { label: string; value: React.ReactNode; highlight?: boolean; bold?: boolean }[];
 }) {
   return (
     <div className="mm2-profile-field-col">
       {rows.map((row) => (
         <div key={row.label} className="mm2-profile-field-stack">
           <span className="mm2-profile-stack-label">{row.label}</span>
-          <span className={`mm2-profile-stack-value${row.highlight ? " is-highlight" : ""}`}>{row.value}</span>
+          <span
+            className={`mm2-profile-stack-value${row.highlight ? " is-highlight" : ""}${row.bold ? " is-bold" : ""}`}
+          >
+            {row.value}
+          </span>
         </div>
       ))}
     </div>
@@ -1648,7 +1652,7 @@ function Mm2ProfileCard({
   profileFields,
 }: {
   member: Member;
-  profileFields: { label: string; value: React.ReactNode; highlight?: boolean }[];
+  profileFields: { label: string; value: React.ReactNode; highlight?: boolean; bold?: boolean }[];
 }) {
   const fieldColumns = [0, 1, 2, 3].map((i) => profileFields.slice(i * 3, i * 3 + 3));
 
@@ -1731,18 +1735,18 @@ function MemberManagement2View({
   const ActiveIcon = activeMeta.icon;
 
   const profileFields = [
-    { label: "회원번호", value: member.no, highlight: true },
+    { label: "회원번호", value: member.no, highlight: true, bold: true },
     { label: "아이디", value: member.loginId },
-    { label: "성명", value: member.name },
+    { label: "성명", value: member.name, bold: true },
     { label: "회원등록일자", value: member.regDate },
     { label: "주민등록번호", value: member.ssn },
     { label: "휴대폰 번호", value: member.phone },
     { label: "비밀번호", value: <span className="mm2-profile-masked">········</span> },
     { label: "우편번호", value: "06123" },
     { label: "주소", value: member.region },
-    { label: "은행명, 계좌번호, 예금주", value: `국민은행 / 123-456-789012 / ${member.name}` },
-    { label: "추천인, 후원인", value: "김성남 / 이숙련" },
-    { label: "센터, 영업소", value: "서울센터 / 강남영업소" },
+    { label: "은행명, 계좌번호, 예금주", value: `국민은행 / 123-456-789012 / ${member.name}`, bold: true },
+    { label: "추천인, 후원인", value: "김성남 / 이숙련", bold: true },
+    { label: "센터, 영업소", value: "서울센터 / 강남영업소", bold: true },
   ];
 
   const sectionRows: Record<Mm2SectionId, { label: string; value: React.ReactNode }[]> = {
