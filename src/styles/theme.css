@@ -30,6 +30,7 @@
   --toggle-active-color: #7c3aed;
   --member-no-color: #7c3aed;
   --logo-bg: #7c3aed;
+  --org-self-accent: #3b82f6;
   --brand-primary: var(--accent-primary);
   --brand-gradient: var(--accent-gradient);
   --brand-light: var(--accent-light);
@@ -160,7 +161,7 @@
   --org-text: #e2e8f0;
   --org-text-muted: #9aa8b8;
   --org-link: #5ecfff;
-  --org-self-accent: var(--logo-bg);
+  --org-self-accent: #5ecfff;
   --save-btn-bg: #7c3aed;
   --badge-type-general-bg: #262d3d;
   --badge-type-general-fg: #9aa8b8;
@@ -252,6 +253,7 @@
   --org-text: #1e2130;
   --org-text-muted: #64748b;
   --org-link: #3b82f6;
+  --org-self-accent: #3b82f6;
   --badge-type-general-bg: #f1f5f9;
   --badge-type-general-fg: #64748b;
   --badge-type-consumer-bg: #cffafe;

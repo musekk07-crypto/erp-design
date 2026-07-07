@@ -139,7 +139,7 @@ function Card({ label, name, id, date, rank, score, isSelf = false }: {
     <div style={{
       width: CARD_W,
       height: CARD_H,
-      border: isSelf ? `2px solid ${BORDER_GRAY}` : `1px solid ${BORDER_GRAY}`,
+      border: isSelf ? `2px solid ${ORG_SELF_ACCENT}` : `1px solid ${BORDER_GRAY}`,
       borderRadius: 6,
       background: "var(--org-card-bg)",
       textAlign: "center",
