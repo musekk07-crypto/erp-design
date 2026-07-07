@@ -199,6 +199,11 @@
   --split-table-header-fg: #1e2130;
 }
 
+.app-content .split-table-head th {
+  padding-top: 18px !important;
+  padding-bottom: 18px !important;
+}
+
 [data-theme="dark"] .mm2-info-group {
   --accent-primary: #38bdf8;
   --accent-light: #0c4a6e;

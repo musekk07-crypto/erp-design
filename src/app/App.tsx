@@ -1054,6 +1054,7 @@ type SplitTableColumn = { key: string; label: string; width: number };
 
 const SPLIT_TABLE_CHECKBOX_WIDTH = 36;
 const SPLIT_TABLE_CHECKBOX_PAD_LEFT = 14;
+const SPLIT_TABLE_HEADER_PAD_Y = 18;
 
 function getSplitTableWeight(columns: SplitTableColumn[]) {
   return SPLIT_TABLE_CHECKBOX_WIDTH + columns.reduce((sum, col) => sum + col.width, 0);
@@ -1076,7 +1077,7 @@ function SplitTableBlock({
   };
 
   const checkboxHeaderStyle: React.CSSProperties = {
-    padding: `14px 8px 14px ${SPLIT_TABLE_CHECKBOX_PAD_LEFT}px`,
+    padding: `${SPLIT_TABLE_HEADER_PAD_Y}px 8px ${SPLIT_TABLE_HEADER_PAD_Y}px ${SPLIT_TABLE_CHECKBOX_PAD_LEFT}px`,
     textAlign: "left",
   };
 
@@ -1111,7 +1112,7 @@ function SplitTableBlock({
                 <th
                   key={col.key}
                   style={{
-                    padding: "14px 8px",
+                    padding: `${SPLIT_TABLE_HEADER_PAD_Y}px 8px`,
                     textAlign: "left",
                     fontSize: 13,
                     fontWeight: 400,
