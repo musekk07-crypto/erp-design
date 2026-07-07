@@ -5,7 +5,7 @@ import {
   BarChart2, ShoppingCart, Settings, Bell, HelpCircle, Home,
   Pin, Clock, ChevronLeft, ChevronRight, RefreshCw,
   FilePlus, Save, Trash2, Award, Briefcase, MessageCircle, Key, Printer,
-  Globe, Landmark, Contact, CheckCircle2, Calendar,
+  Globe, Landmark, Contact, CheckCircle2, Calendar, Phone, ExternalLink,
 } from "lucide-react";
 
 // ─────────────────────────────────────────────
@@ -1585,17 +1585,18 @@ function Mm2FieldValue({ children, suffix }: { children: React.ReactNode; suffix
   );
 }
 
-function Mm2ProfileFields({ rows }: { rows: { label: string; value: React.ReactNode; highlight?: boolean }[] }) {
+function Mm2ProfileFieldColumn({
+  rows,
+}: {
+  rows: { label: string; value: React.ReactNode; highlight?: boolean }[];
+}) {
   return (
-    <div className="mm2-profile-fields-inline">
-      {rows.map((row, index) => (
-        <React.Fragment key={row.label}>
-          {index > 0 ? <span className="mm2-profile-field-sep" aria-hidden /> : null}
-          <span className="mm2-profile-field-item">
-            <span className="mm2-profile-label">{row.label}</span>
-            <span className={`mm2-profile-value${row.highlight ? " is-highlight" : ""}`}>{row.value}</span>
-          </span>
-        </React.Fragment>
+    <div className="mm2-profile-field-col">
+      {rows.map((row) => (
+        <div key={row.label} className="mm2-profile-field-stack">
+          <span className="mm2-profile-stack-label">{row.label}</span>
+          <span className={`mm2-profile-stack-value${row.highlight ? " is-highlight" : ""}`}>{row.value}</span>
+        </div>
       ))}
     </div>
   );
@@ -1608,81 +1609,37 @@ function Mm2ProfileCard({
   member: Member;
   profileFields: { label: string; value: React.ReactNode; highlight?: boolean }[];
 }) {
-  const memberType = member.type === "소비자" ? "소비자" : "일반";
-  const stats = [
-    { label: "하위 회원", value: "6" },
-    { label: "추천 라인", value: "12" },
-    { label: "직급", value: member.rank },
-    { label: "등급", value: member.grade },
-  ];
-  const metaItems = [
-    { label: "아이디", value: member.loginId },
-    { label: "지역", value: member.region },
-    { label: "등록일", value: member.regDate },
-    { label: "유형", value: `${memberType} 회원 · ${member.status}` },
-  ];
+  const fieldColumns = [0, 1, 2, 3].map((i) => profileFields.slice(i * 3, i * 3 + 3));
 
   return (
     <div className="mm2-profile-card">
-      <div className="mm2-profile-top">
-        <aside className="mm2-profile-aside">
-          <div className="mm2-profile-avatar" aria-hidden>
-            {member.name.charAt(0)}
-          </div>
-          <div className="mm2-profile-actions">
-            <button type="button" className="mm2-profile-btn mm2-profile-btn--primary">
-              회원수정
-            </button>
-            <button type="button" className="mm2-profile-btn mm2-profile-btn--secondary">
-              문자발송
-            </button>
-          </div>
-        </aside>
+      <div className="mm2-profile-avatar" aria-hidden>
+        {member.name.charAt(0)}
+      </div>
 
-        <div className="mm2-profile-main">
-          <div className="mm2-profile-badges">
-            <span className="mm2-profile-badge mm2-profile-badge--accent">
-              <CheckCircle2 size={11} strokeWidth={2} />
-              인증
-            </span>
-            <span className="mm2-profile-badge">{memberType}</span>
-            <span className="mm2-profile-badge">{member.status}</span>
-          </div>
-          <h2 className="mm2-profile-name">{member.name}</h2>
-          <p className="mm2-profile-title">{member.rank}</p>
-          <ul className="mm2-profile-meta">
-            {metaItems.map((item) => (
-              <li key={item.label}>
-                <span className="mm2-profile-meta-label">{item.label}</span>
-                <span className="mm2-profile-meta-value">{item.value}</span>
-              </li>
-            ))}
-          </ul>
-        </div>
-
-        <div className="mm2-profile-rail">
-          <div className="mm2-profile-brand">
-            <span className="mm2-profile-brand-icon" aria-hidden>
-              <Landmark size={16} strokeWidth={1.75} />
-            </span>
-            <span className="mm2-profile-brand-label">서울센터</span>
-            <span className="mm2-profile-brand-sub">강남영업소</span>
-            <span className="mm2-profile-no-chip">{member.no}</span>
-          </div>
-          <div className="mm2-profile-stats">
-            {stats.map((stat) => (
-              <div key={stat.label} className="mm2-profile-stat">
-                <span className="mm2-profile-stat-label">{stat.label}</span>
-                <span className="mm2-profile-stat-value">{stat.value}</span>
-              </div>
-            ))}
-          </div>
+      <div className="mm2-profile-identity">
+        <h2 className="mm2-profile-name">{member.name}</h2>
+        <p className="mm2-profile-rank-link">
+          {member.rank} · {member.grade}
+          <ExternalLink size={12} strokeWidth={2} aria-hidden />
+        </p>
+        <p className="mm2-profile-location">{member.region}</p>
+        <div className="mm2-profile-icon-actions">
+          <button type="button" className="mm2-profile-icon-btn" aria-label="문자 발송">
+            <MessageCircle size={15} strokeWidth={2} />
+          </button>
+          <button type="button" className="mm2-profile-icon-btn" aria-label="전화">
+            <Phone size={15} strokeWidth={2} />
+          </button>
         </div>
       </div>
 
-      <div className="mm2-profile-fields">
-        <Mm2ProfileFields rows={profileFields} />
-      </div>
+      {fieldColumns.map((col, index) => (
+        <React.Fragment key={index}>
+          <div className="mm2-profile-col-divider" aria-hidden />
+          <Mm2ProfileFieldColumn rows={col} />
+        </React.Fragment>
+      ))}
     </div>
   );
 }
