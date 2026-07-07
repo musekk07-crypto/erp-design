@@ -1585,6 +1585,19 @@ function Mm2FieldValue({ children, suffix }: { children: React.ReactNode; suffix
   );
 }
 
+function Mm2ProfileFields({ rows }: { rows: { label: string; value: React.ReactNode; highlight?: boolean }[] }) {
+  return (
+    <div className="mm2-profile-block">
+      {rows.map((row) => (
+        <React.Fragment key={row.label}>
+          <span className="mm2-profile-label">{row.label}</span>
+          <span className={`mm2-profile-value${row.highlight ? " is-highlight" : ""}`}>{row.value}</span>
+        </React.Fragment>
+      ))}
+    </div>
+  );
+}
+
 function Mm2ConsentList() {
   const items = [
     { label: "SMS 동의", checked: true },
@@ -1626,7 +1639,7 @@ function MemberManagement2View({
   const ActiveIcon = activeMeta.icon;
 
   const profileLeft = [
-    { label: "회원번호", value: member.no },
+    { label: "회원번호", value: member.no, highlight: true },
     { label: "아이디", value: member.loginId },
     { label: "성명", value: member.name },
     { label: "회원등록일자", value: member.regDate },
@@ -1635,10 +1648,10 @@ function MemberManagement2View({
   ];
 
   const profileRight = [
-    { label: "비밀번호", value: "········" },
+    { label: "비밀번호", value: <span className="mm2-profile-masked">········</span> },
     { label: "우편번호", value: "06123" },
     { label: "주소", value: member.region },
-    { label: "은행명, 계좌번호, 예금주", value: "국민은행 / 123-456-789012 / " + member.name },
+    { label: "은행명, 계좌번호, 예금주", value: `국민은행 / 123-456-789012 / ${member.name}` },
     { label: "추천인, 후원인", value: "김성남 / 이숙련" },
     { label: "센터, 영업소", value: "서울센터 / 강남영업소" },
   ];
@@ -1757,28 +1770,17 @@ function MemberManagement2View({
             <div className="mm2-content-row" style={{ gap: DETAIL_CONTENT_GAP }}>
               <div className="mm2-info-group">
                 <div className="mm2-profile-card">
-                  <div className="mm2-profile-avatar" aria-hidden>
-                    {member.name.charAt(0)}
+                  <div className="mm2-profile-aside">
+                    <div className="mm2-profile-avatar" aria-hidden>
+                      {member.name.charAt(0)}
+                    </div>
+                    <span className="mm2-profile-name">{member.name}</span>
+                    <span className="mm2-profile-login">{member.loginId}</span>
                   </div>
-                  <div className="mm2-profile-grid">
-                    <div className="mm2-profile-col">
-                      {profileLeft.map((row) => (
-                        <div key={row.label} className="mm2-profile-row">
-                          <span className="mm2-profile-label">{row.label}</span>
-                          <span className="mm2-profile-colon">:</span>
-                          <span className="mm2-profile-value">{row.value}</span>
-                        </div>
-                      ))}
-                    </div>
-                    <div className="mm2-profile-col">
-                      {profileRight.map((row) => (
-                        <div key={row.label} className="mm2-profile-row">
-                          <span className="mm2-profile-label">{row.label}</span>
-                          <span className="mm2-profile-colon">:</span>
-                          <span className="mm2-profile-value">{row.value}</span>
-                        </div>
-                      ))}
-                    </div>
+                  <div className="mm2-profile-fields">
+                    <Mm2ProfileFields rows={profileLeft} />
+                    <div className="mm2-profile-divider" aria-hidden />
+                    <Mm2ProfileFields rows={profileRight} />
                   </div>
                 </div>
 
