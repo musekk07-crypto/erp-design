@@ -1587,11 +1587,14 @@ function Mm2FieldValue({ children, suffix }: { children: React.ReactNode; suffix
 
 function Mm2ProfileFields({ rows }: { rows: { label: string; value: React.ReactNode; highlight?: boolean }[] }) {
   return (
-    <div className="mm2-profile-block">
-      {rows.map((row) => (
+    <div className="mm2-profile-fields-inline">
+      {rows.map((row, index) => (
         <React.Fragment key={row.label}>
-          <span className="mm2-profile-label">{row.label}</span>
-          <span className={`mm2-profile-value${row.highlight ? " is-highlight" : ""}`}>{row.value}</span>
+          {index > 0 ? <span className="mm2-profile-field-sep" aria-hidden /> : null}
+          <span className="mm2-profile-field-item">
+            <span className="mm2-profile-label">{row.label}</span>
+            <span className={`mm2-profile-value${row.highlight ? " is-highlight" : ""}`}>{row.value}</span>
+          </span>
         </React.Fragment>
       ))}
     </div>
@@ -1618,10 +1621,6 @@ function Mm2ProfileCard({
     { label: "등록일", value: member.regDate },
     { label: "유형", value: `${memberType} 회원 · ${member.status}` },
   ];
-  const columnSize = Math.ceil(profileFields.length / 3);
-  const profileColumns = [0, 1, 2].map((i) =>
-    profileFields.slice(i * columnSize, (i + 1) * columnSize),
-  );
 
   return (
     <div className="mm2-profile-card">
@@ -1682,9 +1681,7 @@ function Mm2ProfileCard({
       </div>
 
       <div className="mm2-profile-fields">
-        {profileColumns.map((col, index) => (
-          <Mm2ProfileFields key={index} rows={col} />
-        ))}
+        <Mm2ProfileFields rows={profileFields} />
       </div>
     </div>
   );
