@@ -567,7 +567,7 @@
   display: flex;
   align-items: stretch;
   min-height: 52px;
-  border-bottom: 1px solid var(--accent-border);
+  border-bottom: 1px solid var(--border);
 }
 
 .mm2-detail-row:last-child {
