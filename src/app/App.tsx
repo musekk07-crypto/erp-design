@@ -1052,6 +1052,12 @@ function MemberTable({ selectedId, onSelect, listOpen = false, listWidth = MEMBE
 
 type SplitTableColumn = { key: string; label: string; width: number };
 
+const SPLIT_TABLE_CHECKBOX_WIDTH = 36;
+
+function getSplitTableWeight(columns: SplitTableColumn[]) {
+  return SPLIT_TABLE_CHECKBOX_WIDTH + columns.reduce((sum, col) => sum + col.width, 0);
+}
+
 function SplitTableBlock({
   columns,
   rows = [],
@@ -1059,7 +1065,7 @@ function SplitTableBlock({
   columns: SplitTableColumn[];
   rows?: Record<string, string | number>[];
 }) {
-  const checkboxWidth = 36;
+  const checkboxWidth = SPLIT_TABLE_CHECKBOX_WIDTH;
   const columnsWeight = columns.reduce((sum, col) => sum + col.width, 0);
   const totalWeight = checkboxWidth + columnsWeight;
 
@@ -1073,8 +1079,11 @@ function SplitTableBlock({
   };
 
   return (
-    <div className="split-table-block flex flex-col flex-1 min-h-0 w-full" style={{ border: "1px solid var(--border)", background: "var(--surface-panel)" }}>
-      <div className="flex-1 min-h-0 w-full overflow-auto">
+    <div
+      className="split-table-block flex flex-col flex-1 min-h-0"
+      style={{ width: "100%", border: "1px solid var(--border)", background: "var(--surface-panel)" }}
+    >
+      <div className="flex-1 min-h-0" style={{ width: "100%", overflowY: "auto", overflowX: "hidden" }}>
         <table style={{ borderCollapse: "collapse", width: "100%", tableLayout: "fixed" }}>
           <colgroup>
             <col style={{ width: `${(checkboxWidth / totalWeight) * 100}%` }} />
@@ -1150,18 +1159,21 @@ function DetailSplitPanelView({
   topRows?: Record<string, string | number>[];
   bottomRows?: Record<string, string | number>[];
 }) {
+  const unifiedMinWidth = Math.max(getSplitTableWeight(topColumns), getSplitTableWeight(bottomColumns));
+
   return (
     <div
       className="flex flex-col h-full min-h-0 w-full overflow-hidden"
-      style={{ background: "var(--surface-page)", padding: 8 }}
+      style={{ background: "var(--surface-page)" }}
     >
       <button
         type="button"
-        className="flex items-center gap-1.5 shrink-0 self-start mb-1.5 rounded transition-colors"
+        className="flex items-center gap-1.5 shrink-0 self-start rounded transition-colors"
         style={{
           fontSize: 13,
           color: "var(--text-body)",
           padding: "4px 8px",
+          marginBottom: 6,
           background: "transparent",
           border: "none",
           cursor: "pointer",
@@ -1171,10 +1183,17 @@ function DetailSplitPanelView({
         새로고침
       </button>
 
-      <div className="flex-1 min-h-0 flex flex-col gap-0 overflow-hidden">
-        <SplitTableBlock columns={topColumns} rows={topRows} />
-        <div style={{ height: 6, background: "var(--border)", flexShrink: 0 }} />
-        <SplitTableBlock columns={bottomColumns} rows={bottomRows} />
+      <div className="flex-1 min-h-0 flex flex-col overflow-hidden" style={{ width: "100%" }}>
+        <div className="flex-1 min-h-0 overflow-x-auto overflow-y-hidden flex flex-col">
+          <div
+            className="flex flex-col flex-1 min-h-0"
+            style={{ width: "100%", minWidth: unifiedMinWidth }}
+          >
+            <SplitTableBlock columns={topColumns} rows={topRows} />
+            <div style={{ height: 6, background: "var(--border)", flexShrink: 0 }} />
+            <SplitTableBlock columns={bottomColumns} rows={bottomRows} />
+          </div>
+        </div>
       </div>
     </div>
   );
@@ -3452,7 +3471,7 @@ export default function App() {
             style={{
               display: "flex",
               height: "100%",
-              width: listOpen ? contentRowMinWidth : "100%",
+              width: "100%",
               minWidth: listOpen ? contentRowMinWidth : 0,
               flexShrink: 0,
             }}
@@ -3501,14 +3520,13 @@ export default function App() {
           className="app-content-detail"
           style={{
             width: isFixedDetailWidth
-              ? ORDER_PANEL_MIN_WIDTH
+              ? "100%"
               : listOpen
                 ? detailPanelMinWidth
                 : "100%",
-            minWidth: listOpen ? detailPanelMinWidth : 0,
-            maxWidth: isFixedDetailWidth ? ORDER_PANEL_MIN_WIDTH : undefined,
+            minWidth: listOpen ? (isFixedDetailWidth ? ORDER_PANEL_MIN_WIDTH : detailPanelMinWidth) : 0,
             flexShrink: listOpen ? 0 : 1,
-            flexGrow: listOpen ? 0 : 1,
+            flexGrow: listOpen ? (isFixedDetailWidth ? 1 : 0) : 1,
             display: "flex",
             flexDirection: "column",
             height: "100%",
