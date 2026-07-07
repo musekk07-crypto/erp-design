@@ -1607,9 +1607,16 @@ function Mm2ProfileCard({
 }) {
   const memberType = member.type === "소비자" ? "소비자" : "일반";
   const stats = [
-    { label: "하위 회원", value: "6명" },
-    { label: "추천 라인", value: "12명" },
+    { label: "하위 회원", value: "6" },
+    { label: "추천 라인", value: "12" },
     { label: "직급", value: member.rank },
+    { label: "등급", value: member.grade },
+  ];
+  const metaItems = [
+    { label: "아이디", value: member.loginId },
+    { label: "지역", value: member.region },
+    { label: "등록일", value: member.regDate },
+    { label: "유형", value: `${memberType} 회원 · ${member.status}` },
   ];
   const columnSize = Math.ceil(profileFields.length / 3);
   const profileColumns = [0, 1, 2].map((i) =>
@@ -1618,31 +1625,52 @@ function Mm2ProfileCard({
 
   return (
     <div className="mm2-profile-card">
-      <div className="mm2-profile-top">
-        <div className="mm2-profile-badges">
-          <span className="mm2-profile-badge mm2-profile-badge--accent">
-            <CheckCircle2 size={12} strokeWidth={2} />
-            인증 회원
-          </span>
-          <span className="mm2-profile-badge">{memberType} 회원</span>
-          <span className="mm2-profile-badge">{member.status}</span>
-        </div>
-        <span className="mm2-profile-no-chip">{member.no}</span>
-      </div>
-
-      <div className="mm2-profile-hero">
-        <div className="mm2-profile-avatar" aria-hidden>
-          {member.name.charAt(0)}
-        </div>
-        <div className="mm2-profile-identity">
-          <div className="mm2-profile-name-row">
-            <span className="mm2-profile-name">{member.name}</span>
-            <span className="mm2-profile-login">{member.loginId}</span>
+      <div className="mm2-profile-layout">
+        <aside className="mm2-profile-aside">
+          <div className="mm2-profile-avatar" aria-hidden>
+            {member.name.charAt(0)}
           </div>
-          <p className="mm2-profile-subtitle">{member.region}</p>
-          <p className="mm2-profile-role">
-            {member.rank} <span className="mm2-profile-role-sep">|</span> {member.grade}
-          </p>
+          <div className="mm2-profile-actions">
+            <button type="button" className="mm2-profile-btn mm2-profile-btn--primary">
+              회원수정
+            </button>
+            <button type="button" className="mm2-profile-btn mm2-profile-btn--secondary">
+              문자발송
+            </button>
+          </div>
+        </aside>
+
+        <div className="mm2-profile-main">
+          <div className="mm2-profile-header">
+            <div className="mm2-profile-header-text">
+              <div className="mm2-profile-badges">
+                <span className="mm2-profile-badge mm2-profile-badge--accent">
+                  <CheckCircle2 size={11} strokeWidth={2} />
+                  인증
+                </span>
+                <span className="mm2-profile-badge">{memberType}</span>
+                <span className="mm2-profile-badge">{member.status}</span>
+              </div>
+              <h2 className="mm2-profile-name">{member.name}</h2>
+              <p className="mm2-profile-title">{member.rank}</p>
+              <ul className="mm2-profile-meta">
+                {metaItems.map((item) => (
+                  <li key={item.label}>
+                    <span className="mm2-profile-meta-label">{item.label}</span>
+                    <span className="mm2-profile-meta-value">{item.value}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+            <div className="mm2-profile-brand">
+              <span className="mm2-profile-brand-icon" aria-hidden>
+                <Landmark size={18} strokeWidth={1.75} />
+              </span>
+              <span className="mm2-profile-brand-label">서울센터</span>
+              <span className="mm2-profile-brand-sub">강남영업소</span>
+              <span className="mm2-profile-no-chip">{member.no}</span>
+            </div>
+          </div>
         </div>
       </div>
 
@@ -1653,14 +1681,11 @@ function Mm2ProfileCard({
       </div>
 
       <div className="mm2-profile-stats">
-        {stats.map((stat, index) => (
-          <React.Fragment key={stat.label}>
-            {index > 0 && <div className="mm2-profile-stat-divider" aria-hidden />}
-            <div className="mm2-profile-stat">
-              <span className="mm2-profile-stat-label">{stat.label}</span>
-              <span className="mm2-profile-stat-value">{stat.value}</span>
-            </div>
-          </React.Fragment>
+        {stats.map((stat) => (
+          <div key={stat.label} className="mm2-profile-stat">
+            <span className="mm2-profile-stat-label">{stat.label}</span>
+            <span className="mm2-profile-stat-value">{stat.value}</span>
+          </div>
         ))}
       </div>
     </div>
