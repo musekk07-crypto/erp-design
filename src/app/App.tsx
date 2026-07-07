@@ -1053,7 +1053,7 @@ function MemberTable({ selectedId, onSelect, listOpen = false, listWidth = MEMBE
 type SplitTableColumn = { key: string; label: string; width: number };
 
 const SPLIT_TABLE_CHECKBOX_WIDTH = 36;
-const SPLIT_TABLE_CHECKBOX_PAD_LEFT = 8;
+const SPLIT_TABLE_CHECKBOX_PAD_LEFT = 14;
 
 function getSplitTableWeight(columns: SplitTableColumn[]) {
   return SPLIT_TABLE_CHECKBOX_WIDTH + columns.reduce((sum, col) => sum + col.width, 0);
