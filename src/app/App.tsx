@@ -1598,6 +1598,73 @@ function Mm2ProfileFields({ rows }: { rows: { label: string; value: React.ReactN
   );
 }
 
+function Mm2ProfileCard({
+  member,
+  profileLeft,
+  profileRight,
+}: {
+  member: Member;
+  profileLeft: { label: string; value: React.ReactNode; highlight?: boolean }[];
+  profileRight: { label: string; value: React.ReactNode }[];
+}) {
+  const memberType = member.type === "소비자" ? "소비자" : "일반";
+  const stats = [
+    { label: "하위 회원", value: "6명" },
+    { label: "추천 라인", value: "12명" },
+    { label: "직급", value: member.rank },
+  ];
+
+  return (
+    <div className="mm2-profile-card">
+      <div className="mm2-profile-top">
+        <div className="mm2-profile-badges">
+          <span className="mm2-profile-badge mm2-profile-badge--accent">
+            <CheckCircle2 size={12} strokeWidth={2} />
+            인증 회원
+          </span>
+          <span className="mm2-profile-badge">{memberType} 회원</span>
+          <span className="mm2-profile-badge">{member.status}</span>
+        </div>
+        <span className="mm2-profile-no-chip">{member.no}</span>
+      </div>
+
+      <div className="mm2-profile-hero">
+        <div className="mm2-profile-avatar" aria-hidden>
+          {member.name.charAt(0)}
+        </div>
+        <div className="mm2-profile-identity">
+          <div className="mm2-profile-name-row">
+            <span className="mm2-profile-name">{member.name}</span>
+            <span className="mm2-profile-login">{member.loginId}</span>
+          </div>
+          <p className="mm2-profile-subtitle">{member.region}</p>
+          <p className="mm2-profile-role">
+            {member.rank} <span className="mm2-profile-role-sep">|</span> {member.grade}
+          </p>
+        </div>
+      </div>
+
+      <div className="mm2-profile-fields">
+        <Mm2ProfileFields rows={profileLeft} />
+        <div className="mm2-profile-divider" aria-hidden />
+        <Mm2ProfileFields rows={profileRight} />
+      </div>
+
+      <div className="mm2-profile-stats">
+        {stats.map((stat, index) => (
+          <React.Fragment key={stat.label}>
+            {index > 0 && <div className="mm2-profile-stat-divider" aria-hidden />}
+            <div className="mm2-profile-stat">
+              <span className="mm2-profile-stat-label">{stat.label}</span>
+              <span className="mm2-profile-stat-value">{stat.value}</span>
+            </div>
+          </React.Fragment>
+        ))}
+      </div>
+    </div>
+  );
+}
+
 function Mm2ConsentList() {
   const items = [
     { label: "SMS 동의", checked: true },
@@ -1776,20 +1843,7 @@ function MemberManagement2View({
           {isMemberInfoTab ? (
             <div className="mm2-content-row" style={{ gap: DETAIL_CONTENT_GAP }}>
               <div className="mm2-info-group">
-                <div className="mm2-profile-card">
-                  <div className="mm2-profile-aside">
-                    <div className="mm2-profile-avatar" aria-hidden>
-                      {member.name.charAt(0)}
-                    </div>
-                    <span className="mm2-profile-name">{member.name}</span>
-                    <span className="mm2-profile-login">{member.loginId}</span>
-                  </div>
-                  <div className="mm2-profile-fields">
-                    <Mm2ProfileFields rows={profileLeft} />
-                    <div className="mm2-profile-divider" aria-hidden />
-                    <Mm2ProfileFields rows={profileRight} />
-                  </div>
-                </div>
+                <Mm2ProfileCard member={member} profileLeft={profileLeft} profileRight={profileRight} />
 
                 <div className="mm2-body">
                   <nav className="mm2-sidebar">
