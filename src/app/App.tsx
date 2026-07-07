@@ -1625,7 +1625,7 @@ function Mm2ProfileCard({
 
   return (
     <div className="mm2-profile-card">
-      <div className="mm2-profile-layout">
+      <div className="mm2-profile-top">
         <aside className="mm2-profile-aside">
           <div className="mm2-profile-avatar" aria-hidden>
             {member.name.charAt(0)}
@@ -1641,35 +1641,42 @@ function Mm2ProfileCard({
         </aside>
 
         <div className="mm2-profile-main">
-          <div className="mm2-profile-header">
-            <div className="mm2-profile-header-text">
-              <div className="mm2-profile-badges">
-                <span className="mm2-profile-badge mm2-profile-badge--accent">
-                  <CheckCircle2 size={11} strokeWidth={2} />
-                  인증
-                </span>
-                <span className="mm2-profile-badge">{memberType}</span>
-                <span className="mm2-profile-badge">{member.status}</span>
+          <div className="mm2-profile-badges">
+            <span className="mm2-profile-badge mm2-profile-badge--accent">
+              <CheckCircle2 size={11} strokeWidth={2} />
+              인증
+            </span>
+            <span className="mm2-profile-badge">{memberType}</span>
+            <span className="mm2-profile-badge">{member.status}</span>
+          </div>
+          <h2 className="mm2-profile-name">{member.name}</h2>
+          <p className="mm2-profile-title">{member.rank}</p>
+          <ul className="mm2-profile-meta">
+            {metaItems.map((item) => (
+              <li key={item.label}>
+                <span className="mm2-profile-meta-label">{item.label}</span>
+                <span className="mm2-profile-meta-value">{item.value}</span>
+              </li>
+            ))}
+          </ul>
+        </div>
+
+        <div className="mm2-profile-rail">
+          <div className="mm2-profile-brand">
+            <span className="mm2-profile-brand-icon" aria-hidden>
+              <Landmark size={16} strokeWidth={1.75} />
+            </span>
+            <span className="mm2-profile-brand-label">서울센터</span>
+            <span className="mm2-profile-brand-sub">강남영업소</span>
+            <span className="mm2-profile-no-chip">{member.no}</span>
+          </div>
+          <div className="mm2-profile-stats">
+            {stats.map((stat) => (
+              <div key={stat.label} className="mm2-profile-stat">
+                <span className="mm2-profile-stat-label">{stat.label}</span>
+                <span className="mm2-profile-stat-value">{stat.value}</span>
               </div>
-              <h2 className="mm2-profile-name">{member.name}</h2>
-              <p className="mm2-profile-title">{member.rank}</p>
-              <ul className="mm2-profile-meta">
-                {metaItems.map((item) => (
-                  <li key={item.label}>
-                    <span className="mm2-profile-meta-label">{item.label}</span>
-                    <span className="mm2-profile-meta-value">{item.value}</span>
-                  </li>
-                ))}
-              </ul>
-            </div>
-            <div className="mm2-profile-brand">
-              <span className="mm2-profile-brand-icon" aria-hidden>
-                <Landmark size={18} strokeWidth={1.75} />
-              </span>
-              <span className="mm2-profile-brand-label">서울센터</span>
-              <span className="mm2-profile-brand-sub">강남영업소</span>
-              <span className="mm2-profile-no-chip">{member.no}</span>
-            </div>
+            ))}
           </div>
         </div>
       </div>
@@ -1677,15 +1684,6 @@ function Mm2ProfileCard({
       <div className="mm2-profile-fields">
         {profileColumns.map((col, index) => (
           <Mm2ProfileFields key={index} rows={col} />
-        ))}
-      </div>
-
-      <div className="mm2-profile-stats">
-        {stats.map((stat) => (
-          <div key={stat.label} className="mm2-profile-stat">
-            <span className="mm2-profile-stat-label">{stat.label}</span>
-            <span className="mm2-profile-stat-value">{stat.value}</span>
-          </div>
         ))}
       </div>
     </div>
