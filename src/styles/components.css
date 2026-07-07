@@ -420,6 +420,7 @@
   --accent-primary: #0284c7;
   --accent-light: #e0f2fe;
   --accent-border: #bae6fd;
+  --mm2-table-line: var(--org-border);
 }
 
 .mm2-org-chart .mm2-org-section > button {
@@ -427,7 +428,7 @@
   padding: 8px 12px !important;
   min-height: 38px;
   background: var(--accent-light) !important;
-  border-bottom: 1px solid var(--accent-border) !important;
+  border-bottom: 1px solid var(--mm2-table-line, var(--org-border)) !important;
 }
 
 .mm2-org-chart .mm2-org-section > button > span:first-of-type {
