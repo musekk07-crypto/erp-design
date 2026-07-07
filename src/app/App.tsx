@@ -3305,7 +3305,7 @@ export default function App() {
   const [activeTab, setActiveTab] = useState("회원정보");
   const [activeMainMenu, setActiveMainMenu] = useState("회원관리2");
   const [theme, setTheme] = useState<Theme>("deep-purple");
-  const [historyRailExpanded, setHistoryRailExpanded] = useState(false);
+  const [historyRailExpanded, setHistoryRailExpanded] = useState(true);
   const [pinnedPages, setPinnedPages] = useState<PageHistoryItem[]>([
     { id: "수당내역-1", screen: "수당내역", memberId: 1, memberNo: "N26431021", memberName: "한미채" },
   ]);
