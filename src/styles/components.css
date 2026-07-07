@@ -171,8 +171,7 @@
   align-items: flex-start;
   width: 100%;
   min-width: 0;
-  max-width: 100%;
-  flex-shrink: 1;
+  flex-shrink: 0;
   overflow-x: hidden;
 }
 
@@ -245,7 +244,7 @@
   justify-content: center;
   gap: 4px;
   flex-shrink: 0;
-  min-width: 0;
+  min-width: 160px;
   padding-left: 8px;
   padding-right: 8px;
 }
@@ -311,8 +310,8 @@
   flex-direction: column;
   justify-content: center;
   gap: 16px;
-  flex: 1 1 0;
-  min-width: 0;
+  flex-shrink: 0;
+  min-width: 120px;
 }
 
 .mm2-profile-field-stack {
@@ -406,9 +405,7 @@
 }
 
 .mm2-org-chart {
-  flex: 0 0 var(--mm2-org-chart-width, 484px);
-  width: var(--mm2-org-chart-width, 484px);
-  max-width: var(--mm2-org-chart-width, 484px);
+  flex-shrink: 0;
   display: flex;
   flex-direction: column;
   align-self: flex-start;

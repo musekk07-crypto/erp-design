@@ -101,10 +101,11 @@ const MM2_MAIN_MIN_WIDTH = 720;
 
 function calcMm2InfoGroupWidth(availableDetailWidth: number) {
   const innerWidth = Math.max(0, availableDetailWidth - DETAIL_PANEL_PAD * 2);
-  const maxInfo = innerWidth - MM2_ORG_CHART_WIDTH - DETAIL_CONTENT_GAP;
-  if (maxInfo <= 0) return 0;
-  if (maxInfo >= MM2_MAIN_MIN_WIDTH) return maxInfo;
-  return maxInfo;
+  const idealInfo = innerWidth - MM2_ORG_CHART_WIDTH - DETAIL_CONTENT_GAP;
+  if (idealInfo >= MM2_MAIN_MIN_WIDTH) {
+    return idealInfo;
+  }
+  return MM2_MAIN_MIN_WIDTH;
 }
 
 function getMm2DetailContentWidth(infoGroupWidth: number) {
@@ -2114,7 +2115,8 @@ function MemberManagement2View({
 }) {
   const member = getMemberById(memberId);
   const isMemberInfoTab = activeTab === "회원정보";
-  const contentAlignWidth = "100%";
+  const detailContentWidth = getMm2DetailContentWidth(infoGroupWidth);
+  const contentAlignWidth = isMemberInfoTab && listOpen ? detailContentWidth : "100%";
   const [activeSection, setActiveSection] = useState<Mm2SectionId>("name");
   const activeMeta = mm2Sections.find((s) => s.id === activeSection)!;
   const ActiveIcon = activeMeta.icon;
@@ -2139,16 +2141,15 @@ function MemberManagement2View({
     <div
       className="flex flex-col h-full w-full min-h-0 mm2-member-view"
       style={{
-        width: "100%",
-        minWidth: 0,
-        maxWidth: "100%",
-        flexShrink: 1,
+        width: isMemberInfoTab && listOpen ? getMm2DetailPanelWidth(infoGroupWidth) : "100%",
+        minWidth: isMemberInfoTab && listOpen ? getMm2DetailPanelWidth(infoGroupWidth) : 0,
+        flexShrink: isMemberInfoTab && listOpen ? 0 : undefined,
       }}
     >
       <div
         className={`flex flex-col flex-1 min-h-0${isMemberInfoTab ? " content-scroll" : ""}`}
         style={{
-          overflowY: isMemberInfoTab && listOpen ? "hidden" : isMemberInfoTab ? "auto" : "hidden",
+          overflowY: isMemberInfoTab ? "auto" : "hidden",
           overflowX: "hidden",
           scrollbarWidth: "thin",
           background: "var(--surface-page)",
@@ -2160,21 +2161,14 @@ function MemberManagement2View({
           className={isMemberInfoTab ? undefined : "flex flex-col flex-1 min-h-0"}
           style={{
             width: contentAlignWidth,
-            minWidth: 0,
-            maxWidth: "100%",
+            minWidth: isMemberInfoTab && listOpen ? detailContentWidth : 0,
             boxSizing: "border-box",
           }}
         >
           <MemberPageChrome activeTab={activeTab} onTabChange={onTabChange} />
 
           {isMemberInfoTab ? (
-            <div
-              className="mm2-content-row"
-              style={{
-                gap: DETAIL_CONTENT_GAP,
-                ["--mm2-org-chart-width" as string]: `${MM2_ORG_CHART_WIDTH}px`,
-              }}
-            >
+            <div className="mm2-content-row" style={{ gap: DETAIL_CONTENT_GAP }}>
               <div className="mm2-info-group">
                 <Mm2ProfileCard member={member} profileFields={profileFields} />
 
@@ -2208,7 +2202,7 @@ function MemberManagement2View({
 
               <div
                 className="mm2-org-chart"
-                style={{ height: MM2_ORG_CHART_PANEL_HEIGHT }}
+                style={{ width: MM2_ORG_CHART_WIDTH, height: MM2_ORG_CHART_PANEL_HEIGHT }}
               >
                 <FormSection
                   title="조직도"
@@ -3342,16 +3336,8 @@ export default function App() {
 
   const isMm2MemberInfoTab = activeMainMenu === "회원관리2" && activeTab === "회원정보";
   const isMemberInfoTab = activeMainMenu === "회원관리" && activeTab === "회원정보";
-  const isMm2MemberInfoLayout = isMm2MemberInfoTab && listOpen;
-
-  const availableDetailWidth = Math.max(0, appContentWidth - listWidth);
 
   const detailPanelMinWidth = useMemo(() => {
-    if (isMm2MemberInfoLayout) {
-      return availableDetailWidth > 0
-        ? availableDetailWidth
-        : getMm2DetailPanelWidth(mm2InfoGroupWidth);
-    }
     if (isMm2MemberInfoTab) {
       return getMm2DetailPanelWidth(mm2InfoGroupWidth);
     }
@@ -3359,14 +3345,14 @@ export default function App() {
       return getDetailPanelWidth(formColumnWidth);
     }
     return ORDER_PANEL_MIN_WIDTH;
-  }, [isMm2MemberInfoLayout, isMm2MemberInfoTab, isMemberInfoTab, mm2InfoGroupWidth, formColumnWidth, availableDetailWidth]);
+  }, [isMm2MemberInfoTab, isMemberInfoTab, mm2InfoGroupWidth, formColumnWidth]);
 
   const isFixedDetailWidth =
     listOpen &&
     ((activeMainMenu === "회원관리" && !isMemberInfoTab) ||
       (activeMainMenu === "회원관리2" && !isMm2MemberInfoTab));
 
-  const contentRowMinWidth = listOpen && !isMm2MemberInfoLayout
+  const contentRowMinWidth = listOpen
     ? listWidth + detailPanelMinWidth
     : 0;
 
@@ -3459,16 +3445,16 @@ export default function App() {
         <div
           ref={appContentRef}
           className="app-content"
-          style={{ flex: 1, overflowX: "hidden", overflowY: "hidden", minHeight: 0, minWidth: 0 }}
+          style={{ flex: 1, overflowX: listOpen ? "auto" : "hidden", overflowY: "hidden", minHeight: 0, minWidth: 0 }}
         >
           <div
             className="app-content-row"
             style={{
               display: "flex",
               height: "100%",
-              width: isMm2MemberInfoLayout ? "100%" : listOpen ? contentRowMinWidth : "100%",
-              minWidth: isMm2MemberInfoLayout ? 0 : listOpen ? contentRowMinWidth : 0,
-              flexShrink: isMm2MemberInfoLayout ? 1 : 0,
+              width: listOpen ? contentRowMinWidth : "100%",
+              minWidth: listOpen ? contentRowMinWidth : 0,
+              flexShrink: 0,
             }}
           >
 
@@ -3516,16 +3502,13 @@ export default function App() {
           style={{
             width: isFixedDetailWidth
               ? ORDER_PANEL_MIN_WIDTH
-              : isMm2MemberInfoLayout
-                ? undefined
-                : listOpen
-                  ? detailPanelMinWidth
-                  : "100%",
-            minWidth: isMm2MemberInfoLayout ? 0 : listOpen ? detailPanelMinWidth : 0,
+              : listOpen
+                ? detailPanelMinWidth
+                : "100%",
+            minWidth: listOpen ? detailPanelMinWidth : 0,
             maxWidth: isFixedDetailWidth ? ORDER_PANEL_MIN_WIDTH : undefined,
-            flex: isMm2MemberInfoLayout ? 1 : undefined,
-            flexShrink: listOpen && !isMm2MemberInfoLayout ? 0 : 1,
-            flexGrow: listOpen && !isMm2MemberInfoLayout ? 0 : 1,
+            flexShrink: listOpen ? 0 : 1,
+            flexGrow: listOpen ? 0 : 1,
             display: "flex",
             flexDirection: "column",
             height: "100%",
