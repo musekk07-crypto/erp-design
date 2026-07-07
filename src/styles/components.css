@@ -271,7 +271,7 @@
 
 .mm2-profile-location {
   margin: 6px 0 0;
-  font-size: 11px;
+  font-size: 12px;
   color: var(--text-muted);
   line-height: 1.5;
   white-space: nowrap;
@@ -320,7 +320,7 @@
 }
 
 .mm2-profile-stack-label {
-  font-size: 11px;
+  font-size: 12px;
   font-weight: 500;
   color: var(--text-muted);
   line-height: 1.4;
