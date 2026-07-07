@@ -185,6 +185,7 @@
   --accent-border: #bae6fd;
   --member-no-color: #0284c7;
   --section-icon-bg: #e0f2fe;
+  --mm2-detail-label-bg: #f0f9ff;
 }
 
 .mm2-member-view {
@@ -195,6 +196,7 @@
   --split-table-header-bg: #e0f2fe;
   --split-table-header-border: #bae6fd;
   --split-table-header-fg: #0284c7;
+  --mm2-detail-label-bg: #f0f9ff;
 }
 
 [data-theme="dark"] .mm2-info-group {
@@ -203,6 +205,7 @@
   --accent-border: #075985;
   --member-no-color: #38bdf8;
   --section-icon-bg: #0c4a6e;
+  --mm2-detail-label-bg: #0c2a3d;
 }
 
 [data-theme="dark"] .mm2-member-view {
@@ -213,6 +216,7 @@
   --split-table-header-bg: #0c4a6e;
   --split-table-header-border: #075985;
   --split-table-header-fg: #38bdf8;
+  --mm2-detail-label-bg: #0c2a3d;
 }
 
 .mm2-profile-card {
@@ -580,7 +584,7 @@
   font-weight: 500;
   line-height: 1.45;
   color: var(--form-label-color);
-  background: var(--surface-toolbar);
+  background: var(--mm2-detail-label-bg, #f0f9ff);
   border-right: 1px solid var(--accent-border);
 }
 
