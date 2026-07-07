@@ -513,7 +513,7 @@
   display: flex;
   flex-direction: column;
   background: var(--surface-panel);
-  border: 1px solid var(--accent-border);
+  border: 1px solid var(--border);
   border-radius: 6px;
   overflow: hidden;
 }
@@ -585,7 +585,7 @@
   line-height: 1.45;
   color: var(--form-label-color);
   background: var(--mm2-detail-label-bg, #f0f9ff);
-  border-right: 1px solid var(--accent-border);
+  border-right: 1px solid var(--border);
 }
 
 .mm2-detail-value {
