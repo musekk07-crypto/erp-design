@@ -1064,7 +1064,7 @@ function SplitTableBlock({
   const totalWeight = checkboxWidth + columnsWeight;
 
   const cellStyle: React.CSSProperties = {
-    padding: "12px 12px",
+    padding: "12px 8px",
     fontSize: 13,
     color: "var(--text-body)",
     whiteSpace: "nowrap",
@@ -1084,14 +1084,14 @@ function SplitTableBlock({
           </colgroup>
           <thead className="split-table-head" style={{ position: "sticky", top: 0, zIndex: 2 }}>
             <tr style={{ background: "var(--split-table-header-bg, var(--surface-table-header))", borderBottom: "1px solid var(--split-table-header-border, var(--border))" }}>
-              <th style={{ padding: "14px 12px", textAlign: "center" }}>
+              <th style={{ padding: "14px 8px", textAlign: "center" }}>
                 <input type="checkbox" readOnly style={{ accentColor: "var(--accent-primary)", cursor: "pointer" }} />
               </th>
               {columns.map((col) => (
                 <th
                   key={col.key}
                   style={{
-                    padding: "14px 12px",
+                    padding: "14px 8px",
                     textAlign: "left",
                     fontSize: 13,
                     fontWeight: 400,
