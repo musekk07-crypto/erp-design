@@ -310,21 +310,48 @@
   font-weight: 500;
 }
 
+.mm2-profile-avatar-wrap {
+  position: relative;
+  flex-shrink: 0;
+  margin-right: 16px;
+  padding: 0;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+}
+
+.mm2-profile-avatar-wrap:hover .mm2-profile-avatar,
+.mm2-profile-avatar-wrap:hover .mm2-profile-avatar-badge {
+  background: var(--surface-row-hover, #dfe3eb);
+}
+
 .mm2-profile-avatar {
   width: 64px;
   height: 64px;
-  flex-shrink: 0;
-  margin-right: 16px;
   border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
-  background: var(--brand-gradient);
-  color: var(--on-accent);
-  font-size: 24px;
-  font-weight: 700;
-  box-shadow: 0 3px 12px rgba(124, 58, 237, 0.2);
-  border: 2px solid #fff;
+  background: var(--muted);
+  color: var(--muted-foreground);
+  border: 2px solid var(--surface-panel);
+  box-shadow: 0 0 0 1px var(--border);
+}
+
+.mm2-profile-avatar-badge {
+  position: absolute;
+  right: -1px;
+  bottom: -1px;
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--muted);
+  color: var(--muted-foreground);
+  border: 2px solid var(--surface-panel);
+  box-shadow: 0 0 0 1px var(--border);
 }
 
 .mm2-body {

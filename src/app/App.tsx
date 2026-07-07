@@ -5,7 +5,7 @@ import {
   BarChart2, ShoppingCart, Settings, Bell, HelpCircle, Home,
   Pin, Clock, ChevronLeft, ChevronRight, RefreshCw,
   FilePlus, Save, Trash2, Award, Briefcase, MessageCircle, Key, Printer,
-  Globe, Landmark, Contact, CheckCircle2, Calendar, Phone, ExternalLink,
+  Globe, Landmark, Contact, CheckCircle2, Calendar, Phone, ExternalLink, Camera,
 } from "lucide-react";
 
 // ─────────────────────────────────────────────
@@ -1613,9 +1613,14 @@ function Mm2ProfileCard({
 
   return (
     <div className="mm2-profile-card">
-      <div className="mm2-profile-avatar" aria-hidden>
-        {member.name.charAt(0)}
-      </div>
+      <button type="button" className="mm2-profile-avatar-wrap" aria-label="프로필 사진 변경">
+        <span className="mm2-profile-avatar" aria-hidden>
+          <User size={30} strokeWidth={1.6} />
+        </span>
+        <span className="mm2-profile-avatar-badge" aria-hidden>
+          <Camera size={11} strokeWidth={2.25} />
+        </span>
+      </button>
 
       <div className="mm2-profile-identity">
         <h2 className="mm2-profile-name">{member.name}</h2>
