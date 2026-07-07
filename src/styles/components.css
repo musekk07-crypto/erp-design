@@ -516,6 +516,13 @@
   border: 1px solid var(--border);
   border-radius: 6px;
   overflow: hidden;
+  --mm2-table-line: var(--border);
+}
+
+.mm2-detail-panel .mm2-detail-header,
+.mm2-detail-panel .mm2-detail-row,
+.mm2-detail-panel .mm2-detail-label {
+  border-color: var(--mm2-table-line);
 }
 
 .mm2-detail-header {
@@ -523,7 +530,7 @@
   align-items: center;
   gap: 8px;
   padding: 8px 12px;
-  border-bottom: 1px solid var(--accent-border);
+  border-bottom: 1px solid var(--border);
   background: var(--accent-light);
 }
 
