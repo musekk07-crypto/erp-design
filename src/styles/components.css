@@ -189,8 +189,7 @@
   padding: 0;
   background: var(--surface-panel);
   border: 1px solid var(--border);
-  border-radius: 12px;
-  box-shadow: 0 4px 18px rgba(15, 23, 42, 0.08);
+  border-radius: var(--radius);
   overflow: hidden;
 }
 
