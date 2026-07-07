@@ -200,8 +200,8 @@
 }
 
 .app-content .split-table-head th {
-  padding-top: 8px !important;
-  padding-bottom: 8px !important;
+  padding-top: 6px !important;
+  padding-bottom: 6px !important;
 }
 
 [data-theme="dark"] .mm2-info-group {
