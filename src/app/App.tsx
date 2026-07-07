@@ -1600,12 +1600,10 @@ function Mm2ProfileFields({ rows }: { rows: { label: string; value: React.ReactN
 
 function Mm2ProfileCard({
   member,
-  profileLeft,
-  profileRight,
+  profileFields,
 }: {
   member: Member;
-  profileLeft: { label: string; value: React.ReactNode; highlight?: boolean }[];
-  profileRight: { label: string; value: React.ReactNode }[];
+  profileFields: { label: string; value: React.ReactNode; highlight?: boolean }[];
 }) {
   const memberType = member.type === "소비자" ? "소비자" : "일반";
   const stats = [
@@ -1613,6 +1611,10 @@ function Mm2ProfileCard({
     { label: "추천 라인", value: "12명" },
     { label: "직급", value: member.rank },
   ];
+  const columnSize = Math.ceil(profileFields.length / 3);
+  const profileColumns = [0, 1, 2].map((i) =>
+    profileFields.slice(i * columnSize, (i + 1) * columnSize),
+  );
 
   return (
     <div className="mm2-profile-card">
@@ -1645,9 +1647,9 @@ function Mm2ProfileCard({
       </div>
 
       <div className="mm2-profile-fields">
-        <Mm2ProfileFields rows={profileLeft} />
-        <div className="mm2-profile-divider" aria-hidden />
-        <Mm2ProfileFields rows={profileRight} />
+        {profileColumns.map((col, index) => (
+          <Mm2ProfileFields key={index} rows={col} />
+        ))}
       </div>
 
       <div className="mm2-profile-stats">
@@ -1705,16 +1707,13 @@ function MemberManagement2View({
   const activeMeta = mm2Sections.find((s) => s.id === activeSection)!;
   const ActiveIcon = activeMeta.icon;
 
-  const profileLeft = [
+  const profileFields = [
     { label: "회원번호", value: member.no, highlight: true },
     { label: "아이디", value: member.loginId },
     { label: "성명", value: member.name },
     { label: "회원등록일자", value: member.regDate },
     { label: "주민등록번호", value: member.ssn },
     { label: "휴대폰 번호", value: member.phone },
-  ];
-
-  const profileRight = [
     { label: "비밀번호", value: <span className="mm2-profile-masked">········</span> },
     { label: "우편번호", value: "06123" },
     { label: "주소", value: member.region },
@@ -1843,7 +1842,7 @@ function MemberManagement2View({
           {isMemberInfoTab ? (
             <div className="mm2-content-row" style={{ gap: DETAIL_CONTENT_GAP }}>
               <div className="mm2-info-group">
-                <Mm2ProfileCard member={member} profileLeft={profileLeft} profileRight={profileRight} />
+                <Mm2ProfileCard member={member} profileFields={profileFields} />
 
                 <div className="mm2-body">
                   <nav className="mm2-sidebar">

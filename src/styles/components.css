@@ -286,17 +286,16 @@
 
 .mm2-profile-fields {
   display: grid;
-  grid-template-columns: 1fr 1px 1fr;
+  grid-template-columns: repeat(3, 1fr);
   gap: 0 20px;
   padding: 12px 0 4px;
   border-top: 1px solid var(--border);
   min-width: 0;
 }
 
-.mm2-profile-divider {
-  width: 1px;
-  background: var(--border);
-  align-self: stretch;
+.mm2-profile-fields > .mm2-profile-block + .mm2-profile-block {
+  border-left: 1px solid var(--border);
+  padding-left: 20px;
 }
 
 .mm2-profile-block {
