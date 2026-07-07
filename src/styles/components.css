@@ -466,10 +466,6 @@
   color: var(--text-body);
 }
 
-.mm2-detail-header-chevron {
-  color: var(--muted-foreground);
-}
-
 .mm2-detail-body {
   flex: 1;
   min-height: 0;

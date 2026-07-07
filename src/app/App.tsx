@@ -1851,7 +1851,6 @@ function MemberManagement2View({
                         <ActiveIcon size={14} />
                       </span>
                       <span className="mm2-detail-header-title">{activeMeta.label}</span>
-                      <ChevronUp size={14} className="mm2-detail-header-chevron" />
                     </div>
                     <div className="mm2-detail-body">
                       <Mm2DetailTable rows={sectionRows[activeSection]} />
