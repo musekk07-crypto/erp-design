@@ -204,6 +204,11 @@
   padding-bottom: 6px !important;
 }
 
+.app-content .split-table-block td {
+  padding-top: 6px !important;
+  padding-bottom: 6px !important;
+}
+
 [data-theme="dark"] .mm2-info-group {
   --accent-primary: #38bdf8;
   --accent-light: #0c4a6e;

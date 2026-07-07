@@ -1072,7 +1072,7 @@ function SplitTableBlock({
   const dataColumnsWeight = columnsWeight;
 
   const checkboxCellStyle: React.CSSProperties = {
-    padding: `12px 8px 12px ${SPLIT_TABLE_CHECKBOX_PAD_LEFT}px`,
+    padding: `${SPLIT_TABLE_HEADER_PAD_Y}px 8px ${SPLIT_TABLE_HEADER_PAD_Y}px ${SPLIT_TABLE_CHECKBOX_PAD_LEFT}px`,
     textAlign: "left",
   };
 
@@ -1082,7 +1082,7 @@ function SplitTableBlock({
   };
 
   const cellStyle: React.CSSProperties = {
-    padding: "12px 8px",
+    padding: `${SPLIT_TABLE_HEADER_PAD_Y}px 8px`,
     fontSize: 13,
     color: "var(--text-body)",
     whiteSpace: "nowrap",
