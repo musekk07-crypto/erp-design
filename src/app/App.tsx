@@ -1062,7 +1062,7 @@ function SplitTableBlock({
   };
 
   return (
-    <div className="flex flex-col flex-1 min-h-0 w-full" style={{ border: "1px solid var(--border)", background: "var(--surface-panel)" }}>
+    <div className="split-table-block flex flex-col flex-1 min-h-0 w-full" style={{ border: "1px solid var(--border)", background: "var(--surface-panel)" }}>
       <div className="flex-1 min-h-0 w-full overflow-auto">
         <table style={{ borderCollapse: "collapse", width: "100%", tableLayout: "fixed" }}>
           <colgroup>
@@ -1071,8 +1071,8 @@ function SplitTableBlock({
               <col key={col.key} style={{ width: `${(col.width / totalWeight) * 100}%` }} />
             ))}
           </colgroup>
-          <thead style={{ position: "sticky", top: 0, zIndex: 2 }}>
-            <tr style={{ background: "var(--surface-table-header)", borderBottom: "1px solid var(--border)" }}>
+          <thead className="split-table-head" style={{ position: "sticky", top: 0, zIndex: 2 }}>
+            <tr style={{ background: "var(--split-table-header-bg, var(--surface-table-header))", borderBottom: "1px solid var(--split-table-header-border, var(--border))" }}>
               <th style={{ padding: "6px 5px", textAlign: "center" }}>
                 <input type="checkbox" readOnly style={{ accentColor: "var(--accent-primary)", cursor: "pointer" }} />
               </th>
@@ -1084,11 +1084,11 @@ function SplitTableBlock({
                     textAlign: "left",
                     fontSize: 12,
                     fontWeight: 600,
-                    color: "var(--text-muted)",
+                    color: "var(--split-table-header-fg, var(--text-muted))",
                     whiteSpace: "nowrap",
                     overflow: "hidden",
                     textOverflow: "ellipsis",
-                    background: "var(--surface-table-header)",
+                    background: "var(--split-table-header-bg, var(--surface-table-header))",
                   }}
                 >
                   {col.label}
@@ -1823,7 +1823,7 @@ function MemberManagement2View({
 
   return (
     <div
-      className="flex flex-col h-full w-full min-h-0"
+      className="flex flex-col h-full w-full min-h-0 mm2-member-view"
       style={{
         width: isMemberInfoTab && listOpen ? getDetailPanelWidth(infoGroupWidth) : "100%",
         minWidth: isMemberInfoTab && listOpen ? getDetailPanelWidth(infoGroupWidth) : 0,

@@ -187,12 +187,32 @@
   --section-icon-bg: #e0f2fe;
 }
 
+.mm2-member-view {
+  --accent-primary: #0284c7;
+  --accent-light: #e0f2fe;
+  --accent-border: #bae6fd;
+  --member-no-color: #0284c7;
+  --split-table-header-bg: #e0f2fe;
+  --split-table-header-border: #bae6fd;
+  --split-table-header-fg: #0284c7;
+}
+
 [data-theme="dark"] .mm2-info-group {
   --accent-primary: #38bdf8;
   --accent-light: #0c4a6e;
   --accent-border: #075985;
   --member-no-color: #38bdf8;
   --section-icon-bg: #0c4a6e;
+}
+
+[data-theme="dark"] .mm2-member-view {
+  --accent-primary: #38bdf8;
+  --accent-light: #0c4a6e;
+  --accent-border: #075985;
+  --member-no-color: #38bdf8;
+  --split-table-header-bg: #0c4a6e;
+  --split-table-header-border: #075985;
+  --split-table-header-fg: #38bdf8;
 }
 
 .mm2-profile-card {
@@ -342,7 +362,7 @@
 .mm2-profile-avatar {
   width: 64px;
   height: 64px;
-  border-radius: 50%;
+  border-radius: var(--radius);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -354,11 +374,11 @@
 
 .mm2-profile-avatar-badge {
   position: absolute;
-  right: -1px;
-  bottom: -1px;
+  right: -4px;
+  bottom: -4px;
   width: 22px;
   height: 22px;
-  border-radius: 50%;
+  border-radius: 4px;
   display: flex;
   align-items: center;
   justify-content: center;
