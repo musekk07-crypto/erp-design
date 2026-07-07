@@ -14,7 +14,9 @@
   --nav-hover-text: #ffffff;
   --nav-divider: rgba(255,255,255,0.3);
   --nav-avatar-bg: rgba(255,255,255,0.2);
-  --sidebar-bg: #f1f2ff;
+  --sidebar-bg: #eceef2;
+  --sidebar-item-active-bg: #dde1e8;
+  --sidebar-item-active-border: #cfd4dc;
   --accent-primary: #7c3aed;
   --accent-light: #ede9fe;
   --accent-text: #7c3aed;
@@ -221,7 +223,7 @@
   --sidebar-foreground: #6b7280;
   --sidebar-primary: #7c3aed;
   --sidebar-primary-foreground: #ffffff;
-  --sidebar-accent: #f5f3ff;
+  --sidebar-accent: #e4e7ec;
   --sidebar-accent-foreground: #1e2130;
   --sidebar-border: rgba(0, 0, 0, 0.06);
   --sidebar-ring: rgba(124, 58, 237, 0.3);
@@ -258,7 +260,8 @@
   --badge-status-active-fg: #16a34a;
   --badge-status-withdraw-bg: #fee2e2;
   --badge-status-withdraw-fg: #dc2626;
-  --sidebar-item-active-bg: #f5f3ff;
+  --sidebar-item-active-bg: #dde1e8;
+  --sidebar-item-active-border: #cfd4dc;
   --tooltip-bg: #1e2130;
   --tooltip-fg: #ffffff;
   --scrollbar-thumb: #e2e8f0;

@@ -40,8 +40,38 @@ const ORG_CHART_CONTENT_TOP = 12;
 function getOrgChartTopShift(contentTop: number) {
   return Math.max(ORG_CHART_CONTENT_TOP, ORG_CHART_CONTENT_TOP - contentTop);
 }
+
+function calcOrgChartMaxSvgHeight(maxChildren = 5) {
+  const extraH = 34;
+  const cardH = ORG_CARD_H;
+  const childChipH = ORG_CHILD_CHIP_H;
+  const gap = 7;
+  const col2Heights = [extraH, cardH, cardH];
+  const totalCol2H = col2Heights.reduce((sum, h) => sum + h, 0) + gap * (col2Heights.length - 1);
+  const col2Ys: number[] = [];
+  let y = 0;
+  col2Heights.forEach((h) => {
+    col2Ys.push(y + h / 2);
+    y += h + gap;
+  });
+  const selfCenterY = col2Ys[1];
+  const stackH = childChipH * maxChildren + gap * (maxChildren - 1);
+  const top = selfCenterY - stackH / 2 + childChipH / 2;
+  const childYs = Array.from({ length: maxChildren }, (_, i) => top + i * (childChipH + gap));
+  const col3Bottom = childYs[maxChildren - 1] + childChipH / 2;
+  const col3Top = childYs[0] - childChipH / 2;
+  const contentTop = Math.min(0, col3Top);
+  const yShift = getOrgChartTopShift(contentTop);
+  const contentH = Math.max(totalCol2H, col3Bottom);
+  return contentH + yShift + 8;
+}
+
 const ORG_CHART_SVG_WIDTH = ORG_HPAD * 2 + ORG_CARD_W * 3 + ORG_COL_GAP * 2 + ORG_FOREIGN_PAD;
 const ORG_CHART_WIDTH = ORG_CHART_SVG_WIDTH + ORG_CHART_SIDE_PAD * 2;
+const ORG_CHART_MAX_SVG_HEIGHT = calcOrgChartMaxSvgHeight(5);
+const ORG_CHART_SECTION_HEADER_H = 35;
+const ORG_CHART_BODY_PAD_V = 28;
+const ORG_CHART_PANEL_HEIGHT = ORG_CHART_SECTION_HEADER_H + ORG_CHART_BODY_PAD_V + ORG_CHART_MAX_SVG_HEIGHT;
 const DETAIL_CONTENT_GAP = 8;
 const DETAIL_PANEL_PAD = 8;
 const HISTORY_RAIL_COLLAPSED = 40;
@@ -1861,7 +1891,7 @@ function MemberManagement2View({
 
               <div
                 className="mm2-org-chart"
-                style={{ width: ORG_CHART_WIDTH }}
+                style={{ width: ORG_CHART_WIDTH, height: ORG_CHART_PANEL_HEIGHT }}
               >
                 <FormSection
                   title="조직도"
@@ -2867,7 +2897,7 @@ function Sidebar({ activePanel, onPanelToggle, theme, onThemeChange }: SidebarPr
   return (
     <div
       className="app-sidebar flex flex-col items-center py-4 gap-1"
-      style={{ width: SIDEBAR_WIDTH, minWidth: SIDEBAR_WIDTH, height: "100%", background: "var(--sidebar-bg, #f1f2ff)", borderRight: "1px solid var(--border)", flexShrink: 0 }}
+      style={{ width: SIDEBAR_WIDTH, minWidth: SIDEBAR_WIDTH, height: "100%", background: "var(--sidebar-bg, #eceef2)", borderRight: "1px solid var(--border)", flexShrink: 0 }}
     >
       <div className="flex flex-col items-center gap-1 flex-1">
         {navItems.map((item) => {
@@ -2879,7 +2909,7 @@ function Sidebar({ activePanel, onPanelToggle, theme, onThemeChange }: SidebarPr
               className="w-10 h-10 rounded flex items-center justify-center transition-all duration-200 group relative"
               style={{
                 background: isActive ? "var(--sidebar-item-active-bg)" : "transparent",
-                border: isActive ? "1px solid var(--accent-border)" : "1px solid transparent",
+                border: isActive ? "1px solid var(--sidebar-item-active-border, var(--border))" : "1px solid transparent",
               }}
             >
               <item.icon size={18} style={{ color: isActive ? "var(--accent-primary)" : "var(--sidebar-foreground)" }} />

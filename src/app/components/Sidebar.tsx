@@ -33,7 +33,7 @@ export function Sidebar({ activePanel, onPanelToggle, theme, onThemeChange }: Si
   return (
     <div
       className="flex flex-col items-center py-4 gap-1"
-      style={{ width: 48, background: "var(--sidebar-bg, #f1f2ff)", borderRight: "1px solid var(--border)", flexShrink: 0 }}
+      style={{ width: 48, background: "var(--sidebar-bg, #eceef2)", borderRight: "1px solid var(--border)", flexShrink: 0 }}
     >
       <div className="flex flex-col items-center gap-1 flex-1">
         {navItems.map((item) => {
@@ -45,8 +45,8 @@ export function Sidebar({ activePanel, onPanelToggle, theme, onThemeChange }: Si
               onClick={item.key === "members" ? onPanelToggle : undefined}
               className="w-10 h-10 rounded flex items-center justify-center transition-all duration-200 group relative"
               style={{
-                background: isActive ? "#f5f3ff" : "transparent",
-                border: isActive ? "1px solid var(--accent-border)" : "1px solid transparent",
+                background: isActive ? "var(--sidebar-item-active-bg)" : "transparent",
+                border: isActive ? "1px solid var(--sidebar-item-active-border, var(--border))" : "1px solid transparent",
               }}
             >
               <item.icon size={18} style={{ color: isActive ? "var(--accent-primary)" : "var(--sidebar-foreground)" }} />
