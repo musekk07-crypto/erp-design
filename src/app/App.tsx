@@ -1656,10 +1656,10 @@ function Mm2ProfileCard({
     <div className="mm2-profile-card">
       <button type="button" className="mm2-profile-avatar-wrap" aria-label="프로필 사진 변경">
         <span className="mm2-profile-avatar" aria-hidden>
-          <User size={33} strokeWidth={1.6} />
+          <User size={40} strokeWidth={1.6} />
         </span>
         <span className="mm2-profile-avatar-badge" aria-hidden>
-          <Camera size={12} strokeWidth={2.25} />
+          <Camera size={14} strokeWidth={2.25} />
         </span>
       </button>
 
