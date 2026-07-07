@@ -360,8 +360,8 @@
 }
 
 .mm2-profile-avatar {
-  width: 84px;
-  height: 84px;
+  width: 101px;
+  height: 101px;
   border-radius: var(--radius);
   display: flex;
   align-items: center;
@@ -376,8 +376,8 @@
   position: absolute;
   right: -4px;
   bottom: -4px;
-  width: 29px;
-  height: 29px;
+  width: 35px;
+  height: 35px;
   border-radius: 4px;
   display: flex;
   align-items: center;
