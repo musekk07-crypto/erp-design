@@ -419,13 +419,22 @@
   display: flex;
   flex-direction: column;
   min-height: 0;
-  overflow: hidden;
+  overflow: visible;
 }
 
 .mm2-org-chart .mm2-org-section .content-form-body {
   flex: 1;
   min-height: 0;
-  overflow: hidden;
+  overflow: visible;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+}
+
+.mm2-org-chart-inner {
+  transform: scale(1.1);
+  transform-origin: top center;
+  flex-shrink: 0;
 }
 
 .mm2-sidebar {

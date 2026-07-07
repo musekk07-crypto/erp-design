@@ -72,6 +72,9 @@ const ORG_CHART_MAX_SVG_HEIGHT = calcOrgChartMaxSvgHeight(5);
 const ORG_CHART_SECTION_HEADER_H = 35;
 const ORG_CHART_BODY_PAD_V = 28;
 const ORG_CHART_PANEL_HEIGHT = ORG_CHART_SECTION_HEADER_H + ORG_CHART_BODY_PAD_V + ORG_CHART_MAX_SVG_HEIGHT;
+const MM2_ORG_CHART_SCALE = 1.1;
+const MM2_ORG_CHART_WIDTH = Math.ceil(ORG_CHART_WIDTH * MM2_ORG_CHART_SCALE);
+const MM2_ORG_CHART_PANEL_HEIGHT = Math.ceil(ORG_CHART_PANEL_HEIGHT * MM2_ORG_CHART_SCALE);
 const DETAIL_CONTENT_GAP = 8;
 const DETAIL_PANEL_PAD = 8;
 const HISTORY_RAIL_COLLAPSED = 40;
@@ -98,15 +101,23 @@ const MM2_MAIN_MIN_WIDTH = 720;
 
 function calcMm2InfoGroupWidth(availableDetailWidth: number) {
   const innerWidth = Math.max(0, availableDetailWidth - DETAIL_PANEL_PAD * 2);
-  const idealInfo = innerWidth - ORG_CHART_WIDTH - DETAIL_CONTENT_GAP;
+  const idealInfo = innerWidth - MM2_ORG_CHART_WIDTH - DETAIL_CONTENT_GAP;
   if (idealInfo >= MM2_MAIN_MIN_WIDTH) {
     return idealInfo;
   }
   return MM2_MAIN_MIN_WIDTH;
 }
 
+function getMm2DetailContentWidth(infoGroupWidth: number) {
+  return infoGroupWidth + MM2_ORG_CHART_WIDTH + DETAIL_CONTENT_GAP;
+}
+
+function getMm2DetailPanelWidth(infoGroupWidth: number) {
+  return getMm2DetailContentWidth(infoGroupWidth) + DETAIL_PANEL_PAD * 2;
+}
+
 function getMm2PanelMinWidth() {
-  return getDetailPanelWidth(MM2_MAIN_MIN_WIDTH);
+  return getMm2DetailPanelWidth(MM2_MAIN_MIN_WIDTH);
 }
 
 function clampMemberListWidth(width: number) {
@@ -1713,7 +1724,7 @@ function MemberManagement2View({
 }) {
   const member = getMemberById(memberId);
   const isMemberInfoTab = activeTab === "회원정보";
-  const detailContentWidth = getDetailContentWidth(infoGroupWidth);
+  const detailContentWidth = getMm2DetailContentWidth(infoGroupWidth);
   const contentAlignWidth = isMemberInfoTab && listOpen ? detailContentWidth : "100%";
   const [activeSection, setActiveSection] = useState<Mm2SectionId>("name");
   const activeMeta = mm2Sections.find((s) => s.id === activeSection)!;
@@ -1825,8 +1836,8 @@ function MemberManagement2View({
     <div
       className="flex flex-col h-full w-full min-h-0 mm2-member-view"
       style={{
-        width: isMemberInfoTab && listOpen ? getDetailPanelWidth(infoGroupWidth) : "100%",
-        minWidth: isMemberInfoTab && listOpen ? getDetailPanelWidth(infoGroupWidth) : 0,
+        width: isMemberInfoTab && listOpen ? getMm2DetailPanelWidth(infoGroupWidth) : "100%",
+        minWidth: isMemberInfoTab && listOpen ? getMm2DetailPanelWidth(infoGroupWidth) : 0,
         flexShrink: isMemberInfoTab && listOpen ? 0 : undefined,
       }}
     >
@@ -1891,16 +1902,18 @@ function MemberManagement2View({
 
               <div
                 className="mm2-org-chart"
-                style={{ width: ORG_CHART_WIDTH, height: ORG_CHART_PANEL_HEIGHT }}
+                style={{ width: MM2_ORG_CHART_WIDTH, height: MM2_ORG_CHART_PANEL_HEIGHT }}
               >
                 <FormSection
                   title="조직도"
                   icon={<GitFork size={12} />}
                   className="content-form-section--org mm2-org-section"
                   bodyPadding={`16px ${ORG_CHART_SIDE_PAD}px 12px`}
-                  clipBody={true}
+                  clipBody={false}
                 >
-                  <OrgChart memberId={member.id} memberName={member.name} />
+                  <div className="mm2-org-chart-inner">
+                    <OrgChart memberId={member.id} memberName={member.name} />
+                  </div>
                 </FormSection>
               </div>
             </div>
@@ -3026,7 +3039,7 @@ export default function App() {
 
   const detailPanelMinWidth = useMemo(() => {
     if (isMm2MemberInfoTab) {
-      return getDetailPanelWidth(mm2InfoGroupWidth);
+      return getMm2DetailPanelWidth(mm2InfoGroupWidth);
     }
     if (isMemberInfoTab) {
       return getDetailPanelWidth(formColumnWidth);
