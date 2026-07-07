@@ -1053,6 +1053,7 @@ function MemberTable({ selectedId, onSelect, listOpen = false, listWidth = MEMBE
 type SplitTableColumn = { key: string; label: string; width: number };
 
 const SPLIT_TABLE_CHECKBOX_WIDTH = 36;
+const SPLIT_TABLE_CHECKBOX_PAD_LEFT = 8;
 
 function getSplitTableWeight(columns: SplitTableColumn[]) {
   return SPLIT_TABLE_CHECKBOX_WIDTH + columns.reduce((sum, col) => sum + col.width, 0);
@@ -1067,7 +1068,17 @@ function SplitTableBlock({
 }) {
   const checkboxWidth = SPLIT_TABLE_CHECKBOX_WIDTH;
   const columnsWeight = columns.reduce((sum, col) => sum + col.width, 0);
-  const totalWeight = checkboxWidth + columnsWeight;
+  const dataColumnsWeight = columnsWeight;
+
+  const checkboxCellStyle: React.CSSProperties = {
+    padding: `12px 8px 12px ${SPLIT_TABLE_CHECKBOX_PAD_LEFT}px`,
+    textAlign: "left",
+  };
+
+  const checkboxHeaderStyle: React.CSSProperties = {
+    padding: `14px 8px 14px ${SPLIT_TABLE_CHECKBOX_PAD_LEFT}px`,
+    textAlign: "left",
+  };
 
   const cellStyle: React.CSSProperties = {
     padding: "12px 8px",
@@ -1086,14 +1097,14 @@ function SplitTableBlock({
       <div className="flex-1 min-h-0" style={{ width: "100%", overflowY: "auto", overflowX: "hidden" }}>
         <table style={{ borderCollapse: "collapse", width: "100%", tableLayout: "fixed" }}>
           <colgroup>
-            <col style={{ width: `${(checkboxWidth / totalWeight) * 100}%` }} />
+            <col style={{ width: checkboxWidth }} />
             {columns.map((col) => (
-              <col key={col.key} style={{ width: `${(col.width / totalWeight) * 100}%` }} />
+              <col key={col.key} style={{ width: `${(col.width / dataColumnsWeight) * 100}%` }} />
             ))}
           </colgroup>
           <thead className="split-table-head" style={{ position: "sticky", top: 0, zIndex: 2 }}>
             <tr style={{ background: "var(--split-table-header-bg, var(--surface-table-header))", borderBottom: "1px solid var(--split-table-header-border, var(--border))" }}>
-              <th style={{ padding: "14px 8px", textAlign: "center" }}>
+              <th style={checkboxHeaderStyle}>
                 <input type="checkbox" readOnly style={{ accentColor: "var(--accent-primary)", cursor: "pointer" }} />
               </th>
               {columns.map((col) => (
@@ -1119,7 +1130,7 @@ function SplitTableBlock({
           <tbody>
             {rows.map((row, index) => (
               <tr key={index} className="member-table-row">
-                <td style={{ ...cellStyle, textAlign: "center" }}>
+                <td style={{ ...cellStyle, ...checkboxCellStyle }}>
                   <input type="checkbox" readOnly style={{ accentColor: "var(--accent-primary)", cursor: "pointer" }} />
                 </td>
                 {columns.map((col) => (
