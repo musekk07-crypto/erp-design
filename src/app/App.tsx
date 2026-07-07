@@ -1094,7 +1094,7 @@ function SplitTableBlock({
                     padding: "14px 8px",
                     textAlign: "left",
                     fontSize: 13,
-                    fontWeight: 600,
+                    fontWeight: 400,
                     color: "var(--split-table-header-fg, var(--text-muted))",
                     whiteSpace: "nowrap",
                     overflow: "hidden",
