@@ -1604,17 +1604,404 @@ const mm2Sections = [
 
 type Mm2SectionId = (typeof mm2Sections)[number]["id"];
 
-function Mm2DetailTable({ rows }: { rows: { label: string; value: React.ReactNode }[] }) {
+type Mm2DetailRow = {
+  label: string;
+  viewValue: React.ReactNode;
+  editValue?: React.ReactNode;
+  readOnly?: boolean;
+};
+
+function Mm2DetailInput({
+  suffix,
+  className = "",
+  ...props
+}: React.InputHTMLAttributes<HTMLInputElement> & { suffix?: React.ReactNode }) {
+  return (
+    <span className="mm2-field-value">
+      <input className={`mm2-detail-input ${className}`.trim()} {...props} />
+      {suffix ? <span className="mm2-field-suffix">{suffix}</span> : null}
+    </span>
+  );
+}
+
+function Mm2DetailSelect({
+  suffix,
+  children,
+  className = "",
+  ...props
+}: React.SelectHTMLAttributes<HTMLSelectElement> & { suffix?: React.ReactNode }) {
+  return (
+    <span className="mm2-field-value">
+      <select className={`mm2-detail-select ${className}`.trim()} {...props}>
+        {children}
+      </select>
+      {suffix ? <span className="mm2-field-suffix">{suffix}</span> : null}
+    </span>
+  );
+}
+
+function Mm2DetailTextarea({
+  className = "",
+  ...props
+}: React.TextareaHTMLAttributes<HTMLTextAreaElement>) {
+  return <textarea className={`mm2-detail-textarea ${className}`.trim()} {...props} />;
+}
+
+function Mm2DetailHeader({
+  icon,
+  title,
+  isEditing,
+  onEdit,
+  onSave,
+  onCancel,
+}: {
+  icon: React.ReactNode;
+  title: string;
+  isEditing: boolean;
+  onEdit: () => void;
+  onSave: () => void;
+  onCancel: () => void;
+}) {
+  return (
+    <div className="mm2-detail-header">
+      <span className="mm2-detail-header-icon">{icon}</span>
+      <span className="mm2-detail-header-title">{title}</span>
+      <div className="mm2-detail-header-actions">
+        {!isEditing ? (
+          <button type="button" className="mm2-detail-action-btn mm2-detail-action-btn--edit" onClick={onEdit}>
+            수정
+          </button>
+        ) : (
+          <>
+            <button type="button" className="mm2-detail-action-btn mm2-detail-action-btn--save" onClick={onSave}>
+              저장
+            </button>
+            <button type="button" className="mm2-detail-action-btn mm2-detail-action-btn--cancel" onClick={onCancel}>
+              취소
+            </button>
+          </>
+        )}
+      </div>
+    </div>
+  );
+}
+
+function Mm2DetailTable({ rows, isEditing }: { rows: Mm2DetailRow[]; isEditing: boolean }) {
   return (
     <div className="mm2-detail-table">
       {rows.map((row) => (
         <div key={row.label} className="mm2-detail-row">
           <div className="mm2-detail-label">{row.label}</div>
-          <div className="mm2-detail-value">{row.value}</div>
+          <div className="mm2-detail-value">
+            {isEditing && row.editValue !== undefined ? row.editValue : row.viewValue}
+          </div>
         </div>
       ))}
     </div>
   );
+}
+
+function Mm2DetailPanel({
+  title,
+  icon,
+  rows,
+}: {
+  title: string;
+  icon: React.ReactNode;
+  rows: Mm2DetailRow[];
+}) {
+  const [isEditing, setIsEditing] = useState(false);
+  const [formKey, setFormKey] = useState(0);
+
+  const handleCancel = () => {
+    setIsEditing(false);
+    setFormKey((key) => key + 1);
+  };
+
+  const handleSave = () => {
+    setIsEditing(false);
+    setFormKey((key) => key + 1);
+  };
+
+  return (
+    <div className={`mm2-detail-panel${isEditing ? " is-editing" : ""}`}>
+      <Mm2DetailHeader
+        icon={icon}
+        title={title}
+        isEditing={isEditing}
+        onEdit={() => setIsEditing(true)}
+        onSave={handleSave}
+        onCancel={handleCancel}
+      />
+      <div className="mm2-detail-body">
+        <Mm2DetailTable key={formKey} rows={rows} isEditing={isEditing} />
+      </div>
+    </div>
+  );
+}
+
+function buildMm2SectionRows(member: Member): Record<Mm2SectionId, Mm2DetailRow[]> {
+  const calendarSuffix = <Calendar size={14} className="mm2-field-icon" />;
+  const searchSuffix = <Search size={14} className="mm2-field-icon" />;
+  const chevronSuffix = <ChevronDown size={14} className="mm2-field-icon" />;
+  const verifiedSuffix = (
+    <span className="mm2-verified-badge">
+      <CheckCircle2 size={12} /> 인증완료
+    </span>
+  );
+
+  return {
+    login: [
+      {
+        label: "회원번호",
+        readOnly: true,
+        viewValue: <span className="mm2-field-highlight">{member.no}</span>,
+        editValue: <Mm2DetailInput defaultValue={member.no} readOnly />,
+      },
+      {
+        label: "아이디",
+        viewValue: member.loginId,
+        editValue: <Mm2DetailInput defaultValue={member.loginId} />,
+      },
+      {
+        label: "비밀번호",
+        viewValue: <span className="mm2-field-muted">변경 시에만 입력</span>,
+        editValue: <Mm2DetailInput type="password" placeholder="변경 시에만 입력" />,
+      },
+      {
+        label: "보안비밀번호",
+        viewValue: <span className="mm2-field-masked">····</span>,
+        editValue: <Mm2DetailInput type="password" placeholder="변경 시에만 입력" />,
+      },
+      {
+        label: "회원등록일자",
+        viewValue: <Mm2FieldValue suffix={calendarSuffix}>{member.regDate}</Mm2FieldValue>,
+        editValue: <Mm2DetailInput type="date" defaultValue={member.regDate} suffix={calendarSuffix} />,
+      },
+    ],
+    name: [
+      {
+        label: "성명",
+        viewValue: (
+          <Mm2FieldValue>
+            Minsoo <span className="mm2-field-sep">|</span> Kim
+          </Mm2FieldValue>
+        ),
+        editValue: (
+          <span className="mm2-detail-input-row">
+            <input className="mm2-detail-input" defaultValue="Minsoo" />
+            <span className="mm2-field-sep">|</span>
+            <input className="mm2-detail-input" defaultValue="Kim" />
+          </span>
+        ),
+      },
+      {
+        label: "한글명",
+        viewValue: member.name,
+        editValue: <Mm2DetailInput defaultValue={member.name} />,
+      },
+      {
+        label: "닉네임",
+        viewValue: "Minsoo Kim",
+        editValue: <Mm2DetailInput defaultValue="Minsoo Kim" />,
+      },
+      {
+        label: "Business Name",
+        viewValue: "",
+        editValue: <Mm2DetailInput placeholder="Business Name" />,
+      },
+      {
+        label: "Legal Name",
+        viewValue: "",
+        editValue: <Mm2DetailInput placeholder="Legal Name" />,
+      },
+    ],
+    personal: [
+      {
+        label: "생년월일",
+        viewValue: <Mm2FieldValue suffix={calendarSuffix}>1989-12-03</Mm2FieldValue>,
+        editValue: <Mm2DetailInput type="date" defaultValue="1989-12-03" suffix={calendarSuffix} />,
+      },
+      {
+        label: "주민등록번호",
+        viewValue: <Mm2FieldValue suffix={verifiedSuffix}>891203-1002399</Mm2FieldValue>,
+        editValue: (
+          <Mm2DetailInput defaultValue="891203-1002399" suffix={verifiedSuffix} />
+        ),
+      },
+      {
+        label: "성별",
+        viewValue: <Mm2FieldValue suffix={chevronSuffix}>남</Mm2FieldValue>,
+        editValue: (
+          <Mm2DetailSelect defaultValue="남" suffix={chevronSuffix}>
+            <option value="남">남</option>
+            <option value="여">여</option>
+          </Mm2DetailSelect>
+        ),
+      },
+      {
+        label: "연락처",
+        viewValue: "02-583-9201",
+        editValue: <Mm2DetailInput defaultValue="02-583-9201" />,
+      },
+      {
+        label: "휴대폰번호",
+        viewValue: "010-3948-2918",
+        editValue: <Mm2DetailInput defaultValue="010-3948-2918" />,
+      },
+      {
+        label: "우편번호",
+        viewValue: <Mm2FieldValue suffix={searchSuffix}>06123</Mm2FieldValue>,
+        editValue: <Mm2DetailInput defaultValue="06123" suffix={searchSuffix} />,
+      },
+      {
+        label: "기본주소",
+        viewValue: "서울특별시 강남구 테헤란로 123",
+        editValue: <Mm2DetailInput defaultValue="서울특별시 강남구 테헤란로 123" />,
+      },
+      {
+        label: "상세주소",
+        viewValue: "삼원빌딩 5층",
+        editValue: <Mm2DetailInput defaultValue="삼원빌딩 5층" />,
+      },
+    ],
+    country: [
+      {
+        label: "국가",
+        viewValue: <Mm2FieldValue suffix={chevronSuffix}>대한민국</Mm2FieldValue>,
+        editValue: (
+          <Mm2DetailSelect defaultValue="대한민국" suffix={chevronSuffix}>
+            <option value="대한민국">대한민국</option>
+            <option value="미국">미국</option>
+          </Mm2DetailSelect>
+        ),
+      },
+      {
+        label: "State",
+        viewValue: "강남구",
+        editValue: <Mm2DetailInput defaultValue="강남구" />,
+      },
+      {
+        label: "City",
+        viewValue: "서울특별시",
+        editValue: <Mm2DetailInput defaultValue="서울특별시" />,
+      },
+      {
+        label: "비자종류",
+        viewValue: <Mm2FieldValue suffix={chevronSuffix}>내국인</Mm2FieldValue>,
+        editValue: (
+          <Mm2DetailSelect defaultValue="내국인" suffix={chevronSuffix}>
+            <option value="내국인">내국인</option>
+            <option value="F-4">F-4</option>
+          </Mm2DetailSelect>
+        ),
+      },
+      {
+        label: "체류만료일자",
+        viewValue: <Mm2FieldValue suffix={calendarSuffix}>2029-12-31</Mm2FieldValue>,
+        editValue: <Mm2DetailInput type="date" defaultValue="2029-12-31" suffix={calendarSuffix} />,
+      },
+      {
+        label: "EIN Number",
+        viewValue: "미국 사업자 번호",
+        editValue: <Mm2DetailInput defaultValue="미국 사업자 번호" />,
+      },
+      {
+        label: "세금신고번호",
+        viewValue: "120-00-11111",
+        editValue: <Mm2DetailInput defaultValue="120-00-11111" />,
+      },
+      {
+        label: "특이사항",
+        viewValue: "우수 대리점장 관리대상. 추천 수당 가산 2% 적용 회원.",
+        editValue: (
+          <Mm2DetailTextarea defaultValue="우수 대리점장 관리대상. 추천 수당 가산 2% 적용 회원." />
+        ),
+      },
+    ],
+    account: [
+      {
+        label: "은행명",
+        viewValue: <Mm2FieldValue suffix={chevronSuffix}>국민은행</Mm2FieldValue>,
+        editValue: (
+          <Mm2DetailSelect defaultValue="국민은행" suffix={chevronSuffix}>
+            <option value="국민은행">국민은행</option>
+            <option value="신한은행">신한은행</option>
+          </Mm2DetailSelect>
+        ),
+      },
+      {
+        label: "계좌번호",
+        viewValue: <Mm2FieldValue suffix={verifiedSuffix}>482901-01-293819</Mm2FieldValue>,
+        editValue: <Mm2DetailInput defaultValue="482901-01-293819" suffix={verifiedSuffix} />,
+      },
+      {
+        label: "예금주",
+        viewValue: member.name,
+        editValue: <Mm2DetailInput defaultValue={member.name} />,
+      },
+      {
+        label: "SwiftCode",
+        viewValue: "SHBKKRSE",
+        editValue: <Mm2DetailInput defaultValue="SHBKKRSE" />,
+      },
+      {
+        label: "Branch Number",
+        viewValue: "0234",
+        editValue: <Mm2DetailInput defaultValue="0234" />,
+      },
+      {
+        label: "은행 거래번호",
+        viewValue: "88012345",
+        editValue: <Mm2DetailInput defaultValue="88012345" />,
+      },
+    ],
+    relation: [
+      {
+        label: "추천인",
+        viewValue: (
+          <Mm2FieldValue suffix={searchSuffix}>
+            10001150 <span className="mm2-field-sep">|</span> 이순신 <span className="mm2-field-sep">|</span> 12명
+          </Mm2FieldValue>
+        ),
+        editValue: <Mm2DetailInput defaultValue="10001150 | 이순신 | 12명" suffix={searchSuffix} />,
+      },
+      {
+        label: "후원인",
+        viewValue: (
+          <Mm2FieldValue suffix={searchSuffix}>
+            10001201 <span className="mm2-field-sep">|</span> 홍길동 <span className="mm2-field-sep">|</span> 6명
+          </Mm2FieldValue>
+        ),
+        editValue: <Mm2DetailInput defaultValue="10001201 | 홍길동 | 6명" suffix={searchSuffix} />,
+      },
+      {
+        label: "센터",
+        viewValue: <Mm2FieldValue suffix={chevronSuffix}>서울본점</Mm2FieldValue>,
+        editValue: (
+          <Mm2DetailSelect defaultValue="서울본점" suffix={chevronSuffix}>
+            <option value="서울본점">서울본점</option>
+            <option value="서울센터">서울센터</option>
+          </Mm2DetailSelect>
+        ),
+      },
+      {
+        label: "영업소",
+        viewValue: <Mm2FieldValue suffix={chevronSuffix}>구로점</Mm2FieldValue>,
+        editValue: (
+          <Mm2DetailSelect defaultValue="구로점" suffix={chevronSuffix}>
+            <option value="구로점">구로점</option>
+            <option value="강남영업소">강남영업소</option>
+          </Mm2DetailSelect>
+        ),
+      },
+      {
+        label: "동의 항목",
+        viewValue: <Mm2ConsentList />,
+        editValue: <Mm2ConsentList editable />,
+      },
+    ],
+  };
 }
 
 function Mm2FieldValue({ children, suffix }: { children: React.ReactNode; suffix?: React.ReactNode }) {
@@ -1694,7 +2081,7 @@ function Mm2ProfileCard({
   );
 }
 
-function Mm2ConsentList() {
+function Mm2ConsentList({ editable = false }: { editable?: boolean }) {
   const items = [
     { label: "SMS 동의", checked: true },
     { label: "이메일 수신", checked: true },
@@ -1705,7 +2092,7 @@ function Mm2ConsentList() {
     <div className="mm2-consent-list">
       {items.map((item) => (
         <label key={item.label} className="mm2-consent-item">
-          <input type="checkbox" defaultChecked={item.checked} readOnly />
+          <input type="checkbox" defaultChecked={item.checked} readOnly={!editable} />
           <span>{item.label}</span>
         </label>
       ))}
@@ -1733,6 +2120,7 @@ function MemberManagement2View({
   const [activeSection, setActiveSection] = useState<Mm2SectionId>("name");
   const activeMeta = mm2Sections.find((s) => s.id === activeSection)!;
   const ActiveIcon = activeMeta.icon;
+  const sectionRows = useMemo(() => buildMm2SectionRows(member), [member]);
 
   const profileFields = [
     { label: "회원번호", value: member.no, highlight: true, bold: true },
@@ -1748,93 +2136,6 @@ function MemberManagement2View({
     { label: "추천인, 후원인", value: "김성남 / 이숙련", bold: true },
     { label: "센터, 영업소", value: "서울센터 / 강남영업소", bold: true },
   ];
-
-  const sectionRows: Record<Mm2SectionId, { label: string; value: React.ReactNode }[]> = {
-    login: [
-      { label: "회원번호", value: <span className="mm2-field-highlight">{member.no}</span> },
-      { label: "아이디", value: member.loginId },
-      { label: "비밀번호", value: <span className="mm2-field-muted">변경 시에만 입력</span> },
-      { label: "보안비밀번호", value: <span className="mm2-field-masked">····</span> },
-      { label: "회원등록일자", value: <Mm2FieldValue suffix={<Calendar size={14} className="mm2-field-icon" />}>{member.regDate}</Mm2FieldValue> },
-    ],
-    name: [
-      {
-        label: "성명",
-        value: (
-          <Mm2FieldValue>
-            Minsoo <span className="mm2-field-sep">|</span> Kim
-          </Mm2FieldValue>
-        ),
-      },
-      { label: "한글명", value: member.name },
-      { label: "닉네임", value: "Minsoo Kim" },
-      { label: "Business Name", value: "" },
-      { label: "Legal Name", value: "" },
-    ],
-    personal: [
-      { label: "생년월일", value: <Mm2FieldValue suffix={<Calendar size={14} className="mm2-field-icon" />}>1989-12-03</Mm2FieldValue> },
-      {
-        label: "주민등록번호",
-        value: (
-          <Mm2FieldValue suffix={<span className="mm2-verified-badge"><CheckCircle2 size={12} /> 인증완료</span>}>
-            891203-1002399
-          </Mm2FieldValue>
-        ),
-      },
-      { label: "성별", value: <Mm2FieldValue suffix={<ChevronDown size={14} className="mm2-field-icon" />}>남</Mm2FieldValue> },
-      { label: "연락처", value: "02-583-9201" },
-      { label: "휴대폰번호", value: "010-3948-2918" },
-      { label: "우편번호", value: <Mm2FieldValue suffix={<Search size={14} className="mm2-field-icon" />}>06123</Mm2FieldValue> },
-      { label: "기본주소", value: "서울특별시 강남구 테헤란로 123" },
-      { label: "상세주소", value: "삼원빌딩 5층" },
-    ],
-    country: [
-      { label: "국가", value: <Mm2FieldValue suffix={<ChevronDown size={14} className="mm2-field-icon" />}>대한민국</Mm2FieldValue> },
-      { label: "State", value: "강남구" },
-      { label: "City", value: "서울특별시" },
-      { label: "비자종류", value: <Mm2FieldValue suffix={<ChevronDown size={14} className="mm2-field-icon" />}>내국인</Mm2FieldValue> },
-      { label: "체류만료일자", value: <Mm2FieldValue suffix={<Calendar size={14} className="mm2-field-icon" />}>2029-12-31</Mm2FieldValue> },
-      { label: "EIN Number", value: "미국 사업자 번호" },
-      { label: "세금신고번호", value: "120-00-11111" },
-      { label: "특이사항", value: "우수 대리점장 관리대상. 추천 수당 가산 2% 적용 회원." },
-    ],
-    account: [
-      { label: "은행명", value: <Mm2FieldValue suffix={<ChevronDown size={14} className="mm2-field-icon" />}>국민은행</Mm2FieldValue> },
-      {
-        label: "계좌번호",
-        value: (
-          <Mm2FieldValue suffix={<span className="mm2-verified-badge"><CheckCircle2 size={12} /> 인증완료</span>}>
-            482901-01-293819
-          </Mm2FieldValue>
-        ),
-      },
-      { label: "예금주", value: member.name },
-      { label: "SwiftCode", value: "SHBKKRSE" },
-      { label: "Branch Number", value: "0234" },
-      { label: "은행 거래번호", value: "88012345" },
-    ],
-    relation: [
-      {
-        label: "추천인",
-        value: (
-          <Mm2FieldValue suffix={<Search size={14} className="mm2-field-icon" />}>
-            10001150 <span className="mm2-field-sep">|</span> 이순신 <span className="mm2-field-sep">|</span> 12명
-          </Mm2FieldValue>
-        ),
-      },
-      {
-        label: "후원인",
-        value: (
-          <Mm2FieldValue suffix={<Search size={14} className="mm2-field-icon" />}>
-            10001201 <span className="mm2-field-sep">|</span> 홍길동 <span className="mm2-field-sep">|</span> 6명
-          </Mm2FieldValue>
-        ),
-      },
-      { label: "센터", value: <Mm2FieldValue suffix={<ChevronDown size={14} className="mm2-field-icon" />}>서울본점</Mm2FieldValue> },
-      { label: "영업소", value: <Mm2FieldValue suffix={<ChevronDown size={14} className="mm2-field-icon" />}>구로점</Mm2FieldValue> },
-      { label: "동의 항목", value: <Mm2ConsentList /> },
-    ],
-  };
 
   return (
     <div
@@ -1890,17 +2191,12 @@ function MemberManagement2View({
                     })}
                   </nav>
 
-                  <div className="mm2-detail-panel">
-                    <div className="mm2-detail-header">
-                      <span className="mm2-detail-header-icon">
-                        <ActiveIcon size={14} />
-                      </span>
-                      <span className="mm2-detail-header-title">{activeMeta.label}</span>
-                    </div>
-                    <div className="mm2-detail-body">
-                      <Mm2DetailTable rows={sectionRows[activeSection]} />
-                    </div>
-                  </div>
+                  <Mm2DetailPanel
+                    key={activeSection}
+                    title={activeMeta.label}
+                    icon={<ActiveIcon size={14} />}
+                    rows={sectionRows[activeSection]}
+                  />
                 </div>
               </div>
 

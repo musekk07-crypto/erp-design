@@ -554,9 +554,117 @@
 
 .mm2-detail-header-title {
   flex: 1;
+  min-width: 0;
   font-size: 13px;
   font-weight: 600;
   color: var(--accent-primary);
+}
+
+.mm2-detail-header-actions {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-left: auto;
+  flex-shrink: 0;
+}
+
+.mm2-detail-action-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 28px;
+  padding: 4px 10px;
+  border-radius: 4px;
+  font-size: 12px;
+  font-weight: 500;
+  line-height: 1;
+  cursor: pointer;
+  transition: background 0.15s ease, color 0.15s ease, border-color 0.15s ease;
+}
+
+.mm2-detail-action-btn--edit {
+  background: var(--surface-panel);
+  color: var(--accent-primary);
+  border: 1px solid var(--accent-border);
+}
+
+.mm2-detail-action-btn--edit:hover {
+  background: #f0f9ff;
+}
+
+.mm2-detail-action-btn--save {
+  background: var(--accent-primary);
+  color: #fff;
+  border: 1px solid var(--accent-primary);
+}
+
+.mm2-detail-action-btn--save:hover {
+  filter: brightness(0.95);
+}
+
+.mm2-detail-action-btn--cancel {
+  background: var(--surface-panel);
+  color: var(--text-muted);
+  border: 1px solid var(--border);
+}
+
+.mm2-detail-action-btn--cancel:hover {
+  background: var(--surface-row-hover);
+  color: var(--text-body);
+}
+
+.mm2-detail-panel.is-editing .mm2-detail-value {
+  background: #fcfdff;
+}
+
+.mm2-detail-input,
+.mm2-detail-select,
+.mm2-detail-textarea {
+  flex: 1;
+  min-width: 0;
+  width: 100%;
+  font-size: 12px;
+  padding: 4px 8px;
+  border: none;
+  border-radius: 4px;
+  background: var(--input-background);
+  color: var(--foreground);
+  outline: none;
+  transition: background 0.15s ease;
+}
+
+.mm2-detail-input:focus,
+.mm2-detail-select:focus,
+.mm2-detail-textarea:focus {
+  background: var(--input-focus-bg);
+}
+
+.mm2-detail-input:read-only {
+  background: var(--surface-input-readonly);
+  color: var(--text-muted);
+  cursor: default;
+}
+
+.mm2-detail-select {
+  appearance: none;
+  padding-right: 28px;
+}
+
+.mm2-detail-textarea {
+  min-height: 72px;
+  resize: vertical;
+  line-height: 1.45;
+}
+
+.mm2-detail-input-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  width: 100%;
+}
+
+.mm2-detail-input-row .mm2-detail-input {
+  flex: 1;
 }
 
 .mm2-detail-body {
