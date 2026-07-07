@@ -1736,7 +1736,7 @@ function MemberManagement2View({
 
   const profileFields = [
     { label: "회원번호", value: member.no, highlight: true, bold: true },
-    { label: "아이디", value: member.loginId },
+    { label: "아이디", value: member.loginId, bold: true },
     { label: "성명", value: member.name, bold: true },
     { label: "회원등록일자", value: member.regDate },
     { label: "주민등록번호", value: member.ssn },
