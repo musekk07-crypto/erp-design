@@ -219,7 +219,8 @@
   display: flex;
   align-items: center;
   gap: 0;
-  padding: 20px 24px;
+  padding: 28px 24px;
+  min-height: 148px;
   background: var(--surface-panel);
   border: 1px solid var(--border);
   border-radius: var(--radius);
@@ -260,7 +261,7 @@
   display: inline-flex;
   align-items: center;
   gap: 4px;
-  margin: 6px 0 0;
+  margin: 8px 0 0;
   font-size: 12px;
   font-weight: 600;
   color: var(--accent-primary);
@@ -269,7 +270,7 @@
 }
 
 .mm2-profile-location {
-  margin: 4px 0 0;
+  margin: 6px 0 0;
   font-size: 11px;
   color: var(--text-muted);
   line-height: 1.5;
@@ -280,7 +281,7 @@
   display: flex;
   align-items: center;
   gap: 8px;
-  margin-top: 12px;
+  margin-top: 14px;
 }
 
 .mm2-profile-icon-btn {
@@ -306,7 +307,7 @@
   display: flex;
   flex-direction: column;
   justify-content: center;
-  gap: 13px;
+  gap: 16px;
   flex-shrink: 0;
   min-width: 120px;
 }
