@@ -97,7 +97,7 @@ function calcFormColumnWidth(availableDetailWidth: number) {
   return FORM_COLUMN_WIDTH_MIN;
 }
 
-const MM2_MAIN_MIN_WIDTH = 720;
+const MM2_MAIN_MIN_WIDTH = 1228;
 
 function calcMm2InfoGroupWidth(availableDetailWidth: number) {
   const innerWidth = Math.max(0, availableDetailWidth - DETAIL_PANEL_PAD * 2);
