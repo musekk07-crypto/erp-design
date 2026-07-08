@@ -13,7 +13,7 @@ import {
   Trash2,
   Save,
 } from "lucide-react";
-import { Mm2ProfileCard, buildMm2ProfileFields, type ProfileMember } from "./Mm2ProfileCard";
+import type { ProfileMember } from "./Mm2ProfileCard";
 
 const OM_CHECKBOX_WIDTH = 36;
 const OM_CHECKBOX_PAD_LEFT = 14;
@@ -290,18 +290,47 @@ function OmFormSelect({ label, value, options }: { label: string; value: string;
   );
 }
 
+function OmMemberInfoPanel({ member }: { member: ProfileMember }) {
+  const centerCode = member.region.includes("서울") ? "NUXIA2359" : member.region;
+  const address =
+    member.region === "서울 강남"
+      ? "경남 김해시 우암로 106 (건영아파트) 301동504호"
+      : `${member.region} (상세주소)`;
+
+  return (
+    <section className="order-mgmt-member-info">
+      <OmSectionTitle title={`${member.name}(${member.no}) 회원의 일반회원정보`} />
+      <div className="order-mgmt-member-info-body">
+        <p>
+          <span className="order-mgmt-member-info-label">회원번호 :</span>{" "}
+          <span className="order-mgmt-member-info-link">{member.no}</span>
+          <span className="order-mgmt-member-info-gap" />
+          <span className="order-mgmt-member-info-label">회원명 :</span> {member.name}
+          <span className="order-mgmt-member-info-gap" />
+          <span className="order-mgmt-member-info-label">주민등록번호 :</span> {member.ssn}
+        </p>
+        <p>
+          <span className="order-mgmt-member-info-label">전화번호 :</span> {member.phone}
+          <span className="order-mgmt-member-info-gap" />
+          <span className="order-mgmt-member-info-label">주소지 :</span> {address}
+        </p>
+        <p>
+          <span className="order-mgmt-member-info-label">센터 :</span> {centerCode}
+        </p>
+      </div>
+    </section>
+  );
+}
+
 export function OrderManagementView({ member }: { member: ProfileMember }) {
   const [selectedOrder, setSelectedOrder] = useState(1);
-  const profileFields = buildMm2ProfileFields(member);
 
   return (
     <div className="order-mgmt-view">
-      <div className="order-mgmt-profile-wrap">
-        <Mm2ProfileCard member={member} profileFields={profileFields} />
-      </div>
-
       <div className="order-mgmt-body">
         <div className="order-mgmt-left">
+          <OmMemberInfoPanel member={member} />
+
           <section className="order-mgmt-section order-mgmt-section--orders">
             <OmSectionTitle title="주문서 목록" />
 

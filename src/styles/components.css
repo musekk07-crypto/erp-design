@@ -849,16 +849,38 @@
   --split-table-header-fg: #e2e8f0;
 }
 
-.order-mgmt-profile-wrap {
+.order-mgmt-member-info {
   flex-shrink: 0;
-  padding: 8px;
-  background: var(--surface-page);
-  border-bottom: 1px solid var(--border);
-  overflow-x: auto;
+  background: var(--surface-panel);
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  overflow: hidden;
 }
 
-.order-mgmt-profile-wrap .mm2-profile-card {
-  min-width: max-content;
+.order-mgmt-member-info-body {
+  padding: 8px 10px 10px;
+  font-size: 12px;
+  line-height: 1.7;
+  color: var(--text-muted);
+}
+
+.order-mgmt-member-info-body p {
+  margin: 0;
+}
+
+.order-mgmt-member-info-label {
+  color: var(--text-muted);
+}
+
+.order-mgmt-member-info-link {
+  color: var(--accent-primary);
+  font-family: monospace;
+  font-weight: 600;
+}
+
+.order-mgmt-member-info-gap {
+  display: inline-block;
+  width: 18px;
 }
 
 .order-mgmt-body {
@@ -913,7 +935,7 @@
   padding: 6px 10px;
   font-size: 13px;
   font-weight: 600;
-  color: var(--foreground);
+  color: #6d4c2f;
   background: var(--surface-toolbar);
   border-bottom: 1px solid var(--border);
 }
@@ -921,7 +943,7 @@
 .order-mgmt-section-bullet {
   width: 8px;
   height: 8px;
-  background: var(--accent-primary);
+  background: #6d4c2f;
   flex-shrink: 0;
 }
 
