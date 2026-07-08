@@ -935,7 +935,7 @@
   padding: 6px 10px;
   font-size: 13px;
   font-weight: 600;
-  color: #6d4c2f;
+  color: #1e2130;
   background: var(--surface-toolbar);
   border-bottom: 1px solid var(--border);
 }
@@ -944,7 +944,7 @@
   width: 8px;
   height: 8px;
   border-radius: 50%;
-  background: #6d4c2f;
+  background: #1e2130;
   flex-shrink: 0;
 }
 
