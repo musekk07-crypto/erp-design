@@ -901,8 +901,8 @@
 }
 
 .order-mgmt-right {
-  width: 440px;
-  min-width: 440px;
+  width: 460px;
+  min-width: 460px;
   flex-shrink: 0;
   display: flex;
   flex-direction: column;
