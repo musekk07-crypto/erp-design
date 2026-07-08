@@ -1806,7 +1806,7 @@ function buildMm2SectionRows(member: Member): Record<Mm2SectionId, Mm2DetailRow[
       },
       {
         label: "회원등록일자",
-        viewValue: <Mm2FieldValue suffix={calendarSuffix}>{member.regDate}</Mm2FieldValue>,
+        viewValue: member.regDate,
         editValue: <Mm2DetailInput type="date" defaultValue={member.regDate} suffix={calendarSuffix} />,
       },
     ],
@@ -1850,7 +1850,7 @@ function buildMm2SectionRows(member: Member): Record<Mm2SectionId, Mm2DetailRow[
     personal: [
       {
         label: "생년월일",
-        viewValue: <Mm2FieldValue suffix={calendarSuffix}>1989-12-03</Mm2FieldValue>,
+        viewValue: "1989-12-03",
         editValue: <Mm2DetailInput type="date" defaultValue="1989-12-03" suffix={calendarSuffix} />,
       },
       {
@@ -1862,7 +1862,7 @@ function buildMm2SectionRows(member: Member): Record<Mm2SectionId, Mm2DetailRow[
       },
       {
         label: "성별",
-        viewValue: <Mm2FieldValue suffix={chevronSuffix}>남</Mm2FieldValue>,
+        viewValue: "남",
         editValue: (
           <Mm2DetailSelect defaultValue="남" suffix={chevronSuffix}>
             <option value="남">남</option>
@@ -1882,7 +1882,7 @@ function buildMm2SectionRows(member: Member): Record<Mm2SectionId, Mm2DetailRow[
       },
       {
         label: "우편번호",
-        viewValue: <Mm2FieldValue suffix={searchSuffix}>06123</Mm2FieldValue>,
+        viewValue: "06123",
         editValue: <Mm2DetailInput defaultValue="06123" suffix={searchSuffix} />,
       },
       {
@@ -1899,7 +1899,7 @@ function buildMm2SectionRows(member: Member): Record<Mm2SectionId, Mm2DetailRow[
     country: [
       {
         label: "국가",
-        viewValue: <Mm2FieldValue suffix={chevronSuffix}>대한민국</Mm2FieldValue>,
+        viewValue: "대한민국",
         editValue: (
           <Mm2DetailSelect defaultValue="대한민국" suffix={chevronSuffix}>
             <option value="대한민국">대한민국</option>
@@ -1919,7 +1919,7 @@ function buildMm2SectionRows(member: Member): Record<Mm2SectionId, Mm2DetailRow[
       },
       {
         label: "비자종류",
-        viewValue: <Mm2FieldValue suffix={chevronSuffix}>내국인</Mm2FieldValue>,
+        viewValue: "내국인",
         editValue: (
           <Mm2DetailSelect defaultValue="내국인" suffix={chevronSuffix}>
             <option value="내국인">내국인</option>
@@ -1929,7 +1929,7 @@ function buildMm2SectionRows(member: Member): Record<Mm2SectionId, Mm2DetailRow[
       },
       {
         label: "체류만료일자",
-        viewValue: <Mm2FieldValue suffix={calendarSuffix}>2029-12-31</Mm2FieldValue>,
+        viewValue: "2029-12-31",
         editValue: <Mm2DetailInput type="date" defaultValue="2029-12-31" suffix={calendarSuffix} />,
       },
       {
@@ -1953,7 +1953,7 @@ function buildMm2SectionRows(member: Member): Record<Mm2SectionId, Mm2DetailRow[
     account: [
       {
         label: "은행명",
-        viewValue: <Mm2FieldValue suffix={chevronSuffix}>국민은행</Mm2FieldValue>,
+        viewValue: "국민은행",
         editValue: (
           <Mm2DetailSelect defaultValue="국민은행" suffix={chevronSuffix}>
             <option value="국민은행">국민은행</option>
@@ -1991,7 +1991,7 @@ function buildMm2SectionRows(member: Member): Record<Mm2SectionId, Mm2DetailRow[
       {
         label: "추천인",
         viewValue: (
-          <Mm2FieldValue suffix={searchSuffix}>
+          <Mm2FieldValue>
             10001150 <span className="mm2-field-sep">|</span> 이순신 <span className="mm2-field-sep">|</span> 12명
           </Mm2FieldValue>
         ),
@@ -2000,7 +2000,7 @@ function buildMm2SectionRows(member: Member): Record<Mm2SectionId, Mm2DetailRow[
       {
         label: "후원인",
         viewValue: (
-          <Mm2FieldValue suffix={searchSuffix}>
+          <Mm2FieldValue>
             10001201 <span className="mm2-field-sep">|</span> 홍길동 <span className="mm2-field-sep">|</span> 6명
           </Mm2FieldValue>
         ),
@@ -2008,7 +2008,7 @@ function buildMm2SectionRows(member: Member): Record<Mm2SectionId, Mm2DetailRow[
       },
       {
         label: "센터",
-        viewValue: <Mm2FieldValue suffix={chevronSuffix}>서울본점</Mm2FieldValue>,
+        viewValue: "서울본점",
         editValue: (
           <Mm2DetailSelect defaultValue="서울본점" suffix={chevronSuffix}>
             <option value="서울본점">서울본점</option>
@@ -2018,7 +2018,7 @@ function buildMm2SectionRows(member: Member): Record<Mm2SectionId, Mm2DetailRow[
       },
       {
         label: "영업소",
-        viewValue: <Mm2FieldValue suffix={chevronSuffix}>구로점</Mm2FieldValue>,
+        viewValue: "구로점",
         editValue: (
           <Mm2DetailSelect defaultValue="구로점" suffix={chevronSuffix}>
             <option value="구로점">구로점</option>
