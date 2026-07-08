@@ -133,66 +133,119 @@ function OmDataTable({
 }) {
   const dataWeight = columns.reduce((sum, col) => sum + col.width, 0);
 
+  const cellStyle: React.CSSProperties = {
+    padding: `${OM_ROW_PAD_Y}px 8px`,
+    fontSize: 13,
+    color: "var(--text-body)",
+    whiteSpace: "nowrap",
+    overflow: "hidden",
+    textOverflow: "ellipsis",
+  };
+
+  const checkboxCellStyle: React.CSSProperties = {
+    padding: `${OM_ROW_PAD_Y}px 8px ${OM_ROW_PAD_Y}px ${OM_CHECKBOX_PAD_LEFT}px`,
+    textAlign: "left",
+  };
+
+  const checkboxHeaderStyle: React.CSSProperties = {
+    padding: `${OM_ROW_PAD_Y}px 8px ${OM_ROW_PAD_Y}px ${OM_CHECKBOX_PAD_LEFT}px`,
+    textAlign: "left",
+    background: "var(--split-table-header-bg, var(--surface-table-header))",
+  };
+
   return (
-    <div className="order-mgmt-table-wrap">
-      <table className="order-mgmt-table">
-        <colgroup>
-          <col style={{ width: OM_CHECKBOX_WIDTH }} />
-          {columns.map((col) => (
-            <col key={col.key} style={{ width: `${(col.width / dataWeight) * 100}%` }} />
-          ))}
-        </colgroup>
-        <thead>
-          <tr>
-            <th style={{ paddingLeft: OM_CHECKBOX_PAD_LEFT }}>
-              <input type="checkbox" readOnly style={{ accentColor: "var(--accent-primary)" }} />
-            </th>
+    <div
+      className="split-table-block order-mgmt-table-wrap flex flex-col flex-1 min-h-0"
+      style={{ background: "var(--surface-panel)" }}
+    >
+      <div style={{ width: "100%", overflowY: "auto", overflowX: "hidden", flex: 1, minHeight: 0 }}>
+        <table style={{ borderCollapse: "collapse", width: "100%", tableLayout: "fixed" }}>
+          <colgroup>
+            <col style={{ width: OM_CHECKBOX_WIDTH }} />
             {columns.map((col) => (
-              <th key={col.key}>{col.label}</th>
+              <col key={col.key} style={{ width: `${(col.width / dataWeight) * 100}%` }} />
             ))}
-          </tr>
-        </thead>
-        <tbody>
-          {rows.map((row, index) => {
-            const isSelected = selectedRow === index;
-            return (
-              <tr
-                key={index}
-                className={isSelected ? "is-selected" : undefined}
-                onClick={() => onSelectRow?.(index)}
-                style={{ cursor: onSelectRow ? "pointer" : undefined }}
-              >
-                <td style={{ paddingLeft: OM_CHECKBOX_PAD_LEFT }} onClick={(e) => e.stopPropagation()}>
-                  <input type="checkbox" readOnly style={{ accentColor: "var(--accent-primary)" }} />
-                </td>
+          </colgroup>
+          <thead className="split-table-head" style={{ position: "sticky", top: 0, zIndex: 2 }}>
+            <tr
+              style={{
+                background: "var(--split-table-header-bg, var(--surface-table-header))",
+                borderBottom: "1px solid var(--split-table-header-border, var(--border))",
+              }}
+            >
+              <th style={checkboxHeaderStyle}>
+                <input type="checkbox" readOnly style={{ accentColor: "var(--accent-primary)", cursor: "pointer" }} />
+              </th>
+              {columns.map((col) => (
+                <th
+                  key={col.key}
+                  style={{
+                    padding: `${OM_ROW_PAD_Y}px 8px`,
+                    textAlign: "left",
+                    fontSize: 13,
+                    fontWeight: 400,
+                    color: "var(--split-table-header-fg, var(--text-muted))",
+                    whiteSpace: "nowrap",
+                    overflow: "hidden",
+                    textOverflow: "ellipsis",
+                    background: "var(--split-table-header-bg, var(--surface-table-header))",
+                  }}
+                >
+                  {col.label}
+                </th>
+              ))}
+            </tr>
+          </thead>
+          <tbody>
+            {rows.map((row, index) => {
+              const isSelected = selectedRow === index;
+              return (
+                <tr
+                  key={index}
+                  className={`member-table-row${isSelected ? " order-mgmt-row-selected" : ""}`}
+                  onClick={() => onSelectRow?.(index)}
+                  style={{ cursor: onSelectRow ? "pointer" : undefined }}
+                >
+                  <td style={{ ...cellStyle, ...checkboxCellStyle }} onClick={(e) => e.stopPropagation()}>
+                    <input type="checkbox" readOnly style={{ accentColor: "var(--accent-primary)", cursor: "pointer" }} />
+                  </td>
+                  {columns.map((col) => (
+                    <td
+                      key={col.key}
+                      style={{
+                        ...cellStyle,
+                        textAlign: col.align ?? "left",
+                        fontFamily: col.mono ? "monospace" : undefined,
+                        color: col.link ? "var(--accent-primary)" : cellStyle.color,
+                        fontWeight: col.link ? 600 : 400,
+                      }}
+                    >
+                      {row[col.key] ?? ""}
+                    </td>
+                  ))}
+                </tr>
+              );
+            })}
+            {summaryRow && (
+              <tr className="order-mgmt-summary-row">
+                <td style={checkboxCellStyle} />
                 {columns.map((col) => (
                   <td
                     key={col.key}
                     style={{
+                      ...cellStyle,
                       textAlign: col.align ?? "left",
-                      fontFamily: col.mono ? "monospace" : undefined,
-                      color: col.link ? "var(--accent-primary)" : undefined,
-                      fontWeight: col.link ? 600 : undefined,
+                      fontWeight: 600,
                     }}
                   >
-                    {row[col.key] ?? ""}
+                    {summaryRow[col.key] ?? ""}
                   </td>
                 ))}
               </tr>
-            );
-          })}
-          {summaryRow && (
-            <tr className="order-mgmt-summary-row">
-              <td />
-              {columns.map((col) => (
-                <td key={col.key} style={{ textAlign: col.align ?? "left", fontWeight: 600 }}>
-                  {summaryRow[col.key] ?? ""}
-                </td>
-              ))}
-            </tr>
-          )}
-        </tbody>
-      </table>
+            )}
+          </tbody>
+        </table>
+      </div>
     </div>
   );
 }
