@@ -5,7 +5,7 @@ import {
   BarChart2, ShoppingCart, Settings, Bell, HelpCircle, Home,
   Pin, Clock, ChevronLeft, ChevronRight, RefreshCw,
   FilePlus, Save, Trash2, Award, Briefcase, MessageCircle, Key, Printer,
-  Globe, Landmark, Contact, CheckCircle2, Calendar, Phone, ExternalLink, Camera,
+  Globe, Landmark, Contact, CheckCircle2, Phone, ExternalLink, Camera,
 } from "lucide-react";
 
 // ─────────────────────────────────────────────
@@ -1772,7 +1772,6 @@ function Mm2DetailPanel({
 }
 
 function buildMm2SectionRows(member: Member): Record<Mm2SectionId, Mm2DetailRow[]> {
-  const calendarSuffix = <Calendar size={14} className="mm2-field-icon" />;
   const searchSuffix = <Search size={14} className="mm2-field-icon" />;
   const chevronSuffix = <ChevronDown size={14} className="mm2-field-icon" />;
   const verifiedSuffix = (
@@ -1807,7 +1806,7 @@ function buildMm2SectionRows(member: Member): Record<Mm2SectionId, Mm2DetailRow[
       {
         label: "회원등록일자",
         viewValue: member.regDate,
-        editValue: <Mm2DetailInput type="date" defaultValue={member.regDate} suffix={calendarSuffix} />,
+        editValue: <Mm2DetailInput type="date" defaultValue={member.regDate} />,
       },
     ],
     name: [
@@ -1851,7 +1850,7 @@ function buildMm2SectionRows(member: Member): Record<Mm2SectionId, Mm2DetailRow[
       {
         label: "생년월일",
         viewValue: "1989-12-03",
-        editValue: <Mm2DetailInput type="date" defaultValue="1989-12-03" suffix={calendarSuffix} />,
+        editValue: <Mm2DetailInput type="date" defaultValue="1989-12-03" />,
       },
       {
         label: "주민등록번호",
@@ -1930,7 +1929,7 @@ function buildMm2SectionRows(member: Member): Record<Mm2SectionId, Mm2DetailRow[
       {
         label: "체류만료일자",
         viewValue: "2029-12-31",
-        editValue: <Mm2DetailInput type="date" defaultValue="2029-12-31" suffix={calendarSuffix} />,
+        editValue: <Mm2DetailInput type="date" defaultValue="2029-12-31" />,
       },
       {
         label: "EIN Number",
