@@ -1052,7 +1052,13 @@ function MemberTable({ selectedId, onSelect, listOpen = false, listWidth = MEMBE
 // Detail split panel (주문서내역 · 수당내역 공통)
 // ─────────────────────────────────────────────
 
-type SplitTableColumn = { key: string; label: string; width: number };
+type SplitTableColumn = { key: string; label: string; width: number; align?: "left" | "center" | "right" };
+
+const SPLIT_TABLE_DEFAULT_ALIGN: NonNullable<SplitTableColumn["align"]> = "center";
+
+function getSplitColumnAlign(col: SplitTableColumn) {
+  return col.align ?? SPLIT_TABLE_DEFAULT_ALIGN;
+}
 
 const SPLIT_TABLE_CHECKBOX_WIDTH = 36;
 const SPLIT_TABLE_CHECKBOX_PAD_LEFT = 14;
@@ -1115,7 +1121,7 @@ function SplitTableBlock({
                   key={col.key}
                   style={{
                     padding: `${SPLIT_TABLE_HEADER_PAD_Y}px 8px`,
-                    textAlign: "left",
+                    textAlign: getSplitColumnAlign(col),
                     fontSize: 13,
                     fontWeight: 400,
                     color: "var(--split-table-header-fg, var(--text-muted))",
@@ -1141,6 +1147,7 @@ function SplitTableBlock({
                     key={col.key}
                     style={{
                       ...cellStyle,
+                      textAlign: getSplitColumnAlign(col),
                       fontFamily: ["memberNo", "providerNo", "allowanceTypeNo", "deductNo", "orderNo", "bundleNo", "productCode", "uniqueNo"].includes(col.key)
                         ? "monospace"
                         : undefined,

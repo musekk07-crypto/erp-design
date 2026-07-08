@@ -182,7 +182,7 @@ function OmDataTable({
                   key={col.key}
                   style={{
                     padding: `${OM_ROW_PAD_Y}px 8px`,
-                    textAlign: "left",
+                    textAlign: col.align ?? "center",
                     fontSize: 13,
                     fontWeight: 400,
                     color: "var(--split-table-header-fg, var(--text-muted))",
@@ -215,7 +215,7 @@ function OmDataTable({
                       key={col.key}
                       style={{
                         ...cellStyle,
-                        textAlign: col.align ?? "left",
+                        textAlign: col.align ?? "center",
                         fontFamily: col.mono ? "monospace" : undefined,
                         color: col.link ? "var(--accent-primary)" : cellStyle.color,
                         fontWeight: col.link ? 600 : 400,
@@ -235,7 +235,7 @@ function OmDataTable({
                     key={col.key}
                     style={{
                       ...cellStyle,
-                      textAlign: col.align ?? "left",
+                      textAlign: col.align ?? "center",
                       fontWeight: 600,
                     }}
                   >
