@@ -828,3 +828,438 @@
   margin: 0;
   flex-shrink: 0;
 }
+
+/* ── 주문관리 ── */
+.order-mgmt-view {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  min-height: 0;
+  background: var(--surface-page);
+}
+
+.order-mgmt-context-bar {
+  flex-shrink: 0;
+  padding: 8px 12px;
+  font-size: 13px;
+  color: var(--text-body);
+  background: var(--surface-panel);
+  border-bottom: 1px solid var(--border);
+}
+
+.order-mgmt-context-name {
+  font-weight: 700;
+  color: var(--accent-primary);
+}
+
+.order-mgmt-context-no {
+  margin-left: 2px;
+  font-family: monospace;
+  color: var(--accent-primary);
+}
+
+.order-mgmt-context-desc {
+  margin-left: 6px;
+  color: var(--text-muted);
+}
+
+.order-mgmt-body {
+  flex: 1;
+  min-height: 0;
+  display: flex;
+  overflow: hidden;
+}
+
+.order-mgmt-left {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  padding: 8px;
+  overflow: hidden;
+}
+
+.order-mgmt-right {
+  width: 360px;
+  flex-shrink: 0;
+  display: flex;
+  flex-direction: column;
+  border-left: 1px solid var(--border);
+  background: var(--surface-panel);
+  overflow: hidden;
+}
+
+.order-mgmt-section {
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+  background: var(--surface-panel);
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.order-mgmt-section--orders {
+  flex: 1.1;
+}
+
+.order-mgmt-section--products {
+  flex: 1;
+}
+
+.order-mgmt-section-title {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 10px;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--foreground);
+  background: var(--surface-toolbar);
+  border-bottom: 1px solid var(--border);
+}
+
+.order-mgmt-section-bullet {
+  width: 8px;
+  height: 8px;
+  background: var(--accent-primary);
+  flex-shrink: 0;
+}
+
+.order-mgmt-subtitle {
+  padding: 4px 10px 0;
+  font-size: 12px;
+  color: var(--text-muted);
+}
+
+.order-mgmt-toolbar {
+  display: flex;
+  align-items: flex-start;
+  flex-wrap: wrap;
+  gap: 2px;
+  padding: 6px 8px;
+  border-bottom: 1px solid var(--border);
+}
+
+.order-mgmt-toolbar--compact {
+  align-items: center;
+  gap: 6px;
+}
+
+.order-mgmt-toolbar-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  min-width: 54px;
+  padding: 4px 6px;
+  border: none;
+  border-radius: 4px;
+  background: transparent;
+  cursor: pointer;
+  color: var(--text-body);
+  font-size: 11px;
+  line-height: 1.2;
+  white-space: nowrap;
+  transition: background 0.15s;
+}
+
+.order-mgmt-toolbar-item:hover {
+  background: var(--surface-row-hover);
+}
+
+.order-mgmt-toolbar-separator {
+  width: 1px;
+  height: 28px;
+  margin: 0 4px;
+  background: var(--border);
+  flex-shrink: 0;
+}
+
+.order-mgmt-inline-label {
+  font-size: 12px;
+  color: var(--text-muted);
+  white-space: nowrap;
+}
+
+.order-mgmt-qty-input {
+  width: 48px;
+  padding: 4px 6px;
+  font-size: 12px;
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  background: var(--input-background);
+  color: var(--foreground);
+}
+
+.order-mgmt-icon-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  background: var(--surface-panel);
+  color: var(--text-muted);
+  cursor: pointer;
+  transition: background 0.15s;
+}
+
+.order-mgmt-icon-btn:hover {
+  background: var(--surface-row-hover);
+}
+
+.order-mgmt-filter-bar {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 6px;
+  padding: 6px 8px;
+  border-bottom: 1px solid var(--border);
+  background: var(--surface-page);
+}
+
+.order-mgmt-filter-label {
+  font-size: 12px;
+  color: var(--text-muted);
+  white-space: nowrap;
+}
+
+.order-mgmt-filter-input {
+  padding: 4px 6px;
+  font-size: 12px;
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  background: var(--input-background);
+  color: var(--foreground);
+}
+
+.order-mgmt-filter-input--text {
+  width: 88px;
+}
+
+.order-mgmt-filter-select {
+  min-width: 72px;
+}
+
+.order-mgmt-filter-sep {
+  font-size: 12px;
+  color: var(--text-muted);
+}
+
+.order-mgmt-filter-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  background: var(--surface-panel);
+  color: var(--text-muted);
+  cursor: pointer;
+}
+
+.order-mgmt-table-wrap {
+  flex: 1;
+  min-height: 0;
+  overflow: auto;
+}
+
+.order-mgmt-table {
+  width: 100%;
+  border-collapse: collapse;
+  table-layout: fixed;
+  font-size: 13px;
+}
+
+.order-mgmt-table thead {
+  position: sticky;
+  top: 0;
+  z-index: 1;
+}
+
+.order-mgmt-table th {
+  padding: 6px 8px;
+  text-align: left;
+  font-weight: 400;
+  font-size: 13px;
+  color: var(--text-body);
+  background: var(--surface-table-header, #e8eaef);
+  border-bottom: 1px solid var(--border);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.order-mgmt-table td {
+  padding: 6px 8px;
+  color: var(--text-body);
+  border-bottom: 1px solid var(--border);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.order-mgmt-table tbody tr:hover:not(.order-mgmt-summary-row) {
+  background: var(--surface-row-hover);
+}
+
+.order-mgmt-table tbody tr.is-selected {
+  background: #fff9c4;
+}
+
+.order-mgmt-summary-row td {
+  background: #e8f5e9;
+  border-top: 1px solid var(--border);
+}
+
+.order-mgmt-form-section {
+  display: flex;
+  flex-direction: column;
+  border-bottom: 1px solid var(--border);
+}
+
+.order-mgmt-form-section--grow {
+  flex: 1;
+  min-height: 0;
+  overflow: auto;
+}
+
+.order-mgmt-form-body {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 10px;
+}
+
+.order-mgmt-form-row {
+  display: flex;
+  align-items: flex-end;
+  gap: 8px;
+}
+
+.order-mgmt-form-row--receipt {
+  flex-wrap: wrap;
+}
+
+.order-mgmt-form-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+}
+
+.order-mgmt-field {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  min-width: 0;
+}
+
+.order-mgmt-field--full {
+  grid-column: 1 / -1;
+}
+
+.order-mgmt-field-label {
+  font-size: 12px;
+  color: var(--form-label-color, var(--text-muted));
+}
+
+.order-mgmt-field-control {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.order-mgmt-input {
+  width: 100%;
+  padding: 5px 8px;
+  font-size: 12px;
+  border: none;
+  border-radius: 4px;
+  background: var(--input-background);
+  color: var(--foreground);
+  outline: none;
+}
+
+.order-mgmt-input:focus {
+  background: var(--input-focus-bg);
+}
+
+.order-mgmt-select {
+  cursor: pointer;
+}
+
+.order-mgmt-search-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  flex-shrink: 0;
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  background: var(--surface-panel);
+  color: var(--text-muted);
+  cursor: pointer;
+}
+
+.order-mgmt-checkbox-field {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 12px;
+  color: var(--text-body);
+  padding-bottom: 5px;
+  white-space: nowrap;
+}
+
+.order-mgmt-checkbox-field input {
+  accent-color: var(--accent-primary);
+}
+
+.order-mgmt-footer {
+  margin-top: auto;
+  padding: 8px 10px;
+  border-top: 1px solid var(--border);
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.order-mgmt-meta {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  font-size: 11px;
+  color: var(--text-muted);
+}
+
+.order-mgmt-save-btn {
+  align-self: flex-end;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 14px;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--on-accent, #fff);
+  background: var(--accent-primary);
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: opacity 0.15s;
+}
+
+.order-mgmt-save-btn:hover {
+  opacity: 0.9;
+}
+
+.app-content .order-mgmt-table th,
+.app-content .order-mgmt-table td {
+  padding-top: 6px !important;
+  padding-bottom: 6px !important;
+}

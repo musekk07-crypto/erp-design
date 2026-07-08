@@ -7,6 +7,7 @@ import {
   FilePlus, Save, Trash2, Award, Briefcase, MessageCircle, Key, Printer,
   Globe, Landmark, Contact, CheckCircle2, Phone, ExternalLink, Camera,
 } from "lucide-react";
+import { OrderManagementView } from "./components/OrderManagementView";
 
 // ─────────────────────────────────────────────
 // Types
@@ -3364,6 +3365,7 @@ export default function App() {
     return calcMm2InfoGroupWidth(availableDetail);
   }, [listOpen, listWidth, appContentWidth]);
 
+  const isOrderManagement = activeMainMenu === "주문관리";
   const isMm2MemberInfoTab = activeMainMenu === "회원관리2" && activeTab === "회원정보";
   const isMemberInfoTab = activeMainMenu === "회원관리" && activeTab === "회원정보";
 
@@ -3433,6 +3435,13 @@ export default function App() {
     return () => window.removeEventListener("resize", onWindowResize);
   }, []);
 
+  const handleMainMenuChange = useCallback((menu: string) => {
+    setActiveMainMenu(menu);
+    if (menu === "주문관리") {
+      setListOpen(false);
+    }
+  }, []);
+
   const onResizeStart = useCallback((e: React.MouseEvent) => {
     e.preventDefault();
     resizing.current = true;
@@ -3463,7 +3472,7 @@ export default function App() {
         className="flex flex-col"
         style={{ minWidth: APP_MIN_WIDTH, width: "100%", height: "100%", flex: "1 0 auto" }}
       >
-      <TopNav activeMainMenu={activeMainMenu} onMainMenuChange={setActiveMainMenu} />
+      <TopNav activeMainMenu={activeMainMenu} onMainMenuChange={handleMainMenuChange} />
 
       {/* 본문 — 가로 스크롤 영역과 방문기록 패널 분리 */}
       <div
@@ -3492,8 +3501,8 @@ export default function App() {
         <div
           className="member-list-panel"
           style={{
-            width: listOpen ? listWidth : 0,
-            minWidth: listOpen ? listWidth : 0,
+            width: listOpen && !isOrderManagement ? listWidth : 0,
+            minWidth: listOpen && !isOrderManagement ? listWidth : 0,
             flexShrink: 0,
             flexGrow: 0,
             overflow: "hidden",
@@ -3511,7 +3520,7 @@ export default function App() {
               listWidth={listWidth}
             />
           </div>
-          {listOpen && (
+          {listOpen && !isOrderManagement && (
             <div
               onMouseDown={onResizeStart}
               style={{
@@ -3546,7 +3555,9 @@ export default function App() {
             overflow: "hidden",
           }}
         >
-          {activeMainMenu === "회원관리2" ? (
+          {isOrderManagement ? (
+            <OrderManagementView />
+          ) : activeMainMenu === "회원관리2" ? (
             <MemberManagement2View
               memberId={selectedMember}
               listOpen={listOpen}
