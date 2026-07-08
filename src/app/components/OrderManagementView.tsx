@@ -290,6 +290,55 @@ function OmFormSelect({ label, value, options }: { label: string; value: string;
   );
 }
 
+function OmOrderBasicInfo({ member }: { member: ProfileMember }) {
+  const centerCode = member.region.includes("서울") ? "NUXIA2359" : "NUXIA2359";
+  const txnTypes = ["구매", "교환", "교환구매", "교환반품", "포인트", "반품"];
+
+  return (
+    <section className="order-mgmt-form-section">
+      <OmSectionTitle title="주문서 기본정보" />
+      <div className="order-mgmt-form-body">
+        <div className="order-mgmt-radio-group" role="radiogroup" aria-label="거래구분">
+          {txnTypes.map((type, index) => (
+            <label key={type} className="order-mgmt-radio-item">
+              <input type="radio" name="order-txn-type" defaultChecked={index === 0} />
+              <span>{type}</span>
+            </label>
+          ))}
+        </div>
+
+        <div className="order-mgmt-form-grid order-mgmt-form-grid--2">
+          <OmFormField label="제품주문일자" value="2026-06-17" type="date" />
+          <OmFormField label="수당적용일자" value="2026-06-17" type="date" />
+        </div>
+        <p className="order-mgmt-form-note">
+          ※주문일자는 매출집계에 사용되며 수당적용일이 수당계산에 사용됩니다.
+        </p>
+
+        <div className="order-mgmt-form-grid order-mgmt-form-grid--4">
+          <OmFormSelect label="센터" value={centerCode} options={[centerCode]} />
+          <OmFormSelect label="고객유형" value="판매원" options={["판매원", "소비자", "일반"]} />
+          <OmFormSelect label="접수구분" value="방문" options={["방문", "전화", "온라인"]} />
+          <label className="order-mgmt-field">
+            <span className="order-mgmt-field-label">주문서상태</span>
+            <input
+              type="text"
+              className="order-mgmt-input order-mgmt-input--readonly"
+              defaultValue="주문승인"
+              readOnly
+            />
+          </label>
+        </div>
+
+        <label className="order-mgmt-field order-mgmt-field--full">
+          <span className="order-mgmt-field-label">메모</span>
+          <textarea className="order-mgmt-textarea" rows={4} />
+        </label>
+      </div>
+    </section>
+  );
+}
+
 function OmMemberInfoPanel({ member }: { member: ProfileMember }) {
   const centerCode = member.region.includes("서울") ? "NUXIA2359" : member.region;
   const address =
@@ -412,22 +461,7 @@ export function OrderManagementView({ member }: { member: ProfileMember }) {
         </div>
 
         <aside className="order-mgmt-right">
-          <section className="order-mgmt-form-section">
-            <OmSectionTitle title="현금영수증" />
-            <div className="order-mgmt-form-body">
-              <div className="order-mgmt-form-row order-mgmt-form-row--receipt">
-                <OmFormSelect label="현금영수증" value="없음" options={["없음", "소득공제", "지출증빙"]} />
-                <label className="order-mgmt-checkbox-field">
-                  <input type="checkbox" />
-                  <span>발급완료</span>
-                </label>
-              </div>
-              <OmFormField label="신청일자" value="2026-06-17" type="date" />
-              <OmFormField label="승인번호" value="" />
-              <OmFormField label="승인금액" value="0" />
-              <OmFormField label="비고" value="" full />
-            </div>
-          </section>
+          <OmOrderBasicInfo member={member} />
 
           <section className="order-mgmt-form-section order-mgmt-form-section--grow">
             <OmSectionTitle title="배송지 및 인수자 정보" />
