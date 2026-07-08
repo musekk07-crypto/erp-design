@@ -849,29 +849,16 @@
   --split-table-header-fg: #e2e8f0;
 }
 
-.order-mgmt-context-bar {
+.order-mgmt-profile-wrap {
   flex-shrink: 0;
-  padding: 8px 12px;
-  font-size: 13px;
-  color: var(--text-body);
-  background: var(--surface-panel);
+  padding: 8px;
+  background: var(--surface-page);
   border-bottom: 1px solid var(--border);
+  overflow-x: auto;
 }
 
-.order-mgmt-context-name {
-  font-weight: 700;
-  color: var(--accent-primary);
-}
-
-.order-mgmt-context-no {
-  margin-left: 2px;
-  font-family: monospace;
-  color: var(--accent-primary);
-}
-
-.order-mgmt-context-desc {
-  margin-left: 6px;
-  color: var(--text-muted);
+.order-mgmt-profile-wrap .mm2-profile-card {
+  min-width: max-content;
 }
 
 .order-mgmt-body {

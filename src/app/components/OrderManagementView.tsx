@@ -13,6 +13,7 @@ import {
   Trash2,
   Save,
 } from "lucide-react";
+import { Mm2ProfileCard, buildMm2ProfileFields, type ProfileMember } from "./Mm2ProfileCard";
 
 const OM_CHECKBOX_WIDTH = 36;
 const OM_CHECKBOX_PAD_LEFT = 14;
@@ -289,15 +290,14 @@ function OmFormSelect({ label, value, options }: { label: string; value: string;
   );
 }
 
-export function OrderManagementView() {
+export function OrderManagementView({ member }: { member: ProfileMember }) {
   const [selectedOrder, setSelectedOrder] = useState(1);
+  const profileFields = buildMm2ProfileFields(member);
 
   return (
     <div className="order-mgmt-view">
-      <div className="order-mgmt-context-bar">
-        <span className="order-mgmt-context-name">최강환</span>
-        <span className="order-mgmt-context-no">(N26704016)</span>
-        <span className="order-mgmt-context-desc">회원의 일반회원정보</span>
+      <div className="order-mgmt-profile-wrap">
+        <Mm2ProfileCard member={member} profileFields={profileFields} />
       </div>
 
       <div className="order-mgmt-body">
@@ -320,7 +320,7 @@ export function OrderManagementView() {
               <span className="order-mgmt-filter-sep">~</span>
               <input type="date" className="order-mgmt-filter-input" defaultValue="2026-06-08" />
               <span className="order-mgmt-filter-label">인수자명</span>
-              <input type="text" className="order-mgmt-filter-input order-mgmt-filter-input--text" defaultValue="최강환" />
+              <input type="text" className="order-mgmt-filter-input order-mgmt-filter-input--text" defaultValue={member.name} />
               <select className="order-mgmt-filter-input order-mgmt-filter-select" defaultValue="전체">
                 <option value="전체">전체</option>
                 <option value="출고완료">출고완료</option>
@@ -404,12 +404,12 @@ export function OrderManagementView() {
             <OmSectionTitle title="배송지 및 인수자 정보" />
             <div className="order-mgmt-form-body">
               <OmFormSelect label="배송방법" value="직접수령" options={["직접수령", "택배", "퀵서비스"]} />
-              <OmFormField label="인수자명" value="최강환" />
+              <OmFormField label="인수자명" value={member.name} />
               <OmFormField label="인수자연락처" value="02-583-9201" />
-              <OmFormField label="인수자핸드폰번호" value="010-3948-2918" />
+              <OmFormField label="인수자핸드폰번호" value={member.phone} />
               <OmFormField
                 label="배송지주소"
-                value="서울특별시 강남구 테헤란로 123"
+                value={member.region.includes("서울") ? "서울특별시 강남구 테헤란로 123" : member.region}
                 full
                 suffix={
                   <button type="button" className="order-mgmt-search-btn" aria-label="주소 검색">
