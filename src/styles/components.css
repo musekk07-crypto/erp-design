@@ -1086,10 +1086,6 @@
   border-radius: 0;
 }
 
-.order-mgmt-row-selected {
-  background: #fff9c4 !important;
-}
-
 .order-mgmt-summary-row td {
   background: #e8f5e9;
   border-top: 1px solid var(--border);

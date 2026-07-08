@@ -202,7 +202,7 @@ function OmDataTable({
               return (
                 <tr
                   key={index}
-                  className={`member-table-row${isSelected ? " order-mgmt-row-selected" : ""}`}
+                  className={`member-table-row${isSelected ? " is-selected" : ""}`}
                   onClick={() => onSelectRow?.(index)}
                   style={{ cursor: onSelectRow ? "pointer" : undefined }}
                 >
