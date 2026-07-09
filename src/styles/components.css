@@ -61,7 +61,7 @@
   align-items: flex-end;
   padding: 0 8px;
   min-height: 34px;
-  background: var(--detail-tab-bar-bg);
+  background: transparent;
   border-bottom: 1px solid var(--detail-tab-bar-line);
 }
 
