@@ -146,9 +146,45 @@ const EXTRA_H = 34;
 const GAP = 7;
 const COL_GAP = ORG_COL_GAP;
 
-function Card({ label, name, id, date, rank, score, isSelf = false }: {
-  label: string; name: string; id: number; date: string; rank: string; score: number | string; isSelf?: boolean;
+const ORG_CARD_META_FONT_SIZE = 12;
+
+function resolveOrgMemberNo(id: number, fallback?: string) {
+  const ref = members.find((m) => m.id === id);
+  return ref?.no ?? fallback ?? `N2643${String(id).padStart(4, "0")}`;
+}
+
+function createOrgNode(
+  label: string,
+  name: string,
+  id: number,
+  grade: string,
+  options?: { memberNo?: string; footerText?: string },
+): OrgNode {
+  return {
+    label,
+    name,
+    id,
+    memberNo: options?.memberNo ?? resolveOrgMemberNo(id),
+    grade,
+    footerText: options?.footerText,
+  };
+}
+
+function Card({ label, name, memberNo, grade, footerText, isSelf = false }: {
+  label: string;
+  name: string;
+  memberNo: string;
+  grade: string;
+  footerText?: string;
+  isSelf?: boolean;
 }) {
+  const metaStyle: React.CSSProperties = {
+    fontSize: ORG_CARD_META_FONT_SIZE,
+    color: "var(--org-text-muted)",
+    lineHeight: 1.35,
+    fontWeight: 400,
+  };
+
   return (
     <div style={{
       width: CARD_W,
@@ -173,11 +209,27 @@ function Card({ label, name, id, date, rank, score, isSelf = false }: {
         {isSelf ? "나" : label}
       </div>
       <div style={{ fontSize: ORG_CARD_NAME_FONT_SIZE, fontWeight: 700, color: "var(--org-text)", marginBottom: 2 }}>
-        {name}({id})
+        {name}
       </div>
-      <div style={{ fontSize: 12, color: "var(--org-text-muted)", marginBottom: 1 }}>{date}</div>
-      <div style={{ fontSize: 12, color: "var(--org-text-muted)", marginBottom: 3 }}>{rank}</div>
-      <div style={{ fontSize: 13, fontWeight: 700, color: "var(--org-text)", lineHeight: 1.35 }}>{score}</div>
+      <div style={{ ...metaStyle, marginBottom: 4 }}>{memberNo}</div>
+      <div style={{ marginBottom: footerText ? 4 : 0 }}>
+        <span style={{
+          display: "inline-flex",
+          alignItems: "center",
+          height: 20,
+          padding: "0 8px",
+          borderRadius: 999,
+          fontSize: 11,
+          fontWeight: 600,
+          background: "var(--accent-light)",
+          color: "var(--accent-primary)",
+        }}>
+          {grade}
+        </span>
+      </div>
+      {footerText ? (
+        <div style={{ ...metaStyle, marginTop: 2 }}>{footerText}</div>
+      ) : null}
     </div>
   );
 }
@@ -221,9 +273,9 @@ type OrgNode = {
   label: string;
   name: string;
   id: number;
-  date: string;
-  rank: string;
-  score: number | string;
+  memberNo: string;
+  grade: string;
+  footerText?: string;
 };
 
 type OrgLayoutType = "tree" | "linear" | "fork" | "tall-tree";
@@ -579,30 +631,12 @@ function buildOrgChartVariant(memberId: number, memberName: string, member: Memb
   if (memberId === 1) {
     return {
       layoutType: "tree" as const,
-      parent: {
-        label: "상위",
-        name: "고병도",
-        id: 6,
-        date: "2026-02-20",
-        rank: "매니저",
-        score: 72.63,
-      },
-      sibling: {
-        label: "형제",
-        name: "한숙자",
-        id: 15,
-        date: "2026-04-28",
-        rank: "정회원",
-        score: 0,
-      },
-      self: {
-        label: "나",
-        name: memberName,
-        id: memberId,
-        date: member.regDate,
-        rank: "그린",
-        score: 7.18,
-      },
+      parent: createOrgNode("상위", "고병도", 6, "매니저"),
+      sibling: createOrgNode("형제", "한숙자", 15, "정회원"),
+      self: createOrgNode("나", memberName, memberId, "그린", {
+        memberNo: member.no,
+        footerText: "상위(후원추천)",
+      }),
       extraAbove: "외 15명",
       children: [
         { name: "김성남", id: 5 },
@@ -618,36 +652,18 @@ function buildOrgChartVariant(memberId: number, memberName: string, member: Memb
   if (memberId === 2) {
     const orgNode = (id: number, label: string): OrgNode => {
       const ref = getMemberById(id);
-      return {
-        label,
-        name: ref.name,
-        id: ref.id,
-        date: ref.regDate,
-        rank: ref.rank,
-        score: ((ref.id * 2.1) % 40).toFixed(1),
-      };
+      return createOrgNode(label, ref.name, ref.id, ref.grade);
     };
 
     return {
       layoutType: "tall-tree" as const,
-      parent: {
-        label: "상위",
-        name: "장은경",
-        id: 7,
-        date: "2025-11-01",
-        rank: "디렉터",
-        score: 58.2,
-      },
+      parent: createOrgNode("상위", "장은경", 7, "디렉터"),
       sibling: orgNode(1, "형제"),
       stackNodes: [orgNode(1, "형제"), orgNode(3, "형제"), orgNode(4, "형제"), orgNode(5, "형제")],
-      self: {
-        label: "나",
-        name: memberName,
-        id: memberId,
-        date: member.regDate,
-        rank: member.rank,
-        score: 12.5,
-      },
+      self: createOrgNode("나", memberName, memberId, member.grade, {
+        memberNo: member.no,
+        footerText: "상위(후원추천)",
+      }),
       extraAbove: "외 22명",
       children: [
         { name: getMemberById(6).name, id: 6 },
@@ -669,30 +685,17 @@ function buildOrgChartVariant(memberId: number, memberName: string, member: Memb
   const childRef = pick(7);
   const child2Ref = pick(9);
 
-  const parent = {
-    label: "상위",
-    name: parentRef.name,
-    id: parentRef.id % 100,
-    date: shiftOrgDate(parentRef.regDate, -20 - (memberId % 40)),
-    rank: parentRanks[memberId % parentRanks.length],
-    score: (38 + (memberId * 5.17) % 58).toFixed(2),
-  };
-  const sibling = {
-    label: memberId % 4 === 0 ? "동료" : "형제",
-    name: siblingRef.name,
-    id: siblingRef.id % 100,
-    date: shiftOrgDate(siblingRef.regDate, memberId % 12),
-    rank: orgRanks[(memberId + 1) % orgRanks.length],
-    score: ((memberId * 1.9) % 28).toFixed(1),
-  };
-  const self = {
-    label: "나",
-    name: memberName,
-    id: memberId % 100,
-    date: member.regDate,
-    rank: member.rank,
-    score: ((memberId * 3.7) % 99 + 1).toFixed(2),
-  };
+  const parent = createOrgNode("상위", parentRef.name, parentRef.id, parentRanks[memberId % parentRanks.length]);
+  const sibling = createOrgNode(
+    memberId % 4 === 0 ? "동료" : "형제",
+    siblingRef.name,
+    siblingRef.id,
+    orgRanks[(memberId + 1) % orgRanks.length],
+  );
+  const self = createOrgNode("나", memberName, memberId, member.grade, {
+    memberNo: member.no,
+    footerText: "상위(후원추천)",
+  });
 
   const children =
     layoutType === "fork"
