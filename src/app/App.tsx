@@ -5,7 +5,7 @@ import {
   BarChart2, ShoppingCart, Settings, Bell, HelpCircle, Home,
   Pin, Clock, ChevronLeft, ChevronRight, RefreshCw,
   FilePlus, Save, Trash2, Award, Briefcase, MessageCircle, Key, Printer,
-  Globe, Landmark, Contact, CheckCircle2, Phone, ExternalLink, Camera,
+  Globe, Landmark, Contact, CheckCircle2, Phone, ExternalLink, Camera, Calendar,
 } from "lucide-react";
 import { OrderManagementView } from "./components/OrderManagementView";
 import { Mm2ProfileCard, buildMm2ProfileFields } from "./components/Mm2ProfileCard";
@@ -30,7 +30,7 @@ const ORDER_PANEL_MIN_WIDTH = 1080;
 const APP_MIN_WIDTH = 1280;
 const LIST_PANEL_TRANSITION_MS = 250;
 const LAYOUT_TRANSITION = `width ${LIST_PANEL_TRANSITION_MS}ms ease, min-width ${LIST_PANEL_TRANSITION_MS}ms ease`;
-const ORG_CARD_W = 118;
+const ORG_CARD_W = 167;
 const ORG_CARD_H = 126;
 const ORG_CHILD_CHIP_H = 38;
 const ORG_COL_GAP = 16;
@@ -74,8 +74,8 @@ const ORG_CHART_MAX_SVG_HEIGHT = calcOrgChartMaxSvgHeight(5);
 const ORG_CHART_SECTION_HEADER_H = 38;
 const ORG_CHART_BODY_PAD_V = 28;
 const ORG_CHART_PANEL_HEIGHT = ORG_CHART_SECTION_HEADER_H + ORG_CHART_BODY_PAD_V + ORG_CHART_MAX_SVG_HEIGHT;
-const MM2_ORG_CHART_SCALE = 1.1;
-const MM2_ORG_CHART_WIDTH = Math.ceil(ORG_CHART_WIDTH * MM2_ORG_CHART_SCALE);
+const MM2_ORG_CHART_WIDTH = 686;
+const MM2_ORG_CHART_SCALE = MM2_ORG_CHART_WIDTH / ORG_CHART_WIDTH;
 const MM2_ORG_CHART_PANEL_HEIGHT = Math.ceil(ORG_CHART_PANEL_HEIGHT * MM2_ORG_CHART_SCALE);
 const DETAIL_CONTENT_GAP = 8;
 const DETAIL_PANEL_PAD = 8;
@@ -1634,22 +1634,38 @@ function MemberHeaderCard({ member }: { member: Member }) {
 }
 
 const mm2Sections = [
-  { id: "login", label: "1. 로그인 정보", icon: Key },
-  { id: "name", label: "2. 이름 정보", icon: Contact },
-  { id: "personal", label: "3. 개인 정보", icon: User },
-  { id: "country", label: "4. 국가 및 기타 정보", icon: Globe },
-  { id: "account", label: "5. 계좌 정보", icon: Landmark },
-  { id: "relation", label: "6. 소속/관계 및 동의 여부", icon: Users },
+  { id: "login", label: "1. 로그인 및 이름 정보", icon: Key },
+  { id: "personal", label: "2. 개인 정보", icon: User },
+  { id: "country", label: "3. 국가 및 기타 정보", icon: Globe },
+  { id: "account", label: "4. 계좌 정보", icon: Landmark },
+  { id: "relation", label: "5. 소속/관계 및 동의 여부", icon: Users },
 ] as const;
 
 type Mm2SectionId = (typeof mm2Sections)[number]["id"];
 
-type Mm2DetailRow = {
-  label: string;
-  viewValue: React.ReactNode;
-  editValue?: React.ReactNode;
-  readOnly?: boolean;
-};
+type Mm2DetailRow =
+  | {
+      kind?: "single";
+      label: string;
+      viewValue: React.ReactNode;
+      editValue?: React.ReactNode;
+      readOnly?: boolean;
+    }
+  | {
+      kind: "dual";
+      left: {
+        label: string;
+        viewValue: React.ReactNode;
+        editValue?: React.ReactNode;
+        readOnly?: boolean;
+      };
+      right: {
+        label: string;
+        viewValue: React.ReactNode;
+        editValue?: React.ReactNode;
+        readOnly?: boolean;
+      };
+    };
 
 function Mm2DetailInput({
   suffix,
@@ -1691,6 +1707,8 @@ function Mm2DetailHeader({
   icon,
   title,
   isEditing,
+  collapsed,
+  onToggleCollapse,
   onEdit,
   onSave,
   onCancel,
@@ -1698,6 +1716,8 @@ function Mm2DetailHeader({
   icon: React.ReactNode;
   title: string;
   isEditing: boolean;
+  collapsed: boolean;
+  onToggleCollapse: () => void;
   onEdit: () => void;
   onSave: () => void;
   onCancel: () => void;
@@ -1707,11 +1727,7 @@ function Mm2DetailHeader({
       <span className="mm2-detail-header-icon">{icon}</span>
       <span className="mm2-detail-header-title">{title}</span>
       <div className="mm2-detail-header-actions">
-        {!isEditing ? (
-          <button type="button" className="mm2-detail-action-btn mm2-detail-action-btn--edit" onClick={onEdit}>
-            수정
-          </button>
-        ) : (
+        {isEditing ? (
           <>
             <button type="button" className="mm2-detail-action-btn mm2-detail-action-btn--save" onClick={onSave}>
               저장
@@ -1720,7 +1736,19 @@ function Mm2DetailHeader({
               취소
             </button>
           </>
+        ) : (
+          <button type="button" className="mm2-detail-action-btn mm2-detail-action-btn--edit" onClick={onEdit}>
+            수정
+          </button>
         )}
+        <button
+          type="button"
+          className="mm2-detail-collapse-btn"
+          onClick={onToggleCollapse}
+          aria-label={collapsed ? "펼치기" : "접기"}
+        >
+          {collapsed ? <ChevronDown size={14} /> : <ChevronUp size={14} />}
+        </button>
       </div>
     </div>
   );
@@ -1729,14 +1757,31 @@ function Mm2DetailHeader({
 function Mm2DetailTable({ rows, isEditing }: { rows: Mm2DetailRow[]; isEditing: boolean }) {
   return (
     <div className="mm2-detail-table">
-      {rows.map((row) => (
-        <div key={row.label} className="mm2-detail-row">
-          <div className="mm2-detail-label">{row.label}</div>
-          <div className="mm2-detail-value">
-            {isEditing && row.editValue !== undefined ? row.editValue : row.viewValue}
+      {rows.map((row) => {
+        if (row.kind === "dual") {
+          return (
+            <div key={`${row.left.label}-${row.right.label}`} className="mm2-detail-row mm2-detail-row--dual">
+              <div className="mm2-detail-label">{row.left.label}</div>
+              <div className="mm2-detail-value mm2-detail-value--half">
+                {isEditing && row.left.editValue !== undefined ? row.left.editValue : row.left.viewValue}
+              </div>
+              <div className="mm2-detail-label mm2-detail-label--secondary">{row.right.label}</div>
+              <div className="mm2-detail-value mm2-detail-value--half">
+                {isEditing && row.right.editValue !== undefined ? row.right.editValue : row.right.viewValue}
+              </div>
+            </div>
+          );
+        }
+
+        return (
+          <div key={row.label} className="mm2-detail-row">
+            <div className="mm2-detail-label">{row.label}</div>
+            <div className="mm2-detail-value">
+              {isEditing && row.editValue !== undefined ? row.editValue : row.viewValue}
+            </div>
           </div>
-        </div>
-      ))}
+        );
+      })}
     </div>
   );
 }
@@ -1751,6 +1796,7 @@ function Mm2DetailPanel({
   rows: Mm2DetailRow[];
 }) {
   const [isEditing, setIsEditing] = useState(false);
+  const [collapsed, setCollapsed] = useState(false);
   const [formKey, setFormKey] = useState(0);
 
   const handleCancel = () => {
@@ -1764,18 +1810,22 @@ function Mm2DetailPanel({
   };
 
   return (
-    <div className={`mm2-detail-panel${isEditing ? " is-editing" : ""}`}>
+    <div className={`mm2-detail-panel${isEditing ? " is-editing" : ""}${collapsed ? " is-collapsed" : ""}`}>
       <Mm2DetailHeader
         icon={icon}
         title={title}
         isEditing={isEditing}
+        collapsed={collapsed}
+        onToggleCollapse={() => setCollapsed((v) => !v)}
         onEdit={() => setIsEditing(true)}
         onSave={handleSave}
         onCancel={handleCancel}
       />
-      <div className="mm2-detail-body">
-        <Mm2DetailTable key={formKey} rows={rows} isEditing={isEditing} />
-      </div>
+      {!collapsed && (
+        <div className="mm2-detail-body">
+          <Mm2DetailTable key={formKey} rows={rows} isEditing={isEditing} />
+        </div>
+      )}
     </div>
   );
 }
@@ -1783,6 +1833,7 @@ function Mm2DetailPanel({
 function buildMm2SectionRows(member: Member): Record<Mm2SectionId, Mm2DetailRow[]> {
   const searchSuffix = <Search size={14} className="mm2-field-icon" />;
   const chevronSuffix = <ChevronDown size={14} className="mm2-field-icon" />;
+  const calendarSuffix = <Calendar size={14} className="mm2-field-icon" />;
   const verifiedSuffix = (
     <span className="mm2-verified-badge">
       <CheckCircle2 size={12} /> 인증완료
@@ -1792,15 +1843,18 @@ function buildMm2SectionRows(member: Member): Record<Mm2SectionId, Mm2DetailRow[
   return {
     login: [
       {
-        label: "회원번호",
-        readOnly: true,
-        viewValue: <span className="mm2-field-highlight">{member.no}</span>,
-        editValue: <Mm2DetailInput defaultValue={member.no} readOnly />,
-      },
-      {
-        label: "아이디",
-        viewValue: member.loginId,
-        editValue: <Mm2DetailInput defaultValue={member.loginId} />,
+        kind: "dual",
+        left: {
+          label: "회원번호",
+          viewValue: <span className="mm2-field-highlight">4121337</span>,
+          editValue: <Mm2DetailInput defaultValue="4121337" readOnly />,
+          readOnly: true,
+        },
+        right: {
+          label: "아이디",
+          viewValue: "minsoo",
+          editValue: <Mm2DetailInput defaultValue="minsoo" />,
+        },
       },
       {
         label: "비밀번호",
@@ -1814,30 +1868,32 @@ function buildMm2SectionRows(member: Member): Record<Mm2SectionId, Mm2DetailRow[
       },
       {
         label: "회원등록일자",
-        viewValue: member.regDate,
-        editValue: <Mm2DetailInput type="date" defaultValue={member.regDate} />,
+        viewValue: (
+          <Mm2FieldValue suffix={calendarSuffix}>2025-06-12</Mm2FieldValue>
+        ),
+        editValue: (
+          <Mm2DetailInput type="date" defaultValue="2025-06-12" suffix={calendarSuffix} />
+        ),
       },
-    ],
-    name: [
       {
         label: "성명",
         viewValue: (
-          <Mm2FieldValue>
-            Minsoo <span className="mm2-field-sep">|</span> Kim
-          </Mm2FieldValue>
+          <span className="mm2-detail-name-row">
+            <span className="mm2-name-box">Minsoo</span>
+            <span className="mm2-name-box">Kim</span>
+          </span>
         ),
         editValue: (
-          <span className="mm2-detail-input-row">
-            <input className="mm2-detail-input" defaultValue="Minsoo" />
-            <span className="mm2-field-sep">|</span>
-            <input className="mm2-detail-input" defaultValue="Kim" />
+          <span className="mm2-detail-name-row">
+            <input className="mm2-detail-input mm2-name-box" defaultValue="Minsoo" />
+            <input className="mm2-detail-input mm2-name-box" defaultValue="Kim" />
           </span>
         ),
       },
       {
         label: "한글명",
-        viewValue: member.name,
-        editValue: <Mm2DetailInput defaultValue={member.name} />,
+        viewValue: "김민수",
+        editValue: <Mm2DetailInput defaultValue="김민수" />,
       },
       {
         label: "닉네임",
@@ -2088,7 +2144,7 @@ function MemberManagement2View({
   const isMemberInfoTab = activeTab === "회원정보";
   const detailContentWidth = getMm2DetailContentWidth(infoGroupWidth);
   const contentAlignWidth = isMemberInfoTab && listOpen ? detailContentWidth : "100%";
-  const [activeSection, setActiveSection] = useState<Mm2SectionId>("name");
+  const [activeSection, setActiveSection] = useState<Mm2SectionId>("login");
   const activeMeta = mm2Sections.find((s) => s.id === activeSection)!;
   const ActiveIcon = activeMeta.icon;
   const sectionRows = useMemo(() => buildMm2SectionRows(member), [member]);
@@ -2160,7 +2216,11 @@ function MemberManagement2View({
 
               <div
                 className="mm2-org-chart"
-                style={{ width: MM2_ORG_CHART_WIDTH, height: MM2_ORG_CHART_PANEL_HEIGHT }}
+                style={{
+                  width: MM2_ORG_CHART_WIDTH,
+                  height: MM2_ORG_CHART_PANEL_HEIGHT,
+                  ["--mm2-org-chart-scale" as string]: MM2_ORG_CHART_SCALE,
+                }}
               >
                 <FormSection
                   title="조직도"
