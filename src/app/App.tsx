@@ -222,7 +222,7 @@ function Card({ label, name, memberNo, grade, isSelf = false }: {
           padding: "0 8px",
           borderRadius: 999,
           fontSize: 11,
-          fontWeight: 600,
+          fontWeight: 400,
           background: "var(--accent-light)",
           color: "var(--accent-primary)",
         }}>
