@@ -44,7 +44,7 @@
 
 .member-page-chrome .detail-tab {
   padding: 6px 12px 5px;
-  font-size: 13px;
+  font-size: 14px;
 }
 
 .member-page-chrome .detail-tab.is-active {
@@ -53,7 +53,7 @@
 
 .member-page-chrome .detail-tab-divider {
   margin-bottom: 6px;
-  font-size: 12px;
+  font-size: 13px;
 }
 
 .detail-tab-bar {
@@ -75,7 +75,7 @@
 .detail-tab-divider {
   align-self: center;
   padding: 0 3px;
-  font-size: 12px;
+  font-size: 13px;
   color: var(--text-subtle);
   user-select: none;
   line-height: 1;
@@ -86,7 +86,7 @@
   position: relative;
   flex-shrink: 0;
   padding: 7px 14px 6px;
-  font-size: 13px;
+  font-size: 14px;
   font-weight: 400;
   color: var(--text-muted);
   background: transparent;
@@ -136,7 +136,7 @@
   background: transparent;
   cursor: pointer;
   color: var(--text-body);
-  font-size: 12px;
+  font-size: 13px;
   line-height: 1.2;
   white-space: nowrap;
   transition: background 0.15s;
@@ -261,7 +261,7 @@
 
 .mm2-profile-name {
   margin: 0;
-  font-size: 17px;
+  font-size: 18px;
   font-weight: 700;
   color: var(--text-body);
   line-height: 1.3;
@@ -274,7 +274,7 @@
   align-items: center;
   gap: 4px;
   margin: 8px 0 0;
-  font-size: 12px;
+  font-size: 13px;
   font-weight: 600;
   color: var(--accent-primary);
   line-height: 1.4;
@@ -283,7 +283,7 @@
 
 .mm2-profile-location {
   margin: 6px 0 0;
-  font-size: 12px;
+  font-size: 13px;
   color: var(--text-muted);
   line-height: 1.5;
   white-space: nowrap;
@@ -332,7 +332,7 @@
 }
 
 .mm2-profile-stack-label {
-  font-size: 12px;
+  font-size: 13px;
   font-weight: 500;
   color: var(--text-muted);
   line-height: 1.4;
@@ -340,7 +340,7 @@
 }
 
 .mm2-profile-stack-value {
-  font-size: 13px;
+  font-size: 14px;
   font-weight: 400;
   color: var(--text-body);
   line-height: 1.45;
@@ -456,7 +456,7 @@
 }
 
 .mm2-org-chart .mm2-org-section > button > span.text-sm {
-  font-size: 13px !important;
+  font-size: 14px !important;
   font-weight: 600 !important;
   color: var(--accent-primary) !important;
 }
@@ -508,7 +508,7 @@
   border-radius: 6px;
   background: var(--surface-panel);
   color: var(--text-muted);
-  font-size: 12px;
+  font-size: 13px;
   text-align: left;
   cursor: pointer;
   transition: background 0.15s, border-color 0.15s, color 0.15s;
@@ -567,7 +567,7 @@
 .mm2-detail-header-title {
   flex: 1;
   min-width: 0;
-  font-size: 13px;
+  font-size: 14px;
   font-weight: 600;
   color: var(--accent-primary);
 }
@@ -587,7 +587,7 @@
   min-height: 28px;
   padding: 4px 10px;
   border-radius: 4px;
-  font-size: 12px;
+  font-size: 13px;
   font-weight: 500;
   line-height: 1;
   cursor: pointer;
@@ -635,7 +635,7 @@
   flex: 1;
   min-width: 0;
   width: 100%;
-  font-size: 12px;
+  font-size: 13px;
   padding: 4px 8px;
   border: none;
   border-radius: 4px;
@@ -714,7 +714,7 @@
   align-items: center;
   align-self: stretch;
   padding: 12px;
-  font-size: 12px;
+  font-size: 13px;
   font-weight: 500;
   line-height: 1.45;
   color: var(--form-label-color);
@@ -729,7 +729,7 @@
   align-self: stretch;
   min-width: 0;
   padding: 12px;
-  font-size: 12px;
+  font-size: 13px;
   line-height: 1.45;
   color: var(--text-body);
   background: var(--surface-panel);
@@ -766,7 +766,7 @@
 
 .mm2-field-highlight {
   font-weight: 700;
-  font-size: 13px;
+  font-size: 14px;
   line-height: 1.45;
   color: var(--member-no-color, var(--accent-primary));
 }
@@ -794,7 +794,7 @@
   gap: 4px;
   padding: 2px 8px;
   border-radius: 999px;
-  font-size: 11px;
+  font-size: 12px;
   font-weight: 500;
   color: #16a34a;
   background: #dcfce7;
@@ -814,7 +814,7 @@
   display: inline-flex;
   align-items: center;
   gap: 6px;
-  font-size: 12px;
+  font-size: 13px;
   line-height: 1.45;
   color: var(--text-body);
   cursor: default;
@@ -859,7 +859,7 @@
 
 .order-mgmt-member-info-body {
   padding: 8px 10px 10px;
-  font-size: 12px;
+  font-size: 13px;
   line-height: 1.7;
   color: var(--text-muted);
 }
@@ -951,7 +951,7 @@
 
 .order-mgmt-subtitle {
   padding: 4px 10px 0;
-  font-size: 12px;
+  font-size: 13px;
   color: var(--text-muted);
 }
 
@@ -1001,7 +1001,7 @@
 }
 
 .order-mgmt-inline-label {
-  font-size: 12px;
+  font-size: 13px;
   color: var(--text-muted);
   white-space: nowrap;
 }
@@ -1009,7 +1009,7 @@
 .order-mgmt-qty-input {
   width: 48px;
   padding: 4px 6px;
-  font-size: 12px;
+  font-size: 13px;
   border: 1px solid var(--border);
   border-radius: 4px;
   background: var(--input-background);
@@ -1045,14 +1045,14 @@
 }
 
 .order-mgmt-filter-label {
-  font-size: 12px;
+  font-size: 13px;
   color: var(--text-muted);
   white-space: nowrap;
 }
 
 .order-mgmt-filter-input {
   padding: 4px 6px;
-  font-size: 12px;
+  font-size: 13px;
   border: 1px solid var(--border);
   border-radius: 4px;
   background: var(--input-background);
@@ -1068,7 +1068,7 @@
 }
 
 .order-mgmt-filter-sep {
-  font-size: 12px;
+  font-size: 13px;
   color: var(--text-muted);
 }
 
@@ -1161,7 +1161,7 @@
   display: inline-flex;
   align-items: center;
   gap: 4px;
-  font-size: 12px;
+  font-size: 13px;
   color: var(--text-body);
   cursor: pointer;
   white-space: nowrap;
@@ -1190,7 +1190,7 @@
   width: 100%;
   min-height: 72px;
   padding: 6px 8px;
-  font-size: 12px;
+  font-size: 13px;
   border: none;
   border-radius: 4px;
   background: var(--input-background);
@@ -1216,7 +1216,7 @@
 }
 
 .order-mgmt-field-label {
-  font-size: 12px;
+  font-size: 13px;
   color: var(--form-label-color, var(--text-muted));
 }
 
@@ -1229,7 +1229,7 @@
 .order-mgmt-input {
   width: 100%;
   padding: 5px 8px;
-  font-size: 12px;
+  font-size: 13px;
   border: none;
   border-radius: 4px;
   background: var(--input-background);
@@ -1263,7 +1263,7 @@
   display: inline-flex;
   align-items: center;
   gap: 6px;
-  font-size: 12px;
+  font-size: 13px;
   color: var(--text-body);
   padding-bottom: 5px;
   white-space: nowrap;
@@ -1296,7 +1296,7 @@
   align-items: center;
   gap: 6px;
   padding: 6px 14px;
-  font-size: 12px;
+  font-size: 13px;
   font-weight: 600;
   color: var(--on-accent, #fff);
   background: var(--accent-primary);
