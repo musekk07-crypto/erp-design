@@ -2880,11 +2880,11 @@ function VisitHistoryBar({
       <div className="visit-history-bar-inner">
         <div className="visit-history-bar-lead">
           <div className="visit-history-bar-actions">
-            <VisitHistoryIconButton label="현재 화면 고정" onClick={onPinCurrent} accent>
-              <Pin size={12} style={{ color: "var(--accent-primary)" }} />
-            </VisitHistoryIconButton>
             <VisitHistoryIconButton label="접기" onClick={onToggleExpand}>
               <ChevronDown size={14} style={{ color: "var(--text-muted)" }} />
+            </VisitHistoryIconButton>
+            <VisitHistoryIconButton label="현재 화면 고정" onClick={onPinCurrent} accent>
+              <Pin size={12} style={{ color: "var(--accent-primary)" }} />
             </VisitHistoryIconButton>
           </div>
           <div className="visit-history-bar-title">방문 기록</div>
