@@ -2873,7 +2873,7 @@ function BarTooltip({ label }: { label: string }) {
   return (
     <span
       className="visit-history-tooltip"
-      style={{ background: "var(--tooltip-bg)", color: "var(--tooltip-fg)", fontSize: "12px" }}
+      style={{ background: "var(--tooltip-bg)", color: "var(--tooltip-fg)", fontSize: "13px" }}
     >
       {label}
     </span>
