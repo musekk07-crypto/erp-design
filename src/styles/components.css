@@ -807,7 +807,7 @@ textarea.mm2-name-box:focus {
   font-weight: 500;
   line-height: 1.3;
   color: var(--form-label-color);
-  background: var(--mm2-detail-surface, #e4e6ec);
+  background: var(--surface-toolbar);
   border-right: 1px solid var(--mm2-table-line, var(--org-border));
 }
 
