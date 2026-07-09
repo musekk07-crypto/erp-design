@@ -631,7 +631,7 @@ function buildOrgChartVariant(memberId: number, memberName: string, member: Memb
       layoutType: "tree" as const,
       parent: createOrgNode("상위", "고병도", 6, "매니저"),
       sibling: createOrgNode("형제", "한숙자", 15, "정회원"),
-      self: createOrgNode("나", memberName, memberId, "그린", {
+      self: createOrgNode("나", memberName, memberId, "다이아몬드", {
         memberNo: member.no,
       }),
       extraAbove: "외 15명",
