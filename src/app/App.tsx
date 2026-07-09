@@ -1898,10 +1898,9 @@ function buildMm2SectionRows(member: Member): Record<Mm2SectionId, Mm2DetailRow[
       {
         label: "성명",
         viewValue: (
-          <span className="mm2-detail-name-row">
-            <span className="mm2-name-box">Minsoo</span>
-            <span className="mm2-name-box">Kim</span>
-          </span>
+          <>
+            Minsoo <span className="mm2-field-sep">|</span> Kim
+          </>
         ),
         editValue: (
           <span className="mm2-detail-name-row">
