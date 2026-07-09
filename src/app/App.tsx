@@ -259,7 +259,7 @@ function ChildChip({ name, id }: { name: string; id: number }) {
       justifyContent: "center",
       height: CHILD_CHIP_H,
       width: CARD_W,
-      fontSize: 13,
+      fontSize: ORG_CARD_NAME_FONT_SIZE,
       fontWeight: 600,
       color: "var(--org-text)",
       boxSizing: "border-box",
