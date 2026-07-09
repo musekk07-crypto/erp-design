@@ -78,15 +78,15 @@ export function Mm2ProfileCard({
         <h2 className="mm2-profile-name">{member.name}</h2>
         <p className="mm2-profile-rank-link">
           {member.rank} · {member.grade}
-          <ExternalLink size={12} strokeWidth={2} aria-hidden />
+          <ExternalLink size={13} strokeWidth={2} aria-hidden />
         </p>
         <p className="mm2-profile-location">{member.region}</p>
         <div className="mm2-profile-icon-actions">
           <button type="button" className="mm2-profile-icon-btn" aria-label="문자 발송">
-            <MessageCircle size={15} strokeWidth={2} />
+            <MessageCircle size={17} strokeWidth={2} />
           </button>
           <button type="button" className="mm2-profile-icon-btn" aria-label="전화">
-            <Phone size={15} strokeWidth={2} />
+            <Phone size={17} strokeWidth={2} />
           </button>
         </div>
       </div>
