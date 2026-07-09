@@ -508,7 +508,7 @@
   border-radius: 6px;
   background: var(--surface-panel);
   color: var(--text-muted);
-  font-size: 13px;
+  font-size: 14px;
   text-align: left;
   cursor: pointer;
   transition: background 0.15s, border-color 0.15s, color 0.15s;
