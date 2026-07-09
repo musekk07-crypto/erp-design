@@ -76,6 +76,7 @@ const ORG_CHART_BODY_PAD_V = 28;
 const ORG_CHART_PANEL_HEIGHT = ORG_CHART_SECTION_HEADER_H + ORG_CHART_BODY_PAD_V + ORG_CHART_MAX_SVG_HEIGHT;
 const MM2_ORG_CHART_WIDTH = 686;
 const MM2_ORG_CHART_SCALE = MM2_ORG_CHART_WIDTH / ORG_CHART_WIDTH;
+const ORG_CARD_NAME_FONT_SIZE = 13.6 / MM2_ORG_CHART_SCALE;
 const MM2_ORG_CHART_PANEL_HEIGHT = Math.ceil(ORG_CHART_PANEL_HEIGHT * MM2_ORG_CHART_SCALE);
 const DETAIL_CONTENT_GAP = 8;
 const DETAIL_PANEL_PAD = 8;
@@ -171,7 +172,7 @@ function Card({ label, name, id, date, rank, score, isSelf = false }: {
       <div style={{ fontSize: 12, color: LABEL_GRAY, marginBottom: 4 }}>
         {isSelf ? "나" : label}
       </div>
-      <div style={{ fontSize: 12.5, fontWeight: 700, color: "var(--org-text)", marginBottom: 2 }}>
+      <div style={{ fontSize: ORG_CARD_NAME_FONT_SIZE, fontWeight: 700, color: "var(--org-text)", marginBottom: 2 }}>
         {name}({id})
       </div>
       <div style={{ fontSize: 12, color: "var(--org-text-muted)", marginBottom: 1 }}>{date}</div>
