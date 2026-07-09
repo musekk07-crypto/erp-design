@@ -540,6 +540,8 @@
   --mm2-detail-label-width: 140px;
   --mm2-detail-row-height: 40px;
   --mm2-detail-surface: #e4e6ec;
+  --mm2-detail-font-size: 14px;
+  --mm2-detail-font-size-lg: 15px;
 }
 
 .mm2-detail-panel .mm2-detail-header,
@@ -578,7 +580,7 @@
 .mm2-detail-header-title {
   flex: 1;
   min-width: 0;
-  font-size: 14px;
+  font-size: var(--mm2-detail-font-size-lg, 15px);
   font-weight: 600;
   color: var(--text-body);
 }
@@ -665,7 +667,7 @@
   flex: 1;
   min-width: 0;
   width: 100%;
-  font-size: 13px;
+  font-size: var(--mm2-detail-font-size, 14px);
   padding: 2px 6px;
   border: none;
   border-radius: 4px;
@@ -723,7 +725,7 @@
   min-width: 0;
   padding: 2px 6px;
   border-radius: 4px;
-  font-size: 13px;
+  font-size: var(--mm2-detail-font-size, 14px);
   line-height: 1.3;
   color: var(--text-body);
   box-sizing: border-box;
@@ -803,7 +805,7 @@ textarea.mm2-name-box:focus {
   min-height: 0;
   height: 100%;
   padding: 4px 10px;
-  font-size: 13px;
+  font-size: var(--mm2-detail-font-size, 14px);
   font-weight: 500;
   line-height: 1.3;
   color: var(--form-label-color);
@@ -821,7 +823,7 @@ textarea.mm2-name-box:focus {
   height: 100%;
   padding: 4px 10px;
   overflow: hidden;
-  font-size: 13px;
+  font-size: var(--mm2-detail-font-size, 14px);
   line-height: 1.3;
   color: var(--text-body);
   background: var(--surface-panel);
@@ -866,7 +868,7 @@ textarea.mm2-name-box:focus {
 
 .mm2-field-highlight {
   font-weight: 700;
-  font-size: 14px;
+  font-size: var(--mm2-detail-font-size-lg, 15px);
   line-height: 1.45;
   color: var(--member-no-color, var(--accent-primary));
 }
@@ -916,7 +918,7 @@ textarea.mm2-name-box:focus {
   gap: 6px;
   flex: 0 0 auto;
   white-space: nowrap;
-  font-size: 13px;
+  font-size: var(--mm2-detail-font-size, 14px);
   line-height: 1;
   color: var(--text-body);
   cursor: default;
