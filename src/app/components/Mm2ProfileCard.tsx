@@ -1,5 +1,5 @@
 import React from "react";
-import { User, Camera, ExternalLink, MessageCircle, Phone } from "lucide-react";
+import { User, Camera, MessageCircle, Phone } from "lucide-react";
 
 export type ProfileMember = {
   name: string;
@@ -57,9 +57,11 @@ function Mm2ProfileFieldColumn({ rows }: { rows: ProfileField[] }) {
 export function Mm2ProfileCard({
   member,
   profileFields,
+  rankBadge,
 }: {
   member: ProfileMember;
   profileFields: ProfileField[];
+  rankBadge?: string;
 }) {
   const fieldColumns = [0, 1, 2, 3].map((i) => profileFields.slice(i * 3, i * 3 + 3));
 
@@ -76,10 +78,10 @@ export function Mm2ProfileCard({
 
       <div className="mm2-profile-identity">
         <h2 className="mm2-profile-name">{member.name}</h2>
-        <p className="mm2-profile-rank-link">
-          {member.rank} · {member.grade}
-          <ExternalLink size={13} strokeWidth={2} aria-hidden />
-        </p>
+        <div className="mm2-profile-rank-row">
+          <span className="mm2-profile-rank-label">본인</span>
+          <span className="mm2-profile-rank-badge">{rankBadge ?? member.rank}</span>
+        </div>
         <p className="mm2-profile-location">{member.region}</p>
         <div className="mm2-profile-icon-actions">
           <button type="button" className="mm2-profile-icon-btn" aria-label="문자 발송">

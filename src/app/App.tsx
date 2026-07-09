@@ -2168,6 +2168,10 @@ function MemberManagement2View({
   const sectionRows = useMemo(() => buildMm2SectionRows(member), [member]);
 
   const profileFields = buildMm2ProfileFields(member);
+  const orgSelfGrade = useMemo(
+    () => buildOrgChartVariant(memberId, member.name, member).self.grade,
+    [memberId, member],
+  );
 
   return (
     <div
@@ -2202,7 +2206,7 @@ function MemberManagement2View({
           {isMemberInfoTab ? (
             <div className="mm2-content-row" style={{ gap: DETAIL_CONTENT_GAP }}>
               <div className="mm2-info-group">
-                <Mm2ProfileCard member={member} profileFields={profileFields} />
+                <Mm2ProfileCard member={member} profileFields={profileFields} rankBadge={orgSelfGrade} />
 
                 <div className="mm2-body">
                   <nav className="mm2-sidebar">

@@ -269,15 +269,31 @@
   white-space: nowrap;
 }
 
-.mm2-profile-rank-link {
+.mm2-profile-rank-row {
   display: inline-flex;
   align-items: center;
-  gap: 4px;
+  gap: 6px;
   margin: 8px 0 0;
+}
+
+.mm2-profile-rank-label {
   font-size: 14px;
-  font-weight: 600;
+  font-weight: 400;
   color: var(--accent-primary);
   line-height: 1.4;
+  white-space: nowrap;
+}
+
+.mm2-profile-rank-badge {
+  display: inline-flex;
+  align-items: center;
+  height: 20px;
+  padding: 0 8px;
+  border-radius: 999px;
+  font-size: 11px;
+  font-weight: 400;
+  background: var(--accent-light);
+  color: var(--accent-primary);
   white-space: nowrap;
 }
 
