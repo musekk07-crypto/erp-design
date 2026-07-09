@@ -79,8 +79,8 @@ const MM2_ORG_CHART_WIDTH = Math.ceil(ORG_CHART_WIDTH * MM2_ORG_CHART_SCALE);
 const MM2_ORG_CHART_PANEL_HEIGHT = Math.ceil(ORG_CHART_PANEL_HEIGHT * MM2_ORG_CHART_SCALE);
 const DETAIL_CONTENT_GAP = 8;
 const DETAIL_PANEL_PAD = 8;
-const HISTORY_RAIL_COLLAPSED = 40;
-const HISTORY_RAIL_EXPANDED = 200;
+const HISTORY_BAR_COLLAPSED_HEIGHT = 32;
+const HISTORY_BAR_EXPANDED_HEIGHT = 84;
 
 function getDetailContentWidth(formColumnWidth: number) {
   return formColumnWidth + ORG_CHART_WIDTH + DETAIL_CONTENT_GAP;
@@ -2751,78 +2751,36 @@ interface HistoryItemButtonProps {
   onRemove?: (id: string) => void;
 }
 
-function HistoryItemButton({ item, isActive, onSelect, onRemove }: HistoryItemButtonProps) {
+function HistoryItemChip({ item, isActive, onSelect, onRemove }: HistoryItemButtonProps) {
   return (
     <button
       type="button"
       onClick={() => onSelect(item)}
-      className="w-full text-left rounded transition-all duration-150 group"
-      style={{
-        padding: "7px 8px",
-        marginBottom: 4,
-        background: isActive ? "var(--surface-row-selected)" : "transparent",
-        border: isActive ? "1px solid var(--accent-border)" : "1px solid transparent",
-      }}
+      className={`visit-history-chip group${isActive ? " is-active" : ""}`}
     >
-      <div className="flex items-start justify-between gap-1">
-        <div className="min-w-0 flex-1">
-          <div
-            style={{
-              fontSize: 13,
-              fontWeight: isActive ? 600 : 500,
-              color: isActive ? "var(--accent-primary)" : "var(--text-body)",
-              overflow: "hidden",
-              textOverflow: "ellipsis",
-              whiteSpace: "nowrap",
-            }}
-          >
-            {item.screen}
-          </div>
-          <div
-            style={{
-              fontSize: 12,
-              fontFamily: "monospace",
-              color: "var(--text-muted)",
-              marginTop: 2,
-              overflow: "hidden",
-              textOverflow: "ellipsis",
-              whiteSpace: "nowrap",
-            }}
-          >
-            {item.memberNo}
-          </div>
-          <div
-            style={{
-              fontSize: 12,
-              color: "var(--text-subtle)",
-              marginTop: 1,
-              overflow: "hidden",
-              textOverflow: "ellipsis",
-              whiteSpace: "nowrap",
-            }}
-          >
-            {item.memberName}
-          </div>
-        </div>
-        {onRemove && (
-          <span
-            role="presentation"
-            onClick={(e) => {
-              e.stopPropagation();
-              onRemove(item.id);
-            }}
-            className="shrink-0 opacity-0 group-hover:opacity-50 hover:!opacity-100 transition-opacity"
-            style={{ fontSize: 16, lineHeight: 1, color: "var(--text-muted)", padding: "0 2px" }}
-          >
-            ×
-          </span>
-        )}
-      </div>
+      <span className="visit-history-chip-screen">{item.screen}</span>
+      <span className="visit-history-chip-meta">
+        <span className="visit-history-chip-no">{item.memberNo}</span>
+        <span className="visit-history-chip-sep">·</span>
+        <span className="visit-history-chip-name">{item.memberName}</span>
+      </span>
+      {onRemove && (
+        <span
+          role="presentation"
+          onClick={(e) => {
+            e.stopPropagation();
+            onRemove(item.id);
+          }}
+          className="visit-history-chip-remove"
+        >
+          ×
+        </span>
+      )}
     </button>
   );
 }
 
-interface RecentPinRailProps {
+interface VisitHistoryBarProps {
   expanded: boolean;
   onToggleExpand: () => void;
   pinned: PageHistoryItem[];
@@ -2833,12 +2791,10 @@ interface RecentPinRailProps {
   onUnpin: (id: string) => void;
 }
 
-function RailTooltip({ label, align = "left" }: { label: string; align?: "left" | "right" }) {
+function BarTooltip({ label }: { label: string }) {
   return (
     <span
-      className={`absolute top-1/2 -translate-y-1/2 px-2 py-1 rounded whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity duration-200 pointer-events-none z-50 ${
-        align === "right" ? "right-full mr-1.5" : "left-12"
-      }`}
+      className="visit-history-tooltip"
       style={{ background: "var(--tooltip-bg)", color: "var(--tooltip-fg)", fontSize: "12px" }}
     >
       {label}
@@ -2846,7 +2802,31 @@ function RailTooltip({ label, align = "left" }: { label: string; align?: "left" 
   );
 }
 
-function RecentPinRail({
+function VisitHistoryIconButton({
+  label,
+  onClick,
+  children,
+  accent = false,
+}: {
+  label: string;
+  onClick: () => void;
+  children: React.ReactNode;
+  accent?: boolean;
+}) {
+  return (
+    <button
+      type="button"
+      onClick={onClick}
+      className={`visit-history-icon-btn group${accent ? " is-accent" : ""}`}
+      aria-label={label}
+    >
+      {children}
+      <BarTooltip label={label} />
+    </button>
+  );
+}
+
+function VisitHistoryBar({
   expanded,
   onToggleExpand,
   pinned,
@@ -2855,169 +2835,105 @@ function RecentPinRail({
   onSelect,
   onPinCurrent,
   onUnpin,
-}: RecentPinRailProps) {
-  const width = expanded ? HISTORY_RAIL_EXPANDED : HISTORY_RAIL_COLLAPSED;
+}: VisitHistoryBarProps) {
+  const height = expanded ? HISTORY_BAR_EXPANDED_HEIGHT : HISTORY_BAR_COLLAPSED_HEIGHT;
 
   if (!expanded) {
     return (
       <div
-        className="recent-pin-rail flex flex-col items-center py-3 gap-3 shrink-0"
-        style={{
-          width,
-          minWidth: width,
-          height: "100%",
-          background: "var(--surface-panel)",
-          borderLeft: "1px solid var(--border)",
-        }}
+        className="visit-history-bar"
+        style={{ height, minHeight: height }}
       >
-        <button
-          type="button"
-          onClick={onToggleExpand}
-          className="w-8 h-8 rounded flex items-center justify-center transition-colors"
-          style={{ background: "var(--surface-button-muted)", border: "1px solid var(--border)" }}
-        >
-          <ChevronLeft size={14} style={{ color: "var(--text-muted)" }} />
-        </button>
-        <button
-          type="button"
-          onClick={onPinCurrent}
-          className="group relative w-8 h-8 rounded flex items-center justify-center transition-colors"
-          style={{ background: "var(--surface-button-muted)", border: "1px solid var(--border)" }}
-        >
-          <Pin size={13} style={{ color: "var(--accent-primary)" }} />
-          <RailTooltip label="현재 화면 고정" align="right" />
-        </button>
-        <div style={{ width: 20, height: 1, background: "var(--border)" }} />
-        <button
-          type="button"
-          onClick={onToggleExpand}
-          className="group relative flex flex-col items-center gap-1.5 rounded p-1 transition-colors hover:opacity-80"
-        >
-          <Pin size={12} style={{ color: "var(--text-subtle)" }} />
-          {pinned.length > 0 && (
-            <span
-              style={{
-                fontSize: 11,
-                fontWeight: 600,
-                color: "var(--accent-primary)",
-                background: "var(--accent-light)",
-                borderRadius: 8,
-                padding: "1px 5px",
-                minWidth: 16,
-                textAlign: "center",
-              }}
-            >
-              {pinned.length}
-            </span>
-          )}
-          <RailTooltip label="고정" align="right" />
-        </button>
-        <button
-          type="button"
-          onClick={onToggleExpand}
-          className="group relative flex flex-col items-center gap-1.5 rounded p-1 transition-colors hover:opacity-80"
-        >
-          <Clock size={12} style={{ color: "var(--text-subtle)" }} />
-          {recent.length > 0 && (
-            <span
-              style={{
-                fontSize: 11,
-                fontWeight: 600,
-                color: "var(--text-muted)",
-                background: "var(--surface-button-muted)",
-                borderRadius: 8,
-                padding: "1px 5px",
-                minWidth: 16,
-                textAlign: "center",
-              }}
-            >
-              {recent.length}
-            </span>
-          )}
-          <RailTooltip label="최근" align="right" />
-        </button>
+        <div className="visit-history-bar-collapsed">
+          <VisitHistoryIconButton label="방문 기록 펼치기" onClick={onToggleExpand}>
+            <ChevronUp size={14} style={{ color: "var(--text-muted)" }} />
+          </VisitHistoryIconButton>
+          <button
+            type="button"
+            onClick={onToggleExpand}
+            className="visit-history-collapsed-badge visit-history-collapsed-badge--pinned"
+          >
+            <Pin size={11} style={{ color: "var(--accent-primary)" }} />
+            <span>{pinned.length}</span>
+          </button>
+          <button
+            type="button"
+            onClick={onToggleExpand}
+            className="visit-history-collapsed-badge"
+          >
+            <Clock size={11} style={{ color: "var(--text-muted)" }} />
+            <span>{recent.length}</span>
+          </button>
+          <div className="visit-history-bar-spacer" />
+          <VisitHistoryIconButton label="현재 화면 고정" onClick={onPinCurrent} accent>
+            <Pin size={12} style={{ color: "var(--accent-primary)" }} />
+          </VisitHistoryIconButton>
+        </div>
       </div>
     );
   }
 
   return (
     <div
-      className="recent-pin-rail flex flex-col shrink-0"
-      style={{
-        width,
-        minWidth: width,
-        height: "100%",
-        background: "var(--surface-panel)",
-        borderLeft: "1px solid var(--border)",
-      }}
+      className="visit-history-bar is-expanded"
+      style={{ height, minHeight: height }}
     >
-      <div
-        className="flex items-center justify-between px-3 shrink-0"
-        style={{ height: 40, borderBottom: "1px solid var(--border)" }}
-      >
-        <span style={{ fontSize: 13, fontWeight: 600, color: "var(--text-body)" }}>방문 기록</span>
-        <div className="flex items-center gap-1">
-          <button
-            type="button"
-            onClick={onPinCurrent}
-            className="group relative w-7 h-7 rounded flex items-center justify-center transition-colors"
-            style={{ background: "var(--accent-light)", border: "1px solid var(--accent-border)" }}
-          >
+      <div className="visit-history-bar-inner">
+        <div className="visit-history-bar-title">방문 기록</div>
+
+        <div className="visit-history-bar-section visit-history-bar-section--pinned">
+          <span className="visit-history-bar-section-label">
+            <Pin size={11} style={{ color: "var(--accent-primary)" }} />
+            고정
+          </span>
+          <div className="visit-history-bar-scroll">
+            {pinned.length === 0 ? (
+              <span className="visit-history-empty">고정된 화면 없음</span>
+            ) : (
+              pinned.map((item) => (
+                <HistoryItemChip
+                  key={item.id}
+                  item={item}
+                  isActive={item.id === activeId}
+                  onSelect={onSelect}
+                  onRemove={onUnpin}
+                />
+              ))
+            )}
+          </div>
+        </div>
+
+        <div className="visit-history-bar-divider" aria-hidden />
+
+        <div className="visit-history-bar-section visit-history-bar-section--recent">
+          <span className="visit-history-bar-section-label">
+            <Clock size={11} style={{ color: "var(--text-muted)" }} />
+            최근
+          </span>
+          <div className="visit-history-bar-scroll">
+            {recent.length === 0 ? (
+              <span className="visit-history-empty">방문한 화면이 여기에 표시됩니다</span>
+            ) : (
+              recent.map((item) => (
+                <HistoryItemChip
+                  key={item.id}
+                  item={item}
+                  isActive={item.id === activeId}
+                  onSelect={onSelect}
+                />
+              ))
+            )}
+          </div>
+        </div>
+
+        <div className="visit-history-bar-actions">
+          <VisitHistoryIconButton label="현재 화면 고정" onClick={onPinCurrent} accent>
             <Pin size={12} style={{ color: "var(--accent-primary)" }} />
-            <RailTooltip label="현재 화면 고정" align="right" />
-          </button>
-          <button
-            type="button"
-            onClick={onToggleExpand}
-            className="w-7 h-7 rounded flex items-center justify-center"
-            style={{ background: "var(--surface-button-muted)", border: "1px solid var(--border)" }}
-          >
-            <ChevronRight size={14} style={{ color: "var(--text-muted)" }} />
-          </button>
+          </VisitHistoryIconButton>
+          <VisitHistoryIconButton label="접기" onClick={onToggleExpand}>
+            <ChevronDown size={14} style={{ color: "var(--text-muted)" }} />
+          </VisitHistoryIconButton>
         </div>
-      </div>
-
-      <div className="flex-1 overflow-y-auto px-2 py-2" style={{ scrollbarWidth: "thin" }}>
-        <div className="flex items-center gap-1.5 px-1 mb-1.5">
-          <Pin size={11} style={{ color: "var(--accent-primary)" }} />
-          <span style={{ fontSize: 12, fontWeight: 600, color: "var(--text-muted)" }}>고정</span>
-        </div>
-        {pinned.length === 0 ? (
-          <p style={{ fontSize: 12, color: "var(--text-subtle)", padding: "4px 8px 12px" }}>
-            고정 버튼으로 현재 화면을 고정하세요
-          </p>
-        ) : (
-          pinned.map((item) => (
-            <HistoryItemButton
-              key={item.id}
-              item={item}
-              isActive={item.id === activeId}
-              onSelect={onSelect}
-              onRemove={onUnpin}
-            />
-          ))
-        )}
-
-        <div style={{ height: 1, background: "var(--border)", margin: "8px 4px 10px" }} />
-
-        <div className="flex items-center gap-1.5 px-1 mb-1.5">
-          <Clock size={11} style={{ color: "var(--text-muted)" }} />
-          <span style={{ fontSize: 12, fontWeight: 600, color: "var(--text-muted)" }}>최근</span>
-        </div>
-        {recent.length === 0 ? (
-          <p style={{ fontSize: 12, color: "var(--text-subtle)", padding: "4px 8px" }}>
-            방문한 화면이 여기에 표시됩니다
-          </p>
-        ) : (
-          recent.map((item) => (
-            <HistoryItemButton
-              key={item.id}
-              item={item}
-              isActive={item.id === activeId}
-              onSelect={onSelect}
-            />
-          ))
-        )}
       </div>
     </div>
   );
@@ -3269,8 +3185,11 @@ export default function App() {
   ]);
   const [recentPages, setRecentPages] = useState<PageHistoryItem[]>([
     { id: "회원정보-1", screen: "회원정보", memberId: 1, memberNo: "N26431021", memberName: "한미채" },
-    { id: "주문서내역-2", screen: "주문서내역", memberId: 2, memberNo: "N26482827", memberName: "황기봉" },
+    { id: "주문서내역-1", screen: "주문서내역", memberId: 1, memberNo: "N26431021", memberName: "한미채" },
+    { id: "수당내역-1", screen: "수당내역", memberId: 1, memberNo: "N26431021", memberName: "한미채" },
     { id: "로그히스토리-1", screen: "로그히스토리", memberId: 1, memberNo: "N26431021", memberName: "한미채" },
+    { id: "상담내역-1", screen: "상담내역", memberId: 1, memberNo: "N26431021", memberName: "한미채" },
+    { id: "주문서내역-2", screen: "주문서내역", memberId: 2, memberNo: "N26482827", memberName: "황기봉" },
   ]);
   const [appContentWidth, setAppContentWidth] = useState(0);
   const appContentRef = useRef<HTMLDivElement>(null);
@@ -3401,11 +3320,15 @@ export default function App() {
       >
       <TopNav activeMainMenu={activeMainMenu} onMainMenuChange={handleMainMenuChange} />
 
-      {/* 본문 — 가로 스크롤 영역과 방문기록 패널 분리 */}
+      {/* 본문 + 하단 방문기록 */}
       <div
         className="app-body"
-        style={{ flex: 1, display: "flex", minHeight: 0, minWidth: 0, overflow: "hidden" }}
+        style={{ flex: 1, display: "flex", flexDirection: "column", minHeight: 0, minWidth: 0, overflow: "hidden" }}
       >
+        <div
+          className="app-main"
+          style={{ flex: 1, display: "flex", minHeight: 0, minWidth: 0, overflow: "hidden" }}
+        >
         <Sidebar activePanel={listOpen ? "members" : null} onPanelToggle={() => setListOpen((v) => !v)} theme={theme} onThemeChange={setTheme} />
 
         <div
@@ -3504,8 +3427,9 @@ export default function App() {
         </div>
           </div>
         </div>
+        </div>
 
-        <RecentPinRail
+        <VisitHistoryBar
           expanded={historyRailExpanded}
           onToggleExpand={() => setHistoryRailExpanded((v) => !v)}
           pinned={pinnedPages}
