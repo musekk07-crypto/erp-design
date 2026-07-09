@@ -489,7 +489,7 @@
 }
 
 .mm2-sidebar {
-  flex: 0 0 220px;
+  flex: 0 0 210px;
   display: flex;
   flex-direction: column;
   gap: 6px;
