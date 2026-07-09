@@ -539,6 +539,7 @@
   --mm2-table-line: var(--org-border);
   --mm2-detail-label-width: 140px;
   --mm2-detail-row-height: 40px;
+  --mm2-detail-surface: #e4e6ec;
 }
 
 .mm2-detail-panel .mm2-detail-header,
@@ -555,7 +556,7 @@
   padding: 0 12px;
   box-sizing: border-box;
   border-bottom: 1px solid var(--mm2-table-line, var(--org-border));
-  background: var(--surface-toolbar);
+  background: var(--mm2-detail-surface, #e4e6ec);
   flex-shrink: 0;
 }
 
@@ -806,7 +807,7 @@ textarea.mm2-name-box:focus {
   font-weight: 500;
   line-height: 1.3;
   color: var(--form-label-color);
-  background: var(--surface-toolbar);
+  background: var(--mm2-detail-surface, #e4e6ec);
   border-right: 1px solid var(--mm2-table-line, var(--org-border));
 }
 
