@@ -537,6 +537,7 @@
   overflow: hidden;
   --mm2-table-line: var(--org-border);
   --mm2-detail-label-width: 140px;
+  --mm2-detail-row-height: 40px;
 }
 
 .mm2-detail-panel .mm2-detail-header,
@@ -549,9 +550,12 @@
   display: flex;
   align-items: center;
   gap: 8px;
-  padding: 8px 12px;
+  height: var(--mm2-detail-row-height, 40px);
+  padding: 0 12px;
+  box-sizing: border-box;
   border-bottom: 1px solid var(--mm2-table-line, var(--org-border));
   background: var(--surface-toolbar);
+  flex-shrink: 0;
 }
 
 .mm2-detail-panel.is-collapsed .mm2-detail-header {
@@ -687,9 +691,11 @@
 }
 
 .mm2-detail-textarea {
-  min-height: 72px;
-  resize: vertical;
+  min-height: 0;
+  height: 28px;
+  resize: none;
   line-height: 1.45;
+  overflow: hidden;
 }
 
 .mm2-detail-input-row {
@@ -754,10 +760,11 @@ textarea.mm2-name-box:focus {
 }
 
 .mm2-detail-row {
-  flex: 0 0 auto;
+  flex: 0 0 var(--mm2-detail-row-height, 40px);
   display: flex;
   align-items: stretch;
-  min-height: 30px;
+  height: var(--mm2-detail-row-height, 40px);
+  box-sizing: border-box;
   border-bottom: 1px solid var(--mm2-table-line, var(--org-border));
 }
 
