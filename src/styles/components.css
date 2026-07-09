@@ -815,11 +815,6 @@ textarea.mm2-name-box:focus {
 
 .mm2-detail-value.is-clickable {
   cursor: text;
-  transition: background 0.15s ease;
-}
-
-.mm2-detail-value.is-clickable:hover {
-  background: var(--surface-row-hover);
 }
 
 .mm2-detail-value.is-editing {
