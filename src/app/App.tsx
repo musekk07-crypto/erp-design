@@ -1706,55 +1706,19 @@ function Mm2DetailTextarea({
 function Mm2DetailHeader({
   icon,
   title,
-  isEditing,
-  collapsed,
-  onToggleCollapse,
-  onEdit,
-  onSave,
-  onCancel,
 }: {
   icon: React.ReactNode;
   title: string;
-  isEditing: boolean;
-  collapsed: boolean;
-  onToggleCollapse: () => void;
-  onEdit: () => void;
-  onSave: () => void;
-  onCancel: () => void;
 }) {
   return (
     <div className="mm2-detail-header">
       <span className="mm2-detail-header-icon">{icon}</span>
       <span className="mm2-detail-header-title">{title}</span>
-      <div className="mm2-detail-header-actions">
-        {isEditing ? (
-          <>
-            <button type="button" className="mm2-detail-action-btn mm2-detail-action-btn--save" onClick={onSave}>
-              저장
-            </button>
-            <button type="button" className="mm2-detail-action-btn mm2-detail-action-btn--cancel" onClick={onCancel}>
-              취소
-            </button>
-          </>
-        ) : (
-          <button type="button" className="mm2-detail-action-btn mm2-detail-action-btn--edit" onClick={onEdit}>
-            수정
-          </button>
-        )}
-        <button
-          type="button"
-          className="mm2-detail-collapse-btn"
-          onClick={onToggleCollapse}
-          aria-label={collapsed ? "펼치기" : "접기"}
-        >
-          {collapsed ? <ChevronDown size={14} /> : <ChevronUp size={14} />}
-        </button>
-      </div>
     </div>
   );
 }
 
-function Mm2DetailTable({ rows, isEditing }: { rows: Mm2DetailRow[]; isEditing: boolean }) {
+function Mm2DetailTable({ rows }: { rows: Mm2DetailRow[] }) {
   return (
     <div className="mm2-detail-table">
       {rows.map((row) => {
@@ -1762,13 +1726,9 @@ function Mm2DetailTable({ rows, isEditing }: { rows: Mm2DetailRow[]; isEditing: 
           return (
             <div key={`${row.left.label}-${row.right.label}`} className="mm2-detail-row mm2-detail-row--dual">
               <div className="mm2-detail-label">{row.left.label}</div>
-              <div className="mm2-detail-value mm2-detail-value--half">
-                {isEditing && row.left.editValue !== undefined ? row.left.editValue : row.left.viewValue}
-              </div>
+              <div className="mm2-detail-value mm2-detail-value--half">{row.left.viewValue}</div>
               <div className="mm2-detail-label mm2-detail-label--secondary">{row.right.label}</div>
-              <div className="mm2-detail-value mm2-detail-value--half">
-                {isEditing && row.right.editValue !== undefined ? row.right.editValue : row.right.viewValue}
-              </div>
+              <div className="mm2-detail-value mm2-detail-value--half">{row.right.viewValue}</div>
             </div>
           );
         }
@@ -1776,9 +1736,7 @@ function Mm2DetailTable({ rows, isEditing }: { rows: Mm2DetailRow[]; isEditing: 
         return (
           <div key={row.label} className="mm2-detail-row">
             <div className="mm2-detail-label">{row.label}</div>
-            <div className="mm2-detail-value">
-              {isEditing && row.editValue !== undefined ? row.editValue : row.viewValue}
-            </div>
+            <div className="mm2-detail-value">{row.viewValue}</div>
           </div>
         );
       })}
@@ -1795,37 +1753,12 @@ function Mm2DetailPanel({
   icon: React.ReactNode;
   rows: Mm2DetailRow[];
 }) {
-  const [isEditing, setIsEditing] = useState(false);
-  const [collapsed, setCollapsed] = useState(false);
-  const [formKey, setFormKey] = useState(0);
-
-  const handleCancel = () => {
-    setIsEditing(false);
-    setFormKey((key) => key + 1);
-  };
-
-  const handleSave = () => {
-    setIsEditing(false);
-    setFormKey((key) => key + 1);
-  };
-
   return (
-    <div className={`mm2-detail-panel${isEditing ? " is-editing" : ""}${collapsed ? " is-collapsed" : ""}`}>
-      <Mm2DetailHeader
-        icon={icon}
-        title={title}
-        isEditing={isEditing}
-        collapsed={collapsed}
-        onToggleCollapse={() => setCollapsed((v) => !v)}
-        onEdit={() => setIsEditing(true)}
-        onSave={handleSave}
-        onCancel={handleCancel}
-      />
-      {!collapsed && (
-        <div className="mm2-detail-body">
-          <Mm2DetailTable key={formKey} rows={rows} isEditing={isEditing} />
-        </div>
-      )}
+    <div className="mm2-detail-panel">
+      <Mm2DetailHeader icon={icon} title={title} />
+      <div className="mm2-detail-body">
+        <Mm2DetailTable rows={rows} />
+      </div>
     </div>
   );
 }
