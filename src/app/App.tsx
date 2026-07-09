@@ -158,7 +158,7 @@ function createOrgNode(
   name: string,
   id: number,
   grade: string,
-  options?: { memberNo?: string; footerText?: string },
+  options?: { memberNo?: string },
 ): OrgNode {
   return {
     label,
@@ -166,16 +166,14 @@ function createOrgNode(
     id,
     memberNo: options?.memberNo ?? resolveOrgMemberNo(id),
     grade,
-    footerText: options?.footerText,
   };
 }
 
-function Card({ label, name, memberNo, grade, footerText, isSelf = false }: {
+function Card({ label, name, memberNo, grade, isSelf = false }: {
   label: string;
   name: string;
   memberNo: string;
   grade: string;
-  footerText?: string;
   isSelf?: boolean;
 }) {
   const metaStyle: React.CSSProperties = {
@@ -212,7 +210,7 @@ function Card({ label, name, memberNo, grade, footerText, isSelf = false }: {
         {name}
       </div>
       <div style={{ ...metaStyle, marginBottom: 4 }}>{memberNo}</div>
-      <div style={{ marginBottom: footerText ? 4 : 0 }}>
+      <div>
         <span style={{
           display: "inline-flex",
           alignItems: "center",
@@ -227,9 +225,6 @@ function Card({ label, name, memberNo, grade, footerText, isSelf = false }: {
           {grade}
         </span>
       </div>
-      {footerText ? (
-        <div style={{ ...metaStyle, marginTop: 2 }}>{footerText}</div>
-      ) : null}
     </div>
   );
 }
@@ -275,7 +270,6 @@ type OrgNode = {
   id: number;
   memberNo: string;
   grade: string;
-  footerText?: string;
 };
 
 type OrgLayoutType = "tree" | "linear" | "fork" | "tall-tree";
@@ -635,7 +629,6 @@ function buildOrgChartVariant(memberId: number, memberName: string, member: Memb
       sibling: createOrgNode("형제", "한숙자", 15, "정회원"),
       self: createOrgNode("나", memberName, memberId, "그린", {
         memberNo: member.no,
-        footerText: "상위(후원추천)",
       }),
       extraAbove: "외 15명",
       children: [
@@ -662,7 +655,6 @@ function buildOrgChartVariant(memberId: number, memberName: string, member: Memb
       stackNodes: [orgNode(1, "형제"), orgNode(3, "형제"), orgNode(4, "형제"), orgNode(5, "형제")],
       self: createOrgNode("나", memberName, memberId, member.grade, {
         memberNo: member.no,
-        footerText: "상위(후원추천)",
       }),
       extraAbove: "외 22명",
       children: [
@@ -694,7 +686,6 @@ function buildOrgChartVariant(memberId: number, memberName: string, member: Memb
   );
   const self = createOrgNode("나", memberName, memberId, member.grade, {
     memberNo: member.no,
-    footerText: "상위(후원추천)",
   });
 
   const children =
