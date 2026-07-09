@@ -1718,17 +1718,96 @@ function Mm2DetailHeader({
   );
 }
 
-function Mm2DetailTable({ rows }: { rows: Mm2DetailRow[] }) {
+function Mm2EditableCell({
+  cellKey,
+  activeKey,
+  onActivate,
+  onDeactivate,
+  readOnly,
+  viewValue,
+  editValue,
+  className = "",
+}: {
+  cellKey: string;
+  activeKey: string | null;
+  onActivate: (key: string) => void;
+  onDeactivate: () => void;
+  readOnly?: boolean;
+  viewValue: React.ReactNode;
+  editValue?: React.ReactNode;
+  className?: string;
+}) {
+  const cellRef = useRef<HTMLDivElement>(null);
+  const isEditing = activeKey === cellKey;
+  const canEdit = !readOnly && editValue !== undefined;
+
+  useEffect(() => {
+    if (!isEditing) return;
+    const focusable = cellRef.current?.querySelector<HTMLElement>("input, select, textarea");
+    focusable?.focus();
+  }, [isEditing]);
+
+  const handleBlur = (event: React.FocusEvent<HTMLDivElement>) => {
+    const next = event.relatedTarget as Node | null;
+    if (!next || !cellRef.current?.contains(next)) {
+      onDeactivate();
+    }
+  };
+
   return (
-    <div className="mm2-detail-table">
+    <div
+      ref={cellRef}
+      className={`mm2-detail-value${className ? ` ${className}` : ""}${canEdit ? " is-clickable" : ""}${isEditing ? " is-editing" : ""}`}
+      onClick={() => {
+        if (canEdit && !isEditing) onActivate(cellKey);
+      }}
+      onBlur={handleBlur}
+      onKeyDown={(event) => {
+        if (!canEdit || isEditing) return;
+        if (event.key === "Enter" || event.key === " ") {
+          event.preventDefault();
+          onActivate(cellKey);
+        }
+      }}
+      role={canEdit ? "button" : undefined}
+      tabIndex={canEdit && !isEditing ? 0 : undefined}
+    >
+      {isEditing ? editValue : viewValue}
+    </div>
+  );
+}
+
+function Mm2DetailTable({ rows }: { rows: Mm2DetailRow[] }) {
+  const [activeCell, setActiveCell] = useState<string | null>(null);
+
+  return (
+    <div className={`mm2-detail-table${activeCell ? " has-active-cell" : ""}`}>
       {rows.map((row) => {
         if (row.kind === "dual") {
           return (
             <div key={`${row.left.label}-${row.right.label}`} className="mm2-detail-row mm2-detail-row--dual">
               <div className="mm2-detail-label">{row.left.label}</div>
-              <div className="mm2-detail-value mm2-detail-value--half">{row.left.viewValue}</div>
+              <Mm2EditableCell
+                cellKey={`${row.left.label}-${row.right.label}-left`}
+                activeKey={activeCell}
+                onActivate={setActiveCell}
+                onDeactivate={() => setActiveCell(null)}
+                readOnly={row.left.readOnly}
+                viewValue={row.left.viewValue}
+                editValue={row.left.editValue}
+                className="mm2-detail-value--half"
+              />
               <div className="mm2-detail-label mm2-detail-label--secondary">{row.right.label}</div>
-              <div className="mm2-detail-value mm2-detail-value--half">{row.right.viewValue}</div>
+              <Mm2EditableCell
+                cellKey={`${row.left.label}-${row.right.label}-right`}
+                activeKey={activeCell}
+                onActivate={setActiveCell}
+                onDeactivate={() => setActiveCell(null)}
+                readOnly={row.right.readOnly}
+                viewValue={row.right.viewValue}
+                editValue={row.right.editValue}
+                className="mm2-detail-value--half"
+              />
             </div>
           );
         }
@@ -1736,7 +1815,15 @@ function Mm2DetailTable({ rows }: { rows: Mm2DetailRow[] }) {
         return (
           <div key={row.label} className="mm2-detail-row">
             <div className="mm2-detail-label">{row.label}</div>
-            <div className="mm2-detail-value">{row.viewValue}</div>
+            <Mm2EditableCell
+              cellKey={row.label}
+              activeKey={activeCell}
+              onActivate={setActiveCell}
+              onDeactivate={() => setActiveCell(null)}
+              readOnly={row.readOnly}
+              viewValue={row.viewValue}
+              editValue={row.editValue}
+            />
           </div>
         );
       })}
