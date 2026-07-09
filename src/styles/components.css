@@ -1343,6 +1343,14 @@
   min-width: 0;
 }
 
+.visit-history-bar-lead {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-shrink: 0;
+  padding-right: 2px;
+}
+
 .visit-history-bar-title {
   display: flex;
   align-items: center;
@@ -1402,12 +1410,16 @@
   flex-shrink: 0;
 }
 
+.visit-history-bar-divider--lead {
+  margin: 12px 2px;
+}
+
 .visit-history-bar-actions {
   display: flex;
   align-items: center;
   gap: 4px;
   flex-shrink: 0;
-  padding-left: 2px;
+  padding-left: 0;
 }
 
 .visit-history-icon-btn {

@@ -2848,6 +2848,9 @@ function VisitHistoryBar({
           <VisitHistoryIconButton label="방문 기록 펼치기" onClick={onToggleExpand}>
             <ChevronUp size={14} style={{ color: "var(--text-muted)" }} />
           </VisitHistoryIconButton>
+          <VisitHistoryIconButton label="현재 화면 고정" onClick={onPinCurrent} accent>
+            <Pin size={12} style={{ color: "var(--accent-primary)" }} />
+          </VisitHistoryIconButton>
           <button
             type="button"
             onClick={onToggleExpand}
@@ -2864,10 +2867,6 @@ function VisitHistoryBar({
             <Clock size={11} style={{ color: "var(--text-muted)" }} />
             <span>{recent.length}</span>
           </button>
-          <div className="visit-history-bar-spacer" />
-          <VisitHistoryIconButton label="현재 화면 고정" onClick={onPinCurrent} accent>
-            <Pin size={12} style={{ color: "var(--accent-primary)" }} />
-          </VisitHistoryIconButton>
         </div>
       </div>
     );
@@ -2879,7 +2878,19 @@ function VisitHistoryBar({
       style={{ height, minHeight: height }}
     >
       <div className="visit-history-bar-inner">
-        <div className="visit-history-bar-title">방문 기록</div>
+        <div className="visit-history-bar-lead">
+          <div className="visit-history-bar-actions">
+            <VisitHistoryIconButton label="현재 화면 고정" onClick={onPinCurrent} accent>
+              <Pin size={12} style={{ color: "var(--accent-primary)" }} />
+            </VisitHistoryIconButton>
+            <VisitHistoryIconButton label="접기" onClick={onToggleExpand}>
+              <ChevronDown size={14} style={{ color: "var(--text-muted)" }} />
+            </VisitHistoryIconButton>
+          </div>
+          <div className="visit-history-bar-title">방문 기록</div>
+        </div>
+
+        <div className="visit-history-bar-divider visit-history-bar-divider--lead" aria-hidden />
 
         <div className="visit-history-bar-section visit-history-bar-section--pinned">
           <span className="visit-history-bar-section-label">
@@ -2924,15 +2935,6 @@ function VisitHistoryBar({
               ))
             )}
           </div>
-        </div>
-
-        <div className="visit-history-bar-actions">
-          <VisitHistoryIconButton label="현재 화면 고정" onClick={onPinCurrent} accent>
-            <Pin size={12} style={{ color: "var(--accent-primary)" }} />
-          </VisitHistoryIconButton>
-          <VisitHistoryIconButton label="접기" onClick={onToggleExpand}>
-            <ChevronDown size={14} style={{ color: "var(--text-muted)" }} />
-          </VisitHistoryIconButton>
         </div>
       </div>
     </div>
