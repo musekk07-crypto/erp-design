@@ -527,7 +527,8 @@
 }
 
 .mm2-detail-panel {
-  flex: 1;
+  flex: 1 1 auto;
+  align-self: flex-start;
   min-width: 0;
   display: flex;
   flex-direction: column;
@@ -742,26 +743,18 @@ textarea.mm2-name-box:focus {
 }
 
 .mm2-detail-body {
-  flex: 1;
-  min-height: 0;
+  flex: 0 0 auto;
   display: flex;
   flex-direction: column;
   padding: 0;
-  background: linear-gradient(
-    to right,
-    var(--surface-toolbar) var(--mm2-detail-label-width, 140px),
-    var(--surface-panel) var(--mm2-detail-label-width, 140px)
-  );
 }
 
 .mm2-detail-table {
-  flex: 1;
+  flex: 0 0 auto;
   display: flex;
   flex-direction: column;
   width: 100%;
-  min-height: 0;
-  height: auto;
-  align-self: stretch;
+  align-self: flex-start;
 }
 
 .mm2-detail-row {
