@@ -423,6 +423,7 @@
   background: var(--surface-panel);
   border: 1px solid var(--border);
   border-radius: 6px;
+  --mm2-detail-surface: #e4e6ec;
 }
 
 .mm2-org-chart .mm2-org-section {
@@ -444,7 +445,7 @@
   gap: 8px;
   padding: 8px 12px !important;
   min-height: 38px;
-  background: var(--accent-light) !important;
+  background: var(--mm2-detail-surface, #e4e6ec) !important;
   border-bottom: 1px solid var(--mm2-table-line, var(--org-border)) !important;
 }
 
@@ -458,7 +459,7 @@
 .mm2-org-chart .mm2-org-section > button > span.text-sm {
   font-size: 14px !important;
   font-weight: 600 !important;
-  color: var(--accent-primary) !important;
+  color: var(--text-body) !important;
 }
 
 .mm2-org-chart .mm2-org-section > button > svg {
