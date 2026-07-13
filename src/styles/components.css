@@ -1090,7 +1090,7 @@ textarea.mm2-name-box:focus {
   align-items: flex-start;
   flex-wrap: wrap;
   gap: 2px;
-  padding: 6px 8px;
+  padding: 6px 8px 8px;
   border-bottom: 1px solid var(--border);
 }
 
@@ -1106,13 +1106,13 @@ textarea.mm2-name-box:focus {
   justify-content: center;
   gap: 4px;
   min-width: 54px;
-  padding: 4px 6px;
+  padding: 4px 8px;
   border: none;
   border-radius: 4px;
   background: transparent;
   cursor: pointer;
   color: var(--text-body);
-  font-size: 11px;
+  font-size: 13px;
   line-height: 1.2;
   white-space: nowrap;
   transition: background 0.15s;
@@ -1124,10 +1124,11 @@ textarea.mm2-name-box:focus {
 
 .order-mgmt-toolbar-separator {
   width: 1px;
-  height: 28px;
-  margin: 0 4px;
+  height: 38px;
+  margin: 2px 6px 0;
   background: var(--border);
   flex-shrink: 0;
+  align-self: center;
 }
 
 .order-mgmt-inline-label {
