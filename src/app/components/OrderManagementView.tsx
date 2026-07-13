@@ -136,7 +136,7 @@ function OmDataTable({
 
   const cellStyle: React.CSSProperties = {
     padding: `${OM_ROW_PAD_Y}px 8px`,
-    fontSize: 13,
+    fontSize: 14,
     color: "var(--text-body)",
     whiteSpace: "nowrap",
     overflow: "hidden",
@@ -183,7 +183,7 @@ function OmDataTable({
                   style={{
                     padding: `${OM_ROW_PAD_Y}px 8px`,
                     textAlign: col.align ?? "center",
-                    fontSize: 13,
+                    fontSize: 14,
                     fontWeight: 400,
                     color: "var(--split-table-header-fg, var(--text-muted))",
                     whiteSpace: "nowrap",
