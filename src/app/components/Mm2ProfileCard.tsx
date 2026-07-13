@@ -69,10 +69,10 @@ export function Mm2ProfileCard({
     <div className="mm2-profile-card">
       <button type="button" className="mm2-profile-avatar-wrap" aria-label="프로필 사진 변경">
         <span className="mm2-profile-avatar" aria-hidden>
-          <User size={58} strokeWidth={1.6} />
+          <User size={61} strokeWidth={1.6} />
         </span>
         <span className="mm2-profile-avatar-badge" aria-hidden>
-          <Camera size={20} strokeWidth={2.25} />
+          <Camera size={21} strokeWidth={2.25} />
         </span>
       </button>
 
