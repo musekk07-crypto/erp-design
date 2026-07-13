@@ -565,7 +565,7 @@
 }
 
 .app-content .content-scroll {
-  padding: 8px !important;
+  padding: 12px !important;
   overflow-x: hidden;
   overflow-y: auto;
 }
