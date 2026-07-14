@@ -1022,10 +1022,12 @@ textarea.mm2-name-box:focus {
   font-size: var(--order-mgmt-font-size, 14px);
   line-height: 1.7;
   color: var(--text-muted);
+  overflow-x: auto;
 }
 
 .order-mgmt-member-info-body p {
   margin: 0;
+  white-space: nowrap;
 }
 
 .order-mgmt-member-info-label {

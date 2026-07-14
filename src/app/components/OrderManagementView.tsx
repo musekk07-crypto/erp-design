@@ -375,8 +375,7 @@ function OmMemberInfoPanel({ member }: { member: ProfileMember }) {
             <span className="order-mgmt-member-info-label">주민등록번호 :</span> {member.ssn}
             <span className="order-mgmt-member-info-gap" />
             <span className="order-mgmt-member-info-label">전화번호 :</span> {member.phone}
-          </p>
-          <p>
+            <span className="order-mgmt-member-info-gap" />
             <span className="order-mgmt-member-info-label">주소지 :</span> {address}
             <span className="order-mgmt-member-info-gap" />
             <span className="order-mgmt-member-info-label">센터 :</span> {centerCode}
