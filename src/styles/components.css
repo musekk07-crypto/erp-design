@@ -1329,7 +1329,7 @@ textarea.mm2-name-box:focus {
 
 .order-mgmt-textarea {
   width: 100%;
-  min-height: 72px;
+  min-height: 36px;
   padding: 6px 8px;
   font-size: var(--order-mgmt-font-size, 14px);
   border: none;

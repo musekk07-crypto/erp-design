@@ -332,7 +332,7 @@ function OmOrderBasicInfo({ member }: { member: ProfileMember }) {
 
         <label className="order-mgmt-field order-mgmt-field--full">
           <span className="order-mgmt-field-label">메모</span>
-          <textarea className="order-mgmt-textarea" rows={4} />
+          <textarea className="order-mgmt-textarea" rows={2} />
         </label>
       </div>
     </section>
