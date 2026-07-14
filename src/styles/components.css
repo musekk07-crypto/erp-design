@@ -1011,9 +1011,9 @@ textarea.mm2-name-box:focus {
 
 .order-mgmt-member-info {
   flex-shrink: 0;
-  background: var(--mm2-detail-surface, #e0f2fe);
-  border: 1px solid var(--border);
-  border-radius: 4px;
+  background: var(--nav-bg, #1a0a6b);
+  border: 1px solid var(--nav-border, #140854);
+  border-radius: 6px;
   overflow: hidden;
 }
 
@@ -1021,7 +1021,7 @@ textarea.mm2-name-box:focus {
   padding: 8px 10px 10px;
   font-size: var(--order-mgmt-font-size, 14px);
   line-height: 1.7;
-  color: var(--text-muted);
+  color: rgba(255, 255, 255, 0.92);
   overflow-x: auto;
 }
 
@@ -1031,11 +1031,11 @@ textarea.mm2-name-box:focus {
 }
 
 .order-mgmt-member-info-label {
-  color: var(--text-muted);
+  color: rgba(255, 255, 255, 0.65);
 }
 
 .order-mgmt-member-info-link {
-  color: var(--accent-primary);
+  color: #a5f3fc;
   font-family: monospace;
   font-weight: 600;
 }
