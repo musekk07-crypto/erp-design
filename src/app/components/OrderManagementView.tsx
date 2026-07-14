@@ -121,7 +121,7 @@ function OmSectionTitle({ title }: { title: string }) {
 
 function OmMemberInfoTitle({ name, memberNo }: { name: string; memberNo: string }) {
   return (
-    <div className="order-mgmt-section-title order-mgmt-member-info-title">
+    <div className="order-mgmt-member-info-title">
       <span className="order-mgmt-section-bullet" aria-hidden />
       <span className="order-mgmt-member-info-title-text">
         <span className="order-mgmt-member-info-title-name">{name}</span>
@@ -360,9 +360,10 @@ function OmMemberInfoPanel({ member }: { member: ProfileMember }) {
       : `${member.region} (상세주소)`;
 
   return (
-    <section className="order-mgmt-member-info">
+    <div className="order-mgmt-member-info-wrap">
       <OmMemberInfoTitle name={member.name} memberNo={member.no} />
-      <div className="order-mgmt-member-info-body">
+      <section className="order-mgmt-member-info">
+        <div className="order-mgmt-member-info-body">
         <p>
           <span className="order-mgmt-member-info-label">회원번호 :</span>{" "}
           <span className="order-mgmt-member-info-link">{member.no}</span>
@@ -379,8 +380,9 @@ function OmMemberInfoPanel({ member }: { member: ProfileMember }) {
         <p>
           <span className="order-mgmt-member-info-label">센터 :</span> {centerCode}
         </p>
-      </div>
-    </section>
+        </div>
+      </section>
+    </div>
   );
 }
 
