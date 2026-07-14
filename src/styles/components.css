@@ -313,6 +313,7 @@
 }
 
 .mm2-profile-icon-btn {
+  position: relative;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -329,6 +330,22 @@
 
 .mm2-profile-icon-btn:hover {
   background: var(--accent-border);
+}
+
+.mm2-profile-icon-tooltip {
+  position: absolute;
+  left: calc(100% + 6px);
+  top: 50%;
+  transform: translateY(-50%);
+  padding: 4px 8px;
+  border-radius: 4px;
+  white-space: nowrap;
+  background: var(--tooltip-bg);
+  color: var(--tooltip-fg);
+  font-size: 12px;
+  font-family: monospace;
+  z-index: 50;
+  pointer-events: none;
 }
 
 .mm2-profile-field-col {

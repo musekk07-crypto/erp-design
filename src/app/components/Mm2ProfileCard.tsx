@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { User, Camera, MessageCircle, Phone } from "lucide-react";
 
 export type ProfileMember = {
@@ -64,6 +64,21 @@ export function Mm2ProfileCard({
   rankBadge?: string;
 }) {
   const fieldColumns = [0, 1, 2, 3].map((i) => profileFields.slice(i * 3, i * 3 + 3));
+  const [phoneTipOpen, setPhoneTipOpen] = useState(false);
+  const phoneBtnRef = useRef<HTMLButtonElement>(null);
+  const phoneDisplay = member.phone.trim() || "등록된 번호 없음";
+
+  useEffect(() => {
+    if (!phoneTipOpen) return;
+
+    const handlePointerDown = (event: MouseEvent) => {
+      if (phoneBtnRef.current?.contains(event.target as Node)) return;
+      setPhoneTipOpen(false);
+    };
+
+    document.addEventListener("mousedown", handlePointerDown);
+    return () => document.removeEventListener("mousedown", handlePointerDown);
+  }, [phoneTipOpen]);
 
   return (
     <div className="mm2-profile-card">
@@ -87,8 +102,16 @@ export function Mm2ProfileCard({
           <button type="button" className="mm2-profile-icon-btn" aria-label="문자 발송">
             <MessageCircle size={17} strokeWidth={2} />
           </button>
-          <button type="button" className="mm2-profile-icon-btn" aria-label="전화">
+          <button
+            ref={phoneBtnRef}
+            type="button"
+            className="mm2-profile-icon-btn"
+            aria-label="전화"
+            aria-expanded={phoneTipOpen}
+            onClick={() => setPhoneTipOpen((open) => !open)}
+          >
             <Phone size={17} strokeWidth={2} />
+            {phoneTipOpen && <span className="mm2-profile-icon-tooltip">{phoneDisplay}</span>}
           </button>
         </div>
       </div>
