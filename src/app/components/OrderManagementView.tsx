@@ -112,7 +112,7 @@ function OmToolbarButton({ icon: Icon, label }: { icon: React.ElementType; label
 
 function OmSectionTitle({ title }: { title: string }) {
   return (
-    <div className="order-mgmt-section-title">
+    <div className="order-mgmt-block-title">
       <span className="order-mgmt-section-bullet" aria-hidden />
       <span>{title}</span>
     </div>
@@ -121,7 +121,7 @@ function OmSectionTitle({ title }: { title: string }) {
 
 function OmMemberInfoTitle({ name, memberNo }: { name: string; memberNo: string }) {
   return (
-    <div className="order-mgmt-member-info-title">
+    <div className="order-mgmt-block-title">
       <span className="order-mgmt-section-bullet" aria-hidden />
       <span className="order-mgmt-member-info-title-text">
         <span className="order-mgmt-member-info-title-name">{name}</span>
@@ -308,9 +308,10 @@ function OmOrderBasicInfo({ member }: { member: ProfileMember }) {
   const txnTypes = ["구매", "교환", "교환구매", "교환반품", "포인트", "반품"];
 
   return (
-    <section className="order-mgmt-form-section">
+    <div className="order-mgmt-block-wrap">
       <OmSectionTitle title="주문서 기본정보" />
-      <div className="order-mgmt-form-body">
+      <section className="order-mgmt-form-box">
+        <div className="order-mgmt-form-body">
         <div className="order-mgmt-radio-group" role="radiogroup" aria-label="거래구분">
           {txnTypes.map((type, index) => (
             <label key={type} className="order-mgmt-radio-item">
@@ -347,8 +348,9 @@ function OmOrderBasicInfo({ member }: { member: ProfileMember }) {
           <span className="order-mgmt-field-label">메모</span>
           <textarea className="order-mgmt-textarea" rows={2} />
         </label>
-      </div>
-    </section>
+        </div>
+      </section>
+    </div>
   );
 }
 
@@ -360,7 +362,7 @@ function OmMemberInfoPanel({ member }: { member: ProfileMember }) {
       : `${member.region} (상세주소)`;
 
   return (
-    <div className="order-mgmt-member-info-wrap">
+    <div className="order-mgmt-block-wrap">
       <OmMemberInfoTitle name={member.name} memberNo={member.no} />
       <section className="order-mgmt-member-info">
         <div className="order-mgmt-member-info-body">
@@ -395,8 +397,9 @@ export function OrderManagementView({ member }: { member: ProfileMember }) {
         <div className="order-mgmt-left">
           <OmMemberInfoPanel member={member} />
 
-          <section className="order-mgmt-section order-mgmt-section--orders">
+          <div className="order-mgmt-block-wrap order-mgmt-block-wrap--orders">
             <OmSectionTitle title="주문서 목록" />
+            <section className="order-mgmt-section order-mgmt-section--orders">
 
             <div className="order-mgmt-toolbar">
               <OmToolbarButton icon={FilePlus} label="새로 주문하기" />
@@ -430,10 +433,12 @@ export function OrderManagementView({ member }: { member: ProfileMember }) {
               selectedRow={selectedOrder}
               onSelectRow={setSelectedOrder}
             />
-          </section>
+            </section>
+          </div>
 
-          <section className="order-mgmt-section order-mgmt-section--products">
+          <div className="order-mgmt-block-wrap order-mgmt-block-wrap--products">
             <OmSectionTitle title="구입제품 목록" />
+            <section className="order-mgmt-section order-mgmt-section--products">
 
             <div className="order-mgmt-subtitle">주문서 구입제품</div>
 
@@ -472,14 +477,16 @@ export function OrderManagementView({ member }: { member: ProfileMember }) {
                 price7: "94,000",
               }}
             />
-          </section>
+            </section>
+          </div>
         </div>
 
         <aside className="order-mgmt-right">
           <OmOrderBasicInfo member={member} />
 
-          <section className="order-mgmt-form-section order-mgmt-form-section--grow">
+          <div className="order-mgmt-block-wrap order-mgmt-block-wrap--grow">
             <OmSectionTitle title="배송지 및 인수자 정보" />
+            <section className="order-mgmt-form-box order-mgmt-form-box--grow">
             <div className="order-mgmt-form-body">
               <OmFormSelect label="배송방법" value="직접수령" options={["직접수령", "택배", "퀵서비스"]} />
               <OmFormField label="인수자명" value={member.name} />
@@ -502,7 +509,8 @@ export function OrderManagementView({ member }: { member: ProfileMember }) {
                 <OmFormField label="요구사항" value="" />
               </div>
             </div>
-          </section>
+            </section>
+          </div>
 
           <div className="order-mgmt-footer">
             <div className="order-mgmt-meta">
