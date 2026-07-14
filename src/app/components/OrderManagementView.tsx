@@ -119,6 +119,19 @@ function OmSectionTitle({ title }: { title: string }) {
   );
 }
 
+function OmMemberInfoTitle({ name, memberNo }: { name: string; memberNo: string }) {
+  return (
+    <div className="order-mgmt-section-title order-mgmt-member-info-title">
+      <span className="order-mgmt-section-bullet" aria-hidden />
+      <span className="order-mgmt-member-info-title-text">
+        <span className="order-mgmt-member-info-title-name">{name}</span>
+        <span className="order-mgmt-member-info-title-no">({memberNo})</span>
+        <span className="order-mgmt-member-info-title-desc"> 회원의 일반회원정보</span>
+      </span>
+    </div>
+  );
+}
+
 function OmDataTable({
   columns,
   rows,
@@ -348,7 +361,7 @@ function OmMemberInfoPanel({ member }: { member: ProfileMember }) {
 
   return (
     <section className="order-mgmt-member-info">
-      <OmSectionTitle title={`${member.name}(${member.no}) 회원의 일반회원정보`} />
+      <OmMemberInfoTitle name={member.name} memberNo={member.no} />
       <div className="order-mgmt-member-info-body">
         <p>
           <span className="order-mgmt-member-info-label">회원번호 :</span>{" "}

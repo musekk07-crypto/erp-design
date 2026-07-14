@@ -1111,6 +1111,38 @@ textarea.mm2-name-box:focus {
   flex-shrink: 0;
 }
 
+.order-mgmt-member-info-title {
+  font-weight: 500;
+}
+
+.order-mgmt-member-info-title-text {
+  display: inline-flex;
+  align-items: baseline;
+  flex-wrap: wrap;
+  gap: 0;
+  min-width: 0;
+}
+
+.order-mgmt-member-info-title-name {
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--text-body);
+  letter-spacing: -0.01em;
+}
+
+.order-mgmt-member-info-title-no {
+  font-size: 14px;
+  font-weight: 600;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  color: var(--member-no-color, var(--accent-primary));
+}
+
+.order-mgmt-member-info-title-desc {
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--text-muted);
+}
+
 .order-mgmt-subtitle {
   padding: 4px 10px 0;
   font-size: var(--order-mgmt-font-size, 14px);
