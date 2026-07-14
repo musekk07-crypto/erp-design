@@ -967,6 +967,7 @@ textarea.mm2-name-box:focus {
   --order-mgmt-font-size: 14px;
   --order-mgmt-font-size-lg: 15px;
   --order-mgmt-font-size-toolbar: 13px;
+  --surface-row-selected: #e8eaef;
   --accent-primary: #0284c7;
   --split-table-header-bg: #e0f2fe;
   --split-table-header-border: #bae6fd;
@@ -975,6 +976,7 @@ textarea.mm2-name-box:focus {
 
 [data-theme="dark"] .order-mgmt-view {
   --accent-primary: #38bdf8;
+  --surface-row-selected: #3a4458;
   --split-table-header-bg: #0c4a6e;
   --split-table-header-border: #075985;
   --split-table-header-fg: #e2e8f0;
