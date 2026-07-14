@@ -728,6 +728,16 @@
   cursor: default;
 }
 
+.mm2-detail-input[type="date"]::-webkit-calendar-picker-indicator {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.mm2-detail-input[type="date"]:focus::-webkit-calendar-picker-indicator {
+  opacity: 1;
+  pointer-events: auto;
+}
+
 .mm2-detail-select {
   appearance: none;
   padding-right: 28px;

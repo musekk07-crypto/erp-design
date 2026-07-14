@@ -5,7 +5,7 @@ import {
   BarChart2, ShoppingCart, Settings, Bell, HelpCircle, Home,
   Pin, Clock, ChevronLeft, ChevronRight, RefreshCw,
   FilePlus, Save, Trash2, Award, Briefcase, MessageCircle, Key, Printer,
-  Globe, Landmark, Contact, CheckCircle2, Phone, ExternalLink, Camera, Calendar,
+  Globe, Landmark, Contact, CheckCircle2, Phone, ExternalLink, Camera,
 } from "lucide-react";
 import { OrderManagementView } from "./components/OrderManagementView";
 import { Mm2ProfileCard, buildMm2ProfileFields } from "./components/Mm2ProfileCard";
@@ -1852,7 +1852,6 @@ function Mm2DetailPanel({
 function buildMm2SectionRows(member: Member): Record<Mm2SectionId, Mm2DetailRow[]> {
   const searchSuffix = <Search size={14} className="mm2-field-icon" />;
   const chevronSuffix = <ChevronDown size={14} className="mm2-field-icon" />;
-  const calendarSuffix = <Calendar size={14} className="mm2-field-icon" />;
   const verifiedSuffix = (
     <span className="mm2-verified-badge">
       <CheckCircle2 size={12} /> 인증완료
@@ -1887,12 +1886,8 @@ function buildMm2SectionRows(member: Member): Record<Mm2SectionId, Mm2DetailRow[
       },
       {
         label: "회원등록일자",
-        viewValue: (
-          <Mm2FieldValue suffix={calendarSuffix}>2025-06-12</Mm2FieldValue>
-        ),
-        editValue: (
-          <Mm2DetailInput type="date" defaultValue="2025-06-12" suffix={calendarSuffix} />
-        ),
+        viewValue: "2025-06-12",
+        editValue: <Mm2DetailInput type="date" defaultValue="2025-06-12" />,
       },
       {
         label: "성명",
