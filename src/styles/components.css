@@ -1011,8 +1011,8 @@ textarea.mm2-name-box:focus {
 
 .order-mgmt-member-info {
   flex-shrink: 0;
-  background: var(--nav-bg, #1a0a6b);
-  border: 1px solid var(--nav-border, #140854);
+  background: var(--accent-primary);
+  border: 1px solid var(--accent-primary);
   border-radius: 6px;
   overflow: hidden;
 }
@@ -1035,9 +1035,9 @@ textarea.mm2-name-box:focus {
 }
 
 .order-mgmt-member-info-link {
-  color: #a5f3fc;
+  color: #ffffff;
   font-family: monospace;
-  font-weight: 600;
+  font-weight: 700;
 }
 
 .order-mgmt-member-info-gap {
