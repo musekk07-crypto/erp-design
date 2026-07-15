@@ -1099,6 +1099,11 @@ textarea.mm2-name-box:focus {
   min-height: 0;
 }
 
+.order-mgmt-member-info-wrap {
+  width: 80%;
+  max-width: 80%;
+}
+
 .order-mgmt-block-title {
   display: flex;
   align-items: center;
