@@ -254,12 +254,15 @@ function OmDataTable({
       className={`split-table-block order-mgmt-table-wrap flex flex-col flex-1 min-h-0${isCompact ? " order-mgmt-table-wrap--compact" : ""}`}
       style={{ background: "var(--surface-panel)" }}
     >
-      <div className="flex-1 min-h-0" style={{ width: "100%", overflowY: "auto", overflowX: "auto" }}>
+      <div
+        className="flex-1 min-h-0"
+        style={{ width: "100%", overflowY: "auto", overflowX: isCompact ? "auto" : "hidden" }}
+      >
         <div
           style={
             isCompact
               ? { width: "100%", minWidth: tableMinWidth }
-              : { minWidth: tableMinWidth, width: "100%", height: "100%" }
+              : { width: "100%", height: "100%" }
           }
         >
         <table

@@ -1025,12 +1025,13 @@ textarea.mm2-name-box:focus {
   font-size: var(--order-mgmt-font-size, 14px);
   line-height: 1.7;
   color: rgba(255, 255, 255, 0.92);
-  overflow-x: auto;
+  overflow-x: hidden;
 }
 
 .order-mgmt-member-info-body p {
   margin: 0;
-  white-space: nowrap;
+  white-space: normal;
+  word-break: keep-all;
 }
 
 .order-mgmt-member-info-label {
@@ -1316,6 +1317,10 @@ textarea.mm2-name-box:focus {
 .order-mgmt-table-wrap.split-table-block {
   border: none;
   border-radius: 0;
+}
+
+.order-mgmt-section--orders .order-mgmt-table-wrap > div {
+  overflow-x: hidden !important;
 }
 
 .order-mgmt-summary-row td {
