@@ -1030,8 +1030,9 @@ textarea.mm2-name-box:focus {
 
 .order-mgmt-member-info-body p {
   margin: 0;
-  white-space: normal;
-  word-break: keep-all;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .order-mgmt-member-info-label {
@@ -1146,9 +1147,13 @@ textarea.mm2-name-box:focus {
 .order-mgmt-member-info-title-text {
   display: inline-flex;
   align-items: baseline;
-  flex-wrap: wrap;
+  flex-wrap: nowrap;
   gap: 0;
   min-width: 0;
+  max-width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 .order-mgmt-member-info-title-name {
