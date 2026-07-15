@@ -18,6 +18,7 @@ import type { ProfileMember } from "./Mm2ProfileCard";
 const OM_CHECKBOX_WIDTH = 36;
 const OM_CHECKBOX_PAD_LEFT = 14;
 const OM_ROW_PAD_Y = 6;
+const OM_CELL_PAD_X = 6;
 
 type OmColumn = { key: string; label: string; width: number; align?: "left" | "right" | "center"; mono?: boolean; link?: boolean };
 
@@ -32,16 +33,16 @@ const orderListColumns: OmColumn[] = [
 ];
 
 const productListColumns: OmColumn[] = [
-  { key: "no", label: "No", width: 36, align: "center" },
-  { key: "code", label: "번호", width: 72, mono: true },
-  { key: "product", label: "상품정보", width: 140 },
-  { key: "point", label: "포인트", width: 64, align: "right" },
-  { key: "salePrice", label: "판매가격", width: 72, align: "right" },
-  { key: "consumerPrice", label: "소비자가", width: 72, align: "right" },
-  { key: "price4", label: "가격4", width: 64, align: "right" },
-  { key: "price5", label: "가격5", width: 64, align: "right" },
-  { key: "price6", label: "가격6", width: 64, align: "right" },
-  { key: "price7", label: "가격7", width: 64, align: "right" },
+  { key: "no", label: "No", width: 32, align: "center" },
+  { key: "code", label: "번호", width: 68, mono: true },
+  { key: "product", label: "상품정보", width: 168, align: "left" },
+  { key: "point", label: "포인트", width: 56, align: "right" },
+  { key: "salePrice", label: "판매가격", width: 64, align: "right" },
+  { key: "consumerPrice", label: "소비자가", width: 64, align: "right" },
+  { key: "price4", label: "가격4", width: 56, align: "right" },
+  { key: "price5", label: "가격5", width: 56, align: "right" },
+  { key: "price6", label: "가격6", width: 56, align: "right" },
+  { key: "price7", label: "가격7", width: 56, align: "right" },
 ];
 
 const orderListRows = [
@@ -146,9 +147,10 @@ function OmDataTable({
   summaryRow?: Record<string, string | number>;
 }) {
   const dataWeight = columns.reduce((sum, col) => sum + col.width, 0);
+  const tableWidth = OM_CHECKBOX_WIDTH + dataWeight;
 
   const cellStyle: React.CSSProperties = {
-    padding: `${OM_ROW_PAD_Y}px 8px`,
+    padding: `${OM_ROW_PAD_Y}px ${OM_CELL_PAD_X}px`,
     fontSize: 14,
     color: "var(--text-body)",
     whiteSpace: "nowrap",
@@ -157,12 +159,12 @@ function OmDataTable({
   };
 
   const checkboxCellStyle: React.CSSProperties = {
-    padding: `${OM_ROW_PAD_Y}px 8px ${OM_ROW_PAD_Y}px ${OM_CHECKBOX_PAD_LEFT}px`,
+    padding: `${OM_ROW_PAD_Y}px ${OM_CELL_PAD_X}px ${OM_ROW_PAD_Y}px ${OM_CHECKBOX_PAD_LEFT}px`,
     textAlign: "left",
   };
 
   const checkboxHeaderStyle: React.CSSProperties = {
-    padding: `${OM_ROW_PAD_Y}px 8px ${OM_ROW_PAD_Y}px ${OM_CHECKBOX_PAD_LEFT}px`,
+    padding: `${OM_ROW_PAD_Y}px ${OM_CELL_PAD_X}px ${OM_ROW_PAD_Y}px ${OM_CHECKBOX_PAD_LEFT}px`,
     textAlign: "left",
     background: "var(--split-table-header-bg, var(--surface-table-header))",
   };
@@ -172,12 +174,12 @@ function OmDataTable({
       className="split-table-block order-mgmt-table-wrap flex flex-col flex-1 min-h-0"
       style={{ background: "var(--surface-panel)" }}
     >
-      <div style={{ width: "100%", overflowY: "auto", overflowX: "hidden", flex: 1, minHeight: 0 }}>
-        <table style={{ borderCollapse: "collapse", width: "100%", tableLayout: "fixed" }}>
+      <div style={{ width: "100%", overflowY: "auto", overflowX: "auto", flex: 1, minHeight: 0 }}>
+        <table style={{ borderCollapse: "collapse", width: tableWidth, tableLayout: "fixed" }}>
           <colgroup>
             <col style={{ width: OM_CHECKBOX_WIDTH }} />
             {columns.map((col) => (
-              <col key={col.key} style={{ width: `${(col.width / dataWeight) * 100}%` }} />
+              <col key={col.key} style={{ width: col.width }} />
             ))}
           </colgroup>
           <thead className="split-table-head" style={{ position: "sticky", top: 0, zIndex: 2 }}>
@@ -194,7 +196,7 @@ function OmDataTable({
                 <th
                   key={col.key}
                   style={{
-                    padding: `${OM_ROW_PAD_Y}px 8px`,
+                    padding: `${OM_ROW_PAD_Y}px ${OM_CELL_PAD_X}px`,
                     textAlign: col.align ?? "center",
                     fontSize: 14,
                     fontWeight: 400,
