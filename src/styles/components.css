@@ -1243,9 +1243,6 @@ textarea.mm2-name-box:focus {
 }
 
 .order-mgmt-filter-bar--inline {
-  padding: 0;
-  border-bottom: none;
-  background: transparent;
   flex-shrink: 0;
 }
 
@@ -1336,6 +1333,12 @@ textarea.mm2-name-box:focus {
   padding: 6px 10px;
   border-bottom: 1px solid var(--border);
   background: var(--surface-page);
+}
+
+.order-mgmt-filter-bar.order-mgmt-filter-bar--inline {
+  padding: 0;
+  border-bottom: none;
+  background: transparent;
 }
 
 .order-mgmt-filter-label {
