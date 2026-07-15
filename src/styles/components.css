@@ -1191,6 +1191,7 @@ textarea.mm2-name-box:focus {
 
 .order-mgmt-product-bar-title {
   flex-shrink: 0;
+  padding-left: 6px;
   font-size: var(--order-mgmt-font-size, 14px);
   font-weight: 500;
   color: var(--text-body);
