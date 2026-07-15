@@ -1099,7 +1099,7 @@ textarea.mm2-name-box:focus {
   min-height: 0;
 }
 
-.order-mgmt-member-info-wrap {
+.order-mgmt-left > .order-mgmt-block-wrap {
   width: 90%;
   max-width: 90%;
 }
