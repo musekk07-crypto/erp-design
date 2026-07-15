@@ -388,11 +388,11 @@ function OmMemberInfoPanel({ member }: { member: ProfileMember }) {
   );
 }
 
-export function OrderManagementView({ member }: { member: ProfileMember }) {
+export function OrderManagementView({ member, listOpen = false }: { member: ProfileMember; listOpen?: boolean }) {
   const [selectedOrder, setSelectedOrder] = useState(1);
 
   return (
-    <div className="order-mgmt-view">
+    <div className={`order-mgmt-view${listOpen ? " order-mgmt-view--list-open" : ""}`}>
       <div className="order-mgmt-body">
         <div className="order-mgmt-left">
           <OmMemberInfoPanel member={member} />

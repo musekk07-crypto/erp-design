@@ -3485,7 +3485,7 @@ export default function App() {
           }}
         >
           {isOrderManagement ? (
-            <OrderManagementView member={getMemberById(selectedMember)} />
+            <OrderManagementView member={getMemberById(selectedMember)} listOpen={listOpen} />
           ) : activeMainMenu === "회원관리2" ? (
             <MemberManagement2View
               memberId={selectedMember}
