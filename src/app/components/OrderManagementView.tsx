@@ -156,9 +156,17 @@ const productListRows = [
   },
 ];
 
-function OmToolbarButton({ icon: Icon, label }: { icon: React.ElementType; label: string }) {
+function OmToolbarButton({
+  icon: Icon,
+  label,
+  inline = false,
+}: {
+  icon: React.ElementType;
+  label: string;
+  inline?: boolean;
+}) {
   return (
-    <button type="button" className="order-mgmt-toolbar-item">
+    <button type="button" className={`order-mgmt-toolbar-item${inline ? " order-mgmt-toolbar-item--inline" : ""}`}>
       <Icon size={18} strokeWidth={1.5} style={{ color: "var(--text-muted)" }} />
       <span>{label}</span>
     </button>
@@ -532,25 +540,26 @@ export function OrderManagementView({ member }: { member: ProfileMember }) {
             <OmSectionTitle title="구입제품 목록" />
             <section className="order-mgmt-section order-mgmt-section--products">
 
-            <div className="order-mgmt-subtitle">주문서 구입제품</div>
-
-            <div className="order-mgmt-toolbar order-mgmt-toolbar--compact">
-              <span className="order-mgmt-inline-label">구매수량</span>
-              <input type="number" className="order-mgmt-qty-input" defaultValue={1} min={1} />
-              <OmToolbarButton icon={ShoppingCart} label="장바구니 추가" />
-              <div className="order-mgmt-toolbar-separator" aria-hidden />
-              <button type="button" className="order-mgmt-icon-btn" aria-label="문서">
-                <FileText size={16} />
-              </button>
-              <button type="button" className="order-mgmt-icon-btn" aria-label="수정">
-                <Pencil size={16} />
-              </button>
-              <button type="button" className="order-mgmt-icon-btn" aria-label="삭제">
-                <Trash2 size={16} />
-              </button>
-              <button type="button" className="order-mgmt-icon-btn" aria-label="새로고침">
-                <RefreshCw size={16} />
-              </button>
+            <div className="order-mgmt-toolbar order-mgmt-toolbar--compact order-mgmt-toolbar--product">
+              <span className="order-mgmt-product-bar-title">주문서 구입제품</span>
+              <div className="order-mgmt-product-bar-actions">
+                <span className="order-mgmt-inline-label">구매수량</span>
+                <input type="number" className="order-mgmt-qty-input" defaultValue={1} min={1} />
+                <OmToolbarButton icon={ShoppingCart} label="장바구니 추가" inline />
+                <div className="order-mgmt-toolbar-separator" aria-hidden />
+                <button type="button" className="order-mgmt-icon-btn" aria-label="문서">
+                  <FileText size={16} />
+                </button>
+                <button type="button" className="order-mgmt-icon-btn" aria-label="수정">
+                  <Pencil size={16} />
+                </button>
+                <button type="button" className="order-mgmt-icon-btn" aria-label="삭제">
+                  <Trash2 size={16} />
+                </button>
+                <button type="button" className="order-mgmt-icon-btn" aria-label="새로고침">
+                  <RefreshCw size={16} />
+                </button>
+              </div>
             </div>
 
             <OmDataTable

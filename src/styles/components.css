@@ -1181,6 +1181,43 @@ textarea.mm2-name-box:focus {
   color: var(--text-muted);
 }
 
+.order-mgmt-toolbar--product {
+  flex-wrap: nowrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 6px 10px 8px;
+}
+
+.order-mgmt-product-bar-title {
+  flex-shrink: 0;
+  font-size: var(--order-mgmt-font-size, 14px);
+  font-weight: 500;
+  color: var(--text-body);
+  white-space: nowrap;
+}
+
+.order-mgmt-product-bar-actions {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  flex-wrap: nowrap;
+  flex-shrink: 0;
+  min-width: 0;
+}
+
+.order-mgmt-toolbar--product .order-mgmt-toolbar-separator {
+  height: 24px;
+  margin: 0 4px;
+}
+
+.order-mgmt-toolbar-item--inline {
+  flex-direction: row;
+  min-width: 0;
+  padding: 4px 8px;
+  gap: 6px;
+}
+
 .order-mgmt-toolbar {
   display: flex;
   align-items: flex-start;
