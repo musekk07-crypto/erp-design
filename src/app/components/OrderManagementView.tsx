@@ -240,6 +240,15 @@ function OmDataTable({
     fontWeight: OM_BOLD_KEYS.has(col.key) ? 600 : 400,
   });
 
+  const fillerHeaderStyle: React.CSSProperties = {
+    padding: 0,
+    background: "var(--split-table-header-bg, var(--surface-table-header))",
+  };
+
+  const fillerCellStyle: React.CSSProperties = {
+    padding: 0,
+  };
+
   return (
     <div
       className={`split-table-block order-mgmt-table-wrap flex flex-col flex-1 min-h-0${isCompact ? " order-mgmt-table-wrap--compact" : ""}`}
@@ -249,14 +258,15 @@ function OmDataTable({
         <div
           style={
             isCompact
-              ? { width: tableMinWidth, minWidth: tableMinWidth }
+              ? { width: "100%", minWidth: tableMinWidth }
               : { minWidth: tableMinWidth, width: "100%", height: "100%" }
           }
         >
         <table
           style={{
             borderCollapse: "collapse",
-            width: isCompact ? tableMinWidth : "100%",
+            width: "100%",
+            minWidth: isCompact ? tableMinWidth : undefined,
             tableLayout: "fixed",
           }}
         >
@@ -268,6 +278,7 @@ function OmDataTable({
                 style={isCompact ? { width: col.width } : { width: `${(col.width / dataWeight) * 100}%` }}
               />
             ))}
+            {isCompact && <col />}
           </colgroup>
           <thead className="split-table-head" style={{ position: "sticky", top: 0, zIndex: 2 }}>
             <tr
@@ -293,6 +304,7 @@ function OmDataTable({
                   {col.label}
                 </th>
               ))}
+              {isCompact && <th className="order-mgmt-table-filler" style={fillerHeaderStyle} aria-hidden="true" />}
             </tr>
           </thead>
           <tbody>
@@ -313,6 +325,7 @@ function OmDataTable({
                       {row[col.key] ?? ""}
                     </td>
                   ))}
+                  {isCompact && <td className="order-mgmt-table-filler" style={fillerCellStyle} aria-hidden="true" />}
                 </tr>
               );
             })}
@@ -330,6 +343,7 @@ function OmDataTable({
                     {summaryRow[col.key] ?? ""}
                   </td>
                 ))}
+                {isCompact && <td className="order-mgmt-table-filler" style={fillerCellStyle} aria-hidden="true" />}
               </tr>
             )}
           </tbody>

@@ -1324,9 +1324,12 @@ textarea.mm2-name-box:focus {
 }
 
 .order-mgmt-table-wrap--compact {
-  align-self: flex-start;
-  width: auto;
-  max-width: 100%;
+  width: 100%;
+}
+
+.app-content .order-mgmt-view .order-mgmt-table-wrap--compact .order-mgmt-table-filler {
+  padding: 0 !important;
+  border: none !important;
 }
 
 .app-content .order-mgmt-view .order-mgmt-table-wrap--compact .split-table-head th,
