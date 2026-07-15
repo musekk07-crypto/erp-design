@@ -16,26 +16,109 @@ import {
 import type { ProfileMember } from "./Mm2ProfileCard";
 
 const OM_CHECKBOX_WIDTH = 36;
+const OM_CHECKBOX_PAD_LEFT = 14;
 const OM_ROW_PAD_Y = 6;
-const OM_CELL_PAD_FIRST = 10;
-const OM_COL_GAP = 30;
-const OM_CELL_PAD_RIGHT = 6;
+const OM_DEFAULT_ALIGN: NonNullable<OmColumn["align"]> = "center";
 
-type OmColumn = { key: string; label: string; width: number; align?: "left" | "right" | "center"; mono?: boolean; link?: boolean };
+type OmColumn = { key: string; label: string; width: number; align?: "left" | "right" | "center" };
+
+function getOmColumnAlign(col: OmColumn) {
+  return col.align ?? OM_DEFAULT_ALIGN;
+}
+
+function getOmTableMinWidth(columns: OmColumn[]) {
+  return OM_CHECKBOX_WIDTH + columns.reduce((sum, col) => sum + col.width, 0);
+}
+
+const OM_MONO_KEYS = new Set(["deductNo", "orderNo", "code"]);
+const OM_LINK_KEYS = new Set(["orderNo", "recipient"]);
+const OM_BOLD_KEYS = new Set(["recipient"]);
 
 const orderListColumns: OmColumn[] = [
-  { key: "no", label: "No", width: 36, align: "center" },
-  { key: "deductNo", label: "공제번호", width: 88, mono: true },
-  { key: "deductStatus", label: "공제신고상태명", width: 96 },
-  { key: "orderNo", label: "주문서번호", width: 96, mono: true, link: true },
-  { key: "orderDate", label: "주문일자", width: 84, mono: true },
-  { key: "allowanceDate", label: "수당적용일자", width: 92, mono: true },
+  { key: "no", label: "No", width: 36 },
+  { key: "deductNo", label: "공제번호", width: 88 },
+  { key: "deductStatus", label: "공제신고상태명", width: 100 },
+  { key: "orderNo", label: "주문서번호", width: 96 },
+  { key: "orderDate", label: "주문일자", width: 84 },
+  { key: "allowanceDate", label: "수당적용일자", width: 92 },
   { key: "plan", label: "플랜명", width: 72 },
+  { key: "purchaseType", label: "구매구분명", width: 80 },
+  { key: "orderStatus", label: "주문서상태명", width: 88 },
+  { key: "cash", label: "현금", width: 64 },
+  { key: "online", label: "온라인", width: 64 },
+  { key: "card", label: "카드", width: 64 },
+  { key: "pointTotal", label: "포인트합", width: 72 },
+  { key: "supplyTotal", label: "공급가합", width: 72 },
+  { key: "salesTotal", label: "매출금액합", width: 80 },
+  { key: "recipient", label: "인수자명", width: 72 },
+  { key: "note", label: "비고", width: 96 },
 ];
+
+function buildOrderListRows(member: ProfileMember) {
+  return [
+    {
+      no: 1,
+      deductNo: "D202605001",
+      deductStatus: "신고완료",
+      orderNo: "O20260512001",
+      orderDate: "2026-05-12",
+      allowanceDate: "2026-06-01",
+      plan: "기본플랜",
+      purchaseType: "일반구매",
+      orderStatus: "출고완료",
+      cash: "0",
+      online: "150,000",
+      card: "320,000",
+      pointTotal: "30,000",
+      supplyTotal: "420,000",
+      salesTotal: "500,000",
+      recipient: member.name,
+      note: member.region,
+    },
+    {
+      no: 2,
+      deductNo: "D202605002",
+      deductStatus: "신고대기",
+      orderNo: "O20260513002",
+      orderDate: "2026-05-13",
+      allowanceDate: "2026-06-01",
+      plan: "기본플랜",
+      purchaseType: "일반구매",
+      orderStatus: "주문접수",
+      cash: "50,000",
+      online: "0",
+      card: "180,000",
+      pointTotal: "10,000",
+      supplyTotal: "200,000",
+      salesTotal: "240,000",
+      recipient: member.name,
+      note: "재주문",
+    },
+    {
+      no: 3,
+      deductNo: "D202605003",
+      deductStatus: "신고완료",
+      orderNo: "O20260514003",
+      orderDate: "2026-05-14",
+      allowanceDate: "2026-06-01",
+      plan: "VIP플랜",
+      purchaseType: "정기구매",
+      orderStatus: "출고완료",
+      cash: "0",
+      online: "200,000",
+      card: "450,000",
+      pointTotal: "50,000",
+      supplyTotal: "580,000",
+      salesTotal: "700,000",
+      recipient: member.name,
+      note: member.region,
+    },
+  ];
+}
 
 const productListColumns: OmColumn[] = [
   { key: "no", label: "No", width: 32, align: "center" },
-  { key: "code", label: "번호", width: 68, mono: true },
+  { key: "code", label: "번호", width: 68 },
   { key: "product", label: "상품정보", width: 168, align: "left" },
   { key: "point", label: "포인트", width: 56, align: "right" },
   { key: "salePrice", label: "판매가격", width: 64, align: "right" },
@@ -44,36 +127,6 @@ const productListColumns: OmColumn[] = [
   { key: "price5", label: "가격5", width: 56, align: "right" },
   { key: "price6", label: "가격6", width: 56, align: "right" },
   { key: "price7", label: "가격7", width: 56, align: "right" },
-];
-
-const orderListRows = [
-  {
-    no: 1,
-    deductNo: "D202605001",
-    deductStatus: "신고완료",
-    orderNo: "O20260512001",
-    orderDate: "2026-05-12",
-    allowanceDate: "2026-06-01",
-    plan: "기본플랜",
-  },
-  {
-    no: 2,
-    deductNo: "D202605002",
-    deductStatus: "신고대기",
-    orderNo: "O20260513002",
-    orderDate: "2026-05-13",
-    allowanceDate: "2026-06-01",
-    plan: "기본플랜",
-  },
-  {
-    no: 3,
-    deductNo: "D202605003",
-    deductStatus: "신고완료",
-    orderNo: "O20260514003",
-    orderDate: "2026-05-14",
-    allowanceDate: "2026-06-01",
-    plan: "VIP플랜",
-  },
 ];
 
 const productListRows = [
@@ -148,19 +201,10 @@ function OmDataTable({
   summaryRow?: Record<string, string | number>;
 }) {
   const dataWeight = columns.reduce((sum, col) => sum + col.width, 0);
-  const tableWidth = OM_CHECKBOX_WIDTH + dataWeight;
+  const tableMinWidth = getOmTableMinWidth(columns);
 
-  const firstCellStyle: React.CSSProperties = {
-    padding: `${OM_ROW_PAD_Y}px ${OM_CELL_PAD_RIGHT}px ${OM_ROW_PAD_Y}px ${OM_CELL_PAD_FIRST}px`,
-    fontSize: 14,
-    color: "var(--text-body)",
-    whiteSpace: "nowrap",
-    overflow: "hidden",
-    textOverflow: "ellipsis",
-  };
-
-  const dataCellStyle: React.CSSProperties = {
-    padding: `${OM_ROW_PAD_Y}px ${OM_CELL_PAD_RIGHT}px ${OM_ROW_PAD_Y}px ${OM_COL_GAP}px`,
+  const cellStyle: React.CSSProperties = {
+    padding: `${OM_ROW_PAD_Y}px 8px`,
     fontSize: 14,
     color: "var(--text-body)",
     whiteSpace: "nowrap",
@@ -169,27 +213,40 @@ function OmDataTable({
   };
 
   const checkboxCellStyle: React.CSSProperties = {
-    ...firstCellStyle,
+    padding: `${OM_ROW_PAD_Y}px 8px ${OM_ROW_PAD_Y}px ${OM_CHECKBOX_PAD_LEFT}px`,
     textAlign: "left",
+    fontSize: 14,
+    color: "var(--text-body)",
+    whiteSpace: "nowrap",
+    overflow: "hidden",
+    textOverflow: "ellipsis",
   };
 
   const checkboxHeaderStyle: React.CSSProperties = {
-    ...firstCellStyle,
-    textAlign: "left",
+    ...checkboxCellStyle,
     background: "var(--split-table-header-bg, var(--surface-table-header))",
   };
+
+  const getDataCellStyle = (col: OmColumn): React.CSSProperties => ({
+    ...cellStyle,
+    textAlign: getOmColumnAlign(col),
+    fontFamily: OM_MONO_KEYS.has(col.key) ? "monospace" : undefined,
+    color: OM_LINK_KEYS.has(col.key) ? "var(--accent-primary)" : cellStyle.color,
+    fontWeight: OM_BOLD_KEYS.has(col.key) ? 600 : 400,
+  });
 
   return (
     <div
       className="split-table-block order-mgmt-table-wrap flex flex-col flex-1 min-h-0"
       style={{ background: "var(--surface-panel)" }}
     >
-      <div style={{ width: "100%", overflowY: "auto", overflowX: "auto", flex: 1, minHeight: 0 }}>
-        <table style={{ borderCollapse: "collapse", width: tableWidth, tableLayout: "fixed" }}>
+      <div className="flex-1 min-h-0" style={{ width: "100%", overflowY: "auto", overflowX: "auto" }}>
+        <div style={{ minWidth: tableMinWidth, width: "100%", height: "100%" }}>
+        <table style={{ borderCollapse: "collapse", width: "100%", tableLayout: "fixed" }}>
           <colgroup>
             <col style={{ width: OM_CHECKBOX_WIDTH }} />
             {columns.map((col) => (
-              <col key={col.key} style={{ width: col.width }} />
+              <col key={col.key} style={{ width: `${(col.width / dataWeight) * 100}%` }} />
             ))}
           </colgroup>
           <thead className="split-table-head" style={{ position: "sticky", top: 0, zIndex: 2 }}>
@@ -206,8 +263,8 @@ function OmDataTable({
                 <th
                   key={col.key}
                   style={{
-                    ...dataCellStyle,
-                    textAlign: col.align ?? "left",
+                    ...cellStyle,
+                    textAlign: getOmColumnAlign(col),
                     fontWeight: 400,
                     color: "var(--split-table-header-fg, var(--text-muted))",
                     background: "var(--split-table-header-bg, var(--surface-table-header))",
@@ -232,16 +289,7 @@ function OmDataTable({
                     <input type="checkbox" readOnly style={{ accentColor: "var(--accent-primary)", cursor: "pointer" }} />
                   </td>
                   {columns.map((col) => (
-                    <td
-                      key={col.key}
-                      style={{
-                        ...dataCellStyle,
-                        textAlign: col.align ?? "left",
-                        fontFamily: col.mono ? "monospace" : undefined,
-                        color: col.link ? "var(--accent-primary)" : dataCellStyle.color,
-                        fontWeight: col.link ? 600 : 400,
-                      }}
-                    >
+                    <td key={col.key} style={getDataCellStyle(col)}>
                       {row[col.key] ?? ""}
                     </td>
                   ))}
@@ -255,8 +303,7 @@ function OmDataTable({
                   <td
                     key={col.key}
                     style={{
-                      ...dataCellStyle,
-                      textAlign: col.align ?? "left",
+                      ...getDataCellStyle(col),
                       fontWeight: 600,
                     }}
                   >
@@ -267,6 +314,7 @@ function OmDataTable({
             )}
           </tbody>
         </table>
+        </div>
       </div>
     </div>
   );
@@ -396,6 +444,7 @@ function OmMemberInfoPanel({ member }: { member: ProfileMember }) {
 
 export function OrderManagementView({ member }: { member: ProfileMember }) {
   const [selectedOrder, setSelectedOrder] = useState(1);
+  const orderListRows = buildOrderListRows(member);
 
   return (
     <div className="order-mgmt-view">
