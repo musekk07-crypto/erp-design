@@ -1226,6 +1226,29 @@ textarea.mm2-name-box:focus {
   gap: 6px;
 }
 
+.order-mgmt-toolbar--orders {
+  flex-wrap: nowrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 6px 10px 8px;
+}
+
+.order-mgmt-order-bar-actions {
+  display: flex;
+  align-items: center;
+  flex-wrap: nowrap;
+  gap: 2px;
+  flex-shrink: 0;
+}
+
+.order-mgmt-filter-bar--inline {
+  padding: 0;
+  border-bottom: none;
+  background: transparent;
+  flex-shrink: 0;
+}
+
 .order-mgmt-toolbar-item {
   display: flex;
   flex-direction: column;

@@ -501,30 +501,31 @@ export function OrderManagementView({ member }: { member: ProfileMember }) {
             <OmSectionTitle title="주문서 목록" />
             <section className="order-mgmt-section order-mgmt-section--orders">
 
-            <div className="order-mgmt-toolbar">
-              <OmToolbarButton icon={FilePlus} label="새로 주문하기" />
-              <OmToolbarButton icon={FileText} label="거래명세서" />
-              <OmToolbarButton icon={RotateCcw} label="반품등록" />
-              <OmToolbarButton icon={Repeat2} label="교환등록" />
-              <OmToolbarButton icon={CheckCircle2} label="주문서승인" />
-              <OmToolbarButton icon={Ban} label="주문서취소" />
-            </div>
-
-            <div className="order-mgmt-filter-bar">
-              <span className="order-mgmt-filter-label">검색기간</span>
-              <input type="date" className="order-mgmt-filter-input" defaultValue="2026-05-01" />
-              <span className="order-mgmt-filter-sep">~</span>
-              <input type="date" className="order-mgmt-filter-input" defaultValue="2026-06-08" />
-              <span className="order-mgmt-filter-label">인수자명</span>
-              <input type="text" className="order-mgmt-filter-input order-mgmt-filter-input--text" defaultValue={member.name} />
-              <select className="order-mgmt-filter-input order-mgmt-filter-select" defaultValue="전체">
-                <option value="전체">전체</option>
-                <option value="출고완료">출고완료</option>
-                <option value="주문접수">주문접수</option>
-              </select>
-              <button type="button" className="order-mgmt-filter-btn" aria-label="새로고침">
-                <RefreshCw size={14} />
-              </button>
+            <div className="order-mgmt-toolbar order-mgmt-toolbar--orders">
+              <div className="order-mgmt-order-bar-actions">
+                <OmToolbarButton icon={FilePlus} label="새로 주문하기" />
+                <OmToolbarButton icon={FileText} label="거래명세서" />
+                <OmToolbarButton icon={RotateCcw} label="반품등록" />
+                <OmToolbarButton icon={Repeat2} label="교환등록" />
+                <OmToolbarButton icon={CheckCircle2} label="주문서승인" />
+                <OmToolbarButton icon={Ban} label="주문서취소" />
+              </div>
+              <div className="order-mgmt-filter-bar order-mgmt-filter-bar--inline">
+                <span className="order-mgmt-filter-label">검색기간</span>
+                <input type="date" className="order-mgmt-filter-input" defaultValue="2026-05-01" />
+                <span className="order-mgmt-filter-sep">~</span>
+                <input type="date" className="order-mgmt-filter-input" defaultValue="2026-06-08" />
+                <span className="order-mgmt-filter-label">인수자명</span>
+                <input type="text" className="order-mgmt-filter-input order-mgmt-filter-input--text" defaultValue={member.name} />
+                <select className="order-mgmt-filter-input order-mgmt-filter-select" defaultValue="전체">
+                  <option value="전체">전체</option>
+                  <option value="출고완료">출고완료</option>
+                  <option value="주문접수">주문접수</option>
+                </select>
+                <button type="button" className="order-mgmt-filter-btn" aria-label="새로고침">
+                  <RefreshCw size={14} />
+                </button>
+              </div>
             </div>
 
             <OmDataTable
