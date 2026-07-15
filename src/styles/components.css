@@ -997,6 +997,7 @@ textarea.mm2-name-box:focus {
   --surface-row-selected: #e8eaef;
   --accent-primary: #0284c7;
   --order-mgmt-member-info-bg: #0274b3;
+  --order-mgmt-right-width: 700px;
   --split-table-header-bg: #e0f2fe;
   --split-table-header-border: #bae6fd;
   --split-table-header-fg: #1e2130;
