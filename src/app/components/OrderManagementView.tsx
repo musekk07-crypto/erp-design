@@ -364,7 +364,7 @@ function OmMemberInfoPanel({ member }: { member: ProfileMember }) {
       : `${member.region} (상세주소)`;
 
   return (
-    <div className="order-mgmt-block-wrap">
+    <div className="order-mgmt-block-wrap order-mgmt-member-info-wrap">
       <OmMemberInfoTitle name={member.name} memberNo={member.no} />
       <section className="order-mgmt-member-info">
         <div className="order-mgmt-member-info-body">
