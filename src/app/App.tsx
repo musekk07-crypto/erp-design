@@ -3430,8 +3430,8 @@ export default function App() {
         <div
           className="member-list-panel"
           style={{
-            width: listOpen && !isOrderManagement ? listWidth : 0,
-            minWidth: listOpen && !isOrderManagement ? listWidth : 0,
+            width: listOpen ? listWidth : 0,
+            minWidth: listOpen ? listWidth : 0,
             flexShrink: 0,
             flexGrow: 0,
             overflow: "hidden",
@@ -3449,7 +3449,7 @@ export default function App() {
               listWidth={listWidth}
             />
           </div>
-          {listOpen && !isOrderManagement && (
+          {listOpen && (
             <div
               onMouseDown={onResizeStart}
               style={{
