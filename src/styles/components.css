@@ -1066,8 +1066,8 @@ textarea.mm2-name-box:focus {
 }
 
 .order-mgmt-right {
-  width: 500px;
-  min-width: 500px;
+  width: var(--order-mgmt-right-width, 700px);
+  min-width: var(--order-mgmt-right-width, 700px);
   flex-shrink: 0;
   display: flex;
   flex-direction: column;
