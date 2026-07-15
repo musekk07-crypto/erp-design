@@ -167,7 +167,7 @@ function OmToolbarButton({
 }) {
   return (
     <button type="button" className={`order-mgmt-toolbar-item${inline ? " order-mgmt-toolbar-item--inline" : ""}`}>
-      <Icon size={18} strokeWidth={1.5} style={{ color: "var(--text-muted)" }} />
+      <Icon size={inline ? 16 : 18} strokeWidth={1.5} style={{ color: "var(--text-muted)", flexShrink: 0 }} />
       <span>{label}</span>
     </button>
   );
