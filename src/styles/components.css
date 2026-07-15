@@ -1323,13 +1323,22 @@ textarea.mm2-name-box:focus {
   border-top: 1px solid var(--border);
 }
 
-.app-content .order-mgmt-view .split-table-head th,
-.app-content .order-mgmt-view .split-table-block td {
+.app-content .order-mgmt-view .order-mgmt-table-wrap .split-table-head th,
+.app-content .order-mgmt-view .order-mgmt-table-wrap .split-table-block td {
   padding-top: 6px !important;
   padding-bottom: 6px !important;
-  padding-left: 10px !important;
   padding-right: 6px !important;
   font-size: var(--order-mgmt-font-size, 14px) !important;
+}
+
+.app-content .order-mgmt-view .order-mgmt-table-wrap .split-table-head th:first-child,
+.app-content .order-mgmt-view .order-mgmt-table-wrap .split-table-block td:first-child {
+  padding-left: 10px !important;
+}
+
+.app-content .order-mgmt-view .order-mgmt-table-wrap .split-table-head th:not(:first-child),
+.app-content .order-mgmt-view .order-mgmt-table-wrap .split-table-block td:not(:first-child) {
+  padding-left: 30px !important;
 }
 
 .app-content .order-mgmt-view input,

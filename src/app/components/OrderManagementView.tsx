@@ -17,7 +17,8 @@ import type { ProfileMember } from "./Mm2ProfileCard";
 
 const OM_CHECKBOX_WIDTH = 36;
 const OM_ROW_PAD_Y = 6;
-const OM_CELL_PAD_LEFT = 10;
+const OM_CELL_PAD_FIRST = 10;
+const OM_COL_GAP = 30;
 const OM_CELL_PAD_RIGHT = 6;
 
 type OmColumn = { key: string; label: string; width: number; align?: "left" | "right" | "center"; mono?: boolean; link?: boolean };
@@ -147,10 +148,19 @@ function OmDataTable({
   summaryRow?: Record<string, string | number>;
 }) {
   const dataWeight = columns.reduce((sum, col) => sum + col.width, 0);
-  const totalWeight = OM_CHECKBOX_WIDTH + dataWeight;
+  const tableWidth = OM_CHECKBOX_WIDTH + dataWeight;
 
-  const cellStyle: React.CSSProperties = {
-    padding: `${OM_ROW_PAD_Y}px ${OM_CELL_PAD_RIGHT}px ${OM_ROW_PAD_Y}px ${OM_CELL_PAD_LEFT}px`,
+  const firstCellStyle: React.CSSProperties = {
+    padding: `${OM_ROW_PAD_Y}px ${OM_CELL_PAD_RIGHT}px ${OM_ROW_PAD_Y}px ${OM_CELL_PAD_FIRST}px`,
+    fontSize: 14,
+    color: "var(--text-body)",
+    whiteSpace: "nowrap",
+    overflow: "hidden",
+    textOverflow: "ellipsis",
+  };
+
+  const dataCellStyle: React.CSSProperties = {
+    padding: `${OM_ROW_PAD_Y}px ${OM_CELL_PAD_RIGHT}px ${OM_ROW_PAD_Y}px ${OM_COL_GAP}px`,
     fontSize: 14,
     color: "var(--text-body)",
     whiteSpace: "nowrap",
@@ -159,12 +169,12 @@ function OmDataTable({
   };
 
   const checkboxCellStyle: React.CSSProperties = {
-    ...cellStyle,
+    ...firstCellStyle,
     textAlign: "left",
   };
 
   const checkboxHeaderStyle: React.CSSProperties = {
-    ...cellStyle,
+    ...firstCellStyle,
     textAlign: "left",
     background: "var(--split-table-header-bg, var(--surface-table-header))",
   };
@@ -174,12 +184,12 @@ function OmDataTable({
       className="split-table-block order-mgmt-table-wrap flex flex-col flex-1 min-h-0"
       style={{ background: "var(--surface-panel)" }}
     >
-      <div style={{ width: "100%", overflowY: "auto", overflowX: "hidden", flex: 1, minHeight: 0 }}>
-        <table style={{ borderCollapse: "collapse", width: "100%", tableLayout: "fixed" }}>
+      <div style={{ width: "100%", overflowY: "auto", overflowX: "auto", flex: 1, minHeight: 0 }}>
+        <table style={{ borderCollapse: "collapse", width: tableWidth, tableLayout: "fixed" }}>
           <colgroup>
-            <col style={{ width: `${(OM_CHECKBOX_WIDTH / totalWeight) * 100}%` }} />
+            <col style={{ width: OM_CHECKBOX_WIDTH }} />
             {columns.map((col) => (
-              <col key={col.key} style={{ width: `${(col.width / totalWeight) * 100}%` }} />
+              <col key={col.key} style={{ width: col.width }} />
             ))}
           </colgroup>
           <thead className="split-table-head" style={{ position: "sticky", top: 0, zIndex: 2 }}>
@@ -196,7 +206,7 @@ function OmDataTable({
                 <th
                   key={col.key}
                   style={{
-                    ...cellStyle,
+                    ...dataCellStyle,
                     textAlign: col.align ?? "left",
                     fontWeight: 400,
                     color: "var(--split-table-header-fg, var(--text-muted))",
@@ -218,17 +228,17 @@ function OmDataTable({
                   onClick={() => onSelectRow?.(index)}
                   style={{ cursor: onSelectRow ? "pointer" : undefined }}
                 >
-                  <td style={{ ...cellStyle, ...checkboxCellStyle }} onClick={(e) => e.stopPropagation()}>
+                  <td style={checkboxCellStyle} onClick={(e) => e.stopPropagation()}>
                     <input type="checkbox" readOnly style={{ accentColor: "var(--accent-primary)", cursor: "pointer" }} />
                   </td>
                   {columns.map((col) => (
                     <td
                       key={col.key}
                       style={{
-                        ...cellStyle,
+                        ...dataCellStyle,
                         textAlign: col.align ?? "left",
                         fontFamily: col.mono ? "monospace" : undefined,
-                        color: col.link ? "var(--accent-primary)" : cellStyle.color,
+                        color: col.link ? "var(--accent-primary)" : dataCellStyle.color,
                         fontWeight: col.link ? 600 : 400,
                       }}
                     >
@@ -245,7 +255,7 @@ function OmDataTable({
                   <td
                     key={col.key}
                     style={{
-                      ...cellStyle,
+                      ...dataCellStyle,
                       textAlign: col.align ?? "left",
                       fontWeight: 600,
                     }}
