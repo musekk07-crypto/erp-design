@@ -1307,9 +1307,10 @@ textarea.mm2-name-box:focus {
 .order-mgmt-filter-bar {
   display: flex;
   align-items: center;
+  justify-content: flex-end;
   flex-wrap: wrap;
   gap: 6px;
-  padding: 6px 8px;
+  padding: 6px 10px;
   border-bottom: 1px solid var(--border);
   background: var(--surface-page);
 }
