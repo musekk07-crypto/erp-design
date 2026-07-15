@@ -1327,6 +1327,8 @@ textarea.mm2-name-box:focus {
 .app-content .order-mgmt-view .split-table-block td {
   padding-top: 6px !important;
   padding-bottom: 6px !important;
+  padding-left: 10px !important;
+  padding-right: 6px !important;
   font-size: var(--order-mgmt-font-size, 14px) !important;
 }
 

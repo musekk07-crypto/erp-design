@@ -16,9 +16,9 @@ import {
 import type { ProfileMember } from "./Mm2ProfileCard";
 
 const OM_CHECKBOX_WIDTH = 36;
-const OM_CHECKBOX_PAD_LEFT = 14;
 const OM_ROW_PAD_Y = 6;
-const OM_CELL_PAD_X = 6;
+const OM_CELL_PAD_LEFT = 10;
+const OM_CELL_PAD_RIGHT = 6;
 
 type OmColumn = { key: string; label: string; width: number; align?: "left" | "right" | "center"; mono?: boolean; link?: boolean };
 
@@ -150,7 +150,7 @@ function OmDataTable({
   const totalWeight = OM_CHECKBOX_WIDTH + dataWeight;
 
   const cellStyle: React.CSSProperties = {
-    padding: `${OM_ROW_PAD_Y}px ${OM_CELL_PAD_X}px`,
+    padding: `${OM_ROW_PAD_Y}px ${OM_CELL_PAD_RIGHT}px ${OM_ROW_PAD_Y}px ${OM_CELL_PAD_LEFT}px`,
     fontSize: 14,
     color: "var(--text-body)",
     whiteSpace: "nowrap",
@@ -159,12 +159,12 @@ function OmDataTable({
   };
 
   const checkboxCellStyle: React.CSSProperties = {
-    padding: `${OM_ROW_PAD_Y}px ${OM_CELL_PAD_X}px ${OM_ROW_PAD_Y}px ${OM_CHECKBOX_PAD_LEFT}px`,
+    ...cellStyle,
     textAlign: "left",
   };
 
   const checkboxHeaderStyle: React.CSSProperties = {
-    padding: `${OM_ROW_PAD_Y}px ${OM_CELL_PAD_X}px ${OM_ROW_PAD_Y}px ${OM_CHECKBOX_PAD_LEFT}px`,
+    ...cellStyle,
     textAlign: "left",
     background: "var(--split-table-header-bg, var(--surface-table-header))",
   };
@@ -196,14 +196,10 @@ function OmDataTable({
                 <th
                   key={col.key}
                   style={{
-                    padding: `${OM_ROW_PAD_Y}px ${OM_CELL_PAD_X}px`,
-                    textAlign: col.align ?? "center",
-                    fontSize: 14,
+                    ...cellStyle,
+                    textAlign: col.align ?? "left",
                     fontWeight: 400,
                     color: "var(--split-table-header-fg, var(--text-muted))",
-                    whiteSpace: "nowrap",
-                    overflow: "hidden",
-                    textOverflow: "ellipsis",
                     background: "var(--split-table-header-bg, var(--surface-table-header))",
                   }}
                 >
@@ -230,7 +226,7 @@ function OmDataTable({
                       key={col.key}
                       style={{
                         ...cellStyle,
-                        textAlign: col.align ?? "center",
+                        textAlign: col.align ?? "left",
                         fontFamily: col.mono ? "monospace" : undefined,
                         color: col.link ? "var(--accent-primary)" : cellStyle.color,
                         fontWeight: col.link ? 600 : 400,
@@ -250,7 +246,7 @@ function OmDataTable({
                     key={col.key}
                     style={{
                       ...cellStyle,
-                      textAlign: col.align ?? "center",
+                      textAlign: col.align ?? "left",
                       fontWeight: 600,
                     }}
                   >
