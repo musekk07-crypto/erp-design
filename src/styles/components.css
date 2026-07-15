@@ -1323,6 +1323,23 @@ textarea.mm2-name-box:focus {
   border-top: 1px solid var(--border);
 }
 
+.order-mgmt-table-wrap--compact {
+  align-self: flex-start;
+  width: auto;
+  max-width: 100%;
+}
+
+.app-content .order-mgmt-view .order-mgmt-table-wrap--compact .split-table-head th,
+.app-content .order-mgmt-view .order-mgmt-table-wrap--compact td {
+  padding-left: 4px !important;
+  padding-right: 4px !important;
+}
+
+.app-content .order-mgmt-view .order-mgmt-table-wrap--compact .split-table-head th:first-child,
+.app-content .order-mgmt-view .order-mgmt-table-wrap--compact td:first-child {
+  padding-left: 10px !important;
+}
+
 .app-content .order-mgmt-view .order-mgmt-table-wrap .split-table-head th,
 .app-content .order-mgmt-view .order-mgmt-table-wrap td {
   padding-top: 6px !important;

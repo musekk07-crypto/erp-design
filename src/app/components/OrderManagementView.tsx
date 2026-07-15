@@ -193,18 +193,23 @@ function OmDataTable({
   selectedRow,
   onSelectRow,
   summaryRow,
+  layout = "fill",
 }: {
   columns: OmColumn[];
   rows: Record<string, string | number>[];
   selectedRow?: number;
   onSelectRow?: (index: number) => void;
   summaryRow?: Record<string, string | number>;
+  layout?: "fill" | "compact";
 }) {
+  const isCompact = layout === "compact";
   const dataWeight = columns.reduce((sum, col) => sum + col.width, 0);
   const tableMinWidth = getOmTableMinWidth(columns);
+  const cellPadX = isCompact ? 4 : 8;
+  const checkboxPadLeft = isCompact ? 10 : OM_CHECKBOX_PAD_LEFT;
 
   const cellStyle: React.CSSProperties = {
-    padding: `${OM_ROW_PAD_Y}px 8px`,
+    padding: `${OM_ROW_PAD_Y}px ${cellPadX}px`,
     fontSize: 14,
     color: "var(--text-body)",
     whiteSpace: "nowrap",
@@ -213,7 +218,7 @@ function OmDataTable({
   };
 
   const checkboxCellStyle: React.CSSProperties = {
-    padding: `${OM_ROW_PAD_Y}px 8px ${OM_ROW_PAD_Y}px ${OM_CHECKBOX_PAD_LEFT}px`,
+    padding: `${OM_ROW_PAD_Y}px ${cellPadX}px ${OM_ROW_PAD_Y}px ${checkboxPadLeft}px`,
     textAlign: "left",
     fontSize: 14,
     color: "var(--text-body)",
@@ -237,16 +242,31 @@ function OmDataTable({
 
   return (
     <div
-      className="split-table-block order-mgmt-table-wrap flex flex-col flex-1 min-h-0"
+      className={`split-table-block order-mgmt-table-wrap flex flex-col flex-1 min-h-0${isCompact ? " order-mgmt-table-wrap--compact" : ""}`}
       style={{ background: "var(--surface-panel)" }}
     >
       <div className="flex-1 min-h-0" style={{ width: "100%", overflowY: "auto", overflowX: "auto" }}>
-        <div style={{ minWidth: tableMinWidth, width: "100%", height: "100%" }}>
-        <table style={{ borderCollapse: "collapse", width: "100%", tableLayout: "fixed" }}>
+        <div
+          style={
+            isCompact
+              ? { width: tableMinWidth, minWidth: tableMinWidth }
+              : { minWidth: tableMinWidth, width: "100%", height: "100%" }
+          }
+        >
+        <table
+          style={{
+            borderCollapse: "collapse",
+            width: isCompact ? tableMinWidth : "100%",
+            tableLayout: "fixed",
+          }}
+        >
           <colgroup>
             <col style={{ width: OM_CHECKBOX_WIDTH }} />
             {columns.map((col) => (
-              <col key={col.key} style={{ width: `${(col.width / dataWeight) * 100}%` }} />
+              <col
+                key={col.key}
+                style={isCompact ? { width: col.width } : { width: `${(col.width / dataWeight) * 100}%` }}
+              />
             ))}
           </colgroup>
           <thead className="split-table-head" style={{ position: "sticky", top: 0, zIndex: 2 }}>
@@ -519,6 +539,7 @@ export function OrderManagementView({ member }: { member: ProfileMember }) {
             <OmDataTable
               columns={productListColumns}
               rows={productListRows}
+              layout="compact"
               summaryRow={{
                 no: "",
                 code: "",
