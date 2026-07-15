@@ -26,7 +26,7 @@ const MEMBER_LIST_PAGE_SIZE = 15;
 const MEMBER_LIST_MAX_WIDTH =
   36 + 36 + 96 + 100 + 54 + 62 + 84 + 56 + 54 + 54 + 108 + 108 + 84;
 const FORM_COLUMN_WIDTH_MIN = 1000;
-const ORDER_PANEL_MIN_WIDTH = 1280;
+const ORDER_PANEL_MIN_WIDTH = 1520;
 const APP_MIN_WIDTH = 1280;
 const LIST_PANEL_TRANSITION_MS = 250;
 const LAYOUT_TRANSITION = `width ${LIST_PANEL_TRANSITION_MS}ms ease, min-width ${LIST_PANEL_TRANSITION_MS}ms ease`;
@@ -3306,7 +3306,8 @@ export default function App() {
 
   const isFixedDetailWidth =
     listOpen &&
-    ((activeMainMenu === "회원관리" && !isMemberInfoTab) ||
+    (isOrderManagement ||
+      (activeMainMenu === "회원관리" && !isMemberInfoTab) ||
       (activeMainMenu === "회원관리2" && !isMm2MemberInfoTab));
 
   const contentRowMinWidth = listOpen
