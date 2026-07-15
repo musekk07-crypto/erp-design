@@ -1101,11 +1101,6 @@ textarea.mm2-name-box:focus {
 }
 
 .order-mgmt-left > .order-mgmt-block-wrap {
-  width: 90%;
-  max-width: 90%;
-}
-
-.order-mgmt-view--list-open .order-mgmt-left > .order-mgmt-block-wrap {
   width: 100%;
   max-width: 100%;
 }
