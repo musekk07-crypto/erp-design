@@ -658,7 +658,7 @@ function OmPaymentInfo() {
 
         <div className="order-mgmt-form-body order-mgmt-payment-form">
           <div className="order-mgmt-shipping-detail">
-            <div className="order-mgmt-shipping-detail-row order-mgmt-shipping-detail-row--full order-mgmt-shipping-detail-row--divider">
+            <div className="order-mgmt-shipping-detail-row order-mgmt-shipping-detail-row--full">
               <label className="order-mgmt-field order-mgmt-field--inline">
                 <span className="order-mgmt-field-label">현금영수증</span>
                 <span className="order-mgmt-field-control">
