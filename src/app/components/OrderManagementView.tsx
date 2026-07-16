@@ -531,12 +531,15 @@ function OmShippingInfo({ member }: { member: ProfileMember }) {
       <OmSectionTitle title="배송지 및 인수자 정보" />
       <section className="order-mgmt-form-box order-mgmt-shipping-box">
         <div className="order-mgmt-form-body order-mgmt-shipping-form">
-          <div className="order-mgmt-form-grid order-mgmt-form-grid--4 order-mgmt-shipping-top">
-            <OmFormSelect label="배송방법" value="직접수령" options={["직접수령", "택배", "퀵서비스"]} />
-            <OmFormField label="인수자명" value={member.name} />
-            <OmFormField label="인수자연락처" value="02-583-9201" />
-            <OmFormField label="인수자핸드폰번호" value={member.phone} />
-          </div>
+          <div className="order-mgmt-shipping-detail">
+            <div className="order-mgmt-shipping-detail-row">
+              <OmFormSelectInline label="배송방법" value="직접수령" options={["직접수령", "택배", "퀵서비스"]} />
+              <OmFormFieldInline label="인수자명" value={member.name} />
+            </div>
+            <div className="order-mgmt-shipping-detail-row">
+              <OmFormFieldInline label="인수자연락처" value="02-583-9201" />
+              <OmFormFieldInline label="인수자핸드폰번호" value={member.phone} />
+            </div>
 
           <OmFormField
             label="배송지주소"
@@ -549,7 +552,6 @@ function OmShippingInfo({ member }: { member: ProfileMember }) {
             }
           />
 
-          <div className="order-mgmt-shipping-detail">
             <div className="order-mgmt-shipping-detail-row">
               <OmFormFieldInline label="city" value="" />
               <OmFormFieldInline label="state" value="" />
