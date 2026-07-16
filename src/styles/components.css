@@ -1182,8 +1182,8 @@ textarea.mm2-name-box:focus {
   color: var(--text-muted);
 }
 
-.order-mgmt-toolbar--product,
-.order-mgmt-toolbar--orders {
+.order-mgmt-toolbar.order-mgmt-toolbar--product,
+.order-mgmt-toolbar.order-mgmt-toolbar--orders {
   flex-wrap: nowrap;
   align-items: center;
   justify-content: space-between;
@@ -1240,6 +1240,9 @@ textarea.mm2-name-box:focus {
 }
 
 .order-mgmt-filter-bar--inline {
+  display: flex;
+  align-items: center;
+  align-self: center;
   flex-shrink: 0;
 }
 
