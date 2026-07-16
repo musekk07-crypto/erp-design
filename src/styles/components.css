@@ -176,8 +176,8 @@
 }
 
 .mm2-info-group {
-  flex: 1;
-  min-width: 0;
+  width: var(--mm2-info-group-width);
+  flex: 0 0 var(--mm2-info-group-width);
   display: flex;
   flex-direction: column;
   gap: 12px;
@@ -190,6 +190,10 @@
 }
 
 .mm2-member-view {
+  --mm2-info-group-width: 1228px;
+  --mm2-sidebar-width: 210px;
+  --mm2-body-gap: 12px;
+  --mm2-detail-panel-width: calc(var(--mm2-info-group-width) - var(--mm2-sidebar-width) - var(--mm2-body-gap));
   --accent-primary: #0284c7;
   --accent-light: #e0f2fe;
   --accent-border: #bae6fd;
@@ -233,11 +237,12 @@
   gap: 0;
   padding: 28px 24px;
   min-height: 148px;
+  width: 100%;
+  flex: 0 0 auto;
   background: var(--surface-panel);
   border: 1px solid var(--border);
   border-radius: var(--radius);
   overflow-x: hidden;
-  min-width: 0;
 }
 
 .mm2-profile-col-divider {
@@ -439,11 +444,11 @@
 }
 
 .mm2-body {
-  flex: 1;
-  min-width: 0;
+  flex: 0 0 auto;
+  width: 100%;
   min-height: 0;
   display: flex;
-  gap: 12px;
+  gap: var(--mm2-body-gap);
   align-items: stretch;
 }
 
@@ -523,7 +528,8 @@
 }
 
 .mm2-sidebar {
-  flex: 0 0 210px;
+  width: var(--mm2-sidebar-width);
+  flex: 0 0 var(--mm2-sidebar-width);
   display: flex;
   flex-direction: column;
   gap: 6px;
@@ -566,9 +572,9 @@
 }
 
 .mm2-detail-panel {
-  flex: 1 1 auto;
+  width: var(--mm2-detail-panel-width);
+  flex: 0 0 var(--mm2-detail-panel-width);
   align-self: flex-start;
-  min-width: 0;
   display: flex;
   flex-direction: column;
   background: var(--surface-panel);
