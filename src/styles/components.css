@@ -1420,6 +1420,11 @@ textarea.mm2-name-box:focus {
   padding-left: 10px !important;
 }
 
+.app-content .order-mgmt-view .order-mgmt-table-wrap--compact .split-table-head th:last-child,
+.app-content .order-mgmt-view .order-mgmt-table-wrap--compact td:last-child {
+  padding-right: 20px !important;
+}
+
 .app-content .order-mgmt-view .order-mgmt-table-wrap .split-table-head th,
 .app-content .order-mgmt-view .order-mgmt-table-wrap td {
   padding-top: 6px !important;
