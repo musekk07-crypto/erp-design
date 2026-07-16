@@ -1558,7 +1558,7 @@ textarea.mm2-name-box:focus {
   --order-mgmt-shipping-label-font-size: 13px;
   --order-mgmt-shipping-input-font-size: 13px;
   --order-mgmt-shipping-field-gap: 14px;
-  --order-mgmt-shipping-row-gap: 4px;
+  --order-mgmt-shipping-row-gap: 12px;
   --order-mgmt-shipping-col-gap: 14px;
   gap: var(--order-mgmt-shipping-row-gap);
 }
