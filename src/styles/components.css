@@ -201,6 +201,8 @@
   --split-table-header-bg: #e0f2fe;
   --split-table-header-border: #bae6fd;
   --split-table-header-fg: #1e2130;
+  --org-grade-badge-bg: #e0f2fe;
+  --org-grade-badge-fg: #0284c7;
 }
 
 .app-content .split-table-head th {
@@ -226,6 +228,8 @@
   --accent-light: #0c4a6e;
   --accent-border: #075985;
   --member-no-color: #38bdf8;
+  --org-grade-badge-bg: #0c4a6e;
+  --org-grade-badge-fg: #38bdf8;
   --split-table-header-bg: #0c4a6e;
   --split-table-header-border: #075985;
   --split-table-header-fg: #e2e8f0;
@@ -297,8 +301,8 @@
   border-radius: 999px;
   font-size: 11px;
   font-weight: 400;
-  background: var(--accent-light);
-  color: var(--accent-primary);
+  background: var(--org-grade-badge-bg, var(--accent-light));
+  color: var(--org-grade-badge-fg, var(--accent-primary));
   white-space: nowrap;
 }
 
@@ -478,6 +482,11 @@
   --accent-light: #e0f2fe;
   --accent-border: #bae6fd;
   --mm2-table-line: var(--org-border);
+}
+
+[data-theme="dark"] .mm2-org-chart .mm2-org-section {
+  --org-grade-badge-bg: #0c4a6e;
+  --org-grade-badge-fg: #38bdf8;
 }
 
 .mm2-org-chart .mm2-org-section > button {

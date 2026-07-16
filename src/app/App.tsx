@@ -214,8 +214,8 @@ function Card({ label, name, memberNo, grade, isSelf = false }: {
           borderRadius: 999,
           fontSize: 11,
           fontWeight: 400,
-          background: "var(--accent-light)",
-          color: "var(--accent-primary)",
+          background: "var(--org-grade-badge-bg, var(--accent-light))",
+          color: "var(--org-grade-badge-fg, var(--accent-primary))",
         }}>
           {grade}
         </span>

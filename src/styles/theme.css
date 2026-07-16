@@ -162,6 +162,8 @@
   --org-text-muted: #9aa8b8;
   --org-link: #5ecfff;
   --org-self-accent: #0284c7;
+  --org-grade-badge-bg: #0c4a6e;
+  --org-grade-badge-fg: #38bdf8;
   --save-btn-bg: #7c3aed;
   --badge-type-general-bg: #262d3d;
   --badge-type-general-fg: #9aa8b8;
