@@ -117,16 +117,16 @@ function buildOrderListRows(member: ProfileMember) {
 }
 
 const productListColumns: OmColumn[] = [
-  { key: "no", label: "No", width: 40, align: "center" },
+  { key: "no", label: "No", width: 40 },
   { key: "code", label: "번호", width: 76 },
-  { key: "product", label: "상품정보", width: 188, align: "left" },
-  { key: "point", label: "포인트", width: 80, align: "right" },
-  { key: "salePrice", label: "판매가격", width: 92, align: "right" },
-  { key: "consumerPrice", label: "소비자가", width: 92, align: "right" },
-  { key: "price4", label: "가격4", width: 84, align: "right" },
-  { key: "price5", label: "가격5", width: 84, align: "right" },
-  { key: "price6", label: "가격6", width: 84, align: "right" },
-  { key: "price7", label: "가격7", width: 84, align: "right" },
+  { key: "product", label: "상품정보", width: 188 },
+  { key: "point", label: "포인트", width: 80 },
+  { key: "salePrice", label: "판매가격", width: 92 },
+  { key: "consumerPrice", label: "소비자가", width: 92 },
+  { key: "price4", label: "가격4", width: 84 },
+  { key: "price5", label: "가격5", width: 84 },
+  { key: "price6", label: "가격6", width: 84 },
+  { key: "price7", label: "가격7", width: 84 },
 ];
 
 const productListRows = [
