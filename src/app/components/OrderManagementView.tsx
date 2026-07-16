@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 import {
   RefreshCw,
   Search,
@@ -616,7 +616,37 @@ function OmMemberInfoPanel({ member }: { member: ProfileMember }) {
 
 export function OrderManagementView({ member }: { member: ProfileMember }) {
   const [selectedOrder, setSelectedOrder] = useState(1);
+  const [isRightDragging, setIsRightDragging] = useState(false);
   const orderListRows = buildOrderListRows(member);
+  const rightScrollRef = useRef<HTMLElement>(null);
+  const rightDragState = useRef({ dragging: false, startY: 0, scrollTop: 0 });
+
+  const isRightDragTarget = (target: EventTarget | null) => {
+    if (!(target instanceof HTMLElement)) return false;
+    return !target.closest("input, select, textarea, button, a, label, option");
+  };
+
+  const onRightMouseDown = (e: React.MouseEvent<HTMLElement>) => {
+    if (e.button !== 0 || !isRightDragTarget(e.target)) return;
+    rightDragState.current = {
+      dragging: true,
+      startY: e.clientY,
+      scrollTop: rightScrollRef.current?.scrollTop ?? 0,
+    };
+    setIsRightDragging(true);
+  };
+
+  const onRightMouseMove = (e: React.MouseEvent<HTMLElement>) => {
+    if (!rightDragState.current.dragging || !rightScrollRef.current) return;
+    e.preventDefault();
+    const dy = e.clientY - rightDragState.current.startY;
+    rightScrollRef.current.scrollTop = rightDragState.current.scrollTop - dy;
+  };
+
+  const endRightDrag = () => {
+    rightDragState.current.dragging = false;
+    setIsRightDragging(false);
+  };
 
   return (
     <div className="order-mgmt-view">
@@ -712,7 +742,14 @@ export function OrderManagementView({ member }: { member: ProfileMember }) {
           </div>
         </div>
 
-        <aside className="order-mgmt-right">
+        <aside
+          ref={rightScrollRef}
+          className={`order-mgmt-right order-mgmt-right--drag-scroll${isRightDragging ? " is-dragging" : ""}`}
+          onMouseDown={onRightMouseDown}
+          onMouseMove={onRightMouseMove}
+          onMouseUp={endRightDrag}
+          onMouseLeave={endRightDrag}
+        >
           <OmOrderBasicInfo member={member} />
           <OmPaymentInfo />
 
