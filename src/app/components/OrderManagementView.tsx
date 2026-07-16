@@ -273,7 +273,8 @@ function OmDataTable({
   const isCompact = layout === "compact";
   const useEdgeSpread = isCompact && spreadTailFrom !== undefined;
   const useFiller = isCompact && !useEdgeSpread;
-  const useMinWidthScroll = !useEdgeSpread;
+  const useFixedMinScroll = !useEdgeSpread;
+  const enableHorizontalScroll = useFixedMinScroll || useEdgeSpread;
   const tableMinWidth = getOmTableMinWidth(columns);
   const cellPadX = isCompact ? 4 : 8;
   const checkboxPadLeft = isCompact ? 10 : OM_CHECKBOX_PAD_LEFT;
@@ -321,16 +322,16 @@ function OmDataTable({
 
   return (
     <div
-      className={`split-table-block order-mgmt-table-wrap flex flex-col flex-1 min-h-0${isCompact ? " order-mgmt-table-wrap--compact" : " order-mgmt-table-wrap--fill"}${useMinWidthScroll ? " order-mgmt-table-wrap--scroll-x" : ""}`}
+      className={`split-table-block order-mgmt-table-wrap flex flex-col flex-1 min-h-0${isCompact ? " order-mgmt-table-wrap--compact" : " order-mgmt-table-wrap--fill"}${enableHorizontalScroll ? " order-mgmt-table-wrap--scroll-x" : ""}`}
       style={{ background: "var(--surface-panel)" }}
     >
       <div
         className="flex-1 min-h-0"
-        style={{ width: "100%", overflowY: "auto", overflowX: useMinWidthScroll ? "auto" : "hidden" }}
+        style={{ width: "100%", overflowY: "auto", overflowX: enableHorizontalScroll ? "auto" : "hidden" }}
       >
         <div
           style={
-            useMinWidthScroll
+            enableHorizontalScroll
               ? { width: "100%", minWidth: tableMinWidth }
               : { width: "100%", height: "100%" }
           }
@@ -338,8 +339,8 @@ function OmDataTable({
         <table
           style={{
             borderCollapse: "collapse",
-            width: useMinWidthScroll ? tableMinWidth : "100%",
-            minWidth: useMinWidthScroll ? tableMinWidth : undefined,
+            width: useEdgeSpread ? "100%" : useFixedMinScroll ? tableMinWidth : "100%",
+            minWidth: enableHorizontalScroll ? tableMinWidth : undefined,
             tableLayout: "fixed",
           }}
         >
@@ -817,6 +818,7 @@ export function OrderManagementView({ member }: { member: ProfileMember }) {
               columns={productListColumns}
               rows={productListRows}
               layout="compact"
+              spreadTailFrom={3}
               summaryRow={{
                 no: "",
                 code: "",
