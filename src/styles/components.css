@@ -1025,6 +1025,7 @@ textarea.mm2-name-box:focus {
 [data-theme="dark"] .order-mgmt-view {
   --accent-primary: #38bdf8;
   --order-mgmt-member-info-bg: #0284c7;
+  --order-mgmt-save-btn-bg: #0284c7;
   --order-mgmt-block-title-color: #ffffff;
   --order-mgmt-block-title-accent-color: #ffffff;
   --order-mgmt-summary-bg: var(--order-mgmt-member-info-bg);
@@ -1961,7 +1962,7 @@ textarea.mm2-name-box:focus {
   font-size: var(--order-mgmt-font-size, 14px);
   font-weight: 600;
   color: var(--on-accent, #fff);
-  background: var(--accent-primary);
+  background: var(--order-mgmt-save-btn-bg, var(--accent-primary));
   border: none;
   border-radius: 4px;
   cursor: pointer;
