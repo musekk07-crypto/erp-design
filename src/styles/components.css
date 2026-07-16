@@ -1430,8 +1430,9 @@ textarea.mm2-name-box:focus {
   border-radius: 0;
 }
 
-.order-mgmt-section--orders .order-mgmt-table-wrap > div {
-  overflow-x: hidden !important;
+.order-mgmt-table-wrap--fill > div {
+  overflow-x: auto !important;
+  scrollbar-width: thin;
 }
 
 .order-mgmt-summary-row td {

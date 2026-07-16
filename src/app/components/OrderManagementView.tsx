@@ -273,7 +273,7 @@ function OmDataTable({
   const isCompact = layout === "compact";
   const useEdgeSpread = isCompact && spreadTailFrom !== undefined;
   const useFiller = isCompact && !useEdgeSpread;
-  const dataWeight = columns.reduce((sum, col) => sum + col.width, 0);
+  const useMinWidthScroll = !useEdgeSpread;
   const tableMinWidth = getOmTableMinWidth(columns);
   const cellPadX = isCompact ? 4 : 8;
   const checkboxPadLeft = isCompact ? 10 : OM_CHECKBOX_PAD_LEFT;
@@ -321,25 +321,25 @@ function OmDataTable({
 
   return (
     <div
-      className={`split-table-block order-mgmt-table-wrap flex flex-col flex-1 min-h-0${isCompact ? " order-mgmt-table-wrap--compact" : ""}`}
+      className={`split-table-block order-mgmt-table-wrap flex flex-col flex-1 min-h-0${isCompact ? " order-mgmt-table-wrap--compact" : " order-mgmt-table-wrap--fill"}`}
       style={{ background: "var(--surface-panel)" }}
     >
       <div
         className="flex-1 min-h-0"
-        style={{ width: "100%", overflowY: "auto", overflowX: useEdgeSpread || !isCompact ? "hidden" : "auto" }}
+        style={{ width: "100%", overflowY: "auto", overflowX: useMinWidthScroll ? "auto" : "hidden" }}
       >
         <div
           style={
-            isCompact
-              ? { width: "100%", minWidth: useEdgeSpread ? undefined : tableMinWidth }
+            useMinWidthScroll
+              ? { width: "100%", minWidth: tableMinWidth }
               : { width: "100%", height: "100%" }
           }
         >
         <table
           style={{
             borderCollapse: "collapse",
-            width: "100%",
-            minWidth: isCompact && !useEdgeSpread ? tableMinWidth : undefined,
+            width: useMinWidthScroll ? tableMinWidth : "100%",
+            minWidth: useMinWidthScroll ? tableMinWidth : undefined,
             tableLayout: "fixed",
           }}
         >
@@ -351,9 +351,7 @@ function OmDataTable({
                 style={
                   useEdgeSpread
                     ? getCompactColWidth(col, index, columns, spreadTailFrom)
-                    : isCompact
-                      ? { width: col.width }
-                      : { width: `${(col.width / dataWeight) * 100}%` }
+                    : { width: col.width }
                 }
               />
             ))}
