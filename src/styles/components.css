@@ -1686,16 +1686,34 @@ textarea.mm2-name-box:focus {
   gap: 4px;
   padding: 6px 8px;
   border-bottom: 1px solid var(--border);
-  background: var(--surface-page);
+  background: var(--surface-panel);
+}
+
+.order-mgmt-payment-table .split-table-head tr,
+.order-mgmt-payment-table .split-table-head th {
+  background: var(--surface-panel) !important;
+}
+
+.order-mgmt-payment-table .split-table-head tr {
+  border-bottom-color: var(--border) !important;
 }
 
 .order-mgmt-payment-table {
   flex-shrink: 0;
+  width: 100%;
+  min-width: 0;
 }
 
 .order-mgmt-payment-table .order-mgmt-table-wrap {
   flex: none;
   max-height: 108px;
+  width: 100%;
+  min-width: 0;
+}
+
+.order-mgmt-payment-table .order-mgmt-table-wrap--scroll-x > div {
+  overflow-x: auto !important;
+  scrollbar-width: thin;
 }
 
 .order-mgmt-payment-form {

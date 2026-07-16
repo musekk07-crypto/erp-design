@@ -138,14 +138,14 @@ const productListColumns: OmColumn[] = [
 ];
 
 const paymentListColumns: OmColumn[] = [
-  { key: "no", label: "No", width: 32 },
-  { key: "code", label: "번호", width: 36 },
-  { key: "pg", label: "PG", width: 44 },
-  { key: "paymentNo", label: "결제번호", width: 108 },
-  { key: "collectionType", label: "수금구분명", width: 68 },
-  { key: "includeAmount", label: "금액포함", width: 56, cellType: "checkbox" },
-  { key: "accountName", label: "계정명", width: 56 },
-  { key: "accountNo", label: "계정번호", width: 72 },
+  { key: "no", label: "No", width: 40 },
+  { key: "code", label: "번호", width: 48 },
+  { key: "pg", label: "PG", width: 56 },
+  { key: "paymentNo", label: "결제번호", width: 140 },
+  { key: "collectionType", label: "수금구분명", width: 88 },
+  { key: "includeAmount", label: "금액포함", width: 72, cellType: "checkbox" },
+  { key: "accountName", label: "계정명", width: 80 },
+  { key: "accountNo", label: "계정번호", width: 100 },
 ];
 
 const paymentListRows = [
@@ -261,6 +261,7 @@ function OmDataTable({
   summaryRow,
   layout = "fill",
   spreadTailFrom,
+  disableFiller = false,
 }: {
   columns: OmColumn[];
   rows: Record<string, string | number>[];
@@ -269,10 +270,11 @@ function OmDataTable({
   summaryRow?: Record<string, string | number>;
   layout?: "fill" | "compact";
   spreadTailFrom?: number;
+  disableFiller?: boolean;
 }) {
   const isCompact = layout === "compact";
   const useEdgeSpread = isCompact && spreadTailFrom !== undefined;
-  const useFiller = isCompact && !useEdgeSpread;
+  const useFiller = isCompact && !useEdgeSpread && !disableFiller;
   const useFixedMinScroll = !useEdgeSpread;
   const enableHorizontalScroll = useFixedMinScroll || useEdgeSpread;
   const tableMinWidth = getOmTableMinWidth(columns);
@@ -650,7 +652,7 @@ function OmPaymentInfo() {
         </div>
 
         <div className="order-mgmt-payment-table">
-          <OmDataTable columns={paymentListColumns} rows={paymentListRows} layout="compact" />
+          <OmDataTable columns={paymentListColumns} rows={paymentListRows} layout="compact" disableFiller />
         </div>
 
         <div className="order-mgmt-form-body order-mgmt-payment-form">
