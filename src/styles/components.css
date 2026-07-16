@@ -1077,7 +1077,8 @@ textarea.mm2-name-box:focus {
   flex-direction: column;
   gap: 12px;
   background: transparent;
-  overflow: hidden;
+  overflow-x: hidden;
+  overflow-y: auto;
 }
 
 .order-mgmt-block-wrap {
@@ -1101,6 +1102,21 @@ textarea.mm2-name-box:focus {
 .order-mgmt-block-wrap--grow {
   flex: 1;
   min-height: 0;
+}
+
+.order-mgmt-block-wrap--payment {
+  flex-shrink: 0;
+}
+
+.order-mgmt-block-title--payment {
+  color: #8b5e3c;
+}
+
+.order-mgmt-section-bullet--square {
+  width: 6px;
+  height: 6px;
+  border-radius: 0;
+  background: #8b5e3c;
 }
 
 .order-mgmt-left > .order-mgmt-block-wrap {
@@ -1496,6 +1512,64 @@ textarea.mm2-name-box:focus {
 
 .order-mgmt-form-grid--4 {
   grid-template-columns: repeat(4, minmax(0, 1fr));
+}
+
+.order-mgmt-form-grid--3 {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.order-mgmt-payment-box {
+  display: flex;
+  flex-direction: column;
+}
+
+.order-mgmt-payment-toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 4px;
+  padding: 6px 8px;
+  border-bottom: 1px solid var(--border);
+  background: var(--surface-page);
+}
+
+.order-mgmt-payment-table {
+  flex-shrink: 0;
+}
+
+.order-mgmt-payment-table .order-mgmt-table-wrap {
+  flex: none;
+  max-height: 108px;
+}
+
+.order-mgmt-payment-form {
+  border-top: 1px solid var(--border);
+}
+
+.order-mgmt-payment-receipt-row {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+
+.order-mgmt-payment-receipt-select {
+  width: 72px;
+  flex-shrink: 0;
+}
+
+.order-mgmt-payment-receipt-input {
+  flex: 1;
+  min-width: 80px;
+}
+
+.order-mgmt-payment-receipt-check {
+  flex-shrink: 0;
+  margin-left: auto;
+}
+
+.order-mgmt-form-note--alert {
+  color: #dc2626;
 }
 
 .order-mgmt-radio-group {

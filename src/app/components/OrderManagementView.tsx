@@ -12,6 +12,8 @@ import {
   Pencil,
   Trash2,
   Save,
+  Copy,
+  FolderOpen,
 } from "lucide-react";
 import type { ProfileMember } from "./Mm2ProfileCard";
 
@@ -20,7 +22,13 @@ const OM_CHECKBOX_PAD_LEFT = 14;
 const OM_ROW_PAD_Y = 6;
 const OM_DEFAULT_ALIGN: NonNullable<OmColumn["align"]> = "center";
 
-type OmColumn = { key: string; label: string; width: number; align?: "left" | "right" | "center" };
+type OmColumn = {
+  key: string;
+  label: string;
+  width: number;
+  align?: "left" | "right" | "center";
+  cellType?: "checkbox";
+};
 
 function getOmColumnAlign(col: OmColumn) {
   return col.align ?? OM_DEFAULT_ALIGN;
@@ -30,7 +38,7 @@ function getOmTableMinWidth(columns: OmColumn[]) {
   return OM_CHECKBOX_WIDTH + columns.reduce((sum, col) => sum + col.width, 0);
 }
 
-const OM_MONO_KEYS = new Set(["deductNo", "orderNo", "code"]);
+const OM_MONO_KEYS = new Set(["deductNo", "orderNo", "code", "paymentNo"]);
 const OM_LINK_KEYS = new Set(["orderNo", "recipient"]);
 const OM_BOLD_KEYS = new Set(["recipient"]);
 
@@ -129,6 +137,30 @@ const productListColumns: OmColumn[] = [
   { key: "price7", label: "가격7", width: 84 },
 ];
 
+const paymentListColumns: OmColumn[] = [
+  { key: "no", label: "No", width: 32 },
+  { key: "code", label: "번호", width: 36 },
+  { key: "pg", label: "PG", width: 44 },
+  { key: "paymentNo", label: "결제번호", width: 108 },
+  { key: "collectionType", label: "수금구분명", width: 68 },
+  { key: "includeAmount", label: "금액포함", width: 56, cellType: "checkbox" },
+  { key: "accountName", label: "계정명", width: 56 },
+  { key: "accountNo", label: "계정번호", width: 72 },
+];
+
+const paymentListRows = [
+  {
+    no: 1,
+    code: 2,
+    pg: "현금",
+    paymentNo: "26061743198512",
+    collectionType: "일반",
+    includeAmount: true,
+    accountName: "",
+    accountNo: "",
+  },
+];
+
 const productListRows = [
   {
     no: 1,
@@ -169,6 +201,14 @@ function OmToolbarButton({
     <button type="button" className={`order-mgmt-toolbar-item${inline ? " order-mgmt-toolbar-item--inline" : ""}`}>
       <Icon size={inline ? 16 : 18} strokeWidth={1.5} style={{ color: "var(--text-muted)", flexShrink: 0 }} />
       <span>{label}</span>
+    </button>
+  );
+}
+
+function OmIconToolbarButton({ icon: Icon, label }: { icon: React.ElementType; label: string }) {
+  return (
+    <button type="button" className="order-mgmt-icon-btn" aria-label={label}>
+      <Icon size={16} />
     </button>
   );
 }
@@ -361,7 +401,16 @@ function OmDataTable({
                   </td>
                   {columns.map((col) => (
                     <td key={col.key} style={getDataCellStyle(col)}>
-                      {row[col.key] ?? ""}
+                      {col.cellType === "checkbox" ? (
+                        <input
+                          type="checkbox"
+                          readOnly
+                          defaultChecked={Boolean(row[col.key])}
+                          style={{ accentColor: "var(--accent-primary)", cursor: "pointer" }}
+                        />
+                      ) : (
+                        row[col.key] ?? ""
+                      )}
                     </td>
                   ))}
                   {useFiller && <td className="order-mgmt-table-filler" style={fillerCellStyle} aria-hidden="true" />}
@@ -477,6 +526,56 @@ function OmOrderBasicInfo({ member }: { member: ProfileMember }) {
           <span className="order-mgmt-field-label">메모</span>
           <textarea className="order-mgmt-textarea" rows={2} />
         </label>
+        </div>
+      </section>
+    </div>
+  );
+}
+
+function OmPaymentInfo() {
+  return (
+    <div className="order-mgmt-block-wrap order-mgmt-block-wrap--payment">
+      <div className="order-mgmt-block-title order-mgmt-block-title--payment">
+        <span className="order-mgmt-section-bullet order-mgmt-section-bullet--square" aria-hidden />
+        <span>현금 및 온라인 카드 결제정보</span>
+      </div>
+      <section className="order-mgmt-form-box order-mgmt-payment-box">
+        <div className="order-mgmt-payment-toolbar">
+          <OmIconToolbarButton icon={FilePlus} label="추가" />
+          <OmIconToolbarButton icon={Copy} label="복사" />
+          <OmIconToolbarButton icon={FolderOpen} label="열기" />
+          <OmIconToolbarButton icon={Pencil} label="수정" />
+          <OmIconToolbarButton icon={Trash2} label="삭제" />
+          <OmIconToolbarButton icon={RefreshCw} label="새로고침" />
+        </div>
+
+        <div className="order-mgmt-payment-table">
+          <OmDataTable columns={paymentListColumns} rows={paymentListRows} layout="compact" />
+        </div>
+
+        <div className="order-mgmt-form-body order-mgmt-payment-form">
+          <div className="order-mgmt-payment-receipt-row">
+            <span className="order-mgmt-field-label">현금영수증</span>
+            <select className="order-mgmt-input order-mgmt-select order-mgmt-payment-receipt-select" defaultValue="없음">
+              <option value="없음">없음</option>
+              <option value="소득공제">소득공제</option>
+              <option value="지출증빙">지출증빙</option>
+            </select>
+            <input type="text" className="order-mgmt-input order-mgmt-payment-receipt-input" />
+            <label className="order-mgmt-checkbox-field order-mgmt-payment-receipt-check">
+              <input type="checkbox" readOnly />
+              <span>발급완료</span>
+            </label>
+          </div>
+          <p className="order-mgmt-form-note order-mgmt-form-note--alert">
+            ※현금 및 온라인 주문 등록시 현금영수증을 신청합니다.
+          </p>
+          <div className="order-mgmt-form-grid order-mgmt-form-grid--3">
+            <OmFormField label="신청일자" value="2026-06-17" type="date" />
+            <OmFormField label="승인번호" value="" />
+            <OmFormField label="승인금액" value="0" />
+          </div>
+          <OmFormField label="비고" value="" full />
         </div>
       </section>
     </div>
@@ -615,6 +714,7 @@ export function OrderManagementView({ member }: { member: ProfileMember }) {
 
         <aside className="order-mgmt-right">
           <OmOrderBasicInfo member={member} />
+          <OmPaymentInfo />
 
           <div className="order-mgmt-block-wrap order-mgmt-block-wrap--grow">
             <OmSectionTitle title="배송지 및 인수자 정보" />
