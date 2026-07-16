@@ -1829,9 +1829,10 @@ textarea.mm2-name-box:focus {
   border-bottom: 1px solid var(--border);
 }
 
-.order-mgmt-input--readonly {
-  background: #e8eaef !important;
-  color: var(--text-body);
+.order-mgmt-input--readonly,
+.order-mgmt-input:read-only {
+  background: var(--input-background);
+  color: var(--foreground);
   cursor: default;
 }
 
