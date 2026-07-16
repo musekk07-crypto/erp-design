@@ -1497,7 +1497,7 @@ textarea.mm2-name-box:focus {
 
 .order-mgmt-form-box {
   background: var(--surface-panel);
-  border: 1px solid var(--border);
+  border: 1px solid var(--order-mgmt-member-info-bg, #0274b3);
   border-radius: 4px;
   overflow: hidden;
 }
