@@ -1559,6 +1559,7 @@ textarea.mm2-name-box:focus {
   --order-mgmt-shipping-input-font-size: 12px;
   --order-mgmt-shipping-field-gap: 14px;
   --order-mgmt-shipping-row-gap: 4px;
+  --order-mgmt-shipping-col-gap: 14px;
   gap: var(--order-mgmt-shipping-row-gap);
 }
 
@@ -1572,7 +1573,8 @@ textarea.mm2-name-box:focus {
 .order-mgmt-shipping-detail-row {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: var(--order-mgmt-shipping-row-gap);
+  column-gap: var(--order-mgmt-shipping-col-gap, 14px);
+  row-gap: var(--order-mgmt-shipping-row-gap, 4px);
   width: 100%;
 }
 
