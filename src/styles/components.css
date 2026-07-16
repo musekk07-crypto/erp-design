@@ -1552,7 +1552,8 @@ textarea.mm2-name-box:focus {
 }
 
 .order-mgmt-shipping-form,
-.order-mgmt-basic-form {
+.order-mgmt-basic-form,
+.order-mgmt-payment-form {
   --order-mgmt-shipping-label-width: 80px;
   --order-mgmt-shipping-field-gap: 14px;
   --order-mgmt-shipping-row-gap: 4px;
@@ -1720,26 +1721,21 @@ textarea.mm2-name-box:focus {
   border-top: 1px solid var(--border);
 }
 
-.order-mgmt-payment-receipt-row {
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  flex-wrap: wrap;
-}
-
-.order-mgmt-payment-receipt-select {
+.order-mgmt-shipping-detail .order-mgmt-payment-receipt-select {
+  flex: 0 0 72px;
   width: 72px;
-  flex-shrink: 0;
 }
 
-.order-mgmt-payment-receipt-input {
+.order-mgmt-shipping-detail .order-mgmt-payment-receipt-input {
   flex: 1;
-  min-width: 80px;
+  min-width: 0;
 }
 
-.order-mgmt-payment-receipt-check {
+.order-mgmt-shipping-detail .order-mgmt-payment-receipt-check {
   flex-shrink: 0;
-  margin-left: auto;
+  margin-left: 0;
+  font-size: 11px;
+  white-space: nowrap;
 }
 
 .order-mgmt-form-note--alert {

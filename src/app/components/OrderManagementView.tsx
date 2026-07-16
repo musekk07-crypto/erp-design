@@ -668,28 +668,38 @@ function OmPaymentInfo() {
         </div>
 
         <div className="order-mgmt-form-body order-mgmt-payment-form">
-          <div className="order-mgmt-payment-receipt-row">
-            <span className="order-mgmt-field-label">현금영수증</span>
-            <select className="order-mgmt-input order-mgmt-select order-mgmt-payment-receipt-select" defaultValue="없음">
-              <option value="없음">없음</option>
-              <option value="소득공제">소득공제</option>
-              <option value="지출증빙">지출증빙</option>
-            </select>
-            <input type="text" className="order-mgmt-input order-mgmt-payment-receipt-input" />
-            <label className="order-mgmt-checkbox-field order-mgmt-payment-receipt-check">
-              <input type="checkbox" readOnly />
-              <span>발급완료</span>
-            </label>
+          <div className="order-mgmt-shipping-detail">
+            <div className="order-mgmt-shipping-detail-row order-mgmt-shipping-detail-row--full">
+              <label className="order-mgmt-field order-mgmt-field--inline">
+                <span className="order-mgmt-field-label">현금영수증</span>
+                <span className="order-mgmt-field-control">
+                  <select className="order-mgmt-input order-mgmt-select order-mgmt-payment-receipt-select" defaultValue="없음">
+                    <option value="없음">없음</option>
+                    <option value="소득공제">소득공제</option>
+                    <option value="지출증빙">지출증빙</option>
+                  </select>
+                  <input type="text" className="order-mgmt-input order-mgmt-payment-receipt-input" />
+                  <label className="order-mgmt-checkbox-field order-mgmt-payment-receipt-check">
+                    <input type="checkbox" readOnly />
+                    <span>발급완료</span>
+                  </label>
+                </span>
+              </label>
+            </div>
+            <p className="order-mgmt-form-note order-mgmt-form-note--alert">
+              ※현금 및 온라인 주문 등록시 현금영수증을 신청합니다.
+            </p>
+            <div className="order-mgmt-shipping-detail-row">
+              <OmFormFieldInline label="신청일자" value="2026-06-17" type="date" />
+              <OmFormFieldInline label="승인번호" value="" />
+            </div>
+            <div className="order-mgmt-shipping-detail-row order-mgmt-shipping-detail-row--full">
+              <OmFormFieldInline label="승인금액" value="0" />
+            </div>
+            <div className="order-mgmt-shipping-detail-row order-mgmt-shipping-detail-row--full">
+              <OmFormFieldInline label="비고" value="" />
+            </div>
           </div>
-          <p className="order-mgmt-form-note order-mgmt-form-note--alert">
-            ※현금 및 온라인 주문 등록시 현금영수증을 신청합니다.
-          </p>
-          <div className="order-mgmt-form-grid order-mgmt-form-grid--3">
-            <OmFormField label="신청일자" value="2026-06-17" type="date" />
-            <OmFormField label="승인번호" value="" />
-            <OmFormField label="승인금액" value="0" />
-          </div>
-          <OmFormField label="비고" value="" full />
         </div>
       </section>
     </div>
