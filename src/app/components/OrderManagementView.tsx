@@ -847,7 +847,7 @@ export function OrderManagementView({ member }: { member: ProfileMember }) {
         >
           <OmOrderBasicInfo member={member} />
           <OmPaymentInfo />
-          <OmShippingInfo />
+          <OmShippingInfo member={member} />
         </aside>
       </div>
     </div>
