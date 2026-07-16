@@ -321,7 +321,7 @@ function OmDataTable({
 
   return (
     <div
-      className={`split-table-block order-mgmt-table-wrap flex flex-col flex-1 min-h-0${isCompact ? " order-mgmt-table-wrap--compact" : " order-mgmt-table-wrap--fill"}`}
+      className={`split-table-block order-mgmt-table-wrap flex flex-col flex-1 min-h-0${isCompact ? " order-mgmt-table-wrap--compact" : " order-mgmt-table-wrap--fill"}${useMinWidthScroll ? " order-mgmt-table-wrap--scroll-x" : ""}`}
       style={{ background: "var(--surface-panel)" }}
     >
       <div
@@ -817,7 +817,6 @@ export function OrderManagementView({ member }: { member: ProfileMember }) {
               columns={productListColumns}
               rows={productListRows}
               layout="compact"
-              spreadTailFrom={3}
               summaryRow={{
                 no: "",
                 code: "",
