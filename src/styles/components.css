@@ -1134,6 +1134,10 @@ textarea.mm2-name-box:focus {
   flex-shrink: 0;
 }
 
+.order-mgmt-right > .order-mgmt-block-wrap--payment {
+  margin-top: 8px;
+}
+
 .order-mgmt-block-title--payment {
   color: #8b5e3c;
 }
