@@ -1553,7 +1553,7 @@ textarea.mm2-name-box:focus {
 
 .order-mgmt-shipping-form {
   --order-mgmt-shipping-label-width: 80px;
-  --order-mgmt-shipping-field-gap: 4px;
+  --order-mgmt-shipping-field-gap: 14px;
   --order-mgmt-shipping-row-gap: 4px;
   gap: var(--order-mgmt-shipping-row-gap);
 }
