@@ -1572,7 +1572,26 @@ textarea.mm2-name-box:focus {
 .order-mgmt-shipping-detail {
   display: flex;
   flex-direction: column;
-  gap: 6px;
+  gap: 8px;
+}
+
+.order-mgmt-shipping-detail-grid .order-mgmt-field--inline,
+.order-mgmt-shipping-costs .order-mgmt-field--inline,
+.order-mgmt-shipping-requirement .order-mgmt-field--inline {
+  width: 100%;
+  min-width: 0;
+}
+
+.order-mgmt-shipping-detail-grid .order-mgmt-field--inline .order-mgmt-field-label,
+.order-mgmt-shipping-costs .order-mgmt-field--inline .order-mgmt-field-label,
+.order-mgmt-shipping-requirement .order-mgmt-field--inline .order-mgmt-field-label {
+  flex: 0 0 64px;
+  min-width: 64px;
+  font-size: 12px;
+}
+
+.order-mgmt-shipping-requirement {
+  width: 100%;
 }
 
 .order-mgmt-field--inline {
