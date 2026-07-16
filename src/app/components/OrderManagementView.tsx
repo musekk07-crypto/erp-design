@@ -617,11 +617,11 @@ function OmOrderBasicInfo({ member }: { member: ProfileMember }) {
             <p className="order-mgmt-form-note">
               ※주문일자는 매출집계에 사용되며 수당적용일이 수당계산에 사용됩니다.
             </p>
-            <div className="order-mgmt-shipping-detail-row">
+            <div className="order-mgmt-shipping-detail-row order-mgmt-shipping-detail-row--divider">
               <OmFormSelectInline label="센터" value={centerCode} options={[centerCode]} />
               <OmFormSelectInline label="고객유형" value="판매원" options={["판매원", "소비자", "일반"]} />
             </div>
-            <div className="order-mgmt-shipping-detail-row">
+            <div className="order-mgmt-shipping-detail-row order-mgmt-shipping-detail-row--divider">
               <OmFormSelectInline label="접수구분" value="방문" options={["방문", "전화", "온라인"]} />
               <OmFormFieldInline label="주문서상태" value="주문승인" readOnly />
             </div>

@@ -1582,6 +1582,11 @@ textarea.mm2-name-box:focus {
   grid-template-columns: 1fr;
 }
 
+.order-mgmt-shipping-detail-row--divider {
+  padding-bottom: 8px;
+  border-bottom: 1px solid var(--border);
+}
+
 .order-mgmt-shipping-detail .order-mgmt-field--inline {
   display: grid;
   grid-template-columns: var(--order-mgmt-shipping-label-width, 72px) minmax(0, 1fr);
