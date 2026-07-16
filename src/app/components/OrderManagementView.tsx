@@ -541,12 +541,12 @@ function OmShippingInfo({ member }: { member: ProfileMember }) {
               <OmFormSelectInline label="배송방법" value="직접수령" options={["직접수령", "택배", "퀵서비스"]} />
               <OmFormFieldInline label="인수자명" value={member.name} />
             </div>
-            <div className="order-mgmt-shipping-detail-row">
+            <div className="order-mgmt-shipping-detail-row order-mgmt-shipping-detail-row--divider">
               <OmFormFieldInline label="인수자연락처" value="02-583-9201" />
               <OmFormFieldInline label="핸드폰번호" value={member.phone} />
             </div>
 
-            <div className="order-mgmt-shipping-detail-row order-mgmt-shipping-detail-row--full">
+            <div className="order-mgmt-shipping-detail-row order-mgmt-shipping-detail-row--full order-mgmt-shipping-detail-row--divider">
               <OmFormFieldInline
                 label="배송지주소"
                 value={address}
@@ -562,11 +562,11 @@ function OmShippingInfo({ member }: { member: ProfileMember }) {
               <OmFormFieldInline label="city" value="" />
               <OmFormFieldInline label="state" value="" />
             </div>
-            <div className="order-mgmt-shipping-detail-row">
+            <div className="order-mgmt-shipping-detail-row order-mgmt-shipping-detail-row--divider">
               <OmFormSelectInline label="배송국가" value="South Korea" options={["South Korea", "United States", "Japan"]} />
               <OmFormFieldInline label="우편번호" value="" readOnly />
             </div>
-            <div className="order-mgmt-shipping-detail-row">
+            <div className="order-mgmt-shipping-detail-row order-mgmt-shipping-detail-row--divider">
               <OmFormFieldInline label="세금" value="0" />
               <OmFormFieldInline label="배송비용" value="0" />
             </div>
