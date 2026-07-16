@@ -1763,10 +1763,6 @@ textarea.mm2-name-box:focus {
   margin-top: -4px;
 }
 
-.order-mgmt-payment-form .order-mgmt-shipping-detail-row--divider + .order-mgmt-form-note--divider {
-  margin-top: -4px;
-}
-
 .order-mgmt-basic-form .order-mgmt-form-note--divider + .order-mgmt-shipping-detail-row,
 .order-mgmt-basic-form .order-mgmt-shipping-detail-row--divider + .order-mgmt-shipping-detail-row,
 .order-mgmt-shipping-form .order-mgmt-form-note--divider + .order-mgmt-shipping-detail-row,
