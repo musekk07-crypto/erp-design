@@ -637,7 +637,7 @@ function OmOrderBasicInfo({ member }: { member: ProfileMember }) {
               <OmFormFieldInline label="주문서상태" value="주문승인" readOnly />
             </div>
             <div className="order-mgmt-shipping-detail-row order-mgmt-shipping-detail-row--full">
-              <OmFormTextareaInline label="메모" rows={2} />
+              <OmFormFieldInline label="메모" value="" />
             </div>
           </div>
         </div>
