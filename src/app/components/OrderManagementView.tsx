@@ -486,10 +486,12 @@ function OmFormFieldInline({
   label,
   value = "",
   readOnly = false,
+  suffix,
 }: {
   label: string;
   value?: string;
   readOnly?: boolean;
+  suffix?: React.ReactNode;
 }) {
   return (
     <label className="order-mgmt-field order-mgmt-field--inline">
@@ -501,6 +503,7 @@ function OmFormFieldInline({
           defaultValue={value}
           readOnly={readOnly}
         />
+        {suffix}
       </span>
     </label>
   );
@@ -541,16 +544,17 @@ function OmShippingInfo({ member }: { member: ProfileMember }) {
               <OmFormFieldInline label="인수자핸드폰번호" value={member.phone} />
             </div>
 
-          <OmFormField
-            label="배송지주소"
-            value={address}
-            full
-            suffix={
-              <button type="button" className="order-mgmt-ellipsis-btn" aria-label="주소 검색">
-                ...
-              </button>
-            }
-          />
+            <div className="order-mgmt-shipping-detail-row order-mgmt-shipping-detail-row--full">
+              <OmFormFieldInline
+                label="배송지주소"
+                value={address}
+                suffix={
+                  <button type="button" className="order-mgmt-ellipsis-btn" aria-label="주소 검색">
+                    ...
+                  </button>
+                }
+              />
+            </div>
 
             <div className="order-mgmt-shipping-detail-row">
               <OmFormFieldInline label="city" value="" />

@@ -1598,11 +1598,16 @@ textarea.mm2-name-box:focus {
 .order-mgmt-shipping-detail .order-mgmt-field--inline .order-mgmt-field-control {
   width: 100%;
   min-width: 0;
+  display: flex;
+  align-items: center;
+  gap: 4px;
 }
 
-.order-mgmt-shipping-detail .order-mgmt-field--inline .order-mgmt-input,
-.order-mgmt-shipping-detail .order-mgmt-field--inline .order-mgmt-select {
-  width: 100%;
+.order-mgmt-shipping-detail .order-mgmt-field--inline .order-mgmt-field-control .order-mgmt-input,
+.order-mgmt-shipping-detail .order-mgmt-field--inline .order-mgmt-field-control .order-mgmt-select {
+  flex: 1;
+  min-width: 0;
+  width: auto;
   min-height: 28px;
   padding: 4px 6px;
   font-size: 13px;
