@@ -1551,7 +1551,8 @@ textarea.mm2-name-box:focus {
   flex-shrink: 0;
 }
 
-.order-mgmt-shipping-form {
+.order-mgmt-shipping-form,
+.order-mgmt-basic-form {
   --order-mgmt-shipping-label-width: 80px;
   --order-mgmt-shipping-field-gap: 14px;
   --order-mgmt-shipping-row-gap: 4px;
@@ -1606,7 +1607,8 @@ textarea.mm2-name-box:focus {
 }
 
 .order-mgmt-shipping-detail .order-mgmt-field--inline .order-mgmt-field-control .order-mgmt-input,
-.order-mgmt-shipping-detail .order-mgmt-field--inline .order-mgmt-field-control .order-mgmt-select {
+.order-mgmt-shipping-detail .order-mgmt-field--inline .order-mgmt-field-control .order-mgmt-select,
+.order-mgmt-shipping-detail .order-mgmt-field--inline .order-mgmt-field-control .order-mgmt-textarea {
   flex: 1;
   min-width: 0;
   width: auto;
@@ -1614,6 +1616,19 @@ textarea.mm2-name-box:focus {
   padding: 4px 6px;
   font-size: 13px;
   box-sizing: border-box;
+}
+
+.order-mgmt-shipping-detail .order-mgmt-field--textarea-inline {
+  align-items: start;
+}
+
+.order-mgmt-shipping-detail .order-mgmt-field--textarea-inline .order-mgmt-field-label {
+  padding-top: 6px;
+}
+
+.order-mgmt-shipping-detail .order-mgmt-field--textarea-inline .order-mgmt-textarea {
+  min-height: 48px;
+  resize: vertical;
 }
 
 .order-mgmt-field--inline {

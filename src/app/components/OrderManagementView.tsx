@@ -486,11 +486,13 @@ function OmFormFieldInline({
   label,
   value = "",
   readOnly = false,
+  type = "text",
   suffix,
 }: {
   label: string;
   value?: string;
   readOnly?: boolean;
+  type?: string;
   suffix?: React.ReactNode;
 }) {
   return (
@@ -498,12 +500,23 @@ function OmFormFieldInline({
       <span className="order-mgmt-field-label">{label}</span>
       <span className="order-mgmt-field-control">
         <input
-          type="text"
+          type={type}
           className={`order-mgmt-input${readOnly ? " order-mgmt-input--readonly" : ""}`}
           defaultValue={value}
           readOnly={readOnly}
         />
         {suffix}
+      </span>
+    </label>
+  );
+}
+
+function OmFormTextareaInline({ label, rows = 2 }: { label: string; rows?: number }) {
+  return (
+    <label className="order-mgmt-field order-mgmt-field--inline order-mgmt-field--textarea-inline">
+      <span className="order-mgmt-field-label">{label}</span>
+      <span className="order-mgmt-field-control">
+        <textarea className="order-mgmt-textarea" rows={rows} />
       </span>
     </label>
   );
@@ -597,43 +610,36 @@ function OmOrderBasicInfo({ member }: { member: ProfileMember }) {
     <div className="order-mgmt-block-wrap">
       <OmSectionTitle title="주문서 기본정보" />
       <section className="order-mgmt-form-box">
-        <div className="order-mgmt-form-body">
-        <div className="order-mgmt-radio-group" role="radiogroup" aria-label="거래구분">
-          {txnTypes.map((type, index) => (
-            <label key={type} className="order-mgmt-radio-item">
-              <input type="radio" name="order-txn-type" defaultChecked={index === 0} />
-              <span>{type}</span>
-            </label>
-          ))}
-        </div>
+        <div className="order-mgmt-form-body order-mgmt-basic-form">
+          <div className="order-mgmt-radio-group" role="radiogroup" aria-label="거래구분">
+            {txnTypes.map((type, index) => (
+              <label key={type} className="order-mgmt-radio-item">
+                <input type="radio" name="order-txn-type" defaultChecked={index === 0} />
+                <span>{type}</span>
+              </label>
+            ))}
+          </div>
 
-        <div className="order-mgmt-form-grid order-mgmt-form-grid--2">
-          <OmFormField label="제품주문일자" value="2026-06-17" type="date" />
-          <OmFormField label="수당적용일자" value="2026-06-17" type="date" />
-        </div>
-        <p className="order-mgmt-form-note">
-          ※주문일자는 매출집계에 사용되며 수당적용일이 수당계산에 사용됩니다.
-        </p>
-
-        <div className="order-mgmt-form-grid order-mgmt-form-grid--4">
-          <OmFormSelect label="센터" value={centerCode} options={[centerCode]} />
-          <OmFormSelect label="고객유형" value="판매원" options={["판매원", "소비자", "일반"]} />
-          <OmFormSelect label="접수구분" value="방문" options={["방문", "전화", "온라인"]} />
-          <label className="order-mgmt-field">
-            <span className="order-mgmt-field-label">주문서상태</span>
-            <input
-              type="text"
-              className="order-mgmt-input order-mgmt-input--readonly"
-              defaultValue="주문승인"
-              readOnly
-            />
-          </label>
-        </div>
-
-        <label className="order-mgmt-field order-mgmt-field--full">
-          <span className="order-mgmt-field-label">메모</span>
-          <textarea className="order-mgmt-textarea" rows={2} />
-        </label>
+          <div className="order-mgmt-shipping-detail">
+            <div className="order-mgmt-shipping-detail-row">
+              <OmFormFieldInline label="제품주문일자" value="2026-06-17" type="date" />
+              <OmFormFieldInline label="수당적용일자" value="2026-06-17" type="date" />
+            </div>
+            <p className="order-mgmt-form-note">
+              ※주문일자는 매출집계에 사용되며 수당적용일이 수당계산에 사용됩니다.
+            </p>
+            <div className="order-mgmt-shipping-detail-row">
+              <OmFormSelectInline label="센터" value={centerCode} options={[centerCode]} />
+              <OmFormSelectInline label="고객유형" value="판매원" options={["판매원", "소비자", "일반"]} />
+            </div>
+            <div className="order-mgmt-shipping-detail-row">
+              <OmFormSelectInline label="접수구분" value="방문" options={["방문", "전화", "온라인"]} />
+              <OmFormFieldInline label="주문서상태" value="주문승인" readOnly />
+            </div>
+            <div className="order-mgmt-shipping-detail-row order-mgmt-shipping-detail-row--full">
+              <OmFormTextareaInline label="메모" rows={2} />
+            </div>
+          </div>
         </div>
       </section>
     </div>
