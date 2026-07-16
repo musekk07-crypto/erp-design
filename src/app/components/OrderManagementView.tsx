@@ -554,7 +554,7 @@ function OmShippingInfo({ member }: { member: ProfileMember }) {
             </div>
             <div className="order-mgmt-shipping-detail-row">
               <OmFormFieldInline label="인수자연락처" value="02-583-9201" />
-              <OmFormFieldInline label="인수자핸드폰" value={member.phone} />
+              <OmFormFieldInline label="핸드폰번호" value={member.phone} />
             </div>
 
             <div className="order-mgmt-shipping-detail-row order-mgmt-shipping-detail-row--full">
