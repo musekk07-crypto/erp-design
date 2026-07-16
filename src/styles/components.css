@@ -1763,8 +1763,16 @@ textarea.mm2-name-box:focus {
   margin-top: -4px;
 }
 
+.order-mgmt-payment-form .order-mgmt-shipping-detail-row--divider + .order-mgmt-form-note--divider {
+  margin-top: -4px;
+}
+
 .order-mgmt-basic-form .order-mgmt-form-note--divider + .order-mgmt-shipping-detail-row,
-.order-mgmt-basic-form .order-mgmt-shipping-detail-row--divider + .order-mgmt-shipping-detail-row {
+.order-mgmt-basic-form .order-mgmt-shipping-detail-row--divider + .order-mgmt-shipping-detail-row,
+.order-mgmt-shipping-form .order-mgmt-form-note--divider + .order-mgmt-shipping-detail-row,
+.order-mgmt-shipping-form .order-mgmt-shipping-detail-row--divider + .order-mgmt-shipping-detail-row,
+.order-mgmt-payment-form .order-mgmt-form-note--divider + .order-mgmt-shipping-detail-row,
+.order-mgmt-payment-form .order-mgmt-shipping-detail-row--divider + .order-mgmt-shipping-detail-row {
   margin-top: -4px;
 }
 
@@ -1797,11 +1805,15 @@ textarea.mm2-name-box:focus {
   color: #b45309;
 }
 
-.order-mgmt-basic-form .order-mgmt-form-note {
+.order-mgmt-basic-form .order-mgmt-form-note,
+.order-mgmt-shipping-form .order-mgmt-form-note,
+.order-mgmt-payment-form .order-mgmt-form-note {
   margin-top: -3px;
 }
 
-.order-mgmt-basic-form .order-mgmt-form-note--divider {
+.order-mgmt-basic-form .order-mgmt-form-note--divider,
+.order-mgmt-shipping-form .order-mgmt-form-note--divider,
+.order-mgmt-payment-form .order-mgmt-form-note--divider {
   padding-bottom: 8px;
   border-bottom: 1px solid var(--border);
 }
