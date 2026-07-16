@@ -1689,15 +1689,6 @@ textarea.mm2-name-box:focus {
   background: var(--surface-panel);
 }
 
-.order-mgmt-payment-table .split-table-head tr,
-.order-mgmt-payment-table .split-table-head th {
-  background: var(--surface-panel) !important;
-}
-
-.order-mgmt-payment-table .split-table-head tr {
-  border-bottom-color: var(--border) !important;
-}
-
 .order-mgmt-payment-table {
   flex-shrink: 0;
   width: 100%;
