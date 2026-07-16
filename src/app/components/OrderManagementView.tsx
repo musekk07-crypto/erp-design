@@ -548,17 +548,19 @@ function OmShippingInfo({ member }: { member: ProfileMember }) {
           />
 
           <div className="order-mgmt-shipping-detail">
-            <div className="order-mgmt-form-grid order-mgmt-form-grid--4 order-mgmt-shipping-detail-grid">
+            <div className="order-mgmt-shipping-detail-row">
               <OmFormFieldInline label="city" value="" />
               <OmFormFieldInline label="state" value="" />
+            </div>
+            <div className="order-mgmt-shipping-detail-row">
               <OmFormSelectInline label="배송국가" value="South Korea" options={["South Korea", "United States", "Japan"]} />
               <OmFormFieldInline label="우편번호" value="" readOnly />
             </div>
-            <div className="order-mgmt-form-grid order-mgmt-form-grid--2 order-mgmt-shipping-costs">
+            <div className="order-mgmt-shipping-detail-row">
               <OmFormFieldInline label="세금" value="0" />
               <OmFormFieldInline label="배송비용" value="0" />
             </div>
-            <div className="order-mgmt-shipping-requirement">
+            <div className="order-mgmt-shipping-detail-row order-mgmt-shipping-detail-row--full">
               <OmFormFieldInline label="요구사항" value="" />
             </div>
           </div>

@@ -1573,25 +1573,53 @@ textarea.mm2-name-box:focus {
   display: flex;
   flex-direction: column;
   gap: 8px;
+  width: 100%;
 }
 
-.order-mgmt-shipping-detail-grid .order-mgmt-field--inline,
-.order-mgmt-shipping-costs .order-mgmt-field--inline,
-.order-mgmt-shipping-requirement .order-mgmt-field--inline {
+.order-mgmt-shipping-detail-row {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 8px;
+  width: 100%;
+}
+
+.order-mgmt-shipping-detail-row--full {
+  grid-template-columns: 1fr;
+}
+
+.order-mgmt-shipping-detail .order-mgmt-field--inline {
+  display: grid;
+  grid-template-columns: var(--order-mgmt-shipping-label-width, 72px) minmax(0, 1fr);
+  align-items: center;
+  gap: 8px;
+  width: 100%;
+  min-width: 0;
+  flex-direction: unset;
+}
+
+.order-mgmt-shipping-detail .order-mgmt-field--inline .order-mgmt-field-label {
+  flex: unset;
+  width: auto;
+  min-width: 0;
+  margin: 0;
+  font-size: 12px;
+  line-height: 1.3;
+  text-align: left;
+  white-space: nowrap;
+}
+
+.order-mgmt-shipping-detail .order-mgmt-field--inline .order-mgmt-field-control {
   width: 100%;
   min-width: 0;
 }
 
-.order-mgmt-shipping-detail-grid .order-mgmt-field--inline .order-mgmt-field-label,
-.order-mgmt-shipping-costs .order-mgmt-field--inline .order-mgmt-field-label,
-.order-mgmt-shipping-requirement .order-mgmt-field--inline .order-mgmt-field-label {
-  flex: 0 0 64px;
-  min-width: 64px;
-  font-size: 12px;
-}
-
-.order-mgmt-shipping-requirement {
+.order-mgmt-shipping-detail .order-mgmt-field--inline .order-mgmt-input,
+.order-mgmt-shipping-detail .order-mgmt-field--inline .order-mgmt-select {
   width: 100%;
+  min-height: 28px;
+  padding: 4px 6px;
+  font-size: 13px;
+  box-sizing: border-box;
 }
 
 .order-mgmt-field--inline {
@@ -1614,10 +1642,6 @@ textarea.mm2-name-box:focus {
 .order-mgmt-field--inline .order-mgmt-input,
 .order-mgmt-field--inline .order-mgmt-select {
   width: 100%;
-}
-
-.order-mgmt-shipping-costs {
-  gap: 8px;
 }
 
 .order-mgmt-ellipsis-btn {
