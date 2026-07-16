@@ -1541,7 +1541,7 @@ textarea.mm2-name-box:focus {
 .order-mgmt-shipping-box {
   display: flex;
   flex-direction: column;
-  min-height: 0;
+  flex-shrink: 0;
 }
 
 .order-mgmt-shipping-form {

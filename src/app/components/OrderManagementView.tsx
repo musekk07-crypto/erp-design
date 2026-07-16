@@ -526,7 +526,7 @@ function OmShippingInfo({ member }: { member: ProfileMember }) {
   const address = member.region.includes("서울") ? "서울특별시 강남구 테헤란로 123" : member.region;
 
   return (
-    <div className="order-mgmt-block-wrap order-mgmt-block-wrap--grow">
+    <div className="order-mgmt-block-wrap">
       <OmSectionTitle title="배송지 및 인수자 정보" />
       <section className="order-mgmt-form-box order-mgmt-shipping-box">
         <div className="order-mgmt-form-body order-mgmt-shipping-form">
