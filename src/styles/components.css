@@ -1012,6 +1012,8 @@ textarea.mm2-name-box:focus {
   --order-mgmt-right-width: 520px;
   --order-mgmt-toolbar-head-height: 60px;
   --order-mgmt-box-radius: var(--radius, 6px);
+  --order-mgmt-block-title-color: #1e2130;
+  --order-mgmt-block-title-accent-color: #8b5e3c;
   --split-table-header-bg: #e0f2fe;
   --split-table-header-border: #bae6fd;
   --split-table-header-fg: #1e2130;
@@ -1020,6 +1022,8 @@ textarea.mm2-name-box:focus {
 [data-theme="dark"] .order-mgmt-view {
   --accent-primary: #38bdf8;
   --order-mgmt-member-info-bg: #0284c7;
+  --order-mgmt-block-title-color: #ffffff;
+  --order-mgmt-block-title-accent-color: #ffffff;
   --surface-row-selected: #3a4458;
   --split-table-header-bg: #0c4a6e;
   --split-table-header-border: #075985;
@@ -1150,14 +1154,14 @@ textarea.mm2-name-box:focus {
 }
 
 .order-mgmt-block-title--payment {
-  color: #8b5e3c;
+  color: var(--order-mgmt-block-title-accent-color, #8b5e3c);
 }
 
 .order-mgmt-section-bullet--square {
   width: 6px;
   height: 6px;
   border-radius: 0;
-  background: #8b5e3c;
+  background: var(--order-mgmt-block-title-accent-color, #8b5e3c);
 }
 
 .order-mgmt-left > .order-mgmt-block-wrap {
@@ -1172,7 +1176,7 @@ textarea.mm2-name-box:focus {
   padding: 0 4px;
   font-size: var(--order-mgmt-font-size-lg, 15px);
   font-weight: 600;
-  color: #1e2130;
+  color: var(--order-mgmt-block-title-color, #1e2130);
   background: transparent;
   border: none;
 }
@@ -1198,7 +1202,7 @@ textarea.mm2-name-box:focus {
   width: 6px;
   height: 6px;
   border-radius: 50%;
-  background: #1e2130;
+  background: var(--order-mgmt-block-title-color, #1e2130);
   flex-shrink: 0;
 }
 
