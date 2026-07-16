@@ -195,6 +195,24 @@ function OmMemberInfoTitle({ name, memberNo }: { name: string; memberNo: string 
   );
 }
 
+function getCompactColWidth(
+  col: OmColumn,
+  colIndex: number,
+  columns: OmColumn[],
+  spreadTailFrom?: number,
+): React.CSSProperties {
+  if (spreadTailFrom === undefined || colIndex < spreadTailFrom) {
+    return { width: col.width };
+  }
+
+  const leadingFixedWidth =
+    OM_CHECKBOX_WIDTH + columns.slice(0, spreadTailFrom).reduce((sum, c) => sum + c.width, 0);
+  const tailWeight = columns.slice(spreadTailFrom).reduce((sum, c) => sum + c.width, 0);
+  const ratio = col.width / tailWeight;
+
+  return { width: `calc((100% - ${leadingFixedWidth}px) * ${ratio})` };
+}
+
 function OmDataTable({
   columns,
   rows,
@@ -202,6 +220,7 @@ function OmDataTable({
   onSelectRow,
   summaryRow,
   layout = "fill",
+  spreadTailFrom,
 }: {
   columns: OmColumn[];
   rows: Record<string, string | number>[];
@@ -209,8 +228,11 @@ function OmDataTable({
   onSelectRow?: (index: number) => void;
   summaryRow?: Record<string, string | number>;
   layout?: "fill" | "compact";
+  spreadTailFrom?: number;
 }) {
   const isCompact = layout === "compact";
+  const useEdgeSpread = isCompact && spreadTailFrom !== undefined;
+  const useFiller = isCompact && !useEdgeSpread;
   const dataWeight = columns.reduce((sum, col) => sum + col.width, 0);
   const tableMinWidth = getOmTableMinWidth(columns);
   const cellPadX = isCompact ? 4 : 8;
@@ -264,12 +286,12 @@ function OmDataTable({
     >
       <div
         className="flex-1 min-h-0"
-        style={{ width: "100%", overflowY: "auto", overflowX: isCompact ? "auto" : "hidden" }}
+        style={{ width: "100%", overflowY: "auto", overflowX: useEdgeSpread || !isCompact ? "hidden" : "auto" }}
       >
         <div
           style={
             isCompact
-              ? { width: "100%", minWidth: tableMinWidth }
+              ? { width: "100%", minWidth: useEdgeSpread ? undefined : tableMinWidth }
               : { width: "100%", height: "100%" }
           }
         >
@@ -277,19 +299,25 @@ function OmDataTable({
           style={{
             borderCollapse: "collapse",
             width: "100%",
-            minWidth: isCompact ? tableMinWidth : undefined,
+            minWidth: isCompact && !useEdgeSpread ? tableMinWidth : undefined,
             tableLayout: "fixed",
           }}
         >
           <colgroup>
             <col style={{ width: OM_CHECKBOX_WIDTH }} />
-            {columns.map((col) => (
+            {columns.map((col, index) => (
               <col
                 key={col.key}
-                style={isCompact ? { width: col.width } : { width: `${(col.width / dataWeight) * 100}%` }}
+                style={
+                  useEdgeSpread
+                    ? getCompactColWidth(col, index, columns, spreadTailFrom)
+                    : isCompact
+                      ? { width: col.width }
+                      : { width: `${(col.width / dataWeight) * 100}%` }
+                }
               />
             ))}
-            {isCompact && <col />}
+            {useFiller && <col />}
           </colgroup>
           <thead className="split-table-head" style={{ position: "sticky", top: 0, zIndex: 2 }}>
             <tr
@@ -315,7 +343,7 @@ function OmDataTable({
                   {col.label}
                 </th>
               ))}
-              {isCompact && <th className="order-mgmt-table-filler" style={fillerHeaderStyle} aria-hidden="true" />}
+              {useFiller && <th className="order-mgmt-table-filler" style={fillerHeaderStyle} aria-hidden="true" />}
             </tr>
           </thead>
           <tbody>
@@ -336,7 +364,7 @@ function OmDataTable({
                       {row[col.key] ?? ""}
                     </td>
                   ))}
-                  {isCompact && <td className="order-mgmt-table-filler" style={fillerCellStyle} aria-hidden="true" />}
+                  {useFiller && <td className="order-mgmt-table-filler" style={fillerCellStyle} aria-hidden="true" />}
                 </tr>
               );
             })}
@@ -354,7 +382,7 @@ function OmDataTable({
                     {summaryRow[col.key] ?? ""}
                   </td>
                 ))}
-                {isCompact && <td className="order-mgmt-table-filler" style={fillerCellStyle} aria-hidden="true" />}
+                {useFiller && <td className="order-mgmt-table-filler" style={fillerCellStyle} aria-hidden="true" />}
               </tr>
             )}
           </tbody>
@@ -567,6 +595,7 @@ export function OrderManagementView({ member }: { member: ProfileMember }) {
               columns={productListColumns}
               rows={productListRows}
               layout="compact"
+              spreadTailFrom={3}
               summaryRow={{
                 no: "",
                 code: "",
