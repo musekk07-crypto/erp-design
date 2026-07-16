@@ -462,6 +462,7 @@
   border: 1px solid var(--border);
   border-radius: 6px;
   --mm2-detail-surface: #e0f2fe;
+  --mm2-detail-header-fg: #0369a1;
 }
 
 .mm2-org-chart .mm2-org-section {
@@ -497,7 +498,11 @@
 .mm2-org-chart .mm2-org-section > button > span.text-sm {
   font-size: 14px !important;
   font-weight: 600 !important;
-  color: var(--text-body) !important;
+  color: var(--mm2-detail-header-fg, #0369a1) !important;
+}
+
+.mm2-org-chart .mm2-org-section > button > span:first-of-type span {
+  color: var(--mm2-detail-header-fg, #0369a1) !important;
 }
 
 .mm2-org-chart .mm2-org-section > button > svg {
@@ -585,6 +590,7 @@
   --mm2-detail-label-width: 140px;
   --mm2-detail-row-height: 40px;
   --mm2-detail-surface: #e0f2fe;
+  --mm2-detail-header-fg: #0369a1;
   --mm2-detail-font-size: 14px;
   --mm2-detail-font-size-lg: 15px;
 }
@@ -619,7 +625,7 @@
   height: 22px;
   border-radius: 4px;
   background: transparent;
-  color: var(--accent-primary);
+  color: var(--mm2-detail-header-fg, #0369a1);
 }
 
 .mm2-detail-header-title {
@@ -627,7 +633,7 @@
   min-width: 0;
   font-size: var(--mm2-detail-font-size-lg, 15px);
   font-weight: 600;
-  color: var(--text-body);
+  color: var(--mm2-detail-header-fg, #0369a1);
 }
 
 .mm2-detail-header-actions {
