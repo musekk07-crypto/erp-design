@@ -1884,7 +1884,7 @@ textarea.mm2-name-box:focus {
   display: flex;
   flex-direction: column;
   gap: 2px;
-  font-size: 11px;
+  font-size: 12px;
   color: var(--text-muted);
 }
 
