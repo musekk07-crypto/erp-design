@@ -1554,7 +1554,9 @@ textarea.mm2-name-box:focus {
 .order-mgmt-shipping-form,
 .order-mgmt-basic-form,
 .order-mgmt-payment-form {
-  --order-mgmt-shipping-label-width: 80px;
+  --order-mgmt-shipping-label-width: 88px;
+  --order-mgmt-shipping-label-font-size: 12px;
+  --order-mgmt-shipping-input-font-size: 12px;
   --order-mgmt-shipping-field-gap: 14px;
   --order-mgmt-shipping-row-gap: 4px;
   gap: var(--order-mgmt-shipping-row-gap);
@@ -1592,11 +1594,14 @@ textarea.mm2-name-box:focus {
   flex: unset;
   width: auto;
   min-width: 0;
+  max-width: 100%;
   margin: 0;
-  font-size: 11px;
+  font-size: var(--order-mgmt-shipping-label-font-size, 12px);
   line-height: 1.2;
   text-align: left;
   white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .order-mgmt-shipping-detail .order-mgmt-field--inline .order-mgmt-field-control {
@@ -1613,9 +1618,9 @@ textarea.mm2-name-box:focus {
   flex: 1;
   min-width: 0;
   width: auto;
-  min-height: 28px;
-  padding: 4px 6px;
-  font-size: 13px;
+  min-height: 26px;
+  padding: 3px 6px;
+  font-size: var(--order-mgmt-shipping-input-font-size, 12px);
   box-sizing: border-box;
 }
 
@@ -1734,7 +1739,7 @@ textarea.mm2-name-box:focus {
 .order-mgmt-shipping-detail .order-mgmt-payment-receipt-check {
   flex-shrink: 0;
   margin-left: 0;
-  font-size: 11px;
+  font-size: var(--order-mgmt-shipping-label-font-size, 12px);
   white-space: nowrap;
 }
 
@@ -1766,7 +1771,7 @@ textarea.mm2-name-box:focus {
 
 .order-mgmt-form-note {
   margin: 0;
-  font-size: 11px;
+  font-size: var(--order-mgmt-shipping-label-font-size, 12px);
   line-height: 1.5;
   color: #b45309;
 }
