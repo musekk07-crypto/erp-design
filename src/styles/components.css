@@ -1788,6 +1788,10 @@ textarea.mm2-name-box:focus {
   color: #b45309;
 }
 
+.order-mgmt-basic-form .order-mgmt-form-note {
+  margin-top: -3px;
+}
+
 .order-mgmt-input--readonly {
   background: #e8eaef !important;
   color: var(--text-body);
