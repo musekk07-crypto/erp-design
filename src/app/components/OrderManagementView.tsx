@@ -614,7 +614,7 @@ function OmOrderBasicInfo({ member }: { member: ProfileMember }) {
               <OmFormFieldInline label="제품주문일자" value="2026-06-17" type="date" />
               <OmFormFieldInline label="수당적용일자" value="2026-06-17" type="date" />
             </div>
-            <p className="order-mgmt-form-note">
+            <p className="order-mgmt-form-note order-mgmt-form-note--divider">
               ※주문일자는 매출집계에 사용되며 수당적용일이 수당계산에 사용됩니다.
             </p>
             <div className="order-mgmt-shipping-detail-row order-mgmt-shipping-detail-row--divider">

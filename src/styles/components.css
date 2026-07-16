@@ -1792,6 +1792,11 @@ textarea.mm2-name-box:focus {
   margin-top: -3px;
 }
 
+.order-mgmt-basic-form .order-mgmt-form-note--divider {
+  padding-bottom: 8px;
+  border-bottom: 1px solid var(--border);
+}
+
 .order-mgmt-input--readonly {
   background: #e8eaef !important;
   color: var(--text-body);
