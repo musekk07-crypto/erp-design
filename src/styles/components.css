@@ -1538,6 +1538,92 @@ textarea.mm2-name-box:focus {
   grid-template-columns: repeat(3, minmax(0, 1fr));
 }
 
+.order-mgmt-shipping-box {
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+}
+
+.order-mgmt-shipping-form {
+  gap: 8px;
+}
+
+.order-mgmt-shipping-top .order-mgmt-field-label {
+  font-size: 12px;
+  line-height: 1.3;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.order-mgmt-shipping-top .order-mgmt-input,
+.order-mgmt-shipping-top .order-mgmt-select {
+  padding: 4px 6px;
+  font-size: 13px;
+}
+
+.order-mgmt-shipping-detail {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.order-mgmt-field--inline {
+  flex-direction: row;
+  align-items: center;
+  gap: 8px;
+}
+
+.order-mgmt-field--inline .order-mgmt-field-label {
+  flex: 0 0 78px;
+  min-width: 78px;
+  white-space: nowrap;
+}
+
+.order-mgmt-field--inline .order-mgmt-field-control {
+  flex: 1;
+  min-width: 0;
+}
+
+.order-mgmt-field--inline .order-mgmt-input,
+.order-mgmt-field--inline .order-mgmt-select {
+  width: 100%;
+}
+
+.order-mgmt-shipping-costs {
+  gap: 8px;
+}
+
+.order-mgmt-ellipsis-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  flex-shrink: 0;
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  background: var(--surface-panel);
+  color: var(--text-muted);
+  font-size: 12px;
+  line-height: 1;
+  cursor: pointer;
+}
+
+.order-mgmt-shipping-footer {
+  border-top: 1px dashed var(--border);
+  padding: 8px 10px 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.order-mgmt-meta--shipping span {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
 .order-mgmt-payment-box {
   display: flex;
   flex-direction: column;

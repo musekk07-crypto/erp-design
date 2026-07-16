@@ -481,6 +481,101 @@ function OmFormSelect({ label, value, options }: { label: string; value: string;
   );
 }
 
+function OmFormFieldInline({
+  label,
+  value = "",
+  readOnly = false,
+}: {
+  label: string;
+  value?: string;
+  readOnly?: boolean;
+}) {
+  return (
+    <label className="order-mgmt-field order-mgmt-field--inline">
+      <span className="order-mgmt-field-label">{label}</span>
+      <span className="order-mgmt-field-control">
+        <input
+          type="text"
+          className={`order-mgmt-input${readOnly ? " order-mgmt-input--readonly" : ""}`}
+          defaultValue={value}
+          readOnly={readOnly}
+        />
+      </span>
+    </label>
+  );
+}
+
+function OmFormSelectInline({ label, value, options }: { label: string; value: string; options: string[] }) {
+  return (
+    <label className="order-mgmt-field order-mgmt-field--inline">
+      <span className="order-mgmt-field-label">{label}</span>
+      <span className="order-mgmt-field-control">
+        <select className="order-mgmt-input order-mgmt-select" defaultValue={value}>
+          {options.map((opt) => (
+            <option key={opt} value={opt}>
+              {opt}
+            </option>
+          ))}
+        </select>
+      </span>
+    </label>
+  );
+}
+
+function OmShippingInfo({ member }: { member: ProfileMember }) {
+  const address = member.region.includes("서울") ? "서울특별시 강남구 테헤란로 123" : member.region;
+
+  return (
+    <div className="order-mgmt-block-wrap order-mgmt-block-wrap--grow">
+      <OmSectionTitle title="배송지 및 인수자 정보" />
+      <section className="order-mgmt-form-box order-mgmt-shipping-box">
+        <div className="order-mgmt-form-body order-mgmt-shipping-form">
+          <div className="order-mgmt-form-grid order-mgmt-form-grid--4 order-mgmt-shipping-top">
+            <OmFormSelect label="배송방법" value="직접수령" options={["직접수령", "택배", "퀵서비스"]} />
+            <OmFormField label="인수자명" value={member.name} />
+            <OmFormField label="인수자연락처" value="02-583-9201" />
+            <OmFormField label="인수자핸드폰번호" value={member.phone} />
+          </div>
+
+          <OmFormField
+            label="배송지주소"
+            value={address}
+            full
+            suffix={
+              <button type="button" className="order-mgmt-ellipsis-btn" aria-label="주소 검색">
+                ...
+              </button>
+            }
+          />
+
+          <div className="order-mgmt-shipping-detail">
+            <OmFormFieldInline label="city" value="" />
+            <OmFormFieldInline label="state" value="" />
+            <OmFormSelectInline label="배송국가" value="South Korea" options={["South Korea", "United States", "Japan"]} />
+            <OmFormFieldInline label="우편번호" value="" readOnly />
+            <div className="order-mgmt-form-grid order-mgmt-form-grid--2 order-mgmt-shipping-costs">
+              <OmFormFieldInline label="세금" value="0" />
+              <OmFormFieldInline label="배송비용" value="0" />
+            </div>
+            <OmFormFieldInline label="요구사항" value="" />
+          </div>
+        </div>
+
+        <div className="order-mgmt-shipping-footer">
+          <div className="order-mgmt-meta order-mgmt-meta--shipping">
+            <span>생성일시: 2026-06-17 09:12:33 .myoffice</span>
+            <span>수정일시: 2026-06-17 14:28:01 .myoffice</span>
+          </div>
+          <button type="button" className="order-mgmt-save-btn">
+            <Save size={14} />
+            등록/저장
+          </button>
+        </div>
+      </section>
+    </div>
+  );
+}
+
 function OmOrderBasicInfo({ member }: { member: ProfileMember }) {
   const centerCode = member.region.includes("서울") ? "NUXIA2359" : "NUXIA2359";
   const txnTypes = ["구매", "교환", "교환구매", "교환반품", "포인트", "반품"];
@@ -752,45 +847,7 @@ export function OrderManagementView({ member }: { member: ProfileMember }) {
         >
           <OmOrderBasicInfo member={member} />
           <OmPaymentInfo />
-
-          <div className="order-mgmt-block-wrap order-mgmt-block-wrap--grow">
-            <OmSectionTitle title="배송지 및 인수자 정보" />
-            <section className="order-mgmt-form-box order-mgmt-form-box--grow">
-            <div className="order-mgmt-form-body">
-              <OmFormSelect label="배송방법" value="직접수령" options={["직접수령", "택배", "퀵서비스"]} />
-              <OmFormField label="인수자명" value={member.name} />
-              <OmFormField label="인수자연락처" value="02-583-9201" />
-              <OmFormField label="인수자핸드폰번호" value={member.phone} />
-              <OmFormField
-                label="배송지주소"
-                value={member.region.includes("서울") ? "서울특별시 강남구 테헤란로 123" : member.region}
-                full
-                suffix={
-                  <button type="button" className="order-mgmt-search-btn" aria-label="주소 검색">
-                    <Search size={14} />
-                  </button>
-                }
-              />
-              <div className="order-mgmt-form-grid">
-                <OmFormField label="우편번호" value="06123" />
-                <OmFormField label="세금" value="0" />
-                <OmFormField label="배송비용" value="0" />
-                <OmFormField label="요구사항" value="" />
-              </div>
-            </div>
-            </section>
-          </div>
-
-          <div className="order-mgmt-footer">
-            <div className="order-mgmt-meta">
-              <span>생성일시 2026-06-17 09:12:33 .myoffice</span>
-              <span>수정일시 2026-06-17 14:28:01 .myoffice</span>
-            </div>
-            <button type="button" className="order-mgmt-save-btn">
-              <Save size={14} />
-              등록/저장
-            </button>
-          </div>
+          <OmShippingInfo />
         </aside>
       </div>
     </div>
