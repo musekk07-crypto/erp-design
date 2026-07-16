@@ -1759,6 +1759,15 @@ textarea.mm2-name-box:focus {
   border-bottom: 1px solid var(--border);
 }
 
+.order-mgmt-basic-form > .order-mgmt-radio-group + .order-mgmt-shipping-detail {
+  margin-top: -4px;
+}
+
+.order-mgmt-basic-form .order-mgmt-form-note--divider + .order-mgmt-shipping-detail-row,
+.order-mgmt-basic-form .order-mgmt-shipping-detail-row--divider + .order-mgmt-shipping-detail-row {
+  margin-top: -4px;
+}
+
 .order-mgmt-radio-group {
   display: flex;
   flex-wrap: nowrap;
