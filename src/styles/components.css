@@ -1749,6 +1749,11 @@ textarea.mm2-name-box:focus {
   color: #dc2626;
 }
 
+.order-mgmt-basic-form > .order-mgmt-radio-group {
+  padding-bottom: 8px;
+  border-bottom: 1px solid var(--border);
+}
+
 .order-mgmt-radio-group {
   display: flex;
   flex-wrap: nowrap;
