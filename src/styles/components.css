@@ -1024,7 +1024,7 @@ textarea.mm2-name-box:focus {
   flex-shrink: 0;
   background: var(--order-mgmt-member-info-bg, #0274b3);
   border: 1px solid var(--order-mgmt-member-info-bg, #0274b3);
-  border-radius: 6px;
+  border-radius: var(--order-mgmt-box-radius, 6px);
   overflow: hidden;
 }
 
@@ -1178,7 +1178,7 @@ textarea.mm2-name-box:focus {
   min-height: 0;
   background: var(--surface-panel);
   border: 1px solid var(--border);
-  border-radius: 4px;
+  border-radius: var(--order-mgmt-box-radius, 6px);
   overflow: hidden;
 }
 
@@ -1507,7 +1507,7 @@ textarea.mm2-name-box:focus {
 .order-mgmt-form-box {
   background: var(--surface-panel);
   border: 1px solid var(--order-mgmt-member-info-bg, #0274b3);
-  border-radius: 4px;
+  border-radius: var(--order-mgmt-box-radius, 6px);
   overflow: hidden;
 }
 
