@@ -511,17 +511,6 @@ function OmFormFieldInline({
   );
 }
 
-function OmFormTextareaInline({ label, rows = 2 }: { label: string; rows?: number }) {
-  return (
-    <label className="order-mgmt-field order-mgmt-field--inline order-mgmt-field--textarea-inline">
-      <span className="order-mgmt-field-label">{label}</span>
-      <span className="order-mgmt-field-control">
-        <textarea className="order-mgmt-textarea" rows={rows} />
-      </span>
-    </label>
-  );
-}
-
 function OmFormSelectInline({ label, value, options }: { label: string; value: string; options: string[] }) {
   return (
     <label className="order-mgmt-field order-mgmt-field--inline">
