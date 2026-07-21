@@ -632,7 +632,6 @@ span.member-form-action-chip {
   background: #fffef8;
   border: 1px solid #d4cfc0;
   border-radius: 4px;
-  box-shadow: 0 8px 24px rgba(15, 29, 50, 0.18);
   font-size: 12px;
   line-height: 1.35;
   color: #1e2130;
@@ -725,7 +724,6 @@ span.member-form-action-chip {
   background: #1e2433;
   border-color: rgba(255, 255, 255, 0.12);
   color: #e2e8f0;
-  box-shadow: 0 8px 28px rgba(0, 0, 0, 0.45);
 }
 
 [data-theme="dark"] .org-member-hover-popup__row {
