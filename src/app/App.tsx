@@ -3102,7 +3102,7 @@ function TopNav({ activeMainMenu, onMainMenuChange }: TopNavProps) {
       {/* Main nav */}
       <div
         className="flex items-stretch flex-nowrap px-4"
-        style={{ background: "var(--nav-bg, #1a0a6b)", borderBottom: "1px solid var(--nav-border, #140854)", height: 40 }}
+        style={{ background: "var(--nav-bg, #0f1d32)", borderBottom: "1px solid var(--nav-border, #0a1526)", height: 40 }}
       >
         <div className="flex items-center gap-2 mr-6 shrink-0">
           <div
@@ -3171,7 +3171,7 @@ const bottomItems = [
 ];
 
 const themes: { key: Theme; color: string; label: string }[] = [
-  { key: "deep-purple", color: "#1a0a6b", label: "라이트" },
+  { key: "deep-purple", color: "#0f1d32", label: "라이트" },
   { key: "dark",        color: "#0f1117", label: "다크" },
 ];
 

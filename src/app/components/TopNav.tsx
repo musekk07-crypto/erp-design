@@ -42,7 +42,7 @@ export function TopNav({ activeTab, onTabChange, listOpen, onListToggle }: TopNa
   return (
     <div style={{ flexShrink: 0 }}>
       {/* Row 1: Main nav */}
-      <div className="flex items-center px-4" style={{ background: "var(--nav-bg, #1a0a6b)", borderBottom: "1px solid var(--nav-border, #140854)", height: 44 }}>
+      <div className="flex items-center px-4" style={{ background: "var(--nav-bg, #0f1d32)", borderBottom: "1px solid var(--nav-border, #0a1526)", height: 44 }}>
         <div className="flex items-center gap-2 mr-6">
           <div
             className="flex items-center justify-center rounded"

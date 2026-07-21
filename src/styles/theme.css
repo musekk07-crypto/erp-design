@@ -3,14 +3,14 @@
 /* ── 딥퍼플 (default) ── */
 :root,
 [data-theme="deep-purple"] {
-  --nav-bg: #1a0a6b;
-  --nav-border: #140854;
+  --nav-bg: #0f1d32;
+  --nav-border: #0a1526;
   --nav-text: #ffffff;
   --nav-text-muted: rgba(255,255,255,0.7);
   --nav-active-border: #ffffff;
-  --nav-active-bg: #7c3aed;
+  --nav-active-bg: #0284c7;
   --nav-active-text: #ffffff;
-  --nav-hover-bg: #7c3aed;
+  --nav-hover-bg: #0369a1;
   --nav-hover-text: #ffffff;
   --nav-divider: rgba(255,255,255,0.3);
   --nav-avatar-bg: rgba(255,255,255,0.2);
@@ -32,10 +32,10 @@
   --toggle-active-bg: linear-gradient(135deg, #7c3aed, #6366f1);
   --toggle-active-color: #7c3aed;
   --member-no-color: #7c3aed;
-  --logo-bg: #7c3aed;
+  --logo-bg: #0284c7;
   --org-self-accent: #3b82f6;
-  --brand-primary: var(--accent-primary);
-  --brand-gradient: var(--accent-gradient);
+  --brand-primary: #0284c7;
+  --brand-gradient: linear-gradient(135deg, #0284c7, #0369a1);
   --brand-light: var(--accent-light);
   --brand-toggle-track: #f8f7ff;
   --detail-tab-bar-bg: #e4e6ec;
@@ -241,7 +241,7 @@
   --sidebar-border: rgba(0, 0, 0, 0.06);
   --sidebar-ring: rgba(124, 58, 237, 0.3);
 
-  --surface-page: #f9f9f9;
+  --surface-page: #f2f2f2;
   --surface-panel: #ffffff;
   --surface-toolbar: #f9f9f9;
   --surface-table-header: #f9f9f9;

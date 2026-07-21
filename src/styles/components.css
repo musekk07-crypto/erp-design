@@ -1,6 +1,6 @@
 /* 배포 빌드에서 purge 되지 않도록 source(none)으로 import */
 
-/* GNB 메인 메뉴 — 선택·호버 시 단색 보라 배경, nav 높이 꽉 채움 */
+/* GNB 메인 메뉴 — 선택·호버 시 파란 배경, nav 높이 꽉 채움 */
 .main-nav-item {
   display: flex;
   align-items: center;
@@ -23,7 +23,7 @@
 .main-nav-item:not(.is-active):hover {
   font-weight: 600;
   color: var(--nav-active-text, #ffffff);
-  background: var(--nav-active-bg, #7c3aed);
+  background: var(--nav-active-bg, #0284c7);
 }
 
 /* 상세 패널 — 폴더 탭 (회원정보 페이지 내부) */
