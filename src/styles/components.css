@@ -145,6 +145,15 @@ button.member-form-action-chip {
   margin: 0;
   font-family: inherit;
   appearance: none;
+  font-size: 12px !important;
+  font-weight: 400 !important;
+  line-height: 1.2 !important;
+}
+
+span.member-form-action-chip {
+  font-size: 12px !important;
+  font-weight: 400 !important;
+  line-height: 1.2 !important;
 }
 
 .member-form-action-chip--verified {
