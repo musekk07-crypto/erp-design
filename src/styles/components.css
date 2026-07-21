@@ -191,10 +191,10 @@
   flex-direction: column;
   gap: 12px;
   overflow-x: hidden;
-  --accent-primary: #0284c7;
+  --accent-primary: #2843b8;
   --accent-light: #e0f2fe;
   --accent-border: #bae6fd;
-  --member-no-color: #0284c7;
+  --member-no-color: #2843b8;
   --section-icon-bg: transparent;
 }
 
@@ -203,15 +203,15 @@
   --mm2-sidebar-width: 218px;
   --mm2-body-gap: 12px;
   --mm2-detail-panel-width: calc(var(--mm2-info-group-width) - var(--mm2-sidebar-width) - var(--mm2-body-gap));
-  --accent-primary: #0284c7;
+  --accent-primary: #2843b8;
   --accent-light: #e0f2fe;
   --accent-border: #bae6fd;
-  --member-no-color: #0284c7;
+  --member-no-color: #2843b8;
   --split-table-header-bg: #e0f2fe;
   --split-table-header-border: #bae6fd;
   --split-table-header-fg: #1e2130;
-  --org-grade-badge-bg: #e0f2fe;
-  --org-grade-badge-fg: #0284c7;
+  --org-grade-badge-bg: #dce4f7;
+  --org-grade-badge-fg: #2843b8;
 }
 
 .app-content .split-table-head th {
@@ -474,7 +474,7 @@
   background: var(--surface-panel);
   border: 1px solid var(--border);
   border-radius: var(--radius, 6px);
-  --mm2-detail-surface: #0274b3;
+  --mm2-detail-surface: #2843b8;
   --mm2-detail-header-fg: #ffffff;
 }
 
@@ -493,7 +493,7 @@
   display: flex;
   flex-direction: column;
   height: 100%;
-  --accent-primary: #0284c7;
+  --accent-primary: #2843b8;
   --accent-light: #e0f2fe;
   --accent-border: #bae6fd;
   --mm2-table-line: var(--org-border);
@@ -508,7 +508,7 @@
   gap: 8px;
   padding: 8px 12px !important;
   min-height: 38px;
-  background: var(--mm2-detail-surface, #0274b3) !important;
+  background: var(--mm2-detail-surface, #2843b8) !important;
   border-bottom: 1px solid var(--mm2-table-line, var(--org-border)) !important;
   border-top-left-radius: var(--radius, 6px);
   border-top-right-radius: var(--radius, 6px);
@@ -609,14 +609,14 @@
 }
 
 .mm2-sidebar-item.is-active {
-  border-color: #1a0a6b;
-  background: #1a0a6b;
+  border-color: #2843b8;
+  background: #2843b8;
   color: #ffffff;
   font-weight: 600;
 }
 
 .mm2-sidebar-item.is-active:hover {
-  background: #1a0a6b;
+  background: #2843b8;
   color: #ffffff;
 }
 
@@ -633,7 +633,7 @@
   --mm2-table-line: var(--org-border);
   --mm2-detail-label-width: 140px;
   --mm2-detail-row-height: 40px;
-  --mm2-detail-surface: #0274b3;
+  --mm2-detail-surface: #2843b8;
   --mm2-detail-header-fg: #ffffff;
   --mm2-detail-font-size: 15px;
   --mm2-detail-font-size-lg: 16px;
@@ -653,7 +653,7 @@
   padding: 0 12px;
   box-sizing: border-box;
   border-bottom: 1px solid var(--mm2-table-line, var(--org-border));
-  background: var(--mm2-detail-surface, #0274b3);
+  background: var(--mm2-detail-surface, #2843b8);
   flex-shrink: 0;
 }
 
@@ -1057,8 +1057,8 @@ textarea.mm2-name-box:focus {
   --order-mgmt-font-size-lg: 16px;
   --order-mgmt-font-size-toolbar: 14px;
   --surface-row-selected: #e8eaef;
-  --accent-primary: #0284c7;
-  --order-mgmt-member-info-bg: #0274b3;
+  --accent-primary: #2843b8;
+  --order-mgmt-member-info-bg: #2843b8;
   --order-mgmt-right-width: 520px;
   --order-mgmt-toolbar-head-height: 60px;
   --order-mgmt-box-radius: var(--radius, 6px);
@@ -1074,8 +1074,8 @@ textarea.mm2-name-box:focus {
 
 [data-theme="dark"] .order-mgmt-view {
   --accent-primary: #38bdf8;
-  --order-mgmt-member-info-bg: #0284c7;
-  --order-mgmt-save-btn-bg: #0284c7;
+  --order-mgmt-member-info-bg: #2843b8;
+  --order-mgmt-save-btn-bg: #2843b8;
   --order-mgmt-block-title-color: #ffffff;
   --order-mgmt-block-title-accent-color: #ffffff;
   --order-mgmt-summary-bg: var(--order-mgmt-member-info-bg);
@@ -1089,8 +1089,8 @@ textarea.mm2-name-box:focus {
 
 .order-mgmt-member-info {
   flex-shrink: 0;
-  background: var(--order-mgmt-member-info-bg, #0274b3);
-  border: 1px solid var(--order-mgmt-member-info-bg, #0274b3);
+  background: var(--order-mgmt-member-info-bg, #2843b8);
+  border: 1px solid var(--order-mgmt-member-info-bg, #2843b8);
   border-radius: var(--order-mgmt-box-radius, 6px);
   overflow: hidden;
 }
@@ -1579,7 +1579,7 @@ textarea.mm2-name-box:focus {
 
 .order-mgmt-form-box {
   background: var(--surface-panel);
-  border: 1px solid var(--order-mgmt-member-info-bg, #0274b3);
+  border: 1px solid var(--order-mgmt-member-info-bg, #2843b8);
   border-radius: var(--order-mgmt-box-radius, 6px);
   overflow: hidden;
 }

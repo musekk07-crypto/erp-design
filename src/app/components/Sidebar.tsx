@@ -90,7 +90,7 @@ export function Sidebar({ activePanel, onPanelToggle, theme, onThemeChange }: Si
                 height: 18,
                 borderRadius: "50%",
                 background: t.color,
-                border: theme === t.key ? "2px solid #7c3aed" : "2px solid transparent",
+                border: theme === t.key ? "2px solid var(--accent-primary)" : "2px solid transparent",
                 outline: theme === t.key ? "2px solid #c4b5fd" : "none",
                 cursor: "pointer",
                 transition: "all 0.15s",

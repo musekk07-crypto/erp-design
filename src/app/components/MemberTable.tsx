@@ -98,8 +98,8 @@ export function MemberTable({ selectedId, onSelect }: MemberTableProps) {
 function SortIcon({ col }: { col: string }) {
     if (sortKey !== col) return <ChevronsUpDown size={11} style={{ color: "#cbd5e1", flexShrink: 0 }} />;
     return sortDir === "asc"
-      ? <ChevronUp size={11} style={{ color: "#7c3aed", flexShrink: 0 }} />
-      : <ChevronDown size={11} style={{ color: "#7c3aed", flexShrink: 0 }} />;
+      ? <ChevronUp size={11} style={{ color: "var(--accent-primary)", flexShrink: 0 }} />
+      : <ChevronDown size={11} style={{ color: "var(--accent-primary)", flexShrink: 0 }} />;
   }
 
   return (
@@ -146,7 +146,7 @@ function SortIcon({ col }: { col: string }) {
                   type="checkbox"
                   checked={checked.size === sorted.length && sorted.length > 0}
                   onChange={toggleAll}
-                  style={{ accentColor: "#7c3aed", cursor: "pointer" }}
+                  style={{ accentColor: "var(--accent-primary)", cursor: "pointer" }}
                 />
               </th>
               {columns.map((col) => (
@@ -159,7 +159,7 @@ function SortIcon({ col }: { col: string }) {
                     textAlign: "left",
                     fontSize: 13,
                     fontWeight: 600,
-                    color: sortKey === col.key ? "#7c3aed" : "#64748b",
+                    color: sortKey === col.key ? "var(--accent-primary)" : "#64748b",
                     cursor: "pointer",
                     userSelect: "none",
                     whiteSpace: "nowrap",
@@ -183,21 +183,21 @@ function SortIcon({ col }: { col: string }) {
                   key={member.id}
                   onClick={() => onSelect(member.id)}
                   style={{
-                    background: isSelected ? "#f5f3ff" : isChecked ? "#faf8ff" : "transparent",
+                    background: isSelected ? "var(--surface-row-selected)" : isChecked ? "var(--surface-row-checked)" : "transparent",
                     borderBottom: "1px solid #f1f5f9",
                     cursor: "pointer",
                     transition: "background 0.1s",
                   }}
                   onMouseEnter={(e) => { if (!isSelected) (e.currentTarget as HTMLElement).style.background = "#f8f9fa"; }}
-                  onMouseLeave={(e) => { (e.currentTarget as HTMLElement).style.background = isSelected ? "#f5f3ff" : isChecked ? "#faf8ff" : "transparent"; }}
+                  onMouseLeave={(e) => { (e.currentTarget as HTMLElement).style.background = isSelected ? "var(--surface-row-selected)" : isChecked ? "var(--surface-row-checked)" : "transparent"; }}
                 >
                   <td style={{ padding: "7px 12px", textAlign: "center" }} onClick={(e) => e.stopPropagation()}>
-                    <input type="checkbox" checked={isChecked} onChange={() => toggleOne(member.id)} style={{ accentColor: "#7c3aed", cursor: "pointer" }} />
+                    <input type="checkbox" checked={isChecked} onChange={() => toggleOne(member.id)} style={{ accentColor: "var(--accent-primary)", cursor: "pointer" }} />
                   </td>
                   <td style={{ ...cellBase, fontSize: 13, color: "#94a3b8" }}>{member.id}</td>
-                  <td style={{ ...cellBase, fontSize: 13, fontFamily: "monospace", color: isSelected ? "#7c3aed" : "#1e2130", fontWeight: isSelected ? 600 : 400 }}>{member.no}</td>
+                  <td style={{ ...cellBase, fontSize: 13, fontFamily: "monospace", color: isSelected ? "var(--accent-primary)" : "#1e2130", fontWeight: isSelected ? 600 : 400 }}>{member.no}</td>
                   <td style={{ ...cellBase, fontSize: 13, color: "#475569" }}>{member.loginId}</td>
-                  <td style={{ ...cellBase, fontSize: 13, color: isSelected ? "#7c3aed" : "#1e2130", fontWeight: isSelected ? 600 : 500 }}>{member.name}</td>
+                  <td style={{ ...cellBase, fontSize: 13, color: isSelected ? "var(--accent-primary)" : "#1e2130", fontWeight: isSelected ? 600 : 500 }}>{member.name}</td>
                   <td style={{ ...cellBase }}>
                     <span style={{ fontSize: 13, padding: "2px 7px", borderRadius: 4, background: member.type === "소비자" ? "#cffafe" : "#f1f5f9", color: member.type === "소비자" ? "#0891b2" : "#64748b" }}>{member.type}</span>
                   </td>

@@ -43,7 +43,7 @@ export function MemberList({ selectedId, onSelect }: MemberListProps) {
       <div className="p-4" style={{ borderBottom: "1px solid var(--border)" }}>
         <div className="flex items-center gap-2 mb-3">
           <span className="text-sm font-semibold" style={{ color: "var(--foreground)" }}>회원 목록</span>
-          <span className="ml-auto text-xs px-2 py-0.5 rounded-full" style={{ background: "#f5f3ff", color: "#7c3aed" }}>
+          <span className="ml-auto text-xs px-2 py-0.5 rounded-full" style={{ background: "var(--accent-light)", color: "var(--accent-primary)" }}>
             {members.length}명
           </span>
         </div>
@@ -81,8 +81,8 @@ export function MemberList({ selectedId, onSelect }: MemberListProps) {
                   onClick={() => handleClick(member.id)}
                   className="w-full flex items-center gap-3 px-3 py-2.5 rounded text-left transition-all duration-150"
                   style={{
-                    background: isSelected ? "#f5f3ff" : "transparent",
-                    border: isSelected ? "1px solid #ddd6fe" : "1px solid transparent",
+                    background: isSelected ? "var(--surface-row-selected)" : "transparent",
+                    border: isSelected ? "1px solid var(--accent-border)" : "1px solid transparent",
                     borderBottomLeftRadius: isExpanded && isSelected ? 0 : undefined,
                     borderBottomRightRadius: isExpanded && isSelected ? 0 : undefined,
                   }}
@@ -91,7 +91,7 @@ export function MemberList({ selectedId, onSelect }: MemberListProps) {
                     {idx + 1}
                   </span>
                   <div className="flex-1 min-w-0">
-                    <div className="text-xs font-semibold truncate" style={{ color: isSelected ? "#7c3aed" : "var(--foreground)" }}>
+                    <div className="text-xs font-semibold truncate" style={{ color: isSelected ? "var(--accent-primary)" : "var(--foreground)" }}>
                       {member.name}
                     </div>
                     <div className="text-xs truncate mt-0.5" style={{ color: "var(--muted-foreground)", fontFamily: "monospace", fontSize: 11 }}>
@@ -110,7 +110,7 @@ export function MemberList({ selectedId, onSelect }: MemberListProps) {
                   <ChevronDown
                     size={12}
                     style={{
-                      color: isSelected ? "#7c3aed" : "var(--muted-foreground)",
+                      color: isSelected ? "var(--accent-primary)" : "var(--muted-foreground)",
                       transform: isExpanded ? "rotate(180deg)" : "rotate(0deg)",
                       transition: "transform 0.2s ease",
                       flexShrink: 0,
@@ -129,30 +129,30 @@ export function MemberList({ selectedId, onSelect }: MemberListProps) {
                   <div
                     className="px-3 py-3 rounded"
                     style={{
-                      background: "#faf8ff",
-                      border: "1px solid #ddd6fe",
+                      background: "var(--surface-row-checked)",
+                      border: "1px solid var(--accent-border)",
                       borderTop: "none",
                       borderTopLeftRadius: 0,
                       borderTopRightRadius: 0,
                     }}
                   >
                     <div className="flex items-center gap-1.5 mb-1.5">
-                      <Phone size={10} style={{ color: "#7c3aed" }} />
+                      <Phone size={10} style={{ color: "var(--accent-primary)" }} />
                       <span className="text-xs" style={{ color: "var(--foreground)", fontFamily: "monospace", fontSize: 12 }}>
                         {member.phone}
                       </span>
                     </div>
                     <div className="flex items-center gap-1.5 mb-1.5">
-                      <Mail size={10} style={{ color: "#7c3aed" }} />
+                      <Mail size={10} style={{ color: "var(--accent-primary)" }} />
                       <span className="text-xs truncate" style={{ color: "var(--muted-foreground)", fontSize: 12 }}>
                         {member.email}
                       </span>
                     </div>
                     <div
                       className="text-xs mt-2 pt-2"
-                      style={{ color: "var(--muted-foreground)", borderTop: "1px solid #ede9fe", fontSize: 12 }}
+                      style={{ color: "var(--muted-foreground)", borderTop: "1px solid var(--accent-border)", fontSize: 12 }}
                     >
-                      가입일 <span style={{ color: "#7c3aed", fontFamily: "monospace" }}>{member.joinDate}</span>
+                      가입일 <span style={{ color: "var(--accent-primary)", fontFamily: "monospace" }}>{member.joinDate}</span>
                     </div>
                   </div>
                 </div>
