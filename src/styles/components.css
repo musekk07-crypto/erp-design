@@ -199,7 +199,7 @@
 }
 
 .mm2-member-view {
-  --mm2-info-group-width: 1120px;
+  --mm2-info-group-width: 1130px;
   --mm2-sidebar-width: 218px;
   --mm2-body-gap: 12px;
   --mm2-detail-panel-width: calc(var(--mm2-info-group-width) - var(--mm2-sidebar-width) - var(--mm2-body-gap));
