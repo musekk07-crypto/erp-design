@@ -470,23 +470,29 @@
   display: flex;
   flex-direction: column;
   align-self: flex-start;
-  overflow: visible;
+  overflow: hidden;
   background: var(--surface-panel);
   border: 1px solid var(--border);
-  border-radius: 6px;
+  border-radius: var(--radius, 6px);
   --mm2-detail-surface: #0274b3;
   --mm2-detail-header-fg: #ffffff;
 }
 
-.mm2-org-chart .mm2-org-section {
+.mm2-org-chart > .content-form-section,
+.mm2-org-chart .mm2-org-section.content-form-section {
   flex: 1;
-  display: flex;
-  flex-direction: column;
-  height: 100%;
   min-height: 0;
   margin: 0;
   border: none !important;
-  border-radius: 0;
+  border-radius: 0 !important;
+  background: transparent !important;
+  overflow: hidden;
+}
+
+.mm2-org-chart .mm2-org-section {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
   --accent-primary: #0284c7;
   --accent-light: #e0f2fe;
   --accent-border: #bae6fd;
@@ -504,6 +510,8 @@
   min-height: 38px;
   background: var(--mm2-detail-surface, #0274b3) !important;
   border-bottom: 1px solid var(--mm2-table-line, var(--org-border)) !important;
+  border-top-left-radius: var(--radius, 6px);
+  border-top-right-radius: var(--radius, 6px);
 }
 
 .mm2-org-chart .mm2-org-section > button > span:first-of-type {
