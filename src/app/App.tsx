@@ -9,6 +9,7 @@ import {
 } from "lucide-react";
 import { OrderManagementView } from "./components/OrderManagementView";
 import { Mm2ProfileCard, buildMm2ProfileFields } from "./components/Mm2ProfileCard";
+import { OrgChartHoverProvider, useOrgChartHover, type OrgMemberDetail } from "./components/OrgMemberHoverPopup";
 
 // ─────────────────────────────────────────────
 // Types
@@ -165,13 +166,41 @@ function createOrgNode(
   };
 }
 
-function Card({ label, name, memberNo, grade, isSelf = false }: {
+function resolveOrgMemberRecord(id: number, name: string) {
+  return members.find((m) => m.id === id) ?? members.find((m) => m.name === name);
+}
+
+function buildOrgMemberDetail(id: number, name: string, memberNo: string, grade: string): OrgMemberDetail {
+  const member = resolveOrgMemberRecord(id, name);
+  const recommender = members[(Math.max(id, 1) + 2) % members.length];
+  const sponsor = members[(Math.max(id, 1) + 4) % members.length];
+  const dash = "-";
+  return {
+    memberNo: member?.no ?? memberNo,
+    name: member?.name ?? name,
+    ssn: member?.ssn ?? "******-*******",
+    phone: member?.phone?.trim() ? member.phone : dash,
+    address: member?.region ?? dash,
+    recommender: recommender.name,
+    sponsor: sponsor.name,
+    rank: grade || member?.rank || dash,
+    salesDate: member?.regDate ?? dash,
+    withdrawDate: member?.status === "탈퇴" ? (member.regDate ?? dash) : dash,
+    suspendDate: dash,
+    footer: `${member?.regDate ?? "2026-05-07"} 11:58:09 · ${member?.loginId ?? "member"}`,
+  };
+}
+
+function Card({ label, name, memberNo, grade, id, isSelf = false }: {
   label: string;
   name: string;
   memberNo: string;
   grade: string;
+  id: number;
   isSelf?: boolean;
 }) {
+  const hover = useOrgChartHover();
+  const rootRef = useRef<HTMLDivElement>(null);
   const metaStyle: React.CSSProperties = {
     fontSize: ORG_CARD_META_FONT_SIZE,
     color: "var(--org-text-muted)",
@@ -181,7 +210,14 @@ function Card({ label, name, memberNo, grade, isSelf = false }: {
 
   return (
     <div
-      className="org-chart-card"
+      ref={rootRef}
+      className="org-chart-card org-chart-card--interactive"
+      onMouseEnter={() => {
+        if (!hover || !rootRef.current) return;
+        hover.cancelHide();
+        hover.showFromElement(buildOrgMemberDetail(id, name, memberNo, grade), rootRef.current);
+      }}
+      onMouseLeave={() => hover?.scheduleHide()}
       style={{
       width: CARD_W,
       height: CARD_H,
@@ -253,9 +289,22 @@ function ExtraBox({ label }: { label: string }) {
 }
 
 function ChildChip({ name, id }: { name: string; id: number }) {
+  const hover = useOrgChartHover();
+  const rootRef = useRef<HTMLDivElement>(null);
+  const memberNo = resolveOrgMemberNo(id);
+  const member = resolveOrgMemberRecord(id, name);
+  const grade = member?.grade ?? "멤버";
+
   return (
     <div
-      className="org-chart-card org-chart-card--chip"
+      ref={rootRef}
+      className="org-chart-card org-chart-card--chip org-chart-card--interactive"
+      onMouseEnter={() => {
+        if (!hover || !rootRef.current) return;
+        hover.cancelHide();
+        hover.showFromElement(buildOrgMemberDetail(id, name, memberNo, grade), rootRef.current);
+      }}
+      onMouseLeave={() => hover?.scheduleHide()}
       style={{
       border: `1px solid ${BORDER_GRAY}`,
       borderRadius: 6,
@@ -591,9 +640,11 @@ function OrgChart({ memberId, memberName }: OrgChartProps) {
   const variant = buildOrgChartVariant(memberId, memberName, member);
 
   return (
-    <div key={memberId} style={{ overflow: "visible", padding: "0 0 8px 0", display: "flex", justifyContent: "center", width: "100%" }}>
-      <OrgChartSvg {...variant} />
-    </div>
+    <OrgChartHoverProvider>
+      <div key={memberId} style={{ overflow: "visible", padding: "0 0 8px 0", display: "flex", justifyContent: "center", width: "100%" }}>
+        <OrgChartSvg {...variant} />
+      </div>
+    </OrgChartHoverProvider>
   );
 }
 
