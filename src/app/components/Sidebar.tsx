@@ -14,11 +14,10 @@ const bottomItems = [
   { icon: Settings, label: "설정" },
 ];
 
-type Theme = "deep-purple" | "light-gray" | "dark";
+type Theme = "deep-purple" | "dark";
 
 const themes: { key: Theme; color: string; label: string }[] = [
   { key: "deep-purple", color: "#1a0a6b", label: "딥퍼플" },
-  { key: "light-gray",  color: "#e2e4ea", label: "라이트그레이" },
   { key: "dark",        color: "#0f1117", label: "다크" },
 ];
 

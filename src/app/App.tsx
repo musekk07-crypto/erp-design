@@ -14,7 +14,7 @@ import { Mm2ProfileCard, buildMm2ProfileFields } from "./components/Mm2ProfileCa
 // Types
 // ─────────────────────────────────────────────
 
-type Theme = "deep-purple" | "light-gray" | "dark";
+type Theme = "deep-purple" | "dark";
 type SortKey = string | null;
 type SortDir = "asc" | "desc";
 
@@ -3164,7 +3164,6 @@ const bottomItems = [
 
 const themes: { key: Theme; color: string; label: string }[] = [
   { key: "deep-purple", color: "#1a0a6b", label: "딥퍼플" },
-  { key: "light-gray",  color: "#e2e4ea", label: "라이트그레이" },
   { key: "dark",        color: "#0f1117", label: "다크" },
 ];
 
