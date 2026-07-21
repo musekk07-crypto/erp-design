@@ -2342,7 +2342,6 @@ function MemberManagementView({
           }}
         >
           <MemberPageChrome activeTab={activeTab} onTabChange={onTabChange} />
-          {isMemberInfoTab && <MemberHeaderCard member={member} />}
 
           {isMemberInfoTab ? (
             <MemberInfoBody memberId={memberId} listOpen={listOpen} formColumnWidth={formColumnWidth} member={member} />
@@ -2404,6 +2403,7 @@ function MemberInfoBody({
                 }
           }
         >
+        <MemberHeaderCard member={member} />
 
         {/* Login Info */}
         <FormSection title="로그인 사용정보" icon={<Shield size={12} />}>

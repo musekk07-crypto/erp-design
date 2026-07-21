@@ -620,6 +620,9 @@
 }
 
 .app-content .content-member-header {
+  width: 100%;
+  max-width: 100%;
+  box-sizing: border-box;
   padding: 6px 8px !important;
   margin-bottom: 8px !important;
 }
