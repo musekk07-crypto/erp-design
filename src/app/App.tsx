@@ -1511,7 +1511,7 @@ function FormSection({ title, icon, subtitle, children, bodyPadding = "6px 12px 
       <button
         onClick={() => setOpen((v) => !v)}
         className="w-full flex items-center gap-2 px-4 transition-all duration-150"
-        style={{ cursor: "pointer", background: "transparent", borderBottom: open ? "1px solid var(--border)" : "none", paddingTop: 7, paddingBottom: 7 }}
+        style={{ cursor: "pointer", background: "transparent", borderBottom: open ? "1px solid var(--border)" : "none", paddingTop: 9, paddingBottom: 9 }}
       >
         <span className="content-form-section-icon shrink-0 inline-flex items-center" style={{ color: "var(--accent-primary)" }}>
           {icon}
