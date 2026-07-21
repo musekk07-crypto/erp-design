@@ -25,8 +25,6 @@ type HoverState = {
 
 type OrgChartHoverContextValue = {
   showFromElement: (detail: OrgMemberDetail, el: HTMLElement) => void;
-  scheduleHide: () => void;
-  cancelHide: () => void;
   dismiss: () => void;
 };
 
@@ -55,15 +53,11 @@ function OrgMemberHoverPopupPanel({
   x,
   y,
   onClose,
-  onMouseEnter,
-  onMouseLeave,
 }: {
   detail: OrgMemberDetail;
   x: number;
   y: number;
   onClose: () => void;
-  onMouseEnter: () => void;
-  onMouseLeave: () => void;
 }) {
   const panelRef = useRef<HTMLDivElement>(null);
   const [pos, setPos] = useState({ left: x, top: y });
@@ -90,9 +84,8 @@ function OrgMemberHoverPopupPanel({
       className="org-member-hover-popup"
       style={{ left: pos.left, top: pos.top }}
       role="dialog"
+      aria-modal="false"
       aria-label="회원 정보"
-      onMouseEnter={onMouseEnter}
-      onMouseLeave={onMouseLeave}
     >
       <button type="button" className="org-member-hover-popup__close" aria-label="닫기" onClick={onClose}>
         <X size={14} strokeWidth={2} />
@@ -126,44 +119,25 @@ function OrgMemberHoverPopupPanel({
 
 export function OrgChartHoverProvider({ children }: { children: React.ReactNode }) {
   const [state, setState] = useState<HoverState>(null);
-  const hideTimer = useRef<number | undefined>(undefined);
-
-  const cancelHide = useCallback(() => {
-    if (hideTimer.current !== undefined) {
-      window.clearTimeout(hideTimer.current);
-      hideTimer.current = undefined;
-    }
-  }, []);
 
   const dismiss = useCallback(() => {
-    cancelHide();
     setState(null);
-  }, [cancelHide]);
+  }, []);
 
-  const scheduleHide = useCallback(() => {
-    cancelHide();
-    hideTimer.current = window.setTimeout(() => setState(null), 160);
-  }, [cancelHide]);
-
-  const showFromElement = useCallback(
-    (detail: OrgMemberDetail, el: HTMLElement) => {
-      cancelHide();
+  const showFromElement = useCallback((detail: OrgMemberDetail, el: HTMLElement) => {
+    setState((prev) => {
+      if (prev) return prev;
       const r = el.getBoundingClientRect();
-      setState({
+      return {
         detail,
         x: r.left + r.width / 2,
         y: r.bottom + 6,
-      });
-    },
-    [cancelHide],
-  );
-
-  useEffect(() => () => cancelHide(), [cancelHide]);
+      };
+    });
+  }, []);
 
   const value: OrgChartHoverContextValue = {
     showFromElement,
-    scheduleHide,
-    cancelHide,
     dismiss,
   };
 
@@ -172,14 +146,7 @@ export function OrgChartHoverProvider({ children }: { children: React.ReactNode 
       {children}
       {state &&
         createPortal(
-          <OrgMemberHoverPopupPanel
-            detail={state.detail}
-            x={state.x}
-            y={state.y}
-            onClose={dismiss}
-            onMouseEnter={cancelHide}
-            onMouseLeave={scheduleHide}
-          />,
+          <OrgMemberHoverPopupPanel detail={state.detail} x={state.x} y={state.y} onClose={dismiss} />,
           document.body,
         )}
     </OrgChartHoverContext.Provider>
