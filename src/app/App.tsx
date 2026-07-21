@@ -3273,7 +3273,7 @@ export default function App() {
   const [isListResizing, setIsListResizing] = useState(false);
   const [listWidth, setListWidth] = useState(() => clampMemberListWidth(MEMBER_LIST_DEFAULT_WIDTH));
   const [activeTab, setActiveTab] = useState("회원정보");
-  const [activeMainMenu, setActiveMainMenu] = useState("회원관리2");
+  const [activeMainMenu, setActiveMainMenu] = useState("회원관리");
   const [theme, setTheme] = useState<Theme>("deep-purple");
   const [historyRailExpanded, setHistoryRailExpanded] = useState(true);
   const [pinnedPages, setPinnedPages] = useState<PageHistoryItem[]>([
