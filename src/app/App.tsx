@@ -2194,7 +2194,6 @@ function MemberManagement2View({
         style={{
           overflowY: isMemberInfoTab ? "auto" : "hidden",
           overflowX: "hidden",
-          scrollbarWidth: "thin",
           background: "var(--surface-page)",
           padding: DETAIL_PANEL_PAD,
         }}
@@ -2326,7 +2325,6 @@ function MemberManagementView({
         style={{
           overflowY: isMemberInfoTab ? "auto" : "hidden",
           overflowX: "hidden",
-          scrollbarWidth: "thin",
           background: "var(--surface-page)",
           padding: DETAIL_PANEL_PAD,
         }}
