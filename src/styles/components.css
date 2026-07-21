@@ -613,6 +613,7 @@ span.member-form-action-chip {
 .mm2-org-chart .org-chart-card {
   border-radius: 6px;
   overflow: hidden;
+  box-shadow: none;
 }
 
 .org-chart-card--interactive {
@@ -620,7 +621,11 @@ span.member-form-action-chip {
 }
 
 .org-chart-card--interactive:hover {
-  box-shadow: 0 2px 8px rgba(15, 29, 50, 0.12);
+  box-shadow: none;
+}
+
+.app-content .org-chart-card {
+  box-shadow: none !important;
 }
 
 .org-member-hover-popup {
@@ -632,6 +637,7 @@ span.member-form-action-chip {
   background: #fffef8;
   border: 1px solid #d4cfc0;
   border-radius: 4px;
+  box-shadow: none;
   font-size: 12px;
   line-height: 1.35;
   color: #1e2130;
