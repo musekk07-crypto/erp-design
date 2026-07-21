@@ -74,10 +74,13 @@ const ORG_CHART_MAX_SVG_HEIGHT = calcOrgChartMaxSvgHeight(5);
 const ORG_CHART_SECTION_HEADER_H = 38;
 const ORG_CHART_BODY_PAD_V = 28;
 const ORG_CHART_PANEL_HEIGHT = ORG_CHART_SECTION_HEADER_H + ORG_CHART_BODY_PAD_V + ORG_CHART_MAX_SVG_HEIGHT;
-const MM2_ORG_CHART_WIDTH = 686;
-const MM2_ORG_CHART_SCALE = MM2_ORG_CHART_WIDTH / ORG_CHART_WIDTH;
+const MM2_ORG_CHART_SCALE = 686 / ORG_CHART_WIDTH;
+const MM2_ORG_CHART_CONTENT_W = Math.ceil(ORG_CHART_WIDTH * MM2_ORG_CHART_SCALE);
+const MM2_ORG_CHART_CONTENT_H = Math.ceil(ORG_CHART_MAX_SVG_HEIGHT * MM2_ORG_CHART_SCALE);
+const MM2_ORG_CHART_WIDTH = MM2_ORG_CHART_CONTENT_W + 2;
 const ORG_CARD_NAME_FONT_SIZE = 13.6 / MM2_ORG_CHART_SCALE;
-const MM2_ORG_CHART_PANEL_HEIGHT = Math.ceil(ORG_CHART_PANEL_HEIGHT * MM2_ORG_CHART_SCALE);
+const MM2_ORG_CHART_PANEL_HEIGHT =
+  ORG_CHART_SECTION_HEADER_H + ORG_CHART_BODY_PAD_V + MM2_ORG_CHART_CONTENT_H + 2;
 const DETAIL_CONTENT_GAP = 12;
 const DETAIL_PANEL_PAD = 12;
 const HISTORY_BAR_COLLAPSED_HEIGHT = 40;
@@ -100,7 +103,7 @@ function calcFormColumnWidth(availableDetailWidth: number) {
   return FORM_COLUMN_WIDTH_MIN;
 }
 
-const MM2_INFO_GROUP_WIDTH = 1228;
+const MM2_INFO_GROUP_WIDTH = 1060;
 
 function getMm2DetailContentWidth(infoGroupWidth: number) {
   return infoGroupWidth + MM2_ORG_CHART_WIDTH + DETAIL_CONTENT_GAP;
@@ -2231,11 +2234,23 @@ function MemberManagement2View({
                   title="조직도"
                   icon={<GitFork size={12} />}
                   className="content-form-section--org mm2-org-section"
-                  bodyPadding={`16px ${ORG_CHART_SIDE_PAD}px 12px`}
+                  bodyPadding="16px 0 12px"
                   clipBody={false}
                 >
-                  <div className="mm2-org-chart-inner">
-                    <OrgChart memberId={member.id} memberName={member.name} />
+                  <div
+                    className="mm2-org-chart-scale-host"
+                    style={{ width: MM2_ORG_CHART_CONTENT_W, height: MM2_ORG_CHART_CONTENT_H }}
+                  >
+                    <div
+                      className="mm2-org-chart-inner"
+                      style={{
+                        width: ORG_CHART_WIDTH,
+                        height: ORG_CHART_MAX_SVG_HEIGHT,
+                        ["--mm2-org-chart-scale" as string]: MM2_ORG_CHART_SCALE,
+                      }}
+                    >
+                      <OrgChart memberId={member.id} memberName={member.name} />
+                    </div>
                   </div>
                 </FormSection>
               </div>

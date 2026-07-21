@@ -199,8 +199,8 @@
 }
 
 .mm2-member-view {
-  --mm2-info-group-width: 1228px;
-  --mm2-sidebar-width: 210px;
+  --mm2-info-group-width: 1060px;
+  --mm2-sidebar-width: 196px;
   --mm2-body-gap: 12px;
   --mm2-detail-panel-width: calc(var(--mm2-info-group-width) - var(--mm2-sidebar-width) - var(--mm2-body-gap));
   --accent-primary: #0284c7;
@@ -248,7 +248,7 @@
   display: flex;
   align-items: center;
   gap: 0;
-  padding: 28px 24px;
+  padding: 22px 16px;
   min-height: 148px;
   width: 100%;
   flex: 0 0 auto;
@@ -262,7 +262,7 @@
   width: 1px;
   align-self: stretch;
   flex-shrink: 0;
-  margin: 0 22px;
+  margin: 0 14px;
   background: var(--border);
 }
 
@@ -272,7 +272,7 @@
   justify-content: center;
   gap: 4px;
   flex-shrink: 0;
-  min-width: 148px;
+  min-width: 132px;
   padding-left: 8px;
   padding-right: 8px;
 }
@@ -470,7 +470,7 @@
   display: flex;
   flex-direction: column;
   align-self: flex-start;
-  overflow: hidden;
+  overflow: visible;
   background: var(--surface-panel);
   border: 1px solid var(--border);
   border-radius: 6px;
@@ -546,8 +546,13 @@
 
 .mm2-org-chart-inner {
   transform: scale(var(--mm2-org-chart-scale, 1.1));
-  transform-origin: top center;
+  transform-origin: top left;
   flex-shrink: 0;
+}
+
+.mm2-org-chart-scale-host {
+  flex-shrink: 0;
+  overflow: visible;
 }
 
 .mm2-sidebar {
