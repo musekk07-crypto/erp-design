@@ -2781,7 +2781,7 @@ function MemberInfoBody({
         <div className="flex justify-end pt-2 pb-6">
           <button
             className="rounded font-medium transition-all duration-200"
-            style={{ fontSize: 12, padding: "7px 13px", background: "var(--save-btn-bg, var(--accent-gradient))", color: "var(--on-accent)", border: "none" }}
+            style={{ fontSize: 12, padding: "7px 13px", background: "var(--save-btn-bg, #2843b8)", color: "var(--on-accent)", border: "none" }}
           >
             등록/저장
           </button>
@@ -3107,7 +3107,7 @@ function TopNav({ activeMainMenu, onMainMenuChange }: TopNavProps) {
         <div className="flex items-center gap-2 mr-6 shrink-0">
           <div
             className="flex items-center justify-center rounded"
-            style={{ width: 28, height: 28, background: "var(--logo-bg, #7c3aed)", fontSize: 12, fontWeight: 700, color: "var(--on-accent)" }}
+            style={{ width: 28, height: 28, background: "var(--logo-bg, #2843b8)", fontSize: 12, fontWeight: 700, color: "var(--on-accent)" }}
           >
             VB
           </div>

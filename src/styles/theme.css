@@ -8,9 +8,9 @@
   --nav-text: #ffffff;
   --nav-text-muted: rgba(255,255,255,0.7);
   --nav-active-border: #ffffff;
-  --nav-active-bg: #0284c7;
+  --nav-active-bg: #2843b8;
   --nav-active-text: #ffffff;
-  --nav-hover-bg: #0369a1;
+  --nav-hover-bg: #203899;
   --nav-hover-text: #ffffff;
   --nav-divider: rgba(255,255,255,0.3);
   --nav-avatar-bg: rgba(255,255,255,0.2);
@@ -32,12 +32,13 @@
   --toggle-active-bg: linear-gradient(135deg, #7c3aed, #6366f1);
   --toggle-active-color: #7c3aed;
   --member-no-color: #7c3aed;
-  --logo-bg: #0284c7;
+  --logo-bg: #2843b8;
   --org-self-accent: #3b82f6;
-  --brand-primary: #0284c7;
-  --brand-gradient: linear-gradient(135deg, #0284c7, #0369a1);
+  --brand-primary: #2843b8;
+  --brand-gradient: linear-gradient(135deg, #2843b8, #203899);
   --brand-light: var(--accent-light);
   --brand-toggle-track: #f8f7ff;
+  --save-btn-bg: #2843b8;
   --detail-tab-bar-bg: #e4e6ec;
   --detail-tab-bar-line: rgba(0, 0, 0, 0.12);
   --detail-tab-active-top: #1e2130;
@@ -174,7 +175,7 @@
   --org-self-accent: #0284c7;
   --org-grade-badge-bg: #0c4a6e;
   --org-grade-badge-fg: #38bdf8;
-  --save-btn-bg: #7c3aed;
+  --save-btn-bg: #2843b8;
   --badge-type-general-bg: #262d3d;
   --badge-type-general-fg: #9aa8b8;
   --badge-type-consumer-bg: #0c3540;

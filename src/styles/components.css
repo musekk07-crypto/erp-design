@@ -23,7 +23,7 @@
 .main-nav-item:not(.is-active):hover {
   font-weight: 600;
   color: var(--nav-active-text, #ffffff);
-  background: var(--nav-active-bg, #0284c7);
+  background: var(--nav-active-bg, #2843b8);
 }
 
 /* 상세 패널 — 폴더 탭 (회원정보 페이지 내부) */
