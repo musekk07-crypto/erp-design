@@ -545,9 +545,20 @@
 }
 
 .mm2-org-chart-inner {
-  transform: scale(var(--mm2-org-chart-scale, 1.1));
   transform-origin: top left;
   flex-shrink: 0;
+  zoom: var(--mm2-org-chart-scale, 1);
+}
+
+@supports not (zoom: 1) {
+  .mm2-org-chart-inner {
+    transform: scale(var(--mm2-org-chart-scale, 1));
+  }
+}
+
+.mm2-org-chart .org-chart-card {
+  border-radius: 6px;
+  overflow: hidden;
 }
 
 .mm2-org-chart-scale-host {

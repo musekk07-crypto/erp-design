@@ -178,11 +178,14 @@ function Card({ label, name, memberNo, grade, isSelf = false }: {
   };
 
   return (
-    <div style={{
+    <div
+      className="org-chart-card"
+      style={{
       width: CARD_W,
       height: CARD_H,
       border: isSelf ? `2px solid ${ORG_SELF_ACCENT}` : `1px solid ${BORDER_GRAY}`,
       borderRadius: 6,
+      overflow: "hidden",
       background: "var(--org-card-bg)",
       display: "flex",
       flexDirection: "column",
@@ -193,7 +196,8 @@ function Card({ label, name, memberNo, grade, isSelf = false }: {
       position: "relative",
       boxSizing: "border-box",
       flexShrink: 0,
-    }}>
+    }}
+    >
       {isSelf && (
         <span style={{
           position: "absolute", top: 4, right: 4,
@@ -229,13 +233,18 @@ function Card({ label, name, memberNo, grade, isSelf = false }: {
 
 function ExtraBox({ label }: { label: string }) {
   return (
-    <div style={{
+    <div
+      className="org-chart-card org-chart-card--extra"
+      style={{
       width: CARD_W, height: EXTRA_H,
       border: `1px dashed ${BORDER_GRAY}`,
-      borderRadius: 6, background: "var(--org-extra-bg)",
+      borderRadius: 6,
+      overflow: "hidden",
+      background: "var(--org-extra-bg)",
       display: "flex", alignItems: "center", justifyContent: "center",
       fontSize: 12, color: LABEL_GRAY, boxSizing: "border-box", flexShrink: 0,
-    }}>
+    }}
+    >
       {label}
     </div>
   );
@@ -243,9 +252,12 @@ function ExtraBox({ label }: { label: string }) {
 
 function ChildChip({ name, id }: { name: string; id: number }) {
   return (
-    <div style={{
+    <div
+      className="org-chart-card org-chart-card--chip"
+      style={{
       border: `1px solid ${BORDER_GRAY}`,
       borderRadius: 6,
+      overflow: "hidden",
       background: "var(--org-card-bg)",
       display: "flex",
       alignItems: "center",
@@ -256,7 +268,8 @@ function ChildChip({ name, id }: { name: string; id: number }) {
       fontWeight: 600,
       color: "var(--org-text)",
       boxSizing: "border-box",
-    }}>
+    }}
+    >
       {name} ({id})
     </div>
   );
