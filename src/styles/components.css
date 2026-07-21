@@ -200,7 +200,7 @@
 
 .mm2-member-view {
   --mm2-info-group-width: 1060px;
-  --mm2-sidebar-width: 196px;
+  --mm2-sidebar-width: 218px;
   --mm2-body-gap: 12px;
   --mm2-detail-panel-width: calc(var(--mm2-info-group-width) - var(--mm2-sidebar-width) - var(--mm2-body-gap));
   --accent-primary: #0284c7;
