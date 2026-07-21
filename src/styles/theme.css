@@ -23,7 +23,7 @@
   --accent-border: #ddd6fe;
   --accent-gradient: linear-gradient(135deg, #7c3aed, #6366f1);
   --required-color: #7c3aed;
-  --section-icon-bg: #f5f3ff;
+  --section-icon-bg: transparent;
   --section-icon-color: #7c3aed;
   --input-focus-bg: #faf8ff;
   --toggle-active-bg: linear-gradient(135deg, #7c3aed, #6366f1);
@@ -60,7 +60,7 @@
   --accent-border: #c5c3e8;
   --accent-gradient: linear-gradient(135deg, #332e7e, #4a44a8);
   --required-color: #332e7e;
-  --section-icon-bg: #f0eff9;
+  --section-icon-bg: transparent;
   --section-icon-color: #332e7e;
   --input-focus-bg: #f0eff9;
   --toggle-active-bg: linear-gradient(135deg, #332e7e, #4a44a8);
@@ -94,7 +94,7 @@
   --accent-border: #2d6a8f;
   --accent-gradient: linear-gradient(135deg, #38bdf8, #5ecfff);
   --required-color: #5ecfff;
-  --section-icon-bg: #1a2f42;
+  --section-icon-bg: transparent;
   --section-icon-color: #5ecfff;
   --input-focus-bg: #243548;
   --toggle-active-bg: linear-gradient(135deg, #38bdf8, #5ecfff);
@@ -464,6 +464,26 @@
 
 .app-content .content-form-section {
   margin-bottom: 6px;
+}
+
+.app-content .content-form-section-icon,
+.app-content .content-form-section > button > span.content-form-section-icon,
+.app-content .content-form-section > button > span:first-child:not(.text-sm):not(.flex-1) {
+  width: auto !important;
+  height: auto !important;
+  min-width: 0 !important;
+  min-height: 0 !important;
+  padding: 0 !important;
+  border: none !important;
+  border-radius: 0 !important;
+  background: transparent !important;
+  background-color: transparent !important;
+  box-shadow: none !important;
+}
+
+.app-content .content-form-section-icon svg,
+.app-content .content-form-section > button > span:first-child:not(.text-sm):not(.flex-1) svg {
+  background: transparent !important;
 }
 
 .app-content .content-form-section--org > button {

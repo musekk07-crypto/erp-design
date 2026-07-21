@@ -62,8 +62,8 @@ function FormSection({ title, icon, subtitle, children }: { title: string; icon:
         className="w-full flex items-center gap-2 px-5 transition-all duration-150"
         style={{ cursor: "pointer", background: "transparent", borderBottom: open ? "1px solid var(--border)" : "none", paddingTop: 12, paddingBottom: 12 }}
       >
-        <span className="w-6 h-6 rounded flex items-center justify-center shrink-0" style={{ background: "var(--section-icon-bg)" }}>
-          <span style={{ color: "var(--accent-primary)" }}>{icon}</span>
+        <span className="content-form-section-icon shrink-0 inline-flex items-center" style={{ color: "var(--accent-primary)" }}>
+          {icon}
         </span>
         <span className="text-sm font-semibold" style={{ color: "var(--foreground)" }}>{title}</span>
         <div className="flex-1" />
