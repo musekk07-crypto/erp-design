@@ -17,7 +17,7 @@ const bottomItems = [
 type Theme = "deep-purple" | "dark";
 
 const themes: { key: Theme; color: string; label: string }[] = [
-  { key: "deep-purple", color: "#1a0a6b", label: "딥퍼플" },
+  { key: "deep-purple", color: "#1a0a6b", label: "라이트" },
   { key: "dark",        color: "#0f1117", label: "다크" },
 ];
 
