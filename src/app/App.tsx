@@ -1456,12 +1456,14 @@ function MemberTypeToggle({ type }: { type: "일반" | "소비자" }) {
   useEffect(() => setSelected(type), [type]);
   return (
     <div
-      className="flex items-center ml-1"
+      className="member-type-toggle flex items-center ml-1"
       style={{ background: "var(--brand-toggle-track)", borderRadius: 20, padding: 2, border: "1px solid var(--brand-light)" }}
     >
       {(["일반", "소비자"] as const).map((t) => (
         <button
           key={t}
+          type="button"
+          className={selected === t ? "is-selected" : undefined}
           onClick={() => setSelected(t)}
           style={{
             fontSize: "12px",
@@ -1625,21 +1627,18 @@ function GenderToggleInline() {
 function MemberHeaderCard({ member }: { member: Member }) {
   const memberType = member.type === "소비자" ? "소비자" : "일반";
   return (
-    <div
-      className="rounded content-member-header p-1.5 mb-2"
-      style={{ background: "var(--surface-panel)", border: "1px solid var(--border)" }}
-    >
+    <div className="rounded content-member-header p-1.5 mb-2">
       <div className="flex items-center gap-3">
         <div
-          className="w-8 h-8 rounded flex items-center justify-center font-bold shrink-0"
-          style={{ background: "var(--brand-gradient)", color: "var(--on-accent)", fontSize: 12 }}
+          className="content-member-header-avatar w-8 h-8 rounded flex items-center justify-center font-bold shrink-0"
+          style={{ fontSize: 12 }}
         >
           {member.name.charAt(0)}
         </div>
         <div className="flex items-center gap-2 min-w-0">
-          <span style={{ color: "var(--muted-foreground)", fontSize: 13 }}>{member.name} · {member.loginId}</span>
-          <span style={{ width: 1, height: 14, background: "var(--border)", display: "inline-block" }} />
-          <span style={{ fontSize: 13, fontWeight: 600, color: "var(--text-body)" }}>{member.no}</span>
+          <span className="content-member-header-text" style={{ fontSize: 13 }}>{member.name} · {member.loginId}</span>
+          <span className="content-member-header-divider" style={{ width: 1, height: 14, display: "inline-block" }} />
+          <span className="content-member-header-no" style={{ fontSize: 13, fontWeight: 600 }}>{member.no}</span>
           <MemberTypeToggle type={memberType} />
         </div>
       </div>
