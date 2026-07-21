@@ -2540,7 +2540,7 @@ function MemberInfoBody({
                       </select>
                       <ChevronDown size={12} style={{ position: "absolute", right: 7, top: "50%", transform: "translateY(-50%)", color: "var(--muted-foreground)", pointerEvents: "none" }} />
                     </div>
-                    <button style={{ fontSize: 12, padding: "3px 8px", background: "var(--surface-button-muted)", color: "var(--accent-primary)", border: "1px solid var(--accent-border)", borderRadius: 4, whiteSpace: "nowrap" }}>✓ 실명인증</button>
+                    <button type="button" className="member-form-action-chip member-form-action-chip--auth">✓ 실명인증</button>
                   </div>
                 </td>
                 <td style={{ padding: "3px 10px 3px 0", whiteSpace: "nowrap", verticalAlign: "middle" }}>
@@ -2679,9 +2679,7 @@ function MemberInfoBody({
                 <td style={{ padding: "3px 0 3px 0", verticalAlign: "middle" }}>
                   <div className="flex gap-1 items-center">
                     <input defaultValue="88012345" className="flex-1 min-w-0 rounded outline-none transition-all duration-200" style={{ fontSize: 12, padding: "3px 8px", background: "var(--input-background)", border: "none", color: "var(--foreground)" }} onFocus={(e) => { e.target.style.background = "var(--input-focus-bg)"; }} onBlur={(e) => { e.target.style.background = "var(--input-background)"; }} />
-                    <span className="shrink-0" style={{ fontSize: 12, padding: "3px 8px", background: "var(--badge-status-active-bg)", color: "var(--accent-primary)", border: "1px solid var(--accent-border)", borderRadius: 4, whiteSpace: "nowrap", display: "inline-flex", alignItems: "center", gap: 4 }}>
-                      ✓ 인증완료
-                    </span>
+                    <span className="member-form-action-chip member-form-action-chip--verified">✓ 인증완료</span>
                   </div>
                 </td>
               </tr>

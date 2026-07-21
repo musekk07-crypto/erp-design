@@ -315,7 +315,7 @@ export function MemberDetail({ onClose }: { onClose?: () => void }) {
                       </select>
                       <ChevronDown size={12} style={{ position: "absolute", right: 7, top: "50%", transform: "translateY(-50%)", color: "var(--muted-foreground)", pointerEvents: "none" }} />
                     </div>
-                    <button style={{ fontSize: 11, padding: "4px 10px", background: "#f5f6fa", color: "var(--accent-primary)", border: "1px solid #a7f3d0", borderRadius: 4, whiteSpace: "nowrap" }}>✓ 실명인증</button>
+                    <button type="button" className="member-form-action-chip member-form-action-chip--auth">✓ 실명인증</button>
                   </div>
                 </td>
                 <td style={{ padding: "4px 12px 4px 0", width: 100, whiteSpace: "nowrap", verticalAlign: "middle" }}>
@@ -462,9 +462,7 @@ export function MemberDetail({ onClose }: { onClose?: () => void }) {
                   <span style={{ fontSize: "11px", color: "var(--muted-foreground)", fontWeight: 500 }}>실명계좌 인증</span>
                 </td>
                 <td style={{ padding: "4px 0 4px 0", verticalAlign: "middle" }}>
-                  <span style={{ fontSize: 11, padding: "3px 10px", background: "#f0fdf4", color: "var(--accent-primary)", border: "1px solid #a7f3d0", borderRadius: 4, whiteSpace: "nowrap", display: "inline-flex", alignItems: "center", gap: 4 }}>
-                    ✓ 인증완료
-                  </span>
+                  <span className="member-form-action-chip member-form-action-chip--verified">✓ 인증완료</span>
                 </td>
               </tr>
             </tbody>
