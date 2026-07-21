@@ -295,7 +295,7 @@
 }
 
 .mm2-profile-rank-label {
-  font-size: 14px;
+  font-size: 15px;
   font-weight: 400;
   color: var(--accent-primary);
   line-height: 1.4;
@@ -317,7 +317,7 @@
 
 .mm2-profile-location {
   margin: 6px 0 0;
-  font-size: 14px;
+  font-size: 15px;
   color: var(--text-muted);
   line-height: 1.5;
   white-space: nowrap;
@@ -383,7 +383,7 @@
 }
 
 .mm2-profile-stack-label {
-  font-size: 14px;
+  font-size: 15px;
   font-weight: 500;
   color: var(--text-muted);
   line-height: 1.4;
@@ -391,7 +391,7 @@
 }
 
 .mm2-profile-stack-value {
-  font-size: 14px;
+  font-size: 15px;
   font-weight: 400;
   color: var(--text-body);
   line-height: 1.45;
@@ -595,7 +595,7 @@
   border-radius: 6px;
   background: var(--surface-panel);
   color: var(--text-muted);
-  font-size: 14px;
+  font-size: 15px;
   text-align: left;
   cursor: pointer;
   transition: background 0.15s, border-color 0.15s, color 0.15s;
@@ -633,8 +633,8 @@
   --mm2-detail-row-height: 40px;
   --mm2-detail-surface: #0274b3;
   --mm2-detail-header-fg: #ffffff;
-  --mm2-detail-font-size: 14px;
-  --mm2-detail-font-size-lg: 15px;
+  --mm2-detail-font-size: 15px;
+  --mm2-detail-font-size-lg: 16px;
 }
 
 .mm2-detail-panel .mm2-detail-header,
@@ -1045,9 +1045,9 @@ textarea.mm2-name-box:focus {
   padding: 12px;
   box-sizing: border-box;
   background: var(--surface-page);
-  --order-mgmt-font-size: 14px;
-  --order-mgmt-font-size-lg: 15px;
-  --order-mgmt-font-size-toolbar: 13px;
+  --order-mgmt-font-size: 15px;
+  --order-mgmt-font-size-lg: 16px;
+  --order-mgmt-font-size-toolbar: 14px;
   --surface-row-selected: #e8eaef;
   --accent-primary: #0284c7;
   --order-mgmt-member-info-bg: #0274b3;
@@ -1629,8 +1629,8 @@ textarea.mm2-name-box:focus {
 .order-mgmt-basic-form,
 .order-mgmt-payment-form {
   --order-mgmt-shipping-label-width: 92px;
-  --order-mgmt-shipping-label-font-size: 13px;
-  --order-mgmt-shipping-input-font-size: 13px;
+  --order-mgmt-shipping-label-font-size: 14px;
+  --order-mgmt-shipping-input-font-size: 14px;
   --order-mgmt-shipping-field-gap: 14px;
   --order-mgmt-shipping-row-gap: 12px;
   --order-mgmt-shipping-col-gap: 14px;

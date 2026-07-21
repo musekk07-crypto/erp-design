@@ -429,9 +429,9 @@
 
 /* 본문 컨텐츠 영역 — 탑 메뉴 제외, 조밀하게 */
 .app-content {
-  --content-text-xs: 12px;
-  --content-text-sm: 13px;
-  --content-text-base: 14px;
+  --content-text-xs: 13px;
+  --content-text-sm: 14px;
+  --content-text-base: 15px;
   font-size: var(--content-text-base);
 }
 
@@ -448,13 +448,18 @@
 .app-content input,
 .app-content select,
 .app-content textarea {
-  font-size: 13px !important;
+  font-size: 14px !important;
 }
 
 .app-content table th,
 .app-content table td {
   padding-top: 3px !important;
   padding-bottom: 3px !important;
+}
+
+.app-content .member-list-panel td,
+.app-content .member-table-row td {
+  font-size: var(--content-text-xs) !important;
 }
 
 .app-content .content-form-section {
@@ -479,6 +484,16 @@
 
 .app-content .content-form-body {
   padding: 6px 12px 8px !important;
+}
+
+.app-content .content-form-body table.content-form-grid span {
+  font-size: var(--content-text-xs) !important;
+}
+
+.app-content .content-form-body table.content-form-grid input,
+.app-content .content-form-body table.content-form-grid select,
+.app-content .content-form-body table.content-form-grid textarea {
+  font-size: var(--content-text-sm) !important;
 }
 
 .app-content .content-form-body > .flex {
@@ -614,7 +629,7 @@
   flex: 1.15 1 0;
   min-width: 72px;
   width: auto;
-  font-size: 12px;
+  font-size: 13px;
   padding: 3px 8px;
   background: var(--surface-input-readonly);
   border: none;
@@ -626,7 +641,7 @@
   flex: 1 1 0;
   min-width: 56px;
   width: auto;
-  font-size: 12px;
+  font-size: 13px;
   padding: 3px 8px;
   background: var(--surface-input-readonly);
   border: none;
