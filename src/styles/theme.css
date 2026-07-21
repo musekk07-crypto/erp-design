@@ -623,6 +623,11 @@
   padding-left: 0;
 }
 
+/* 라벨↔입력 간격 10px — 라벨 셀 오른쪽 여백 제거로 입력만 앞당김 */
+.app-content .content-form-body table.content-form-grid--member tbody tr > td:nth-child(odd) {
+  padding-right: 0 !important;
+}
+
 .app-content .content-form-body table.content-form-grid--member td[colspan="3"] {
   padding-right: var(--form-col-gap) !important;
 }
