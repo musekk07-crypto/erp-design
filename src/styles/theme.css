@@ -592,6 +592,18 @@
   --form-side-field-w: calc((100% - var(--form-label-w) * 2) / 2);
   --form-side-field-left-w: calc(var(--form-side-field-w) - 14px);
   --form-side-field-right-w: calc(var(--form-side-field-w) + 14px);
+  --form-field-divider: rgba(0, 0, 0, 0.1);
+}
+
+/* 입력 그룹(열) 사이 세로 구분선 — 필드 셀 오른쪽 */
+.app-content .content-form-body table.content-form-grid--member tbody tr > td:nth-child(2),
+.app-content .content-form-body table.content-form-grid--member tbody tr > td:nth-child(4) {
+  border-right: 1px solid var(--form-field-divider);
+}
+
+/* 행 사이 가로 구분선 */
+.app-content .content-form-body table.content-form-grid--member tbody tr + tr td {
+  border-top: 1px solid var(--form-field-divider);
 }
 
 .app-content .content-form-body table.content-form-grid--member .col-label-1,
@@ -772,6 +784,10 @@
 [data-theme="dark"] .content-form-section,
 [data-theme="dark"] .content-member-header {
   border: 1px solid rgba(255, 255, 255, 0.1) !important;
+}
+
+[data-theme="dark"] .app-content .content-form-body table.content-form-grid--member {
+  --form-field-divider: rgba(255, 255, 255, 0.12);
 }
 
 [data-theme="dark"] .content-form-section > button {
