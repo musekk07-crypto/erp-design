@@ -78,7 +78,7 @@ const MM2_ORG_CHART_SCALE = 686 / ORG_CHART_WIDTH;
 const MM2_ORG_CHART_CONTENT_W = Math.ceil(ORG_CHART_WIDTH * MM2_ORG_CHART_SCALE);
 const MM2_ORG_CHART_CONTENT_H = Math.ceil(ORG_CHART_MAX_SVG_HEIGHT * MM2_ORG_CHART_SCALE);
 const MM2_ORG_CHART_WIDTH = MM2_ORG_CHART_CONTENT_W + 2;
-const ORG_CARD_NAME_FONT_SIZE = 13.6 / MM2_ORG_CHART_SCALE;
+const ORG_CARD_NAME_FONT_SIZE = 14.6 / MM2_ORG_CHART_SCALE;
 const MM2_ORG_CHART_PANEL_HEIGHT =
   ORG_CHART_SECTION_HEADER_H + ORG_CHART_BODY_PAD_V + MM2_ORG_CHART_CONTENT_H + 2;
 const DETAIL_CONTENT_GAP = 12;
@@ -140,7 +140,9 @@ const EXTRA_H = 34;
 const GAP = 7;
 const COL_GAP = ORG_COL_GAP;
 
-const ORG_CARD_META_FONT_SIZE = 12;
+const ORG_CARD_LABEL_FONT_SIZE = 13;
+const ORG_CARD_META_FONT_SIZE = 13;
+const ORG_CARD_BADGE_FONT_SIZE = 12;
 
 function resolveOrgMemberNo(id: number, fallback?: string) {
   const ref = members.find((m) => m.id === id);
@@ -202,10 +204,10 @@ function Card({ label, name, memberNo, grade, isSelf = false }: {
         <span style={{
           position: "absolute", top: 4, right: 4,
           background: ORG_SELF_ACCENT, color: "var(--on-accent)",
-          fontSize: 11, padding: "2px 7px", borderRadius: 10, fontWeight: 700, lineHeight: 1.2,
+          fontSize: ORG_CARD_BADGE_FONT_SIZE, padding: "2px 7px", borderRadius: 10, fontWeight: 700, lineHeight: 1.2,
         }}>자신</span>
       )}
-      <div style={{ fontSize: 12, color: LABEL_GRAY, marginBottom: 4 }}>
+      <div style={{ fontSize: ORG_CARD_LABEL_FONT_SIZE, color: LABEL_GRAY, marginBottom: 4 }}>
         {isSelf ? "나" : label}
       </div>
       <div style={{ fontSize: ORG_CARD_NAME_FONT_SIZE, fontWeight: 700, color: "var(--org-text)", marginBottom: 2 }}>
@@ -219,7 +221,7 @@ function Card({ label, name, memberNo, grade, isSelf = false }: {
           height: 20,
           padding: "0 8px",
           borderRadius: 999,
-          fontSize: 11,
+          fontSize: ORG_CARD_BADGE_FONT_SIZE,
           fontWeight: 400,
           background: "var(--org-grade-badge-bg, var(--accent-light))",
           color: "var(--org-grade-badge-fg, var(--accent-primary))",
@@ -242,7 +244,7 @@ function ExtraBox({ label }: { label: string }) {
       overflow: "hidden",
       background: "var(--org-extra-bg)",
       display: "flex", alignItems: "center", justifyContent: "center",
-      fontSize: 12, color: LABEL_GRAY, boxSizing: "border-box", flexShrink: 0,
+      fontSize: ORG_CARD_LABEL_FONT_SIZE, color: LABEL_GRAY, boxSizing: "border-box", flexShrink: 0,
     }}
     >
       {label}
