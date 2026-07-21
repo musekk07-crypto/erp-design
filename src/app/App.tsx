@@ -214,8 +214,10 @@ function Card({ label, name, memberNo, grade, id, isSelf = false }: {
       className="org-chart-card org-chart-card--interactive"
       onMouseEnter={() => {
         if (!hover || !rootRef.current) return;
+        hover.cancelHide();
         hover.showFromElement(buildOrgMemberDetail(id, name, memberNo, grade), rootRef.current);
       }}
+      onMouseLeave={() => hover?.scheduleHide()}
       style={{
       width: CARD_W,
       height: CARD_H,
@@ -299,8 +301,10 @@ function ChildChip({ name, id }: { name: string; id: number }) {
       className="org-chart-card org-chart-card--chip org-chart-card--interactive"
       onMouseEnter={() => {
         if (!hover || !rootRef.current) return;
+        hover.cancelHide();
         hover.showFromElement(buildOrgMemberDetail(id, name, memberNo, grade), rootRef.current);
       }}
+      onMouseLeave={() => hover?.scheduleHide()}
       style={{
       border: `1px solid ${BORDER_GRAY}`,
       borderRadius: 6,
