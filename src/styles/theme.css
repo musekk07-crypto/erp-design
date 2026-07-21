@@ -628,6 +628,10 @@
   padding-right: 0 !important;
 }
 
+.app-content .content-form-body table.content-form-grid--member tbody tr > td:nth-child(even) {
+  transform: translateX(-6px);
+}
+
 .app-content .content-form-body table.content-form-grid--member td[colspan="3"] {
   padding-right: var(--form-col-gap) !important;
 }
