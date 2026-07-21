@@ -103,7 +103,7 @@ function calcFormColumnWidth(availableDetailWidth: number) {
   return FORM_COLUMN_WIDTH_MIN;
 }
 
-const MM2_INFO_GROUP_WIDTH = 1060;
+const MM2_INFO_GROUP_WIDTH = 1120;
 
 function getMm2DetailContentWidth(infoGroupWidth: number) {
   return infoGroupWidth + MM2_ORG_CHART_WIDTH + DETAIL_CONTENT_GAP;
