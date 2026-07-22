@@ -3449,7 +3449,9 @@ export default function App() {
   const appContentRef = useRef<HTMLDivElement>(null);
   const resizing = useRef(false);
 
-  const memberListNavEnabled = activeMainMenu === "회원관리" && activeMemberSubMenu === "회원등록";
+  const memberListNavEnabled =
+    (activeMainMenu === "회원관리" && activeMemberSubMenu === "회원등록") ||
+    activeMainMenu === "주문관리";
   const memberListOpen = memberListNavEnabled && listOpen;
 
   const formColumnWidth = useMemo(() => {
@@ -3536,11 +3538,16 @@ export default function App() {
 
   const handleMainMenuChange = useCallback((menu: string) => {
     setActiveMainMenu(menu);
-    if (menu !== "회원관리") {
+    const keepsMemberListNav =
+      menu === "주문관리" ||
+      (menu === "회원관리" && activeMemberSubMenu === "회원등록");
+    if (!keepsMemberListNav) {
       setListOpen(false);
+    }
+    if (menu !== "회원관리") {
       setMemberSubMenuOpen(false);
     }
-  }, []);
+  }, [activeMemberSubMenu]);
 
   const handleMemberSubMenuChange = useCallback((item: string) => {
     setActiveMemberSubMenu(item);
