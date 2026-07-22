@@ -1744,8 +1744,7 @@ textarea.mm2-name-box:focus {
 }
 
 .order-mgmt-table-wrap--scroll-x > div {
-  overflow-x: auto !important;
-  scrollbar-width: thin;
+  overflow-x: hidden !important;
 }
 
 .order-mgmt-summary-row td {
@@ -2034,8 +2033,7 @@ textarea.mm2-name-box:focus {
 }
 
 .order-mgmt-payment-table .order-mgmt-table-wrap--scroll-x > div {
-  overflow-x: auto !important;
-  scrollbar-width: thin;
+  overflow-x: hidden !important;
 }
 
 .order-mgmt-payment-form {
