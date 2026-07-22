@@ -79,16 +79,14 @@ function calcOrgChartLinearSvgHeight() {
 }
 
 const ORG_CHART_LINEAR_SVG_HEIGHT = calcOrgChartLinearSvgHeight();
-const ORG_CHART_SECTION_LABEL_H = 22;
-const ORG_CHART_DUAL_GAP = 12;
-const ORG_CHART_DUAL_CONTENT_HEIGHT =
-  ORG_CHART_SECTION_LABEL_H + ORG_CHART_MAX_SVG_HEIGHT + ORG_CHART_DUAL_GAP + ORG_CHART_SECTION_LABEL_H + ORG_CHART_LINEAR_SVG_HEIGHT;
+const ORG_CHART_TAB_BAR_H = 34;
+const ORG_CHART_TABBED_CONTENT_HEIGHT = ORG_CHART_TAB_BAR_H + ORG_CHART_MAX_SVG_HEIGHT;
 const ORG_CHART_SECTION_HEADER_H = 38;
 const ORG_CHART_BODY_PAD_V = 28;
 const ORG_CHART_PANEL_HEIGHT = ORG_CHART_SECTION_HEADER_H + ORG_CHART_BODY_PAD_V + ORG_CHART_MAX_SVG_HEIGHT;
 const MM2_ORG_CHART_SCALE = 686 / ORG_CHART_WIDTH;
 const MM2_ORG_CHART_CONTENT_W = Math.ceil(ORG_CHART_WIDTH * MM2_ORG_CHART_SCALE);
-const MM2_ORG_CHART_CONTENT_H = Math.ceil(ORG_CHART_DUAL_CONTENT_HEIGHT * MM2_ORG_CHART_SCALE);
+const MM2_ORG_CHART_CONTENT_H = Math.ceil(ORG_CHART_TABBED_CONTENT_HEIGHT * MM2_ORG_CHART_SCALE);
 const MM2_ORG_CHART_WIDTH = MM2_ORG_CHART_CONTENT_W + 2;
 const ORG_CARD_NAME_FONT_SIZE = 14.6 / MM2_ORG_CHART_SCALE;
 const MM2_ORG_CHART_PANEL_HEIGHT =
@@ -664,31 +662,42 @@ function OrgChartSvg({
   );
 }
 
-function OrgChartSectionBlock({ title, variant }: { title: string; variant: OrgChartSvgProps }) {
-  return (
-    <div className="org-chart-section">
-      <div className="org-chart-section__title">{title}</div>
-      <div className="org-chart-section__chart">
-        <OrgChartSvg {...variant} />
-      </div>
-    </div>
-  );
-}
+type OrgChartTabId = "recommender" | "sponsor";
 
 function OrgChart({ memberId, memberName }: OrgChartProps) {
   const member = getMemberById(memberId);
   const sections = buildOrgChartSections(memberId, memberName, member);
+  const [activeTab, setActiveTab] = useState<OrgChartTabId>("recommender");
+  const activeSection = sections.find((section) => section.id === activeTab) ?? sections[0];
+
+  useEffect(() => {
+    setActiveTab("recommender");
+  }, [memberId]);
 
   return (
     <OrgChartHoverProvider>
       <div
         key={memberId}
-        className="org-chart-dual"
+        className="org-chart-tabs"
         style={{ overflow: "visible", padding: "0 0 8px 0", width: "100%" }}
       >
-        {sections.map((section) => (
-          <OrgChartSectionBlock key={section.title} title={section.title} variant={section.variant} />
-        ))}
+        <div className="org-chart-tabs__bar" role="tablist" aria-label="조직도 관계">
+          {sections.map((section) => (
+            <button
+              key={section.id}
+              type="button"
+              role="tab"
+              aria-selected={activeTab === section.id}
+              className={`org-chart-tabs__tab${activeTab === section.id ? " is-active" : ""}`}
+              onClick={() => setActiveTab(section.id)}
+            >
+              {section.title}
+            </button>
+          ))}
+        </div>
+        <div className="org-chart-tabs__panel" role="tabpanel" aria-label={activeSection.title}>
+          <OrgChartSvg {...activeSection.variant} />
+        </div>
       </div>
     </OrgChartHoverProvider>
   );
@@ -737,6 +746,7 @@ function buildOrgChartSections(memberId: number, memberName: string, member: Mem
   if (memberId === 10) {
     return [
       {
+        id: "recommender" as const,
         title: "추천인",
         variant: {
           layoutType: "tree" as const,
@@ -750,6 +760,7 @@ function buildOrgChartSections(memberId: number, memberName: string, member: Mem
         },
       },
       {
+        id: "sponsor" as const,
         title: "후원인",
         variant: {
           layoutType: "linear" as const,
@@ -773,6 +784,7 @@ function buildOrgChartSections(memberId: number, memberName: string, member: Mem
 
   return [
     {
+      id: "recommender" as const,
       title: "추천인",
       variant: {
         layoutType: "tree" as const,
@@ -791,6 +803,7 @@ function buildOrgChartSections(memberId: number, memberName: string, member: Mem
       },
     },
     {
+      id: "sponsor" as const,
       title: "후원인",
       variant: {
         layoutType: "linear" as const,
@@ -2358,7 +2371,7 @@ function MemberManagement2View({
                       className="mm2-org-chart-inner"
                       style={{
                         width: ORG_CHART_WIDTH,
-                        height: ORG_CHART_DUAL_CONTENT_HEIGHT,
+                        height: ORG_CHART_TABBED_CONTENT_HEIGHT,
                         ["--mm2-org-chart-scale" as string]: MM2_ORG_CHART_SCALE,
                       }}
                     >

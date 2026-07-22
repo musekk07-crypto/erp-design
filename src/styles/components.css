@@ -928,34 +928,69 @@ span.member-form-action-chip {
   color: var(--org-text-withdrawn, #9ca3af);
 }
 
-.org-chart-dual {
+.org-chart-tabs {
   display: flex;
   flex-direction: column;
-  gap: 12px;
-  align-items: center;
+  width: 100%;
 }
 
-.org-chart-section {
-  width: 100%;
+.org-chart-tabs__bar {
   display: flex;
-  flex-direction: column;
-  align-items: center;
+  align-items: flex-end;
+  gap: 0;
+  width: 100%;
+  min-height: 34px;
+  margin-bottom: 8px;
+  border-bottom: 1px solid var(--org-border, #d1d5db);
 }
 
-.org-chart-section__title {
-  align-self: flex-start;
-  width: 100%;
-  padding: 0 2px 6px;
+.org-chart-tabs__tab {
+  position: relative;
+  margin: 0;
+  padding: 6px 14px 8px;
+  border: none;
+  border-bottom: 2px solid transparent;
+  background: transparent;
+  color: var(--org-text-muted, #64748b);
   font-size: 13px;
-  font-weight: 600;
+  font-weight: 500;
   line-height: 1.35;
+  cursor: pointer;
+  transition: color 0.15s ease, border-color 0.15s ease;
+}
+
+.org-chart-tabs__tab:hover {
   color: var(--org-text, #1e2130);
 }
 
-.org-chart-section__chart {
+.org-chart-tabs__tab.is-active {
+  color: var(--org-self-accent, #0284c7);
+  font-weight: 600;
+  border-bottom-color: var(--org-self-accent, #0284c7);
+}
+
+.org-chart-tabs__panel {
   display: flex;
   justify-content: center;
   width: 100%;
+  min-height: 0;
+}
+
+[data-theme="dark"] .org-chart-tabs__bar {
+  border-bottom-color: rgba(255, 255, 255, 0.12);
+}
+
+[data-theme="dark"] .org-chart-tabs__tab {
+  color: #94a3b8;
+}
+
+[data-theme="dark"] .org-chart-tabs__tab:hover {
+  color: #e2e8f0;
+}
+
+[data-theme="dark"] .org-chart-tabs__tab.is-active {
+  color: #38bdf8;
+  border-bottom-color: #38bdf8;
 }
 
 .app-content .org-chart-card {
