@@ -912,6 +912,15 @@ span.member-form-action-chip {
   box-shadow: none;
 }
 
+.org-chart-card--extra.org-chart-card--clickable {
+  cursor: pointer;
+}
+
+.org-chart-card--extra.org-chart-card--clickable:hover {
+  background: var(--org-extra-hover-bg, #eef2f7);
+  color: var(--org-text, #1e2130);
+}
+
 .org-chart-card--withdrawn,
 .org-chart-card--withdrawn .org-chart-card__label,
 .org-chart-card--withdrawn .org-chart-card__name,

@@ -304,10 +304,23 @@ function Card({
   );
 }
 
-function ExtraBox({ label }: { label: string }) {
+function ExtraBox({ label, onClick }: { label: string; onClick?: () => void }) {
   return (
     <div
-      className="org-chart-card org-chart-card--extra"
+      className={`org-chart-card org-chart-card--extra${onClick ? " org-chart-card--clickable" : ""}`}
+      onClick={onClick}
+      onKeyDown={
+        onClick
+          ? (event) => {
+              if (event.key === "Enter" || event.key === " ") {
+                event.preventDefault();
+                onClick();
+              }
+            }
+          : undefined
+      }
+      role={onClick ? "button" : undefined}
+      tabIndex={onClick ? 0 : undefined}
       style={{
       width: CARD_W, height: EXTRA_H,
       border: `1px dashed ${BORDER_GRAY}`,
@@ -387,6 +400,8 @@ type OrgChartSvgProps = {
   selfAtBottom?: boolean;
   downline?: OrgNode;
   extraBelow?: string;
+  moreChildren?: { name: string; id: number; displayId?: number }[];
+  extraBelowBatch?: number;
 };
 
 function OrgChartSvg({
@@ -401,7 +416,10 @@ function OrgChartSvg({
   selfAtBottom = false,
   downline,
   extraBelow,
+  moreChildren = [],
+  extraBelowBatch = 5,
 }: OrgChartSvgProps) {
+  const [revealedBelow, setRevealedBelow] = useState(0);
   const HPAD = ORG_HPAD;
   const VPAD = 8;
   const col1X = HPAD;
@@ -680,13 +698,30 @@ function OrgChartSvg({
   });
 
   const selfCenterY = col2Ys[selfIdx];
+  const visibleMoreChildren = moreChildren.slice(0, revealedBelow);
+  const remainingBelow = moreChildren.length - revealedBelow;
+  const visibleCol3Children = [...children, ...visibleMoreChildren];
   const col3Layout = (() => {
     type Col3Entry =
       | { kind: "child"; child: (typeof children)[number]; h: number }
-      | { kind: "extra"; label: string; h: number };
+      | { kind: "extra"; label: string; h: number; onClick?: () => void };
+    const extraEntries: Col3Entry[] =
+      moreChildren.length > 0
+        ? remainingBelow > 0
+          ? [{
+              kind: "extra" as const,
+              label: `외 ${remainingBelow}명`,
+              h: EXTRA_H,
+              onClick: () =>
+                setRevealedBelow((count) => Math.min(count + extraBelowBatch, moreChildren.length)),
+            }]
+          : []
+        : extraBelow
+          ? [{ kind: "extra" as const, label: extraBelow, h: EXTRA_H }]
+          : [];
     const entries: Col3Entry[] = [
-      ...children.map((child) => ({ kind: "child" as const, child, h: CHILD_CHIP_H })),
-      ...(extraBelow ? [{ kind: "extra" as const, label: extraBelow, h: EXTRA_H }] : []),
+      ...visibleCol3Children.map((child) => ({ kind: "child" as const, child, h: CHILD_CHIP_H })),
+      ...extraEntries,
     ];
     if (entries.length === 0) return { entries: [], positioned: [] as { entry: Col3Entry; cy: number }[] };
 
@@ -775,7 +810,7 @@ function OrgChartSvg({
                 </foreignObject>
               ) : (
                 <foreignObject x={col3X} y={cy - EXTRA_H / 2} width={CARD_W + 2} height={EXTRA_H + 2}>
-                  <ExtraBox label={entry.label} />
+                  <ExtraBox label={entry.label} onClick={entry.onClick} />
                 </foreignObject>
               )}
             </g>
@@ -820,7 +855,7 @@ function OrgChart({ memberId, memberName }: OrgChartProps) {
           </button>
         </div>
         <div className="org-chart-tabs__panel" role="tabpanel" aria-label={activeSection.title}>
-          <OrgChartSvg {...activeSection.variant} />
+          <OrgChartSvg key={`${memberId}-${activeTab}`} {...activeSection.variant} />
         </div>
       </div>
     </OrgChartHoverProvider>
@@ -867,6 +902,18 @@ function shiftOrgDate(dateStr: string, dayOffset: number) {
   return d.toISOString().slice(0, 10);
 }
 
+const KIM_SANGKYUNG_MORE_CHILDREN = [
+  "이수민", "박준호", "최유리", "한지민", "오세훈",
+  "장민재", "윤서연", "강도현", "신예린", "조민수",
+  "배소영", "류현우", "문지혜", "서동욱", "권나래",
+  "황재민", "노수빈", "안채원", "전혁준", "피유진",
+  "하승우", "길민아",
+].map((name, index) => ({
+  name,
+  id: 930 + index,
+  displayId: 10 + index,
+}));
+
 function buildOrgChartSections(memberId: number, memberName: string, member: Member) {
   if (member.name === "김상경") {
     const selfNode = createOrgNode("나", member.name, member.id, "블루", {
@@ -895,6 +942,7 @@ function buildOrgChartSections(memberId: number, memberName: string, member: Mem
           self: selfNode,
           extraAbove: "외 27명",
           extraBelow: "외 22명",
+          moreChildren: KIM_SANGKYUNG_MORE_CHILDREN,
           children: [
             { name: "홍선영", id: 920, displayId: 0 },
             { name: "정세영", id: 921, displayId: 1 },
