@@ -1236,7 +1236,7 @@ textarea.mm2-name-box:focus {
   --surface-row-selected: #e8eaef;
   --accent-primary: #2843b8;
   --order-mgmt-member-info-bg: #2843b8;
-  --order-mgmt-right-width: 520px;
+  --order-mgmt-right-width: 580px;
   --order-mgmt-toolbar-head-height: 60px;
   --order-mgmt-box-radius: var(--radius, 6px);
   --order-mgmt-block-title-color: #1e2130;
@@ -1813,7 +1813,7 @@ textarea.mm2-name-box:focus {
 .order-mgmt-shipping-form,
 .order-mgmt-basic-form,
 .order-mgmt-payment-form {
-  --order-mgmt-shipping-label-width: 92px;
+  --order-mgmt-shipping-label-width: 78px;
   --order-mgmt-shipping-label-font-size: 14px;
   --order-mgmt-shipping-input-font-size: 14px;
   --order-mgmt-shipping-field-gap: 14px;
