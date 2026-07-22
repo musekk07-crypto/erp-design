@@ -3221,23 +3221,20 @@ function TopNav({
                   </button>
                   {memberSubMenuOpen && isActive && (
                     <div className="main-nav-dropdown" role="menu">
-                      {memberSubMenus.map((item) => {
-                        const isSubActive = item === activeMemberSubMenu;
-                        return (
-                          <button
-                            key={item}
-                            type="button"
-                            role="menuitem"
-                            className={`main-nav-dropdown-item${isSubActive ? " is-active" : ""}`}
-                            onClick={() => {
-                              onMemberSubMenuChange(item);
-                              onMemberSubMenuOpenChange(false);
-                            }}
-                          >
-                            {item}
-                          </button>
-                        );
-                      })}
+                      {memberSubMenus.map((item) => (
+                        <button
+                          key={item}
+                          type="button"
+                          role="menuitem"
+                          className="main-nav-dropdown-item"
+                          onClick={() => {
+                            onMemberSubMenuChange(item);
+                            onMemberSubMenuOpenChange(false);
+                          }}
+                        >
+                          {item}
+                        </button>
+                      ))}
                     </div>
                   )}
                 </div>

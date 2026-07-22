@@ -70,12 +70,6 @@
   color: #ffffff;
 }
 
-.main-nav-dropdown-item.is-active {
-  background: var(--nav-active-bg, #2843b8);
-  color: #ffffff;
-  font-weight: 600;
-}
-
 /* 상세 패널 — 폴더 탭 (회원정보 페이지 내부) */
 .member-page-chrome {
   flex-shrink: 0;
