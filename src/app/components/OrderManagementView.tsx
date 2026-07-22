@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import React, { useCallback, useEffect, useRef, useState } from "react";
 import {
   RefreshCw,
   Search,
@@ -21,6 +21,18 @@ const OM_CHECKBOX_WIDTH = 36;
 const OM_CHECKBOX_PAD_LEFT = 14;
 const OM_ROW_PAD_Y = 6;
 const OM_DEFAULT_ALIGN: NonNullable<OmColumn["align"]> = "center";
+const ORDER_MGMT_SPLITTER_WIDTH = 5;
+const ORDER_MGMT_RIGHT_DEFAULT = 980;
+const ORDER_MGMT_RIGHT_MIN = 480;
+const ORDER_MGMT_LEFT_MIN = 480;
+
+function clampOrderMgmtRightWidth(width: number, bodyWidth: number) {
+  const max = Math.max(
+    ORDER_MGMT_RIGHT_MIN,
+    bodyWidth - ORDER_MGMT_LEFT_MIN - ORDER_MGMT_SPLITTER_WIDTH,
+  );
+  return Math.max(ORDER_MGMT_RIGHT_MIN, Math.min(max, width));
+}
 
 type OmColumn = {
   key: string;
@@ -276,7 +288,7 @@ function OmDataTable({
   const useEdgeSpread = isCompact && spreadTailFrom !== undefined;
   const useFiller = isCompact && !useEdgeSpread && !disableFiller;
   const useFixedMinScroll = !useEdgeSpread;
-  const enableHorizontalScroll = useFixedMinScroll || useEdgeSpread;
+  const enableHorizontalScroll = useFixedMinScroll;
   const tableMinWidth = getOmTableMinWidth(columns);
   const cellPadX = isCompact ? 4 : 8;
   const checkboxPadLeft = isCompact ? 10 : OM_CHECKBOX_PAD_LEFT;
@@ -653,7 +665,7 @@ function OmPaymentInfo() {
         </div>
 
         <div className="order-mgmt-payment-table">
-          <OmDataTable columns={paymentListColumns} rows={paymentListRows} layout="compact" disableFiller />
+          <OmDataTable columns={paymentListColumns} rows={paymentListRows} layout="compact" spreadTailFrom={3} disableFiller />
         </div>
 
         <div className="order-mgmt-form-body order-mgmt-payment-form">
@@ -731,9 +743,47 @@ function OmMemberInfoPanel({ member }: { member: ProfileMember }) {
 export function OrderManagementView({ member }: { member: ProfileMember }) {
   const [selectedOrder, setSelectedOrder] = useState(1);
   const [isRightDragging, setIsRightDragging] = useState(false);
+  const [rightPanelWidth, setRightPanelWidth] = useState(ORDER_MGMT_RIGHT_DEFAULT);
+  const [isPanelResizing, setIsPanelResizing] = useState(false);
   const orderListRows = buildOrderListRows(member);
+  const bodyRef = useRef<HTMLDivElement>(null);
   const rightScrollRef = useRef<HTMLElement>(null);
   const rightDragState = useRef({ dragging: false, startY: 0, scrollTop: 0 });
+
+  useEffect(() => {
+    const el = bodyRef.current;
+    if (!el) return;
+    const syncWidth = () => {
+      setRightPanelWidth((w) => clampOrderMgmtRightWidth(w, el.clientWidth));
+    };
+    const ro = new ResizeObserver(syncWidth);
+    ro.observe(el);
+    syncWidth();
+    return () => ro.disconnect();
+  }, []);
+
+  const onSplitResizeStart = useCallback((e: React.MouseEvent) => {
+    e.preventDefault();
+    e.stopPropagation();
+    setIsPanelResizing(true);
+    const startX = e.clientX;
+    const startWidth = rightPanelWidth;
+
+    function onMove(ev: MouseEvent) {
+      const bodyW = bodyRef.current?.clientWidth ?? 0;
+      const delta = startX - ev.clientX;
+      setRightPanelWidth(clampOrderMgmtRightWidth(startWidth + delta, bodyW));
+    }
+
+    function onUp() {
+      setIsPanelResizing(false);
+      window.removeEventListener("mousemove", onMove);
+      window.removeEventListener("mouseup", onUp);
+    }
+
+    window.addEventListener("mousemove", onMove);
+    window.addEventListener("mouseup", onUp);
+  }, [rightPanelWidth]);
 
   const isRightDragTarget = (target: EventTarget | null) => {
     if (!(target instanceof HTMLElement)) return false;
@@ -741,7 +791,7 @@ export function OrderManagementView({ member }: { member: ProfileMember }) {
   };
 
   const onRightMouseDown = (e: React.MouseEvent<HTMLElement>) => {
-    if (e.button !== 0 || !isRightDragTarget(e.target)) return;
+    if (isPanelResizing || e.button !== 0 || !isRightDragTarget(e.target)) return;
     rightDragState.current = {
       dragging: true,
       startY: e.clientY,
@@ -763,8 +813,8 @@ export function OrderManagementView({ member }: { member: ProfileMember }) {
   };
 
   return (
-    <div className="order-mgmt-view">
-      <div className="order-mgmt-body">
+    <div className={`order-mgmt-view${isPanelResizing ? " is-resizing" : ""}`}>
+      <div className="order-mgmt-body" ref={bodyRef}>
         <div className="order-mgmt-left">
           <OmMemberInfoPanel member={member} />
 
@@ -802,6 +852,8 @@ export function OrderManagementView({ member }: { member: ProfileMember }) {
             <OmDataTable
               columns={orderListColumns}
               rows={orderListRows}
+              layout="compact"
+              spreadTailFrom={4}
               selectedRow={selectedOrder}
               onSelectRow={setSelectedOrder}
             />
@@ -856,9 +908,23 @@ export function OrderManagementView({ member }: { member: ProfileMember }) {
           </div>
         </div>
 
+        <div
+          className="order-mgmt-splitter"
+          role="separator"
+          aria-orientation="vertical"
+          aria-label="주문관리 패널 크기 조절"
+          onMouseDown={onSplitResizeStart}
+        />
+
         <aside
           ref={rightScrollRef}
           className={`order-mgmt-right order-mgmt-right--drag-scroll${isRightDragging ? " is-dragging" : ""}`}
+          style={{
+            width: rightPanelWidth,
+            minWidth: rightPanelWidth,
+            maxWidth: rightPanelWidth,
+            flexShrink: 0,
+          }}
           onMouseDown={onRightMouseDown}
           onMouseMove={onRightMouseMove}
           onMouseUp={endRightDrag}

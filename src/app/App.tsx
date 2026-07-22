@@ -3356,6 +3356,9 @@ export default function App() {
   const isMemberInfoTab = activeMainMenu === "회원관리" && activeTab === "회원정보";
 
   const detailPanelMinWidth = useMemo(() => {
+    if (isOrderManagement) {
+      return 0;
+    }
     if (isMm2MemberInfoTab) {
       return getMm2DetailPanelWidth(MM2_INFO_GROUP_WIDTH);
     }
@@ -3363,7 +3366,7 @@ export default function App() {
       return getDetailPanelWidth(formColumnWidth);
     }
     return ORDER_PANEL_MIN_WIDTH;
-  }, [isMm2MemberInfoTab, isMemberInfoTab, formColumnWidth]);
+  }, [isOrderManagement, isMm2MemberInfoTab, isMemberInfoTab, formColumnWidth]);
 
   const isFixedDetailWidth =
     listOpen &&
@@ -3535,7 +3538,13 @@ export default function App() {
               : listOpen
                 ? detailPanelMinWidth
                 : "100%",
-            minWidth: listOpen ? (isFixedDetailWidth ? ORDER_PANEL_MIN_WIDTH : detailPanelMinWidth) : 0,
+            minWidth: listOpen
+              ? isOrderManagement
+                ? 0
+                : isFixedDetailWidth
+                  ? ORDER_PANEL_MIN_WIDTH
+                  : detailPanelMinWidth
+              : 0,
             flexShrink: listOpen ? 0 : 1,
             flexGrow: listOpen ? (isFixedDetailWidth ? 1 : 0) : 1,
             display: "flex",
