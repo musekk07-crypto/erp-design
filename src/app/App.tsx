@@ -164,7 +164,7 @@ function createOrgNode(
   name: string,
   id: number,
   grade: string,
-  options?: { memberNo?: string },
+  options?: { memberNo?: string; displayId?: number; regDate?: string; points?: string },
 ): OrgNode {
   return {
     label,
@@ -172,6 +172,9 @@ function createOrgNode(
     id,
     memberNo: options?.memberNo ?? resolveOrgMemberNo(id),
     grade,
+    displayId: options?.displayId,
+    regDate: options?.regDate,
+    points: options?.points,
   };
 }
 
@@ -204,17 +207,21 @@ function buildOrgMemberDetail(id: number, name: string, memberNo: string, grade:
   };
 }
 
-function Card({ label, name, memberNo, grade, id, isSelf = false }: {
-  label: string;
-  name: string;
-  memberNo: string;
-  grade: string;
-  id: number;
-  isSelf?: boolean;
-}) {
+function Card({
+  label,
+  name,
+  memberNo,
+  grade,
+  id,
+  displayId,
+  regDate,
+  points,
+  isSelf = false,
+}: OrgNode & { isSelf?: boolean }) {
   const hover = useOrgChartHover();
   const rootRef = useRef<HTMLDivElement>(null);
   const isWithdrawn = isOrgMemberWithdrawn(id, name);
+  const useOrgLayout = regDate != null && points != null;
   const metaStyle: React.CSSProperties = {
     fontSize: ORG_CARD_META_FONT_SIZE,
     color: "var(--org-text-muted)",
@@ -257,30 +264,43 @@ function Card({ label, name, memberNo, grade, id, isSelf = false }: {
           fontSize: ORG_CARD_BADGE_FONT_SIZE, padding: "2px 7px", borderRadius: 10, fontWeight: 700, lineHeight: 1.2,
         }}>자신</span>
       )}
-      <div className="org-chart-card__label" style={{ fontSize: ORG_CARD_LABEL_FONT_SIZE, color: LABEL_GRAY, marginBottom: 4 }}>
+      <div className="org-chart-card__label" style={{ fontSize: ORG_CARD_LABEL_FONT_SIZE, color: LABEL_GRAY, marginBottom: useOrgLayout ? 3 : 4 }}>
         {isSelf ? "나" : label}
       </div>
-      <div className="org-chart-card__name" style={{ fontSize: ORG_CARD_NAME_FONT_SIZE, fontWeight: 700, color: "var(--org-text)", marginBottom: 2 }}>
-        {name}
-      </div>
-      <div className="org-chart-card__meta" style={{ ...metaStyle, marginBottom: 4 }}>{memberNo}</div>
-      <div>
-        <span
-          className="org-chart-card__grade"
-          style={{
-          display: "inline-flex",
-          alignItems: "center",
-          height: 20,
-          padding: "0 8px",
-          borderRadius: 999,
-          fontSize: ORG_CARD_BADGE_FONT_SIZE,
-          fontWeight: 400,
-          background: "var(--org-grade-badge-bg, var(--accent-light))",
-          color: "var(--org-grade-badge-fg, var(--accent-primary))",
-        }}>
-          {grade}
-        </span>
-      </div>
+      {useOrgLayout ? (
+        <>
+          <div className="org-chart-card__name" style={{ fontSize: ORG_CARD_NAME_FONT_SIZE, fontWeight: 700, color: "var(--org-text)", marginBottom: 2 }}>
+            {name}({displayId ?? id})
+          </div>
+          <div className="org-chart-card__meta" style={{ ...metaStyle, marginBottom: 1 }}>{regDate}</div>
+          <div className="org-chart-card__meta" style={{ ...metaStyle, marginBottom: 1 }}>{grade}</div>
+          <div className="org-chart-card__meta" style={metaStyle}>{points}</div>
+        </>
+      ) : (
+        <>
+          <div className="org-chart-card__name" style={{ fontSize: ORG_CARD_NAME_FONT_SIZE, fontWeight: 700, color: "var(--org-text)", marginBottom: 2 }}>
+            {name}
+          </div>
+          <div className="org-chart-card__meta" style={{ ...metaStyle, marginBottom: 4 }}>{memberNo}</div>
+          <div>
+            <span
+              className="org-chart-card__grade"
+              style={{
+              display: "inline-flex",
+              alignItems: "center",
+              height: 20,
+              padding: "0 8px",
+              borderRadius: 999,
+              fontSize: ORG_CARD_BADGE_FONT_SIZE,
+              fontWeight: 400,
+              background: "var(--org-grade-badge-bg, var(--accent-light))",
+              color: "var(--org-grade-badge-fg, var(--accent-primary))",
+            }}>
+              {grade}
+            </span>
+          </div>
+        </>
+      )}
     </div>
   );
 }
@@ -349,6 +369,9 @@ type OrgNode = {
   id: number;
   memberNo: string;
   grade: string;
+  displayId?: number;
+  regDate?: string;
+  points?: string;
 };
 
 type OrgLayoutType = "tree" | "linear" | "fork" | "tall-tree";
@@ -725,6 +748,7 @@ export const members = [
   { id: 15, no: "N26521742", loginId: "gelee",         name: "이가은", type: "일반",  regDate: "2025-04-08", status: "정상", rank: "멤버",  grade: "멤버",  phone: "010-5678-9012", ssn: "880408-2000...", region: "대전 유성" },
   { id: 16, no: "N26683868", loginId: "mrshin",        name: "신미라", type: "일반",  regDate: "2025-03-25", status: "정상", rank: "멤버",  grade: "멤버",  phone: "010-6789-0123", ssn: "790325-2000...", region: "부산 사하" },
   { id: 17, no: "N26454707", loginId: "mskim",         name: "김묘신", type: "일반",  regDate: "2025-02-14", status: "정상", rank: "준회원", grade: "준회원", phone: "010-7890-1234", ssn: "660214-2000...", region: "울산 남구" },
+  { id: 18, no: "N26016491", loginId: "hsh0913",       name: "홍순희", type: "일반",  regDate: "2026-04-17", status: "정상", rank: "정회원", grade: "회원",  phone: "010-5451-5030", ssn: "610923-2000000", region: "경기 양주" },
 ];
 
 type Member = (typeof members)[number];
@@ -741,6 +765,60 @@ function shiftOrgDate(dateStr: string, dayOffset: number) {
 }
 
 function buildOrgChartSections(memberId: number, memberName: string, member: Member) {
+  if (member.name === "홍순희") {
+    return [
+      {
+        id: "recommender" as const,
+        title: "추천인",
+        variant: {
+          layoutType: "tree" as const,
+          parent: createOrgNode("상위", "이선하", 901, "퍼플", {
+            displayId: 3,
+            regDate: "2026-03-31",
+            points: "87.09",
+          }),
+          sibling: createOrgNode("형제", "차승우", 902, "정회원", {
+            displayId: 3,
+            regDate: "2026-04-17",
+            points: "0",
+          }),
+          self: createOrgNode("나", member.name, member.id, "정회원", {
+            memberNo: member.no,
+            displayId: 4,
+            regDate: member.regDate,
+            points: "0",
+          }),
+          extraAbove: "외 3명",
+          children: [],
+          showExtra: true,
+          selfAtBottom: true,
+        },
+      },
+      {
+        id: "sponsor" as const,
+        title: "후원인",
+        variant: {
+          layoutType: "linear" as const,
+          parent: createOrgNode("상위", "오미경", 903, "정회원", {
+            displayId: 0,
+            regDate: "2026-04-15",
+            points: "0",
+          }),
+          sibling: createOrgNode("형제", "-", member.id, member.grade),
+          self: createOrgNode("나", member.name, member.id, "정회원", {
+            memberNo: member.no,
+            displayId: 0,
+            regDate: member.regDate,
+            points: "0",
+          }),
+          extraAbove: "",
+          children: [],
+          showExtra: false,
+        },
+      },
+    ];
+  }
+
   const self = createOrgNode("나", memberName, memberId, member.grade, { memberNo: member.no });
 
   if (memberId === 10) {
