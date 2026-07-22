@@ -206,6 +206,29 @@ function buildOrgMemberDetail(id: number, name: string, memberNo: string, grade:
   };
 }
 
+function getOrgGradeClassName(grade: string) {
+  switch (grade) {
+    case "블루":
+      return "org-chart-card__grade org-chart-card__grade--blue";
+    case "퍼플":
+      return "org-chart-card__grade org-chart-card__grade--purple";
+    case "레드":
+      return "org-chart-card__grade org-chart-card__grade--red";
+    case "그린":
+      return "org-chart-card__grade org-chart-card__grade--green";
+    case "실버":
+      return "org-chart-card__grade org-chart-card__grade--silver";
+    case "골드":
+      return "org-chart-card__grade org-chart-card__grade--gold";
+    default:
+      return "org-chart-card__grade org-chart-card__grade--default";
+  }
+}
+
+function OrgGradeBadge({ grade }: { grade: string }) {
+  return <span className={getOrgGradeClassName(grade)}>{grade}</span>;
+}
+
 function Card({
   label,
   name,
@@ -272,7 +295,9 @@ function Card({
             {name}({displayId ?? id})
           </div>
           <div className="org-chart-card__meta" style={{ ...metaStyle, marginBottom: 1 }}>{regDate}</div>
-          <div className="org-chart-card__meta" style={{ ...metaStyle, marginBottom: 1 }}>{grade}</div>
+          <div className="org-chart-card__grade-wrap" style={{ marginBottom: 1 }}>
+            <OrgGradeBadge grade={grade} />
+          </div>
           <div className="org-chart-card__meta" style={metaStyle}>{points}</div>
         </>
       ) : (
@@ -281,22 +306,8 @@ function Card({
             {name}
           </div>
           <div className="org-chart-card__meta" style={{ ...metaStyle, marginBottom: 4 }}>{memberNo}</div>
-          <div>
-            <span
-              className="org-chart-card__grade"
-              style={{
-              display: "inline-flex",
-              alignItems: "center",
-              height: 20,
-              padding: "0 8px",
-              borderRadius: 999,
-              fontSize: ORG_CARD_BADGE_FONT_SIZE,
-              fontWeight: 400,
-              background: "var(--org-grade-badge-bg, var(--accent-light))",
-              color: "var(--org-grade-badge-fg, var(--accent-primary))",
-            }}>
-              {grade}
-            </span>
+          <div className="org-chart-card__grade-wrap">
+            <OrgGradeBadge grade={grade} />
           </div>
         </>
       )}
