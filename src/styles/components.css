@@ -935,12 +935,12 @@ span.member-form-action-chip {
 .org-member-hover-popup::after {
   content: "";
   position: absolute;
-  left: 18px;
+  left: 50%;
   width: 10px;
   height: 10px;
   background: #ffffff;
   border: 1px solid #e0e7ff;
-  transform: rotate(45deg);
+  transform: translateX(-50%) rotate(45deg);
 }
 
 .org-member-hover-popup--below::after {
