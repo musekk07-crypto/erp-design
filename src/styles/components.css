@@ -80,6 +80,54 @@
   box-shadow: 0 0 0 1px var(--nav-bg, #0f1d32);
 }
 
+.nav-user-area {
+  padding-left: 16px;
+}
+
+.nav-locale-select {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 6px;
+  border: none;
+  border-radius: 6px;
+  background: transparent;
+  color: var(--nav-text, #ffffff);
+  font-size: 13px;
+  font-weight: 600;
+  line-height: 1;
+  cursor: pointer;
+  transition: background 0.15s ease;
+}
+
+.nav-locale-select:hover {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.nav-locale-flag {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 18px;
+  line-height: 1;
+}
+
+.nav-logout-btn {
+  margin-left: 8px;
+  padding: 0;
+  border: none;
+  background: transparent;
+  font-size: 14px;
+  font-weight: 400;
+  color: var(--nav-text-muted, rgba(255, 255, 255, 0.7));
+  cursor: pointer;
+  transition: color 0.15s ease;
+}
+
+.nav-logout-btn:hover {
+  color: var(--nav-text, #ffffff);
+}
+
 .main-nav-dropdown {
   position: absolute;
   top: 100%;
