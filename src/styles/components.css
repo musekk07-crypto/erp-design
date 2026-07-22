@@ -1053,7 +1053,7 @@ span.member-form-action-chip {
   border: none;
   background: transparent;
   color: var(--org-text-muted, #64748b);
-  font-size: 13px;
+  font-size: 14px;
   font-weight: 500;
   line-height: 1.35;
   cursor: pointer;
