@@ -2851,15 +2851,28 @@ function MemberInfoBody({
 
 const mainMenus = ["기초관리", "회원관리", "회원관리2", "주문관리", "수당관리", "출고관리", "옵션"];
 
-const memberSubMenus = [
-  "회원 등록",
-  "판매원 등록현황",
-  "조직 구성원 관리자",
-  "직급 히스토리",
-  "직급조정 관리자",
-  "사용자설정 관리자",
-  "세미나 관리자",
-  "회원승인",
+type MemberSubMenuGroup = {
+  title: string;
+  items: string[];
+};
+
+const memberSubMenuGroups: MemberSubMenuGroup[] = [
+  {
+    title: "회원관리",
+    items: ["회원등록", "조직도인쇄"],
+  },
+  {
+    title: "세미나 관리",
+    items: ["세미나 종류", "세미나 참석 관리"],
+  },
+  {
+    title: "리포트",
+    items: ["판매원 리포트", "조직 구성원", "직급 히스토리", "사용자 직급할당", "사용자 설정"],
+  },
+  {
+    title: "상담 관리",
+    items: [],
+  },
 ];
 
 const subTabs = ["회원정보", "주문서내역", "수당내역", "로그히스토리", "상담내역", "마일리지", "사용자설정", "마이페이지"];
@@ -3220,20 +3233,25 @@ function TopNav({
                     {menu}
                   </button>
                   {memberSubMenuOpen && isActive && (
-                    <div className="main-nav-dropdown" role="menu">
-                      {memberSubMenus.map((item) => (
-                        <button
-                          key={item}
-                          type="button"
-                          role="menuitem"
-                          className="main-nav-dropdown-item"
-                          onClick={() => {
-                            onMemberSubMenuChange(item);
-                            onMemberSubMenuOpenChange(false);
-                          }}
-                        >
-                          {item}
-                        </button>
+                    <div className="main-nav-dropdown main-nav-dropdown--grouped" role="menu">
+                      {memberSubMenuGroups.map((group) => (
+                        <div key={group.title} className="main-nav-dropdown-group">
+                          <div className="main-nav-dropdown-group-title">{group.title}</div>
+                          {group.items.map((item) => (
+                            <button
+                              key={item}
+                              type="button"
+                              role="menuitem"
+                              className="main-nav-dropdown-item"
+                              onClick={() => {
+                                onMemberSubMenuChange(item);
+                                onMemberSubMenuOpenChange(false);
+                              }}
+                            >
+                              {item}
+                            </button>
+                          ))}
+                        </div>
                       ))}
                     </div>
                   )}
@@ -3408,7 +3426,7 @@ export default function App() {
   const [activeTab, setActiveTab] = useState("회원정보");
   const [activeMainMenu, setActiveMainMenu] = useState("회원관리");
   const [memberSubMenuOpen, setMemberSubMenuOpen] = useState(false);
-  const [activeMemberSubMenu, setActiveMemberSubMenu] = useState("회원 등록");
+  const [activeMemberSubMenu, setActiveMemberSubMenu] = useState("회원등록");
   const [theme, setTheme] = useState<Theme>("deep-purple");
   const [historyRailExpanded, setHistoryRailExpanded] = useState(true);
   const [pinnedPages, setPinnedPages] = useState<PageHistoryItem[]>([
@@ -3521,7 +3539,7 @@ export default function App() {
   const handleMemberSubMenuChange = useCallback((item: string) => {
     setActiveMemberSubMenu(item);
     setActiveMainMenu("회원관리");
-    if (item === "회원 등록") {
+    if (item === "회원등록") {
       setActiveTab("회원정보");
     }
   }, []);
@@ -3665,7 +3683,7 @@ export default function App() {
               activeTab={activeTab}
               onTabChange={setActiveTab}
             />
-          ) : activeMainMenu === "회원관리" && activeMemberSubMenu !== "회원 등록" ? (
+          ) : activeMainMenu === "회원관리" && activeMemberSubMenu !== "회원등록" ? (
             <div
               className="member-subpage-placeholder"
               style={{
