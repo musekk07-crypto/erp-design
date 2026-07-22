@@ -401,6 +401,7 @@ type OrgChartSvgProps = {
   downline?: OrgNode;
   extraBelow?: string;
   moreChildren?: { name: string; id: number; displayId?: number }[];
+  moreSiblings?: OrgNode[];
 };
 
 function OrgChartSvg({
@@ -416,8 +417,10 @@ function OrgChartSvg({
   downline,
   extraBelow,
   moreChildren = [],
+  moreSiblings = [],
 }: OrgChartSvgProps) {
   const [revealedBelow, setRevealedBelow] = useState(0);
+  const [revealedAbove, setRevealedAbove] = useState(false);
   const HPAD = ORG_HPAD;
   const VPAD = 8;
   const col1X = HPAD;
@@ -667,30 +670,57 @@ function OrgChartSvg({
   }
 
   // tree — 상위 → (나 / 형제 / 외 N명 또는 외 N명 / 형제 / 나) → 하위
-  type Col2ItemType = "extra" | "self" | "sibling";
-  const col2Items: { type: Col2ItemType; h: number }[] = showExtra
-    ? selfAtBottom
-      ? [
-          { type: "extra", h: EXTRA_H },
-          { type: "sibling", h: CARD_H },
-          { type: "self", h: CARD_H },
-        ]
-      : [
-          { type: "self", h: CARD_H },
-          { type: "sibling", h: CARD_H },
-          { type: "extra", h: EXTRA_H },
-        ]
-    : [
-        { type: "self", h: CARD_H },
-        { type: "sibling", h: CARD_H },
-      ];
-  const selfIdx = col2Items.findIndex((item) => item.type === "self");
-  const siblingIdx = col2Items.findIndex((item) => item.type === "sibling");
-  const totalCol2H = col2Items.reduce((a, b) => a + b.h, 0) + GAP * (col2Items.length - 1);
+  type Col2StackItem =
+    | { kind: "self"; node: OrgNode; h: number }
+    | { kind: "sibling"; node: OrgNode; h: number }
+    | { kind: "extra"; label: string; h: number; onClick?: () => void };
+
+  const revealedSiblingItems: Col2StackItem[] = revealedAbove
+    ? moreSiblings.map((node) => ({ kind: "sibling" as const, node, h: CARD_H }))
+    : [];
+
+  const extraAboveItem = (): Col2StackItem | null => {
+    if (moreSiblings.length > 0) {
+      if (revealedAbove) return null;
+      return {
+        kind: "extra",
+        label: `외 ${moreSiblings.length}명`,
+        h: EXTRA_H,
+        onClick: () => setRevealedAbove(true),
+      };
+    }
+    if (showExtra && extraAbove) {
+      return { kind: "extra", label: extraAbove, h: EXTRA_H };
+    }
+    return null;
+  };
+
+  const col2Stack: Col2StackItem[] = selfAtBottom
+    ? (() => {
+        const items: Col2StackItem[] = [...revealedSiblingItems];
+        const extra = extraAboveItem();
+        if (extra) items.push(extra);
+        items.push({ kind: "sibling", node: sibling, h: CARD_H });
+        items.push({ kind: "self", node: self, h: CARD_H });
+        return items;
+      })()
+    : (() => {
+        const items: Col2StackItem[] = [
+          { kind: "self", node: self, h: CARD_H },
+          { kind: "sibling", node: sibling, h: CARD_H },
+          ...revealedSiblingItems,
+        ];
+        const extra = extraAboveItem();
+        if (extra) items.push(extra);
+        return items;
+      })();
+
+  const selfIdx = col2Stack.findIndex((item) => item.kind === "self");
+  const totalCol2H = col2Stack.reduce((sum, item) => sum + item.h, 0) + GAP * (col2Stack.length - 1);
 
   const col2Ys: number[] = [];
   let y = 0;
-  col2Items.forEach((item) => {
+  col2Stack.forEach((item) => {
     col2Ys.push(y + item.h / 2);
     y += item.h + GAP;
   });
@@ -764,24 +794,24 @@ function OrgChartSvg({
       {col2Ys.map((cy, i) => (
         <line key={i} x1={railMid} y1={cy} x2={col2X} y2={cy} stroke={BORDER_GRAY} strokeWidth={1} />
       ))}
-      {col2Items.map((item, i) => {
-        if (item.type === "extra") {
+      {col2Stack.map((item, i) => {
+        if (item.kind === "extra") {
           return (
-            <foreignObject key="extra" x={col2X} y={col2Ys[i] - EXTRA_H / 2} width={CARD_W + 2} height={EXTRA_H + 2}>
-              <ExtraBox label={extraAbove} />
+            <foreignObject key={`extra-${i}`} x={col2X} y={col2Ys[i] - EXTRA_H / 2} width={CARD_W + 2} height={EXTRA_H + 2}>
+              <ExtraBox label={item.label} onClick={item.onClick} />
             </foreignObject>
           );
         }
-        if (item.type === "self") {
+        if (item.kind === "self") {
           return (
-            <foreignObject key="self" x={col2X} y={col2Ys[i] - CARD_H / 2} width={CARD_W + 2} height={CARD_H + 2}>
-              <Card {...self} isSelf />
+            <foreignObject key={`self-${item.node.id}`} x={col2X} y={col2Ys[i] - CARD_H / 2} width={CARD_W + 2} height={CARD_H + 2}>
+              <Card {...item.node} isSelf />
             </foreignObject>
           );
         }
         return (
-          <foreignObject key="sibling" x={col2X} y={col2Ys[i] - CARD_H / 2} width={CARD_W + 2} height={CARD_H + 2}>
-            <Card {...sibling} />
+          <foreignObject key={`sibling-${item.node.id}-${i}`} x={col2X} y={col2Ys[i] - CARD_H / 2} width={CARD_W + 2} height={CARD_H + 2}>
+            <Card {...item.node} />
           </foreignObject>
         );
       })}
@@ -899,6 +929,12 @@ function shiftOrgDate(dateStr: string, dayOffset: number) {
   return d.toISOString().slice(0, 10);
 }
 
+const KIM_SANGKYUNG_MORE_SIBLINGS = [
+  createOrgNode("형제", "김민수", 940, "블루", { displayId: 2, regDate: "2025-08-20", points: "12.50" }),
+  createOrgNode("형제", "이정훈", 941, "레드", { displayId: 3, regDate: "2025-09-01", points: "8.30" }),
+  createOrgNode("형제", "박서준", 942, "블루", { displayId: 4, regDate: "2025-09-10", points: "15.00" }),
+];
+
 const KIM_SANGKYUNG_MORE_CHILDREN = [
   "이수민", "박준호", "최유리", "한지민", "오세훈",
   "장민재", "윤서연", "강도현", "신예린", "조민수",
@@ -937,8 +973,9 @@ function buildOrgChartSections(memberId: number, memberName: string, member: Mem
             points: "19.21",
           }),
           self: selfNode,
-          extraAbove: "외 27명",
+          extraAbove: "외 3명",
           extraBelow: "외 22명",
+          moreSiblings: KIM_SANGKYUNG_MORE_SIBLINGS,
           moreChildren: KIM_SANGKYUNG_MORE_CHILDREN,
           children: [
             { name: "홍선영", id: 920, displayId: 0 },
