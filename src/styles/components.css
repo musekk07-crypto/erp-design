@@ -2453,8 +2453,8 @@ textarea.mm2-name-box:focus {
 
 .visit-history-icon-btn.is-accent {
   background: var(--surface-button-muted);
-  border-color: var(--accent-border);
-  color: var(--accent-primary);
+  border-color: rgba(40, 67, 184, 0.28);
+  color: var(--required-color, #2843b8);
 }
 
 .visit-history-icon-btn:hover {
@@ -2496,9 +2496,9 @@ textarea.mm2-name-box:focus {
 }
 
 .visit-history-collapsed-badge--pinned {
-  color: var(--accent-primary);
-  background: var(--accent-light);
-  border-color: var(--accent-border);
+  color: var(--required-color, #2843b8);
+  background: #e8ecf8;
+  border-color: rgba(40, 67, 184, 0.28);
 }
 
 .visit-history-collapsed-badge:hover {
@@ -2534,8 +2534,8 @@ textarea.mm2-name-box:focus {
 }
 
 .visit-history-chip.is-active {
-  background: var(--surface-row-selected);
-  border-color: var(--accent-border);
+  background: #e8ecf8;
+  border-color: rgba(40, 67, 184, 0.28);
 }
 
 .visit-history-chip-screen {
@@ -2549,7 +2549,7 @@ textarea.mm2-name-box:focus {
 }
 
 .visit-history-chip.is-active .visit-history-chip-screen {
-  color: var(--accent-primary);
+  color: var(--required-color, #2843b8);
 }
 
 .visit-history-chip-meta {

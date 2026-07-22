@@ -3007,14 +3007,14 @@ function VisitHistoryBar({
             <ChevronUp size={14} style={{ color: "var(--text-muted)" }} />
           </VisitHistoryIconButton>
           <VisitHistoryIconButton label="현재 화면 고정" onClick={onPinCurrent} accent>
-            <Pin size={12} style={{ color: "var(--accent-primary)" }} />
+            <Pin size={12} style={{ color: "var(--required-color, #2843b8)" }} />
           </VisitHistoryIconButton>
           <button
             type="button"
             onClick={onToggleExpand}
             className="visit-history-collapsed-badge visit-history-collapsed-badge--pinned"
           >
-            <Pin size={11} style={{ color: "var(--accent-primary)" }} />
+            <Pin size={11} style={{ color: "var(--required-color, #2843b8)" }} />
             <span>{pinned.length}</span>
           </button>
           <button
@@ -3042,7 +3042,7 @@ function VisitHistoryBar({
               <ChevronDown size={14} style={{ color: "var(--text-muted)" }} />
             </VisitHistoryIconButton>
             <VisitHistoryIconButton label="현재 화면 고정" onClick={onPinCurrent} accent>
-              <Pin size={12} style={{ color: "var(--accent-primary)" }} />
+              <Pin size={12} style={{ color: "var(--required-color, #2843b8)" }} />
             </VisitHistoryIconButton>
           </div>
           <div className="visit-history-bar-title">방문 기록</div>
@@ -3052,7 +3052,7 @@ function VisitHistoryBar({
 
         <div className="visit-history-bar-section visit-history-bar-section--pinned">
           <span className="visit-history-bar-section-label">
-            <Pin size={11} style={{ color: "var(--accent-primary)" }} />
+            <Pin size={11} style={{ color: "var(--required-color, #2843b8)" }} />
             고정
           </span>
           <div className="visit-history-bar-scroll">
