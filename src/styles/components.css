@@ -1282,9 +1282,16 @@ textarea.mm2-name-box:focus {
 
 .order-mgmt-member-info-body p {
   margin: 0;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
+}
+
+.order-mgmt-member-info-row {
+  white-space: normal;
+  overflow: visible;
+  word-break: break-all;
+}
+
+.order-mgmt-member-info-row + .order-mgmt-member-info-row {
+  margin-top: 4px;
 }
 
 .order-mgmt-member-info-label {
