@@ -3320,7 +3320,9 @@ function TopNav({
             <Bell size={17} fill="currentColor" stroke="currentColor" strokeWidth={0} />
             {workNotificationCount > 0 && (
               <span className="nav-work-notification-badge" aria-hidden>
-                {workNotificationCount > 9 ? "9+" : workNotificationCount}
+                <span className="nav-work-notification-badge-num">
+                  {workNotificationCount > 9 ? "9+" : workNotificationCount}
+                </span>
               </span>
             )}
           </button>
