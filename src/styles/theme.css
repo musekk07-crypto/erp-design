@@ -38,7 +38,7 @@
   --brand-gradient: linear-gradient(135deg, #0284c7, #0369a1);
   --brand-light: var(--accent-light);
   --brand-toggle-track: #e0f2fe;
-  --save-btn-bg: #0284c7;
+  --save-btn-bg: var(--nav-active-bg);
   --detail-tab-bar-bg: #e4e6ec;
   --detail-tab-bar-line: rgba(0, 0, 0, 0.12);
   --detail-tab-active-top: #0284c7;
