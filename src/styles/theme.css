@@ -44,17 +44,17 @@
   --detail-tab-active-top: #0284c7;
   --org-grade-badge-bg: #dbeafe;
   --org-grade-badge-fg: #0284c7;
-  --member-header-bg: #0284c7;
-  --member-header-border: #0369a1;
+  --member-header-bg: var(--nav-active-bg);
+  --member-header-border: var(--nav-hover-bg);
   --member-header-text: rgba(255, 255, 255, 0.88);
   --member-header-text-strong: #ffffff;
   --member-header-divider: rgba(255, 255, 255, 0.35);
   --member-header-avatar-bg: #ffffff;
-  --member-header-avatar-fg: #0284c7;
+  --member-header-avatar-fg: var(--nav-active-bg);
   --member-header-toggle-track: rgba(255, 255, 255, 0.22);
   --member-header-toggle-border: rgba(255, 255, 255, 0.35);
   --member-header-toggle-active-bg: #ffffff;
-  --member-header-toggle-active-fg: #0284c7;
+  --member-header-toggle-active-fg: var(--nav-active-bg);
   --member-header-toggle-inactive-fg: rgba(255, 255, 255, 0.75);
 }
 
@@ -648,7 +648,7 @@
   box-sizing: border-box;
   padding: 6px 8px !important;
   margin-bottom: 8px !important;
-  background: var(--member-header-bg, #0284c7) !important;
+  background: var(--member-header-bg, #2843b8) !important;
   border: 1px solid var(--member-header-border, #203899) !important;
   color: var(--member-header-text-strong, #fff);
 }
@@ -667,7 +667,7 @@
 
 .app-content .content-member-header .content-member-header-avatar {
   background: var(--member-header-avatar-bg, #fff) !important;
-  color: var(--member-header-avatar-fg, #0284c7) !important;
+  color: var(--member-header-avatar-fg, #2843b8) !important;
 }
 
 .app-content .content-member-header .member-type-toggle {
@@ -682,7 +682,7 @@
 
 .app-content .content-member-header .member-type-toggle button.is-selected {
   background: var(--member-header-toggle-active-bg, #fff) !important;
-  color: var(--member-header-toggle-active-fg, #0284c7) !important;
+  color: var(--member-header-toggle-active-fg, #2843b8) !important;
 }
 
 .app-content .content-scroll {
