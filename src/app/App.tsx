@@ -3321,20 +3321,25 @@ const themes: { key: Theme; color: string; label: string }[] = [
 ];
 
 interface SidebarProps {
+  showMemberNav: boolean;
   activePanel: string | null;
   onPanelToggle: () => void;
   theme: Theme;
   onThemeChange: (t: Theme) => void;
 }
 
-function Sidebar({ activePanel, onPanelToggle, theme, onThemeChange }: SidebarProps) {
+function Sidebar({ showMemberNav, activePanel, onPanelToggle, theme, onThemeChange }: SidebarProps) {
+  const visibleNavItems = showMemberNav
+    ? navItems
+    : navItems.filter((item) => item.key !== "members");
+
   return (
     <div
       className="app-sidebar flex flex-col items-center py-4 gap-1"
       style={{ width: SIDEBAR_WIDTH, minWidth: SIDEBAR_WIDTH, height: "100%", background: "var(--sidebar-bg, #eceef2)", borderRight: "1px solid var(--border)", flexShrink: 0 }}
     >
       <div className="flex flex-col items-center gap-1 flex-1">
-        {navItems.map((item) => {
+        {visibleNavItems.map((item) => {
           const isActive = activePanel === item.key;
           return (
             <button
@@ -3444,13 +3449,16 @@ export default function App() {
   const appContentRef = useRef<HTMLDivElement>(null);
   const resizing = useRef(false);
 
+  const memberListNavEnabled = activeMainMenu === "회원관리" && activeMemberSubMenu === "회원등록";
+  const memberListOpen = memberListNavEnabled && listOpen;
+
   const formColumnWidth = useMemo(() => {
-    if (!listOpen || appContentWidth <= 0) {
+    if (!memberListOpen || appContentWidth <= 0) {
       return FORM_COLUMN_WIDTH_MIN;
     }
     const availableDetail = appContentWidth - listWidth;
     return calcFormColumnWidth(availableDetail);
-  }, [listOpen, listWidth, appContentWidth]);
+  }, [memberListOpen, listWidth, appContentWidth]);
 
   const isOrderManagement = activeMainMenu === "주문관리";
   const isMm2MemberInfoTab = activeMainMenu === "회원관리2" && activeTab === "회원정보";
@@ -3470,12 +3478,12 @@ export default function App() {
   }, [isOrderManagement, isMm2MemberInfoTab, isMemberInfoTab, formColumnWidth]);
 
   const isFixedDetailWidth =
-    listOpen &&
+    memberListOpen &&
     (isOrderManagement ||
       (activeMainMenu === "회원관리" && !isMemberInfoTab) ||
       (activeMainMenu === "회원관리2" && !isMm2MemberInfoTab));
 
-  const contentRowMinWidth = listOpen
+  const contentRowMinWidth = memberListOpen
     ? listWidth + detailPanelMinWidth
     : 0;
 
@@ -3528,10 +3536,8 @@ export default function App() {
 
   const handleMainMenuChange = useCallback((menu: string) => {
     setActiveMainMenu(menu);
-    if (menu === "주문관리") {
-      setListOpen(false);
-    }
     if (menu !== "회원관리") {
+      setListOpen(false);
       setMemberSubMenuOpen(false);
     }
   }, []);
@@ -3541,6 +3547,8 @@ export default function App() {
     setActiveMainMenu("회원관리");
     if (item === "회원등록") {
       setActiveTab("회원정보");
+    } else {
+      setListOpen(false);
     }
   }, []);
 
@@ -3592,12 +3600,18 @@ export default function App() {
           className="app-main"
           style={{ flex: 1, display: "flex", minHeight: 0, minWidth: 0, overflow: "hidden" }}
         >
-        <Sidebar activePanel={listOpen ? "members" : null} onPanelToggle={() => setListOpen((v) => !v)} theme={theme} onThemeChange={setTheme} />
+        <Sidebar
+          showMemberNav={memberListNavEnabled}
+          activePanel={memberListOpen ? "members" : null}
+          onPanelToggle={() => setListOpen((v) => !v)}
+          theme={theme}
+          onThemeChange={setTheme}
+        />
 
         <div
           ref={appContentRef}
           className="app-content"
-          style={{ flex: 1, overflowX: listOpen ? "auto" : "hidden", overflowY: "hidden", minHeight: 0, minWidth: 0 }}
+          style={{ flex: 1, overflowX: memberListOpen ? "auto" : "hidden", overflowY: "hidden", minHeight: 0, minWidth: 0 }}
         >
           <div
             className="app-content-row"
@@ -3605,17 +3619,18 @@ export default function App() {
               display: "flex",
               height: "100%",
               width: "100%",
-              minWidth: listOpen ? contentRowMinWidth : 0,
+              minWidth: memberListOpen ? contentRowMinWidth : 0,
               flexShrink: 0,
             }}
           >
 
-        {/* 왼쪽 회원목록 패널 */}
+        {/* 왼쪽 회원목록 패널 — 회원등록 화면에서만 */}
+        {memberListNavEnabled && (
         <div
           className="member-list-panel"
           style={{
-            width: listOpen ? listWidth : 0,
-            minWidth: listOpen ? listWidth : 0,
+            width: memberListOpen ? listWidth : 0,
+            minWidth: memberListOpen ? listWidth : 0,
             flexShrink: 0,
             flexGrow: 0,
             overflow: "hidden",
@@ -3625,15 +3640,15 @@ export default function App() {
             height: "100%",
           }}
         >
-          <div style={{ width: listOpen ? listWidth : MEMBER_LIST_MAX_WIDTH, height: "100%" }}>
+          <div style={{ width: memberListOpen ? listWidth : MEMBER_LIST_MAX_WIDTH, height: "100%" }}>
             <MemberTable
               selectedId={selectedMember}
               onSelect={setSelectedMember}
-              listOpen={listOpen}
+              listOpen={memberListOpen}
               listWidth={listWidth}
             />
           </div>
-          {listOpen && (
+          {memberListOpen && (
             <div
               onMouseDown={onResizeStart}
               style={{
@@ -3647,6 +3662,7 @@ export default function App() {
             />
           )}
         </div>
+        )}
 
         {/* 오른쪽 상세 패널 — 절대 축소 불가 */}
         <div
@@ -3654,18 +3670,18 @@ export default function App() {
           style={{
             width: isFixedDetailWidth
               ? "100%"
-              : listOpen
+              : memberListOpen
                 ? detailPanelMinWidth
                 : "100%",
-            minWidth: listOpen
+            minWidth: memberListOpen
               ? isOrderManagement
                 ? 0
                 : isFixedDetailWidth
                   ? ORDER_PANEL_MIN_WIDTH
                   : detailPanelMinWidth
               : 0,
-            flexShrink: listOpen ? 0 : 1,
-            flexGrow: listOpen ? (isFixedDetailWidth ? 1 : 0) : 1,
+            flexShrink: memberListOpen ? 0 : 1,
+            flexGrow: memberListOpen ? (isFixedDetailWidth ? 1 : 0) : 1,
             display: "flex",
             flexDirection: "column",
             height: "100%",
@@ -3679,7 +3695,7 @@ export default function App() {
           ) : activeMainMenu === "회원관리2" ? (
             <MemberManagement2View
               memberId={selectedMember}
-              listOpen={listOpen}
+              listOpen={memberListOpen}
               activeTab={activeTab}
               onTabChange={setActiveTab}
             />
@@ -3703,7 +3719,7 @@ export default function App() {
           ) : (
             <MemberManagementView
               memberId={selectedMember}
-              listOpen={listOpen}
+              listOpen={memberListOpen}
               formColumnWidth={formColumnWidth}
               activeTab={activeTab}
               onTabChange={setActiveTab}
