@@ -47,14 +47,20 @@
   padding: 0;
   border: none;
   border-radius: 6px;
-  background: var(--nav-avatar-bg, rgba(255, 255, 255, 0.2));
-  color: var(--nav-text, #ffffff);
+  background: rgba(251, 191, 36, 0.18);
+  color: #fbbf24;
   cursor: pointer;
-  transition: background 0.15s ease;
+  transition: background 0.15s ease, color 0.15s ease;
 }
 
 .nav-work-notification:hover {
-  background: rgba(255, 255, 255, 0.28);
+  background: rgba(251, 191, 36, 0.28);
+  color: #fcd34d;
+}
+
+.nav-work-notification svg {
+  fill: currentColor;
+  stroke: currentColor;
 }
 
 .nav-work-notification-badge {

@@ -3289,7 +3289,7 @@ function TopNav({
             aria-label="작업 알림"
             title="작업 알림"
           >
-            <Bell size={16} strokeWidth={2} />
+            <Bell size={17} fill="currentColor" stroke="currentColor" strokeWidth={0} />
             {workNotificationCount > 0 && (
               <span className="nav-work-notification-badge" aria-hidden>
                 {workNotificationCount > 9 ? "9+" : workNotificationCount}
