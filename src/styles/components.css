@@ -1479,13 +1479,33 @@ textarea.mm2-name-box:focus {
 
 .order-mgmt-toolbar.order-mgmt-toolbar--product,
 .order-mgmt-toolbar.order-mgmt-toolbar--orders {
-  flex-wrap: nowrap;
+  flex-wrap: wrap;
   align-items: center;
   justify-content: space-between;
   gap: 12px;
   box-sizing: border-box;
   min-height: var(--order-mgmt-toolbar-head-height, 60px);
   padding: 6px 10px 8px;
+}
+
+.order-mgmt-toolbar.order-mgmt-toolbar--orders {
+  flex-direction: column;
+  align-items: stretch;
+  gap: 8px;
+  min-height: 0;
+}
+
+.order-mgmt-toolbar--orders .order-mgmt-order-bar-actions {
+  width: 100%;
+  flex-wrap: wrap;
+  row-gap: 4px;
+}
+
+.order-mgmt-toolbar--orders .order-mgmt-filter-bar--inline {
+  width: 100%;
+  flex-wrap: wrap;
+  row-gap: 6px;
+  column-gap: 8px;
 }
 
 .order-mgmt-product-bar-title {
