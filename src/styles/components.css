@@ -38,13 +38,12 @@
 }
 
 .nav-work-notification {
-  position: relative;
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 28px;
+  gap: 5px;
   height: 28px;
-  padding: 0;
+  padding: 0 7px 0 6px;
   border: none;
   border-radius: 6px;
   background: rgba(251, 191, 36, 0.18);
@@ -64,20 +63,20 @@
 }
 
 .nav-work-notification-badge {
-  position: absolute;
-  top: -3px;
-  right: -4px;
-  min-width: 14px;
-  height: 14px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  min-width: 16px;
+  height: 16px;
   padding: 0 4px;
   border-radius: 999px;
   background: #ef4444;
   color: #ffffff;
   font-size: 10px;
   font-weight: 700;
-  line-height: 14px;
+  line-height: 1;
   text-align: center;
-  box-shadow: 0 0 0 1px var(--nav-bg, #0f1d32);
 }
 
 .nav-locale-select {
