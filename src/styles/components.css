@@ -941,22 +941,20 @@ span.member-form-action-chip {
   width: 100%;
   min-height: 34px;
   margin-bottom: 8px;
-  border-bottom: 1px solid var(--org-border, #d1d5db);
 }
 
 .org-chart-tabs__tab {
   position: relative;
   margin: 0;
-  padding: 6px 14px 8px;
+  padding: 6px 14px 10px;
   border: none;
-  border-bottom: 2px solid transparent;
   background: transparent;
   color: var(--org-text-muted, #64748b);
   font-size: 13px;
   font-weight: 500;
   line-height: 1.35;
   cursor: pointer;
-  transition: color 0.15s ease, border-color 0.15s ease;
+  transition: color 0.15s ease;
 }
 
 .org-chart-tabs__tab:hover {
@@ -966,7 +964,19 @@ span.member-form-action-chip {
 .org-chart-tabs__tab.is-active {
   color: var(--org-self-accent, #0284c7);
   font-weight: 600;
-  border-bottom-color: var(--org-self-accent, #0284c7);
+}
+
+.org-chart-tabs__tab.is-active::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  bottom: 2px;
+  width: calc(100% - 16px);
+  max-width: 48px;
+  height: 2px;
+  border-radius: 1px;
+  background: var(--org-self-accent, #0284c7);
+  transform: translateX(-50%);
 }
 
 .org-chart-tabs__panel {
@@ -974,10 +984,6 @@ span.member-form-action-chip {
   justify-content: center;
   width: 100%;
   min-height: 0;
-}
-
-[data-theme="dark"] .org-chart-tabs__bar {
-  border-bottom-color: rgba(255, 255, 255, 0.12);
 }
 
 [data-theme="dark"] .org-chart-tabs__tab {
@@ -990,7 +996,10 @@ span.member-form-action-chip {
 
 [data-theme="dark"] .org-chart-tabs__tab.is-active {
   color: #38bdf8;
-  border-bottom-color: #38bdf8;
+}
+
+[data-theme="dark"] .org-chart-tabs__tab.is-active::after {
+  background: #38bdf8;
 }
 
 .app-content .org-chart-card {
