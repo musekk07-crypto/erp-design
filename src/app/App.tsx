@@ -72,12 +72,23 @@ function calcOrgChartMaxSvgHeight(maxChildren = 5) {
 const ORG_CHART_SVG_WIDTH = ORG_HPAD * 2 + ORG_CARD_W * 3 + ORG_COL_GAP * 2 + ORG_FOREIGN_PAD;
 const ORG_CHART_WIDTH = ORG_CHART_SVG_WIDTH + ORG_CHART_SIDE_PAD * 2;
 const ORG_CHART_MAX_SVG_HEIGHT = calcOrgChartMaxSvgHeight(5);
+
+function calcOrgChartLinearSvgHeight() {
+  const yShift = getOrgChartTopShift(0);
+  return ORG_CARD_H + yShift + 8;
+}
+
+const ORG_CHART_LINEAR_SVG_HEIGHT = calcOrgChartLinearSvgHeight();
+const ORG_CHART_SECTION_LABEL_H = 22;
+const ORG_CHART_DUAL_GAP = 12;
+const ORG_CHART_DUAL_CONTENT_HEIGHT =
+  ORG_CHART_SECTION_LABEL_H + ORG_CHART_MAX_SVG_HEIGHT + ORG_CHART_DUAL_GAP + ORG_CHART_SECTION_LABEL_H + ORG_CHART_LINEAR_SVG_HEIGHT;
 const ORG_CHART_SECTION_HEADER_H = 38;
 const ORG_CHART_BODY_PAD_V = 28;
 const ORG_CHART_PANEL_HEIGHT = ORG_CHART_SECTION_HEADER_H + ORG_CHART_BODY_PAD_V + ORG_CHART_MAX_SVG_HEIGHT;
 const MM2_ORG_CHART_SCALE = 686 / ORG_CHART_WIDTH;
 const MM2_ORG_CHART_CONTENT_W = Math.ceil(ORG_CHART_WIDTH * MM2_ORG_CHART_SCALE);
-const MM2_ORG_CHART_CONTENT_H = Math.ceil(ORG_CHART_MAX_SVG_HEIGHT * MM2_ORG_CHART_SCALE);
+const MM2_ORG_CHART_CONTENT_H = Math.ceil(ORG_CHART_DUAL_CONTENT_HEIGHT * MM2_ORG_CHART_SCALE);
 const MM2_ORG_CHART_WIDTH = MM2_ORG_CHART_CONTENT_W + 2;
 const ORG_CARD_NAME_FONT_SIZE = 14.6 / MM2_ORG_CHART_SCALE;
 const MM2_ORG_CHART_PANEL_HEIGHT =
@@ -344,6 +355,18 @@ type OrgNode = {
 
 type OrgLayoutType = "tree" | "linear" | "fork" | "tall-tree";
 
+type OrgChartSvgProps = {
+  layoutType: OrgLayoutType;
+  parent: OrgNode;
+  sibling: OrgNode;
+  self: OrgNode;
+  extraAbove: string;
+  children: { name: string; id: number }[];
+  showExtra: boolean;
+  stackNodes?: OrgNode[];
+  selfAtBottom?: boolean;
+};
+
 function OrgChartSvg({
   layoutType,
   parent,
@@ -353,16 +376,8 @@ function OrgChartSvg({
   children,
   showExtra,
   stackNodes = [],
-}: {
-  layoutType: OrgLayoutType;
-  parent: OrgNode;
-  sibling: OrgNode;
-  self: OrgNode;
-  extraAbove: string;
-  children: { name: string; id: number }[];
-  showExtra: boolean;
-  stackNodes?: OrgNode[];
-}) {
+  selfAtBottom = false,
+}: OrgChartSvgProps) {
   const HPAD = ORG_HPAD;
   const VPAD = 8;
   const col1X = HPAD;
@@ -539,19 +554,25 @@ function OrgChartSvg({
     );
   }
 
-  // tree — 상위 → (외 N명 / 나 / 형제) → 하위
+  // tree — 상위 → (외 N명 / 형제 / 나) → 하위
   const col2Items = showExtra
-    ? [
-        { type: "extra" as const, h: EXTRA_H },
-        { type: "node" as const, h: CARD_H },
-        { type: "node" as const, h: CARD_H },
-      ]
+    ? selfAtBottom
+      ? [
+          { type: "extra" as const, h: EXTRA_H },
+          { type: "node" as const, h: CARD_H },
+          { type: "node" as const, h: CARD_H },
+        ]
+      : [
+          { type: "extra" as const, h: EXTRA_H },
+          { type: "node" as const, h: CARD_H },
+          { type: "node" as const, h: CARD_H },
+        ]
     : [
         { type: "node" as const, h: CARD_H },
         { type: "node" as const, h: CARD_H },
       ];
-  const selfIdx = showExtra ? 1 : 0;
-  const siblingIdx = showExtra ? 2 : 1;
+  const selfIdx = showExtra ? (selfAtBottom ? 2 : 1) : 0;
+  const siblingIdx = showExtra ? (selfAtBottom ? 1 : 2) : 1;
   const totalCol2H = col2Items.reduce((a, b) => a + b.h, 0) + GAP * (col2Items.length - 1);
 
   const col2Ys: number[] = [];
@@ -643,14 +664,31 @@ function OrgChartSvg({
   );
 }
 
+function OrgChartSectionBlock({ title, variant }: { title: string; variant: OrgChartSvgProps }) {
+  return (
+    <div className="org-chart-section">
+      <div className="org-chart-section__title">{title}</div>
+      <div className="org-chart-section__chart">
+        <OrgChartSvg {...variant} />
+      </div>
+    </div>
+  );
+}
+
 function OrgChart({ memberId, memberName }: OrgChartProps) {
   const member = getMemberById(memberId);
-  const variant = buildOrgChartVariant(memberId, memberName, member);
+  const sections = buildOrgChartSections(memberId, memberName, member);
 
   return (
     <OrgChartHoverProvider>
-      <div key={memberId} style={{ overflow: "visible", padding: "0 0 8px 0", display: "flex", justifyContent: "center", width: "100%" }}>
-        <OrgChartSvg {...variant} />
+      <div
+        key={memberId}
+        className="org-chart-dual"
+        style={{ overflow: "visible", padding: "0 0 8px 0", width: "100%" }}
+      >
+        {sections.map((section) => (
+          <OrgChartSectionBlock key={section.title} title={section.title} variant={section.variant} />
+        ))}
       </div>
     </OrgChartHoverProvider>
   );
@@ -693,90 +731,87 @@ function shiftOrgDate(dateStr: string, dayOffset: number) {
   return d.toISOString().slice(0, 10);
 }
 
-function buildOrgChartVariant(memberId: number, memberName: string, member: Member) {
-  if (memberId === 1) {
-    return {
-      layoutType: "tree" as const,
-      parent: createOrgNode("상위", "고병도", 6, "매니저"),
-      sibling: createOrgNode("형제", "한숙자", 15, "정회원"),
-      self: createOrgNode("나", memberName, memberId, "다이아몬드", {
-        memberNo: member.no,
-      }),
-      extraAbove: "외 15명",
-      children: [
-        { name: "김성남", id: 5 },
-        { name: getMemberById(6).name, id: 6 },
-        { name: getMemberById(8).name, id: 8 },
-        { name: getMemberById(10).name, id: 10 },
-        { name: getMemberById(11).name, id: 11 },
-      ],
-      showExtra: true,
-    };
-  }
+function buildOrgChartSections(memberId: number, memberName: string, member: Member) {
+  const self = createOrgNode("나", memberName, memberId, member.grade, { memberNo: member.no });
 
-  if (memberId === 2) {
-    const orgNode = (id: number, label: string): OrgNode => {
-      const ref = getMemberById(id);
-      return createOrgNode(label, ref.name, ref.id, ref.grade);
-    };
-
-    return {
-      layoutType: "tall-tree" as const,
-      parent: createOrgNode("상위", "장은경", 7, "디렉터"),
-      sibling: orgNode(1, "형제"),
-      stackNodes: [orgNode(1, "형제"), orgNode(3, "형제"), orgNode(4, "형제"), orgNode(5, "형제")],
-      self: createOrgNode("나", memberName, memberId, member.grade, {
-        memberNo: member.no,
-      }),
-      extraAbove: "외 22명",
-      children: [
-        { name: getMemberById(6).name, id: 6 },
-        { name: getMemberById(8).name, id: 8 },
-      ],
-      showExtra: true,
-    };
+  if (memberId === 10) {
+    return [
+      {
+        title: "추천인",
+        variant: {
+          layoutType: "tree" as const,
+          parent: createOrgNode("상위", "백창성", 6, "블루"),
+          sibling: createOrgNode("형제", "김성남", 5, "그린"),
+          self,
+          extraAbove: "외 19명",
+          children: [],
+          showExtra: true,
+          selfAtBottom: true,
+        },
+      },
+      {
+        title: "후원인",
+        variant: {
+          layoutType: "linear" as const,
+          parent: createOrgNode("상위", "황기봉", 2, "그린"),
+          sibling: createOrgNode("형제", "-", memberId, member.grade),
+          self,
+          extraAbove: "",
+          children: [],
+          showExtra: false,
+        },
+      },
+    ];
   }
 
   const n = members.length;
-  const pick = (offset: number) => members[(memberId * 3 + offset) % n];
-  const layoutType = (["tree", "linear", "fork"] as const)[memberId % 3];
-
+  const recommenderParent = members[(Math.max(memberId, 1) + 2) % n];
+  const sponsorParent = members[(Math.max(memberId, 1) + 4) % n];
+  const siblingRef = members[(Math.max(memberId, 1) + 5) % n];
   const parentRanks = ["매니저", "이사", "디렉터", "실버", "골드", "퍼플"];
   const orgRanks = ["정회원", "그린", "골드", "준회원", "핀플", "멤버", "일반회원"];
 
-  const parentRef = pick(2);
-  const siblingRef = pick(5);
-  const childRef = pick(7);
-  const child2Ref = pick(9);
+  return [
+    {
+      title: "추천인",
+      variant: {
+        layoutType: "tree" as const,
+        parent: createOrgNode(
+          "상위",
+          recommenderParent.name,
+          recommenderParent.id,
+          parentRanks[memberId % parentRanks.length],
+        ),
+        sibling: createOrgNode("형제", siblingRef.name, siblingRef.id, orgRanks[(memberId + 1) % orgRanks.length]),
+        self,
+        extraAbove: `외 ${6 + (memberId % 19)}명`,
+        children: memberId % 2 === 0 ? [{ name: members[(memberId + 7) % n].name, id: members[(memberId + 7) % n].id }] : [],
+        showExtra: true,
+        selfAtBottom: true,
+      },
+    },
+    {
+      title: "후원인",
+      variant: {
+        layoutType: "linear" as const,
+        parent: createOrgNode(
+          "상위",
+          sponsorParent.name,
+          sponsorParent.id,
+          orgRanks[(memberId + 2) % orgRanks.length],
+        ),
+        sibling: createOrgNode("형제", siblingRef.name, siblingRef.id, orgRanks[(memberId + 3) % orgRanks.length]),
+        self,
+        extraAbove: "",
+        children: [],
+        showExtra: false,
+      },
+    },
+  ];
+}
 
-  const parent = createOrgNode("상위", parentRef.name, parentRef.id, parentRanks[memberId % parentRanks.length]);
-  const sibling = createOrgNode(
-    memberId % 4 === 0 ? "동료" : "형제",
-    siblingRef.name,
-    siblingRef.id,
-    orgRanks[(memberId + 1) % orgRanks.length],
-  );
-  const self = createOrgNode("나", memberName, memberId, member.grade, {
-    memberNo: member.no,
-  });
-
-  const children =
-    layoutType === "fork"
-      ? [
-          { name: childRef.name, id: childRef.id % 100 },
-          { name: child2Ref.name, id: child2Ref.id % 100 },
-        ]
-      : [{ name: childRef.name, id: childRef.id % 100 }];
-
-  return {
-    layoutType,
-    parent,
-    sibling,
-    self,
-    extraAbove: `외 ${6 + (memberId % 19)}명`,
-    children,
-    showExtra: layoutType === "tree" && memberId % 2 === 0,
-  };
+function buildOrgChartVariant(memberId: number, memberName: string, member: Member) {
+  return buildOrgChartSections(memberId, memberName, member)[0].variant;
 }
 
 const columns = [
@@ -2323,7 +2358,7 @@ function MemberManagement2View({
                       className="mm2-org-chart-inner"
                       style={{
                         width: ORG_CHART_WIDTH,
-                        height: ORG_CHART_MAX_SVG_HEIGHT,
+                        height: ORG_CHART_DUAL_CONTENT_HEIGHT,
                         ["--mm2-org-chart-scale" as string]: MM2_ORG_CHART_SCALE,
                       }}
                     >
