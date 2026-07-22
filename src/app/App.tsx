@@ -324,7 +324,7 @@ function ExtraBox({ label }: { label: string }) {
   );
 }
 
-function ChildChip({ name, id }: { name: string; id: number }) {
+function ChildChip({ name, id, displayId }: { name: string; id: number; displayId?: number }) {
   const hover = useOrgChartHover();
   const rootRef = useRef<HTMLDivElement>(null);
   const memberNo = resolveOrgMemberNo(id);
@@ -358,7 +358,7 @@ function ChildChip({ name, id }: { name: string; id: number }) {
       boxSizing: "border-box",
     }}
     >
-      {name} ({id})
+      {name} ({displayId ?? id})
     </div>
   );
 }
@@ -382,7 +382,7 @@ type OrgChartSvgProps = {
   sibling: OrgNode;
   self: OrgNode;
   extraAbove: string;
-  children: { name: string; id: number }[];
+  children: { name: string; id: number; displayId?: number }[];
   showExtra: boolean;
   stackNodes?: OrgNode[];
   selfAtBottom?: boolean;
@@ -440,7 +440,19 @@ function OrgChartSvg({
   if (layoutType === "sponsor") {
     const centerY = CARD_H / 2;
     const siblingY = centerY + CARD_H / 2 + GAP + CARD_H / 2;
-    const contentH = Math.max(CARD_H, siblingY + CARD_H / 2);
+    const childCount = children.length;
+    const childYs =
+      childCount > 1
+        ? (() => {
+            const stackH = CHILD_CHIP_H * childCount + GAP * (childCount - 1);
+            const top = centerY - stackH / 2 + CHILD_CHIP_H / 2;
+            return children.map((_, i) => top + i * (CHILD_CHIP_H + GAP));
+          })()
+        : childCount === 1
+          ? [centerY]
+          : [];
+    const col3Bottom = childCount > 0 ? childYs[childYs.length - 1] + CHILD_CHIP_H / 2 : 0;
+    const contentH = Math.max(CARD_H, siblingY + CARD_H / 2, col3Bottom);
     const yShift = getOrgChartTopShift(0);
     const svgW = col3X + CARD_W + ORG_FOREIGN_PAD + HPAD;
     const svgH = contentH + yShift + VPAD;
@@ -461,7 +473,30 @@ function OrgChartSvg({
           <foreignObject x={col2X} y={siblingY - CARD_H / 2} width={CARD_W + 2} height={CARD_H + 2}>
             <Card {...sibling} />
           </foreignObject>
-          {downline && (
+          {childCount > 0 && (
+            <>
+              <line x1={col2X + CARD_W} y1={centerY} x2={railRight} y2={centerY} stroke={BORDER_GRAY} strokeWidth={1} />
+              {childCount > 1 && (
+                <line
+                  x1={railRight}
+                  y1={childYs[0]}
+                  x2={railRight}
+                  y2={childYs[childYs.length - 1]}
+                  stroke={BORDER_GRAY}
+                  strokeWidth={1}
+                />
+              )}
+              {children.map((child, i) => (
+                <g key={`${child.id}-${i}`}>
+                  <line x1={railRight} y1={childYs[i]} x2={col3X} y2={childYs[i]} stroke={BORDER_GRAY} strokeWidth={1} />
+                  <foreignObject x={col3X} y={childYs[i] - CHILD_CHIP_H / 2} width={CARD_W + 2} height={CHILD_CHIP_H + 2}>
+                    <ChildChip {...child} />
+                  </foreignObject>
+                </g>
+              ))}
+            </>
+          )}
+          {childCount === 0 && downline && (
             <>
               <line x1={col2X + CARD_W} y1={centerY} x2={col3X} y2={centerY} stroke={BORDER_GRAY} strokeWidth={1} />
               <foreignObject x={col3X} y={centerY - CARD_H / 2} width={CARD_W + 2} height={CARD_H + 2}>
@@ -733,7 +768,7 @@ function OrgChart({ memberId, memberName }: OrgChartProps) {
   const activeSection = sections.find((section) => section.id === activeTab) ?? sections[0];
 
   useEffect(() => {
-    setActiveTab(member.name === "안점홍" ? "sponsor" : "recommender");
+    setActiveTab(["김상경", "안점홍"].includes(member.name) ? "sponsor" : "recommender");
   }, [memberId, member.name]);
 
   return (
@@ -789,6 +824,7 @@ export const members = [
   { id: 17, no: "N26454707", loginId: "mskim",         name: "김묘신", type: "일반",  regDate: "2025-02-14", status: "정상", rank: "준회원", grade: "준회원", phone: "010-7890-1234", ssn: "660214-2000...", region: "울산 남구" },
   { id: 18, no: "N26016491", loginId: "hsh0913",       name: "홍순희", type: "일반",  regDate: "2026-04-17", status: "정상", rank: "정회원", grade: "회원",  phone: "010-5451-5030", ssn: "610923-2000000", region: "경기 양주" },
   { id: 19, no: "N26705870", loginId: "jj9501",        name: "안점홍", type: "일반",  regDate: "2026-05-01", status: "정상", rank: "정회원", grade: "회원",  phone: "010-7769-9501", ssn: "500115-2000000", region: "뉴시아258" },
+  { id: 20, no: "10000015", loginId: "charm0123",     name: "김상경", type: "일반",  regDate: "2025-08-26", status: "정상", rank: "블루",   grade: "블루",  phone: "010-9352-1177", ssn: "900313-1124610", region: "뉴시아09" },
 ];
 
 type Member = (typeof members)[number];
@@ -805,6 +841,67 @@ function shiftOrgDate(dateStr: string, dayOffset: number) {
 }
 
 function buildOrgChartSections(memberId: number, memberName: string, member: Member) {
+  if (member.name === "김상경") {
+    return [
+      {
+        id: "recommender" as const,
+        title: "추천인",
+        variant: {
+          layoutType: "tree" as const,
+          parent: createOrgNode("상위", "김석현", 910, "퍼플", {
+            displayId: 0,
+            regDate: "2025-08-20",
+            points: "42.15",
+          }),
+          sibling: createOrgNode("형제", "이준호", 911, "그린", {
+            displayId: 1,
+            regDate: "2025-08-22",
+            points: "5.20",
+          }),
+          self: createOrgNode("나", member.name, member.id, "블루", {
+            memberNo: member.no,
+            displayId: 0,
+            regDate: member.regDate,
+            points: "10.08",
+          }),
+          extraAbove: "외 4명",
+          children: [],
+          showExtra: true,
+          selfAtBottom: true,
+        },
+      },
+      {
+        id: "sponsor" as const,
+        title: "후원인",
+        variant: {
+          layoutType: "sponsor" as const,
+          parent: createOrgNode("상위", "김석현", 910, "퍼플", {
+            displayId: 0,
+            regDate: "2025-08-26",
+            points: "62.61",
+          }),
+          sibling: createOrgNode("형제", "서혜진", 912, "레드", {
+            displayId: 1,
+            regDate: "2025-09-24",
+            points: "28.97",
+          }),
+          self: createOrgNode("나", member.name, member.id, "블루", {
+            memberNo: member.no,
+            displayId: 0,
+            regDate: member.regDate,
+            points: "10.08",
+          }),
+          extraAbove: "",
+          children: [
+            { name: "김태형", id: 913, displayId: 0 },
+            { name: "김지원", id: 914, displayId: 1 },
+          ],
+          showExtra: false,
+        },
+      },
+    ];
+  }
+
   if (member.name === "안점홍") {
     return [
       {
@@ -3799,7 +3896,7 @@ function Sidebar({ showMemberNav, activePanel, onPanelToggle, theme, onThemeChan
 // ─────────────────────────────────────────────
 
 export default function App() {
-  const [selectedMember, setSelectedMember] = useState(19);
+  const [selectedMember, setSelectedMember] = useState(20);
   const [listOpen, setListOpen] = useState(false);
   const [isListResizing, setIsListResizing] = useState(false);
   const [listWidth, setListWidth] = useState(() => clampMemberListWidth(MEMBER_LIST_DEFAULT_WIDTH));
