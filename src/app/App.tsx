@@ -1572,7 +1572,7 @@ function FormSection({ title, icon, subtitle, children, bodyPadding = "6px 12px 
           paddingBottom: 9,
         }}
       >
-        <span className="content-form-section-icon shrink-0 inline-flex items-center" style={{ color: "var(--accent-primary)" }}>
+        <span className="content-form-section-icon shrink-0 inline-flex items-center justify-center" style={{ color: "var(--section-icon-color)" }}>
           {icon}
         </span>
         <span className="text-sm font-semibold" style={{ color: "var(--foreground)" }}>{title}</span>
