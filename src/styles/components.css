@@ -238,7 +238,7 @@ span.member-form-action-chip {
   --accent-primary: #0284c7;
   --accent-light: #e0f2fe;
   --accent-border: #bae6fd;
-  --member-no-color: #0284c7;
+  --member-no-color: var(--nav-active-bg, #2843b8);
   --section-icon-bg: #0284c7;
   --section-icon-color: #ffffff;
 }
@@ -251,12 +251,12 @@ span.member-form-action-chip {
   --accent-primary: #0284c7;
   --accent-light: #e0f2fe;
   --accent-border: #bae6fd;
-  --member-no-color: #0284c7;
+  --member-no-color: var(--nav-active-bg, #2843b8);
   --split-table-header-bg: #e0f2fe;
   --split-table-header-border: #bae6fd;
   --split-table-header-fg: #1e2130;
   --org-grade-badge-bg: #dbeafe;
-  --org-grade-badge-fg: #0284c7;
+  --org-grade-badge-fg: var(--nav-active-bg, #2843b8);
   --section-icon-bg: #0284c7;
   --section-icon-color: #ffffff;
 }

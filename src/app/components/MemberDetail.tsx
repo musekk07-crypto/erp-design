@@ -208,7 +208,7 @@ export function MemberDetail({ onClose }: { onClose?: () => void }) {
                   {row.map((cell: any, ci) => (
                     <React.Fragment key={ci}>
                       <td style={{ padding: "4px 12px 4px 0", width: 120, whiteSpace: "nowrap", verticalAlign: "middle" }}>
-                        <span style={{ fontSize: "11px", color: cell.label.startsWith("*") ? "var(--accent-primary)" : "var(--muted-foreground)", fontWeight: 500 }}>
+                        <span style={{ fontSize: "11px", color: cell.label.startsWith("*") ? "var(--required-color)" : "var(--muted-foreground)", fontWeight: 500 }}>
                           {cell.label}
                         </span>
                       </td>
@@ -245,7 +245,7 @@ export function MemberDetail({ onClose }: { onClose?: () => void }) {
               {/* Row: 회원 등록일자 | 한글명 */}
               <tr>
                 <td style={{ padding: "4px 12px 4px 0", width: 120, whiteSpace: "nowrap", verticalAlign: "middle" }}>
-                  <span style={{ fontSize: "11px", color: "var(--accent-primary)", fontWeight: 500 }}>* 회원 등록일자</span>
+                  <span style={{ fontSize: "11px", color: "var(--required-color)", fontWeight: 500 }}>* 회원 등록일자</span>
                 </td>
                 <td style={{ padding: "4px 12px 4px 0", verticalAlign: "middle" }}>
                   <input type="date" defaultValue="2023-04-15" className="w-full rounded outline-none transition-all duration-200" style={{ fontSize: 11, padding: "4px 10px", background: "var(--input-background)", border: "none", color: "var(--foreground)" }} onFocus={(e) => { e.target.style.background = "var(--input-focus-bg)"; }} onBlur={(e) => { e.target.style.background = "var(--input-background)"; }} />
@@ -260,7 +260,7 @@ export function MemberDetail({ onClose }: { onClose?: () => void }) {
               {/* Row: * 고객 이름/성 — 3칸 입력 */}
               <tr>
                 <td style={{ padding: "4px 12px 4px 0", width: 120, whiteSpace: "nowrap", verticalAlign: "middle" }}>
-                  <span style={{ fontSize: "11px", color: "var(--accent-primary)", fontWeight: 500 }}>* 고객 이름/성</span>
+                  <span style={{ fontSize: "11px", color: "var(--required-color)", fontWeight: 500 }}>* 고객 이름/성</span>
                 </td>
                 <td colSpan={3} style={{ padding: "4px 0 4px 0", verticalAlign: "middle" }}>
                   <div className="flex gap-2">
@@ -473,19 +473,19 @@ export function MemberDetail({ onClose }: { onClose?: () => void }) {
         <FormSection title="상위 회원과의 관계" icon={<Users size={14} />}>
           <div className="flex items-center gap-4">
             {/* 추천인 */}
-            <span className="shrink-0" style={{ fontSize: "11px", color: "var(--accent-primary)", fontWeight: 500 }}>* 추천인</span>
+            <span className="shrink-0" style={{ fontSize: "11px", color: "var(--required-color)", fontWeight: 500 }}>* 추천인</span>
             <input readOnly value="100012" className="rounded px-2 py-1 outline-none" style={{ fontSize: 11, width: 72, background: "#f1f5f9", border: "none", color: "var(--foreground)", fontFamily: "monospace" }} />
             <input readOnly value="박민수" className="rounded px-2 py-1 outline-none" style={{ fontSize: 11, width: 60, background: "#f1f5f9", border: "none", color: "var(--foreground)" }} />
-            <span style={{ fontSize: 11, padding: "2px 8px", background: "var(--accent-light)", color: "var(--accent-primary)", border: "1px solid var(--accent-border)", borderRadius: 4, whiteSpace: "nowrap" }}>38명</span>
+            <span style={{ fontSize: 11, padding: "2px 8px", background: "var(--accent-light)", color: "var(--required-color)", border: "1px solid var(--accent-border)", borderRadius: 4, whiteSpace: "nowrap" }}>38명</span>
             <button className="rounded p-1 flex items-center justify-center" style={{ background: "#f5f6fa", border: "1px solid var(--border)", color: "var(--muted-foreground)" }}>
               <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
             </button>
             <div style={{ width: 1, height: 20, background: "var(--border)", margin: "0 4px" }} />
             {/* 후원인 */}
-            <span className="shrink-0" style={{ fontSize: "11px", color: "var(--accent-primary)", fontWeight: 500 }}>* 후원인</span>
+            <span className="shrink-0" style={{ fontSize: "11px", color: "var(--required-color)", fontWeight: 500 }}>* 후원인</span>
             <input readOnly value="100008" className="rounded px-2 py-1 outline-none" style={{ fontSize: 11, width: 72, background: "#f1f5f9", border: "none", color: "var(--foreground)", fontFamily: "monospace" }} />
             <input readOnly value="이정환" className="rounded px-2 py-1 outline-none" style={{ fontSize: 11, width: 60, background: "#f1f5f9", border: "none", color: "var(--foreground)" }} />
-            <span style={{ fontSize: 11, padding: "2px 8px", background: "var(--accent-light)", color: "var(--accent-primary)", border: "1px solid var(--accent-border)", borderRadius: 4, whiteSpace: "nowrap" }}>12명</span>
+            <span style={{ fontSize: 11, padding: "2px 8px", background: "var(--accent-light)", color: "var(--required-color)", border: "1px solid var(--accent-border)", borderRadius: 4, whiteSpace: "nowrap" }}>12명</span>
             <button className="rounded p-1 flex items-center justify-center" style={{ background: "#f5f6fa", border: "1px solid var(--border)", color: "var(--muted-foreground)" }}>
               <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
             </button>
@@ -495,7 +495,7 @@ export function MemberDetail({ onClose }: { onClose?: () => void }) {
         {/* 소속 그룹 정보 */}
         <FormSection title="소속 그룹 정보" icon={<Building size={14} />}>
           <div className="flex items-center gap-4">
-            <span className="shrink-0" style={{ fontSize: "11px", color: "var(--accent-primary)", fontWeight: 500 }}>* 센터</span>
+            <span className="shrink-0" style={{ fontSize: "11px", color: "var(--required-color)", fontWeight: 500 }}>* 센터</span>
             <div className="relative flex-1">
               <select
                 className="w-full rounded py-1.5 text-sm outline-none appearance-none"

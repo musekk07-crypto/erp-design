@@ -19,10 +19,10 @@
   --sidebar-item-active-border: #cfd4dc;
   --accent-primary: #0284c7;
   --accent-light: #e0f2fe;
-  --accent-text: #0284c7;
+  --accent-text: var(--nav-active-bg);
   --accent-border: #7dd3fc;
   --accent-gradient: linear-gradient(135deg, #0284c7, #0369a1);
-  --required-color: #0284c7;
+  --required-color: var(--nav-active-bg);
   --section-icon-bg: #0284c7;
   --section-icon-color: #ffffff;
   --content-form-section-header-bg: #d6ebf9;
@@ -30,8 +30,8 @@
   --content-form-section-header-border: #b8ddf0;
   --input-focus-bg: #e0f2fe;
   --toggle-active-bg: linear-gradient(135deg, #0284c7, #0369a1);
-  --toggle-active-color: #0284c7;
-  --member-no-color: #0284c7;
+  --toggle-active-color: var(--nav-active-bg);
+  --member-no-color: var(--nav-active-bg);
   --logo-bg: #0284c7;
   --org-self-accent: #0284c7;
   --brand-primary: #0284c7;
@@ -41,9 +41,9 @@
   --save-btn-bg: var(--nav-active-bg);
   --detail-tab-bar-bg: #e4e6ec;
   --detail-tab-bar-line: rgba(0, 0, 0, 0.12);
-  --detail-tab-active-top: #0284c7;
+  --detail-tab-active-top: var(--nav-active-bg);
   --org-grade-badge-bg: #dbeafe;
-  --org-grade-badge-fg: #0284c7;
+  --org-grade-badge-fg: var(--nav-active-bg);
   --member-header-bg: var(--nav-active-bg);
   --member-header-border: var(--nav-hover-bg);
   --member-header-text: rgba(255, 255, 255, 0.88);
@@ -279,10 +279,10 @@
   --org-label: #94a3b8;
   --org-text: #1e2130;
   --org-text-muted: #64748b;
-  --org-link: #0284c7;
+  --org-link: var(--nav-active-bg, #2843b8);
   --org-self-accent: #0284c7;
   --org-grade-badge-bg: #dbeafe;
-  --org-grade-badge-fg: #0284c7;
+  --org-grade-badge-fg: var(--nav-active-bg, #2843b8);
   --badge-type-general-bg: #f1f5f9;
   --badge-type-general-fg: #64748b;
   --badge-type-consumer-bg: #cffafe;

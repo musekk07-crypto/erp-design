@@ -2467,13 +2467,13 @@ function MemberInfoBody({
             <tbody>
               <tr>
                 <td style={{ padding: "3px 10px 3px 0", whiteSpace: "nowrap", verticalAlign: "middle" }}>
-                  <span style={{ fontSize: "12px", color: "var(--accent-primary)", fontWeight: 500 }}>* 회원번호</span>
+                  <span style={{ fontSize: "12px", color: "var(--required-color)", fontWeight: 500 }}>* 회원번호</span>
                 </td>
                 <td colSpan={3} style={{ padding: "3px 10px 3px 0", verticalAlign: "middle" }}>
                   <input type="text" defaultValue={member.no} className="w-full rounded outline-none transition-all duration-200" style={{ fontSize: 12, padding: "3px 8px", background: "var(--input-background)", border: "none", color: "var(--foreground)", fontFamily: "monospace" }} onFocus={(e) => { e.target.style.background = "var(--input-focus-bg)"; }} onBlur={(e) => { e.target.style.background = "var(--input-background)"; }} />
                 </td>
                 <td style={{ padding: "3px 10px 3px 0", whiteSpace: "nowrap", verticalAlign: "middle" }}>
-                  <span style={{ fontSize: "12px", color: "var(--accent-primary)", fontWeight: 500 }}>* 아이디</span>
+                  <span style={{ fontSize: "12px", color: "var(--required-color)", fontWeight: 500 }}>* 아이디</span>
                 </td>
                 <td style={{ padding: "3px 0 3px 0", verticalAlign: "middle" }}>
                   <input type="text" defaultValue={member.loginId} className="w-full rounded outline-none transition-all duration-200" style={{ fontSize: 12, padding: "3px 8px", background: "var(--input-background)", border: "none", color: "var(--foreground)", fontFamily: "monospace" }} onFocus={(e) => { e.target.style.background = "var(--input-focus-bg)"; }} onBlur={(e) => { e.target.style.background = "var(--input-background)"; }} />
@@ -2517,7 +2517,7 @@ function MemberInfoBody({
             <tbody>
               <tr>
                 <td style={{ padding: "3px 10px 3px 0", whiteSpace: "nowrap", verticalAlign: "middle" }}>
-                  <span style={{ fontSize: "12px", color: "var(--accent-primary)", fontWeight: 500 }}>* 회원 등록일자</span>
+                  <span style={{ fontSize: "12px", color: "var(--required-color)", fontWeight: 500 }}>* 회원 등록일자</span>
                 </td>
                 <td colSpan={3} style={{ padding: "3px 10px 3px 0", verticalAlign: "middle" }}>
                   <input type="date" key={`reg-${member.id}`} defaultValue={member.regDate} className="w-full rounded outline-none transition-all duration-200" style={{ fontSize: 12, padding: "3px 8px", background: "var(--input-background)", border: "none", color: "var(--foreground)" }} onFocus={(e) => { e.target.style.background = "var(--input-focus-bg)"; }} onBlur={(e) => { e.target.style.background = "var(--input-background)"; }} />
@@ -2531,7 +2531,7 @@ function MemberInfoBody({
               </tr>
               <tr>
                 <td style={{ padding: "3px 10px 3px 0", whiteSpace: "nowrap", verticalAlign: "middle" }}>
-                  <span style={{ fontSize: "12px", color: "var(--accent-primary)", fontWeight: 500 }}>* 고객 이름/성</span>
+                  <span style={{ fontSize: "12px", color: "var(--required-color)", fontWeight: 500 }}>* 고객 이름/성</span>
                 </td>
                 <td colSpan={3} style={{ padding: "3px 10px 3px 0", verticalAlign: "middle" }}>
                   <div className="flex gap-2">
@@ -2740,10 +2740,10 @@ function MemberInfoBody({
           <div className="member-relation-row">
             <div className="member-relation-segment">
               <div className="member-relation-group">
-                <span style={{ fontSize: "12px", color: "var(--accent-primary)", fontWeight: 500 }}>* 추천인</span>
+                <span style={{ fontSize: "12px", color: "var(--required-color)", fontWeight: 500 }}>* 추천인</span>
                 <input readOnly value="100012" className="member-relation-input-id rounded outline-none" />
                 <input readOnly value="박민수" className="member-relation-input-name rounded outline-none" />
-                <span style={{ fontSize: 12, padding: "2px 8px", background: "var(--accent-light)", color: "var(--accent-primary)", border: "1px solid var(--accent-border)", borderRadius: 4, whiteSpace: "nowrap" }}>38명</span>
+                <span style={{ fontSize: 12, padding: "2px 8px", background: "var(--accent-light)", color: "var(--required-color)", border: "1px solid var(--accent-border)", borderRadius: 4, whiteSpace: "nowrap" }}>38명</span>
                 <button className="rounded p-1 flex items-center justify-center" style={{ background: "var(--surface-button-muted)", border: "1px solid var(--border)", color: "var(--muted-foreground)" }}>
                   <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
                 </button>
@@ -2751,10 +2751,10 @@ function MemberInfoBody({
             </div>
             <div className="member-relation-segment">
               <div className="member-relation-group">
-                <span style={{ fontSize: "12px", color: "var(--accent-primary)", fontWeight: 500 }}>* 후원인</span>
+                <span style={{ fontSize: "12px", color: "var(--required-color)", fontWeight: 500 }}>* 후원인</span>
                 <input readOnly value="100008" className="member-relation-input-id rounded outline-none" />
                 <input readOnly value="이정환" className="member-relation-input-name rounded outline-none" />
-                <span style={{ fontSize: 12, padding: "2px 8px", background: "var(--accent-light)", color: "var(--accent-primary)", border: "1px solid var(--accent-border)", borderRadius: 4, whiteSpace: "nowrap" }}>12명</span>
+                <span style={{ fontSize: 12, padding: "2px 8px", background: "var(--accent-light)", color: "var(--required-color)", border: "1px solid var(--accent-border)", borderRadius: 4, whiteSpace: "nowrap" }}>12명</span>
                 <button className="rounded p-1 flex items-center justify-center" style={{ background: "var(--surface-button-muted)", border: "1px solid var(--border)", color: "var(--muted-foreground)" }}>
                   <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
                 </button>
@@ -2763,7 +2763,7 @@ function MemberInfoBody({
             <div className="member-relation-segment">
               <div className="member-relation-group">
                 <span style={{ fontSize: "12px", color: "var(--form-label-color)", fontWeight: 600 }}>소속 그룹 정보</span>
-                <span style={{ fontSize: "12px", color: "var(--accent-primary)", fontWeight: 500 }}>* 센터</span>
+                <span style={{ fontSize: "12px", color: "var(--required-color)", fontWeight: 500 }}>* 센터</span>
                 <div className="relative member-relation-select">
                   <select
                     className="w-full rounded py-1.5 text-sm outline-none appearance-none"
