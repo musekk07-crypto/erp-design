@@ -387,6 +387,7 @@ type OrgChartSvgProps = {
   stackNodes?: OrgNode[];
   selfAtBottom?: boolean;
   downline?: OrgNode;
+  extraBelow?: string;
 };
 
 function OrgChartSvg({
@@ -400,6 +401,7 @@ function OrgChartSvg({
   stackNodes = [],
   selfAtBottom = false,
   downline,
+  extraBelow,
 }: OrgChartSvgProps) {
   const HPAD = ORG_HPAD;
   const VPAD = 8;
@@ -678,18 +680,35 @@ function OrgChartSvg({
   });
 
   const selfCenterY = col2Ys[selfIdx];
-  const childYs =
-    children.length > 1
-      ? (() => {
-          const stackH = CHILD_CHIP_H * children.length + GAP * (children.length - 1);
-          const top = selfCenterY - stackH / 2 + CHILD_CHIP_H / 2;
-          return children.map((_, i) => top + i * (CHILD_CHIP_H + GAP));
-        })()
-      : children.length === 1
-        ? [selfCenterY]
-        : [];
-  const col3Bottom = childYs.length > 0 ? childYs[childYs.length - 1] + CHILD_CHIP_H / 2 : 0;
-  const col3Top = childYs.length > 0 ? childYs[0] - CHILD_CHIP_H / 2 : 0;
+  const col3Layout = (() => {
+    type Col3Entry =
+      | { kind: "child"; child: (typeof children)[number]; h: number }
+      | { kind: "extra"; label: string; h: number };
+    const entries: Col3Entry[] = [
+      ...children.map((child) => ({ kind: "child" as const, child, h: CHILD_CHIP_H })),
+      ...(extraBelow ? [{ kind: "extra" as const, label: extraBelow, h: EXTRA_H }] : []),
+    ];
+    if (entries.length === 0) return { entries: [], positioned: [] as { entry: Col3Entry; cy: number }[] };
+
+    const totalH = entries.reduce((sum, entry) => sum + entry.h, 0) + GAP * (entries.length - 1);
+    let y = selfCenterY - totalH / 2;
+    const positioned = entries.map((entry) => {
+      const cy = y + entry.h / 2;
+      y += entry.h + GAP;
+      return { entry, cy };
+    });
+    return { entries, positioned };
+  })();
+
+  const col3Bottom =
+    col3Layout.positioned.length > 0
+      ? col3Layout.positioned[col3Layout.positioned.length - 1].cy +
+        col3Layout.positioned[col3Layout.positioned.length - 1].entry.h / 2
+      : 0;
+  const col3Top =
+    col3Layout.positioned.length > 0
+      ? col3Layout.positioned[0].cy - col3Layout.positioned[0].entry.h / 2
+      : 0;
   const contentTop = Math.min(0, col3Top);
   const yShift = getOrgChartTopShift(contentTop);
   const contentH = Math.max(totalCol2H, col3Bottom);
@@ -725,33 +744,33 @@ function OrgChartSvg({
       <foreignObject x={col2X} y={col2Ys[siblingIdx] - CARD_H / 2} width={CARD_W + 2} height={CARD_H + 2}>
         <Card {...sibling} />
       </foreignObject>
-      {children.length > 1 && (
+      {col3Layout.positioned.length > 0 && (
         <>
           <line x1={col2X + CARD_W} y1={selfCenterY} x2={railRight} y2={selfCenterY} stroke={BORDER_GRAY} strokeWidth={1} />
-          <line
-            x1={railRight}
-            y1={childYs[0]}
-            x2={railRight}
-            y2={childYs[childYs.length - 1]}
-            stroke={BORDER_GRAY}
-            strokeWidth={1}
-          />
-          {children.map((child, i) => (
-            <g key={`${child.id}-${i}`}>
-              <line x1={railRight} y1={childYs[i]} x2={col3X} y2={childYs[i]} stroke={BORDER_GRAY} strokeWidth={1} />
-              <foreignObject x={col3X} y={childYs[i] - CHILD_CHIP_H / 2} width={CARD_W + 2} height={CHILD_CHIP_H + 2}>
-                <ChildChip {...child} />
-              </foreignObject>
+          {col3Layout.positioned.length > 1 && (
+            <line
+              x1={railRight}
+              y1={col3Layout.positioned[0].cy}
+              x2={railRight}
+              y2={col3Layout.positioned[col3Layout.positioned.length - 1].cy}
+              stroke={BORDER_GRAY}
+              strokeWidth={1}
+            />
+          )}
+          {col3Layout.positioned.map(({ entry, cy }, i) => (
+            <g key={entry.kind === "child" ? `${entry.child.id}-${i}` : `extra-${i}`}>
+              <line x1={railRight} y1={cy} x2={col3X} y2={cy} stroke={BORDER_GRAY} strokeWidth={1} />
+              {entry.kind === "child" ? (
+                <foreignObject x={col3X} y={cy - CHILD_CHIP_H / 2} width={CARD_W + 2} height={CHILD_CHIP_H + 2}>
+                  <ChildChip {...entry.child} />
+                </foreignObject>
+              ) : (
+                <foreignObject x={col3X} y={cy - EXTRA_H / 2} width={CARD_W + 2} height={EXTRA_H + 2}>
+                  <ExtraBox label={entry.label} />
+                </foreignObject>
+              )}
             </g>
           ))}
-        </>
-      )}
-      {children.length === 1 && (
-        <>
-          <line x1={col2X + CARD_W} y1={selfCenterY} x2={col3X} y2={selfCenterY} stroke={BORDER_GRAY} strokeWidth={1} />
-          <foreignObject x={col3X} y={selfCenterY - CHILD_CHIP_H / 2} width={CARD_W + 2} height={CHILD_CHIP_H + 2}>
-            <ChildChip {...children[0]} />
-          </foreignObject>
         </>
       )}
       </g>
@@ -842,37 +861,17 @@ function shiftOrgDate(dateStr: string, dayOffset: number) {
 
 function buildOrgChartSections(memberId: number, memberName: string, member: Member) {
   if (member.name === "김상경") {
+    const selfNode = createOrgNode("나", member.name, member.id, "블루", {
+      memberNo: member.no,
+      displayId: 0,
+      regDate: member.regDate,
+      points: "10.08",
+    });
+
     return [
       {
         id: "recommender" as const,
         title: "추천인",
-        variant: {
-          layoutType: "tree" as const,
-          parent: createOrgNode("상위", "김석현", 910, "퍼플", {
-            displayId: 0,
-            regDate: "2025-08-20",
-            points: "42.15",
-          }),
-          sibling: createOrgNode("형제", "이준호", 911, "그린", {
-            displayId: 1,
-            regDate: "2025-08-22",
-            points: "5.20",
-          }),
-          self: createOrgNode("나", member.name, member.id, "블루", {
-            memberNo: member.no,
-            displayId: 0,
-            regDate: member.regDate,
-            points: "10.08",
-          }),
-          extraAbove: "외 4명",
-          children: [],
-          showExtra: true,
-          selfAtBottom: true,
-        },
-      },
-      {
-        id: "sponsor" as const,
-        title: "후원인",
         variant: {
           layoutType: "sponsor" as const,
           parent: createOrgNode("상위", "김석현", 910, "퍼플", {
@@ -885,18 +884,47 @@ function buildOrgChartSections(memberId: number, memberName: string, member: Mem
             regDate: "2025-09-24",
             points: "28.97",
           }),
-          self: createOrgNode("나", member.name, member.id, "블루", {
-            memberNo: member.no,
-            displayId: 0,
-            regDate: member.regDate,
-            points: "10.08",
-          }),
+          self: selfNode,
           extraAbove: "",
           children: [
             { name: "김태형", id: 913, displayId: 0 },
             { name: "김지원", id: 914, displayId: 1 },
           ],
           showExtra: false,
+        },
+      },
+      {
+        id: "sponsor" as const,
+        title: "후원인",
+        variant: {
+          layoutType: "tree" as const,
+          parent: createOrgNode("상위", "박재우", 915, "퍼플", {
+            displayId: 0,
+            regDate: "2025-08-26",
+            points: "43",
+          }),
+          sibling: createOrgNode("형제", "성영지", 916, "블루", {
+            displayId: 1,
+            regDate: "2025-08-26",
+            points: "19.21",
+          }),
+          self: selfNode,
+          extraAbove: "외 27명",
+          extraBelow: "외 22명",
+          children: [
+            { name: "홍선영", id: 920, displayId: 0 },
+            { name: "정세영", id: 921, displayId: 1 },
+            { name: "송정웅", id: 922, displayId: 2 },
+            { name: "김지원", id: 923, displayId: 3 },
+            { name: "임상윤", id: 924, displayId: 4 },
+            { name: "허봄이", id: 925, displayId: 5 },
+            { name: "남경문", id: 926, displayId: 6 },
+            { name: "정승배", id: 927, displayId: 7 },
+            { name: "함용희", id: 928, displayId: 8 },
+            { name: "김희수", id: 929, displayId: 9 },
+          ],
+          showExtra: true,
+          selfAtBottom: true,
         },
       },
     ];
