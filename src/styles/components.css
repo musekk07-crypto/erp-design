@@ -80,17 +80,13 @@
   box-shadow: 0 0 0 1px var(--nav-bg, #0f1d32);
 }
 
-.nav-user-area {
-  padding-left: 16px;
-}
-
 .nav-locale-select {
   display: inline-flex;
   align-items: center;
   gap: 6px;
-  padding: 4px 6px;
+  padding: 2px 4px;
   border: none;
-  border-radius: 6px;
+  border-radius: 4px;
   background: transparent;
   color: var(--nav-text, #ffffff);
   font-size: 13px;
@@ -104,16 +100,14 @@
   background: rgba(255, 255, 255, 0.1);
 }
 
-.nav-locale-flag {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 18px;
-  line-height: 1;
+.nav-korea-flag-icon {
+  display: block;
+  flex-shrink: 0;
+  border-radius: 2px;
+  box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.12);
 }
 
 .nav-logout-btn {
-  margin-left: 8px;
   padding: 0;
   border: none;
   background: transparent;

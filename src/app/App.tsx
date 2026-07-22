@@ -3121,6 +3121,40 @@ interface TopNavProps {
   onMemberSubMenuChange: (item: string) => void;
 }
 
+function KoreaFlagIcon() {
+  return (
+    <svg className="nav-korea-flag-icon" viewBox="0 0 36 24" width="22" height="15" aria-hidden>
+      <rect width="36" height="24" fill="#ffffff" />
+      <rect width="36" height="24" fill="none" stroke="rgba(0, 0, 0, 0.15)" strokeWidth="0.6" />
+      <g transform="translate(18 12)">
+        <circle r="6" fill="#c8102e" />
+        <path d="M0,-6 A6,6 0 0,1 0,6 A3,3 0 0,0 0,-6 Z" fill="#003478" />
+        <path d="M0,6 A6,6 0 0,1 0,-6 A3,3 0 0,0 0,6 Z" fill="#c8102e" />
+        <circle cy="-3" r="3" fill="#c8102e" />
+        <circle cy="3" r="3" fill="#003478" />
+      </g>
+      <g fill="#000000">
+        <rect x="3" y="3" width="1.2" height="6" />
+        <rect x="3" y="3" width="6" height="1.2" />
+        <rect x="7.8" y="3" width="1.2" height="6" />
+        <rect x="3" y="7.8" width="6" height="1.2" />
+        <rect x="27" y="3" width="1.2" height="6" />
+        <rect x="27" y="3" width="6" height="1.2" />
+        <rect x="31.8" y="3" width="1.2" height="6" />
+        <rect x="27" y="7.8" width="6" height="1.2" />
+        <rect x="3" y="15" width="1.2" height="6" />
+        <rect x="3" y="15" width="6" height="1.2" />
+        <rect x="7.8" y="15" width="1.2" height="6" />
+        <rect x="3" y="19.8" width="6" height="1.2" />
+        <rect x="27" y="15" width="1.2" height="6" />
+        <rect x="27" y="15" width="6" height="1.2" />
+        <rect x="31.8" y="15" width="1.2" height="6" />
+        <rect x="27" y="19.8" width="6" height="1.2" />
+      </g>
+    </svg>
+  );
+}
+
 interface MemberPageChromeProps {
   activeTab: string;
   onTabChange: (tab: string) => void;
@@ -3276,11 +3310,7 @@ function TopNav({
           })}
         </div>
         {/* Right side: user info */}
-        <div className="nav-user-area flex items-center gap-4 ml-auto shrink-0 whitespace-nowrap">
-          <button type="button" className="nav-locale-select" aria-label="국가 선택 KR">
-            <span className="nav-locale-flag" aria-hidden>🇰🇷</span>
-            <span>KR</span>
-          </button>
+        <div className="flex items-center gap-3 ml-4 shrink-0 whitespace-nowrap">
           <button
             type="button"
             className="nav-work-notification"
@@ -3296,6 +3326,10 @@ function TopNav({
           </button>
           <span style={{ fontSize: 14, color: "var(--nav-text, #fff)" }}>디자인</span>
           <button type="button" className="nav-logout-btn">로그아웃</button>
+          <button type="button" className="nav-locale-select" aria-label="국가 선택 KR">
+            <KoreaFlagIcon />
+            <span>KR</span>
+          </button>
         </div>
       </div>
     </div>
