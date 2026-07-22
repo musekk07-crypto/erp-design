@@ -2874,6 +2874,260 @@ function MemberManagementView({
   );
 }
 
+function getMemberGeneralInfo(member: Member) {
+  if (member.name === "김상경") {
+    return {
+      regDate: "2025-08-26",
+      customerName: "김상경",
+      customerNameExtra1: "",
+      customerNameExtra2: "",
+      koreanName: "",
+      nickName: "미스터천지",
+      businessName: "",
+      legalName: "",
+      birthDate: "1990-03-13",
+      ssn: "900313-1124610",
+      gender: "남" as const,
+      ssnVerified: true,
+      ein: "",
+      visaType: "() 내국인",
+      stayExpiry: "1900-01-01",
+      address: "부산 금정구 대룡2길 21 (브라카하우스)",
+      addressDetail: "브라카하우스",
+      city: "",
+      state: "",
+      country: "South Korea",
+      zip: "46203",
+      contact: "",
+      phone: "010-9352-1177",
+      taxId: "",
+      memo: "",
+    };
+  }
+
+  return {
+    regDate: member.regDate,
+    customerName: member.name,
+    customerNameExtra1: "",
+    customerNameExtra2: "",
+    koreanName: "",
+    nickName: "",
+    businessName: "",
+    legalName: "",
+    birthDate: "",
+    ssn: member.ssn,
+    gender: "여" as const,
+    ssnVerified: false,
+    ein: "",
+    visaType: "() 내국인",
+    stayExpiry: "",
+    address: member.region,
+    addressDetail: "",
+    city: "",
+    state: "",
+    country: "South Korea",
+    zip: "",
+    contact: "",
+    phone: member.phone,
+    taxId: "",
+    memo: "",
+  };
+}
+
+function MemberGeneralInfoForm({ member }: { member: Member }) {
+  const info = getMemberGeneralInfo(member);
+  const inputStyle: React.CSSProperties = {
+    fontSize: 12,
+    padding: "3px 8px",
+    background: "var(--input-background)",
+    border: "none",
+    color: "var(--foreground)",
+  };
+  const labelTdStyle: React.CSSProperties = { padding: "3px 10px 3px 0", whiteSpace: "nowrap", verticalAlign: "middle" };
+  const fieldTdStyle: React.CSSProperties = { padding: "3px 0 3px 0", verticalAlign: "middle" };
+  const focusProps = {
+    onFocus: (e: React.FocusEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
+      e.target.style.background = "var(--input-focus-bg)";
+    },
+    onBlur: (e: React.FocusEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
+      e.target.style.background = "var(--input-background)";
+    },
+  };
+
+  const renderTable = (rows: React.ReactNode) => (
+    <table className="content-form-grid content-form-grid--member content-form-grid--pair" style={{ width: "100%", borderCollapse: "collapse" }}>
+      <colgroup>
+        <col className="col-label-1" />
+        <col className="col-field-1" />
+      </colgroup>
+      <tbody>{rows}</tbody>
+    </table>
+  );
+
+  return (
+    <FormSection title="일반 회원정보" subtitle="20개 항목" icon={<User size={12} />} bodyPadding="8px 12px 10px">
+      <div className="member-form-split">
+        <div className="member-form-split__group">
+          {renderTable(
+            <>
+              <tr>
+                <td style={labelTdStyle}><span style={{ fontSize: "12px", color: "var(--required-color)", fontWeight: 500 }}>* 회원 등록일자</span></td>
+                <td style={fieldTdStyle}><input type="date" key={`reg-${member.id}`} defaultValue={info.regDate} className="w-full rounded outline-none transition-all duration-200" style={inputStyle} {...focusProps} /></td>
+              </tr>
+              <tr>
+                <td style={labelTdStyle}><span style={{ fontSize: "12px", color: "var(--required-color)", fontWeight: 500 }}>* 고객 이름/성</span></td>
+                <td style={fieldTdStyle}>
+                  <div className="flex gap-2">
+                    <input defaultValue={info.customerName} className="flex-1 min-w-0 rounded outline-none transition-all duration-200" style={inputStyle} {...focusProps} />
+                    <input defaultValue={info.customerNameExtra1} className="flex-1 min-w-0 rounded outline-none transition-all duration-200" style={inputStyle} {...focusProps} />
+                    <input defaultValue={info.customerNameExtra2} className="flex-1 min-w-0 rounded outline-none transition-all duration-200" style={inputStyle} {...focusProps} />
+                  </div>
+                </td>
+              </tr>
+              <tr>
+                <td style={labelTdStyle}><span style={{ fontSize: "12px", color: "var(--form-label-color)", fontWeight: 500 }}>한글명</span></td>
+                <td style={fieldTdStyle}><input defaultValue={info.koreanName} className="w-full rounded outline-none transition-all duration-200" style={inputStyle} {...focusProps} /></td>
+              </tr>
+              <tr>
+                <td style={labelTdStyle}><span style={{ fontSize: "12px", color: "var(--form-label-color)", fontWeight: 500 }}>Nick Name</span></td>
+                <td style={fieldTdStyle}><input defaultValue={info.nickName} placeholder="닉네임" className="w-full rounded outline-none transition-all duration-200" style={inputStyle} {...focusProps} /></td>
+              </tr>
+              <tr>
+                <td style={labelTdStyle}><span style={{ fontSize: "12px", color: "var(--form-label-color)", fontWeight: 500 }}>Business Name</span></td>
+                <td style={fieldTdStyle}><input defaultValue={info.businessName} placeholder="사업자명" className="w-full rounded outline-none transition-all duration-200" style={inputStyle} {...focusProps} /></td>
+              </tr>
+              <tr>
+                <td style={labelTdStyle}><span style={{ fontSize: "12px", color: "var(--form-label-color)", fontWeight: 500 }}>Legal Name</span></td>
+                <td style={fieldTdStyle}><input defaultValue={info.legalName} placeholder="법적 이름" className="w-full rounded outline-none transition-all duration-200" style={inputStyle} {...focusProps} /></td>
+              </tr>
+              <tr>
+                <td style={labelTdStyle}><span style={{ fontSize: "12px", color: "var(--form-label-color)", fontWeight: 500 }}>생년월일</span></td>
+                <td style={fieldTdStyle}><input type="date" defaultValue={info.birthDate} className="w-full rounded outline-none transition-all duration-200" style={inputStyle} {...focusProps} /></td>
+              </tr>
+              <tr>
+                <td style={labelTdStyle}>
+                  <span style={{ fontSize: "12px", color: "var(--form-label-color)", fontWeight: 500, display: "inline-flex", alignItems: "center", gap: 4 }}>
+                    {info.ssnVerified ? <CheckCircle2 size={12} style={{ color: "var(--accent-primary)" }} /> : null}
+                    주민등록번호
+                  </span>
+                </td>
+                <td style={fieldTdStyle}>
+                  <div className="flex gap-1 items-center">
+                    <input key={`ssn-${member.id}`} defaultValue={info.ssn} className="flex-1 rounded outline-none transition-all duration-200" style={inputStyle} {...focusProps} />
+                    <div className="relative" style={{ flexShrink: 0 }}>
+                      <select defaultValue={info.gender} className="rounded outline-none appearance-none" style={{ ...inputStyle, padding: "4px 28px 4px 8px" }} {...focusProps}>
+                        <option value="남">남</option>
+                        <option value="여">여</option>
+                      </select>
+                      <ChevronDown size={12} style={{ position: "absolute", right: 7, top: "50%", transform: "translateY(-50%)", color: "var(--muted-foreground)", pointerEvents: "none" }} />
+                    </div>
+                    {info.ssnVerified ? (
+                      <span className="member-form-action-chip member-form-action-chip--verified">✓ 실명인증</span>
+                    ) : (
+                      <button type="button" className="member-form-action-chip member-form-action-chip--auth">✓ 실명인증</button>
+                    )}
+                  </div>
+                </td>
+              </tr>
+              <tr>
+                <td style={labelTdStyle}><span style={{ fontSize: "12px", color: "var(--form-label-color)", fontWeight: 500 }}>EIN Number</span></td>
+                <td style={fieldTdStyle}><input defaultValue={info.ein} placeholder="미국 사업자 번호" className="w-full rounded outline-none transition-all duration-200" style={inputStyle} {...focusProps} /></td>
+              </tr>
+              <tr>
+                <td style={labelTdStyle}><span style={{ fontSize: "12px", color: "var(--form-label-color)", fontWeight: 500 }}>비자종류</span></td>
+                <td style={fieldTdStyle}>
+                  <div className="relative" style={{ display: "inline-block", width: "100%" }}>
+                    <select defaultValue={info.visaType} className="w-full rounded outline-none appearance-none" style={{ ...inputStyle, padding: "4px 28px 4px 8px" }} {...focusProps}>
+                      <option>() 내국인</option>
+                      <option>F-2 거주</option>
+                      <option>F-4 재외동포</option>
+                      <option>F-6 결혼이민</option>
+                    </select>
+                    <ChevronDown size={12} style={{ position: "absolute", right: 7, top: "50%", transform: "translateY(-50%)", color: "var(--muted-foreground)", pointerEvents: "none" }} />
+                  </div>
+                </td>
+              </tr>
+            </>,
+          )}
+        </div>
+
+        <div className="member-form-split__group">
+          {renderTable(
+            <>
+              <tr>
+                <td style={labelTdStyle}><span style={{ fontSize: "12px", color: "var(--form-label-color)", fontWeight: 500 }}>체류기간 만료일자</span></td>
+                <td style={fieldTdStyle}><input type="date" defaultValue={info.stayExpiry} className="w-full rounded outline-none transition-all duration-200" style={inputStyle} {...focusProps} /></td>
+              </tr>
+              <tr>
+                <td style={labelTdStyle}><span style={{ fontSize: "12px", color: "var(--form-label-color)", fontWeight: 500 }}>주소지</span></td>
+                <td style={fieldTdStyle}>
+                  <div className="flex flex-col gap-1">
+                    <div className="flex gap-2">
+                      <input key={`addr-${member.id}`} defaultValue={info.address} className="flex-1 min-w-0 rounded outline-none transition-all duration-200" style={inputStyle} {...focusProps} />
+                      <button type="button" className="shrink-0" style={{ fontSize: 12, padding: "3px 10px", background: "var(--surface-button-muted)", color: "var(--foreground)", border: "1px solid var(--border)", borderRadius: 4 }}>...</button>
+                    </div>
+                    <input defaultValue={info.addressDetail} className="w-full rounded outline-none transition-all duration-200" style={inputStyle} {...focusProps} />
+                  </div>
+                </td>
+              </tr>
+              <tr>
+                <td style={labelTdStyle}><span style={{ fontSize: "12px", color: "var(--form-label-color)", fontWeight: 500 }}>city</span></td>
+                <td style={fieldTdStyle}><input defaultValue={info.city} className="w-full rounded outline-none transition-all duration-200" style={inputStyle} {...focusProps} /></td>
+              </tr>
+              <tr>
+                <td style={labelTdStyle}><span style={{ fontSize: "12px", color: "var(--form-label-color)", fontWeight: 500 }}>state</span></td>
+                <td style={fieldTdStyle}><input defaultValue={info.state} className="w-full rounded outline-none transition-all duration-200" style={inputStyle} {...focusProps} /></td>
+              </tr>
+              <tr>
+                <td style={labelTdStyle}><span style={{ fontSize: "12px", color: "var(--form-label-color)", fontWeight: 500 }}>국가</span></td>
+                <td style={fieldTdStyle}>
+                  <div className="relative" style={{ display: "inline-block", width: "100%" }}>
+                    <select defaultValue={info.country} className="w-full rounded outline-none appearance-none" style={{ ...inputStyle, padding: "4px 28px 4px 8px" }} {...focusProps}>
+                      <option value="South Korea">South Korea</option>
+                      <option value="United States">United States</option>
+                      <option value="Japan">Japan</option>
+                    </select>
+                    <ChevronDown size={12} style={{ position: "absolute", right: 7, top: "50%", transform: "translateY(-50%)", color: "var(--muted-foreground)", pointerEvents: "none" }} />
+                  </div>
+                </td>
+              </tr>
+              <tr>
+                <td style={labelTdStyle}><span style={{ fontSize: "12px", color: "var(--form-label-color)", fontWeight: 500 }}>우편번호</span></td>
+                <td style={fieldTdStyle}><input defaultValue={info.zip} className="w-full rounded outline-none transition-all duration-200" style={{ ...inputStyle, background: "var(--surface-muted, #eef2f6)" }} {...focusProps} /></td>
+              </tr>
+              <tr>
+                <td style={labelTdStyle}><span style={{ fontSize: "12px", color: "var(--form-label-color)", fontWeight: 500 }}>연락처</span></td>
+                <td style={fieldTdStyle}><input defaultValue={info.contact} className="w-full rounded outline-none transition-all duration-200" style={inputStyle} {...focusProps} /></td>
+              </tr>
+              <tr>
+                <td style={labelTdStyle}><span style={{ fontSize: "12px", color: "var(--form-label-color)", fontWeight: 500 }}>휴대폰번호</span></td>
+                <td style={fieldTdStyle}><input key={`phone-${member.id}`} defaultValue={info.phone} className="w-full rounded outline-none transition-all duration-200" style={inputStyle} {...focusProps} /></td>
+              </tr>
+              <tr>
+                <td style={labelTdStyle}><span style={{ fontSize: "12px", color: "var(--form-label-color)", fontWeight: 500 }}>세금신고번호</span></td>
+                <td style={fieldTdStyle}><input defaultValue={info.taxId} className="w-full rounded outline-none transition-all duration-200" style={inputStyle} {...focusProps} /></td>
+              </tr>
+              <tr>
+                <td style={{ ...labelTdStyle, verticalAlign: "top", paddingTop: 8 }}><span style={{ fontSize: "12px", color: "var(--form-label-color)", fontWeight: 500 }}>메모</span></td>
+                <td style={{ ...fieldTdStyle, verticalAlign: "top", paddingTop: 8 }}>
+                  <textarea
+                    key={`memo-${member.id}`}
+                    defaultValue={info.memo}
+                    rows={3}
+                    className="w-full rounded outline-none transition-all duration-200 member-form-textarea"
+                    style={{ ...inputStyle, minHeight: 64, resize: "vertical" }}
+                    {...focusProps}
+                  />
+                </td>
+              </tr>
+            </>,
+          )}
+        </div>
+      </div>
+    </FormSection>
+  );
+}
+
 function MemberInfoBody({
   memberId,
   listOpen,
@@ -2916,53 +3170,69 @@ function MemberInfoBody({
         <MemberHeaderCard member={member} />
 
         {/* Login Info */}
-        <FormSection title="로그인 사용정보" icon={<Shield size={12} />}>
-          <table className="content-form-grid content-form-grid--6 content-form-grid--member" style={{ width: "100%", borderCollapse: "collapse" }}>
-            <colgroup>
-              <col className="col-label-1" />
-              <col className="col-field-1" />
-              <col className="col-label-2" />
-              <col className="col-field-2" />
-              <col className="col-label-3" />
-              <col className="col-field-3" />
-            </colgroup>
-            <tbody>
-              <tr>
-                <td style={{ padding: "3px 10px 3px 0", whiteSpace: "nowrap", verticalAlign: "middle" }}>
-                  <span style={{ fontSize: "12px", color: "var(--required-color)", fontWeight: 500 }}>* 회원번호</span>
-                </td>
-                <td colSpan={3} style={{ padding: "3px 10px 3px 0", verticalAlign: "middle" }}>
-                  <input type="text" defaultValue={member.no} className="w-full rounded outline-none transition-all duration-200" style={{ fontSize: 12, padding: "3px 8px", background: "var(--input-background)", border: "none", color: "var(--foreground)", fontFamily: "monospace" }} onFocus={(e) => { e.target.style.background = "var(--input-focus-bg)"; }} onBlur={(e) => { e.target.style.background = "var(--input-background)"; }} />
-                </td>
-                <td style={{ padding: "3px 10px 3px 0", whiteSpace: "nowrap", verticalAlign: "middle" }}>
-                  <span style={{ fontSize: "12px", color: "var(--required-color)", fontWeight: 500 }}>* 아이디</span>
-                </td>
-                <td style={{ padding: "3px 0 3px 0", verticalAlign: "middle" }}>
-                  <input type="text" defaultValue={member.loginId} className="w-full rounded outline-none transition-all duration-200" style={{ fontSize: 12, padding: "3px 8px", background: "var(--input-background)", border: "none", color: "var(--foreground)", fontFamily: "monospace" }} onFocus={(e) => { e.target.style.background = "var(--input-focus-bg)"; }} onBlur={(e) => { e.target.style.background = "var(--input-background)"; }} />
-                </td>
-              </tr>
-              <tr className="form-row-triple">
-                <td style={{ padding: "3px 10px 3px 0", whiteSpace: "nowrap", verticalAlign: "middle" }}>
-                  <span style={{ fontSize: "12px", color: "var(--form-label-color)", fontWeight: 500 }}>비밀번호</span>
-                </td>
-                <td style={{ padding: "3px 10px 3px 0", verticalAlign: "middle" }}>
-                  <input type="password" placeholder="변경 시에만 입력" className="w-full rounded outline-none transition-all duration-200" style={{ fontSize: 12, padding: "3px 8px", background: "var(--input-background)", border: "none", color: "var(--foreground)" }} onFocus={(e) => { e.target.style.background = "var(--input-focus-bg)"; }} onBlur={(e) => { e.target.style.background = "var(--input-background)"; }} />
-                </td>
-                <td style={{ padding: "3px 10px 3px 0", whiteSpace: "nowrap", verticalAlign: "middle" }}>
-                  <span style={{ fontSize: "12px", color: "var(--form-label-color)", fontWeight: 500 }}>보안 비밀번호</span>
-                </td>
-                <td style={{ padding: "3px 10px 3px 0", verticalAlign: "middle" }}>
-                  <input type="password" placeholder="····" className="w-full rounded outline-none transition-all duration-200" style={{ fontSize: 12, padding: "3px 8px", background: "var(--input-background)", border: "none", color: "var(--foreground)" }} onFocus={(e) => { e.target.style.background = "var(--input-focus-bg)"; }} onBlur={(e) => { e.target.style.background = "var(--input-background)"; }} />
-                </td>
-                <td style={{ padding: "3px 10px 3px 0", whiteSpace: "nowrap", verticalAlign: "middle" }}>
-                  <span style={{ fontSize: "12px", color: "var(--form-label-color)", fontWeight: 500 }}>전자메일주소</span>
-                </td>
-                <td style={{ padding: "3px 0 3px 0", verticalAlign: "middle" }}>
-                  <input type="email" defaultValue={`${member.loginId}@email.com`} className="w-full rounded outline-none transition-all duration-200" style={{ fontSize: 12, padding: "3px 8px", background: "var(--input-background)", border: "none", color: "var(--foreground)" }} onFocus={(e) => { e.target.style.background = "var(--input-focus-bg)"; }} onBlur={(e) => { e.target.style.background = "var(--input-background)"; }} />
-                </td>
-              </tr>
-            </tbody>
-          </table>
+        <FormSection title="로그인 사용정보" icon={<Shield size={12} />} bodyPadding="8px 12px 10px">
+          <div className="member-form-split">
+            <div className="member-form-split__group">
+              <table className="content-form-grid content-form-grid--member content-form-grid--pair" style={{ width: "100%", borderCollapse: "collapse" }}>
+                <colgroup>
+                  <col className="col-label-1" />
+                  <col className="col-field-1" />
+                </colgroup>
+                <tbody>
+                  <tr>
+                    <td style={{ padding: "3px 10px 3px 0", whiteSpace: "nowrap", verticalAlign: "middle" }}>
+                      <span style={{ fontSize: "12px", color: "var(--required-color)", fontWeight: 500 }}>* 회원번호</span>
+                    </td>
+                    <td style={{ padding: "3px 0 3px 0", verticalAlign: "middle" }}>
+                      <input type="text" defaultValue={member.no} className="w-full rounded outline-none transition-all duration-200" style={{ fontSize: 12, padding: "3px 8px", background: "var(--input-background)", border: "none", color: "var(--foreground)", fontFamily: "monospace" }} onFocus={(e) => { e.target.style.background = "var(--input-focus-bg)"; }} onBlur={(e) => { e.target.style.background = "var(--input-background)"; }} />
+                    </td>
+                  </tr>
+                  <tr>
+                    <td style={{ padding: "3px 10px 3px 0", whiteSpace: "nowrap", verticalAlign: "middle" }}>
+                      <span style={{ fontSize: "12px", color: "var(--form-label-color)", fontWeight: 500 }}>비밀번호</span>
+                    </td>
+                    <td style={{ padding: "3px 0 3px 0", verticalAlign: "middle" }}>
+                      <input type="password" placeholder="변경 시에만 입력" className="w-full rounded outline-none transition-all duration-200" style={{ fontSize: 12, padding: "3px 8px", background: "var(--input-background)", border: "none", color: "var(--foreground)" }} onFocus={(e) => { e.target.style.background = "var(--input-focus-bg)"; }} onBlur={(e) => { e.target.style.background = "var(--input-background)"; }} />
+                    </td>
+                  </tr>
+                  <tr>
+                    <td style={{ padding: "3px 10px 3px 0", whiteSpace: "nowrap", verticalAlign: "middle" }}>
+                      <span style={{ fontSize: "12px", color: "var(--form-label-color)", fontWeight: 500 }}>보안 비밀번호</span>
+                    </td>
+                    <td style={{ padding: "3px 0 3px 0", verticalAlign: "middle" }}>
+                      <input type="password" placeholder="····" className="w-full rounded outline-none transition-all duration-200" style={{ fontSize: 12, padding: "3px 8px", background: "var(--input-background)", border: "none", color: "var(--foreground)" }} onFocus={(e) => { e.target.style.background = "var(--input-focus-bg)"; }} onBlur={(e) => { e.target.style.background = "var(--input-background)"; }} />
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div className="member-form-split__group">
+              <table className="content-form-grid content-form-grid--member content-form-grid--pair" style={{ width: "100%", borderCollapse: "collapse" }}>
+                <colgroup>
+                  <col className="col-label-1" />
+                  <col className="col-field-1" />
+                </colgroup>
+                <tbody>
+                  <tr>
+                    <td style={{ padding: "3px 10px 3px 0", whiteSpace: "nowrap", verticalAlign: "middle" }}>
+                      <span style={{ fontSize: "12px", color: "var(--required-color)", fontWeight: 500 }}>* 아이디</span>
+                    </td>
+                    <td style={{ padding: "3px 0 3px 0", verticalAlign: "middle" }}>
+                      <input type="text" defaultValue={member.loginId} className="w-full rounded outline-none transition-all duration-200" style={{ fontSize: 12, padding: "3px 8px", background: "var(--input-background)", border: "none", color: "var(--foreground)", fontFamily: "monospace" }} onFocus={(e) => { e.target.style.background = "var(--input-focus-bg)"; }} onBlur={(e) => { e.target.style.background = "var(--input-background)"; }} />
+                    </td>
+                  </tr>
+                  <tr>
+                    <td style={{ padding: "3px 10px 3px 0", whiteSpace: "nowrap", verticalAlign: "middle" }}>
+                      <span style={{ fontSize: "12px", color: "var(--form-label-color)", fontWeight: 500 }}>전자메일주소</span>
+                    </td>
+                    <td style={{ padding: "3px 0 3px 0", verticalAlign: "middle" }}>
+                      <input type="email" defaultValue={`${member.loginId}@email.com`} className="w-full rounded outline-none transition-all duration-200" style={{ fontSize: 12, padding: "3px 8px", background: "var(--input-background)", border: "none", color: "var(--foreground)" }} onFocus={(e) => { e.target.style.background = "var(--input-focus-bg)"; }} onBlur={(e) => { e.target.style.background = "var(--input-background)"; }} />
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
         </FormSection>
 
         {/* 일반 회원정보 */}
