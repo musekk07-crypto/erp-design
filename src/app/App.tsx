@@ -170,29 +170,24 @@ function resolveOrgMemberRecord(id: number, name: string) {
   return members.find((m) => m.id === id) ?? members.find((m) => m.name === name);
 }
 
-function buildOrgMemberDetail(
-  id: number,
-  name: string,
-  memberNo: string,
-  grade: string,
-  options?: { label?: string; isSelf?: boolean },
-): OrgMemberDetail {
+function buildOrgMemberDetail(id: number, name: string, memberNo: string, grade: string): OrgMemberDetail {
   const member = resolveOrgMemberRecord(id, name);
-  const relationBadge = options?.isSelf
-    ? "나·자신"
-    : options?.label
-      ? options.label
-      : "구성원";
-  const regDate = member?.regDate ?? "2025-06-12";
-  const realtimeP = (8.6 + (id % 7) * 0.8).toFixed(2);
-
+  const recommender = members[(Math.max(id, 1) + 2) % members.length];
+  const sponsor = members[(Math.max(id, 1) + 4) % members.length];
+  const dash = "-";
   return {
-    relationBadge,
-    name: member?.name ?? name,
     memberNo: member?.no ?? memberNo,
-    grade: grade || member?.rank || "멤버",
-    regDate,
-    realtimeP,
+    name: member?.name ?? name,
+    ssn: member?.ssn ?? "******-*******",
+    phone: member?.phone?.trim() ? member.phone : dash,
+    address: member?.region ?? dash,
+    recommender: recommender.name,
+    sponsor: sponsor.name,
+    rank: grade || member?.rank || dash,
+    salesDate: member?.regDate ?? dash,
+    withdrawDate: member?.status === "탈퇴" ? (member.regDate ?? dash) : dash,
+    suspendDate: dash,
+    footer: `${member?.regDate ?? "2026-05-07"} 11:58:09 · ${member?.loginId ?? "member"}`,
   };
 }
 
@@ -220,7 +215,7 @@ function Card({ label, name, memberNo, grade, id, isSelf = false }: {
       onMouseEnter={() => {
         if (!hover || !rootRef.current) return;
         hover.cancelHide();
-        hover.showFromElement(buildOrgMemberDetail(id, name, memberNo, grade, { label, isSelf }), rootRef.current);
+        hover.showFromElement(buildOrgMemberDetail(id, name, memberNo, grade), rootRef.current);
       }}
       onMouseLeave={() => hover?.scheduleHide()}
       style={{
@@ -307,7 +302,7 @@ function ChildChip({ name, id }: { name: string; id: number }) {
       onMouseEnter={() => {
         if (!hover || !rootRef.current) return;
         hover.cancelHide();
-        hover.showFromElement(buildOrgMemberDetail(id, name, memberNo, grade, { label: "하위" }), rootRef.current);
+        hover.showFromElement(buildOrgMemberDetail(id, name, memberNo, grade), rootRef.current);
       }}
       onMouseLeave={() => hover?.scheduleHide()}
       style={{
