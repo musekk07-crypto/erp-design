@@ -1321,19 +1321,31 @@ textarea.mm2-name-box:focus {
 }
 
 .order-mgmt-splitter {
-  flex: 0 0 5px;
-  width: 5px;
+  flex: 0 0 21px;
+  width: 21px;
   align-self: stretch;
   cursor: col-resize;
   background: transparent;
-  border-left: 2px solid var(--border);
-  transition: border-color 0.15s;
+  border: none;
+  position: relative;
   z-index: 5;
 }
 
-.order-mgmt-splitter:hover,
-.order-mgmt-view.is-resizing .order-mgmt-splitter {
-  border-left-color: var(--accent-primary);
+.order-mgmt-splitter::before {
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: 0;
+  bottom: 0;
+  width: 2px;
+  margin-left: -1px;
+  background: var(--border);
+  transition: background-color 0.15s;
+}
+
+.order-mgmt-splitter:hover::before,
+.order-mgmt-view.is-resizing .order-mgmt-splitter::before {
+  background: var(--accent-primary);
 }
 
 .order-mgmt-left {
