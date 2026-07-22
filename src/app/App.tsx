@@ -872,30 +872,6 @@ function buildOrgChartSections(memberId: number, memberName: string, member: Mem
         id: "recommender" as const,
         title: "추천인",
         variant: {
-          layoutType: "sponsor" as const,
-          parent: createOrgNode("상위", "김석현", 910, "퍼플", {
-            displayId: 0,
-            regDate: "2025-08-26",
-            points: "62.61",
-          }),
-          sibling: createOrgNode("형제", "서혜진", 912, "레드", {
-            displayId: 1,
-            regDate: "2025-09-24",
-            points: "28.97",
-          }),
-          self: selfNode,
-          extraAbove: "",
-          children: [
-            { name: "김태형", id: 913, displayId: 0 },
-            { name: "김지원", id: 914, displayId: 1 },
-          ],
-          showExtra: false,
-        },
-      },
-      {
-        id: "sponsor" as const,
-        title: "후원인",
-        variant: {
           layoutType: "tree" as const,
           parent: createOrgNode("상위", "박재우", 915, "퍼플", {
             displayId: 0,
@@ -924,6 +900,30 @@ function buildOrgChartSections(memberId: number, memberName: string, member: Mem
           ],
           showExtra: true,
           selfAtBottom: true,
+        },
+      },
+      {
+        id: "sponsor" as const,
+        title: "후원인",
+        variant: {
+          layoutType: "sponsor" as const,
+          parent: createOrgNode("상위", "김석현", 910, "퍼플", {
+            displayId: 0,
+            regDate: "2025-08-26",
+            points: "62.61",
+          }),
+          sibling: createOrgNode("형제", "서혜진", 912, "레드", {
+            displayId: 1,
+            regDate: "2025-09-24",
+            points: "28.97",
+          }),
+          self: selfNode,
+          extraAbove: "",
+          children: [
+            { name: "김태형", id: 913, displayId: 0 },
+            { name: "김지원", id: 914, displayId: 1 },
+          ],
+          showExtra: false,
         },
       },
     ];
