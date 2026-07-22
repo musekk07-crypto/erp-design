@@ -1311,7 +1311,7 @@ textarea.mm2-name-box:focus {
   --order-mgmt-font-size-toolbar: 14px;
   --surface-row-selected: #e8eaef;
   --accent-primary: #0284c7;
-  --order-mgmt-member-info-bg: #0284c7;
+  --order-mgmt-member-info-bg: var(--member-header-bg, var(--nav-active-bg, #2843b8));
   --order-mgmt-save-btn-bg: var(--nav-active-bg, #2843b8);
   --order-mgmt-right-width: 980px;
   --order-mgmt-toolbar-head-height: 60px;
@@ -1343,8 +1343,8 @@ textarea.mm2-name-box:focus {
 
 .order-mgmt-member-info {
   flex-shrink: 0;
-  background: var(--order-mgmt-member-info-bg, #0284c7);
-  border: 1px solid var(--order-mgmt-member-info-bg, #0284c7);
+  background: var(--order-mgmt-member-info-bg, #2843b8);
+  border: 1px solid var(--order-mgmt-member-info-bg, #2843b8);
   border-radius: var(--order-mgmt-box-radius, 6px);
   overflow: hidden;
 }
@@ -1903,7 +1903,7 @@ textarea.mm2-name-box:focus {
 
 .order-mgmt-form-box {
   background: var(--surface-panel);
-  border: 1px solid var(--order-mgmt-member-info-bg, #0284c7);
+  border: 1px solid var(--order-mgmt-member-info-bg, #2843b8);
   border-radius: var(--order-mgmt-box-radius, 6px);
   overflow: hidden;
 }
