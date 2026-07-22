@@ -107,11 +107,19 @@
   transform: translateY(-1px);
 }
 
+.nav-locale-wrap {
+  position: relative;
+  display: flex;
+  align-items: center;
+  align-self: stretch;
+}
+
 .nav-locale-select {
   display: inline-flex;
   align-items: center;
   gap: 6px;
-  padding: 2px 4px;
+  height: 100%;
+  padding: 0 4px;
   border: none;
   border-radius: 4px;
   background: transparent;
@@ -123,10 +131,80 @@
   transition: background 0.15s ease;
 }
 
+.nav-locale-wrap:hover .nav-locale-select,
 .nav-locale-select:hover {
   background: rgba(255, 255, 255, 0.1);
 }
 
+.nav-locale-dropdown {
+  position: absolute;
+  top: 100%;
+  right: 0;
+  z-index: 210;
+  min-width: 148px;
+  padding: 6px 0;
+  background: var(--nav-dropdown-bg, #0a1220);
+  border: 1px solid var(--nav-dropdown-border, rgba(255, 255, 255, 0.12));
+  box-shadow: 0 10px 28px rgba(0, 0, 0, 0.35);
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transform: translateY(4px);
+  transition: opacity 0.15s ease, transform 0.15s ease, visibility 0.15s ease;
+}
+
+.nav-locale-dropdown::before {
+  content: "";
+  position: absolute;
+  top: -6px;
+  left: 0;
+  right: 0;
+  height: 6px;
+}
+
+.nav-locale-wrap:hover .nav-locale-dropdown,
+.nav-locale-wrap:focus-within .nav-locale-dropdown {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+  transform: translateY(0);
+}
+
+.nav-locale-dropdown-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  width: 100%;
+  padding: 8px 12px;
+  border: none;
+  background: transparent;
+  color: var(--nav-dropdown-text, rgba(255, 255, 255, 0.92));
+  font-size: 13px;
+  text-align: left;
+  cursor: pointer;
+  transition: background 0.15s ease;
+}
+
+.nav-locale-dropdown-item:hover {
+  background: var(--nav-dropdown-hover-bg, rgba(40, 67, 184, 0.55));
+}
+
+.nav-locale-dropdown-item.is-active {
+  background: rgba(40, 67, 184, 0.35);
+}
+
+.nav-locale-dropdown-name {
+  flex: 1;
+  font-weight: 500;
+}
+
+.nav-locale-dropdown-code {
+  font-size: 12px;
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.72);
+}
+
+.nav-flag-icon,
 .nav-korea-flag-icon {
   display: block;
   flex-shrink: 0;

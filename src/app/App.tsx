@@ -3121,6 +3121,25 @@ interface TopNavProps {
   onMemberSubMenuChange: (item: string) => void;
 }
 
+type LocaleCode = "KR" | "US" | "JP" | "CN";
+
+const localeOptions: { code: LocaleCode; label: string; name: string }[] = [
+  { code: "KR", label: "KR", name: "한국" },
+  { code: "US", label: "US", name: "미국" },
+  { code: "JP", label: "JP", name: "일본" },
+  { code: "CN", label: "CN", name: "중국" },
+];
+
+function FlagFrame({ children }: { children: React.ReactNode }) {
+  return (
+    <svg className="nav-flag-icon" viewBox="0 0 40 28" width="24" height="17" aria-hidden>
+      <rect width="40" height="28" rx="2" fill="#ffffff" />
+      <rect width="40" height="28" rx="2" fill="none" stroke="#cbd5e1" strokeWidth="0.8" />
+      {children}
+    </svg>
+  );
+}
+
 function KoreaFlagIcon() {
   const bar = 1.15;
   const gap = 1.55;
@@ -3173,9 +3192,7 @@ function KoreaFlagIcon() {
   };
 
   return (
-    <svg className="nav-korea-flag-icon" viewBox="0 0 40 28" width="24" height="17" aria-hidden>
-      <rect width="40" height="28" rx="2" fill="#ffffff" />
-      <rect width="40" height="28" rx="2" fill="none" stroke="#cbd5e1" strokeWidth="0.8" />
+    <FlagFrame>
       <g transform="translate(20 14)">
         <circle r="7" fill="#cd2e3a" />
         <path d="M0,-7A7,7 0 0,1 0,7A3.5,3.5 0 0,1 0,0A3.5,3.5 0 0,0 0,-7Z" fill="#0047a0" />
@@ -3186,7 +3203,94 @@ function KoreaFlagIcon() {
       <g>{renderGam(28, 4.5, 7.5)}</g>
       <g>{renderRi(4.5, 18.5, 7.5)}</g>
       <g>{renderThreeBroken(28, 18.5, 7.5)}</g>
-    </svg>
+    </FlagFrame>
+  );
+}
+
+function UsaFlagIcon() {
+  return (
+    <FlagFrame>
+      <rect width="40" height="28" rx="2" fill="#b22234" />
+      {[2, 6, 10, 18, 22, 26].map((y) => (
+        <rect key={y} x="0" y={y} width="40" height="2" fill="#ffffff" />
+      ))}
+      <rect width="16" height="15" fill="#3c3b6e" />
+      {[
+        [3, 3], [7, 3], [11, 3], [5, 6], [9, 6], [7, 9],
+      ].map(([cx, cy]) => (
+        <circle key={`${cx}-${cy}`} cx={cx} cy={cy} r="0.9" fill="#ffffff" />
+      ))}
+    </FlagFrame>
+  );
+}
+
+function JapanFlagIcon() {
+  return (
+    <FlagFrame>
+      <rect width="40" height="28" rx="2" fill="#ffffff" />
+      <circle cx="20" cy="14" r="6.5" fill="#bc002d" />
+    </FlagFrame>
+  );
+}
+
+function ChinaFlagIcon() {
+  return (
+    <FlagFrame>
+      <rect width="40" height="28" rx="2" fill="#de2910" />
+      <polygon
+        points="8,6 9.3,9.6 13.1,9.6 10,11.8 11.2,15.4 8,13.2 4.8,15.4 6,11.8 2.8,9.6 6.6,9.6"
+        fill="#ffde00"
+      />
+      {[
+        [14, 4], [16, 7], [16, 10], [14, 13],
+      ].map(([cx, cy]) => (
+        <polygon
+          key={`${cx}-${cy}`}
+          points={`${cx},${cy - 1.2} ${cx + 0.7},${cy + 0.2} ${cx + 0.2},${cy + 1.1} ${cx - 0.5},${cy + 0.5} ${cx - 1.1},${cy + 1.1} ${cx - 0.7},${cy + 0.2}`}
+          fill="#ffde00"
+        />
+      ))}
+    </FlagFrame>
+  );
+}
+
+const localeFlagIcons: Record<LocaleCode, () => React.ReactElement> = {
+  KR: KoreaFlagIcon,
+  US: UsaFlagIcon,
+  JP: JapanFlagIcon,
+  CN: ChinaFlagIcon,
+};
+
+function NavLocaleMenu() {
+  const [locale, setLocale] = useState<LocaleCode>("KR");
+  const current = localeOptions.find((item) => item.code === locale) ?? localeOptions[0];
+  const CurrentFlag = localeFlagIcons[current.code];
+
+  return (
+    <div className="nav-locale-wrap">
+      <button type="button" className="nav-locale-select" aria-label={`국가 선택 ${current.label}`} aria-haspopup="menu">
+        <CurrentFlag />
+        <span>{current.label}</span>
+      </button>
+      <div className="nav-locale-dropdown" role="menu">
+        {localeOptions.map((item) => {
+          const ItemFlag = localeFlagIcons[item.code];
+          return (
+            <button
+              key={item.code}
+              type="button"
+              role="menuitem"
+              className={`nav-locale-dropdown-item${item.code === locale ? " is-active" : ""}`}
+              onClick={() => setLocale(item.code)}
+            >
+              <ItemFlag />
+              <span className="nav-locale-dropdown-name">{item.name}</span>
+              <span className="nav-locale-dropdown-code">{item.label}</span>
+            </button>
+          );
+        })}
+      </div>
+    </div>
   );
 }
 
@@ -3363,10 +3467,7 @@ function TopNav({
           </button>
           <span style={{ fontSize: 14, color: "var(--nav-text, #fff)" }}>디자인</span>
           <button type="button" className="nav-logout-btn">로그아웃</button>
-          <button type="button" className="nav-locale-select" aria-label="국가 선택 KR">
-            <KoreaFlagIcon />
-            <span>KR</span>
-          </button>
+          <NavLocaleMenu />
         </div>
       </div>
     </div>
