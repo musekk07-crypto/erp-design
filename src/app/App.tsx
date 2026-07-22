@@ -3179,6 +3179,7 @@ function TopNav({
   onMemberSubMenuChange,
 }: TopNavProps) {
   const memberNavRef = useRef<HTMLDivElement>(null);
+  const workNotificationCount = 1;
 
   useEffect(() => {
     if (!memberSubMenuOpen) return;
@@ -3282,12 +3283,19 @@ function TopNav({
           >
             KR
           </div>
-          <div
-            className="flex items-center justify-center rounded-full"
-            style={{ width: 26, height: 26, background: "#4f7ef8", fontSize: 12, fontWeight: 700, color: "var(--on-accent)" }}
+          <button
+            type="button"
+            className="nav-work-notification"
+            aria-label="작업 알림"
+            title="작업 알림"
           >
-            디
-          </div>
+            <Bell size={16} strokeWidth={2} />
+            {workNotificationCount > 0 && (
+              <span className="nav-work-notification-badge" aria-hidden>
+                {workNotificationCount > 9 ? "9+" : workNotificationCount}
+              </span>
+            )}
+          </button>
           <span style={{ fontSize: 14, color: "var(--nav-text, #fff)" }}>디자인</span>
           <div style={{ width: 1, height: 14, background: "var(--nav-divider, rgba(255,255,255,0.3))" }} />
           <button type="button" style={{ fontSize: 14, color: "var(--nav-text-muted, rgba(255,255,255,0.7))" }}>로그아웃</button>
