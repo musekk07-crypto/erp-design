@@ -3276,13 +3276,11 @@ function TopNav({
           })}
         </div>
         {/* Right side: user info */}
-        <div className="flex items-center gap-3 ml-4 shrink-0 whitespace-nowrap">
-          <div
-            className="flex items-center justify-center rounded"
-            style={{ width: 26, height: 26, background: "var(--nav-avatar-bg, rgba(255,255,255,0.2))", fontSize: 12, fontWeight: 600, color: "var(--nav-text, #fff)" }}
-          >
-            KR
-          </div>
+        <div className="nav-user-area flex items-center gap-4 ml-auto shrink-0 whitespace-nowrap">
+          <button type="button" className="nav-locale-select" aria-label="국가 선택 KR">
+            <span className="nav-locale-flag" aria-hidden>🇰🇷</span>
+            <span>KR</span>
+          </button>
           <button
             type="button"
             className="nav-work-notification"
@@ -3297,8 +3295,7 @@ function TopNav({
             )}
           </button>
           <span style={{ fontSize: 14, color: "var(--nav-text, #fff)" }}>디자인</span>
-          <div style={{ width: 1, height: 14, background: "var(--nav-divider, rgba(255,255,255,0.3))" }} />
-          <button type="button" style={{ fontSize: 14, color: "var(--nav-text-muted, rgba(255,255,255,0.7))" }}>로그아웃</button>
+          <button type="button" className="nav-logout-btn">로그아웃</button>
         </div>
       </div>
     </div>
