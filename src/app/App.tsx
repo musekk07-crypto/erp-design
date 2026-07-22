@@ -2851,6 +2851,17 @@ function MemberInfoBody({
 
 const mainMenus = ["기초관리", "회원관리", "회원관리2", "주문관리", "수당관리", "출고관리", "옵션"];
 
+const memberSubMenus = [
+  "회원 등록",
+  "판매원 등록현황",
+  "조직 구성원 관리자",
+  "직급 히스토리",
+  "직급조정 관리자",
+  "사용자설정 관리자",
+  "세미나 관리자",
+  "회원승인",
+];
+
 const subTabs = ["회원정보", "주문서내역", "수당내역", "로그히스토리", "상담내역", "마일리지", "사용자설정", "마이페이지"];
 
 const memberInfoToolbarItems = [
@@ -3091,6 +3102,10 @@ function VisitHistoryBar({
 interface TopNavProps {
   activeMainMenu: string;
   onMainMenuChange: (menu: string) => void;
+  memberSubMenuOpen: boolean;
+  onMemberSubMenuOpenChange: (open: boolean) => void;
+  activeMemberSubMenu: string;
+  onMemberSubMenuChange: (item: string) => void;
 }
 
 interface MemberPageChromeProps {
@@ -3142,9 +3157,29 @@ function MemberPageChrome({ activeTab, onTabChange }: MemberPageChromeProps) {
   );
 }
 
-function TopNav({ activeMainMenu, onMainMenuChange }: TopNavProps) {
+function TopNav({
+  activeMainMenu,
+  onMainMenuChange,
+  memberSubMenuOpen,
+  onMemberSubMenuOpenChange,
+  activeMemberSubMenu,
+  onMemberSubMenuChange,
+}: TopNavProps) {
+  const memberNavRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (!memberSubMenuOpen) return;
+    function handleClickOutside(e: MouseEvent) {
+      if (memberNavRef.current && !memberNavRef.current.contains(e.target as Node)) {
+        onMemberSubMenuOpenChange(false);
+      }
+    }
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, [memberSubMenuOpen, onMemberSubMenuOpenChange]);
+
   return (
-    <div style={{ flexShrink: 0, minWidth: APP_MIN_WIDTH }}>
+    <div className="top-nav-shell" style={{ flexShrink: 0, minWidth: APP_MIN_WIDTH }}>
       {/* Main nav */}
       <div
         className="flex items-stretch flex-nowrap px-4"
@@ -3163,11 +3198,60 @@ function TopNav({ activeMainMenu, onMainMenuChange }: TopNavProps) {
         <div className="flex items-stretch flex-1 min-w-0 self-stretch">
           {mainMenus.map((menu) => {
             const isActive = menu === activeMainMenu;
+            const isMemberMenu = menu === "회원관리";
+
+            if (isMemberMenu) {
+              return (
+                <div key={menu} ref={memberNavRef} className="main-nav-item-wrap">
+                  <button
+                    type="button"
+                    onClick={() => {
+                      if (isActive) {
+                        onMemberSubMenuOpenChange(!memberSubMenuOpen);
+                      } else {
+                        onMainMenuChange(menu);
+                        onMemberSubMenuOpenChange(true);
+                      }
+                    }}
+                    className={`main-nav-item${isActive ? " is-active" : ""}${memberSubMenuOpen && isActive ? " is-dropdown-open" : ""}`}
+                    aria-expanded={memberSubMenuOpen && isActive}
+                    aria-haspopup="menu"
+                  >
+                    {menu}
+                  </button>
+                  {memberSubMenuOpen && isActive && (
+                    <div className="main-nav-dropdown" role="menu">
+                      {memberSubMenus.map((item) => {
+                        const isSubActive = item === activeMemberSubMenu;
+                        return (
+                          <button
+                            key={item}
+                            type="button"
+                            role="menuitem"
+                            className={`main-nav-dropdown-item${isSubActive ? " is-active" : ""}`}
+                            onClick={() => {
+                              onMemberSubMenuChange(item);
+                              onMemberSubMenuOpenChange(false);
+                            }}
+                          >
+                            {item}
+                          </button>
+                        );
+                      })}
+                    </div>
+                  )}
+                </div>
+              );
+            }
+
             return (
               <button
                 key={menu}
                 type="button"
-                onClick={() => onMainMenuChange(menu)}
+                onClick={() => {
+                  onMainMenuChange(menu);
+                  onMemberSubMenuOpenChange(false);
+                }}
                 className={`main-nav-item${isActive ? " is-active" : ""}`}
               >
                 {menu}
@@ -3326,6 +3410,8 @@ export default function App() {
   const [listWidth, setListWidth] = useState(() => clampMemberListWidth(MEMBER_LIST_DEFAULT_WIDTH));
   const [activeTab, setActiveTab] = useState("회원정보");
   const [activeMainMenu, setActiveMainMenu] = useState("회원관리");
+  const [memberSubMenuOpen, setMemberSubMenuOpen] = useState(false);
+  const [activeMemberSubMenu, setActiveMemberSubMenu] = useState("회원 등록");
   const [theme, setTheme] = useState<Theme>("deep-purple");
   const [historyRailExpanded, setHistoryRailExpanded] = useState(true);
   const [pinnedPages, setPinnedPages] = useState<PageHistoryItem[]>([
@@ -3430,6 +3516,17 @@ export default function App() {
     if (menu === "주문관리") {
       setListOpen(false);
     }
+    if (menu !== "회원관리") {
+      setMemberSubMenuOpen(false);
+    }
+  }, []);
+
+  const handleMemberSubMenuChange = useCallback((item: string) => {
+    setActiveMemberSubMenu(item);
+    setActiveMainMenu("회원관리");
+    if (item === "회원 등록") {
+      setActiveTab("회원정보");
+    }
   }, []);
 
   const onResizeStart = useCallback((e: React.MouseEvent) => {
@@ -3462,7 +3559,14 @@ export default function App() {
         className="flex flex-col"
         style={{ minWidth: APP_MIN_WIDTH, width: "100%", height: "100%", flex: "1 0 auto" }}
       >
-      <TopNav activeMainMenu={activeMainMenu} onMainMenuChange={handleMainMenuChange} />
+      <TopNav
+        activeMainMenu={activeMainMenu}
+        onMainMenuChange={handleMainMenuChange}
+        memberSubMenuOpen={memberSubMenuOpen}
+        onMemberSubMenuOpenChange={setMemberSubMenuOpen}
+        activeMemberSubMenu={activeMemberSubMenu}
+        onMemberSubMenuChange={handleMemberSubMenuChange}
+      />
 
       {/* 본문 + 하단 방문기록 */}
       <div
@@ -3564,6 +3668,23 @@ export default function App() {
               activeTab={activeTab}
               onTabChange={setActiveTab}
             />
+          ) : activeMainMenu === "회원관리" && activeMemberSubMenu !== "회원 등록" ? (
+            <div
+              className="member-subpage-placeholder"
+              style={{
+                flex: 1,
+                display: "flex",
+                flexDirection: "column",
+                alignItems: "center",
+                justifyContent: "center",
+                gap: 8,
+                padding: 32,
+                color: "var(--text-muted)",
+              }}
+            >
+              <span style={{ fontSize: 18, fontWeight: 600, color: "var(--text-body)" }}>{activeMemberSubMenu}</span>
+              <span style={{ fontSize: 14 }}>화면 준비 중입니다.</span>
+            </div>
           ) : (
             <MemberManagementView
               memberId={selectedMember}

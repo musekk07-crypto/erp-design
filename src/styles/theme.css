@@ -12,6 +12,10 @@
   --nav-active-text: #ffffff;
   --nav-hover-bg: #203899;
   --nav-hover-text: #ffffff;
+  --nav-dropdown-bg: #0a1220;
+  --nav-dropdown-border: rgba(255, 255, 255, 0.12);
+  --nav-dropdown-text: rgba(255, 255, 255, 0.92);
+  --nav-dropdown-hover-bg: rgba(40, 67, 184, 0.55);
   --nav-divider: rgba(255,255,255,0.3);
   --nav-avatar-bg: rgba(255,255,255,0.2);
   --sidebar-bg: #eceef2;
@@ -107,6 +111,10 @@
   --nav-active-text: #ffffff;
   --nav-hover-bg: #7c3aed;
   --nav-hover-text: #ffffff;
+  --nav-dropdown-bg: #0c0e14;
+  --nav-dropdown-border: rgba(255, 255, 255, 0.1);
+  --nav-dropdown-text: rgba(226, 232, 240, 0.92);
+  --nav-dropdown-hover-bg: rgba(124, 58, 237, 0.45);
   --nav-divider: rgba(255, 255, 255, 0.12);
   --nav-avatar-bg: rgba(94, 207, 255, 0.2);
   --sidebar-bg: #323a4d;

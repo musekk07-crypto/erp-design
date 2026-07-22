@@ -26,6 +26,56 @@
   background: var(--nav-active-bg, #2843b8);
 }
 
+.main-nav-item-wrap {
+  position: relative;
+  display: flex;
+  align-self: stretch;
+}
+
+.main-nav-item.is-dropdown-open {
+  background: var(--nav-active-bg, #2843b8);
+  color: var(--nav-active-text, #ffffff);
+}
+
+.main-nav-dropdown {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  z-index: 200;
+  min-width: 220px;
+  padding: 6px 0;
+  background: var(--nav-dropdown-bg, #0a1220);
+  border: 1px solid var(--nav-dropdown-border, rgba(255, 255, 255, 0.12));
+  box-shadow: 0 10px 28px rgba(0, 0, 0, 0.35);
+}
+
+.main-nav-dropdown-item {
+  display: block;
+  width: 100%;
+  padding: 10px 18px;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 1.35;
+  text-align: left;
+  color: var(--nav-dropdown-text, rgba(255, 255, 255, 0.92));
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  transition: background 0.15s ease, color 0.15s ease;
+  white-space: nowrap;
+}
+
+.main-nav-dropdown-item:hover {
+  background: var(--nav-dropdown-hover-bg, rgba(40, 67, 184, 0.55));
+  color: #ffffff;
+}
+
+.main-nav-dropdown-item.is-active {
+  background: var(--nav-active-bg, #2843b8);
+  color: #ffffff;
+  font-weight: 600;
+}
+
 /* 상세 패널 — 폴더 탭 (회원정보 페이지 내부) */
 .member-page-chrome {
   flex-shrink: 0;
