@@ -1217,7 +1217,7 @@ textarea.mm2-name-box:focus {
 }
 
 .mm2-consent-item input {
-  accent-color: var(--accent-primary);
+  accent-color: var(--checkbox-accent, var(--nav-active-bg, #2843b8));
   width: 14px;
   height: 14px;
   margin: 0;
@@ -2124,7 +2124,7 @@ textarea.mm2-name-box:focus {
 }
 
 .order-mgmt-radio-item input {
-  accent-color: var(--accent-primary);
+  accent-color: var(--checkbox-accent, var(--nav-active-bg, #2843b8));
   margin: 0;
 }
 
@@ -2239,7 +2239,7 @@ textarea.mm2-name-box:focus {
 }
 
 .order-mgmt-checkbox-field input {
-  accent-color: var(--accent-primary);
+  accent-color: var(--checkbox-accent, var(--nav-active-bg, #2843b8));
 }
 
 .order-mgmt-footer {

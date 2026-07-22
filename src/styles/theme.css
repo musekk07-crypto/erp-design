@@ -23,6 +23,7 @@
   --accent-border: #7dd3fc;
   --accent-gradient: linear-gradient(135deg, #0284c7, #0369a1);
   --required-color: var(--nav-active-bg);
+  --checkbox-accent: var(--nav-active-bg);
   --section-icon-bg: #0284c7;
   --section-icon-color: #ffffff;
   --content-form-section-header-bg: #d6ebf9;
@@ -115,6 +116,7 @@
   --accent-border: #2d6a8f;
   --accent-gradient: linear-gradient(135deg, #38bdf8, #5ecfff);
   --required-color: #5ecfff;
+  --checkbox-accent: var(--accent-primary);
   --section-icon-bg: transparent;
   --section-icon-color: #5ecfff;
   --content-form-section-header-bg: #1a3045;
@@ -515,6 +517,10 @@
 .app-content .content-form-section > button > span:first-child:not(.text-sm):not(.flex-1) svg {
   background: transparent !important;
   color: var(--section-icon-color) !important;
+}
+
+input[type="checkbox"] {
+  accent-color: var(--checkbox-accent, var(--nav-active-bg, #2843b8));
 }
 
 .app-content .content-form-section--org > button {

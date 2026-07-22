@@ -938,7 +938,7 @@ function MemberTable({ selectedId, onSelect, listOpen = false, listWidth = MEMBE
                   type="checkbox"
                   checked={paged.length > 0 && paged.every((m) => checked.has(m.id))}
                   onChange={toggleAll}
-                  style={{ accentColor: "var(--accent-primary)", cursor: "pointer" }}
+                  style={{ accentColor: "var(--checkbox-accent)", cursor: "pointer" }}
                 />
               </th>
               {columns.map((col) => (
@@ -984,7 +984,7 @@ function MemberTable({ selectedId, onSelect, listOpen = false, listWidth = MEMBE
                   className={`member-table-row${isSelected ? " is-selected" : isChecked ? " is-checked" : ""}`}
                 >
                   <td style={{ padding: "5px 5px", textAlign: "center" }} onClick={(e) => e.stopPropagation()}>
-                    <input type="checkbox" checked={isChecked} onChange={() => toggleOne(member.id)} style={{ accentColor: "var(--accent-primary)", cursor: "pointer" }} />
+                    <input type="checkbox" checked={isChecked} onChange={() => toggleOne(member.id)} style={{ accentColor: "var(--checkbox-accent)", cursor: "pointer" }} />
                   </td>
                   <td style={{ ...cellBase, fontSize: 12, color: "var(--text-subtle)" }}>{member.id}</td>
                   <td style={{ ...cellBase, fontSize: 12, fontFamily: "monospace", color: isSelected ? "var(--accent-primary)" : "var(--text-body)", fontWeight: isSelected ? 600 : 400 }}>{member.no}</td>
@@ -1173,7 +1173,7 @@ function SplitTableBlock({
           <thead className="split-table-head" style={{ position: "sticky", top: 0, zIndex: 2 }}>
             <tr style={{ background: "var(--split-table-header-bg, var(--surface-table-header))", borderBottom: "1px solid var(--split-table-header-border, var(--border))" }}>
               <th style={checkboxHeaderStyle}>
-                <input type="checkbox" readOnly style={{ accentColor: "var(--accent-primary)", cursor: "pointer" }} />
+                <input type="checkbox" readOnly style={{ accentColor: "var(--checkbox-accent)", cursor: "pointer" }} />
               </th>
               {columns.map((col) => (
                 <th
@@ -1199,7 +1199,7 @@ function SplitTableBlock({
             {rows.map((row, index) => (
               <tr key={index} className="member-table-row">
                 <td style={{ ...cellStyle, ...checkboxCellStyle }}>
-                  <input type="checkbox" readOnly style={{ accentColor: "var(--accent-primary)", cursor: "pointer" }} />
+                  <input type="checkbox" readOnly style={{ accentColor: "var(--checkbox-accent)", cursor: "pointer" }} />
                 </td>
                 {columns.map((col) => (
                   <td
@@ -2815,7 +2815,7 @@ function MemberInfoBody({
                 <input
                   type="checkbox"
                   defaultChecked={item.checked}
-                  style={{ accentColor: "var(--accent-primary)", width: 14, height: 14, cursor: "pointer" }}
+                  style={{ accentColor: "var(--checkbox-accent)", width: 14, height: 14, cursor: "pointer" }}
                 />
                 <span style={{ fontSize: 12, color: "var(--foreground)" }}>{item.label}</span>
               </label>

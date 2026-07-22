@@ -384,7 +384,7 @@ function OmDataTable({
               }}
             >
               <th style={checkboxHeaderStyle}>
-                <input type="checkbox" readOnly style={{ accentColor: "var(--accent-primary)", cursor: "pointer" }} />
+                <input type="checkbox" readOnly style={{ accentColor: "var(--checkbox-accent)", cursor: "pointer" }} />
               </th>
               {columns.map((col) => (
                 <th
@@ -414,7 +414,7 @@ function OmDataTable({
                   style={{ cursor: onSelectRow ? "pointer" : undefined }}
                 >
                   <td style={checkboxCellStyle} onClick={(e) => e.stopPropagation()}>
-                    <input type="checkbox" readOnly style={{ accentColor: "var(--accent-primary)", cursor: "pointer" }} />
+                    <input type="checkbox" readOnly style={{ accentColor: "var(--checkbox-accent)", cursor: "pointer" }} />
                   </td>
                   {columns.map((col) => (
                     <td key={col.key} style={getDataCellStyle(col)}>
@@ -423,7 +423,7 @@ function OmDataTable({
                           type="checkbox"
                           readOnly
                           defaultChecked={Boolean(row[col.key])}
-                          style={{ accentColor: "var(--accent-primary)", cursor: "pointer" }}
+                          style={{ accentColor: "var(--checkbox-accent)", cursor: "pointer" }}
                         />
                       ) : (
                         row[col.key] ?? ""

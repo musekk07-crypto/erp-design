@@ -541,7 +541,7 @@ export function MemberDetail({ onClose }: { onClose?: () => void }) {
                 <input
                   type="checkbox"
                   defaultChecked={item.checked}
-                  style={{ accentColor: "var(--accent-primary)", width: 14, height: 14, cursor: "pointer" }}
+                  style={{ accentColor: "var(--checkbox-accent)", width: 14, height: 14, cursor: "pointer" }}
                 />
                 <span style={{ fontSize: 11, color: "var(--foreground)" }}>{item.label}</span>
               </label>

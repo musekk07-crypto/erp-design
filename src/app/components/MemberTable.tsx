@@ -146,7 +146,7 @@ function SortIcon({ col }: { col: string }) {
                   type="checkbox"
                   checked={checked.size === sorted.length && sorted.length > 0}
                   onChange={toggleAll}
-                  style={{ accentColor: "var(--accent-primary)", cursor: "pointer" }}
+                  style={{ accentColor: "var(--checkbox-accent)", cursor: "pointer" }}
                 />
               </th>
               {columns.map((col) => (
@@ -192,7 +192,7 @@ function SortIcon({ col }: { col: string }) {
                   onMouseLeave={(e) => { (e.currentTarget as HTMLElement).style.background = isSelected ? "var(--surface-row-selected)" : isChecked ? "var(--surface-row-checked)" : "transparent"; }}
                 >
                   <td style={{ padding: "7px 12px", textAlign: "center" }} onClick={(e) => e.stopPropagation()}>
-                    <input type="checkbox" checked={isChecked} onChange={() => toggleOne(member.id)} style={{ accentColor: "var(--accent-primary)", cursor: "pointer" }} />
+                    <input type="checkbox" checked={isChecked} onChange={() => toggleOne(member.id)} style={{ accentColor: "var(--checkbox-accent)", cursor: "pointer" }} />
                   </td>
                   <td style={{ ...cellBase, fontSize: 13, color: "#94a3b8" }}>{member.id}</td>
                   <td style={{ ...cellBase, fontSize: 13, fontFamily: "monospace", color: isSelected ? "var(--accent-primary)" : "#1e2130", fontWeight: isSelected ? 600 : 400 }}>{member.no}</td>
