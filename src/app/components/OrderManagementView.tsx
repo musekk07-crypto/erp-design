@@ -274,6 +274,7 @@ function OmDataTable({
   layout = "fill",
   spreadTailFrom,
   disableFiller = false,
+  showFullText = false,
 }: {
   columns: OmColumn[];
   rows: Record<string, string | number>[];
@@ -283,9 +284,10 @@ function OmDataTable({
   layout?: "fill" | "compact";
   spreadTailFrom?: number;
   disableFiller?: boolean;
+  showFullText?: boolean;
 }) {
   const isCompact = layout === "compact";
-  const useEdgeSpread = isCompact && spreadTailFrom !== undefined;
+  const useEdgeSpread = isCompact && spreadTailFrom !== undefined && !showFullText;
   const useFiller = isCompact && !useEdgeSpread && !disableFiller;
   const useFixedMinScroll = !useEdgeSpread;
   const enableHorizontalScroll = useFixedMinScroll;
@@ -298,8 +300,9 @@ function OmDataTable({
     fontSize: 14,
     color: "var(--text-body)",
     whiteSpace: "nowrap",
-    overflow: "hidden",
-    textOverflow: "ellipsis",
+    ...(showFullText
+      ? { overflow: "visible", textOverflow: "clip" }
+      : { overflow: "hidden", textOverflow: "ellipsis" }),
   };
 
   const checkboxCellStyle: React.CSSProperties = {
@@ -308,8 +311,9 @@ function OmDataTable({
     fontSize: 14,
     color: "var(--text-body)",
     whiteSpace: "nowrap",
-    overflow: "hidden",
-    textOverflow: "ellipsis",
+    ...(showFullText
+      ? { overflow: "visible", textOverflow: "clip" }
+      : { overflow: "hidden", textOverflow: "ellipsis" }),
   };
 
   const checkboxHeaderStyle: React.CSSProperties = {
@@ -353,9 +357,9 @@ function OmDataTable({
         <table
           style={{
             borderCollapse: "collapse",
-            width: useEdgeSpread ? "100%" : useFixedMinScroll ? tableMinWidth : "100%",
+            width: useEdgeSpread ? "100%" : showFullText ? "max-content" : useFixedMinScroll ? tableMinWidth : "100%",
             minWidth: enableHorizontalScroll ? tableMinWidth : undefined,
-            tableLayout: "fixed",
+            tableLayout: showFullText ? "auto" : "fixed",
           }}
         >
           <colgroup>
@@ -853,7 +857,7 @@ export function OrderManagementView({ member }: { member: ProfileMember }) {
               columns={orderListColumns}
               rows={orderListRows}
               layout="compact"
-              spreadTailFrom={4}
+              showFullText
               selectedRow={selectedOrder}
               onSelectRow={setSelectedOrder}
             />
@@ -890,7 +894,7 @@ export function OrderManagementView({ member }: { member: ProfileMember }) {
               columns={productListColumns}
               rows={productListRows}
               layout="compact"
-              spreadTailFrom={3}
+              showFullText
               summaryRow={{
                 no: "",
                 code: "",

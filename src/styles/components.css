@@ -1744,7 +1744,17 @@ textarea.mm2-name-box:focus {
 }
 
 .order-mgmt-table-wrap--scroll-x > div {
-  overflow-x: hidden !important;
+  overflow-x: auto !important;
+  scrollbar-width: thin;
+}
+
+.order-mgmt-table-wrap--scroll-x > div::-webkit-scrollbar {
+  height: 8px;
+}
+
+.order-mgmt-table-wrap--scroll-x > div::-webkit-scrollbar-thumb {
+  background: var(--scrollbar-thumb, #cbd5e1);
+  border-radius: 4px;
 }
 
 .order-mgmt-summary-row td {
