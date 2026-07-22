@@ -401,7 +401,6 @@ type OrgChartSvgProps = {
   downline?: OrgNode;
   extraBelow?: string;
   moreChildren?: { name: string; id: number; displayId?: number }[];
-  extraBelowBatch?: number;
 };
 
 function OrgChartSvg({
@@ -417,7 +416,6 @@ function OrgChartSvg({
   downline,
   extraBelow,
   moreChildren = [],
-  extraBelowBatch = 5,
 }: OrgChartSvgProps) {
   const [revealedBelow, setRevealedBelow] = useState(0);
   const HPAD = ORG_HPAD;
@@ -712,8 +710,7 @@ function OrgChartSvg({
               kind: "extra" as const,
               label: `외 ${remainingBelow}명`,
               h: EXTRA_H,
-              onClick: () =>
-                setRevealedBelow((count) => Math.min(count + extraBelowBatch, moreChildren.length)),
+              onClick: () => setRevealedBelow(moreChildren.length),
             }]
           : []
         : extraBelow
