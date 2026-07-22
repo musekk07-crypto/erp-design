@@ -749,6 +749,7 @@ export const members = [
   { id: 16, no: "N26683868", loginId: "mrshin",        name: "신미라", type: "일반",  regDate: "2025-03-25", status: "정상", rank: "멤버",  grade: "멤버",  phone: "010-6789-0123", ssn: "790325-2000...", region: "부산 사하" },
   { id: 17, no: "N26454707", loginId: "mskim",         name: "김묘신", type: "일반",  regDate: "2025-02-14", status: "정상", rank: "준회원", grade: "준회원", phone: "010-7890-1234", ssn: "660214-2000...", region: "울산 남구" },
   { id: 18, no: "N26016491", loginId: "hsh0913",       name: "홍순희", type: "일반",  regDate: "2026-04-17", status: "정상", rank: "정회원", grade: "회원",  phone: "010-5451-5030", ssn: "610923-2000000", region: "경기 양주" },
+  { id: 19, no: "N26705870", loginId: "jj9501",        name: "안점홍", type: "일반",  regDate: "2026-05-01", status: "정상", rank: "정회원", grade: "회원",  phone: "010-7769-9501", ssn: "500115-2000000", region: "뉴시아258" },
 ];
 
 type Member = (typeof members)[number];
