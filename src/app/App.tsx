@@ -3179,7 +3179,7 @@ function TopNav({
   onMemberSubMenuChange,
 }: TopNavProps) {
   const memberNavRef = useRef<HTMLDivElement>(null);
-  const workNotificationCount = 1;
+  const workNotificationCount = 2;
 
   useEffect(() => {
     if (!memberSubMenuOpen) return;
