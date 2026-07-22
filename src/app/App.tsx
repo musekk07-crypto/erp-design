@@ -374,7 +374,7 @@ type OrgNode = {
   points?: string;
 };
 
-type OrgLayoutType = "tree" | "linear" | "fork" | "tall-tree";
+type OrgLayoutType = "tree" | "linear" | "fork" | "tall-tree" | "sponsor";
 
 type OrgChartSvgProps = {
   layoutType: OrgLayoutType;
@@ -386,6 +386,7 @@ type OrgChartSvgProps = {
   showExtra: boolean;
   stackNodes?: OrgNode[];
   selfAtBottom?: boolean;
+  downline?: OrgNode;
 };
 
 function OrgChartSvg({
@@ -398,6 +399,7 @@ function OrgChartSvg({
   showExtra,
   stackNodes = [],
   selfAtBottom = false,
+  downline,
 }: OrgChartSvgProps) {
   const HPAD = ORG_HPAD;
   const VPAD = 8;
@@ -430,6 +432,43 @@ function OrgChartSvg({
             </foreignObject>
           </>
         )}
+        </g>
+      </svg>
+    );
+  }
+
+  if (layoutType === "sponsor") {
+    const centerY = CARD_H / 2;
+    const siblingY = centerY + CARD_H / 2 + GAP + CARD_H / 2;
+    const contentH = Math.max(CARD_H, siblingY + CARD_H / 2);
+    const yShift = getOrgChartTopShift(0);
+    const svgW = col3X + CARD_W + ORG_FOREIGN_PAD + HPAD;
+    const svgH = contentH + yShift + VPAD;
+
+    return (
+      <svg width={svgW} height={svgH} style={{ overflow: "visible", display: "block" }}>
+        <g transform={`translate(0, ${yShift})`}>
+          <foreignObject x={col1X} y={centerY - CARD_H / 2} width={CARD_W + 2} height={CARD_H + 2}>
+            <Card {...parent} />
+          </foreignObject>
+          <line x1={col1X + CARD_W} y1={centerY} x2={railMid} y2={centerY} stroke={BORDER_GRAY} strokeWidth={1} />
+          <line x1={railMid} y1={centerY} x2={col2X} y2={centerY} stroke={BORDER_GRAY} strokeWidth={1} />
+          <line x1={railMid} y1={centerY} x2={railMid} y2={siblingY} stroke={BORDER_GRAY} strokeWidth={1} />
+          <line x1={railMid} y1={siblingY} x2={col2X} y2={siblingY} stroke={BORDER_GRAY} strokeWidth={1} />
+          <foreignObject x={col2X} y={centerY - CARD_H / 2} width={CARD_W + 2} height={CARD_H + 2}>
+            <Card {...self} isSelf />
+          </foreignObject>
+          <foreignObject x={col2X} y={siblingY - CARD_H / 2} width={CARD_W + 2} height={CARD_H + 2}>
+            <Card {...sibling} />
+          </foreignObject>
+          {downline && (
+            <>
+              <line x1={col2X + CARD_W} y1={centerY} x2={col3X} y2={centerY} stroke={BORDER_GRAY} strokeWidth={1} />
+              <foreignObject x={col3X} y={centerY - CARD_H / 2} width={CARD_W + 2} height={CARD_H + 2}>
+                <Card {...downline} />
+              </foreignObject>
+            </>
+          )}
         </g>
       </svg>
     );
@@ -694,8 +733,8 @@ function OrgChart({ memberId, memberName }: OrgChartProps) {
   const activeSection = sections.find((section) => section.id === activeTab) ?? sections[0];
 
   useEffect(() => {
-    setActiveTab("recommender");
-  }, [memberId]);
+    setActiveTab(member.name === "안점홍" ? "sponsor" : "recommender");
+  }, [memberId, member.name]);
 
   return (
     <OrgChartHoverProvider>
@@ -766,6 +805,69 @@ function shiftOrgDate(dateStr: string, dayOffset: number) {
 }
 
 function buildOrgChartSections(memberId: number, memberName: string, member: Member) {
+  if (member.name === "안점홍") {
+    return [
+      {
+        id: "recommender" as const,
+        title: "추천인",
+        variant: {
+          layoutType: "tree" as const,
+          parent: createOrgNode("상위", "강성수", 904, "정회원", {
+            displayId: 0,
+            regDate: "2026-04-28",
+            points: "0",
+          }),
+          sibling: createOrgNode("형제", "윤미래", 908, "정회원", {
+            displayId: 1,
+            regDate: "2026-04-30",
+            points: "0",
+          }),
+          self: createOrgNode("나", member.name, member.id, "정회원", {
+            memberNo: member.no,
+            displayId: 0,
+            regDate: member.regDate,
+            points: "0",
+          }),
+          extraAbove: "외 2명",
+          children: [],
+          showExtra: true,
+          selfAtBottom: true,
+        },
+      },
+      {
+        id: "sponsor" as const,
+        title: "후원인",
+        variant: {
+          layoutType: "sponsor" as const,
+          parent: createOrgNode("상위", "허경옥", 905, "정회원", {
+            displayId: 0,
+            regDate: "2026-04-29",
+            points: "0",
+          }),
+          sibling: createOrgNode("형제", "최은주", 906, "정회원", {
+            displayId: 1,
+            regDate: "2026-05-01",
+            points: "0",
+          }),
+          self: createOrgNode("나", member.name, member.id, "정회원", {
+            memberNo: member.no,
+            displayId: 0,
+            regDate: member.regDate,
+            points: "0",
+          }),
+          downline: createOrgNode("하위", "김상경", 907, "정회원", {
+            displayId: 0,
+            regDate: "2026-05-01",
+            points: "0",
+          }),
+          extraAbove: "",
+          children: [],
+          showExtra: false,
+        },
+      },
+    ];
+  }
+
   if (member.name === "홍순희") {
     return [
       {
@@ -3697,7 +3799,7 @@ function Sidebar({ showMemberNav, activePanel, onPanelToggle, theme, onThemeChan
 // ─────────────────────────────────────────────
 
 export default function App() {
-  const [selectedMember, setSelectedMember] = useState(1);
+  const [selectedMember, setSelectedMember] = useState(19);
   const [listOpen, setListOpen] = useState(false);
   const [isListResizing, setIsListResizing] = useState(false);
   const [listWidth, setListWidth] = useState(() => clampMemberListWidth(MEMBER_LIST_DEFAULT_WIDTH));
