@@ -907,6 +907,7 @@ span.member-form-action-chip {
 .org-chart-card__grade-wrap {
   display: flex;
   justify-content: center;
+  margin-top: 1px;
 }
 
 .org-chart-card__grade {
@@ -914,10 +915,10 @@ span.member-form-action-chip {
   align-items: center;
   justify-content: center;
   min-width: 44px;
-  height: 20px;
+  height: 22px;
   padding: 0 10px;
   border-radius: 999px;
-  font-size: 11px;
+  font-size: 12px;
   font-weight: 500;
   line-height: 1;
   white-space: nowrap;

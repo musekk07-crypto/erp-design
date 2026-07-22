@@ -32,8 +32,8 @@ const APP_MIN_WIDTH = 1280;
 const LIST_PANEL_TRANSITION_MS = 250;
 const LAYOUT_TRANSITION = `width ${LIST_PANEL_TRANSITION_MS}ms ease, min-width ${LIST_PANEL_TRANSITION_MS}ms ease`;
 const ORG_CARD_W = 167;
-const ORG_CARD_H = 126;
-const ORG_CHILD_CHIP_H = 38;
+const ORG_CARD_H = 138;
+const ORG_CHILD_CHIP_H = 40;
 const ORG_COL_GAP = 16;
 const ORG_HPAD = 6;
 const ORG_FOREIGN_PAD = 2;
@@ -87,7 +87,7 @@ const MM2_ORG_CHART_SCALE = 686 / ORG_CHART_WIDTH;
 const MM2_ORG_CHART_CONTENT_W = Math.ceil(ORG_CHART_WIDTH * MM2_ORG_CHART_SCALE);
 const MM2_ORG_CHART_CONTENT_H = Math.ceil(ORG_CHART_TABBED_CONTENT_HEIGHT * MM2_ORG_CHART_SCALE);
 const MM2_ORG_CHART_WIDTH = MM2_ORG_CHART_CONTENT_W + 2;
-const ORG_CARD_NAME_FONT_SIZE = 14.6 / MM2_ORG_CHART_SCALE;
+const ORG_CARD_NAME_FONT_SIZE = 15.6 / MM2_ORG_CHART_SCALE;
 const MM2_ORG_CHART_PANEL_HEIGHT =
   ORG_CHART_SECTION_HEADER_H + ORG_CHART_BODY_PAD_V + MM2_ORG_CHART_CONTENT_H + 2;
 const DETAIL_CONTENT_GAP = 12;
@@ -149,9 +149,9 @@ const EXTRA_H = 34;
 const GAP = 7;
 const COL_GAP = ORG_COL_GAP;
 
-const ORG_CARD_LABEL_FONT_SIZE = 13;
-const ORG_CARD_META_FONT_SIZE = 13;
-const ORG_CARD_BADGE_FONT_SIZE = 12;
+const ORG_CARD_LABEL_FONT_SIZE = 14;
+const ORG_CARD_META_FONT_SIZE = 14;
+const ORG_CARD_BADGE_FONT_SIZE = 13;
 
 function resolveOrgMemberNo(id: number, fallback?: string) {
   const ref = members.find((m) => m.id === id);
@@ -247,7 +247,7 @@ function Card({
   const metaStyle: React.CSSProperties = {
     fontSize: ORG_CARD_META_FONT_SIZE,
     color: "var(--org-text-muted)",
-    lineHeight: 1.35,
+    lineHeight: 1.45,
     fontWeight: 400,
   };
 
@@ -273,7 +273,7 @@ function Card({
       alignItems: "center",
       justifyContent: "center",
       textAlign: "center",
-      padding: "8px 6px",
+      padding: "10px 8px",
       position: "relative",
       boxSizing: "border-box",
       flexShrink: 0,
@@ -286,26 +286,26 @@ function Card({
           fontSize: ORG_CARD_BADGE_FONT_SIZE, padding: "2px 7px", borderRadius: 10, fontWeight: 700, lineHeight: 1.2,
         }}>자신</span>
       )}
-      <div className="org-chart-card__label" style={{ fontSize: ORG_CARD_LABEL_FONT_SIZE, color: LABEL_GRAY, marginBottom: useOrgLayout ? 3 : 4 }}>
+      <div className="org-chart-card__label" style={{ fontSize: ORG_CARD_LABEL_FONT_SIZE, color: LABEL_GRAY, marginBottom: useOrgLayout ? 5 : 6 }}>
         {isSelf ? "나" : label}
       </div>
       {useOrgLayout ? (
         <>
-          <div className="org-chart-card__name" style={{ fontSize: ORG_CARD_NAME_FONT_SIZE, fontWeight: 700, color: "var(--org-text)", marginBottom: 2 }}>
+          <div className="org-chart-card__name" style={{ fontSize: ORG_CARD_NAME_FONT_SIZE, fontWeight: 700, color: "var(--org-text)", marginBottom: 4 }}>
             {name}({displayId ?? id})
           </div>
-          <div className="org-chart-card__meta" style={{ ...metaStyle, marginBottom: 1 }}>{regDate}</div>
-          <div className="org-chart-card__grade-wrap" style={{ marginBottom: 1 }}>
+          <div className="org-chart-card__meta" style={{ ...metaStyle, marginBottom: 3 }}>{regDate}</div>
+          <div className="org-chart-card__grade-wrap" style={{ marginBottom: 3 }}>
             <OrgGradeBadge grade={grade} />
           </div>
           <div className="org-chart-card__meta" style={metaStyle}>{points}</div>
         </>
       ) : (
         <>
-          <div className="org-chart-card__name" style={{ fontSize: ORG_CARD_NAME_FONT_SIZE, fontWeight: 700, color: "var(--org-text)", marginBottom: 2 }}>
+          <div className="org-chart-card__name" style={{ fontSize: ORG_CARD_NAME_FONT_SIZE, fontWeight: 700, color: "var(--org-text)", marginBottom: 4 }}>
             {name}
           </div>
-          <div className="org-chart-card__meta" style={{ ...metaStyle, marginBottom: 4 }}>{memberNo}</div>
+          <div className="org-chart-card__meta" style={{ ...metaStyle, marginBottom: 6 }}>{memberNo}</div>
           <div className="org-chart-card__grade-wrap">
             <OrgGradeBadge grade={grade} />
           </div>
