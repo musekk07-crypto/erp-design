@@ -651,25 +651,26 @@ function OrgChartSvg({
     );
   }
 
-  // tree — 상위 → (외 N명 / 형제 / 나) → 하위
-  const col2Items = showExtra
+  // tree — 상위 → (나 / 형제 / 외 N명 또는 외 N명 / 형제 / 나) → 하위
+  type Col2ItemType = "extra" | "self" | "sibling";
+  const col2Items: { type: Col2ItemType; h: number }[] = showExtra
     ? selfAtBottom
       ? [
-          { type: "extra" as const, h: EXTRA_H },
-          { type: "node" as const, h: CARD_H },
-          { type: "node" as const, h: CARD_H },
+          { type: "extra", h: EXTRA_H },
+          { type: "sibling", h: CARD_H },
+          { type: "self", h: CARD_H },
         ]
       : [
-          { type: "extra" as const, h: EXTRA_H },
-          { type: "node" as const, h: CARD_H },
-          { type: "node" as const, h: CARD_H },
+          { type: "self", h: CARD_H },
+          { type: "sibling", h: CARD_H },
+          { type: "extra", h: EXTRA_H },
         ]
     : [
-        { type: "node" as const, h: CARD_H },
-        { type: "node" as const, h: CARD_H },
+        { type: "self", h: CARD_H },
+        { type: "sibling", h: CARD_H },
       ];
-  const selfIdx = showExtra ? (selfAtBottom ? 2 : 1) : 0;
-  const siblingIdx = showExtra ? (selfAtBottom ? 1 : 2) : 1;
+  const selfIdx = col2Items.findIndex((item) => item.type === "self");
+  const siblingIdx = col2Items.findIndex((item) => item.type === "sibling");
   const totalCol2H = col2Items.reduce((a, b) => a + b.h, 0) + GAP * (col2Items.length - 1);
 
   const col2Ys: number[] = [];
@@ -733,17 +734,27 @@ function OrgChartSvg({
       {col2Ys.map((cy, i) => (
         <line key={i} x1={railMid} y1={cy} x2={col2X} y2={cy} stroke={BORDER_GRAY} strokeWidth={1} />
       ))}
-      {showExtra && (
-        <foreignObject x={col2X} y={0} width={CARD_W + 2} height={EXTRA_H + 2}>
-          <ExtraBox label={extraAbove} />
-        </foreignObject>
-      )}
-      <foreignObject x={col2X} y={col2Ys[selfIdx] - CARD_H / 2} width={CARD_W + 2} height={CARD_H + 2}>
-        <Card {...self} isSelf />
-      </foreignObject>
-      <foreignObject x={col2X} y={col2Ys[siblingIdx] - CARD_H / 2} width={CARD_W + 2} height={CARD_H + 2}>
-        <Card {...sibling} />
-      </foreignObject>
+      {col2Items.map((item, i) => {
+        if (item.type === "extra") {
+          return (
+            <foreignObject key="extra" x={col2X} y={col2Ys[i] - EXTRA_H / 2} width={CARD_W + 2} height={EXTRA_H + 2}>
+              <ExtraBox label={extraAbove} />
+            </foreignObject>
+          );
+        }
+        if (item.type === "self") {
+          return (
+            <foreignObject key="self" x={col2X} y={col2Ys[i] - CARD_H / 2} width={CARD_W + 2} height={CARD_H + 2}>
+              <Card {...self} isSelf />
+            </foreignObject>
+          );
+        }
+        return (
+          <foreignObject key="sibling" x={col2X} y={col2Ys[i] - CARD_H / 2} width={CARD_W + 2} height={CARD_H + 2}>
+            <Card {...sibling} />
+          </foreignObject>
+        );
+      })}
       {col3Layout.positioned.length > 0 && (
         <>
           <line x1={col2X + CARD_W} y1={selfCenterY} x2={railRight} y2={selfCenterY} stroke={BORDER_GRAY} strokeWidth={1} />
@@ -899,7 +910,6 @@ function buildOrgChartSections(memberId: number, memberName: string, member: Mem
             { name: "김희수", id: 929, displayId: 9 },
           ],
           showExtra: true,
-          selfAtBottom: true,
         },
       },
       {
