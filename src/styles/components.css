@@ -63,18 +63,20 @@
 }
 
 .nav-work-notification-badge {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
+  display: grid;
+  place-items: center;
   flex-shrink: 0;
+  box-sizing: border-box;
+  width: 16px;
   min-width: 16px;
   height: 16px;
-  padding: 0 4px;
-  border-radius: 999px;
+  padding: 0;
+  border-radius: 50%;
   background: #ef4444;
   color: #ffffff;
   font-size: 10px;
   font-weight: 700;
+  font-variant-numeric: tabular-nums;
   line-height: 1;
   text-align: center;
 }
