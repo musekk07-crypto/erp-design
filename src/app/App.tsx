@@ -3407,13 +3407,6 @@ function Sidebar({ showMemberNav, activePanel, onPanelToggle, theme, onThemeChan
             </button>
           ))}
         </div>
-
-        <div
-          className="w-9 h-9 rounded flex items-center justify-center mt-1 cursor-pointer"
-          style={{ background: "linear-gradient(135deg, #0ea5e9, #6366f1)" }}
-        >
-          <span className="text-white text-xs font-semibold">관</span>
-        </div>
       </div>
     </div>
   );
