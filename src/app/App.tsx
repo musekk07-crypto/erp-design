@@ -3115,8 +3115,6 @@ function VisitHistoryBar({
 interface TopNavProps {
   activeMainMenu: string;
   onMainMenuChange: (menu: string) => void;
-  memberSubMenuOpen: boolean;
-  onMemberSubMenuOpenChange: (open: boolean) => void;
   activeMemberSubMenu: string;
   onMemberSubMenuChange: (item: string) => void;
 }
@@ -3346,24 +3344,10 @@ function MemberPageChrome({ activeTab, onTabChange }: MemberPageChromeProps) {
 function TopNav({
   activeMainMenu,
   onMainMenuChange,
-  memberSubMenuOpen,
-  onMemberSubMenuOpenChange,
   activeMemberSubMenu,
   onMemberSubMenuChange,
 }: TopNavProps) {
-  const memberNavRef = useRef<HTMLDivElement>(null);
   const workNotificationCount = 3;
-
-  useEffect(() => {
-    if (!memberSubMenuOpen) return;
-    function handleClickOutside(e: MouseEvent) {
-      if (memberNavRef.current && !memberNavRef.current.contains(e.target as Node)) {
-        onMemberSubMenuOpenChange(false);
-      }
-    }
-    document.addEventListener("mousedown", handleClickOutside);
-    return () => document.removeEventListener("mousedown", handleClickOutside);
-  }, [memberSubMenuOpen, onMemberSubMenuOpenChange]);
 
   return (
     <div className="top-nav-shell" style={{ flexShrink: 0, minWidth: APP_MIN_WIDTH }}>
@@ -3389,46 +3373,33 @@ function TopNav({
 
             if (isMemberMenu) {
               return (
-                <div key={menu} ref={memberNavRef} className="main-nav-item-wrap">
+                <div key={menu} className="main-nav-item-wrap">
                   <button
                     type="button"
-                    onClick={() => {
-                      if (isActive) {
-                        onMemberSubMenuOpenChange(!memberSubMenuOpen);
-                      } else {
-                        onMainMenuChange(menu);
-                        onMemberSubMenuOpenChange(true);
-                      }
-                    }}
-                    className={`main-nav-item${isActive ? " is-active" : ""}${memberSubMenuOpen && isActive ? " is-dropdown-open" : ""}`}
-                    aria-expanded={memberSubMenuOpen && isActive}
+                    onClick={() => onMainMenuChange(menu)}
+                    className={`main-nav-item${isActive ? " is-active" : ""}`}
                     aria-haspopup="menu"
                   >
                     {menu}
                   </button>
-                  {memberSubMenuOpen && isActive && (
-                    <div className="main-nav-dropdown main-nav-dropdown--grouped" role="menu">
-                      {memberSubMenuGroups.map((group) => (
-                        <div key={group.title} className="main-nav-dropdown-group">
-                          <div className="main-nav-dropdown-group-title">{group.title}</div>
-                          {group.items.map((item) => (
-                            <button
-                              key={item}
-                              type="button"
-                              role="menuitem"
-                              className="main-nav-dropdown-item"
-                              onClick={() => {
-                                onMemberSubMenuChange(item);
-                                onMemberSubMenuOpenChange(false);
-                              }}
-                            >
-                              {item}
-                            </button>
-                          ))}
-                        </div>
-                      ))}
-                    </div>
-                  )}
+                  <div className="main-nav-dropdown main-nav-dropdown--grouped" role="menu">
+                    {memberSubMenuGroups.map((group) => (
+                      <div key={group.title} className="main-nav-dropdown-group">
+                        <div className="main-nav-dropdown-group-title">{group.title}</div>
+                        {group.items.map((item) => (
+                          <button
+                            key={item}
+                            type="button"
+                            role="menuitem"
+                            className="main-nav-dropdown-item"
+                            onClick={() => onMemberSubMenuChange(item)}
+                          >
+                            {item}
+                          </button>
+                        ))}
+                      </div>
+                    ))}
+                  </div>
                 </div>
               );
             }
@@ -3437,10 +3408,7 @@ function TopNav({
               <button
                 key={menu}
                 type="button"
-                onClick={() => {
-                  onMainMenuChange(menu);
-                  onMemberSubMenuOpenChange(false);
-                }}
+                onClick={() => onMainMenuChange(menu)}
                 className={`main-nav-item${isActive ? " is-active" : ""}`}
               >
                 {menu}
@@ -3600,7 +3568,6 @@ export default function App() {
   const [listWidth, setListWidth] = useState(() => clampMemberListWidth(MEMBER_LIST_DEFAULT_WIDTH));
   const [activeTab, setActiveTab] = useState("회원정보");
   const [activeMainMenu, setActiveMainMenu] = useState("회원관리");
-  const [memberSubMenuOpen, setMemberSubMenuOpen] = useState(false);
   const [activeMemberSubMenu, setActiveMemberSubMenu] = useState("회원등록");
   const [theme, setTheme] = useState<Theme>("deep-purple");
   const [historyRailExpanded, setHistoryRailExpanded] = useState(true);
@@ -3714,9 +3681,6 @@ export default function App() {
     if (!keepsMemberListNav) {
       setListOpen(false);
     }
-    if (menu !== "회원관리") {
-      setMemberSubMenuOpen(false);
-    }
   }, [activeMemberSubMenu]);
 
   const handleMemberSubMenuChange = useCallback((item: string) => {
@@ -3762,8 +3726,6 @@ export default function App() {
       <TopNav
         activeMainMenu={activeMainMenu}
         onMainMenuChange={handleMainMenuChange}
-        memberSubMenuOpen={memberSubMenuOpen}
-        onMemberSubMenuOpenChange={setMemberSubMenuOpen}
         activeMemberSubMenu={activeMemberSubMenu}
         onMemberSubMenuChange={handleMemberSubMenuChange}
       />
