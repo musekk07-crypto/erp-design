@@ -195,6 +195,7 @@
   --org-label: #6b7a8f;
   --org-text: #e2e8f0;
   --org-text-muted: #9aa8b8;
+  --org-text-withdrawn: #64748b;
   --org-link: #5ecfff;
   --org-self-accent: #0284c7;
   --org-grade-badge-bg: #0c4a6e;
@@ -289,6 +290,7 @@
   --org-label: #94a3b8;
   --org-text: #1e2130;
   --org-text-muted: #64748b;
+  --org-text-withdrawn: #9ca3af;
   --org-link: var(--nav-active-bg, #2843b8);
   --org-self-accent: #0284c7;
   --org-grade-badge-bg: #dbeafe;

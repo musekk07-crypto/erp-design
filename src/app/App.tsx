@@ -170,6 +170,10 @@ function resolveOrgMemberRecord(id: number, name: string) {
   return members.find((m) => m.id === id) ?? members.find((m) => m.name === name);
 }
 
+function isOrgMemberWithdrawn(id: number, name: string) {
+  return resolveOrgMemberRecord(id, name)?.status === "탈퇴";
+}
+
 function buildOrgMemberDetail(id: number, name: string, memberNo: string, grade: string): OrgMemberDetail {
   const member = resolveOrgMemberRecord(id, name);
   const recommender = members[(Math.max(id, 1) + 2) % members.length];
@@ -201,6 +205,7 @@ function Card({ label, name, memberNo, grade, id, isSelf = false }: {
 }) {
   const hover = useOrgChartHover();
   const rootRef = useRef<HTMLDivElement>(null);
+  const isWithdrawn = isOrgMemberWithdrawn(id, name);
   const metaStyle: React.CSSProperties = {
     fontSize: ORG_CARD_META_FONT_SIZE,
     color: "var(--org-text-muted)",
@@ -211,7 +216,7 @@ function Card({ label, name, memberNo, grade, id, isSelf = false }: {
   return (
     <div
       ref={rootRef}
-      className="org-chart-card org-chart-card--interactive"
+      className={`org-chart-card org-chart-card--interactive${isWithdrawn ? " org-chart-card--withdrawn" : ""}`}
       onMouseEnter={() => {
         if (!hover || !rootRef.current) return;
         hover.cancelHide();
@@ -243,15 +248,17 @@ function Card({ label, name, memberNo, grade, id, isSelf = false }: {
           fontSize: ORG_CARD_BADGE_FONT_SIZE, padding: "2px 7px", borderRadius: 10, fontWeight: 700, lineHeight: 1.2,
         }}>자신</span>
       )}
-      <div style={{ fontSize: ORG_CARD_LABEL_FONT_SIZE, color: LABEL_GRAY, marginBottom: 4 }}>
+      <div className="org-chart-card__label" style={{ fontSize: ORG_CARD_LABEL_FONT_SIZE, color: LABEL_GRAY, marginBottom: 4 }}>
         {isSelf ? "나" : label}
       </div>
-      <div style={{ fontSize: ORG_CARD_NAME_FONT_SIZE, fontWeight: 700, color: "var(--org-text)", marginBottom: 2 }}>
+      <div className="org-chart-card__name" style={{ fontSize: ORG_CARD_NAME_FONT_SIZE, fontWeight: 700, color: "var(--org-text)", marginBottom: 2 }}>
         {name}
       </div>
-      <div style={{ ...metaStyle, marginBottom: 4 }}>{memberNo}</div>
+      <div className="org-chart-card__meta" style={{ ...metaStyle, marginBottom: 4 }}>{memberNo}</div>
       <div>
-        <span style={{
+        <span
+          className="org-chart-card__grade"
+          style={{
           display: "inline-flex",
           alignItems: "center",
           height: 20,
@@ -294,11 +301,12 @@ function ChildChip({ name, id }: { name: string; id: number }) {
   const memberNo = resolveOrgMemberNo(id);
   const member = resolveOrgMemberRecord(id, name);
   const grade = member?.grade ?? "멤버";
+  const isWithdrawn = member?.status === "탈퇴";
 
   return (
     <div
       ref={rootRef}
-      className="org-chart-card org-chart-card--chip org-chart-card--interactive"
+      className={`org-chart-card org-chart-card--chip org-chart-card--interactive${isWithdrawn ? " org-chart-card--withdrawn" : ""}`}
       onMouseEnter={() => {
         if (!hover || !rootRef.current) return;
         hover.cancelHide();
@@ -317,7 +325,7 @@ function ChildChip({ name, id }: { name: string; id: number }) {
       width: CARD_W,
       fontSize: ORG_CARD_NAME_FONT_SIZE,
       fontWeight: 600,
-      color: "var(--org-text)",
+      color: isWithdrawn ? "var(--org-text-withdrawn, #9ca3af)" : "var(--org-text)",
       boxSizing: "border-box",
     }}
     >

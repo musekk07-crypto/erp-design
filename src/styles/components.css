@@ -912,6 +912,22 @@ span.member-form-action-chip {
   box-shadow: none;
 }
 
+.org-chart-card--withdrawn,
+.org-chart-card--withdrawn .org-chart-card__label,
+.org-chart-card--withdrawn .org-chart-card__name,
+.org-chart-card--withdrawn .org-chart-card__meta {
+  color: var(--org-text-withdrawn, #9ca3af) !important;
+}
+
+.org-chart-card--withdrawn .org-chart-card__grade {
+  background: var(--org-grade-badge-withdrawn-bg, #f3f4f6) !important;
+  color: var(--org-text-withdrawn, #9ca3af) !important;
+}
+
+.org-chart-card--chip.org-chart-card--withdrawn {
+  color: var(--org-text-withdrawn, #9ca3af);
+}
+
 .app-content .org-chart-card {
   box-shadow: none !important;
 }
