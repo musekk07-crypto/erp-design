@@ -986,6 +986,7 @@ span.member-form-action-chip {
 .org-chart-tabs__panel {
   display: flex;
   justify-content: center;
+  align-items: flex-start;
   width: 100%;
   min-height: 0;
 }

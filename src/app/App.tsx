@@ -44,12 +44,12 @@ function getOrgChartTopShift(contentTop: number) {
   return Math.max(ORG_CHART_CONTENT_TOP, ORG_CHART_CONTENT_TOP - contentTop);
 }
 
-function calcOrgChartMaxSvgHeight(maxChildren = 5) {
+function calcOrgChartMaxSvgHeight(maxChildren = 11) {
   const extraH = 34;
   const cardH = ORG_CARD_H;
   const childChipH = ORG_CHILD_CHIP_H;
   const gap = 7;
-  const col2Heights = [extraH, cardH, cardH];
+  const col2Heights = [cardH, cardH, extraH];
   const totalCol2H = col2Heights.reduce((sum, h) => sum + h, 0) + gap * (col2Heights.length - 1);
   const col2Ys: number[] = [];
   let y = 0;
@@ -57,12 +57,11 @@ function calcOrgChartMaxSvgHeight(maxChildren = 5) {
     col2Ys.push(y + h / 2);
     y += h + gap;
   });
-  const selfCenterY = col2Ys[1];
-  const stackH = childChipH * maxChildren + gap * (maxChildren - 1);
-  const top = selfCenterY - stackH / 2 + childChipH / 2;
-  const childYs = Array.from({ length: maxChildren }, (_, i) => top + i * (childChipH + gap));
-  const col3Bottom = childYs[maxChildren - 1] + childChipH / 2;
-  const col3Top = childYs[0] - childChipH / 2;
+  const selfCenterY = col2Ys[0];
+  const col3Count = maxChildren + 1;
+  const stackH = childChipH * maxChildren + extraH + gap * (col3Count - 1);
+  const col3Top = selfCenterY - childChipH / 2;
+  const col3Bottom = col3Top + stackH;
   const contentTop = Math.min(0, col3Top);
   const yShift = getOrgChartTopShift(contentTop);
   const contentH = Math.max(totalCol2H, col3Bottom);
@@ -691,8 +690,7 @@ function OrgChartSvg({
     ];
     if (entries.length === 0) return { entries: [], positioned: [] as { entry: Col3Entry; cy: number }[] };
 
-    const totalH = entries.reduce((sum, entry) => sum + entry.h, 0) + GAP * (entries.length - 1);
-    let y = selfCenterY - totalH / 2;
+    let y = selfCenterY - entries[0].h / 2;
     const positioned = entries.map((entry) => {
       const cy = y + entry.h / 2;
       y += entry.h + GAP;
