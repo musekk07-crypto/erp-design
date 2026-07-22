@@ -3217,7 +3217,7 @@ const bottomItems = [
 ];
 
 const themes: { key: Theme; color: string; label: string }[] = [
-  { key: "deep-purple", color: "#0f1d32", label: "라이트" },
+  { key: "deep-purple", color: "#0284c7", label: "라이트" },
   { key: "dark",        color: "#0f1117", label: "다크" },
 ];
 
