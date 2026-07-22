@@ -783,11 +783,12 @@ type OrgChartTabId = "recommender" | "sponsor";
 function OrgChart({ memberId, memberName }: OrgChartProps) {
   const member = getMemberById(memberId);
   const sections = buildOrgChartSections(memberId, memberName, member);
-  const [activeTab, setActiveTab] = useState<OrgChartTabId>("recommender");
+  const [activeTab, setActiveTab] = useState<OrgChartTabId>("sponsor");
   const activeSection = sections.find((section) => section.id === activeTab) ?? sections[0];
+  const inactiveTitle = activeTab === "sponsor" ? "추천인" : "후원인";
 
   useEffect(() => {
-    setActiveTab(["김상경", "안점홍"].includes(member.name) ? "sponsor" : "recommender");
+    setActiveTab("sponsor");
   }, [memberId, member.name]);
 
   return (
@@ -798,18 +799,16 @@ function OrgChart({ memberId, memberName }: OrgChartProps) {
         style={{ overflow: "visible", padding: "0 0 8px 0", width: "100%" }}
       >
         <div className="org-chart-tabs__bar" role="tablist" aria-label="조직도 관계">
-          {sections.map((section) => (
-            <button
-              key={section.id}
-              type="button"
-              role="tab"
-              aria-selected={activeTab === section.id}
-              className={`org-chart-tabs__tab${activeTab === section.id ? " is-active" : ""}`}
-              onClick={() => setActiveTab(section.id)}
-            >
-              {section.title}
-            </button>
-          ))}
+          <button
+            type="button"
+            role="tab"
+            aria-selected
+            aria-label={`${activeSection.title}, 클릭하면 ${inactiveTitle}(으)로 전환`}
+            className="org-chart-tabs__tab is-active"
+            onClick={() => setActiveTab(activeTab === "sponsor" ? "recommender" : "sponsor")}
+          >
+            {activeSection.title}
+          </button>
         </div>
         <div className="org-chart-tabs__panel" role="tabpanel" aria-label={activeSection.title}>
           <OrgChartSvg {...activeSection.variant} />

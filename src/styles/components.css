@@ -943,6 +943,10 @@ span.member-form-action-chip {
   margin-bottom: 8px;
 }
 
+.org-chart-tabs__bar:has(.org-chart-tabs__tab:only-child) {
+  justify-content: flex-start;
+}
+
 .org-chart-tabs__tab {
   position: relative;
   margin: 0;
