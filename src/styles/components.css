@@ -130,8 +130,8 @@
 .nav-korea-flag-icon {
   display: block;
   flex-shrink: 0;
-  border-radius: 2px;
-  box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.12);
+  border-radius: 3px;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.12);
 }
 
 .nav-logout-btn {

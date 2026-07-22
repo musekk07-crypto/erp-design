@@ -3122,35 +3122,70 @@ interface TopNavProps {
 }
 
 function KoreaFlagIcon() {
+  const bar = 1.15;
+  const gap = 1.55;
+
+  const renderThreeSolid = (x: number, y: number, w: number) => (
+    <>
+      <rect x={x} y={y} width={w} height={bar} fill="#1a1a1a" />
+      <rect x={x} y={y + gap} width={w} height={bar} fill="#1a1a1a" />
+      <rect x={x} y={y + gap * 2} width={w} height={bar} fill="#1a1a1a" />
+    </>
+  );
+
+  const renderThreeBroken = (x: number, y: number, w: number) => {
+    const half = (w - 0.9) / 2;
+    return (
+      <>
+        <rect x={x} y={y} width={half} height={bar} fill="#1a1a1a" />
+        <rect x={x + half + 0.9} y={y} width={half} height={bar} fill="#1a1a1a" />
+        <rect x={x} y={y + gap} width={half} height={bar} fill="#1a1a1a" />
+        <rect x={x + half + 0.9} y={y + gap} width={half} height={bar} fill="#1a1a1a" />
+        <rect x={x} y={y + gap * 2} width={half} height={bar} fill="#1a1a1a" />
+        <rect x={x + half + 0.9} y={y + gap * 2} width={half} height={bar} fill="#1a1a1a" />
+      </>
+    );
+  };
+
+  const renderGam = (x: number, y: number, w: number) => {
+    const half = (w - 0.9) / 2;
+    return (
+      <>
+        <rect x={x} y={y} width={w} height={bar} fill="#1a1a1a" />
+        <rect x={x} y={y + gap} width={half} height={bar} fill="#1a1a1a" />
+        <rect x={x + half + 0.9} y={y + gap} width={half} height={bar} fill="#1a1a1a" />
+        <rect x={x} y={y + gap * 2} width={w} height={bar} fill="#1a1a1a" />
+      </>
+    );
+  };
+
+  const renderRi = (x: number, y: number, w: number) => {
+    const half = (w - 0.9) / 2;
+    return (
+      <>
+        <rect x={x} y={y} width={half} height={bar} fill="#1a1a1a" />
+        <rect x={x + half + 0.9} y={y} width={half} height={bar} fill="#1a1a1a" />
+        <rect x={x} y={y + gap} width={w} height={bar} fill="#1a1a1a" />
+        <rect x={x} y={y + gap * 2} width={half} height={bar} fill="#1a1a1a" />
+        <rect x={x + half + 0.9} y={y + gap * 2} width={half} height={bar} fill="#1a1a1a" />
+      </>
+    );
+  };
+
   return (
-    <svg className="nav-korea-flag-icon" viewBox="0 0 36 24" width="22" height="15" aria-hidden>
-      <rect width="36" height="24" fill="#ffffff" />
-      <rect width="36" height="24" fill="none" stroke="rgba(0, 0, 0, 0.15)" strokeWidth="0.6" />
-      <g transform="translate(18 12)">
-        <circle r="6" fill="#c8102e" />
-        <path d="M0,-6 A6,6 0 0,1 0,6 A3,3 0 0,0 0,-6 Z" fill="#003478" />
-        <path d="M0,6 A6,6 0 0,1 0,-6 A3,3 0 0,0 0,6 Z" fill="#c8102e" />
-        <circle cy="-3" r="3" fill="#c8102e" />
-        <circle cy="3" r="3" fill="#003478" />
+    <svg className="nav-korea-flag-icon" viewBox="0 0 40 28" width="24" height="17" aria-hidden>
+      <rect width="40" height="28" rx="2" fill="#ffffff" />
+      <rect width="40" height="28" rx="2" fill="none" stroke="#cbd5e1" strokeWidth="0.8" />
+      <g transform="translate(20 14)">
+        <circle r="7" fill="#cd2e3a" />
+        <path d="M0,-7A7,7 0 0,1 0,7A3.5,3.5 0 0,1 0,0A3.5,3.5 0 0,0 0,-7Z" fill="#0047a0" />
+        <circle cy="-3.5" r="3.5" fill="#cd2e3a" />
+        <circle cy="3.5" r="3.5" fill="#0047a0" />
       </g>
-      <g fill="#000000">
-        <rect x="3" y="3" width="1.2" height="6" />
-        <rect x="3" y="3" width="6" height="1.2" />
-        <rect x="7.8" y="3" width="1.2" height="6" />
-        <rect x="3" y="7.8" width="6" height="1.2" />
-        <rect x="27" y="3" width="1.2" height="6" />
-        <rect x="27" y="3" width="6" height="1.2" />
-        <rect x="31.8" y="3" width="1.2" height="6" />
-        <rect x="27" y="7.8" width="6" height="1.2" />
-        <rect x="3" y="15" width="1.2" height="6" />
-        <rect x="3" y="15" width="6" height="1.2" />
-        <rect x="7.8" y="15" width="1.2" height="6" />
-        <rect x="3" y="19.8" width="6" height="1.2" />
-        <rect x="27" y="15" width="1.2" height="6" />
-        <rect x="27" y="15" width="6" height="1.2" />
-        <rect x="31.8" y="15" width="1.2" height="6" />
-        <rect x="27" y="19.8" width="6" height="1.2" />
-      </g>
+      <g>{renderThreeSolid(4.5, 4.5, 7.5)}</g>
+      <g>{renderGam(28, 4.5, 7.5)}</g>
+      <g>{renderRi(4.5, 18.5, 7.5)}</g>
+      <g>{renderThreeBroken(28, 18.5, 7.5)}</g>
     </svg>
   );
 }
