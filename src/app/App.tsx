@@ -1705,7 +1705,7 @@ function DetailSplitPanelView({
 
   return (
     <div
-      className="flex flex-col h-full min-h-0 w-full overflow-hidden"
+      className="flex flex-col h-full min-h-0 w-full overflow-hidden member-split-panel-view"
       style={{ background: "var(--surface-page)" }}
     >
       <button
