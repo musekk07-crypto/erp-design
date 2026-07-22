@@ -90,7 +90,7 @@
   width: 100%;
   line-height: 1;
   text-align: center;
-  transform: translateY(0.5px);
+  transform: translateY(-1px);
 }
 
 .nav-locale-select {
