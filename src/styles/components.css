@@ -923,7 +923,7 @@ span.member-form-action-chip {
   box-sizing: border-box;
   padding: 14px 16px 12px;
   background: #ffffff;
-  border: 1px solid #e0e7ff;
+  border: 1px solid var(--org-self-accent, #0284c7);
   border-radius: 10px;
   box-shadow: 0 8px 24px rgba(15, 23, 42, 0.12);
   font-size: 12px;
@@ -939,7 +939,7 @@ span.member-form-action-chip {
   width: 10px;
   height: 10px;
   background: #ffffff;
-  border: 1px solid #e0e7ff;
+  border: 1px solid var(--org-self-accent, #0284c7);
   transform: translateX(-50%) rotate(45deg);
 }
 
@@ -1042,14 +1042,14 @@ span.member-form-action-chip {
 
 [data-theme="dark"] .org-member-hover-popup {
   background: #1e2433;
-  border-color: rgba(129, 140, 248, 0.35);
+  border-color: var(--org-self-accent, #0284c7);
   color: #e2e8f0;
   box-shadow: 0 10px 28px rgba(0, 0, 0, 0.45);
 }
 
 [data-theme="dark"] .org-member-hover-popup::after {
   background: #1e2433;
-  border-color: rgba(129, 140, 248, 0.35);
+  border-color: var(--org-self-accent, #0284c7);
 }
 
 [data-theme="dark"] .org-member-hover-popup__row {
