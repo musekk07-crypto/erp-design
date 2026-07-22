@@ -561,9 +561,6 @@ span.member-form-action-chip {
 .member-form-split__group {
   flex: 1 1 0;
   min-width: 0;
-  border: 1px solid var(--form-field-divider, rgba(0, 0, 0, 0.1));
-  border-radius: 6px;
-  overflow: hidden;
   background: var(--surface-panel);
   padding: 4px 10px 6px;
   box-sizing: border-box;
@@ -579,10 +576,6 @@ span.member-form-action-chip {
 
 .member-form-split__group .content-form-grid--pair td:last-child {
   padding-right: 0;
-}
-
-[data-theme="dark"] .member-form-split__group {
-  border-color: rgba(255, 255, 255, 0.12);
 }
 
 .app-content .split-table-block td {
