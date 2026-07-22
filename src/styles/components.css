@@ -1236,7 +1236,7 @@ textarea.mm2-name-box:focus {
   --surface-row-selected: #e8eaef;
   --accent-primary: #2843b8;
   --order-mgmt-member-info-bg: #2843b8;
-  --order-mgmt-right-width: 780px;
+  --order-mgmt-right-width: 980px;
   --order-mgmt-toolbar-head-height: 60px;
   --order-mgmt-box-radius: var(--radius, 6px);
   --order-mgmt-block-title-color: #1e2130;
