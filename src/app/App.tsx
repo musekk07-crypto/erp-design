@@ -3058,13 +3058,11 @@ function MemberGeneralInfoForm({ member }: { member: Member }) {
                   </div>
                 </td>
               </tr>
-              <tr>
+              <tr className="form-row-dual">
                 <td className={labelCellClass}><span style={{ fontSize: "12px", color: "var(--form-label-color)", fontWeight: 500 }}>우편번호</span></td>
-                <td className={fieldWideCellClass} colSpan={fieldColSpan}><input defaultValue={info.zip} className="w-full rounded outline-none transition-all duration-200" style={{ ...inputStyle, background: "var(--surface-muted, #eef2f6)" }} {...focusProps} /></td>
-              </tr>
-              <tr>
+                <td className={fieldCellClass}><input defaultValue={info.zip} className="w-full rounded outline-none transition-all duration-200" style={{ ...inputStyle, background: "var(--surface-muted, #eef2f6)" }} {...focusProps} /></td>
                 <td className={labelCellClass}><span style={{ fontSize: "12px", color: "var(--form-label-color)", fontWeight: 500 }}>국가</span></td>
-                <td className={fieldWideCellClass} colSpan={fieldColSpan}>
+                <td className={fieldCellClass}>
                   <div className="relative" style={{ display: "inline-block", width: "100%" }}>
                     <select defaultValue={info.country} className="w-full rounded outline-none appearance-none" style={{ ...inputStyle, padding: "4px 28px 4px 8px" }} {...focusProps}>
                       <option value="South Korea">South Korea</option>
