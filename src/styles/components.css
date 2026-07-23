@@ -638,6 +638,27 @@ span.member-form-action-chip {
   padding-top: 0;
 }
 
+.member-form-full-row {
+  table-layout: fixed;
+}
+
+.member-form-full-row .col-label-1 {
+  width: var(--form-label-w, 108px);
+}
+
+.member-form-full-row .col-field-1 {
+  width: calc(100% - var(--form-label-w, 108px));
+}
+
+.member-form-full-row tbody tr td {
+  border-top: 1px solid var(--form-field-divider, rgba(0, 0, 0, 0.1));
+}
+
+.member-form-full-row td input {
+  width: 100%;
+  box-sizing: border-box;
+}
+
 .app-content .split-table-block td {
   padding-top: 6px !important;
   padding-bottom: 6px !important;

@@ -3048,10 +3048,6 @@ function MemberGeneralInfoForm({ member }: { member: Member }) {
                   </div>
                 </td>
               </tr>
-              <tr>
-                <td style={labelTdStyle}><span style={{ fontSize: "12px", color: "var(--form-label-color)", fontWeight: 500 }}>메모</span></td>
-                <td style={fieldTdStyle}><input key={`memo-${member.id}`} defaultValue={info.memo} className="w-full rounded outline-none transition-all duration-200" style={inputStyle} {...focusProps} /></td>
-              </tr>
             </>,
           )}
         </div>
@@ -3109,7 +3105,7 @@ function MemberGeneralInfoForm({ member }: { member: Member }) {
                 <td style={labelTdStyle}><span style={{ fontSize: "12px", color: "var(--form-label-color)", fontWeight: 500 }}>휴대폰번호</span></td>
                 <td style={fieldTdStyle}><input key={`phone-${member.id}`} defaultValue={info.phone} className="w-full rounded outline-none transition-all duration-200" style={inputStyle} {...focusProps} /></td>
               </tr>
-              <tr className="member-form-row--bottom-divider">
+              <tr>
                 <td style={labelTdStyle}><span style={{ fontSize: "12px", color: "var(--form-label-color)", fontWeight: 500 }}>세금신고번호</span></td>
                 <td style={fieldTdStyle}><input defaultValue={info.taxId} className="w-full rounded outline-none transition-all duration-200" style={inputStyle} {...focusProps} /></td>
               </tr>
@@ -3117,6 +3113,18 @@ function MemberGeneralInfoForm({ member }: { member: Member }) {
           )}
         </div>
       </div>
+      <table className="member-form-full-row content-form-grid content-form-grid--member content-form-grid--pair" style={{ width: "100%", borderCollapse: "collapse" }}>
+        <colgroup>
+          <col className="col-label-1" />
+          <col className="col-field-1" />
+        </colgroup>
+        <tbody>
+          <tr>
+            <td style={labelTdStyle}><span style={{ fontSize: "12px", color: "var(--form-label-color)", fontWeight: 500 }}>메모</span></td>
+            <td style={fieldTdStyle}><input key={`memo-${member.id}`} defaultValue={info.memo} className="w-full rounded outline-none transition-all duration-200" style={inputStyle} {...focusProps} /></td>
+          </tr>
+        </tbody>
+      </table>
     </FormSection>
   );
 }
