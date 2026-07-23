@@ -780,7 +780,7 @@ span.member-form-action-chip {
   padding-right: 10px !important;
 }
 
-.member-form-split .member-form-grid--split td input,
+.member-form-split .member-form-grid--split td input:not(.member-form-ssn-row__input),
 .member-form-split .member-form-grid--split td select,
 .member-form-split .member-form-grid--split td .relative,
 .member-form-split .member-form-grid--split td .member-form-address-stack,
@@ -792,31 +792,37 @@ span.member-form-action-chip {
 }
 
 .member-form-split .member-form-cell--field-wide {
-  overflow: hidden;
   max-width: 100%;
 }
 
 .member-form-ssn-row {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 54px auto;
+  gap: 4px;
+  align-items: center;
   width: 100%;
   min-width: 0;
-  max-width: 100%;
-  overflow: hidden;
 }
 
 .member-form-ssn-row__input {
-  flex: 1 1 0;
+  width: 100%;
   min-width: 0;
-  width: auto !important;
   max-width: 100%;
+  box-sizing: border-box;
 }
 
 .member-form-ssn-row__gender {
-  flex: 0 0 auto;
+  width: 54px;
+}
+
+.member-form-ssn-row__gender select {
+  width: 54px;
+  min-width: 54px;
+  box-sizing: border-box;
 }
 
 .member-form-ssn-row__chip {
-  flex: 0 0 auto;
-  max-width: 100%;
+  white-space: nowrap;
 }
 
 .member-form-split .member-form-grid--split td .relative {

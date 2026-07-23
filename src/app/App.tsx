@@ -3005,8 +3005,8 @@ function MemberGeneralInfoForm({ member }: { member: Member }) {
                   </span>
                 </td>
                 <td className={fieldWideCellClass} colSpan={fieldColSpan}>
-                  <div className="member-form-ssn-row flex gap-1 items-center">
-                    <input key={`ssn-${member.id}`} defaultValue={info.ssn} className="member-form-ssn-row__input flex-1 min-w-0 rounded outline-none transition-all duration-200" style={inputStyle} {...focusProps} />
+                  <div className="member-form-ssn-row">
+                    <input key={`ssn-${member.id}`} defaultValue={info.ssn} className="member-form-ssn-row__input rounded outline-none transition-all duration-200" style={inputStyle} {...focusProps} />
                     <div className="member-form-ssn-row__gender relative shrink-0">
                       <select defaultValue={info.gender} className="rounded outline-none appearance-none" style={{ ...inputStyle, width: 54, minWidth: 54, padding: "4px 22px 4px 8px" }} {...focusProps}>
                         <option value="남">남</option>
