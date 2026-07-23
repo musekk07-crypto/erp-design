@@ -2974,13 +2974,10 @@ function MemberGeneralInfoForm({ member }: { member: Member }) {
               <tr>
                 <td className={labelCellClass}><span style={{ fontSize: "12px", color: "var(--required-color)", fontWeight: 500 }}>* 고객 이름/성</span></td>
                 <td className={fieldWideCellClass} colSpan={fieldColSpan}>
-                  <div className="member-form-name-row">
-                    <input defaultValue={info.customerName} className="member-form-name-row__primary rounded outline-none transition-all duration-200" style={inputStyle} {...focusProps} />
-                    <span className="member-form-name-row__spacer" aria-hidden />
-                    <div className="member-form-name-row__extras">
-                      <input defaultValue={info.customerNameExtra1} className="rounded outline-none transition-all duration-200" style={inputStyle} {...focusProps} />
-                      <input defaultValue={info.customerNameExtra2} className="rounded outline-none transition-all duration-200" style={inputStyle} {...focusProps} />
-                    </div>
+                  <div className="flex gap-2">
+                    <input defaultValue={info.customerName} className="flex-1 min-w-0 rounded outline-none transition-all duration-200" style={inputStyle} {...focusProps} />
+                    <input defaultValue={info.customerNameExtra1} className="flex-1 min-w-0 rounded outline-none transition-all duration-200" style={inputStyle} {...focusProps} />
+                    <input defaultValue={info.customerNameExtra2} className="flex-1 min-w-0 rounded outline-none transition-all duration-200" style={inputStyle} {...focusProps} />
                   </div>
                 </td>
               </tr>

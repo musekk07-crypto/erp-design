@@ -825,40 +825,6 @@ span.member-form-action-chip {
   white-space: nowrap;
 }
 
-.member-form-name-row {
-  display: grid;
-  grid-template-columns: minmax(0, 1fr) var(--mf-split-label-2, 112px) minmax(0, 1fr);
-  align-items: center;
-  width: 100%;
-  min-width: 0;
-}
-
-.member-form-name-row__primary {
-  grid-column: 1;
-  width: 100%;
-  min-width: 0;
-  box-sizing: border-box;
-}
-
-.member-form-name-row__spacer {
-  grid-column: 2;
-  width: var(--mf-split-label-2, 112px);
-}
-
-.member-form-name-row__extras {
-  grid-column: 3;
-  display: flex;
-  gap: 8px;
-  min-width: 0;
-}
-
-.member-form-name-row__extras input {
-  flex: 1 1 0;
-  min-width: 0;
-  width: auto;
-  box-sizing: border-box;
-}
-
 .member-form-split .member-form-grid--split td .relative {
   display: block;
 }
