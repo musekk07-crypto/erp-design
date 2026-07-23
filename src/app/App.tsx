@@ -7,6 +7,7 @@ import {
   FilePlus, Save, Trash2, Award, Briefcase, MessageCircle, Key, Printer,
   Globe, Landmark, Contact, CheckCircle2, Phone, ExternalLink, Camera,
 } from "lucide-react";
+import { RecommenderSelectPopup } from "./components/RecommenderSelectPopup";
 import { OrderManagementView } from "./components/OrderManagementView";
 import { Mm2ProfileCard, buildMm2ProfileFields } from "./components/Mm2ProfileCard";
 import { OrgChartHoverProvider, useOrgChartHover, type OrgMemberDetail } from "./components/OrgMemberHoverPopup";
@@ -3211,6 +3212,8 @@ function MemberInfoBody({
   member: Member;
 }) {
   const detailContentWidth = getDetailContentWidth(formColumnWidth);
+  const [recommenderOpen, setRecommenderOpen] = useState(false);
+  const [recommender, setRecommender] = useState({ no: "100012", name: "박민수" });
 
   return (
         <div
@@ -3335,10 +3338,16 @@ function MemberInfoBody({
             <div className="member-relation-segment">
               <div className="member-relation-group">
                 <span style={{ fontSize: "12px", color: "var(--required-color)", fontWeight: 500 }}>* 추천인</span>
-                <input readOnly value="100012" className="member-relation-input-id rounded outline-none" />
-                <input readOnly value="박민수" className="member-relation-input-name rounded outline-none" />
+                <input readOnly value={recommender.no} className="member-relation-input-id rounded outline-none" />
+                <input readOnly value={recommender.name} className="member-relation-input-name rounded outline-none" />
                 <span style={{ fontSize: 12, padding: "2px 8px", background: "var(--accent-light)", color: "var(--required-color)", border: "1px solid var(--accent-border)", borderRadius: 4, whiteSpace: "nowrap" }}>38명</span>
-                <button className="rounded p-1 flex items-center justify-center" style={{ background: "var(--surface-button-muted)", border: "1px solid var(--border)", color: "var(--muted-foreground)" }}>
+                <button
+                  type="button"
+                  className="rounded p-1 flex items-center justify-center"
+                  style={{ background: "var(--surface-button-muted)", border: "1px solid var(--border)", color: "var(--muted-foreground)" }}
+                  aria-label="추천인 선택"
+                  onClick={() => setRecommenderOpen(true)}
+                >
                   <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
                 </button>
               </div>
@@ -3434,6 +3443,17 @@ function MemberInfoBody({
             <OrgChart memberId={member.id} memberName={member.name} />
           </FormSection>
         </div>
+
+        <RecommenderSelectPopup
+          open={recommenderOpen}
+          onClose={() => setRecommenderOpen(false)}
+          candidates={members}
+          excludeId={member.id}
+          onSelect={(selected) => {
+            setRecommender({ no: selected.no, name: selected.name });
+            setRecommenderOpen(false);
+          }}
+        />
 
     </div>
   );
