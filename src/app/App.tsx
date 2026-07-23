@@ -3142,9 +3142,9 @@ function MemberLoginInfoForm({ member }: { member: Member }) {
           <div className="rounded content-member-header member-login-profile-box">
             <div className="member-login-profile-row">
               <div className="member-login-profile-summary">
-                <span className="content-member-header-text" style={{ fontSize: 13 }}>{member.name} · {member.loginId}</span>
+                <span className="content-member-header-text" style={{ fontSize: 14 }}>{member.name} · {member.loginId}</span>
                 <span className="content-member-header-divider member-login-profile-divider" style={{ width: 1, height: 14, display: "inline-block" }} aria-hidden />
-                <span className="content-member-header-no" style={{ fontSize: 13, fontWeight: 600 }}>{member.no}</span>
+                <span className="content-member-header-no" style={{ fontSize: 14, fontWeight: 600 }}>{member.no}</span>
               </div>
             </div>
             <div className="member-login-profile-toggle-row">
