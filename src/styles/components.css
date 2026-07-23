@@ -589,7 +589,7 @@ span.member-form-action-chip {
 }
 
 .member-login-profile-box .content-member-header-text {
-  color: var(--member-header-text-strong, #ffffff);
+  color: rgba(255, 255, 255, 1);
 }
 
 .member-login-profile-box.content-member-header {
