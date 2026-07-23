@@ -780,7 +780,7 @@ span.member-form-action-chip {
   padding-right: 10px !important;
 }
 
-.member-form-split .member-form-grid--split td input:not(.member-form-ssn-row__input):not(.member-form-name-row__primary),
+.member-form-split .member-form-grid--split td input:not(.member-form-ssn-row__input),
 .member-form-split .member-form-grid--split td select,
 .member-form-split .member-form-grid--split td .relative,
 .member-form-split .member-form-grid--split td .member-form-address-stack,
@@ -823,37 +823,6 @@ span.member-form-action-chip {
 
 .member-form-ssn-row__chip {
   white-space: nowrap;
-}
-
-.member-form-name-row {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  width: 100%;
-  min-width: 0;
-}
-
-.member-form-name-row__primary {
-  flex: 0 0 calc((100% - var(--mf-split-label-2, 112px)) / 2);
-  width: calc((100% - var(--mf-split-label-2, 112px)) / 2);
-  max-width: calc((100% - var(--mf-split-label-2, 112px)) / 2);
-  min-width: 0;
-  box-sizing: border-box;
-}
-
-.member-form-name-row__rest {
-  flex: 1 1 0;
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  min-width: 0;
-}
-
-.member-form-name-row__rest input {
-  flex: 1 1 0;
-  min-width: 0;
-  width: auto;
-  box-sizing: border-box;
 }
 
 .member-form-split .member-form-grid--split td .relative {
