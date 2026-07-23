@@ -840,7 +840,7 @@ span.member-form-action-chip {
 .member-form-address-stack {
   display: flex;
   flex-direction: column;
-  gap: 4px;
+  gap: 3px;
 }
 
 .member-form-address-stack__divider {
