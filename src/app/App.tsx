@@ -2859,8 +2859,8 @@ function getMemberGeneralInfo(member: Member) {
     return {
       regDate: "2025-08-26",
       customerName: "김상경",
-      customerNameExtra1: "",
-      customerNameExtra2: "",
+      customerNameExtra1: "Kim",
+      customerNameExtra2: "Sang-kyung",
       koreanName: "",
       nickName: "미스터천지",
       businessName: "",
