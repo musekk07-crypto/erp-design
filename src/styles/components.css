@@ -787,7 +787,36 @@ span.member-form-action-chip {
 .member-form-split .member-form-grid--split td .flex {
   width: 100%;
   max-width: 100%;
+  min-width: 0;
   box-sizing: border-box;
+}
+
+.member-form-split .member-form-cell--field-wide {
+  overflow: hidden;
+  max-width: 100%;
+}
+
+.member-form-ssn-row {
+  width: 100%;
+  min-width: 0;
+  max-width: 100%;
+  overflow: hidden;
+}
+
+.member-form-ssn-row__input {
+  flex: 1 1 0;
+  min-width: 0;
+  width: auto !important;
+  max-width: 100%;
+}
+
+.member-form-ssn-row__gender {
+  flex: 0 0 auto;
+}
+
+.member-form-ssn-row__chip {
+  flex: 0 0 auto;
+  max-width: 100%;
 }
 
 .member-form-split .member-form-grid--split td .relative {

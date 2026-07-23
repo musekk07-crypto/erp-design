@@ -3005,19 +3005,19 @@ function MemberGeneralInfoForm({ member }: { member: Member }) {
                   </span>
                 </td>
                 <td className={fieldWideCellClass} colSpan={fieldColSpan}>
-                  <div className="flex gap-1 items-center">
-                    <input key={`ssn-${member.id}`} defaultValue={info.ssn} className="flex-1 rounded outline-none transition-all duration-200" style={inputStyle} {...focusProps} />
-                    <div className="relative" style={{ flexShrink: 0 }}>
-                      <select defaultValue={info.gender} className="rounded outline-none appearance-none" style={{ ...inputStyle, padding: "4px 28px 4px 8px" }} {...focusProps}>
+                  <div className="member-form-ssn-row flex gap-1 items-center">
+                    <input key={`ssn-${member.id}`} defaultValue={info.ssn} className="member-form-ssn-row__input flex-1 min-w-0 rounded outline-none transition-all duration-200" style={inputStyle} {...focusProps} />
+                    <div className="member-form-ssn-row__gender relative shrink-0">
+                      <select defaultValue={info.gender} className="rounded outline-none appearance-none" style={{ ...inputStyle, width: 54, minWidth: 54, padding: "4px 22px 4px 8px" }} {...focusProps}>
                         <option value="남">남</option>
                         <option value="여">여</option>
                       </select>
                       <ChevronDown size={12} style={{ position: "absolute", right: 7, top: "50%", transform: "translateY(-50%)", color: "var(--muted-foreground)", pointerEvents: "none" }} />
                     </div>
                     {info.ssnVerified ? (
-                      <span className="member-form-action-chip member-form-action-chip--verified">✓ 실명인증</span>
+                      <span className="member-form-action-chip member-form-action-chip--verified member-form-ssn-row__chip">✓ 실명인증</span>
                     ) : (
-                      <button type="button" className="member-form-action-chip member-form-action-chip--auth">✓ 실명인증</button>
+                      <button type="button" className="member-form-action-chip member-form-action-chip--auth member-form-ssn-row__chip">✓ 실명인증</button>
                     )}
                   </div>
                 </td>
