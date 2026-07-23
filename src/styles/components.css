@@ -602,6 +602,8 @@ span.member-form-action-chip {
   gap: 6px;
   padding: 6px 14px !important;
   box-sizing: border-box;
+  background: var(--member-header-bg, #001673) !important;
+  border: 1px solid var(--member-header-border, #00104d) !important;
 }
 
 .member-form-split--login .member-login-profile-row {
