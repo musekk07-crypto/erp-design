@@ -639,6 +639,11 @@ input[type="checkbox"] {
   width: calc((var(--form-side-field-left-w) - var(--form-label-mid-w)) / 2);
 }
 
+.app-content .content-form-body .member-form-split__group table.content-form-grid--pair-quad.content-form-grid--member .col-field-1,
+.app-content .content-form-body .member-form-split__group table.content-form-grid--pair-quad.content-form-grid--member .col-field-2 {
+  width: calc((100% - var(--form-label-w) - var(--form-label-mid-w)) / 2);
+}
+
 .app-content .content-form-body table.content-form-grid--member td {
   padding-right: var(--form-gap);
   padding-left: 0;
