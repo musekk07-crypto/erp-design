@@ -586,12 +586,26 @@ span.member-form-action-chip {
   flex: 1 1 0;
 }
 
+.member-form-split--login {
+  gap: 10px;
+}
+
 .member-form-split--login .member-form-split__group--login-profile {
   flex: 0 1 250px;
   min-width: 236px;
   max-width: none;
   padding: 0;
   background: transparent;
+}
+
+.member-profile-box-wrap {
+  width: 100%;
+  margin-bottom: 10px;
+}
+
+.member-profile-box-wrap .member-login-profile-box {
+  width: 100%;
+  max-width: 100%;
 }
 
 .member-form-split--login .member-form-split__group--login-credentials {
