@@ -2985,7 +2985,7 @@ function MemberGeneralInfoForm({ member }: { member: Member }) {
                   </div>
                 </td>
               </tr>
-              <tr className="member-form-row--no-top-divider">
+              <tr>
                 <td style={labelTdStyle}><span style={{ fontSize: "12px", color: "var(--form-label-color)", fontWeight: 500 }}>한글명</span></td>
                 <td style={fieldTdStyle}><input defaultValue={info.koreanName} className="w-full rounded outline-none transition-all duration-200" style={inputStyle} {...focusProps} /></td>
               </tr>
