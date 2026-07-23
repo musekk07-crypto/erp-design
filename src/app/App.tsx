@@ -3048,6 +3048,10 @@ function MemberGeneralInfoForm({ member }: { member: Member }) {
                   </div>
                 </td>
               </tr>
+              <tr>
+                <td style={labelTdStyle}><span style={{ fontSize: "12px", color: "var(--form-label-color)", fontWeight: 500 }}>메모</span></td>
+                <td style={fieldTdStyle}><input key={`memo-${member.id}`} defaultValue={info.memo} className="w-full rounded outline-none transition-all duration-200" style={inputStyle} {...focusProps} /></td>
+              </tr>
             </>,
           )}
         </div>
@@ -3107,19 +3111,6 @@ function MemberGeneralInfoForm({ member }: { member: Member }) {
               <tr>
                 <td style={labelTdStyle}><span style={{ fontSize: "12px", color: "var(--form-label-color)", fontWeight: 500 }}>세금신고번호</span></td>
                 <td style={fieldTdStyle}><input defaultValue={info.taxId} className="w-full rounded outline-none transition-all duration-200" style={inputStyle} {...focusProps} /></td>
-              </tr>
-              <tr>
-                <td style={{ ...labelTdStyle, verticalAlign: "top", paddingTop: 8 }}><span style={{ fontSize: "12px", color: "var(--form-label-color)", fontWeight: 500 }}>메모</span></td>
-                <td style={{ ...fieldTdStyle, verticalAlign: "top", paddingTop: 8 }}>
-                  <textarea
-                    key={`memo-${member.id}`}
-                    defaultValue={info.memo}
-                    rows={3}
-                    className="w-full rounded outline-none transition-all duration-200 member-form-textarea"
-                    style={{ ...inputStyle, minHeight: 64, resize: "vertical" }}
-                    {...focusProps}
-                  />
-                </td>
               </tr>
             </>,
           )}
