@@ -576,12 +576,12 @@ span.member-form-action-chip {
 }
 
 .member-form-split--login .member-form-split__group--login-credentials {
-  flex: 2 1 0;
+  flex: 1.75 1 0;
   min-width: 0;
 }
 
 .member-form-split--login .member-form-split__group--login-account {
-  flex: 1 1 0;
+  flex: 1.2 1 0;
   min-width: 0;
 }
 
