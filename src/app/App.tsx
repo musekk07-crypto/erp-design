@@ -2947,10 +2947,12 @@ function MemberGeneralInfoForm({ member }: { member: Member }) {
   );
 
   const renderRightTable = (rows: React.ReactNode) => (
-    <table className="content-form-grid content-form-grid--member content-form-grid--pair" style={{ width: "100%", borderCollapse: "collapse" }}>
+    <table className="content-form-grid content-form-grid--member member-form-grid--split" style={{ width: "100%", borderCollapse: "collapse" }}>
       <colgroup>
         <col className="col-label-1" />
         <col className="col-field-1" />
+        <col className="col-label-2" />
+        <col className="col-field-2" />
       </colgroup>
       <tbody>{rows}</tbody>
     </table>
@@ -3048,7 +3050,7 @@ function MemberGeneralInfoForm({ member }: { member: Member }) {
             <>
               <tr>
                 <td style={labelTdStyle}><span style={{ fontSize: "12px", color: "var(--form-label-color)", fontWeight: 500 }}>주소지</span></td>
-                <td style={fieldTdStyle}>
+                <td style={fieldTdStyle} colSpan={fieldColSpan}>
                   <div className="member-form-address-stack">
                     <div className="flex gap-2">
                       <input key={`addr-${member.id}`} defaultValue={info.address} className="flex-1 min-w-0 rounded outline-none transition-all duration-200" style={inputStyle} {...focusProps} />
@@ -3059,17 +3061,15 @@ function MemberGeneralInfoForm({ member }: { member: Member }) {
                   </div>
                 </td>
               </tr>
-              <tr>
+              <tr className="form-row-dual">
                 <td style={labelTdStyle}><span style={{ fontSize: "12px", color: "var(--form-label-color)", fontWeight: 500 }}>city</span></td>
                 <td style={fieldTdStyle}><input defaultValue={info.city} className="w-full rounded outline-none transition-all duration-200" style={inputStyle} {...focusProps} /></td>
-              </tr>
-              <tr>
                 <td style={labelTdStyle}><span style={{ fontSize: "12px", color: "var(--form-label-color)", fontWeight: 500 }}>state</span></td>
                 <td style={fieldTdStyle}><input defaultValue={info.state} className="w-full rounded outline-none transition-all duration-200" style={inputStyle} {...focusProps} /></td>
               </tr>
               <tr>
                 <td style={labelTdStyle}><span style={{ fontSize: "12px", color: "var(--form-label-color)", fontWeight: 500 }}>국가</span></td>
-                <td style={fieldTdStyle}>
+                <td style={fieldTdStyle} colSpan={fieldColSpan}>
                   <div className="relative" style={{ display: "inline-block", width: "100%" }}>
                     <select defaultValue={info.country} className="w-full rounded outline-none appearance-none" style={{ ...inputStyle, padding: "4px 28px 4px 8px" }} {...focusProps}>
                       <option value="South Korea">South Korea</option>
@@ -3082,23 +3082,23 @@ function MemberGeneralInfoForm({ member }: { member: Member }) {
               </tr>
               <tr>
                 <td style={labelTdStyle}><span style={{ fontSize: "12px", color: "var(--form-label-color)", fontWeight: 500 }}>우편번호</span></td>
-                <td style={fieldTdStyle}><input defaultValue={info.zip} className="w-full rounded outline-none transition-all duration-200" style={{ ...inputStyle, background: "var(--surface-muted, #eef2f6)" }} {...focusProps} /></td>
+                <td style={fieldTdStyle} colSpan={fieldColSpan}><input defaultValue={info.zip} className="w-full rounded outline-none transition-all duration-200" style={{ ...inputStyle, background: "var(--surface-muted, #eef2f6)" }} {...focusProps} /></td>
               </tr>
               <tr>
                 <td style={labelTdStyle}><span style={{ fontSize: "12px", color: "var(--form-label-color)", fontWeight: 500 }}>연락처</span></td>
-                <td style={fieldTdStyle}><input defaultValue={info.contact} className="w-full rounded outline-none transition-all duration-200" style={inputStyle} {...focusProps} /></td>
+                <td style={fieldTdStyle} colSpan={fieldColSpan}><input defaultValue={info.contact} className="w-full rounded outline-none transition-all duration-200" style={inputStyle} {...focusProps} /></td>
               </tr>
               <tr>
                 <td style={labelTdStyle}><span style={{ fontSize: "12px", color: "var(--form-label-color)", fontWeight: 500 }}>휴대폰번호</span></td>
-                <td style={fieldTdStyle}><input key={`phone-${member.id}`} defaultValue={info.phone} className="w-full rounded outline-none transition-all duration-200" style={inputStyle} {...focusProps} /></td>
+                <td style={fieldTdStyle} colSpan={fieldColSpan}><input key={`phone-${member.id}`} defaultValue={info.phone} className="w-full rounded outline-none transition-all duration-200" style={inputStyle} {...focusProps} /></td>
               </tr>
               <tr>
                 <td style={labelTdStyle}><span style={{ fontSize: "12px", color: "var(--form-label-color)", fontWeight: 500 }}>세금신고번호</span></td>
-                <td style={fieldTdStyle}><input defaultValue={info.taxId} className="w-full rounded outline-none transition-all duration-200" style={inputStyle} {...focusProps} /></td>
+                <td style={fieldTdStyle} colSpan={fieldColSpan}><input defaultValue={info.taxId} className="w-full rounded outline-none transition-all duration-200" style={inputStyle} {...focusProps} /></td>
               </tr>
               <tr className="member-form-row--bottom-divider">
                 <td style={labelTdStyle}><span style={{ fontSize: "12px", color: "var(--form-label-color)", fontWeight: 500 }}>메모</span></td>
-                <td style={fieldTdStyle}>
+                <td style={fieldTdStyle} colSpan={fieldColSpan}>
                   <input
                     key={`memo-${member.id}`}
                     defaultValue={info.memo}
