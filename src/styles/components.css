@@ -341,6 +341,23 @@
   font-size: 13px;
 }
 
+/* 회원정보 페이지 — 포인트 블루 (#2843b8 → #0825a0) */
+.member-info-page {
+  --nav-active-bg: #0825a0;
+  --required-color: #0825a0;
+  --save-btn-bg: #0825a0;
+  --member-header-bg: #0825a0;
+  --member-header-border: #061f80;
+  --member-header-avatar-fg: #0825a0;
+  --member-header-toggle-active-fg: #0825a0;
+  --detail-tab-active-top: #0825a0;
+  --checkbox-accent: #0825a0;
+  --member-no-color: #0825a0;
+  --accent-text: #0825a0;
+  --org-link: #0825a0;
+  --org-grade-badge-fg: #0825a0;
+}
+
 .detail-tab-bar {
   display: flex;
   align-items: flex-end;

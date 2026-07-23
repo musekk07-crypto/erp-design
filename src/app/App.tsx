@@ -2824,7 +2824,7 @@ function MemberManagementView({
       >
         <div
           key={member.id}
-          className={isMemberInfoTab ? undefined : "flex flex-col flex-1 min-h-0"}
+          className={isMemberInfoTab ? "member-info-page" : "flex flex-col flex-1 min-h-0"}
           style={{
             width: contentAlignWidth,
             minWidth: isMemberInfoTab && listOpen ? detailContentWidth : 0,
@@ -3443,7 +3443,7 @@ function MemberInfoBody({
         <div className="flex justify-end pt-2 pb-6">
           <button
             className="rounded font-medium transition-all duration-200"
-            style={{ fontSize: 12, padding: "7px 13px", background: "var(--save-btn-bg, #2843b8)", color: "var(--on-accent)", border: "none" }}
+            style={{ fontSize: 12, padding: "7px 13px", background: "var(--save-btn-bg, #0825a0)", color: "var(--on-accent)", border: "none" }}
           >
             등록/저장
           </button>
@@ -3672,14 +3672,14 @@ function VisitHistoryBar({
             <ChevronUp size={14} style={{ color: "var(--text-muted)" }} />
           </VisitHistoryIconButton>
           <VisitHistoryIconButton label="현재 화면 고정" onClick={onPinCurrent} accent>
-            <Pin size={12} style={{ color: "var(--required-color, #2843b8)" }} />
+            <Pin size={12} style={{ color: "var(--required-color, #0825a0)" }} />
           </VisitHistoryIconButton>
           <button
             type="button"
             onClick={onToggleExpand}
             className="visit-history-collapsed-badge visit-history-collapsed-badge--pinned"
           >
-            <Pin size={11} style={{ color: "var(--required-color, #2843b8)" }} />
+            <Pin size={11} style={{ color: "var(--required-color, #0825a0)" }} />
             <span>{pinned.length}</span>
           </button>
           <button
@@ -3707,7 +3707,7 @@ function VisitHistoryBar({
               <ChevronDown size={14} style={{ color: "var(--text-muted)" }} />
             </VisitHistoryIconButton>
             <VisitHistoryIconButton label="현재 화면 고정" onClick={onPinCurrent} accent>
-              <Pin size={12} style={{ color: "var(--required-color, #2843b8)" }} />
+              <Pin size={12} style={{ color: "var(--required-color, #0825a0)" }} />
             </VisitHistoryIconButton>
           </div>
           <div className="visit-history-bar-title">방문 기록</div>
@@ -3717,7 +3717,7 @@ function VisitHistoryBar({
 
         <div className="visit-history-bar-section visit-history-bar-section--pinned">
           <span className="visit-history-bar-section-label">
-            <Pin size={11} style={{ color: "var(--required-color, #2843b8)" }} />
+            <Pin size={11} style={{ color: "var(--required-color, #0825a0)" }} />
             고정
           </span>
           <div className="visit-history-bar-scroll">
