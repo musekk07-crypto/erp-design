@@ -3084,13 +3084,11 @@ function MemberGeneralInfoForm({ member }: { member: Member }) {
                 <td style={labelTdStyle}><span style={{ fontSize: "12px", color: "var(--form-label-color)", fontWeight: 500 }}>우편번호</span></td>
                 <td style={fieldTdStyle} colSpan={fieldColSpan}><input defaultValue={info.zip} className="w-full rounded outline-none transition-all duration-200" style={{ ...inputStyle, background: "var(--surface-muted, #eef2f6)" }} {...focusProps} /></td>
               </tr>
-              <tr>
+              <tr className="form-row-dual">
                 <td style={labelTdStyle}><span style={{ fontSize: "12px", color: "var(--form-label-color)", fontWeight: 500 }}>연락처</span></td>
-                <td style={fieldTdStyle} colSpan={fieldColSpan}><input defaultValue={info.contact} className="w-full rounded outline-none transition-all duration-200" style={inputStyle} {...focusProps} /></td>
-              </tr>
-              <tr>
+                <td style={fieldTdStyle}><input defaultValue={info.contact} className="w-full rounded outline-none transition-all duration-200" style={inputStyle} {...focusProps} /></td>
                 <td style={labelTdStyle}><span style={{ fontSize: "12px", color: "var(--form-label-color)", fontWeight: 500 }}>휴대폰번호</span></td>
-                <td style={fieldTdStyle} colSpan={fieldColSpan}><input key={`phone-${member.id}`} defaultValue={info.phone} className="w-full rounded outline-none transition-all duration-200" style={inputStyle} {...focusProps} /></td>
+                <td style={fieldTdStyle}><input key={`phone-${member.id}`} defaultValue={info.phone} className="w-full rounded outline-none transition-all duration-200" style={inputStyle} {...focusProps} /></td>
               </tr>
               <tr>
                 <td style={labelTdStyle}><span style={{ fontSize: "12px", color: "var(--form-label-color)", fontWeight: 500 }}>세금신고번호</span></td>
