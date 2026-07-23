@@ -3174,7 +3174,7 @@ function MemberInfoBody({
         <FormSection title="로그인 사용정보" icon={<Shield size={12} />} bodyPadding="8px 12px 10px">
           <div className="member-form-split">
             <div className="member-form-split__group">
-              <table className="content-form-grid content-form-grid--member content-form-grid--pair" style={{ width: "100%", borderCollapse: "collapse" }}>
+              <table className="content-form-grid content-form-grid--member content-form-grid--pair content-form-grid--pair-quad" style={{ width: "100%", borderCollapse: "collapse" }}>
                 <colgroup>
                   <col className="col-label-1" />
                   <col className="col-field-1" />

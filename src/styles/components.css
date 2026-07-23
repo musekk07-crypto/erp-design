@@ -574,6 +574,24 @@ span.member-form-action-chip {
   width: calc(100% - var(--form-label-w, 108px));
 }
 
+.member-form-split__group .content-form-grid--pair-quad .col-label-1 {
+  width: var(--form-label-w, 108px);
+}
+
+.member-form-split__group .content-form-grid--pair-quad .col-label-2 {
+  width: var(--form-label-mid-w, 100px);
+}
+
+.member-form-split__group .content-form-grid--pair-quad .col-field-1,
+.member-form-split__group .content-form-grid--pair-quad .col-field-2 {
+  width: calc((100% - var(--form-label-w, 108px) - var(--form-label-mid-w, 100px) - var(--form-col-gap, 20px)) / 2);
+}
+
+.member-form-split__group .content-form-grid--pair td input {
+  width: 100%;
+  box-sizing: border-box;
+}
+
 .member-form-split__group .content-form-grid--pair td:last-child {
   padding-right: 0;
 }
