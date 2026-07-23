@@ -3137,8 +3137,8 @@ function MemberLoginInfoForm({ member }: { member: Member }) {
 
   return (
     <FormSection title="로그인 사용정보" icon={<Shield size={12} />} bodyPadding="8px 12px 10px">
-      <div className="member-form-split member-form-split--triple">
-        <div className="member-form-split__group">
+      <div className="member-form-split member-form-split--triple member-form-split--login">
+        <div className="member-form-split__group member-form-split__group--login-profile">
           {renderPairTable(
             <>
               <tr>
@@ -3162,11 +3162,7 @@ function MemberLoginInfoForm({ member }: { member: Member }) {
           )}
         </div>
 
-        <div className="member-form-split__group">
-          {renderPairTable(
-            <>
-              <tr>
-                <td style={labelTdStyle}><span style={{ fontSize: "12px", color: "var(--required-color)", fontWeight: 500 }}>* 회원번호</span></td>
+        <div className="member-form-split__group member-form-split__group--login-credentials">
                 <td style={fieldTdStyle}>
                   <input type="text" defaultValue={member.no} className="w-full rounded outline-none transition-all duration-200" style={{ ...inputStyle, fontFamily: "monospace" }} {...focusProps} />
                 </td>
@@ -3185,11 +3181,7 @@ function MemberLoginInfoForm({ member }: { member: Member }) {
           )}
         </div>
 
-        <div className="member-form-split__group">
-          {renderPairTable(
-            <>
-              <tr>
-                <td style={labelTdStyle}><span style={{ fontSize: "12px", color: "var(--required-color)", fontWeight: 500 }}>* 아이디</span></td>
+        <div className="member-form-split__group member-form-split__group--login-account">
                 <td style={fieldTdStyle}>
                   <input type="text" defaultValue={member.loginId} className="w-full rounded outline-none transition-all duration-200" style={{ ...inputStyle, fontFamily: "monospace" }} {...focusProps} />
                 </td>

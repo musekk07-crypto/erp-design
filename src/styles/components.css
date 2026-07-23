@@ -566,6 +566,50 @@ span.member-form-action-chip {
   flex: 1 1 0;
 }
 
+.member-form-split--login .member-form-split__group--login-profile {
+  flex: 0 1 240px;
+  max-width: 260px;
+  min-width: 200px;
+}
+
+.member-form-split--login .member-form-split__group--login-credentials {
+  flex: 1.65 1 0;
+  min-width: 0;
+}
+
+.member-form-split--login .member-form-split__group--login-account {
+  flex: 1 1 0;
+  min-width: 0;
+}
+
+.member-form-split--login .member-login-profile-row {
+  gap: 6px;
+}
+
+.member-form-split--login .member-login-profile-avatar {
+  width: 28px;
+  height: 28px;
+  font-size: 11px;
+}
+
+.member-form-split--login .member-login-profile-summary {
+  gap: 6px;
+  flex-wrap: nowrap;
+  overflow: hidden;
+}
+
+.member-form-split--login .member-login-profile-text,
+.member-form-split--login .member-login-profile-no {
+  font-size: 12px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.member-form-split--login .member-type-toggle button {
+  font-size: 11px !important;
+  padding: 2px 8px !important;
+}
+
 .member-form-split__group {
   flex: 1 1 0;
   min-width: 0;
