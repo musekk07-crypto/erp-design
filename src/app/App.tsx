@@ -3062,11 +3062,9 @@ function MemberGeneralInfoForm({ member }: { member: Member }) {
                   </div>
                 </td>
               </tr>
-              <tr className="form-row-dual">
-                <td className={labelCellClass}><span style={{ fontSize: "12px", color: "var(--form-label-color)", fontWeight: 500 }}>city</span></td>
-                <td className={fieldCellClass}><input defaultValue={info.city} className="w-full rounded outline-none transition-all duration-200" style={inputStyle} {...focusProps} /></td>
-                <td className={labelCellClass}><span style={{ fontSize: "12px", color: "var(--form-label-color)", fontWeight: 500 }}>state</span></td>
-                <td className={fieldCellClass}><input defaultValue={info.state} className="w-full rounded outline-none transition-all duration-200" style={inputStyle} {...focusProps} /></td>
+              <tr>
+                <td className={labelCellClass}><span style={{ fontSize: "12px", color: "var(--form-label-color)", fontWeight: 500 }}>우편번호</span></td>
+                <td className={fieldWideCellClass} colSpan={fieldColSpan}><input defaultValue={info.zip} className="w-full rounded outline-none transition-all duration-200" style={{ ...inputStyle, background: "var(--surface-muted, #eef2f6)" }} {...focusProps} /></td>
               </tr>
               <tr>
                 <td className={labelCellClass}><span style={{ fontSize: "12px", color: "var(--form-label-color)", fontWeight: 500 }}>국가</span></td>
@@ -3081,9 +3079,11 @@ function MemberGeneralInfoForm({ member }: { member: Member }) {
                   </div>
                 </td>
               </tr>
-              <tr>
-                <td className={labelCellClass}><span style={{ fontSize: "12px", color: "var(--form-label-color)", fontWeight: 500 }}>우편번호</span></td>
-                <td className={fieldWideCellClass} colSpan={fieldColSpan}><input defaultValue={info.zip} className="w-full rounded outline-none transition-all duration-200" style={{ ...inputStyle, background: "var(--surface-muted, #eef2f6)" }} {...focusProps} /></td>
+              <tr className="form-row-dual">
+                <td className={labelCellClass}><span style={{ fontSize: "12px", color: "var(--form-label-color)", fontWeight: 500 }}>city</span></td>
+                <td className={fieldCellClass}><input defaultValue={info.city} className="w-full rounded outline-none transition-all duration-200" style={inputStyle} {...focusProps} /></td>
+                <td className={labelCellClass}><span style={{ fontSize: "12px", color: "var(--form-label-color)", fontWeight: 500 }}>state</span></td>
+                <td className={fieldCellClass}><input defaultValue={info.state} className="w-full rounded outline-none transition-all duration-200" style={inputStyle} {...focusProps} /></td>
               </tr>
               <tr className="form-row-dual">
                 <td className={labelCellClass}><span style={{ fontSize: "12px", color: "var(--form-label-color)", fontWeight: 500 }}>연락처</span></td>
