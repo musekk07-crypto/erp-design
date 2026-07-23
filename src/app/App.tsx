@@ -2962,7 +2962,7 @@ function MemberGeneralInfoForm({ member }: { member: Member }) {
   const fieldColSpan = 3;
 
   return (
-    <FormSection title="일반 회원정보" subtitle="20개 항목" icon={<User size={12} />} bodyPadding="8px 12px 10px">
+    <FormSection title="일반 회원정보" subtitle="18개 항목" icon={<User size={12} />} bodyPadding="8px 12px 10px">
       <div className="member-form-split">
         <div className="member-form-split__group">
           {renderLeftTable(
@@ -3026,21 +3026,9 @@ function MemberGeneralInfoForm({ member }: { member: Member }) {
                 <td className={labelCellClass}><span style={{ fontSize: "12px", color: "var(--form-label-color)", fontWeight: 500 }}>EIN Number</span></td>
                 <td className={fieldWideCellClass} colSpan={fieldColSpan}><input defaultValue={info.ein} placeholder="미국 사업자 번호" className="w-full rounded outline-none transition-all duration-200" style={inputStyle} {...focusProps} /></td>
               </tr>
-              <tr className="member-form-row--bottom-divider form-row-dual">
-                <td className={labelCellClass}><span style={{ fontSize: "12px", color: "var(--form-label-color)", fontWeight: 500 }}>비자종류</span></td>
-                <td className={fieldCellClass}>
-                  <div className="relative" style={{ display: "inline-block", width: "100%" }}>
-                    <select defaultValue={info.visaType} className="w-full rounded outline-none appearance-none" style={{ ...inputStyle, padding: "4px 28px 4px 8px" }} {...focusProps}>
-                      <option>() 내국인</option>
-                      <option>F-2 거주</option>
-                      <option>F-4 재외동포</option>
-                      <option>F-6 결혼이민</option>
-                    </select>
-                    <ChevronDown size={12} style={{ position: "absolute", right: 7, top: "50%", transform: "translateY(-50%)", color: "var(--muted-foreground)", pointerEvents: "none" }} />
-                  </div>
-                </td>
+              <tr>
                 <td className={labelCellClass}><span style={{ fontSize: "12px", color: "var(--form-label-color)", fontWeight: 500 }}>체류기간 만료일자</span></td>
-                <td className={fieldCellClass}><input type="date" defaultValue={info.stayExpiry} className="w-full rounded outline-none transition-all duration-200" style={inputStyle} {...focusProps} /></td>
+                <td className={fieldWideCellClass} colSpan={fieldColSpan}><input type="date" defaultValue={info.stayExpiry} className="w-full rounded outline-none transition-all duration-200" style={inputStyle} {...focusProps} /></td>
               </tr>
             </>,
           )}
@@ -3094,18 +3082,6 @@ function MemberGeneralInfoForm({ member }: { member: Member }) {
               <tr>
                 <td className={labelCellClass}><span style={{ fontSize: "12px", color: "var(--form-label-color)", fontWeight: 500 }}>세금신고번호</span></td>
                 <td className={fieldWideCellClass} colSpan={fieldColSpan}><input defaultValue={info.taxId} className="w-full rounded outline-none transition-all duration-200" style={inputStyle} {...focusProps} /></td>
-              </tr>
-              <tr className="member-form-row--bottom-divider">
-                <td className={labelCellClass}><span style={{ fontSize: "12px", color: "var(--form-label-color)", fontWeight: 500 }}>메모</span></td>
-                <td className={fieldWideCellClass} colSpan={fieldColSpan}>
-                  <input
-                    key={`memo-${member.id}`}
-                    defaultValue={info.memo}
-                    className="w-full rounded outline-none transition-all duration-200"
-                    style={inputStyle}
-                    {...focusProps}
-                  />
-                </td>
               </tr>
             </>,
           )}
