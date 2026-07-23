@@ -598,42 +598,6 @@ span.member-form-action-chip {
   background: transparent;
 }
 
-.member-profile-box-wrap {
-  width: 100%;
-}
-
-.member-login-profile-section {
-  display: flex;
-  gap: 10px;
-  align-items: stretch;
-  margin-bottom: 6px;
-}
-
-.member-login-profile-section__login {
-  flex: 1 1 0;
-  min-width: 0;
-}
-
-.member-login-profile-section__login .content-form-section {
-  margin-bottom: 0;
-  height: 100%;
-}
-
-.member-login-profile-section__profile {
-  flex: 0 1 250px;
-  min-width: 236px;
-  display: flex;
-}
-
-.member-login-profile-section .member-profile-box-wrap {
-  flex: 1;
-  display: flex;
-}
-
-.member-login-profile-section .member-login-profile-box {
-  flex: 1;
-}
-
 .member-form-split--login .member-form-split__group--login-credentials {
   flex: 1.6 1 0;
   min-width: 0;

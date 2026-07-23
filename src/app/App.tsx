@@ -3111,41 +3111,8 @@ function MemberGeneralInfoForm({ member }: { member: Member }) {
   );
 }
 
-function MemberProfileBox({ member }: { member: Member }) {
-  const memberType = member.type === "소비자" ? "소비자" : "일반";
-
-  return (
-    <div className="member-profile-box-wrap">
-      <div className="rounded content-member-header member-login-profile-box">
-        <div className="member-login-profile-row">
-          <div className="member-login-profile-summary">
-            <span className="content-member-header-text" style={{ fontSize: 15 }}>{member.name} · {member.loginId}</span>
-            <span className="content-member-header-divider member-login-profile-divider" style={{ width: 1, height: 14, display: "inline-block" }} aria-hidden />
-            <span className="content-member-header-no" style={{ fontSize: 15, fontWeight: 600 }}>{member.no}</span>
-          </div>
-        </div>
-        <div className="member-login-profile-toggle-row">
-          <MemberTypeToggle type={memberType} />
-        </div>
-      </div>
-    </div>
-  );
-}
-
-function MemberLoginProfileSection({ member }: { member: Member }) {
-  return (
-    <div className="member-login-profile-section">
-      <div className="member-login-profile-section__login">
-        <MemberLoginInfoForm member={member} />
-      </div>
-      <div className="member-login-profile-section__profile">
-        <MemberProfileBox member={member} />
-      </div>
-    </div>
-  );
-}
-
 function MemberLoginInfoForm({ member }: { member: Member }) {
+  const memberType = member.type === "소비자" ? "소비자" : "일반";
   const labelTdStyle: React.CSSProperties = { padding: "3px 10px 3px 0", whiteSpace: "nowrap", verticalAlign: "middle" };
   const fieldTdStyle: React.CSSProperties = { padding: "3px 0 3px 0", verticalAlign: "middle" };
   const inputStyle: React.CSSProperties = {
@@ -3176,7 +3143,22 @@ function MemberLoginInfoForm({ member }: { member: Member }) {
 
   return (
     <FormSection title="로그인 사용정보" icon={<Shield size={12} />} bodyPadding="8px 12px 10px">
-      <div className="member-form-split member-form-split--login">
+      <div className="member-form-split member-form-split--triple member-form-split--login">
+        <div className="member-form-split__group member-form-split__group--login-profile">
+          <div className="rounded content-member-header member-login-profile-box">
+            <div className="member-login-profile-row">
+              <div className="member-login-profile-summary">
+                <span className="content-member-header-text" style={{ fontSize: 15 }}>{member.name} · {member.loginId}</span>
+                <span className="content-member-header-divider member-login-profile-divider" style={{ width: 1, height: 14, display: "inline-block" }} aria-hidden />
+                <span className="content-member-header-no" style={{ fontSize: 15, fontWeight: 600 }}>{member.no}</span>
+              </div>
+            </div>
+            <div className="member-login-profile-toggle-row">
+              <MemberTypeToggle type={memberType} />
+            </div>
+          </div>
+        </div>
+
         <div className="member-form-split__group member-form-split__group--login-credentials">
           {renderPairTable(
             <>
@@ -3266,7 +3248,7 @@ function MemberInfoBody({
                 }
           }
         >
-        <MemberLoginProfileSection member={member} />
+        <MemberLoginInfoForm member={member} />
 
         <MemberGeneralInfoForm member={member} />
 
