@@ -567,19 +567,24 @@ span.member-form-action-chip {
 }
 
 .member-form-split--login .member-form-split__group--login-profile {
-  flex: 0 1 240px;
-  max-width: 260px;
-  min-width: 200px;
+  flex: 0 1 200px;
+  max-width: 220px;
+  min-width: 168px;
+  padding-inline: 8px;
 }
 
 .member-form-split--login .member-form-split__group--login-credentials {
-  flex: 1.65 1 0;
+  flex: 2.2 1 0;
   min-width: 0;
 }
 
 .member-form-split--login .member-form-split__group--login-account {
-  flex: 1 1 0;
+  flex: 0.95 1 0;
   min-width: 0;
+}
+
+.member-form-split--login .member-form-split__group--login-credentials .content-form-grid--pair {
+  --form-label-w: 88px;
 }
 
 .member-form-split--login .member-login-profile-row {

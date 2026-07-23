@@ -3163,6 +3163,10 @@ function MemberLoginInfoForm({ member }: { member: Member }) {
         </div>
 
         <div className="member-form-split__group member-form-split__group--login-credentials">
+          {renderPairTable(
+            <>
+              <tr>
+                <td style={labelTdStyle}><span style={{ fontSize: "12px", color: "var(--required-color)", fontWeight: 500 }}>* 회원번호</span></td>
                 <td style={fieldTdStyle}>
                   <input type="text" defaultValue={member.no} className="w-full rounded outline-none transition-all duration-200" style={{ ...inputStyle, fontFamily: "monospace" }} {...focusProps} />
                 </td>
@@ -3182,6 +3186,10 @@ function MemberLoginInfoForm({ member }: { member: Member }) {
         </div>
 
         <div className="member-form-split__group member-form-split__group--login-account">
+          {renderPairTable(
+            <>
+              <tr>
+                <td style={labelTdStyle}><span style={{ fontSize: "12px", color: "var(--required-color)", fontWeight: 500 }}>* 아이디</span></td>
                 <td style={fieldTdStyle}>
                   <input type="text" defaultValue={member.loginId} className="w-full rounded outline-none transition-all duration-200" style={{ ...inputStyle, fontFamily: "monospace" }} {...focusProps} />
                 </td>
