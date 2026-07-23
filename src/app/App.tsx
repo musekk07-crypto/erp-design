@@ -3132,6 +3132,19 @@ function MemberProfileBox({ member }: { member: Member }) {
   );
 }
 
+function MemberLoginProfileSection({ member }: { member: Member }) {
+  return (
+    <div className="member-login-profile-section">
+      <div className="member-login-profile-section__login">
+        <MemberLoginInfoForm member={member} />
+      </div>
+      <div className="member-login-profile-section__profile">
+        <MemberProfileBox member={member} />
+      </div>
+    </div>
+  );
+}
+
 function MemberLoginInfoForm({ member }: { member: Member }) {
   const labelTdStyle: React.CSSProperties = { padding: "3px 10px 3px 0", whiteSpace: "nowrap", verticalAlign: "middle" };
   const fieldTdStyle: React.CSSProperties = { padding: "3px 0 3px 0", verticalAlign: "middle" };
@@ -3253,8 +3266,7 @@ function MemberInfoBody({
                 }
           }
         >
-        <MemberProfileBox member={member} />
-        <MemberLoginInfoForm member={member} />
+        <MemberLoginProfileSection member={member} />
 
         <MemberGeneralInfoForm member={member} />
 
