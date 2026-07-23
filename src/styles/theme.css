@@ -8,14 +8,14 @@
   --nav-text: #ffffff;
   --nav-text-muted: rgba(255,255,255,0.7);
   --nav-active-border: #ffffff;
-  --nav-active-bg: #2843b8;
+  --nav-active-bg: #0825a0;
   --nav-active-text: #ffffff;
-  --nav-hover-bg: #203899;
+  --nav-hover-bg: #061f80;
   --nav-hover-text: #ffffff;
   --nav-dropdown-bg: #0a1220;
   --nav-dropdown-border: rgba(255, 255, 255, 0.12);
   --nav-dropdown-text: rgba(255, 255, 255, 0.92);
-  --nav-dropdown-hover-bg: rgba(40, 67, 184, 0.55);
+  --nav-dropdown-hover-bg: rgba(8, 37, 160, 0.55);
   --nav-divider: rgba(255,255,255,0.3);
   --nav-avatar-bg: rgba(255,255,255,0.2);
   --sidebar-bg: #eceef2;
@@ -200,7 +200,7 @@
   --org-self-accent: #0284c7;
   --org-grade-badge-bg: #0c4a6e;
   --org-grade-badge-fg: #38bdf8;
-  --save-btn-bg: #2843b8;
+  --save-btn-bg: var(--nav-active-bg);
   --badge-type-general-bg: #262d3d;
   --badge-type-general-fg: #9aa8b8;
   --badge-type-consumer-bg: #0c3540;
@@ -291,10 +291,10 @@
   --org-text: #1e2130;
   --org-text-muted: #64748b;
   --org-text-withdrawn: #9ca3af;
-  --org-link: var(--nav-active-bg, #2843b8);
+  --org-link: var(--nav-active-bg, #0825a0);
   --org-self-accent: #0284c7;
   --org-grade-badge-bg: #dbeafe;
-  --org-grade-badge-fg: var(--nav-active-bg, #2843b8);
+  --org-grade-badge-fg: var(--nav-active-bg, #0825a0);
   --badge-type-general-bg: #f1f5f9;
   --badge-type-general-fg: #64748b;
   --badge-type-consumer-bg: #cffafe;
@@ -530,7 +530,7 @@
 }
 
 input[type="checkbox"] {
-  accent-color: var(--checkbox-accent, var(--nav-active-bg, #2843b8));
+  accent-color: var(--checkbox-accent, var(--nav-active-bg, #0825a0));
 }
 
 .app-content .content-form-section--org > button {
@@ -664,8 +664,8 @@ input[type="checkbox"] {
   box-sizing: border-box;
   padding: 6px 8px !important;
   margin-bottom: 8px !important;
-  background: var(--member-header-bg, #2843b8) !important;
-  border: 1px solid var(--member-header-border, #203899) !important;
+  background: var(--member-header-bg, #0825a0) !important;
+  border: 1px solid var(--member-header-border, #061f80) !important;
   color: var(--member-header-text-strong, #fff);
 }
 
@@ -683,7 +683,7 @@ input[type="checkbox"] {
 
 .app-content .content-member-header .content-member-header-avatar {
   background: var(--member-header-avatar-bg, #fff) !important;
-  color: var(--member-header-avatar-fg, #2843b8) !important;
+  color: var(--member-header-avatar-fg, #0825a0) !important;
 }
 
 .app-content .content-member-header .member-type-toggle {
@@ -698,7 +698,7 @@ input[type="checkbox"] {
 
 .app-content .content-member-header .member-type-toggle button.is-selected {
   background: var(--member-header-toggle-active-bg, #fff) !important;
-  color: var(--member-header-toggle-active-fg, #2843b8) !important;
+  color: var(--member-header-toggle-active-fg, #0825a0) !important;
 }
 
 .app-content .content-scroll {

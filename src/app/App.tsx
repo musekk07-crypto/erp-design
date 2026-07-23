@@ -2824,7 +2824,7 @@ function MemberManagementView({
       >
         <div
           key={member.id}
-          className={isMemberInfoTab ? "member-info-page" : "flex flex-col flex-1 min-h-0"}
+          className={isMemberInfoTab ? undefined : "flex flex-col flex-1 min-h-0"}
           style={{
             width: contentAlignWidth,
             minWidth: isMemberInfoTab && listOpen ? detailContentWidth : 0,
@@ -4012,7 +4012,7 @@ function TopNav({
         <div className="flex items-center gap-2 mr-6 shrink-0">
           <div
             className="flex items-center justify-center rounded"
-            style={{ width: 28, height: 28, background: "var(--logo-bg, #2843b8)", fontSize: 12, fontWeight: 700, color: "var(--on-accent)" }}
+            style={{ width: 28, height: 28, background: "var(--logo-bg, #0825a0)", fontSize: 12, fontWeight: 700, color: "var(--on-accent)" }}
           >
             VB
           </div>
