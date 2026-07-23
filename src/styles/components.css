@@ -618,6 +618,17 @@ span.member-form-action-chip {
   border-bottom: 1px solid var(--form-field-divider, rgba(0, 0, 0, 0.1));
 }
 
+.member-form-address-stack {
+  display: flex;
+  flex-direction: column;
+}
+
+.member-form-address-stack__detail {
+  border-top: 1px solid var(--form-field-divider, rgba(0, 0, 0, 0.1));
+  margin-top: 4px;
+  padding-top: 4px;
+}
+
 .app-content .split-table-block td {
   padding-top: 6px !important;
   padding-bottom: 6px !important;

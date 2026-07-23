@@ -3066,12 +3066,12 @@ function MemberGeneralInfoForm({ member }: { member: Member }) {
               <tr>
                 <td style={labelTdStyle}><span style={{ fontSize: "12px", color: "var(--form-label-color)", fontWeight: 500 }}>주소지</span></td>
                 <td style={fieldTdStyle}>
-                  <div className="flex flex-col gap-1">
+                  <div className="member-form-address-stack">
                     <div className="flex gap-2">
                       <input key={`addr-${member.id}`} defaultValue={info.address} className="flex-1 min-w-0 rounded outline-none transition-all duration-200" style={inputStyle} {...focusProps} />
                       <button type="button" className="shrink-0" style={{ fontSize: 12, padding: "3px 10px", background: "var(--surface-button-muted)", color: "var(--foreground)", border: "1px solid var(--border)", borderRadius: 4 }}>...</button>
                     </div>
-                    <input defaultValue={info.addressDetail} className="w-full rounded outline-none transition-all duration-200" style={inputStyle} {...focusProps} />
+                    <input defaultValue={info.addressDetail} className="member-form-address-stack__detail w-full rounded outline-none transition-all duration-200" style={inputStyle} {...focusProps} />
                   </div>
                 </td>
               </tr>
