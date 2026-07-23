@@ -94,6 +94,7 @@ const DETAIL_CONTENT_GAP = 12;
 const DETAIL_PANEL_PAD = 12;
 const HISTORY_BAR_COLLAPSED_HEIGHT = 40;
 const HISTORY_BAR_EXPANDED_HEIGHT = 84;
+const RECENT_HISTORY_MAX = 10;
 
 function getDetailContentWidth(formColumnWidth: number) {
   return formColumnWidth + ORG_CHART_WIDTH + DETAIL_CONTENT_GAP;
@@ -3698,10 +3699,20 @@ function HistoryItemChip({ item, isActive, onSelect, onRemove }: HistoryItemButt
       </span>
       {onRemove && (
         <span
-          role="presentation"
+          role="button"
+          tabIndex={0}
+          title="삭제"
+          aria-label="히스토리에서 삭제"
           onClick={(e) => {
             e.stopPropagation();
             onRemove(item.id);
+          }}
+          onKeyDown={(e) => {
+            if (e.key === "Enter" || e.key === " ") {
+              e.preventDefault();
+              e.stopPropagation();
+              onRemove(item.id);
+            }
           }}
           className="visit-history-chip-remove"
         >
@@ -3721,6 +3732,7 @@ interface VisitHistoryBarProps {
   onSelect: (item: PageHistoryItem) => void;
   onPinCurrent: () => void;
   onUnpin: (id: string) => void;
+  onRemoveRecent: (id: string) => void;
 }
 
 function BarTooltip({ label }: { label: string }) {
@@ -3767,6 +3779,7 @@ function VisitHistoryBar({
   onSelect,
   onPinCurrent,
   onUnpin,
+  onRemoveRecent,
 }: VisitHistoryBarProps) {
   const height = expanded ? HISTORY_BAR_EXPANDED_HEIGHT : HISTORY_BAR_COLLAPSED_HEIGHT;
 
@@ -3863,6 +3876,7 @@ function VisitHistoryBar({
                   item={item}
                   isActive={item.id === activeId}
                   onSelect={onSelect}
+                  onRemove={onRemoveRecent}
                 />
               ))
             )}
@@ -4394,7 +4408,7 @@ export default function App() {
     if (!item) return;
     setRecentPages((prev) => {
       const filtered = prev.filter((p) => p.id !== item.id);
-      return [item, ...filtered].slice(0, 8);
+      return [item, ...filtered].slice(0, RECENT_HISTORY_MAX);
     });
   }, [activeTab, selectedMember]);
 
@@ -4414,6 +4428,10 @@ export default function App() {
 
   const handleUnpin = useCallback((id: string) => {
     setPinnedPages((prev) => prev.filter((p) => p.id !== id));
+  }, []);
+
+  const handleRemoveRecent = useCallback((id: string) => {
+    setRecentPages((prev) => prev.filter((p) => p.id !== id));
   }, []);
 
   useEffect(() => {
@@ -4639,6 +4657,7 @@ export default function App() {
           onSelect={handleHistorySelect}
           onPinCurrent={handlePinCurrent}
           onUnpin={handleUnpin}
+          onRemoveRecent={handleRemoveRecent}
         />
       </div>
       </div>
