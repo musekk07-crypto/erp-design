@@ -3139,27 +3139,24 @@ function MemberLoginInfoForm({ member }: { member: Member }) {
     <FormSection title="로그인 사용정보" icon={<Shield size={12} />} bodyPadding="8px 12px 10px">
       <div className="member-form-split member-form-split--triple member-form-split--login">
         <div className="member-form-split__group member-form-split__group--login-profile">
-          {renderPairTable(
-            <>
-              <tr>
-                <td colSpan={2} style={{ padding: "3px 0", verticalAlign: "middle" }}>
-                  <div className="member-login-profile-row">
-                    <div className="member-login-profile-avatar">{member.name.charAt(0)}</div>
-                    <div className="member-login-profile-summary">
-                      <span className="member-login-profile-text">{member.name} · {member.loginId}</span>
-                      <span className="member-login-profile-divider" aria-hidden />
-                      <span className="member-login-profile-no">{member.no}</span>
-                    </div>
-                  </div>
-                </td>
-              </tr>
-              <tr>
-                <td colSpan={2} style={{ padding: "3px 0", verticalAlign: "middle" }}>
-                  <MemberTypeToggle type={memberType} />
-                </td>
-              </tr>
-            </>,
-          )}
+          <div className="rounded content-member-header member-login-profile-box">
+            <div className="member-login-profile-row">
+              <div
+                className="content-member-header-avatar member-login-profile-avatar w-8 h-8 rounded flex items-center justify-center font-bold shrink-0"
+                style={{ fontSize: 12 }}
+              >
+                {member.name.charAt(0)}
+              </div>
+              <div className="member-login-profile-summary">
+                <span className="content-member-header-text" style={{ fontSize: 13 }}>{member.name} · {member.loginId}</span>
+                <span className="content-member-header-divider member-login-profile-divider" style={{ width: 1, height: 14, display: "inline-block" }} aria-hidden />
+                <span className="content-member-header-no" style={{ fontSize: 13, fontWeight: 600 }}>{member.no}</span>
+              </div>
+            </div>
+            <div className="member-login-profile-toggle-row">
+              <MemberTypeToggle type={memberType} />
+            </div>
+          </div>
         </div>
 
         <div className="member-form-split__group member-form-split__group--login-credentials">

@@ -567,19 +567,21 @@ span.member-form-action-chip {
 }
 
 .member-form-split--login .member-form-split__group--login-profile {
-  flex: 0 1 200px;
-  max-width: 220px;
-  min-width: 168px;
-  padding-inline: 8px;
+  flex: 0 0 auto;
+  width: auto;
+  max-width: none;
+  min-width: 0;
+  padding: 0;
+  background: transparent;
 }
 
 .member-form-split--login .member-form-split__group--login-credentials {
-  flex: 2.2 1 0;
+  flex: 2 1 0;
   min-width: 0;
 }
 
 .member-form-split--login .member-form-split__group--login-account {
-  flex: 0.95 1 0;
+  flex: 1 1 0;
   min-width: 0;
 }
 
@@ -587,32 +589,34 @@ span.member-form-action-chip {
   --form-label-w: 88px;
 }
 
-.member-form-split--login .member-login-profile-row {
+.member-login-profile-box.content-member-header {
+  margin-bottom: 0 !important;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
   gap: 6px;
+  padding: 6px 10px !important;
+  box-sizing: border-box;
 }
 
-.member-form-split--login .member-login-profile-avatar {
-  width: 28px;
-  height: 28px;
-  font-size: 11px;
+.member-form-split--login .member-login-profile-row {
+  gap: 8px;
 }
 
 .member-form-split--login .member-login-profile-summary {
-  gap: 6px;
-  flex-wrap: nowrap;
-  overflow: hidden;
+  gap: 8px;
+  flex-wrap: wrap;
+  overflow: visible;
 }
 
-.member-form-split--login .member-login-profile-text,
-.member-form-split--login .member-login-profile-no {
-  font-size: 12px;
-  overflow: hidden;
-  text-overflow: ellipsis;
+.member-form-split--login .member-login-profile-divider {
+  background: var(--member-header-divider, rgba(255, 255, 255, 0.35));
 }
 
-.member-form-split--login .member-type-toggle button {
-  font-size: 11px !important;
-  padding: 2px 8px !important;
+.member-login-profile-toggle-row {
+  display: flex;
+  align-items: center;
 }
 
 .member-form-split__group {
