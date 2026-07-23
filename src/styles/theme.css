@@ -1,0 +1,843 @@
+@custom-variant dark (&:is(.dark *));
+
+/* ── 딥퍼플 (default) ── */
+:root,
+[data-theme="deep-purple"] {
+  --nav-bg: #0f1d32;
+  --nav-border: #0a1526;
+  --nav-text: #ffffff;
+  --nav-text-muted: rgba(255,255,255,0.7);
+  --nav-active-border: #ffffff;
+  --nav-active-bg: #001673;
+  --nav-active-text: #ffffff;
+  --nav-hover-bg: #00104d;
+  --nav-hover-text: #ffffff;
+  --nav-dropdown-bg: #0a1220;
+  --nav-dropdown-border: rgba(255, 255, 255, 0.12);
+  --nav-dropdown-text: rgba(255, 255, 255, 0.92);
+  --nav-dropdown-hover-bg: rgba(0, 22, 115, 0.55);
+  --nav-divider: rgba(255,255,255,0.3);
+  --nav-avatar-bg: rgba(255,255,255,0.2);
+  --sidebar-bg: #eceef2;
+  --sidebar-item-active-bg: #dde1e8;
+  --sidebar-item-active-border: #cfd4dc;
+  --accent-primary: #0284c7;
+  --accent-light: #e0f2fe;
+  --accent-text: var(--nav-active-bg);
+  --accent-border: #7dd3fc;
+  --accent-gradient: linear-gradient(135deg, #0284c7, #0369a1);
+  --required-color: var(--nav-active-bg);
+  --checkbox-accent: var(--nav-active-bg);
+  --section-icon-bg: #0284c7;
+  --section-icon-color: #ffffff;
+  --content-form-section-header-bg: #d6ebf9;
+  --content-form-section-header-hover-bg: #c5e3f6;
+  --content-form-section-header-border: #b8ddf0;
+  --input-focus-bg: #e0f2fe;
+  --toggle-active-bg: linear-gradient(135deg, #0284c7, #0369a1);
+  --toggle-active-color: var(--nav-active-bg);
+  --member-no-color: var(--nav-active-bg);
+  --logo-bg: #0284c7;
+  --org-self-accent: #0284c7;
+  --brand-primary: #0284c7;
+  --brand-gradient: linear-gradient(135deg, #0284c7, #0369a1);
+  --brand-light: var(--accent-light);
+  --brand-toggle-track: #e0f2fe;
+  --save-btn-bg: var(--nav-active-bg);
+  --detail-tab-bar-bg: #e4e6ec;
+  --detail-tab-bar-line: rgba(0, 0, 0, 0.12);
+  --detail-tab-active-top: var(--nav-active-bg);
+  --org-grade-badge-bg: #dbeafe;
+  --org-grade-badge-fg: var(--nav-active-bg);
+  --member-header-bg: var(--nav-active-bg);
+  --member-header-border: var(--nav-hover-bg);
+  --member-header-text: rgba(255, 255, 255, 0.88);
+  --member-header-text-strong: #ffffff;
+  --member-header-divider: rgba(255, 255, 255, 0.35);
+  --member-header-avatar-bg: #ffffff;
+  --member-header-avatar-fg: var(--nav-active-bg);
+  --member-header-toggle-track: rgba(255, 255, 255, 0.22);
+  --member-header-toggle-border: rgba(255, 255, 255, 0.35);
+  --member-header-toggle-active-bg: #ffffff;
+  --member-header-toggle-active-fg: var(--nav-active-bg);
+  --member-header-toggle-inactive-fg: rgba(255, 255, 255, 0.75);
+}
+
+/* ── 라이트그레이 ── */
+[data-theme="light-gray"] {
+  --nav-bg: #f1f2f5;
+  --nav-border: #e2e4ea;
+  --nav-text: #1e2130;
+  --nav-text-muted: #6b7280;
+  --nav-active-border: #0ea5e9;
+  --nav-active-bg: #332e7e;
+  --nav-active-text: #ffffff;
+  --nav-hover-bg: #4a44a8;
+  --nav-hover-text: #ffffff;
+  --nav-divider: #d1d5db;
+  --nav-avatar-bg: #e5e7eb;
+  --sidebar-bg: #f5f6fa;
+  --accent-primary: #332e7e;
+  --accent-light: #eeedf8;
+  --accent-text: #332e7e;
+  --accent-border: #c5c3e8;
+  --accent-gradient: linear-gradient(135deg, #332e7e, #4a44a8);
+  --required-color: #332e7e;
+  --section-icon-bg: transparent;
+  --section-icon-color: #332e7e;
+  --content-form-section-header-bg: #d6ebf9;
+  --content-form-section-header-hover-bg: #c5e3f6;
+  --content-form-section-header-border: #b8ddf0;
+  --input-focus-bg: #f0eff9;
+  --toggle-active-bg: linear-gradient(135deg, #332e7e, #4a44a8);
+  --toggle-active-color: #332e7e;
+  --member-no-color: #332e7e;
+  --logo-bg: #332e7e;
+  --brand-primary: var(--accent-primary);
+  --brand-gradient: var(--accent-gradient);
+  --brand-light: var(--accent-light);
+  --brand-toggle-track: #f0eff9;
+}
+
+/* ── 다크 (풀 다크 UI) — L0 바닥 / L1 크롬 / L2 카드 / L3 입력 ── */
+[data-theme="dark"] {
+  /* L1 — 사이드바 / L0 — 탑메뉴·서브탭(바닥과 동일) */
+  --nav-bg: #0c0e14;
+  --nav-border: rgba(255, 255, 255, 0.08);
+  --nav-text: #e2e8f0;
+  --nav-text-muted: rgba(226, 232, 240, 0.65);
+  --nav-active-border: #5ecfff;
+  --nav-active-bg: #7c3aed;
+  --nav-active-text: #ffffff;
+  --nav-hover-bg: #7c3aed;
+  --nav-hover-text: #ffffff;
+  --nav-dropdown-bg: #0c0e14;
+  --nav-dropdown-border: rgba(255, 255, 255, 0.1);
+  --nav-dropdown-text: rgba(226, 232, 240, 0.92);
+  --nav-dropdown-hover-bg: rgba(124, 58, 237, 0.45);
+  --nav-divider: rgba(255, 255, 255, 0.12);
+  --nav-avatar-bg: rgba(94, 207, 255, 0.2);
+  --sidebar-bg: #323a4d;
+  --accent-primary: #5ecfff;
+  --accent-light: #2d2650;
+  --accent-text: #7ee8ff;
+  --accent-border: #2d6a8f;
+  --accent-gradient: linear-gradient(135deg, #38bdf8, #5ecfff);
+  --required-color: #5ecfff;
+  --checkbox-accent: var(--accent-primary);
+  --section-icon-bg: transparent;
+  --section-icon-color: #5ecfff;
+  --content-form-section-header-bg: #1a3045;
+  --content-form-section-header-hover-bg: #1f3850;
+  --content-form-section-header-border: rgba(94, 207, 255, 0.22);
+  --input-focus-bg: #243548;
+  --toggle-active-bg: linear-gradient(135deg, #38bdf8, #5ecfff);
+  --toggle-active-color: #5ecfff;
+  --member-no-color: #5ecfff;
+  --logo-bg: #7c3aed;
+
+  /* L0 — 본문 바닥 */
+  --background: #0c0e14;
+  --foreground: #e2e8f0;
+  --border: rgba(255, 255, 255, 0.1);
+  --ring: rgba(94, 207, 255, 0.35);
+
+  /* L2 — 카드·패널 */
+  --card: #1e2433;
+  --card-foreground: #e2e8f0;
+  --popover: #1e2433;
+  --popover-foreground: #e2e8f0;
+  --primary: #5ecfff;
+  --primary-foreground: #0c0e14;
+  --secondary: #262d3d;
+  --secondary-foreground: #e2e8f0;
+  --muted: #262d3d;
+  --muted-foreground: #9aa8b8;
+  --accent: #38bdf8;
+  --accent-foreground: #ffffff;
+  --destructive: #f87171;
+  --destructive-foreground: #0c0e14;
+
+  /* L3 — 입력·버튼 */
+  --input-background: #262d3d;
+  --switch-background: #3d4558;
+
+  --sidebar: #323a4d;
+  --sidebar-foreground: #b0bccf;
+  --sidebar-primary: #5ecfff;
+  --sidebar-primary-foreground: #0c0e14;
+  --sidebar-accent: #3a4458;
+  --sidebar-accent-foreground: #e2e8f0;
+  --sidebar-border: rgba(255, 255, 255, 0.1);
+  --sidebar-ring: rgba(94, 207, 255, 0.35);
+
+  --surface-page: #0c0e14;
+  --surface-panel: #1e2433;
+  --surface-toolbar: #1a2030;
+  --surface-table-header: #1a2030;
+  --surface-input-readonly: #262d3d;
+  --surface-button-muted: #262d3d;
+  --surface-toggle-track: #1a2f42;
+  --surface-row-hover: #252c3c;
+  --surface-tab-hover: #323f54;
+  --surface-row-selected: #1a3045;
+  --surface-row-checked: #182838;
+  --surface-row-border: rgba(255, 255, 255, 0.06);
+  --surface-subnav: #3f4a62;
+  --text-body: #e2e8f0;
+  --text-secondary: #cbd5e1;
+  --text-muted: #9aa8b8;
+  --text-subtle: #6b7a8f;
+  --form-label-color: #b0bccf;
+  --org-card-bg: #1e2433;
+  --org-extra-bg: #262d3d;
+  --org-border: rgba(255, 255, 255, 0.12);
+  --org-label: #6b7a8f;
+  --org-text: #e2e8f0;
+  --org-text-muted: #9aa8b8;
+  --org-text-withdrawn: #64748b;
+  --org-link: #5ecfff;
+  --org-self-accent: #0284c7;
+  --org-grade-badge-bg: #0c4a6e;
+  --org-grade-badge-fg: #38bdf8;
+  --save-btn-bg: var(--nav-active-bg);
+  --badge-type-general-bg: #262d3d;
+  --badge-type-general-fg: #9aa8b8;
+  --badge-type-consumer-bg: #0c3540;
+  --badge-type-consumer-fg: #22d3ee;
+  --badge-status-active-bg: #0f2d1f;
+  --badge-status-active-fg: #4ade80;
+  --badge-status-withdraw-bg: #3b1515;
+  --badge-status-withdraw-fg: #f87171;
+  --sidebar-item-active-bg: #3a4458;
+  --tooltip-bg: #e2e8f0;
+  --tooltip-fg: #0c0e14;
+  --scrollbar-thumb: #3d4558;
+  --sort-icon-muted: #4a5568;
+  --action-btn-default-bg: #262d3d;
+  --action-btn-danger-bg: #3b1515;
+  --action-btn-danger-fg: #f87171;
+  --on-accent: #ffffff;
+  --brand-primary: #7c3aed;
+  --brand-gradient: linear-gradient(135deg, #7c3aed, #6366f1);
+  --brand-light: #2d2650;
+  --brand-toggle-track: #252240;
+  --detail-tab-bar-bg: #1a2030;
+  --detail-tab-bar-line: rgba(255, 255, 255, 0.1);
+  --detail-tab-active-top: var(--accent-primary);
+}
+
+:root {
+  --font-size: 15px;
+  --background: #f9f9f9;
+  --foreground: #1e2130;
+  --card: #ffffff;
+  --card-foreground: #1e2130;
+  --popover: #ffffff;
+  --popover-foreground: #1e2130;
+  --primary: #0284c7;
+  --primary-foreground: #ffffff;
+  --secondary: #e0f2fe;
+  --secondary-foreground: #0c4a6e;
+  --muted: #f0f1f5;
+  --muted-foreground: #8b8fa8;
+  --accent: #0284c7;
+  --accent-foreground: #ffffff;
+  --destructive: #ef4444;
+  --destructive-foreground: #ffffff;
+  --border: rgba(0, 0, 0, 0.08);
+  --input: transparent;
+  --input-background: #f8f8fb;
+  --switch-background: #cbd5e1;
+  --font-weight-medium: 500;
+  --font-weight-normal: 400;
+  --ring: rgba(2, 132, 199, 0.3);
+  --chart-1: #0284c7;
+  --chart-2: #06b6d4;
+  --chart-3: #10b981;
+  --chart-4: #f59e0b;
+  --chart-5: #ef4444;
+  --radius: 6px;
+  --sidebar: #ffffff;
+  --sidebar-foreground: #6b7280;
+  --sidebar-primary: #0284c7;
+  --sidebar-primary-foreground: #ffffff;
+  --sidebar-accent: #e4e7ec;
+  --sidebar-accent-foreground: #1e2130;
+  --sidebar-border: rgba(0, 0, 0, 0.06);
+  --sidebar-ring: rgba(2, 132, 199, 0.3);
+
+  --surface-page: #f2f2f2;
+  --surface-panel: #ffffff;
+  --surface-toolbar: #f9f9f9;
+  --surface-table-header: #f9f9f9;
+  --surface-input-readonly: #f1f5f9;
+  --surface-button-muted: #f5f6fa;
+  --surface-toggle-track: #e0f2fe;
+  --surface-row-hover: #f8f9fa;
+  --surface-row-selected: #e0f2fe;
+  --surface-row-checked: #e0f2fe;
+  --surface-row-border: #f1f5f9;
+  --surface-subnav: #ffffff;
+  --text-body: #1e2130;
+  --text-secondary: #475569;
+  --text-muted: #64748b;
+  --text-subtle: #94a3b8;
+  --form-label-color: #64748b;
+  --org-card-bg: #ffffff;
+  --org-extra-bg: #f8fafc;
+  --org-border: #e2e8f0;
+  --org-label: #94a3b8;
+  --org-text: #1e2130;
+  --org-text-muted: #64748b;
+  --org-text-withdrawn: #9ca3af;
+  --org-link: var(--nav-active-bg, #001673);
+  --org-self-accent: #0284c7;
+  --org-grade-badge-bg: #dbeafe;
+  --org-grade-badge-fg: var(--nav-active-bg, #001673);
+  --badge-type-general-bg: #f1f5f9;
+  --badge-type-general-fg: #64748b;
+  --badge-type-consumer-bg: #cffafe;
+  --badge-type-consumer-fg: #0891b2;
+  --badge-status-active-bg: #dcfce7;
+  --badge-status-active-fg: #16a34a;
+  --badge-status-withdraw-bg: #fee2e2;
+  --badge-status-withdraw-fg: #dc2626;
+  --sidebar-item-active-bg: #dde1e8;
+  --sidebar-item-active-border: #cfd4dc;
+  --tooltip-bg: #1e2130;
+  --tooltip-fg: #ffffff;
+  --scrollbar-thumb: #e2e8f0;
+  --sort-icon-muted: #cbd5e1;
+  --action-btn-default-bg: #f1f3f7;
+  --action-btn-danger-bg: #fee2e2;
+  --action-btn-danger-fg: #ef4444;
+  --on-accent: #ffffff;
+  --calendar-picker-icon: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%23999999' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Crect width='18' height='18' x='3' y='4' rx='2' ry='2'/%3E%3Cline x1='16' x2='16' y1='2' y2='6'/%3E%3Cline x1='8' x2='8' y1='2' y2='6'/%3E%3Cline x1='3' x2='21' y1='10' y2='10'/%3E%3C/svg%3E");
+  --detail-tab-bar-bg: #e4e6ec;
+  --detail-tab-bar-line: rgba(0, 0, 0, 0.12);
+  --detail-tab-active-top: #1e2130;
+}
+
+.dark {
+  --background: oklch(0.145 0 0);
+  --foreground: oklch(0.985 0 0);
+  --card: oklch(0.145 0 0);
+  --card-foreground: oklch(0.985 0 0);
+  --popover: oklch(0.145 0 0);
+  --popover-foreground: oklch(0.985 0 0);
+  --primary: oklch(0.985 0 0);
+  --primary-foreground: oklch(0.205 0 0);
+  --secondary: oklch(0.269 0 0);
+  --secondary-foreground: oklch(0.985 0 0);
+  --muted: oklch(0.269 0 0);
+  --muted-foreground: oklch(0.708 0 0);
+  --accent: oklch(0.269 0 0);
+  --accent-foreground: oklch(0.985 0 0);
+  --destructive: oklch(0.396 0.141 25.723);
+  --destructive-foreground: oklch(0.637 0.237 25.331);
+  --border: oklch(0.269 0 0);
+  --input: oklch(0.269 0 0);
+  --ring: oklch(0.439 0 0);
+  --font-weight-medium: 500;
+  --font-weight-normal: 400;
+  --chart-1: oklch(0.488 0.243 264.376);
+  --chart-2: oklch(0.696 0.17 162.48);
+  --chart-3: oklch(0.769 0.188 70.08);
+  --chart-4: oklch(0.627 0.265 303.9);
+  --chart-5: oklch(0.645 0.246 16.439);
+  --sidebar: oklch(0.205 0 0);
+  --sidebar-foreground: oklch(0.985 0 0);
+  --sidebar-primary: oklch(0.488 0.243 264.376);
+  --sidebar-primary-foreground: oklch(0.985 0 0);
+  --sidebar-accent: oklch(0.269 0 0);
+  --sidebar-accent-foreground: oklch(0.985 0 0);
+  --sidebar-border: oklch(0.269 0 0);
+  --sidebar-ring: oklch(0.439 0 0);
+}
+
+@theme inline {
+  --text-xs: 13px;
+  --text-sm: 15px;
+  --text-base: 17px;
+  --text-lg: 19px;
+  --text-xl: 21px;
+  --text-2xl: 25px;
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-input-background: var(--input-background);
+  --color-switch-background: var(--switch-background);
+  --color-ring: var(--ring);
+  --color-chart-1: var(--chart-1);
+  --color-chart-2: var(--chart-2);
+  --color-chart-3: var(--chart-3);
+  --color-chart-4: var(--chart-4);
+  --color-chart-5: var(--chart-5);
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+  --color-sidebar: var(--sidebar);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-ring: var(--sidebar-ring);
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+
+  body {
+    @apply bg-background text-foreground;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  }
+
+  /**
+  * Default typography styles for HTML elements (h1-h4, p, label, button, input).
+  * These are in @layer base, so Tailwind utility classes (like text-sm, text-lg) automatically override them.
+  */
+
+  html {
+    font-size: var(--font-size);
+  }
+
+  h1 {
+    font-size: var(--text-2xl);
+    font-weight: var(--font-weight-medium);
+    line-height: 1.5;
+  }
+
+  h2 {
+    font-size: var(--text-xl);
+    font-weight: var(--font-weight-medium);
+    line-height: 1.5;
+  }
+
+  h3 {
+    font-size: var(--text-lg);
+    font-weight: var(--font-weight-medium);
+    line-height: 1.5;
+  }
+
+  h4 {
+    font-size: var(--text-base);
+    font-weight: var(--font-weight-medium);
+    line-height: 1.5;
+  }
+
+  label {
+    font-size: var(--text-base);
+    font-weight: var(--font-weight-medium);
+    line-height: 1.5;
+  }
+
+  button {
+    font-size: var(--text-base);
+    font-weight: var(--font-weight-medium);
+    line-height: 1.5;
+  }
+
+  input {
+    font-size: var(--text-base);
+    font-weight: var(--font-weight-normal);
+    line-height: 1.5;
+  }
+}
+
+/* 본문 컨텐츠 영역 — 탑 메뉴 제외, 조밀하게 */
+.app-content {
+  --content-text-xs: 13px;
+  --content-text-sm: 14px;
+  --content-text-base: 15px;
+  font-size: var(--content-text-base);
+}
+
+.app-content .text-sm {
+  font-size: var(--content-text-sm) !important;
+  line-height: 1.3;
+}
+
+.app-content .text-xs {
+  font-size: var(--content-text-xs) !important;
+  line-height: 1.3;
+}
+
+.app-content input,
+.app-content select,
+.app-content textarea {
+  font-size: 14px !important;
+}
+
+.app-content table th,
+.app-content table td {
+  padding-top: 3px !important;
+  padding-bottom: 3px !important;
+}
+
+.app-content .member-list-panel td,
+.app-content .member-table-row td {
+  font-size: var(--content-text-xs) !important;
+}
+
+.app-content .content-form-section {
+  margin-bottom: 6px;
+}
+
+.app-content .content-form-section-icon,
+.app-content .content-form-section > button > span.content-form-section-icon,
+.app-content .content-form-section > button > span:first-child:not(.text-sm):not(.flex-1) {
+  width: 22px !important;
+  height: 22px !important;
+  min-width: 22px !important;
+  min-height: 22px !important;
+  padding: 0 !important;
+  border: none !important;
+  border-radius: 50% !important;
+  background: var(--section-icon-bg) !important;
+  background-color: var(--section-icon-bg) !important;
+  color: var(--section-icon-color) !important;
+  box-shadow: none !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+}
+
+.app-content .content-form-section-icon svg,
+.app-content .content-form-section > button > span:first-child:not(.text-sm):not(.flex-1) svg {
+  background: transparent !important;
+  color: var(--section-icon-color) !important;
+}
+
+input[type="checkbox"] {
+  accent-color: var(--checkbox-accent, var(--nav-active-bg, #001673));
+}
+
+.app-content .content-form-section--org > button {
+  padding-top: 10px !important;
+  padding-bottom: 10px !important;
+}
+
+.app-content .content-form-section--org .content-form-body {
+  padding: 16px 20px 12px !important;
+}
+
+.app-content .content-form-section:not(.content-form-section--org) > button {
+  padding-top: 9px !important;
+  padding-bottom: 9px !important;
+  padding-left: 12px !important;
+  padding-right: 12px !important;
+  min-height: 36px;
+  background: var(--content-form-section-header-bg) !important;
+  border-bottom-color: var(--content-form-section-header-border, var(--border)) !important;
+  transition: background 0.15s ease;
+}
+
+.app-content .content-form-section:not(.content-form-section--org) > button:hover {
+  background: var(--content-form-section-header-hover-bg, var(--content-form-section-header-bg)) !important;
+}
+
+.app-content .content-form-body {
+  padding: 6px 12px 8px !important;
+}
+
+.app-content .content-form-body table.content-form-grid span {
+  font-size: var(--content-text-xs) !important;
+}
+
+.app-content .content-form-body table.content-form-grid input,
+.app-content .content-form-body table.content-form-grid select,
+.app-content .content-form-body table.content-form-grid textarea {
+  font-size: var(--content-text-sm) !important;
+}
+
+.app-content .content-form-body > .flex {
+  padding-top: 2px;
+  padding-bottom: 2px;
+}
+
+/* 회원정보·거래은행 폼 — 열 너비 정렬 (4열 기준) */
+.app-content .content-form-body table.content-form-grid {
+  table-layout: fixed;
+  width: 100%;
+}
+
+.app-content .content-form-body table.content-form-grid .col-label-1 {
+  width: 108px;
+}
+
+.app-content .content-form-body table.content-form-grid .col-label-2 {
+  width: 100px;
+}
+
+.app-content .content-form-body table.content-form-grid .col-field-1,
+.app-content .content-form-body table.content-form-grid .col-field-2 {
+  width: calc((100% - 208px) / 2);
+}
+
+/* 거래은행 6열 — 1열 입력폭을 회원정보와 동일하게 */
+.app-content .content-form-body table.content-form-grid--6 .col-label-3 {
+  width: 108px;
+}
+
+.app-content .content-form-body table.content-form-grid--6 .col-field-1 {
+  width: calc((100% - 208px) / 2);
+}
+
+/* 일반회원정보·로그인 — 라벨↔입력 10px, 좌입력↔우라벨 20px */
+.app-content .content-form-body table.content-form-grid--member {
+  --form-label-w: 108px;
+  --form-label-mid-w: 100px;
+  --form-gap: 10px;
+  --form-col-gap: 20px;
+  --form-side-field-w: calc((100% - var(--form-label-w) * 2) / 2);
+  --form-side-field-left-w: calc(var(--form-side-field-w) - 14px);
+  --form-side-field-right-w: calc(var(--form-side-field-w) + 14px);
+  --form-field-divider: rgba(0, 0, 0, 0.1);
+}
+
+/* 행 사이 가로 구분선 */
+.app-content .content-form-body table.content-form-grid--member tbody tr + tr td {
+  border-top: 1px solid var(--form-field-divider);
+}
+
+.app-content .content-form-body table.content-form-grid--member .col-label-1,
+.app-content .content-form-body table.content-form-grid--member .col-label-3 {
+  width: var(--form-label-w);
+}
+
+.app-content .content-form-body table.content-form-grid--member .col-label-2 {
+  width: var(--form-label-mid-w);
+}
+
+.app-content .content-form-body table.content-form-grid--member .col-field-3 {
+  width: var(--form-side-field-right-w);
+}
+
+.app-content .content-form-body table.content-form-grid--member .col-field-1,
+.app-content .content-form-body table.content-form-grid--member .col-field-2 {
+  width: calc((var(--form-side-field-left-w) - var(--form-label-mid-w)) / 2);
+}
+
+.app-content .content-form-body table.content-form-grid--member td {
+  padding-right: var(--form-gap);
+  padding-left: 0;
+}
+
+.app-content .content-form-body table.content-form-grid--member td[colspan="3"] {
+  padding-right: var(--form-col-gap) !important;
+}
+
+.app-content .content-form-body table.content-form-grid--member td:last-child {
+  padding-right: 0;
+}
+
+/* 3열 폼 행(은행명·비밀번호 등) — 입력↔다음 라벨 간격 20px */
+.app-content .content-form-body table.content-form-grid--member tr.form-row-triple td:nth-child(2),
+.app-content .content-form-body table.content-form-grid--member tr.form-row-triple td:nth-child(4) {
+  padding-right: var(--form-col-gap) !important;
+}
+
+.app-content .content-member-header {
+  width: 100%;
+  max-width: 100%;
+  box-sizing: border-box;
+  padding: 6px 8px !important;
+  margin-bottom: 8px !important;
+  background: var(--member-header-bg, #001673) !important;
+  border: 1px solid var(--member-header-border, #00104d) !important;
+  color: var(--member-header-text-strong, #fff);
+}
+
+.app-content .content-member-header .content-member-header-text {
+  color: var(--member-header-text, rgba(255, 255, 255, 0.88));
+}
+
+.app-content .content-member-header .content-member-header-no {
+  color: var(--member-header-text-strong, #fff);
+}
+
+.app-content .content-member-header .content-member-header-divider {
+  background: var(--member-header-divider, rgba(255, 255, 255, 0.35));
+}
+
+.app-content .content-member-header .content-member-header-avatar {
+  background: var(--member-header-avatar-bg, #fff) !important;
+  color: var(--member-header-avatar-fg, #001673) !important;
+}
+
+.app-content .content-member-header .member-type-toggle {
+  background: var(--member-header-toggle-track, rgba(255, 255, 255, 0.22)) !important;
+  border-color: var(--member-header-toggle-border, rgba(255, 255, 255, 0.35)) !important;
+}
+
+.app-content .content-member-header .member-type-toggle button:not(.is-selected) {
+  background: transparent !important;
+  color: var(--member-header-toggle-inactive-fg, rgba(255, 255, 255, 0.75)) !important;
+}
+
+.app-content .content-member-header .member-type-toggle button.is-selected {
+  background: var(--member-header-toggle-active-bg, #fff) !important;
+  color: var(--member-header-toggle-active-fg, #001673) !important;
+}
+
+.app-content .content-scroll {
+  padding: 12px !important;
+  overflow-x: hidden;
+  overflow-y: auto;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.app-content .content-scroll::-webkit-scrollbar {
+  display: none;
+  width: 0;
+  height: 0;
+}
+
+/* 목록 열림 시 상세 패널·폼 절대 축소 방지 */
+.app-content-row {
+  box-sizing: border-box;
+}
+
+.app-content-detail {
+  overflow: hidden;
+}
+
+/* 상위 회원 관계 — 전체 너비 4구역 균등 배치 */
+.app-content .member-relation-row {
+  display: grid;
+  grid-template-columns: minmax(0, 1.15fr) minmax(0, 1.15fr) minmax(0, 1fr) minmax(0, 0.85fr);
+  width: 100%;
+  align-items: center;
+  column-gap: 20px;
+}
+
+.app-content .member-relation-segment {
+  min-width: 0;
+  display: flex;
+  align-items: center;
+}
+
+.app-content .member-relation-group {
+  display: flex;
+  align-items: center;
+  flex-wrap: nowrap;
+  gap: 8px;
+  width: 100%;
+}
+
+.app-content .member-relation-group > span,
+.app-content .member-relation-group > button {
+  flex-shrink: 0;
+}
+
+.app-content .member-relation-input-id {
+  flex: 1.15 1 0;
+  min-width: 72px;
+  width: auto;
+  font-size: 13px;
+  padding: 3px 8px;
+  background: var(--surface-input-readonly);
+  border: none;
+  color: var(--foreground);
+  font-family: monospace;
+}
+
+.app-content .member-relation-input-name {
+  flex: 1 1 0;
+  min-width: 56px;
+  width: auto;
+  font-size: 13px;
+  padding: 3px 8px;
+  background: var(--surface-input-readonly);
+  border: none;
+  color: var(--foreground);
+}
+
+.app-content .member-relation-select {
+  flex: 1 1 0;
+  min-width: 80px;
+  width: auto;
+}
+
+/* 회원 테이블 행 — 테마 대응 */
+.member-table-row {
+  cursor: pointer;
+  transition: background 0.1s;
+  border-bottom: 1px solid var(--surface-row-border);
+}
+.member-table-row:hover {
+  background: var(--surface-row-hover);
+}
+.member-table-row.is-selected {
+  background: var(--surface-row-selected);
+}
+.member-table-row.is-selected:hover {
+  background: var(--surface-row-selected);
+}
+.member-table-row.is-checked:not(.is-selected) {
+  background: var(--surface-row-checked);
+}
+.member-table-row.is-checked:not(.is-selected):hover {
+  background: var(--surface-row-checked);
+}
+
+/* 다크 — 3단 레이어 + border 구분 */
+[data-theme="dark"] .content-form-section,
+[data-theme="dark"] .content-member-header {
+  border: 1px solid rgba(255, 255, 255, 0.1) !important;
+}
+
+[data-theme="dark"] .app-content .content-form-body table.content-form-grid--member {
+  --form-field-divider: rgba(255, 255, 255, 0.12);
+}
+
+[data-theme="dark"] .content-form-section > button {
+  border-bottom-color: rgba(255, 255, 255, 0.08) !important;
+}
+
+[data-theme="dark"] .member-list-panel {
+  border-right: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+[data-theme="dark"] .app-content-detail {
+  border-left: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+[data-theme="dark"] .visit-history-bar {
+  border-top-color: rgba(255, 255, 255, 0.1) !important;
+}
+
+input[type="date"]::-webkit-calendar-picker-indicator,
+input[type="datetime-local"]::-webkit-calendar-picker-indicator,
+input[type="time"]::-webkit-calendar-picker-indicator {
+  background-image: var(--calendar-picker-icon);
+  background-size: 14px 14px;
+  background-position: center;
+  background-repeat: no-repeat;
+  opacity: 1;
+  width: 16px;
+  height: 16px;
+  cursor: pointer;
+}
