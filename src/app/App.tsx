@@ -3489,7 +3489,7 @@ function MemberInfoBody({
 // TopNav
 // ─────────────────────────────────────────────
 
-const mainMenus = ["기초관리", "회원관리", "회원관리2", "주문관리", "수당관리", "출고관리", "옵션"];
+const mainMenus = ["기초관리", "회원관리", "주문관리", "수당관리", "출고관리", "옵션", "회원관리2"];
 
 type MemberSubMenuGroup = {
   title: string;
