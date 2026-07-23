@@ -3022,30 +3022,6 @@ function MemberGeneralInfoForm({ member }: { member: Member }) {
                   </div>
                 </td>
               </tr>
-              <tr>
-                <td className={labelCellClass}><span style={{ fontSize: "12px", color: "var(--form-label-color)", fontWeight: 500 }}>EIN Number</span></td>
-                <td className={fieldWideCellClass} colSpan={fieldColSpan}>
-                  <div className="member-form-ein-row flex gap-2 items-center">
-                    <input
-                      defaultValue={info.ein.split("-")[0] ?? ""}
-                      placeholder="XX"
-                      maxLength={2}
-                      className="member-form-ein-row__prefix rounded outline-none transition-all duration-200"
-                      style={inputStyle}
-                      {...focusProps}
-                    />
-                    <span style={{ color: "var(--muted-foreground)", fontSize: 12, flexShrink: 0 }}>-</span>
-                    <input
-                      defaultValue={info.ein.includes("-") ? info.ein.split("-").slice(1).join("-") : ""}
-                      placeholder="XXXXXXX"
-                      maxLength={7}
-                      className="flex-1 min-w-0 rounded outline-none transition-all duration-200"
-                      style={inputStyle}
-                      {...focusProps}
-                    />
-                  </div>
-                </td>
-              </tr>
               <tr className="form-row-dual">
                 <td className={labelCellClass}><span style={{ fontSize: "12px", color: "var(--form-label-color)", fontWeight: 500 }}>비자종류</span></td>
                 <td className={fieldCellClass}>
@@ -3111,9 +3087,11 @@ function MemberGeneralInfoForm({ member }: { member: Member }) {
                 <td className={labelCellClass}><span style={{ fontSize: "12px", color: "var(--form-label-color)", fontWeight: 500 }}>휴대폰번호</span></td>
                 <td className={fieldCellClass}><input key={`phone-${member.id}`} defaultValue={info.phone} className="w-full rounded outline-none transition-all duration-200" style={inputStyle} {...focusProps} /></td>
               </tr>
-              <tr>
+              <tr className="form-row-dual">
                 <td className={labelCellClass}><span style={{ fontSize: "12px", color: "var(--form-label-color)", fontWeight: 500 }}>세금신고번호</span></td>
-                <td className={fieldWideCellClass} colSpan={fieldColSpan}><input defaultValue={info.taxId} className="w-full rounded outline-none transition-all duration-200" style={inputStyle} {...focusProps} /></td>
+                <td className={fieldCellClass}><input defaultValue={info.taxId} className="w-full rounded outline-none transition-all duration-200" style={inputStyle} {...focusProps} /></td>
+                <td className={labelCellClass}><span style={{ fontSize: "12px", color: "var(--form-label-color)", fontWeight: 500 }}>EIN Number</span></td>
+                <td className={fieldCellClass}><input defaultValue={info.ein} placeholder="미국 사업자 번호" className="w-full rounded outline-none transition-all duration-200" style={inputStyle} {...focusProps} /></td>
               </tr>
               <tr>
                 <td className={labelCellClass}><span style={{ fontSize: "12px", color: "var(--form-label-color)", fontWeight: 500 }}>메모</span></td>
