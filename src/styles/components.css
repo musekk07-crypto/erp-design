@@ -222,11 +222,11 @@
 }
 
 .nav-locale-dropdown-item:hover {
-  background: var(--nav-dropdown-hover-bg, rgba(8, 37, 160, 0.55));
+  background: var(--nav-dropdown-hover-bg, rgba(0, 22, 115, 0.55));
 }
 
 .nav-locale-dropdown-item.is-active {
-  background: rgba(8, 37, 160, 0.35);
+  background: rgba(0, 22, 115, 0.35);
 }
 
 .nav-locale-dropdown-name {
@@ -306,7 +306,7 @@
 }
 
 .main-nav-dropdown-item:hover {
-  background: var(--nav-dropdown-hover-bg, rgba(8, 37, 160, 0.55));
+  background: var(--nav-dropdown-hover-bg, rgba(0, 22, 115, 0.55));
   border-color: transparent;
   color: #ffffff;
 }
@@ -3262,7 +3262,7 @@ textarea.mm2-name-box:focus {
 
 .visit-history-icon-btn.is-accent {
   background: var(--surface-button-muted);
-  border-color: rgba(8, 37, 160, 0.28);
+  border-color: rgba(0, 22, 115, 0.28);
   color: var(--required-color, #001673);
 }
 
@@ -3307,7 +3307,7 @@ textarea.mm2-name-box:focus {
 .visit-history-collapsed-badge--pinned {
   color: var(--required-color, #001673);
   background: #e8ecf8;
-  border-color: rgba(8, 37, 160, 0.28);
+  border-color: rgba(0, 22, 115, 0.28);
 }
 
 .visit-history-collapsed-badge:hover {
@@ -3344,7 +3344,7 @@ textarea.mm2-name-box:focus {
 
 .visit-history-chip.is-active {
   background: #e8ecf8;
-  border-color: rgba(8, 37, 160, 0.28);
+  border-color: rgba(0, 22, 115, 0.28);
 }
 
 .visit-history-chip-screen {
