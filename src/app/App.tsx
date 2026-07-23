@@ -2978,13 +2978,11 @@ function MemberGeneralInfoForm({ member }: { member: Member }) {
                   </div>
                 </td>
               </tr>
-              <tr>
+              <tr className="form-row-dual">
                 <td style={labelTdStyle}><span style={{ fontSize: "12px", color: "var(--form-label-color)", fontWeight: 500 }}>한글명</span></td>
-                <td style={fieldTdStyle} colSpan={fieldColSpan}><input defaultValue={info.koreanName} className="w-full rounded outline-none transition-all duration-200" style={inputStyle} {...focusProps} /></td>
-              </tr>
-              <tr>
+                <td style={fieldTdStyle}><input defaultValue={info.koreanName} className="w-full rounded outline-none transition-all duration-200" style={inputStyle} {...focusProps} /></td>
                 <td style={labelTdStyle}><span style={{ fontSize: "12px", color: "var(--form-label-color)", fontWeight: 500 }}>Nick Name</span></td>
-                <td style={fieldTdStyle} colSpan={fieldColSpan}><input defaultValue={info.nickName} placeholder="닉네임" className="w-full rounded outline-none transition-all duration-200" style={inputStyle} {...focusProps} /></td>
+                <td style={fieldTdStyle}><input defaultValue={info.nickName} placeholder="닉네임" className="w-full rounded outline-none transition-all duration-200" style={inputStyle} {...focusProps} /></td>
               </tr>
               <tr>
                 <td style={labelTdStyle}><span style={{ fontSize: "12px", color: "var(--form-label-color)", fontWeight: 500 }}>Business Name</span></td>

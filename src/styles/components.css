@@ -755,6 +755,7 @@ span.member-form-action-chip {
   max-width: calc(100% - 8px);
 }
 
+.member-form-split__group .member-form-grid--split tr.form-row-dual td:nth-child(2) input,
 .member-form-split__group .member-form-grid--split tr.form-row-dual td:nth-child(4) input {
   width: calc(100% - 8px);
   max-width: calc(100% - 8px);
