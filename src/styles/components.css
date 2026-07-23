@@ -780,7 +780,7 @@ span.member-form-action-chip {
   padding-right: 10px !important;
 }
 
-.member-form-split .member-form-grid--split td input:not(.member-form-ssn-row__input):not(.member-form-customer-name-primary),
+.member-form-split .member-form-grid--split td input:not(.member-form-ssn-row__input):not(.member-form-customer-name-primary):not(.member-form-ein-row__prefix),
 .member-form-split .member-form-grid--split td select,
 .member-form-split .member-form-grid--split td .relative,
 .member-form-split .member-form-grid--split td .member-form-address-stack,
@@ -800,6 +800,19 @@ span.member-form-action-chip {
   width: 163px;
   max-width: 163px;
   min-width: 163px;
+  box-sizing: border-box;
+}
+
+.member-form-ein-row {
+  width: 100%;
+  min-width: 0;
+}
+
+.member-form-ein-row__prefix {
+  flex: 0 0 72px;
+  width: 72px;
+  max-width: 72px;
+  min-width: 72px;
   box-sizing: border-box;
 }
 
