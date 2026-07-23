@@ -728,6 +728,14 @@ span.member-form-action-chip {
   border-bottom: 1px solid var(--form-field-divider, rgba(0, 0, 0, 0.1));
 }
 
+.member-form-split__group .content-form-grid--member tr.form-row-dual td:nth-child(2) {
+  padding-right: var(--form-col-gap, 20px) !important;
+}
+
+.member-form-split__group .member-form-grid--split td[colspan="3"] {
+  padding-right: 0;
+}
+
 .member-form-address-stack {
   display: flex;
   flex-direction: column;

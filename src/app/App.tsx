@@ -2934,7 +2934,19 @@ function MemberGeneralInfoForm({ member }: { member: Member }) {
     },
   };
 
-  const renderTable = (rows: React.ReactNode) => (
+  const renderLeftTable = (rows: React.ReactNode) => (
+    <table className="content-form-grid content-form-grid--member member-form-grid--split" style={{ width: "100%", borderCollapse: "collapse" }}>
+      <colgroup>
+        <col className="col-label-1" />
+        <col className="col-field-1" />
+        <col className="col-label-2" />
+        <col className="col-field-2" />
+      </colgroup>
+      <tbody>{rows}</tbody>
+    </table>
+  );
+
+  const renderRightTable = (rows: React.ReactNode) => (
     <table className="content-form-grid content-form-grid--member content-form-grid--pair" style={{ width: "100%", borderCollapse: "collapse" }}>
       <colgroup>
         <col className="col-label-1" />
@@ -2944,19 +2956,21 @@ function MemberGeneralInfoForm({ member }: { member: Member }) {
     </table>
   );
 
+  const fieldColSpan = 3;
+
   return (
     <FormSection title="일반 회원정보" subtitle="20개 항목" icon={<User size={12} />} bodyPadding="8px 12px 10px">
       <div className="member-form-split">
         <div className="member-form-split__group">
-          {renderTable(
+          {renderLeftTable(
             <>
               <tr>
                 <td style={labelTdStyle}><span style={{ fontSize: "12px", color: "var(--required-color)", fontWeight: 500 }}>* 회원 등록일자</span></td>
-                <td style={fieldTdStyle}><input type="date" key={`reg-${member.id}`} defaultValue={info.regDate} className="w-full rounded outline-none transition-all duration-200" style={inputStyle} {...focusProps} /></td>
+                <td style={fieldTdStyle} colSpan={fieldColSpan}><input type="date" key={`reg-${member.id}`} defaultValue={info.regDate} className="w-full rounded outline-none transition-all duration-200" style={inputStyle} {...focusProps} /></td>
               </tr>
               <tr>
                 <td style={labelTdStyle}><span style={{ fontSize: "12px", color: "var(--required-color)", fontWeight: 500 }}>* 고객 이름/성</span></td>
-                <td style={fieldTdStyle}>
+                <td style={fieldTdStyle} colSpan={fieldColSpan}>
                   <div className="flex gap-2">
                     <input defaultValue={info.customerName} className="flex-1 min-w-0 rounded outline-none transition-all duration-200" style={inputStyle} {...focusProps} />
                     <input defaultValue={info.customerNameExtra1} className="flex-1 min-w-0 rounded outline-none transition-all duration-200" style={inputStyle} {...focusProps} />
@@ -2966,23 +2980,23 @@ function MemberGeneralInfoForm({ member }: { member: Member }) {
               </tr>
               <tr>
                 <td style={labelTdStyle}><span style={{ fontSize: "12px", color: "var(--form-label-color)", fontWeight: 500 }}>한글명</span></td>
-                <td style={fieldTdStyle}><input defaultValue={info.koreanName} className="w-full rounded outline-none transition-all duration-200" style={inputStyle} {...focusProps} /></td>
+                <td style={fieldTdStyle} colSpan={fieldColSpan}><input defaultValue={info.koreanName} className="w-full rounded outline-none transition-all duration-200" style={inputStyle} {...focusProps} /></td>
               </tr>
               <tr>
                 <td style={labelTdStyle}><span style={{ fontSize: "12px", color: "var(--form-label-color)", fontWeight: 500 }}>Nick Name</span></td>
-                <td style={fieldTdStyle}><input defaultValue={info.nickName} placeholder="닉네임" className="w-full rounded outline-none transition-all duration-200" style={inputStyle} {...focusProps} /></td>
+                <td style={fieldTdStyle} colSpan={fieldColSpan}><input defaultValue={info.nickName} placeholder="닉네임" className="w-full rounded outline-none transition-all duration-200" style={inputStyle} {...focusProps} /></td>
               </tr>
               <tr>
                 <td style={labelTdStyle}><span style={{ fontSize: "12px", color: "var(--form-label-color)", fontWeight: 500 }}>Business Name</span></td>
-                <td style={fieldTdStyle}><input defaultValue={info.businessName} placeholder="사업자명" className="w-full rounded outline-none transition-all duration-200" style={inputStyle} {...focusProps} /></td>
+                <td style={fieldTdStyle} colSpan={fieldColSpan}><input defaultValue={info.businessName} placeholder="사업자명" className="w-full rounded outline-none transition-all duration-200" style={inputStyle} {...focusProps} /></td>
               </tr>
               <tr>
                 <td style={labelTdStyle}><span style={{ fontSize: "12px", color: "var(--form-label-color)", fontWeight: 500 }}>Legal Name</span></td>
-                <td style={fieldTdStyle}><input defaultValue={info.legalName} placeholder="법적 이름" className="w-full rounded outline-none transition-all duration-200" style={inputStyle} {...focusProps} /></td>
+                <td style={fieldTdStyle} colSpan={fieldColSpan}><input defaultValue={info.legalName} placeholder="법적 이름" className="w-full rounded outline-none transition-all duration-200" style={inputStyle} {...focusProps} /></td>
               </tr>
               <tr>
                 <td style={labelTdStyle}><span style={{ fontSize: "12px", color: "var(--form-label-color)", fontWeight: 500 }}>생년월일</span></td>
-                <td style={fieldTdStyle}><input type="date" defaultValue={info.birthDate} className="w-full rounded outline-none transition-all duration-200" style={inputStyle} {...focusProps} /></td>
+                <td style={fieldTdStyle} colSpan={fieldColSpan}><input type="date" defaultValue={info.birthDate} className="w-full rounded outline-none transition-all duration-200" style={inputStyle} {...focusProps} /></td>
               </tr>
               <tr>
                 <td style={labelTdStyle}>
@@ -2991,7 +3005,7 @@ function MemberGeneralInfoForm({ member }: { member: Member }) {
                     주민등록번호
                   </span>
                 </td>
-                <td style={fieldTdStyle}>
+                <td style={fieldTdStyle} colSpan={fieldColSpan}>
                   <div className="flex gap-1 items-center">
                     <input key={`ssn-${member.id}`} defaultValue={info.ssn} className="flex-1 rounded outline-none transition-all duration-200" style={inputStyle} {...focusProps} />
                     <div className="relative" style={{ flexShrink: 0 }}>
@@ -3011,9 +3025,9 @@ function MemberGeneralInfoForm({ member }: { member: Member }) {
               </tr>
               <tr>
                 <td style={labelTdStyle}><span style={{ fontSize: "12px", color: "var(--form-label-color)", fontWeight: 500 }}>EIN Number</span></td>
-                <td style={fieldTdStyle}><input defaultValue={info.ein} placeholder="미국 사업자 번호" className="w-full rounded outline-none transition-all duration-200" style={inputStyle} {...focusProps} /></td>
+                <td style={fieldTdStyle} colSpan={fieldColSpan}><input defaultValue={info.ein} placeholder="미국 사업자 번호" className="w-full rounded outline-none transition-all duration-200" style={inputStyle} {...focusProps} /></td>
               </tr>
-              <tr className="member-form-row--bottom-divider">
+              <tr className="member-form-row--bottom-divider form-row-dual">
                 <td style={labelTdStyle}><span style={{ fontSize: "12px", color: "var(--form-label-color)", fontWeight: 500 }}>비자종류</span></td>
                 <td style={fieldTdStyle}>
                   <div className="relative" style={{ display: "inline-block", width: "100%" }}>
@@ -3026,18 +3040,16 @@ function MemberGeneralInfoForm({ member }: { member: Member }) {
                     <ChevronDown size={12} style={{ position: "absolute", right: 7, top: "50%", transform: "translateY(-50%)", color: "var(--muted-foreground)", pointerEvents: "none" }} />
                   </div>
                 </td>
+                <td style={labelTdStyle}><span style={{ fontSize: "12px", color: "var(--form-label-color)", fontWeight: 500 }}>체류기간 만료일자</span></td>
+                <td style={fieldTdStyle}><input type="date" defaultValue={info.stayExpiry} className="w-full rounded outline-none transition-all duration-200" style={inputStyle} {...focusProps} /></td>
               </tr>
             </>,
           )}
         </div>
 
         <div className="member-form-split__group">
-          {renderTable(
+          {renderRightTable(
             <>
-              <tr>
-                <td style={labelTdStyle}><span style={{ fontSize: "12px", color: "var(--form-label-color)", fontWeight: 500 }}>체류기간 만료일자</span></td>
-                <td style={fieldTdStyle}><input type="date" defaultValue={info.stayExpiry} className="w-full rounded outline-none transition-all duration-200" style={inputStyle} {...focusProps} /></td>
-              </tr>
               <tr>
                 <td style={labelTdStyle}><span style={{ fontSize: "12px", color: "var(--form-label-color)", fontWeight: 500 }}>주소지</span></td>
                 <td style={fieldTdStyle}>
@@ -3084,23 +3096,25 @@ function MemberGeneralInfoForm({ member }: { member: Member }) {
                 <td style={labelTdStyle}><span style={{ fontSize: "12px", color: "var(--form-label-color)", fontWeight: 500 }}>휴대폰번호</span></td>
                 <td style={fieldTdStyle}><input key={`phone-${member.id}`} defaultValue={info.phone} className="w-full rounded outline-none transition-all duration-200" style={inputStyle} {...focusProps} /></td>
               </tr>
-              <tr className="member-form-row--bottom-divider">
+              <tr>
                 <td style={labelTdStyle}><span style={{ fontSize: "12px", color: "var(--form-label-color)", fontWeight: 500 }}>세금신고번호</span></td>
                 <td style={fieldTdStyle}><input defaultValue={info.taxId} className="w-full rounded outline-none transition-all duration-200" style={inputStyle} {...focusProps} /></td>
+              </tr>
+              <tr className="member-form-row--bottom-divider">
+                <td style={labelTdStyle}><span style={{ fontSize: "12px", color: "var(--form-label-color)", fontWeight: 500 }}>메모</span></td>
+                <td style={fieldTdStyle}>
+                  <input
+                    key={`memo-${member.id}`}
+                    defaultValue={info.memo}
+                    className="w-full rounded outline-none transition-all duration-200"
+                    style={inputStyle}
+                    {...focusProps}
+                  />
+                </td>
               </tr>
             </>,
           )}
         </div>
-      </div>
-      <div className="member-form-memo-row">
-        <span className="member-form-memo-row__label" style={{ fontSize: "12px", color: "var(--form-label-color)", fontWeight: 500 }}>메모</span>
-        <input
-          key={`memo-${member.id}`}
-          defaultValue={info.memo}
-          className="member-form-memo-row__input rounded outline-none transition-all duration-200"
-          style={inputStyle}
-          {...focusProps}
-        />
       </div>
     </FormSection>
   );
@@ -3454,12 +3468,25 @@ function MemberInfoBody({
 
         <RecommenderSelectPopup
           open={recommenderOpen}
+          title="추천인 선택"
           onClose={() => setRecommenderOpen(false)}
           candidates={members}
           excludeId={member.id}
           onSelect={(selected) => {
             setRecommender({ no: selected.no, name: selected.name });
             setRecommenderOpen(false);
+          }}
+        />
+
+        <RecommenderSelectPopup
+          open={sponsorOpen}
+          title="후원인 선택"
+          onClose={() => setSponsorOpen(false)}
+          candidates={members}
+          excludeId={member.id}
+          onSelect={(selected) => {
+            setSponsor({ no: selected.no, name: selected.name });
+            setSponsorOpen(false);
           }}
         />
 
