@@ -3071,6 +3071,7 @@ function MemberGeneralInfoForm({ member }: { member: Member }) {
                       <input key={`addr-${member.id}`} defaultValue={info.address} className="flex-1 min-w-0 rounded outline-none transition-all duration-200" style={inputStyle} {...focusProps} />
                       <button type="button" className="shrink-0" style={{ fontSize: 12, padding: "3px 10px", background: "var(--surface-button-muted)", color: "var(--foreground)", border: "1px solid var(--border)", borderRadius: 4 }}>...</button>
                     </div>
+                    <div className="member-form-address-stack__divider" aria-hidden />
                     <input defaultValue={info.addressDetail} className="member-form-address-stack__detail w-full rounded outline-none transition-all duration-200" style={inputStyle} {...focusProps} />
                   </div>
                 </td>
