@@ -728,37 +728,67 @@ span.member-form-action-chip {
   border-bottom: 1px solid var(--form-field-divider, rgba(0, 0, 0, 0.1));
 }
 
-.member-form-split__group .content-form-grid--member tr.form-row-dual td:nth-child(2) {
-  padding-right: calc(var(--form-col-gap, 20px) + 8px) !important;
+/* 일반회원정보 split — 4열 그리드 정렬 */
+.member-form-split .member-form-grid--split {
+  table-layout: fixed;
+  width: 100%;
+  --form-split-label-w: 108px;
+  --form-split-label-2-w: 112px;
+  --form-split-field-gap: 20px;
 }
 
-.member-form-split__group .member-form-grid--split {
-  --form-label-mid-w: 120px;
+.member-form-split .member-form-grid--split col.col-label-1 {
+  width: var(--form-split-label-w);
 }
 
-.member-form-split__group .member-form-grid--split tr.form-row-dual td:nth-child(1),
-.member-form-split__group .member-form-grid--split tr.form-row-dual td:nth-child(3) {
-  padding-right: 16px !important;
+.member-form-split .member-form-grid--split col.col-label-2 {
+  width: var(--form-split-label-2-w);
 }
 
-.member-form-split__group .member-form-grid--split tr.form-row-dual td:nth-child(3) {
-  padding-right: 18px !important;
+.member-form-split .member-form-grid--split col.col-field-1,
+.member-form-split .member-form-grid--split col.col-field-2 {
+  width: calc((100% - var(--form-split-label-w) - var(--form-split-label-2-w)) / 2);
 }
 
-.member-form-split__group .member-form-grid--split tr.form-row-dual td:nth-child(2),
-.member-form-split__group .member-form-grid--split tr.form-row-dual td:nth-child(4) {
-  padding-left: 4px;
+.member-form-split .member-form-grid--split td {
+  vertical-align: middle;
+  padding-top: 3px;
+  padding-bottom: 3px;
+  padding-left: 0;
+  box-sizing: border-box;
 }
 
-.member-form-split__group .member-form-grid--split tr.form-row-dual td:nth-child(2) > .relative {
-  width: calc(100% - 8px);
-  max-width: calc(100% - 8px);
+.member-form-split .member-form-grid--split td[colspan="3"] {
+  padding-right: 0 !important;
 }
 
-.member-form-split__group .member-form-grid--split tr.form-row-dual td:nth-child(2) input,
-.member-form-split__group .member-form-grid--split tr.form-row-dual td:nth-child(4) input {
-  width: calc(100% - 8px);
-  max-width: calc(100% - 8px);
+.member-form-split .member-form-grid--split tr.form-row-dual td:nth-child(1),
+.member-form-split .member-form-grid--split tr:not(.form-row-dual) td:first-child {
+  width: var(--form-split-label-w);
+  padding-right: 10px;
+}
+
+.member-form-split .member-form-grid--split tr.form-row-dual td:nth-child(2) {
+  padding-right: var(--form-split-field-gap) !important;
+}
+
+.member-form-split .member-form-grid--split tr.form-row-dual td:nth-child(3) {
+  width: var(--form-split-label-2-w);
+  padding-right: 10px !important;
+}
+
+.member-form-split .member-form-grid--split tr.form-row-dual td:nth-child(4) {
+  padding-right: 0 !important;
+}
+
+.member-form-split .member-form-grid--split td input,
+.member-form-split .member-form-grid--split td select,
+.member-form-split .member-form-grid--split td textarea,
+.member-form-split .member-form-grid--split td .relative,
+.member-form-split .member-form-grid--split td .member-form-address-stack,
+.member-form-split .member-form-grid--split td .flex {
+  width: 100%;
+  max-width: 100%;
   box-sizing: border-box;
 }
 
