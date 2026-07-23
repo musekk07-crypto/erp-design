@@ -2968,11 +2968,11 @@ function MemberGeneralInfoForm({ member }: { member: Member }) {
           {renderLeftTable(
             <>
               <tr>
-                <td className={labelCellClass}><span style={{ fontSize: "12px", color: "var(--required-color)", fontWeight: 500 }}>* 회원 등록일자</span></td>
+                <td className={labelCellClass}><span style={{ fontSize: "12px", color: "var(--required-color, #001673)", fontWeight: 500 }}>* 회원 등록일자</span></td>
                 <td className={fieldWideCellClass} colSpan={fieldColSpan}><input type="date" key={`reg-${member.id}`} defaultValue={info.regDate} className="w-full rounded outline-none transition-all duration-200" style={inputStyle} {...focusProps} /></td>
               </tr>
               <tr>
-                <td className={labelCellClass}><span style={{ fontSize: "12px", color: "var(--required-color)", fontWeight: 500 }}>* 고객 이름/성</span></td>
+                <td className={labelCellClass}><span style={{ fontSize: "12px", color: "var(--required-color, #001673)", fontWeight: 500 }}>* 고객 이름/성</span></td>
                 <td className={fieldWideCellClass} colSpan={fieldColSpan}>
                   <div className="flex gap-2">
                     <input defaultValue={info.customerName} className="member-form-customer-name-primary rounded outline-none transition-all duration-200" style={inputStyle} {...focusProps} />
@@ -3163,7 +3163,7 @@ function MemberLoginInfoForm({ member }: { member: Member }) {
           {renderPairTable(
             <>
               <tr>
-                <td style={labelTdStyle}><span style={{ fontSize: "12px", color: "var(--required-color)", fontWeight: 500 }}>* 회원번호</span></td>
+                <td style={labelTdStyle}><span style={{ fontSize: "12px", color: "var(--required-color, #001673)", fontWeight: 500 }}>* 회원번호</span></td>
                 <td style={fieldTdStyle}>
                   <input type="text" defaultValue={member.no} className="w-full rounded outline-none transition-all duration-200" style={{ ...inputStyle, fontFamily: "monospace" }} {...focusProps} />
                 </td>
@@ -3186,7 +3186,7 @@ function MemberLoginInfoForm({ member }: { member: Member }) {
           {renderPairTable(
             <>
               <tr>
-                <td style={labelTdStyle}><span style={{ fontSize: "12px", color: "var(--required-color)", fontWeight: 500 }}>* 아이디</span></td>
+                <td style={labelTdStyle}><span style={{ fontSize: "12px", color: "var(--required-color, #001673)", fontWeight: 500 }}>* 아이디</span></td>
                 <td style={fieldTdStyle}>
                   <input type="text" defaultValue={member.loginId} className="w-full rounded outline-none transition-all duration-200" style={{ ...inputStyle, fontFamily: "monospace" }} {...focusProps} />
                 </td>
@@ -3344,10 +3344,10 @@ function MemberInfoBody({
           <div className="member-relation-row">
             <div className="member-relation-segment">
               <div className="member-relation-group">
-                <span style={{ fontSize: "12px", color: "var(--required-color)", fontWeight: 500 }}>* 추천인</span>
+                <span style={{ fontSize: "12px", color: "var(--required-color, #001673)", fontWeight: 500 }}>* 추천인</span>
                 <input readOnly value={recommender.no} className="member-relation-input-id rounded outline-none" />
                 <input readOnly value={recommender.name} className="member-relation-input-name rounded outline-none" />
-                <span style={{ fontSize: 12, padding: "2px 8px", background: "var(--accent-light)", color: "var(--required-color)", border: "1px solid var(--accent-border)", borderRadius: 4, whiteSpace: "nowrap" }}>38명</span>
+                <span style={{ fontSize: 12, padding: "2px 8px", background: "var(--accent-light)", color: "var(--required-color, #001673)", border: "1px solid var(--accent-border)", borderRadius: 4, whiteSpace: "nowrap" }}>38명</span>
                 <button
                   type="button"
                   className="rounded p-1 flex items-center justify-center"
@@ -3361,10 +3361,10 @@ function MemberInfoBody({
             </div>
             <div className="member-relation-segment">
               <div className="member-relation-group">
-                <span style={{ fontSize: "12px", color: "var(--required-color)", fontWeight: 500 }}>* 후원인</span>
+                <span style={{ fontSize: "12px", color: "var(--required-color, #001673)", fontWeight: 500 }}>* 후원인</span>
                 <input readOnly value={sponsor.no} className="member-relation-input-id rounded outline-none" />
                 <input readOnly value={sponsor.name} className="member-relation-input-name rounded outline-none" />
-                <span style={{ fontSize: 12, padding: "2px 8px", background: "var(--accent-light)", color: "var(--required-color)", border: "1px solid var(--accent-border)", borderRadius: 4, whiteSpace: "nowrap" }}>12명</span>
+                <span style={{ fontSize: 12, padding: "2px 8px", background: "var(--accent-light)", color: "var(--required-color, #001673)", border: "1px solid var(--accent-border)", borderRadius: 4, whiteSpace: "nowrap" }}>12명</span>
                 <button
                   type="button"
                   className="rounded p-1 flex items-center justify-center"
@@ -3379,7 +3379,7 @@ function MemberInfoBody({
             <div className="member-relation-segment">
               <div className="member-relation-group">
                 <span style={{ fontSize: "12px", color: "var(--form-label-color)", fontWeight: 600 }}>소속 그룹 정보</span>
-                <span style={{ fontSize: "12px", color: "var(--required-color)", fontWeight: 500 }}>* 센터</span>
+                <span style={{ fontSize: "12px", color: "var(--required-color, #001673)", fontWeight: 500 }}>* 센터</span>
                 <div className="relative member-relation-select">
                   <select
                     className="w-full rounded py-1.5 text-sm outline-none appearance-none"

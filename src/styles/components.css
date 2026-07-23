@@ -1,5 +1,25 @@
 /* 배포 빌드에서 purge 되지 않도록 source(none)으로 import */
 
+/* 딥퍼플 테마 핵심 변수 — theme.css purge 대비 */
+:root,
+[data-theme="deep-purple"] {
+  --nav-active-bg: #001673;
+  --nav-hover-bg: #00104d;
+  --required-color: #001673;
+  --save-btn-bg: #001673;
+  --member-header-bg: #001673;
+  --member-header-border: #00104d;
+  --member-header-avatar-fg: #001673;
+  --member-header-toggle-active-fg: #001673;
+  --detail-tab-active-top: #001673;
+  --checkbox-accent: #001673;
+  --member-no-color: #001673;
+  --org-self-accent: #001673;
+  --org-link: #001673;
+  --org-grade-badge-fg: #001673;
+  --nav-dropdown-hover-bg: rgba(0, 22, 115, 0.55);
+}
+
 /* GNB 메인 메뉴 — 선택·호버 시 파란 배경, nav 높이 꽉 채움 */
 .main-nav-item {
   display: flex;
