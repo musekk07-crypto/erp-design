@@ -3141,12 +3141,6 @@ function MemberLoginInfoForm({ member }: { member: Member }) {
         <div className="member-form-split__group member-form-split__group--login-profile">
           <div className="rounded content-member-header member-login-profile-box">
             <div className="member-login-profile-row">
-              <div
-                className="content-member-header-avatar member-login-profile-avatar w-8 h-8 rounded flex items-center justify-center font-bold shrink-0"
-                style={{ fontSize: 12 }}
-              >
-                {member.name.charAt(0)}
-              </div>
               <div className="member-login-profile-summary">
                 <span className="content-member-header-text" style={{ fontSize: 13 }}>{member.name} · {member.loginId}</span>
                 <span className="content-member-header-divider member-login-profile-divider" style={{ width: 1, height: 14, display: "inline-block" }} aria-hidden />
