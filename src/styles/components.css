@@ -23,7 +23,7 @@
 .main-nav-item:not(.is-active):hover {
   font-weight: 600;
   color: var(--nav-active-text, #ffffff);
-  background: var(--nav-active-bg, #0825a0);
+  background: var(--nav-active-bg, #001673);
 }
 
 .main-nav-item-wrap {
@@ -36,7 +36,7 @@
 .main-nav-item-wrap:focus-within .main-nav-item {
   font-weight: 600;
   color: var(--nav-active-text, #ffffff);
-  background: var(--nav-active-bg, #0825a0);
+  background: var(--nav-active-bg, #001673);
 }
 
 .main-nav-dropdown {
@@ -523,7 +523,7 @@ span.member-form-action-chip {
   --accent-primary: #0284c7;
   --accent-light: #e0f2fe;
   --accent-border: #bae6fd;
-  --member-no-color: var(--nav-active-bg, #0825a0);
+  --member-no-color: var(--nav-active-bg, #001673);
   --section-icon-bg: #0284c7;
   --section-icon-color: #ffffff;
 }
@@ -536,12 +536,12 @@ span.member-form-action-chip {
   --accent-primary: #0284c7;
   --accent-light: #e0f2fe;
   --accent-border: #bae6fd;
-  --member-no-color: var(--nav-active-bg, #0825a0);
+  --member-no-color: var(--nav-active-bg, #001673);
   --split-table-header-bg: #e0f2fe;
   --split-table-header-border: #bae6fd;
   --split-table-header-fg: #1e2130;
   --org-grade-badge-bg: #dbeafe;
-  --org-grade-badge-fg: var(--nav-active-bg, #0825a0);
+  --org-grade-badge-fg: var(--nav-active-bg, #001673);
   --section-icon-bg: #0284c7;
   --section-icon-color: #ffffff;
 }
@@ -680,7 +680,7 @@ span.member-form-action-chip {
   font-size: 12px;
   font-weight: 700;
   background: var(--accent-light, #e8ecf8);
-  color: var(--required-color, #0825a0);
+  color: var(--required-color, #001673);
 }
 
 .member-login-profile-summary {
@@ -2070,7 +2070,7 @@ textarea.mm2-name-box:focus {
 }
 
 .mm2-consent-item input {
-  accent-color: var(--checkbox-accent, var(--nav-active-bg, #0825a0));
+  accent-color: var(--checkbox-accent, var(--nav-active-bg, #001673));
   width: 14px;
   height: 14px;
   margin: 0;
@@ -2093,8 +2093,8 @@ textarea.mm2-name-box:focus {
   --order-mgmt-font-size-toolbar: 14px;
   --surface-row-selected: #e8eaef;
   --accent-primary: #0284c7;
-  --order-mgmt-member-info-bg: var(--member-header-bg, var(--nav-active-bg, #0825a0));
-  --order-mgmt-save-btn-bg: var(--nav-active-bg, #0825a0);
+  --order-mgmt-member-info-bg: var(--member-header-bg, var(--nav-active-bg, #001673));
+  --order-mgmt-save-btn-bg: var(--nav-active-bg, #001673);
   --order-mgmt-right-width: 980px;
   --order-mgmt-toolbar-head-height: 60px;
   --order-mgmt-box-radius: var(--radius, 6px);
@@ -2110,8 +2110,8 @@ textarea.mm2-name-box:focus {
 
 [data-theme="dark"] .order-mgmt-view {
   --accent-primary: #38bdf8;
-  --order-mgmt-member-info-bg: #0825a0;
-  --order-mgmt-save-btn-bg: #0825a0;
+  --order-mgmt-member-info-bg: #001673;
+  --order-mgmt-save-btn-bg: #001673;
   --order-mgmt-block-title-color: #ffffff;
   --order-mgmt-block-title-accent-color: #ffffff;
   --order-mgmt-summary-bg: var(--order-mgmt-member-info-bg);
@@ -2125,8 +2125,8 @@ textarea.mm2-name-box:focus {
 
 .order-mgmt-member-info {
   flex-shrink: 0;
-  background: var(--order-mgmt-member-info-bg, #0825a0);
-  border: 1px solid var(--order-mgmt-member-info-bg, #0825a0);
+  background: var(--order-mgmt-member-info-bg, #001673);
+  border: 1px solid var(--order-mgmt-member-info-bg, #001673);
   border-radius: var(--order-mgmt-box-radius, 6px);
   overflow: hidden;
 }
@@ -2685,7 +2685,7 @@ textarea.mm2-name-box:focus {
 
 .order-mgmt-form-box {
   background: var(--surface-panel);
-  border: 1px solid var(--order-mgmt-member-info-bg, #0825a0);
+  border: 1px solid var(--order-mgmt-member-info-bg, #001673);
   border-radius: var(--order-mgmt-box-radius, 6px);
   overflow: hidden;
 }
@@ -2977,7 +2977,7 @@ textarea.mm2-name-box:focus {
 }
 
 .order-mgmt-radio-item input {
-  accent-color: var(--checkbox-accent, var(--nav-active-bg, #0825a0));
+  accent-color: var(--checkbox-accent, var(--nav-active-bg, #001673));
   margin: 0;
 }
 
@@ -3092,7 +3092,7 @@ textarea.mm2-name-box:focus {
 }
 
 .order-mgmt-checkbox-field input {
-  accent-color: var(--checkbox-accent, var(--nav-active-bg, #0825a0));
+  accent-color: var(--checkbox-accent, var(--nav-active-bg, #001673));
 }
 
 .order-mgmt-footer {
@@ -3263,7 +3263,7 @@ textarea.mm2-name-box:focus {
 .visit-history-icon-btn.is-accent {
   background: var(--surface-button-muted);
   border-color: rgba(8, 37, 160, 0.28);
-  color: var(--required-color, #0825a0);
+  color: var(--required-color, #001673);
 }
 
 .visit-history-icon-btn:hover {
@@ -3305,7 +3305,7 @@ textarea.mm2-name-box:focus {
 }
 
 .visit-history-collapsed-badge--pinned {
-  color: var(--required-color, #0825a0);
+  color: var(--required-color, #001673);
   background: #e8ecf8;
   border-color: rgba(8, 37, 160, 0.28);
 }
@@ -3358,7 +3358,7 @@ textarea.mm2-name-box:focus {
 }
 
 .visit-history-chip.is-active .visit-history-chip-screen {
-  color: var(--required-color, #0825a0);
+  color: var(--required-color, #001673);
 }
 
 .visit-history-chip-meta {
@@ -3521,7 +3521,7 @@ textarea.mm2-name-box:focus {
   height: 52px;
   border: none;
   border-radius: 4px;
-  background: var(--nav-active-bg, #0825a0);
+  background: var(--nav-active-bg, #001673);
   color: #fff;
   font-size: 11px;
   font-weight: 600;

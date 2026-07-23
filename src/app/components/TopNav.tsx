@@ -46,7 +46,7 @@ export function TopNav({ activeTab, onTabChange, listOpen, onListToggle }: TopNa
         <div className="flex items-center gap-2 mr-6">
           <div
             className="flex items-center justify-center rounded"
-            style={{ width: 28, height: 28, background: "var(--logo-bg, #0825a0)", fontSize: 12, fontWeight: 700, color: "#fff" }}
+            style={{ width: 28, height: 28, background: "var(--logo-bg, #001673)", fontSize: 12, fontWeight: 700, color: "#fff" }}
           >
             VB
           </div>
