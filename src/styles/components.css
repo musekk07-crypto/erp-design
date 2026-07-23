@@ -650,10 +650,6 @@ span.member-form-action-chip {
   width: calc(100% - var(--form-label-w, 108px));
 }
 
-.member-form-full-row tbody tr td {
-  border-top: 1px solid var(--form-field-divider, rgba(0, 0, 0, 0.1));
-}
-
 .member-form-full-row td input {
   width: 100%;
   box-sizing: border-box;
