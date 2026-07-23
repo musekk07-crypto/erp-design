@@ -606,7 +606,7 @@ span.member-form-action-chip {
   padding-right: 0;
 }
 
-.member-form-split__group .content-form-grid--member tbody tr:last-child td {
+.member-form-split__group .content-form-grid--member tbody tr.member-form-row--bottom-divider td {
   border-bottom: 1px solid var(--form-field-divider, rgba(0, 0, 0, 0.1));
 }
 
