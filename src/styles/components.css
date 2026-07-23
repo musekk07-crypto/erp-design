@@ -729,7 +729,26 @@ span.member-form-action-chip {
 }
 
 .member-form-split__group .content-form-grid--member tr.form-row-dual td:nth-child(2) {
-  padding-right: var(--form-col-gap, 20px) !important;
+  padding-right: calc(var(--form-col-gap, 20px) + 8px) !important;
+}
+
+.member-form-split__group .member-form-grid--split {
+  --form-label-mid-w: 112px;
+}
+
+.member-form-split__group .member-form-grid--split tr.form-row-dual td:nth-child(3) {
+  padding-right: 12px;
+}
+
+.member-form-split__group .member-form-grid--split tr.form-row-dual td:nth-child(2) > .relative {
+  width: calc(100% - 10px);
+  max-width: calc(100% - 10px);
+}
+
+.member-form-split__group .member-form-grid--split tr.form-row-dual td:nth-child(4) input {
+  width: calc(100% - 10px);
+  max-width: calc(100% - 10px);
+  box-sizing: border-box;
 }
 
 .member-form-split__group .member-form-grid--split td[colspan="3"] {
