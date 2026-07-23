@@ -605,6 +605,59 @@ span.member-form-action-chip {
   box-sizing: border-box;
 }
 
+.member-login-profile-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  min-width: 0;
+}
+
+.member-login-profile-avatar {
+  width: 32px;
+  height: 32px;
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  font-size: 12px;
+  font-weight: 700;
+  background: var(--accent-light, #e8ecf8);
+  color: var(--required-color, #2843b8);
+}
+
+.member-login-profile-summary {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  min-width: 0;
+  flex-wrap: wrap;
+}
+
+.member-login-profile-text {
+  font-size: 13px;
+  color: var(--text-body);
+  white-space: nowrap;
+}
+
+.member-login-profile-divider {
+  width: 1px;
+  height: 14px;
+  background: var(--form-field-divider, rgba(0, 0, 0, 0.15));
+  flex-shrink: 0;
+}
+
+.member-login-profile-no {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--foreground);
+  white-space: nowrap;
+}
+
+.member-form-split__group .member-type-toggle {
+  margin-left: 0;
+}
+
 .member-form-split__group .content-form-grid--pair td input {
   width: 100%;
   box-sizing: border-box;

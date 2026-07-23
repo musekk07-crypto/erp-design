@@ -2138,28 +2138,6 @@ function GenderToggleInline() {
   );
 }
 
-function MemberHeaderCard({ member }: { member: Member }) {
-  const memberType = member.type === "소비자" ? "소비자" : "일반";
-  return (
-    <div className="rounded content-member-header p-1.5 mb-2">
-      <div className="flex items-center gap-3">
-        <div
-          className="content-member-header-avatar w-8 h-8 rounded flex items-center justify-center font-bold shrink-0"
-          style={{ fontSize: 12 }}
-        >
-          {member.name.charAt(0)}
-        </div>
-        <div className="flex items-center gap-2 min-w-0">
-          <span className="content-member-header-text" style={{ fontSize: 13 }}>{member.name} · {member.loginId}</span>
-          <span className="content-member-header-divider" style={{ width: 1, height: 14, display: "inline-block" }} />
-          <span className="content-member-header-no" style={{ fontSize: 13, fontWeight: 600 }}>{member.no}</span>
-          <MemberTypeToggle type={memberType} />
-        </div>
-      </div>
-    </div>
-  );
-}
-
 const mm2Sections = [
   { id: "login", label: "1. 로그인 및 이름 정보", icon: Key },
   { id: "personal", label: "2. 개인 정보", icon: User },
@@ -3127,6 +3105,109 @@ function MemberGeneralInfoForm({ member }: { member: Member }) {
   );
 }
 
+function MemberLoginInfoForm({ member }: { member: Member }) {
+  const memberType = member.type === "소비자" ? "소비자" : "일반";
+  const labelTdStyle: React.CSSProperties = { padding: "3px 10px 3px 0", whiteSpace: "nowrap", verticalAlign: "middle" };
+  const fieldTdStyle: React.CSSProperties = { padding: "3px 0 3px 0", verticalAlign: "middle" };
+  const inputStyle: React.CSSProperties = {
+    fontSize: 12,
+    padding: "3px 8px",
+    background: "var(--input-background)",
+    border: "none",
+    color: "var(--foreground)",
+  };
+  const focusProps = {
+    onFocus: (e: React.FocusEvent<HTMLInputElement>) => {
+      e.target.style.background = "var(--input-focus-bg)";
+    },
+    onBlur: (e: React.FocusEvent<HTMLInputElement>) => {
+      e.target.style.background = "var(--input-background)";
+    },
+  };
+
+  const renderPairTable = (rows: React.ReactNode) => (
+    <table className="content-form-grid content-form-grid--member content-form-grid--pair" style={{ width: "100%", borderCollapse: "collapse" }}>
+      <colgroup>
+        <col className="col-label-1" />
+        <col className="col-field-1" />
+      </colgroup>
+      <tbody>{rows}</tbody>
+    </table>
+  );
+
+  return (
+    <FormSection title="로그인 사용정보" icon={<Shield size={12} />} bodyPadding="8px 12px 10px">
+      <div className="member-form-split member-form-split--triple">
+        <div className="member-form-split__group">
+          {renderPairTable(
+            <>
+              <tr>
+                <td colSpan={2} style={{ padding: "3px 0", verticalAlign: "middle" }}>
+                  <div className="member-login-profile-row">
+                    <div className="member-login-profile-avatar">{member.name.charAt(0)}</div>
+                    <div className="member-login-profile-summary">
+                      <span className="member-login-profile-text">{member.name} · {member.loginId}</span>
+                      <span className="member-login-profile-divider" aria-hidden />
+                      <span className="member-login-profile-no">{member.no}</span>
+                    </div>
+                  </div>
+                </td>
+              </tr>
+              <tr>
+                <td colSpan={2} style={{ padding: "3px 0", verticalAlign: "middle" }}>
+                  <MemberTypeToggle type={memberType} />
+                </td>
+              </tr>
+            </>,
+          )}
+        </div>
+
+        <div className="member-form-split__group">
+          {renderPairTable(
+            <>
+              <tr>
+                <td style={labelTdStyle}><span style={{ fontSize: "12px", color: "var(--required-color)", fontWeight: 500 }}>* 회원번호</span></td>
+                <td style={fieldTdStyle}>
+                  <input type="text" defaultValue={member.no} className="w-full rounded outline-none transition-all duration-200" style={{ ...inputStyle, fontFamily: "monospace" }} {...focusProps} />
+                </td>
+              </tr>
+              <tr>
+                <td style={labelTdStyle}><span style={{ fontSize: "12px", color: "var(--form-label-color)", fontWeight: 500 }}>비밀번호</span></td>
+                <td style={fieldTdStyle}>
+                  <div className="member-login-dual-field">
+                    <input type="password" placeholder="변경 시에만 입력" className="member-login-dual-field__input rounded outline-none transition-all duration-200" style={inputStyle} {...focusProps} />
+                    <span className="member-login-dual-field__label">보안 비밀번호</span>
+                    <input type="password" placeholder="····" className="member-login-dual-field__input rounded outline-none transition-all duration-200" style={inputStyle} {...focusProps} />
+                  </div>
+                </td>
+              </tr>
+            </>,
+          )}
+        </div>
+
+        <div className="member-form-split__group">
+          {renderPairTable(
+            <>
+              <tr>
+                <td style={labelTdStyle}><span style={{ fontSize: "12px", color: "var(--required-color)", fontWeight: 500 }}>* 아이디</span></td>
+                <td style={fieldTdStyle}>
+                  <input type="text" defaultValue={member.loginId} className="w-full rounded outline-none transition-all duration-200" style={{ ...inputStyle, fontFamily: "monospace" }} {...focusProps} />
+                </td>
+              </tr>
+              <tr>
+                <td style={labelTdStyle}><span style={{ fontSize: "12px", color: "var(--form-label-color)", fontWeight: 500 }}>전자메일주소</span></td>
+                <td style={fieldTdStyle}>
+                  <input type="email" defaultValue={`${member.loginId}@email.com`} className="w-full rounded outline-none transition-all duration-200" style={inputStyle} {...focusProps} />
+                </td>
+              </tr>
+            </>,
+          )}
+        </div>
+      </div>
+    </FormSection>
+  );
+}
+
 function MemberInfoBody({
   memberId,
   listOpen,
@@ -3166,69 +3247,7 @@ function MemberInfoBody({
                 }
           }
         >
-        <MemberHeaderCard member={member} />
-
-        {/* Login Info */}
-        <FormSection title="로그인 사용정보" icon={<Shield size={12} />} bodyPadding="8px 12px 10px">
-          <div className="member-form-split">
-            <div className="member-form-split__group">
-              <table className="content-form-grid content-form-grid--member content-form-grid--pair" style={{ width: "100%", borderCollapse: "collapse" }}>
-                <colgroup>
-                  <col className="col-label-1" />
-                  <col className="col-field-1" />
-                </colgroup>
-                <tbody>
-                  <tr>
-                    <td style={{ padding: "3px 10px 3px 0", whiteSpace: "nowrap", verticalAlign: "middle" }}>
-                      <span style={{ fontSize: "12px", color: "var(--required-color)", fontWeight: 500 }}>* 회원번호</span>
-                    </td>
-                    <td style={{ padding: "3px 0 3px 0", verticalAlign: "middle" }}>
-                      <input type="text" defaultValue={member.no} className="w-full rounded outline-none transition-all duration-200" style={{ fontSize: 12, padding: "3px 8px", background: "var(--input-background)", border: "none", color: "var(--foreground)", fontFamily: "monospace" }} onFocus={(e) => { e.target.style.background = "var(--input-focus-bg)"; }} onBlur={(e) => { e.target.style.background = "var(--input-background)"; }} />
-                    </td>
-                  </tr>
-                  <tr>
-                    <td style={{ padding: "3px 10px 3px 0", whiteSpace: "nowrap", verticalAlign: "middle" }}>
-                      <span style={{ fontSize: "12px", color: "var(--form-label-color)", fontWeight: 500 }}>비밀번호</span>
-                    </td>
-                    <td style={{ padding: "3px 0 3px 0", verticalAlign: "middle" }}>
-                      <div className="member-login-dual-field">
-                        <input type="password" placeholder="변경 시에만 입력" className="member-login-dual-field__input rounded outline-none transition-all duration-200" style={{ fontSize: 12, padding: "3px 8px", background: "var(--input-background)", border: "none", color: "var(--foreground)" }} onFocus={(e) => { e.target.style.background = "var(--input-focus-bg)"; }} onBlur={(e) => { e.target.style.background = "var(--input-background)"; }} />
-                        <span className="member-login-dual-field__label">보안 비밀번호</span>
-                        <input type="password" placeholder="····" className="member-login-dual-field__input rounded outline-none transition-all duration-200" style={{ fontSize: 12, padding: "3px 8px", background: "var(--input-background)", border: "none", color: "var(--foreground)" }} onFocus={(e) => { e.target.style.background = "var(--input-focus-bg)"; }} onBlur={(e) => { e.target.style.background = "var(--input-background)"; }} />
-                      </div>
-                    </td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
-            <div className="member-form-split__group">
-              <table className="content-form-grid content-form-grid--member content-form-grid--pair" style={{ width: "100%", borderCollapse: "collapse" }}>
-                <colgroup>
-                  <col className="col-label-1" />
-                  <col className="col-field-1" />
-                </colgroup>
-                <tbody>
-                  <tr>
-                    <td style={{ padding: "3px 10px 3px 0", whiteSpace: "nowrap", verticalAlign: "middle" }}>
-                      <span style={{ fontSize: "12px", color: "var(--required-color)", fontWeight: 500 }}>* 아이디</span>
-                    </td>
-                    <td style={{ padding: "3px 0 3px 0", verticalAlign: "middle" }}>
-                      <input type="text" defaultValue={member.loginId} className="w-full rounded outline-none transition-all duration-200" style={{ fontSize: 12, padding: "3px 8px", background: "var(--input-background)", border: "none", color: "var(--foreground)", fontFamily: "monospace" }} onFocus={(e) => { e.target.style.background = "var(--input-focus-bg)"; }} onBlur={(e) => { e.target.style.background = "var(--input-background)"; }} />
-                    </td>
-                  </tr>
-                  <tr>
-                    <td style={{ padding: "3px 10px 3px 0", whiteSpace: "nowrap", verticalAlign: "middle" }}>
-                      <span style={{ fontSize: "12px", color: "var(--form-label-color)", fontWeight: 500 }}>전자메일주소</span>
-                    </td>
-                    <td style={{ padding: "3px 0 3px 0", verticalAlign: "middle" }}>
-                      <input type="email" defaultValue={`${member.loginId}@email.com`} className="w-full rounded outline-none transition-all duration-200" style={{ fontSize: 12, padding: "3px 8px", background: "var(--input-background)", border: "none", color: "var(--foreground)" }} onFocus={(e) => { e.target.style.background = "var(--input-focus-bg)"; }} onBlur={(e) => { e.target.style.background = "var(--input-background)"; }} />
-                    </td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
-          </div>
-        </FormSection>
+        <MemberLoginInfoForm member={member} />
 
         <MemberGeneralInfoForm member={member} />
 
