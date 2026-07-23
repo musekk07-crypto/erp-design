@@ -558,6 +558,14 @@ span.member-form-action-chip {
   align-items: stretch;
 }
 
+.member-form-split--triple {
+  gap: 10px;
+}
+
+.member-form-split--triple .member-form-split__group {
+  flex: 1 1 0;
+}
+
 .member-form-split__group {
   flex: 1 1 0;
   min-width: 0;

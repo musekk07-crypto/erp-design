@@ -3226,62 +3226,90 @@ function MemberInfoBody({
         <MemberGeneralInfoForm member={member} />
 
         {/* 거래은행 정보 */}
-        <FormSection title="거래은행 정보" icon={<CreditCard size={12} />}>
-          <table className="content-form-grid content-form-grid--6 content-form-grid--member content-form-grid--bank" style={{ width: "100%", borderCollapse: "collapse" }}>
-            <colgroup>
-              <col className="col-label-1" />
-              <col className="col-field-1" />
-              <col className="col-label-2" />
-              <col className="col-field-2" />
-              <col className="col-label-3" />
-              <col className="col-field-3" />
-            </colgroup>
-            <tbody>
-              <tr className="form-row-triple">
-                <td style={{ padding: "3px 10px 3px 0", whiteSpace: "nowrap", verticalAlign: "middle" }}>
-                  <span style={{ fontSize: "12px", color: "var(--form-label-color)", fontWeight: 500 }}>은행명</span>
-                </td>
-                <td style={{ padding: "3px 10px 3px 0", verticalAlign: "middle" }}>
-                  <input defaultValue="신한은행" className="w-full rounded outline-none transition-all duration-200" style={{ fontSize: 12, padding: "3px 8px", background: "var(--input-background)", border: "none", color: "var(--foreground)" }} onFocus={(e) => { e.target.style.background = "var(--input-focus-bg)"; }} onBlur={(e) => { e.target.style.background = "var(--input-background)"; }} />
-                </td>
-                <td style={{ padding: "3px 10px 3px 0", whiteSpace: "nowrap", verticalAlign: "middle" }}>
-                  <span style={{ fontSize: "12px", color: "var(--form-label-color)", fontWeight: 500 }}>계좌번호</span>
-                </td>
-                <td style={{ padding: "3px 10px 3px 0", verticalAlign: "middle" }}>
-                  <input defaultValue="110-234-567890" className="w-full rounded outline-none transition-all duration-200" style={{ fontSize: 12, padding: "3px 8px", background: "var(--input-background)", border: "none", color: "var(--foreground)" }} onFocus={(e) => { e.target.style.background = "var(--input-focus-bg)"; }} onBlur={(e) => { e.target.style.background = "var(--input-background)"; }} />
-                </td>
-                <td style={{ padding: "3px 10px 3px 0", whiteSpace: "nowrap", verticalAlign: "middle" }}>
-                  <span style={{ fontSize: "12px", color: "var(--form-label-color)", fontWeight: 500 }}>예금주</span>
-                </td>
-                <td style={{ padding: "3px 0 3px 0", verticalAlign: "middle" }}>
-                  <input key={`holder-${member.id}`} defaultValue={member.name} className="w-full rounded outline-none transition-all duration-200" style={{ fontSize: 12, padding: "3px 8px", background: "var(--input-background)", border: "none", color: "var(--foreground)" }} onFocus={(e) => { e.target.style.background = "var(--input-focus-bg)"; }} onBlur={(e) => { e.target.style.background = "var(--input-background)"; }} />
-                </td>
-              </tr>
-              <tr className="form-row-triple">
-                <td style={{ padding: "3px 10px 3px 0", whiteSpace: "nowrap", verticalAlign: "middle" }}>
-                  <span style={{ fontSize: "12px", color: "var(--form-label-color)", fontWeight: 500 }}>SwiftCode</span>
-                </td>
-                <td style={{ padding: "3px 10px 3px 0", verticalAlign: "middle" }}>
-                  <input defaultValue="SHBKKRSE" className="w-full rounded outline-none transition-all duration-200" style={{ fontSize: 12, padding: "3px 8px", background: "var(--input-background)", border: "none", color: "var(--foreground)" }} onFocus={(e) => { e.target.style.background = "var(--input-focus-bg)"; }} onBlur={(e) => { e.target.style.background = "var(--input-background)"; }} />
-                </td>
-                <td style={{ padding: "3px 10px 3px 0", whiteSpace: "nowrap", verticalAlign: "middle" }}>
-                  <span style={{ fontSize: "12px", color: "var(--form-label-color)", fontWeight: 500 }}>Branch Number</span>
-                </td>
-                <td style={{ padding: "3px 10px 3px 0", verticalAlign: "middle" }}>
-                  <input defaultValue="0234" className="w-full rounded outline-none transition-all duration-200" style={{ fontSize: 12, padding: "3px 8px", background: "var(--input-background)", border: "none", color: "var(--foreground)" }} onFocus={(e) => { e.target.style.background = "var(--input-focus-bg)"; }} onBlur={(e) => { e.target.style.background = "var(--input-background)"; }} />
-                </td>
-                <td style={{ padding: "3px 10px 3px 0", whiteSpace: "nowrap", verticalAlign: "middle" }}>
-                  <span style={{ fontSize: "12px", color: "var(--form-label-color)", fontWeight: 500 }}>은행통합 거래번호</span>
-                </td>
-                <td style={{ padding: "3px 0 3px 0", verticalAlign: "middle" }}>
-                  <div className="flex gap-1 items-center">
-                    <input defaultValue="88012345" className="flex-1 min-w-0 rounded outline-none transition-all duration-200" style={{ fontSize: 12, padding: "3px 8px", background: "var(--input-background)", border: "none", color: "var(--foreground)" }} onFocus={(e) => { e.target.style.background = "var(--input-focus-bg)"; }} onBlur={(e) => { e.target.style.background = "var(--input-background)"; }} />
-                    <span className="member-form-action-chip member-form-action-chip--verified">✓ 인증완료</span>
-                  </div>
-                </td>
-              </tr>
-            </tbody>
-          </table>
+        <FormSection title="거래은행 정보" icon={<CreditCard size={12} />} bodyPadding="8px 12px 10px">
+          <div className="member-form-split member-form-split--triple">
+            <div className="member-form-split__group">
+              <table className="content-form-grid content-form-grid--member content-form-grid--pair" style={{ width: "100%", borderCollapse: "collapse" }}>
+                <colgroup>
+                  <col className="col-label-1" />
+                  <col className="col-field-1" />
+                </colgroup>
+                <tbody>
+                  <tr>
+                    <td style={{ padding: "3px 10px 3px 0", whiteSpace: "nowrap", verticalAlign: "middle" }}>
+                      <span style={{ fontSize: "12px", color: "var(--form-label-color)", fontWeight: 500 }}>은행명</span>
+                    </td>
+                    <td style={{ padding: "3px 0 3px 0", verticalAlign: "middle" }}>
+                      <input defaultValue="신한은행" className="w-full rounded outline-none transition-all duration-200" style={{ fontSize: 12, padding: "3px 8px", background: "var(--input-background)", border: "none", color: "var(--foreground)" }} onFocus={(e) => { e.target.style.background = "var(--input-focus-bg)"; }} onBlur={(e) => { e.target.style.background = "var(--input-background)"; }} />
+                    </td>
+                  </tr>
+                  <tr className="member-form-row--bottom-divider">
+                    <td style={{ padding: "3px 10px 3px 0", whiteSpace: "nowrap", verticalAlign: "middle" }}>
+                      <span style={{ fontSize: "12px", color: "var(--form-label-color)", fontWeight: 500 }}>SwiftCode</span>
+                    </td>
+                    <td style={{ padding: "3px 0 3px 0", verticalAlign: "middle" }}>
+                      <input defaultValue="SHBKKRSE" className="w-full rounded outline-none transition-all duration-200" style={{ fontSize: 12, padding: "3px 8px", background: "var(--input-background)", border: "none", color: "var(--foreground)" }} onFocus={(e) => { e.target.style.background = "var(--input-focus-bg)"; }} onBlur={(e) => { e.target.style.background = "var(--input-background)"; }} />
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div className="member-form-split__group">
+              <table className="content-form-grid content-form-grid--member content-form-grid--pair" style={{ width: "100%", borderCollapse: "collapse" }}>
+                <colgroup>
+                  <col className="col-label-1" />
+                  <col className="col-field-1" />
+                </colgroup>
+                <tbody>
+                  <tr>
+                    <td style={{ padding: "3px 10px 3px 0", whiteSpace: "nowrap", verticalAlign: "middle" }}>
+                      <span style={{ fontSize: "12px", color: "var(--form-label-color)", fontWeight: 500 }}>계좌번호</span>
+                    </td>
+                    <td style={{ padding: "3px 0 3px 0", verticalAlign: "middle" }}>
+                      <input defaultValue="110-234-567890" className="w-full rounded outline-none transition-all duration-200" style={{ fontSize: 12, padding: "3px 8px", background: "var(--input-background)", border: "none", color: "var(--foreground)" }} onFocus={(e) => { e.target.style.background = "var(--input-focus-bg)"; }} onBlur={(e) => { e.target.style.background = "var(--input-background)"; }} />
+                    </td>
+                  </tr>
+                  <tr className="member-form-row--bottom-divider">
+                    <td style={{ padding: "3px 10px 3px 0", whiteSpace: "nowrap", verticalAlign: "middle" }}>
+                      <span style={{ fontSize: "12px", color: "var(--form-label-color)", fontWeight: 500 }}>Branch Number</span>
+                    </td>
+                    <td style={{ padding: "3px 0 3px 0", verticalAlign: "middle" }}>
+                      <input defaultValue="0234" className="w-full rounded outline-none transition-all duration-200" style={{ fontSize: 12, padding: "3px 8px", background: "var(--input-background)", border: "none", color: "var(--foreground)" }} onFocus={(e) => { e.target.style.background = "var(--input-focus-bg)"; }} onBlur={(e) => { e.target.style.background = "var(--input-background)"; }} />
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div className="member-form-split__group">
+              <table className="content-form-grid content-form-grid--member content-form-grid--pair" style={{ width: "100%", borderCollapse: "collapse" }}>
+                <colgroup>
+                  <col className="col-label-1" />
+                  <col className="col-field-1" />
+                </colgroup>
+                <tbody>
+                  <tr>
+                    <td style={{ padding: "3px 10px 3px 0", whiteSpace: "nowrap", verticalAlign: "middle" }}>
+                      <span style={{ fontSize: "12px", color: "var(--form-label-color)", fontWeight: 500 }}>예금주</span>
+                    </td>
+                    <td style={{ padding: "3px 0 3px 0", verticalAlign: "middle" }}>
+                      <input key={`holder-${member.id}`} defaultValue={member.name} className="w-full rounded outline-none transition-all duration-200" style={{ fontSize: 12, padding: "3px 8px", background: "var(--input-background)", border: "none", color: "var(--foreground)" }} onFocus={(e) => { e.target.style.background = "var(--input-focus-bg)"; }} onBlur={(e) => { e.target.style.background = "var(--input-background)"; }} />
+                    </td>
+                  </tr>
+                  <tr className="member-form-row--bottom-divider">
+                    <td style={{ padding: "3px 10px 3px 0", whiteSpace: "nowrap", verticalAlign: "middle" }}>
+                      <span style={{ fontSize: "12px", color: "var(--form-label-color)", fontWeight: 500 }}>은행통합 거래번호</span>
+                    </td>
+                    <td style={{ padding: "3px 0 3px 0", verticalAlign: "middle" }}>
+                      <div className="flex gap-1 items-center">
+                        <input defaultValue="88012345" className="flex-1 min-w-0 rounded outline-none transition-all duration-200" style={{ fontSize: 12, padding: "3px 8px", background: "var(--input-background)", border: "none", color: "var(--foreground)" }} onFocus={(e) => { e.target.style.background = "var(--input-focus-bg)"; }} onBlur={(e) => { e.target.style.background = "var(--input-background)"; }} />
+                        <span className="member-form-action-chip member-form-action-chip--verified">✓ 인증완료</span>
+                      </div>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
         </FormSection>
 
         {/* 상위 회원과의 관계 + 소속 그룹 정보 */}
