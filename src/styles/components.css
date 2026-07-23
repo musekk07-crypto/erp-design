@@ -638,19 +638,25 @@ span.member-form-action-chip {
   padding-top: 0;
 }
 
-.member-form-full-row {
-  table-layout: fixed;
+.member-form-memo-row {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  box-sizing: border-box;
+  padding: 3px 10px 6px;
+  min-width: 0;
 }
 
-.member-form-full-row .col-label-1 {
+.member-form-memo-row__label {
+  flex: 0 0 var(--form-label-w, 108px);
   width: var(--form-label-w, 108px);
+  padding-right: var(--form-gap, 10px);
+  white-space: nowrap;
 }
 
-.member-form-full-row .col-field-1 {
-  width: calc(100% - var(--form-label-w, 108px));
-}
-
-.member-form-full-row td input {
+.member-form-memo-row__input {
+  flex: 1 1 0;
+  min-width: 0;
   width: 100%;
   box-sizing: border-box;
 }

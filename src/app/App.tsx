@@ -3113,18 +3113,16 @@ function MemberGeneralInfoForm({ member }: { member: Member }) {
           )}
         </div>
       </div>
-      <table className="member-form-full-row content-form-grid content-form-grid--member content-form-grid--pair" style={{ width: "100%", borderCollapse: "collapse" }}>
-        <colgroup>
-          <col className="col-label-1" />
-          <col className="col-field-1" />
-        </colgroup>
-        <tbody>
-          <tr>
-            <td style={labelTdStyle}><span style={{ fontSize: "12px", color: "var(--form-label-color)", fontWeight: 500 }}>메모</span></td>
-            <td style={fieldTdStyle}><input key={`memo-${member.id}`} defaultValue={info.memo} className="w-full rounded outline-none transition-all duration-200" style={inputStyle} {...focusProps} /></td>
-          </tr>
-        </tbody>
-      </table>
+      <div className="member-form-memo-row">
+        <span className="member-form-memo-row__label" style={{ fontSize: "12px", color: "var(--form-label-color)", fontWeight: 500 }}>메모</span>
+        <input
+          key={`memo-${member.id}`}
+          defaultValue={info.memo}
+          className="member-form-memo-row__input rounded outline-none transition-all duration-200"
+          style={inputStyle}
+          {...focusProps}
+        />
+      </div>
     </FormSection>
   );
 }
