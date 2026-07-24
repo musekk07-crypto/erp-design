@@ -1425,7 +1425,7 @@ function MemberTable({ selectedId, onSelect, listOpen = false, listWidth = MEMBE
             </div>
 
             <button type="button" className="member-list-search__submit" onClick={applySearch}>
-              <Search size={16} strokeWidth={2.2} aria-hidden />
+              <Search size={14} strokeWidth={2.2} aria-hidden />
               <span>검색</span>
             </button>
           </div>
