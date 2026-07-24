@@ -4331,7 +4331,7 @@ export default function App() {
 
   const memberListNavEnabled =
     (activeMainMenu === "회원관리" && activeMemberSubMenu === "회원등록") ||
-    activeMainMenu === "주문관리";
+    (activeMainMenu === "주문관리" && activeOrderSubMenu !== "주문서승인");
   const memberListOpen = memberListNavEnabled && listOpen;
 
   const formColumnWidth = useMemo(() => {
@@ -4423,16 +4423,19 @@ export default function App() {
   const handleMainMenuChange = useCallback((menu: string) => {
     setActiveMainMenu(menu);
     const keepsMemberListNav =
-      menu === "주문관리" ||
+      (menu === "주문관리" && activeOrderSubMenu !== "주문서승인") ||
       (menu === "회원관리" && activeMemberSubMenu === "회원등록");
     if (!keepsMemberListNav) {
       setListOpen(false);
     }
-  }, [activeMemberSubMenu]);
+  }, [activeMemberSubMenu, activeOrderSubMenu]);
 
   const handleOrderSubMenuChange = useCallback((item: string) => {
     setActiveOrderSubMenu(item);
     setActiveMainMenu("주문관리");
+    if (item === "주문서승인") {
+      setListOpen(false);
+    }
   }, []);
 
   const handleMemberSubMenuChange = useCallback((item: string) => {
