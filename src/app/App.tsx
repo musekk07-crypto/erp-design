@@ -3491,12 +3491,16 @@ function MemberInfoBody({
 
 const mainMenus = ["기초관리", "회원관리", "주문관리", "수당관리", "출고관리", "옵션", "회원관리2"];
 
-type MemberSubMenuGroup = {
+type NavSubMenuGroup = {
   title: string;
   items: string[];
 };
 
-const memberSubMenuGroups: MemberSubMenuGroup[] = [
+type NavSubMenuColumn = {
+  groups: NavSubMenuGroup[];
+};
+
+const memberSubMenuGroups: NavSubMenuGroup[] = [
   {
     title: "회원관리",
     items: ["회원등록", "조직도인쇄"],
@@ -3512,6 +3516,40 @@ const memberSubMenuGroups: MemberSubMenuGroup[] = [
   {
     title: "상담 관리",
     items: [],
+  },
+];
+
+const orderSubMenuColumns: NavSubMenuColumn[] = [
+  {
+    groups: [
+      { title: "", items: ["주문서등록", "주문서승인"] },
+    ],
+  },
+  {
+    groups: [
+      {
+        title: "주문서 리포트",
+        items: ["주문서관리", "매출보고서", "접수현황", "접수 집계표", "구매 리포트"],
+      },
+      {
+        title: "그룹별 매출집계표",
+        items: ["국가별 매출 집계표", "센터별 매출 집계표", "영업소별 매출 집계표", "조직 매출 관리자", "기간별 매출 집계표"],
+      },
+      {
+        title: "공제조합 신고 리포트",
+        items: ["매출신고 요약", "조합 신고 결과 리포트"],
+      },
+    ],
+  },
+  {
+    groups: [
+      { title: "마일리지 관리", items: [] },
+      { title: "수금내역서", items: [] },
+      {
+        title: "오토십 관리",
+        items: ["계약관리", "일정관리자", "일정히스토리"],
+      },
+    ],
   },
 ];
 
@@ -3770,6 +3808,47 @@ interface TopNavProps {
   onMainMenuChange: (menu: string) => void;
   activeMemberSubMenu: string;
   onMemberSubMenuChange: (item: string) => void;
+  onOrderSubMenuChange: (item: string) => void;
+}
+
+function MainNavDropdownGroup({
+  group,
+  onItemClick,
+}: {
+  group: NavSubMenuGroup;
+  onItemClick: (item: string) => void;
+}) {
+  const isHeadingOnly = group.title && group.items.length === 0;
+
+  return (
+    <div className="main-nav-dropdown-group">
+      {group.title ? (
+        isHeadingOnly ? (
+          <button
+            type="button"
+            role="menuitem"
+            className="main-nav-dropdown-item main-nav-dropdown-item--heading"
+            onClick={() => onItemClick(group.title)}
+          >
+            {group.title}
+          </button>
+        ) : (
+          <div className="main-nav-dropdown-group-title">{group.title}</div>
+        )
+      ) : null}
+      {group.items.map((item) => (
+        <button
+          key={item}
+          type="button"
+          role="menuitem"
+          className="main-nav-dropdown-item"
+          onClick={() => onItemClick(item)}
+        >
+          {item}
+        </button>
+      ))}
+    </div>
+  );
 }
 
 type LocaleCode = "KR" | "US" | "JP" | "CN";
@@ -3999,6 +4078,7 @@ function TopNav({
   onMainMenuChange,
   activeMemberSubMenu,
   onMemberSubMenuChange,
+  onOrderSubMenuChange,
 }: TopNavProps) {
   const workNotificationCount = 3;
 
@@ -4023,8 +4103,9 @@ function TopNav({
           {mainMenus.map((menu) => {
             const isActive = menu === activeMainMenu;
             const isMemberMenu = menu === "회원관리";
+            const isOrderMenu = menu === "주문관리";
 
-            if (isMemberMenu) {
+            if (isMemberMenu || isOrderMenu) {
               return (
                 <div key={menu} className="main-nav-item-wrap">
                   <button
@@ -4035,23 +4116,31 @@ function TopNav({
                   >
                     {menu}
                   </button>
-                  <div className="main-nav-dropdown main-nav-dropdown--grouped" role="menu">
-                    {memberSubMenuGroups.map((group) => (
-                      <div key={group.title} className="main-nav-dropdown-group">
-                        <div className="main-nav-dropdown-group-title">{group.title}</div>
-                        {group.items.map((item) => (
-                          <button
-                            key={item}
-                            type="button"
-                            role="menuitem"
-                            className="main-nav-dropdown-item"
-                            onClick={() => onMemberSubMenuChange(item)}
-                          >
-                            {item}
-                          </button>
-                        ))}
-                      </div>
-                    ))}
+                  <div
+                    className={`main-nav-dropdown${isOrderMenu ? " main-nav-dropdown--order" : " main-nav-dropdown--grouped"}`}
+                    role="menu"
+                  >
+                    {isMemberMenu ? (
+                      memberSubMenuGroups.map((group) => (
+                        <MainNavDropdownGroup
+                          key={group.title}
+                          group={group}
+                          onItemClick={onMemberSubMenuChange}
+                        />
+                      ))
+                    ) : (
+                      orderSubMenuColumns.map((column, columnIndex) => (
+                        <div key={columnIndex} className="main-nav-dropdown-column">
+                          {column.groups.map((group) => (
+                            <MainNavDropdownGroup
+                              key={group.title || group.items[0]}
+                              group={group}
+                              onItemClick={onOrderSubMenuChange}
+                            />
+                          ))}
+                        </div>
+                      ))
+                    )}
                   </div>
                 </div>
               );
@@ -4222,6 +4311,7 @@ export default function App() {
   const [activeTab, setActiveTab] = useState("회원정보");
   const [activeMainMenu, setActiveMainMenu] = useState("회원관리");
   const [activeMemberSubMenu, setActiveMemberSubMenu] = useState("회원등록");
+  const [activeOrderSubMenu, setActiveOrderSubMenu] = useState("주문서등록");
   const [theme, setTheme] = useState<Theme>("deep-purple");
   const [historyRailExpanded, setHistoryRailExpanded] = useState(true);
   const [pinnedPages, setPinnedPages] = useState<PageHistoryItem[]>([
@@ -4340,6 +4430,11 @@ export default function App() {
     }
   }, [activeMemberSubMenu]);
 
+  const handleOrderSubMenuChange = useCallback((item: string) => {
+    setActiveOrderSubMenu(item);
+    setActiveMainMenu("주문관리");
+  }, []);
+
   const handleMemberSubMenuChange = useCallback((item: string) => {
     setActiveMemberSubMenu(item);
     setActiveMainMenu("회원관리");
@@ -4385,6 +4480,7 @@ export default function App() {
         onMainMenuChange={handleMainMenuChange}
         activeMemberSubMenu={activeMemberSubMenu}
         onMemberSubMenuChange={handleMemberSubMenuChange}
+        onOrderSubMenuChange={handleOrderSubMenuChange}
       />
 
       {/* 본문 + 하단 방문기록 */}
@@ -4487,7 +4583,26 @@ export default function App() {
           }}
         >
           {isOrderManagement ? (
-            <OrderManagementView member={getMemberById(selectedMember)} />
+            activeOrderSubMenu === "주문서등록" ? (
+              <OrderManagementView member={getMemberById(selectedMember)} />
+            ) : (
+              <div
+                className="member-subpage-placeholder"
+                style={{
+                  flex: 1,
+                  display: "flex",
+                  flexDirection: "column",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  gap: 8,
+                  padding: 32,
+                  color: "var(--text-muted)",
+                }}
+              >
+                <span style={{ fontSize: 18, fontWeight: 600, color: "var(--text-body)" }}>{activeOrderSubMenu}</span>
+                <span style={{ fontSize: 14 }}>화면 준비 중입니다.</span>
+              </div>
+            )
           ) : activeMainMenu === "회원관리2" ? (
             <MemberManagement2View
               memberId={selectedMember}
