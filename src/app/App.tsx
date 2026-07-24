@@ -22,11 +22,8 @@ type SortDir = "asc" | "desc";
 
 // 레이아웃 고정 너비 — 회원목록 확장 시 컨텐츠 찌그러짐 방지
 const SIDEBAR_WIDTH = 48;
-const MEMBER_LIST_MIN_WIDTH = 240;
-const MEMBER_LIST_DEFAULT_WIDTH = 240;
+const MEMBER_LIST_MIN_WIDTH = 320;
 const MEMBER_LIST_PAGE_SIZE = 15;
-const MEMBER_LIST_MAX_WIDTH =
-  36 + 36 + 96 + 100 + 54 + 62 + 84 + 56 + 54 + 54 + 108 + 108 + 84;
 const FORM_COLUMN_WIDTH_MIN = 1000;
 const ORDER_PANEL_MIN_WIDTH = 1520;
 const APP_MIN_WIDTH = 1280;
@@ -1236,19 +1233,49 @@ function buildOrgChartVariant(memberId: number, memberName: string, member: Memb
 }
 
 const columns = [
-  { key: "id",      label: "No",       width: 36 },
-  { key: "no",      label: "회원번호",  width: 96 },
-  { key: "loginId", label: "아이디",   width: 100 },
-  { key: "name",    label: "이름",     width: 54 },
-  { key: "type",    label: "회원구분",  width: 62 },
-  { key: "regDate", label: "등록일자",  width: 84 },
-  { key: "status",  label: "상태명",   width: 56 },
-  { key: "rank",    label: "직급명",   width: 54 },
-  { key: "grade",   label: "등급명",   width: 54 },
-  { key: "phone",   label: "핸드폰",   width: 108 },
-  { key: "ssn",     label: "주민등록번호", width: 108 },
-  { key: "region",  label: "센티명",   width: 84 },
+  { key: "id",      label: "No",       width: 40 },
+  { key: "no",      label: "회원번호",  width: 108 },
+  { key: "loginId", label: "아이디",   width: 110 },
+  { key: "name",    label: "이름",     width: 72 },
+  { key: "type",    label: "회원구분",  width: 68 },
+  { key: "regDate", label: "등록일자",  width: 96 },
+  { key: "status",  label: "상태명",   width: 60 },
+  { key: "rank",    label: "직급명",   width: 58 },
+  { key: "grade",   label: "등급명",   width: 58 },
+  { key: "phone",   label: "핸드폰",   width: 112 },
+  { key: "ssn",     label: "주민등록번호", width: 112 },
+  { key: "region",  label: "센티명",   width: 88 },
 ];
+
+const MEMBER_LIST_CHECKBOX_WIDTH = 36;
+const MEMBER_LIST_MAX_WIDTH = MEMBER_LIST_CHECKBOX_WIDTH + columns.reduce((sum, column) => sum + column.width, 0);
+const MEMBER_LIST_DEFAULT_WIDTH =
+  MEMBER_LIST_CHECKBOX_WIDTH + columns.slice(0, 6).reduce((sum, column) => sum + column.width, 0);
+
+type MemberSearchField = "nameOrNo" | "name" | "no" | "loginId";
+
+const memberSearchFieldOptions: { value: MemberSearchField; label: string }[] = [
+  { value: "nameOrNo", label: "이름 또는 회원번호" },
+  { value: "name", label: "이름" },
+  { value: "no", label: "회원번호" },
+  { value: "loginId", label: "아이디" },
+];
+
+function memberMatchesSearch(member: Member, query: string, field: MemberSearchField) {
+  if (!query) return true;
+  switch (field) {
+    case "nameOrNo":
+      return member.name.includes(query) || member.no.includes(query);
+    case "name":
+      return member.name.includes(query);
+    case "no":
+      return member.no.includes(query);
+    case "loginId":
+      return member.loginId.includes(query);
+    default:
+      return true;
+  }
+}
 
 interface MemberTableProps {
   selectedId: number | null;
@@ -1258,7 +1285,9 @@ interface MemberTableProps {
 }
 
 function MemberTable({ selectedId, onSelect, listOpen = false, listWidth = MEMBER_LIST_DEFAULT_WIDTH }: MemberTableProps) {
-  const [search, setSearch] = useState("");
+  const [searchField, setSearchField] = useState<MemberSearchField>("nameOrNo");
+  const [searchDraft, setSearchDraft] = useState("");
+  const [searchQuery, setSearchQuery] = useState("");
   const [sortKey, setSortKey] = useState<SortKey>(null);
   const [sortDir, setSortDir] = useState<SortDir>("asc");
   const [checked, setChecked] = useState<Set<number>>(new Set());
@@ -1292,9 +1321,11 @@ function MemberTable({ selectedId, onSelect, listOpen = false, listWidth = MEMBE
   function onHScrollMouseUp() { dragState.current.dragging = false; }
   function onHScrollMouseLeave() { dragState.current.dragging = false; }
 
-  const filtered = members.filter(
-    (m) => m.name.includes(search) || m.no.includes(search) || m.loginId.includes(search)
-  );
+  function applySearch() {
+    setSearchQuery(searchDraft.trim());
+  }
+
+  const filtered = members.filter((member) => memberMatchesSearch(member, searchQuery, searchField));
 
   const sorted = sortKey
     ? [...filtered].sort((a, b) => {
@@ -1313,7 +1344,7 @@ function MemberTable({ selectedId, onSelect, listOpen = false, listWidth = MEMBE
 
   useEffect(() => {
     setPage(1);
-  }, [search, sortKey, sortDir]);
+  }, [searchQuery, searchField, sortKey, sortDir]);
 
   useEffect(() => {
     if (page > totalPages) setPage(totalPages);
@@ -1358,29 +1389,51 @@ function MemberTable({ selectedId, onSelect, listOpen = false, listWidth = MEMBE
 
   return (
     <div className="flex flex-col h-full" style={{ background: "var(--surface-panel)", width: "100%", maxWidth: MEMBER_LIST_MAX_WIDTH }}>
-      {/* Toolbar */}
-      <div className="flex items-center gap-1.5 px-2 py-2 shrink-0" style={{ borderBottom: "1px solid var(--border)" }}>
-        <div
-          className="flex items-center gap-1.5 rounded px-2 py-1.5 min-w-0"
-          style={{
-            background: "var(--surface-toolbar)",
-            border: "1px solid var(--border)",
-            flex: 1,
-            maxWidth: 168,
-          }}
-        >
-          <Search size={13} style={{ color: "var(--muted-foreground)" }} />
-          <input
-            className="bg-transparent outline-none flex-1"
-            placeholder="이름 또는 회원번호 검색"
-            value={search}
-            onChange={(e) => setSearch(e.target.value)}
-            style={{ fontSize: "12px", color: "var(--foreground)" }}
-          />
+      {/* Search */}
+      <div className="member-list-search shrink-0">
+        <div className="member-list-search__row">
+          <div className="member-list-search__controls">
+            <label className="member-list-search__field-select-wrap">
+              <select
+                className="member-list-search__field-select"
+                value={searchField}
+                onChange={(event) => setSearchField(event.target.value as MemberSearchField)}
+                aria-label="검색 항목"
+              >
+                {memberSearchFieldOptions.map((option) => (
+                  <option key={option.value} value={option.value}>
+                    {option.label}
+                  </option>
+                ))}
+              </select>
+              <ChevronDown size={12} className="member-list-search__field-select-icon" aria-hidden />
+            </label>
+
+            <div className="member-list-search__input-wrap">
+              <span className="member-list-search__wildcard" aria-hidden>%</span>
+              <input
+                className="member-list-search__input"
+                value={searchDraft}
+                onChange={(event) => setSearchDraft(event.target.value)}
+                onKeyDown={(event) => {
+                  if (event.key === "Enter") applySearch();
+                }}
+                placeholder=""
+                aria-label="검색어"
+              />
+              <span className="member-list-search__wildcard" aria-hidden>%</span>
+            </div>
+
+            <button type="button" className="member-list-search__submit" onClick={applySearch}>
+              <Search size={16} strokeWidth={2.2} aria-hidden />
+              <span>검색</span>
+            </button>
+          </div>
+
+          <span className="member-list-search__total">
+            총 <strong>{sorted.length}</strong>명
+          </span>
         </div>
-        <span className="shrink-0 whitespace-nowrap" style={{ fontSize: "12px", color: "var(--muted-foreground)" }}>
-          총 <strong style={{ color: "var(--foreground)" }}>{sorted.length}</strong>명
-        </span>
       </div>
 
       {/* Table → 페이지네이션 → 가로 스크롤(맨 아래) */}
@@ -1392,12 +1445,12 @@ function MemberTable({ selectedId, onSelect, listOpen = false, listWidth = MEMBE
           <div ref={tableInnerRef} style={{ width: MEMBER_LIST_MAX_WIDTH }}>
           <table style={{ borderCollapse: "collapse", width: "100%", tableLayout: "fixed" }}>
           <colgroup>
-            <col style={{ width: 36 }} />
+            <col style={{ width: MEMBER_LIST_CHECKBOX_WIDTH }} />
             {columns.map((c) => <col key={c.key} style={{ width: c.width }} />)}
           </colgroup>
           <thead style={{ position: "sticky", top: 0, zIndex: 10 }}>
             <tr style={{ background: "var(--surface-table-header)", borderBottom: "1px solid var(--border)" }}>
-              <th style={{ width: 36, padding: "6px 5px", textAlign: "center" }}>
+              <th style={{ width: MEMBER_LIST_CHECKBOX_WIDTH, padding: "6px 5px", textAlign: "center" }}>
                 <input
                   type="checkbox"
                   checked={paged.length > 0 && paged.every((m) => checked.has(m.id))}
