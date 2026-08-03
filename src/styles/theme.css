@@ -176,6 +176,7 @@
   --surface-toolbar: #1a2030;
   --surface-table-header: #1a2030;
   --surface-input-readonly: #262d3d;
+  --surface-muted: #262d3d;
   --surface-button-muted: #262d3d;
   --surface-toggle-track: #1a2f42;
   --surface-row-hover: #252c3c;
@@ -225,6 +226,8 @@
   --detail-tab-bar-bg: #1a2030;
   --detail-tab-bar-line: rgba(255, 255, 255, 0.1);
   --detail-tab-active-top: var(--accent-primary);
+  --member-search-input-bg: #1a2030;
+  --member-search-wildcard-bg: #243548;
 }
 
 :root {
@@ -272,6 +275,7 @@
   --surface-toolbar: #f9f9f9;
   --surface-table-header: #f9f9f9;
   --surface-input-readonly: #f1f5f9;
+  --surface-muted: #eef2f6;
   --surface-button-muted: #f5f6fa;
   --surface-toggle-track: #e0f2fe;
   --surface-row-hover: #f8f9fa;
@@ -317,6 +321,8 @@
   --detail-tab-bar-bg: #e4e6ec;
   --detail-tab-bar-line: rgba(0, 0, 0, 0.12);
   --detail-tab-active-top: #1e2130;
+  --member-search-input-bg: #fff9e6;
+  --member-search-wildcard-bg: #dbeafe;
 }
 
 .dark {

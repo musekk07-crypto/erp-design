@@ -3119,7 +3119,7 @@ function MemberGeneralInfoForm({ member }: { member: Member }) {
               </tr>
               <tr className="form-row-dual">
                 <td className={labelCellClass}><span style={{ fontSize: "12px", color: "var(--form-label-color)", fontWeight: 500 }}>우편번호</span></td>
-                <td className={fieldCellClass}><input defaultValue={info.zip} className="w-full rounded outline-none transition-all duration-200" style={{ ...inputStyle, background: "var(--surface-muted, #eef2f6)" }} {...focusProps} /></td>
+                <td className={fieldCellClass}><input defaultValue={info.zip} className="w-full rounded outline-none transition-all duration-200" style={inputStyle} {...focusProps} /></td>
                 <td className={labelCellClass}><span style={{ fontSize: "12px", color: "var(--form-label-color)", fontWeight: 500 }}>국가</span></td>
                 <td className={fieldCellClass}>
                   <div className="relative" style={{ display: "inline-block", width: "100%" }}>
