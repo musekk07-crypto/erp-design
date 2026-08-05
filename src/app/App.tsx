@@ -8,6 +8,7 @@ import {
   Globe, Landmark, Contact, CheckCircle2, Phone, ExternalLink, Camera,
 } from "lucide-react";
 import { RecommenderSelectPopup } from "./components/RecommenderSelectPopup";
+import { RankAdjustPopup } from "./components/RankAdjustPopup";
 import { OrderManagementView } from "./components/OrderManagementView";
 import { Mm2ProfileCard, buildMm2ProfileFields } from "./components/Mm2ProfileCard";
 import { OrgChartHoverProvider, useOrgChartHover, type OrgMemberDetail } from "./components/OrgMemberHoverPopup";
@@ -2856,6 +2857,13 @@ function MemberManagementView({
   const isMemberInfoTab = activeTab === "회원정보";
   const detailContentWidth = getDetailContentWidth(formColumnWidth);
   const contentAlignWidth = isMemberInfoTab && listOpen ? detailContentWidth : "100%";
+  const [rankAdjustOpen, setRankAdjustOpen] = useState(false);
+
+  function handleToolbarAction(label: string) {
+    if (label === "직급조정") {
+      setRankAdjustOpen(true);
+    }
+  }
 
   return (
     <div
@@ -2884,7 +2892,7 @@ function MemberManagementView({
             boxSizing: "border-box",
           }}
         >
-          <MemberPageChrome activeTab={activeTab} onTabChange={onTabChange} />
+          <MemberPageChrome activeTab={activeTab} onTabChange={onTabChange} onToolbarAction={handleToolbarAction} />
 
           {isMemberInfoTab ? (
             <MemberInfoBody memberId={memberId} listOpen={listOpen} formColumnWidth={formColumnWidth} member={member} />
@@ -2903,6 +2911,14 @@ function MemberManagementView({
           )}
         </div>
       </div>
+
+      <RankAdjustPopup
+        open={rankAdjustOpen}
+        memberName={member.name}
+        memberLoginId={member.loginId}
+        currentRank={member.rank}
+        onClose={() => setRankAdjustOpen(false)}
+      />
     </div>
   );
 }
@@ -4080,9 +4096,10 @@ function NavLocaleMenu() {
 interface MemberPageChromeProps {
   activeTab: string;
   onTabChange: (tab: string) => void;
+  onToolbarAction?: (label: string) => void;
 }
 
-function MemberPageChrome({ activeTab, onTabChange }: MemberPageChromeProps) {
+function MemberPageChrome({ activeTab, onTabChange, onToolbarAction }: MemberPageChromeProps) {
   const isMemberInfoTab = activeTab === "회원정보";
 
   return (
@@ -4114,7 +4131,7 @@ function MemberPageChrome({ activeTab, onTabChange }: MemberPageChromeProps) {
             item === null ? (
               <div key={`sep-${i}`} className="member-info-toolbar-separator" aria-hidden />
             ) : (
-              <button key={item.label} type="button" className="member-info-toolbar-item">
+              <button key={item.label} type="button" className="member-info-toolbar-item" onClick={() => onToolbarAction?.(item.label)}>
                 <item.icon size={18} strokeWidth={1.5} style={{ color: "var(--text-muted)" }} />
                 <span>{item.label}</span>
               </button>
