@@ -11,6 +11,27 @@ export type RankHistoryRow = {
   calculatedRank: string;
   effectiveRank: string;
   currentRank: string;
+  totalPersonalSales: number;
+  totalPersonalSalesGroup: number;
+  closingPersonalSales: number;
+  closingPersonalSalesGroup: number;
+  salesA: number;
+  salesB: number;
+  closingSalesA: number;
+  closingSalesB: number;
+  remarks: string;
+};
+
+const SALES_ROW_DEFAULT = {
+  totalPersonalSales: 10_000,
+  totalPersonalSalesGroup: 10_000,
+  closingPersonalSales: 0,
+  closingPersonalSalesGroup: 0,
+  salesA: 3_198_000,
+  salesB: 0,
+  closingSalesA: 0,
+  closingSalesB: 0,
+  remarks: "",
 };
 
 const SAMPLE_RANK_HISTORY: RankHistoryRow[] = [
@@ -24,6 +45,7 @@ const SAMPLE_RANK_HISTORY: RankHistoryRow[] = [
     calculatedRank: "그린",
     effectiveRank: "그린",
     currentRank: "매니저",
+    ...SALES_ROW_DEFAULT,
   },
   {
     id: 2,
@@ -35,6 +57,7 @@ const SAMPLE_RANK_HISTORY: RankHistoryRow[] = [
     calculatedRank: "그린",
     effectiveRank: "그린",
     currentRank: "매니저",
+    ...SALES_ROW_DEFAULT,
   },
   {
     id: 3,
@@ -46,6 +69,7 @@ const SAMPLE_RANK_HISTORY: RankHistoryRow[] = [
     calculatedRank: "그린",
     effectiveRank: "그린",
     currentRank: "매니저",
+    ...SALES_ROW_DEFAULT,
   },
   {
     id: 4,
@@ -57,6 +81,7 @@ const SAMPLE_RANK_HISTORY: RankHistoryRow[] = [
     calculatedRank: "정회원",
     effectiveRank: "정회원",
     currentRank: "정회원",
+    ...SALES_ROW_DEFAULT,
   },
   {
     id: 5,
@@ -68,6 +93,15 @@ const SAMPLE_RANK_HISTORY: RankHistoryRow[] = [
     calculatedRank: "정회원",
     effectiveRank: "정회원",
     currentRank: "정회원",
+    totalPersonalSales: 10_000,
+    totalPersonalSalesGroup: 10_000,
+    closingPersonalSales: 10_000,
+    closingPersonalSalesGroup: 10_000,
+    salesA: 3_198_000,
+    salesB: 0,
+    closingSalesA: 0,
+    closingSalesB: 0,
+    remarks: "adbcc",
   },
   {
     id: 6,
@@ -79,6 +113,15 @@ const SAMPLE_RANK_HISTORY: RankHistoryRow[] = [
     calculatedRank: "정회원",
     effectiveRank: "정회원",
     currentRank: "정회원",
+    totalPersonalSales: 0,
+    totalPersonalSalesGroup: 0,
+    closingPersonalSales: 0,
+    closingPersonalSalesGroup: 0,
+    salesA: 3_198_000,
+    salesB: 0,
+    closingSalesA: 3_198_000,
+    closingSalesB: 0,
+    remarks: "",
   },
   {
     id: 7,
@@ -90,6 +133,15 @@ const SAMPLE_RANK_HISTORY: RankHistoryRow[] = [
     calculatedRank: "Unspecified",
     effectiveRank: "Unspecified",
     currentRank: "Unspecified",
+    totalPersonalSales: 0,
+    totalPersonalSalesGroup: 0,
+    closingPersonalSales: 0,
+    closingPersonalSalesGroup: 0,
+    salesA: 0,
+    salesB: 0,
+    closingSalesA: 0,
+    closingSalesB: 0,
+    remarks: "",
   },
 ];
 
@@ -98,6 +150,10 @@ type RankHistoryPopupProps = {
   rows?: RankHistoryRow[];
   onClose: () => void;
 };
+
+function formatSales(value: number) {
+  return value.toLocaleString("en-US");
+}
 
 export function RankHistoryPopup({ open, rows = SAMPLE_RANK_HISTORY, onClose }: RankHistoryPopupProps) {
   const [checked, setChecked] = useState<Set<number>>(new Set());
@@ -183,7 +239,7 @@ export function RankHistoryPopup({ open, rows = SAMPLE_RANK_HISTORY, onClose }: 
                     aria-label="전체 선택"
                   />
                 </th>
-                <th>No</th>
+                <th className="rank-history-modal__col-no">No</th>
                 <th>마감일자</th>
                 <th>마감구분명</th>
                 <th>승급구분명</th>
@@ -192,6 +248,15 @@ export function RankHistoryPopup({ open, rows = SAMPLE_RANK_HISTORY, onClose }: 
                 <th>계산직급명</th>
                 <th>유효직급명</th>
                 <th>현재직급명</th>
+                <th className="rank-history-modal__col-num">전체본인매출</th>
+                <th className="rank-history-modal__col-num">전체본인매출(그룹용)</th>
+                <th className="rank-history-modal__col-num">마감내본인매출</th>
+                <th className="rank-history-modal__col-num">마감내본인매출(그룹용)</th>
+                <th className="rank-history-modal__col-num">A</th>
+                <th className="rank-history-modal__col-num">B</th>
+                <th className="rank-history-modal__col-num">마감내A매출</th>
+                <th className="rank-history-modal__col-num">마감내B매출</th>
+                <th className="rank-history-modal__col-remarks">비고</th>
               </tr>
             </thead>
             <tbody>
@@ -205,7 +270,7 @@ export function RankHistoryPopup({ open, rows = SAMPLE_RANK_HISTORY, onClose }: 
                       aria-label={`${index + 1}행 선택`}
                     />
                   </td>
-                  <td>{index + 1}</td>
+                  <td className="rank-history-modal__col-no">{index + 1}</td>
                   <td>{row.closingDate}</td>
                   <td>{row.closingType}</td>
                   <td>{row.promotionType}</td>
@@ -214,6 +279,15 @@ export function RankHistoryPopup({ open, rows = SAMPLE_RANK_HISTORY, onClose }: 
                   <td>{row.calculatedRank}</td>
                   <td>{row.effectiveRank}</td>
                   <td>{row.currentRank}</td>
+                  <td className="rank-history-modal__col-num">{formatSales(row.totalPersonalSales)}</td>
+                  <td className="rank-history-modal__col-num">{formatSales(row.totalPersonalSalesGroup)}</td>
+                  <td className="rank-history-modal__col-num">{formatSales(row.closingPersonalSales)}</td>
+                  <td className="rank-history-modal__col-num">{formatSales(row.closingPersonalSalesGroup)}</td>
+                  <td className="rank-history-modal__col-num">{formatSales(row.salesA)}</td>
+                  <td className="rank-history-modal__col-num">{formatSales(row.salesB)}</td>
+                  <td className="rank-history-modal__col-num">{formatSales(row.closingSalesA)}</td>
+                  <td className="rank-history-modal__col-num">{formatSales(row.closingSalesB)}</td>
+                  <td className="rank-history-modal__col-remarks">{row.remarks}</td>
                 </tr>
               ))}
             </tbody>

@@ -3859,8 +3859,8 @@ textarea.mm2-name-box:focus {
 }
 
 .rank-history-modal__panel {
-  width: min(980px, calc(100vw - 48px));
-  height: min(520px, calc(100vh - 48px));
+  width: min(1180px, calc(100vw - 48px));
+  height: min(540px, calc(100vh - 48px));
   display: flex;
   flex-direction: column;
   background: var(--surface-panel);
@@ -3949,9 +3949,10 @@ textarea.mm2-name-box:focus {
 }
 
 .rank-history-modal__table {
-  width: 100%;
+  width: max-content;
+  min-width: 100%;
   border-collapse: collapse;
-  table-layout: fixed;
+  table-layout: auto;
   font-size: 12px;
 }
 
@@ -3981,6 +3982,21 @@ textarea.mm2-name-box:focus {
 .rank-history-modal__col-check {
   width: 36px;
   text-align: center !important;
+}
+
+.rank-history-modal__col-no {
+  width: 40px;
+  text-align: center !important;
+}
+
+.rank-history-modal__col-num {
+  text-align: right !important;
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+
+.rank-history-modal__col-remarks {
+  min-width: 72px;
 }
 
 .rank-history-modal__table tbody tr:hover {
