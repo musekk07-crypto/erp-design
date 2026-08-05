@@ -2847,12 +2847,14 @@ function MemberManagementView({
   formColumnWidth,
   activeTab,
   onTabChange,
+  onNavigateToOrderManagement,
 }: {
   memberId: number;
   listOpen: boolean;
   formColumnWidth: number;
   activeTab: string;
   onTabChange: (tab: string) => void;
+  onNavigateToOrderManagement?: () => void;
 }) {
   const member = getMemberById(memberId);
   const isMemberInfoTab = activeTab === "회원정보";
@@ -2867,6 +2869,9 @@ function MemberManagementView({
     }
     if (label === "사업자정보") {
       setBusinessInfoOpen(true);
+    }
+    if (label === "주문서") {
+      onNavigateToOrderManagement?.();
     }
   }
 
@@ -4515,6 +4520,10 @@ export default function App() {
     }
   }, []);
 
+  const handleNavigateToOrderManagement = useCallback(() => {
+    handleOrderSubMenuChange("주문서등록");
+  }, [handleOrderSubMenuChange]);
+
   const handleMemberSubMenuChange = useCallback((item: string) => {
     setActiveMemberSubMenu(item);
     setActiveMainMenu("회원관리");
@@ -4714,6 +4723,7 @@ export default function App() {
               formColumnWidth={formColumnWidth}
               activeTab={activeTab}
               onTabChange={setActiveTab}
+              onNavigateToOrderManagement={handleNavigateToOrderManagement}
             />
           )}
         </div>
