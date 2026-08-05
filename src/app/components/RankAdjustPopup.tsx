@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { ChevronDown, X } from "lucide-react";
+import { RankHistoryPopup } from "./RankHistoryPopup";
 
 const RANK_OPTIONS = [
   "매니저",
@@ -36,21 +37,26 @@ export function RankAdjustPopup({
 }: RankAdjustPopupProps) {
   const [rank, setRank] = useState(currentRank);
   const [policy, setPolicy] = useState<RankPolicy>("fixed");
+  const [historyOpen, setHistoryOpen] = useState(false);
 
   useEffect(() => {
     if (!open) return;
     setRank(RANK_OPTIONS.includes(currentRank) ? currentRank : "매니저");
     setPolicy("fixed");
+    setHistoryOpen(false);
   }, [open, currentRank]);
 
   useEffect(() => {
     if (!open) return;
     function onKeyDown(event: KeyboardEvent) {
-      if (event.key === "Escape") onClose();
+      if (event.key === "Escape") {
+        if (historyOpen) setHistoryOpen(false);
+        else onClose();
+      }
     }
     window.addEventListener("keydown", onKeyDown);
     return () => window.removeEventListener("keydown", onKeyDown);
-  }, [open, onClose]);
+  }, [open, onClose, historyOpen]);
 
   if (!open) return null;
 
@@ -63,14 +69,15 @@ export function RankAdjustPopup({
   }
 
   return (
-    <div className="rank-adjust-modal" role="presentation" onClick={onClose}>
-      <div
-        className="rank-adjust-modal__panel"
-        role="dialog"
-        aria-modal="true"
-        aria-label={`${memberName} 회원의 직급`}
-        onClick={(event) => event.stopPropagation()}
-      >
+    <>
+      <div className="rank-adjust-modal" role="presentation" onClick={onClose}>
+        <div
+          className="rank-adjust-modal__panel"
+          role="dialog"
+          aria-modal="true"
+          aria-label={`${memberName} 회원의 직급`}
+          onClick={(event) => event.stopPropagation()}
+        >
         <div className="rank-adjust-modal__header">
           <h2 className="rank-adjust-modal__title">&apos;{titleName}&apos; 회원의 직급</h2>
           <button type="button" className="rank-adjust-modal__close" aria-label="닫기" onClick={onClose}>
@@ -101,7 +108,11 @@ export function RankAdjustPopup({
           </div>
 
           <p className="rank-adjust-modal__guide">
-            직급 히스토리를 보시려면 <button type="button" className="rank-adjust-modal__link">여기</button> 를 클릭하세요.
+            직급 히스토리를 보시려면{" "}
+            <button type="button" className="rank-adjust-modal__link" onClick={() => setHistoryOpen(true)}>
+              여기
+            </button>{" "}
+            를 클릭하세요.
           </p>
           <p className="rank-adjust-modal__guide">
             사용자 직급할당은 <button type="button" className="rank-adjust-modal__link">여기</button> 를 클릭하세요.
@@ -155,8 +166,11 @@ export function RankAdjustPopup({
               취소
             </button>
           </div>
+          </div>
         </div>
       </div>
-    </div>
+
+      <RankHistoryPopup open={historyOpen} onClose={() => setHistoryOpen(false)} />
+    </>
   );
 }
