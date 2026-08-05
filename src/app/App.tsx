@@ -9,6 +9,7 @@ import {
 } from "lucide-react";
 import { RecommenderSelectPopup } from "./components/RecommenderSelectPopup";
 import { RankAdjustPopup } from "./components/RankAdjustPopup";
+import { BusinessInfoPopup } from "./components/BusinessInfoPopup";
 import { OrderManagementView } from "./components/OrderManagementView";
 import { Mm2ProfileCard, buildMm2ProfileFields } from "./components/Mm2ProfileCard";
 import { OrgChartHoverProvider, useOrgChartHover, type OrgMemberDetail } from "./components/OrgMemberHoverPopup";
@@ -2858,10 +2859,14 @@ function MemberManagementView({
   const detailContentWidth = getDetailContentWidth(formColumnWidth);
   const contentAlignWidth = isMemberInfoTab && listOpen ? detailContentWidth : "100%";
   const [rankAdjustOpen, setRankAdjustOpen] = useState(false);
+  const [businessInfoOpen, setBusinessInfoOpen] = useState(false);
 
   function handleToolbarAction(label: string) {
     if (label === "직급조정") {
       setRankAdjustOpen(true);
+    }
+    if (label === "사업자정보") {
+      setBusinessInfoOpen(true);
     }
   }
 
@@ -2919,6 +2924,8 @@ function MemberManagementView({
         currentRank={member.rank}
         onClose={() => setRankAdjustOpen(false)}
       />
+
+      <BusinessInfoPopup open={businessInfoOpen} onClose={() => setBusinessInfoOpen(false)} />
     </div>
   );
 }
