@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { FileText, Pencil, RefreshCw, Trash2, X } from "lucide-react";
+import { RankHistoryFormPopup } from "./RankHistoryFormPopup";
 
 export type RankHistoryRow = {
   id: number;
@@ -157,20 +158,25 @@ function formatSales(value: number) {
 
 export function RankHistoryPopup({ open, rows = SAMPLE_RANK_HISTORY, onClose }: RankHistoryPopupProps) {
   const [checked, setChecked] = useState<Set<number>>(new Set());
+  const [formOpen, setFormOpen] = useState(false);
 
   useEffect(() => {
     if (!open) return;
     setChecked(new Set());
+    setFormOpen(false);
   }, [open]);
 
   useEffect(() => {
     if (!open) return;
     function onKeyDown(event: KeyboardEvent) {
-      if (event.key === "Escape") onClose();
+      if (event.key !== "Escape") return;
+      event.stopImmediatePropagation();
+      if (formOpen) setFormOpen(false);
+      else onClose();
     }
-    window.addEventListener("keydown", onKeyDown);
-    return () => window.removeEventListener("keydown", onKeyDown);
-  }, [open, onClose]);
+    window.addEventListener("keydown", onKeyDown, true);
+    return () => window.removeEventListener("keydown", onKeyDown, true);
+  }, [open, onClose, formOpen]);
 
   if (!open) return null;
 
@@ -194,6 +200,7 @@ export function RankHistoryPopup({ open, rows = SAMPLE_RANK_HISTORY, onClose }: 
   }
 
   return (
+    <>
     <div className="rank-history-modal" role="presentation" onClick={onClose}>
       <div
         className="rank-history-modal__panel"
@@ -212,7 +219,12 @@ export function RankHistoryPopup({ open, rows = SAMPLE_RANK_HISTORY, onClose }: 
         <div className="rank-history-modal__toolbar">
           <div className="rank-history-modal__toolbar-spacer" />
           <div className="rank-history-modal__toolbar-actions">
-            <button type="button" className="rank-history-modal__icon-btn" aria-label="새로 만들기">
+            <button
+              type="button"
+              className="rank-history-modal__icon-btn"
+              aria-label="새로 만들기"
+              onClick={() => setFormOpen(true)}
+            >
               <FileText size={16} />
             </button>
             <button type="button" className="rank-history-modal__icon-btn" aria-label="수정">
@@ -302,5 +314,8 @@ export function RankHistoryPopup({ open, rows = SAMPLE_RANK_HISTORY, onClose }: 
         </div>
       </div>
     </div>
+
+    <RankHistoryFormPopup open={formOpen} onClose={() => setFormOpen(false)} />
+    </>
   );
 }

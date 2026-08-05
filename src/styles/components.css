@@ -4044,3 +4044,159 @@ textarea.mm2-name-box:focus {
   background: var(--input-background);
 }
 
+.rank-history-form-modal {
+  position: fixed;
+  inset: 0;
+  z-index: 1220;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+  background: rgba(15, 23, 42, 0.42);
+}
+
+.rank-history-form-modal__panel {
+  width: min(320px, calc(100vw - 48px));
+  background: var(--surface-panel);
+  border: 1px solid var(--border);
+  border-radius: var(--radius, 6px);
+  box-shadow: 0 12px 36px rgba(15, 23, 42, 0.22);
+  overflow: hidden;
+}
+
+.rank-history-form-modal__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 10px 14px;
+  border-bottom: 1px solid var(--border);
+}
+
+.rank-history-form-modal__title {
+  margin: 0;
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--foreground);
+}
+
+.rank-history-form-modal__close {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  border: none;
+  border-radius: 4px;
+  background: transparent;
+  color: var(--muted-foreground);
+  cursor: pointer;
+}
+
+.rank-history-form-modal__close:hover {
+  background: var(--surface-button-muted);
+  color: var(--foreground);
+}
+
+.rank-history-form-modal__body {
+  padding: 16px 18px 20px;
+}
+
+.rank-history-form-modal__field {
+  margin-bottom: 14px;
+}
+
+.rank-history-form-modal__label {
+  display: block;
+  margin-bottom: 4px;
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--text-muted);
+}
+
+.rank-history-form-modal__input {
+  width: 100%;
+  border: none;
+  border-bottom: 1px solid var(--border);
+  border-radius: 0;
+  background: transparent;
+  color: var(--foreground);
+  font-size: 13px;
+  padding: 4px 0 6px;
+  outline: none;
+}
+
+.rank-history-form-modal__input:focus {
+  border-bottom-color: var(--accent-border);
+}
+
+.rank-history-form-modal__input--date {
+  color-scheme: light dark;
+}
+
+.rank-history-form-modal__input--date::-webkit-calendar-picker-indicator {
+  cursor: pointer;
+  opacity: 0.65;
+}
+
+.rank-history-form-modal__select-wrap {
+  position: relative;
+}
+
+.rank-history-form-modal__select {
+  width: 100%;
+  appearance: none;
+  border: none;
+  border-bottom: 1px solid var(--border);
+  border-radius: 0;
+  background: transparent;
+  color: var(--foreground);
+  font-size: 13px;
+  padding: 4px 24px 6px 0;
+  outline: none;
+  cursor: pointer;
+}
+
+.rank-history-form-modal__select:focus {
+  border-bottom-color: var(--accent-border);
+}
+
+.rank-history-form-modal__select-icon {
+  position: absolute;
+  right: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--muted-foreground);
+  pointer-events: none;
+}
+
+.rank-history-form-modal__actions {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  margin-top: 22px;
+}
+
+.rank-history-form-modal__btn {
+  min-width: 88px;
+  height: 34px;
+  padding: 0 18px;
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  background: var(--surface-panel);
+  color: var(--foreground);
+  font-size: 13px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background 0.15s ease, border-color 0.15s ease;
+}
+
+.rank-history-form-modal__btn:hover {
+  background: var(--surface-button-muted);
+}
+
+[data-theme="dark"] .rank-history-form-modal__btn {
+  background: var(--input-background);
+}
+
