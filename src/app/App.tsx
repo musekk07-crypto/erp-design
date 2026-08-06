@@ -10,7 +10,7 @@ import {
 import { RecommenderSelectPopup } from "./components/RecommenderSelectPopup";
 import { RankAdjustPopup } from "./components/RankAdjustPopup";
 import { BusinessInfoPopup } from "./components/BusinessInfoPopup";
-import { OrgChartPopup } from "./components/OrgChartPopup";
+import { MemberOrgChartView } from "./components/MemberOrgChartView";
 import { OrderManagementView } from "./components/OrderManagementView";
 import { Mm2ProfileCard, buildMm2ProfileFields } from "./components/Mm2ProfileCard";
 import { OrgChartHoverProvider, useOrgChartHover, type OrgMemberDetail } from "./components/OrgMemberHoverPopup";
@@ -2849,6 +2849,7 @@ function MemberManagementView({
   activeTab,
   onTabChange,
   onNavigateToOrderManagement,
+  onNavigateToOrgChart,
 }: {
   memberId: number;
   listOpen: boolean;
@@ -2856,6 +2857,7 @@ function MemberManagementView({
   activeTab: string;
   onTabChange: (tab: string) => void;
   onNavigateToOrderManagement?: () => void;
+  onNavigateToOrgChart?: () => void;
 }) {
   const member = getMemberById(memberId);
   const isMemberInfoTab = activeTab === "회원정보";
@@ -2863,11 +2865,10 @@ function MemberManagementView({
   const contentAlignWidth = isMemberInfoTab && listOpen ? detailContentWidth : "100%";
   const [rankAdjustOpen, setRankAdjustOpen] = useState(false);
   const [businessInfoOpen, setBusinessInfoOpen] = useState(false);
-  const [orgChartOpen, setOrgChartOpen] = useState(false);
 
   function handleToolbarAction(label: string) {
     if (label === "조직도") {
-      setOrgChartOpen(true);
+      onNavigateToOrgChart?.();
     }
     if (label === "직급조정") {
       setRankAdjustOpen(true);
@@ -2936,14 +2937,6 @@ function MemberManagementView({
       />
 
       <BusinessInfoPopup open={businessInfoOpen} onClose={() => setBusinessInfoOpen(false)} />
-
-      <OrgChartPopup
-        open={orgChartOpen}
-        memberName={member.name}
-        onClose={() => setOrgChartOpen(false)}
-      >
-        <OrgChart memberId={memberId} memberName={member.name} />
-      </OrgChartPopup>
     </div>
   );
 }
@@ -4425,7 +4418,7 @@ export default function App() {
   const resizing = useRef(false);
 
   const memberListNavEnabled =
-    (activeMainMenu === "회원관리" && activeMemberSubMenu === "회원등록") ||
+    (activeMainMenu === "회원관리" && (activeMemberSubMenu === "회원등록" || activeMemberSubMenu === "조직도인쇄")) ||
     (activeMainMenu === "주문관리" && activeOrderSubMenu !== "주문서승인");
   const memberListOpen = memberListNavEnabled && listOpen;
 
@@ -4438,11 +4431,12 @@ export default function App() {
   }, [memberListOpen, listWidth, appContentWidth]);
 
   const isOrderManagement = activeMainMenu === "주문관리";
+  const isOrgChartScreen = activeMainMenu === "회원관리" && activeMemberSubMenu === "조직도인쇄";
   const isMm2MemberInfoTab = activeMainMenu === "회원관리2" && activeTab === "회원정보";
   const isMemberInfoTab = activeMainMenu === "회원관리" && activeTab === "회원정보";
 
   const detailPanelMinWidth = useMemo(() => {
-    if (isOrderManagement) {
+    if (isOrderManagement || isOrgChartScreen) {
       return 0;
     }
     if (isMm2MemberInfoTab) {
@@ -4452,11 +4446,12 @@ export default function App() {
       return getDetailPanelWidth(formColumnWidth);
     }
     return ORDER_PANEL_MIN_WIDTH;
-  }, [isOrderManagement, isMm2MemberInfoTab, isMemberInfoTab, formColumnWidth]);
+  }, [isOrderManagement, isOrgChartScreen, isMm2MemberInfoTab, isMemberInfoTab, formColumnWidth]);
 
   const isFixedDetailWidth =
     memberListOpen &&
     (isOrderManagement ||
+      isOrgChartScreen ||
       (activeMainMenu === "회원관리" && !isMemberInfoTab) ||
       (activeMainMenu === "회원관리2" && !isMm2MemberInfoTab));
 
@@ -4519,7 +4514,7 @@ export default function App() {
     setActiveMainMenu(menu);
     const keepsMemberListNav =
       (menu === "주문관리" && activeOrderSubMenu !== "주문서승인") ||
-      (menu === "회원관리" && activeMemberSubMenu === "회원등록");
+      (menu === "회원관리" && (activeMemberSubMenu === "회원등록" || activeMemberSubMenu === "조직도인쇄"));
     if (!keepsMemberListNav) {
       setListOpen(false);
     }
@@ -4533,19 +4528,23 @@ export default function App() {
     }
   }, []);
 
-  const handleNavigateToOrderManagement = useCallback(() => {
-    handleOrderSubMenuChange("주문서등록");
-  }, [handleOrderSubMenuChange]);
-
   const handleMemberSubMenuChange = useCallback((item: string) => {
     setActiveMemberSubMenu(item);
     setActiveMainMenu("회원관리");
     if (item === "회원등록") {
       setActiveTab("회원정보");
-    } else {
+    } else if (item !== "조직도인쇄") {
       setListOpen(false);
     }
   }, []);
+
+  const handleNavigateToOrderManagement = useCallback(() => {
+    handleOrderSubMenuChange("주문서등록");
+  }, [handleOrderSubMenuChange]);
+
+  const handleNavigateToOrgChart = useCallback(() => {
+    handleMemberSubMenuChange("조직도인쇄");
+  }, [handleMemberSubMenuChange]);
 
   const onResizeStart = useCallback((e: React.MouseEvent) => {
     e.preventDefault();
@@ -4668,7 +4667,7 @@ export default function App() {
                 ? detailPanelMinWidth
                 : "100%",
             minWidth: memberListOpen
-              ? isOrderManagement
+              ? isOrderManagement || isOrgChartScreen
                 ? 0
                 : isFixedDetailWidth
                   ? ORDER_PANEL_MIN_WIDTH
@@ -4712,6 +4711,8 @@ export default function App() {
               activeTab={activeTab}
               onTabChange={setActiveTab}
             />
+          ) : activeMainMenu === "회원관리" && activeMemberSubMenu === "조직도인쇄" ? (
+            <MemberOrgChartView member={getMemberById(selectedMember)} />
           ) : activeMainMenu === "회원관리" && activeMemberSubMenu !== "회원등록" ? (
             <div
               className="member-subpage-placeholder"
@@ -4737,6 +4738,7 @@ export default function App() {
               activeTab={activeTab}
               onTabChange={setActiveTab}
               onNavigateToOrderManagement={handleNavigateToOrderManagement}
+              onNavigateToOrgChart={handleNavigateToOrgChart}
             />
           )}
         </div>

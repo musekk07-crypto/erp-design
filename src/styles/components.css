@@ -4437,114 +4437,117 @@ textarea.mm2-name-box:focus {
   background: var(--surface-muted, var(--input-background));
 }
 
-.org-chart-modal {
-  position: fixed;
-  inset: 0;
-  z-index: 1200;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 24px;
-  background: rgba(15, 23, 42, 0.38);
-}
-
-.org-chart-modal__panel {
-  width: min(720px, calc(100vw - 48px));
-  max-height: calc(100vh - 48px);
+.member-org-chart-view {
   display: flex;
   flex-direction: column;
+  flex: 1;
+  min-height: 0;
+  background: #eef1f4;
+}
+
+.member-org-chart-toolbar {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  padding: 8px 12px;
   background: var(--surface-panel);
-  border: 1px solid var(--border);
-  border-radius: var(--radius, 6px);
-  box-shadow: 0 12px 36px rgba(15, 23, 42, 0.22);
-  overflow: hidden;
-}
-
-.org-chart-modal__header {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 12px;
-  padding: 12px 16px;
-  border-bottom: 1px solid var(--border);
   flex-shrink: 0;
 }
 
-.org-chart-modal__title-wrap {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  min-width: 0;
-}
-
-.org-chart-modal__title-icon {
-  flex-shrink: 0;
-  color: var(--text-muted);
-}
-
-.org-chart-modal__title {
-  margin: 0;
-  font-size: 15px;
-  font-weight: 700;
-  color: var(--foreground);
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
-
-.org-chart-modal__close {
+.member-org-chart-toolbar__item {
   display: inline-flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
-  width: 28px;
-  height: 28px;
+  gap: 4px;
+  min-width: 72px;
+  height: 52px;
+  padding: 4px 8px;
   border: none;
   border-radius: 4px;
   background: transparent;
-  color: var(--muted-foreground);
+  color: var(--foreground);
+  font-size: 12px;
   cursor: pointer;
+}
+
+.member-org-chart-toolbar__item:hover {
+  background: var(--surface-button-muted);
+}
+
+.member-org-chart-toolbar-divider {
+  border-top: 1px dashed var(--border);
   flex-shrink: 0;
 }
 
-.org-chart-modal__close:hover {
-  background: var(--surface-button-muted);
-  color: var(--foreground);
-}
-
-.org-chart-modal__body {
+.member-org-chart-canvas {
   flex: 1;
   min-height: 0;
   overflow: auto;
-  padding: 16px 20px 12px;
+  padding: 32px 24px 48px;
 }
 
-.org-chart-modal__footer {
+.member-org-chart-chain {
   display: flex;
+  flex-direction: column;
   align-items: center;
-  justify-content: flex-end;
-  gap: 10px;
-  padding: 10px 16px;
-  border-top: 1px solid var(--border);
-  flex-shrink: 0;
+  width: fit-content;
+  min-width: 100%;
+  margin: 0 auto;
 }
 
-.org-chart-modal__close-btn {
-  min-width: 72px;
-  height: 32px;
-  padding: 0 16px;
-  border: 1px solid var(--border);
-  border-radius: 4px;
-  background: var(--surface-panel);
+.member-org-chart-node {
+  width: 168px;
+  padding: 10px 12px;
+  border: 1px solid #cbd5e1;
+  border-radius: 2px;
+  background: #fff;
+  text-align: center;
+  box-sizing: border-box;
+}
+
+.member-org-chart-node.is-self {
+  border-color: #3b82f6;
+  box-shadow: 0 0 0 1px rgba(59, 130, 246, 0.25);
+}
+
+.member-org-chart-node__name {
+  font-size: 14px;
+  font-weight: 700;
   color: var(--foreground);
+  line-height: 1.35;
+  margin-bottom: 4px;
+}
+
+.member-org-chart-node__no {
   font-size: 13px;
-  cursor: pointer;
+  color: var(--text-secondary, #475569);
+  line-height: 1.35;
+  margin-bottom: 4px;
 }
 
-.org-chart-modal__close-btn:hover {
-  background: var(--surface-button-muted);
+.member-org-chart-node__rank {
+  font-size: 13px;
+  color: var(--text-body, #1e2130);
+  line-height: 1.35;
 }
 
-[data-theme="dark"] .org-chart-modal__close-btn {
-  background: var(--input-background);
+.member-org-chart-connector {
+  width: 1px;
+  height: 28px;
+  background: #94a3b8;
+}
+
+[data-theme="dark"] .member-org-chart-view {
+  background: var(--surface-page);
+}
+
+[data-theme="dark"] .member-org-chart-node {
+  background: var(--surface-panel);
+  border-color: var(--border);
+}
+
+[data-theme="dark"] .member-org-chart-connector {
+  background: var(--border);
 }
 
