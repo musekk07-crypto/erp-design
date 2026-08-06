@@ -11,6 +11,7 @@ import { RecommenderSelectPopup } from "./components/RecommenderSelectPopup";
 import { RankAdjustPopup } from "./components/RankAdjustPopup";
 import { BusinessInfoPopup } from "./components/BusinessInfoPopup";
 import { MemberOrgChartView } from "./components/MemberOrgChartView";
+import { MessageSendPopup } from "./components/MessageSendPopup";
 import { OrderManagementView } from "./components/OrderManagementView";
 import { Mm2ProfileCard, buildMm2ProfileFields } from "./components/Mm2ProfileCard";
 import { OrgChartHoverProvider, useOrgChartHover, type OrgMemberDetail } from "./components/OrgMemberHoverPopup";
@@ -2865,6 +2866,7 @@ function MemberManagementView({
   const contentAlignWidth = isMemberInfoTab && listOpen ? detailContentWidth : "100%";
   const [rankAdjustOpen, setRankAdjustOpen] = useState(false);
   const [businessInfoOpen, setBusinessInfoOpen] = useState(false);
+  const [messageOpen, setMessageOpen] = useState(false);
 
   function handleToolbarAction(label: string) {
     if (label === "조직도") {
@@ -2875,6 +2877,9 @@ function MemberManagementView({
     }
     if (label === "사업자정보") {
       setBusinessInfoOpen(true);
+    }
+    if (label === "메세지") {
+      setMessageOpen(true);
     }
     if (label === "주문서") {
       onNavigateToOrderManagement?.();
@@ -2937,6 +2942,14 @@ function MemberManagementView({
       />
 
       <BusinessInfoPopup open={businessInfoOpen} onClose={() => setBusinessInfoOpen(false)} />
+
+      <MessageSendPopup
+        open={messageOpen}
+        memberName={member.name}
+        defaultPhone={member.phone || "010-4355-7783"}
+        phoneOptions={[member.phone, "010-4355-7783"].filter(Boolean)}
+        onClose={() => setMessageOpen(false)}
+      />
     </div>
   );
 }
