@@ -684,17 +684,26 @@ span.member-form-action-chip {
 .member-profile-header__identity {
   flex: 1 1 auto;
   min-width: 0;
+  overflow: hidden;
 }
 
-.member-profile-header__name {
-  display: block;
-  font-size: 14px;
+.member-profile-header__line {
+  display: inline-flex;
+  align-items: center;
+  max-width: 100%;
+  min-width: 0;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
+  font-size: 14px;
 }
 
-.member-profile-header__no {
+.member-profile-header__sep {
+  color: var(--member-header-text, #1e2130);
+  flex-shrink: 0;
+}
+
+.member-profile-header__line .content-member-header-no {
   flex-shrink: 0;
 }
 

@@ -2063,11 +2063,14 @@ function MemberProfileHeader({ member }: { member: Member }) {
   return (
     <div className="rounded content-member-header member-profile-header">
       <div className="member-profile-header__identity">
-        <span className="content-member-header-text member-profile-header__name">
-          {member.name} · {member.loginId}
+        <span className="member-profile-header__line">
+          <span className="content-member-header-text">{member.name}</span>
+          <span className="member-profile-header__sep" aria-hidden> · </span>
+          <span className="content-member-header-text">{member.loginId}</span>
+          <span className="member-profile-header__sep" aria-hidden> · </span>
+          <span className="content-member-header-no">{member.no}</span>
         </span>
       </div>
-      <span className="content-member-header-no member-profile-header__no">{member.no}</span>
       <MemberTypeToggle type={memberType} />
     </div>
   );
