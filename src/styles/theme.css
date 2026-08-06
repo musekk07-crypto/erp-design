@@ -49,20 +49,20 @@
   --detail-tab-active-top: var(--nav-active-bg);
   --org-grade-badge-bg: #dbeafe;
   --org-grade-badge-fg: var(--nav-active-bg);
-  --member-header-bg: #f5f6f8;
-  --member-header-border: #e8eaef;
+  --member-header-bg: var(--nav-active-bg);
+  --member-header-border: transparent;
   --member-header-accent: var(--nav-active-bg);
-  --member-header-text: var(--text-body, #1e2130);
-  --member-header-text-strong: var(--foreground, #1e2130);
-  --member-header-no-fg: var(--muted-foreground, #6b7280);
-  --member-header-divider: rgba(0, 0, 0, 0.12);
-  --member-header-avatar-bg: var(--accent-light, #e8ecf8);
+  --member-header-text: rgba(255, 255, 255, 0.88);
+  --member-header-text-strong: #ffffff;
+  --member-header-no-fg: rgba(255, 255, 255, 0.75);
+  --member-header-divider: rgba(255, 255, 255, 0.35);
+  --member-header-avatar-bg: #ffffff;
   --member-header-avatar-fg: var(--nav-active-bg);
-  --member-header-toggle-track: #eef2f7;
-  --member-header-toggle-border: #e2e8f0;
+  --member-header-toggle-track: rgba(255, 255, 255, 0.22);
+  --member-header-toggle-border: rgba(255, 255, 255, 0.35);
   --member-header-toggle-active-bg: #ffffff;
   --member-header-toggle-active-fg: var(--nav-active-bg);
-  --member-header-toggle-inactive-fg: #6b7280;
+  --member-header-toggle-inactive-fg: rgba(255, 255, 255, 0.75);
 }
 
 /* ── 라이트그레이 ── */
@@ -667,9 +667,9 @@ input[type="checkbox"] {
   box-sizing: border-box;
   padding: 8px 12px !important;
   margin-bottom: 8px !important;
-  background: var(--member-header-bg, #f5f6f8) !important;
-  border: 1px solid var(--member-header-border, #e8eaef) !important;
-  color: var(--member-header-text-strong, #1e2130);
+  background: var(--member-header-bg, var(--nav-active-bg, #001673)) !important;
+  border: none !important;
+  color: var(--member-header-text-strong, #fff);
   box-shadow: none !important;
 }
 
@@ -951,23 +951,23 @@ input[type="checkbox"] {
 
 /* 다크 — 3단 레이어 + border 구분 */
 [data-theme="dark"] .content-form-section,
-[data-theme="dark"] .content-member-header {
+[data-theme="dark"] .content-member-header:not(.member-profile-header) {
   border: 1px solid rgba(255, 255, 255, 0.1) !important;
 }
 
 [data-theme="dark"] {
-  --member-header-bg: var(--surface-muted, #262d3d);
-  --member-header-border: rgba(255, 255, 255, 0.1);
+  --member-header-bg: var(--nav-active-bg);
+  --member-header-border: transparent;
   --member-header-accent: var(--nav-active-bg);
-  --member-header-text: var(--text-body, #e2e8f0);
-  --member-header-text-strong: var(--foreground, #e2e8f0);
-  --member-header-no-fg: var(--muted-foreground, #9aa8b8);
-  --member-header-divider: rgba(255, 255, 255, 0.12);
-  --member-header-toggle-track: var(--surface-toggle-track, #1a2f42);
-  --member-header-toggle-border: rgba(255, 255, 255, 0.12);
-  --member-header-toggle-active-bg: var(--surface-panel, #1e2433);
-  --member-header-toggle-active-fg: var(--accent-primary, #5ecfff);
-  --member-header-toggle-inactive-fg: var(--muted-foreground, #9aa8b8);
+  --member-header-text: rgba(255, 255, 255, 0.88);
+  --member-header-text-strong: #ffffff;
+  --member-header-no-fg: rgba(255, 255, 255, 0.75);
+  --member-header-divider: rgba(255, 255, 255, 0.35);
+  --member-header-toggle-track: rgba(255, 255, 255, 0.22);
+  --member-header-toggle-border: rgba(255, 255, 255, 0.35);
+  --member-header-toggle-active-bg: #ffffff;
+  --member-header-toggle-active-fg: var(--nav-active-bg);
+  --member-header-toggle-inactive-fg: rgba(255, 255, 255, 0.75);
 }
 
 [data-theme="dark"] .app-content .content-form-body table.content-form-grid--member {
