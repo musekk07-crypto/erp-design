@@ -541,16 +541,11 @@ input[type="checkbox"] {
   accent-color: var(--checkbox-accent, var(--nav-active-bg, #001673));
 }
 
-.app-content .content-form-section--org > button {
-  padding-top: 10px !important;
-  padding-bottom: 10px !important;
-}
-
 .app-content .content-form-section--org .content-form-body {
   padding: 16px 20px 12px !important;
 }
 
-.app-content .content-form-section:not(.content-form-section--org) > button {
+.app-content .content-form-section > button {
   padding-top: 9px !important;
   padding-bottom: 9px !important;
   padding-left: 12px !important;
@@ -561,7 +556,7 @@ input[type="checkbox"] {
   transition: background 0.15s ease;
 }
 
-.app-content .content-form-section:not(.content-form-section--org) > button:hover {
+.app-content .content-form-section > button:hover {
   background: var(--content-form-section-header-hover-bg, var(--content-form-section-header-bg)) !important;
 }
 
