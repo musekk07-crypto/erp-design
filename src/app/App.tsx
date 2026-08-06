@@ -2082,7 +2082,7 @@ function MemberProfileHeader({ member }: { member: Member }) {
     <div className="member-profile-header">
       <div className="member-profile-header__identity">
         <span className="member-profile-header__line">
-          <span className="content-member-header-text">{member.name || "—"}</span>
+          <span className="content-member-header-text member-profile-header__name">{member.name || "—"}</span>
           <span className="content-member-header-divider member-profile-header-divider" aria-hidden />
           <span className="content-member-header-text">{member.loginId || "—"}</span>
           <span className="content-member-header-divider member-profile-header-divider" aria-hidden />
