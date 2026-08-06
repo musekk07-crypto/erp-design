@@ -49,19 +49,19 @@
   --detail-tab-active-top: var(--nav-active-bg);
   --org-grade-badge-bg: #dbeafe;
   --org-grade-badge-fg: var(--nav-active-bg);
-  --member-header-bg: var(--nav-active-bg);
+  --member-header-bg: var(--section-icon-bg, #0284c7);
   --member-header-border: transparent;
-  --member-header-accent: var(--nav-active-bg);
+  --member-header-accent: var(--section-icon-bg, #0284c7);
   --member-header-text: rgba(255, 255, 255, 0.88);
   --member-header-text-strong: #ffffff;
   --member-header-no-fg: rgba(255, 255, 255, 0.75);
   --member-header-divider: rgba(255, 255, 255, 0.35);
   --member-header-avatar-bg: #ffffff;
-  --member-header-avatar-fg: var(--nav-active-bg);
+  --member-header-avatar-fg: var(--section-icon-bg, #0284c7);
   --member-header-toggle-track: rgba(255, 255, 255, 0.22);
   --member-header-toggle-border: rgba(255, 255, 255, 0.35);
   --member-header-toggle-active-bg: #ffffff;
-  --member-header-toggle-active-fg: var(--nav-active-bg);
+  --member-header-toggle-active-fg: var(--section-icon-bg, #0284c7);
   --member-header-toggle-inactive-fg: rgba(255, 255, 255, 0.75);
 }
 
@@ -667,7 +667,7 @@ input[type="checkbox"] {
   box-sizing: border-box;
   padding: 8px 12px !important;
   margin-bottom: 8px !important;
-  background: var(--member-header-bg, var(--nav-active-bg, #001673)) !important;
+  background: var(--member-header-bg, var(--section-icon-bg, #0284c7)) !important;
   border: none !important;
   color: var(--member-header-text-strong, #fff);
   box-shadow: none !important;
@@ -956,9 +956,9 @@ input[type="checkbox"] {
 }
 
 [data-theme="dark"] {
-  --member-header-bg: var(--nav-active-bg);
+  --member-header-bg: var(--section-icon-bg, var(--brand-primary, #0284c7));
   --member-header-border: transparent;
-  --member-header-accent: var(--nav-active-bg);
+  --member-header-accent: var(--section-icon-bg, var(--brand-primary, #0284c7));
   --member-header-text: rgba(255, 255, 255, 0.88);
   --member-header-text-strong: #ffffff;
   --member-header-no-fg: rgba(255, 255, 255, 0.75);
@@ -966,7 +966,7 @@ input[type="checkbox"] {
   --member-header-toggle-track: rgba(255, 255, 255, 0.22);
   --member-header-toggle-border: rgba(255, 255, 255, 0.35);
   --member-header-toggle-active-bg: #ffffff;
-  --member-header-toggle-active-fg: var(--nav-active-bg);
+  --member-header-toggle-active-fg: var(--section-icon-bg, var(--brand-primary, #0284c7));
   --member-header-toggle-inactive-fg: rgba(255, 255, 255, 0.75);
 }
 

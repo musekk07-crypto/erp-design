@@ -7,7 +7,7 @@
   --nav-hover-bg: #00104d;
   --required-color: #001673;
   --save-btn-bg: #001673;
-  --member-header-bg: var(--nav-active-bg);
+  --member-header-bg: var(--section-icon-bg, #0284c7);
   --member-header-border: transparent;
   --member-header-accent: #001673;
   --member-header-avatar-fg: #001673;
@@ -653,7 +653,7 @@ span.member-form-action-chip {
   margin-bottom: 0 !important;
   box-shadow: none !important;
   border: none !important;
-  background: var(--nav-active-bg, #001673) !important;
+  background: var(--section-icon-bg, #0284c7) !important;
 }
 
 .member-login-info-stack {
@@ -666,7 +666,7 @@ span.member-form-action-chip {
 
 .member-login-info-stack .member-profile-header {
   margin-bottom: 0 !important;
-  background: var(--nav-active-bg, #001673) !important;
+  background: var(--section-icon-bg, #0284c7) !important;
   border: none !important;
   box-shadow: none !important;
 }
@@ -726,7 +726,7 @@ span.member-form-action-chip {
   gap: 8px;
   padding: 10px 12px 10px 10px !important;
   box-sizing: border-box;
-  background: var(--nav-active-bg, #001673) !important;
+  background: var(--section-icon-bg, #0284c7) !important;
   border: none !important;
   box-shadow: none !important;
 }
