@@ -2114,7 +2114,7 @@ function StatBento({ label, value, color }: { label: string; value: string; colo
   );
 }
 
-function FormSection({ title, icon, subtitle, headerExtra, children, bodyPadding = "6px 12px 8px", clipBody = true, className = "" }: {
+function FormSection({ title, icon, subtitle, headerExtra, children, bodyPadding, clipBody = true, className = "" }: {
   title: string; icon: React.ReactNode; subtitle?: string; headerExtra?: React.ReactNode; children: React.ReactNode; bodyPadding?: string; clipBody?: boolean; className?: string;
 }) {
   const [open, setOpen] = useState(true);
@@ -2160,7 +2160,7 @@ function FormSection({ title, icon, subtitle, headerExtra, children, bodyPadding
       </button>
       <div style={{ display: "grid", gridTemplateRows: open ? "1fr" : "0fr", transition: "grid-template-rows 0.25s ease" }}>
         <div style={{ overflow: clipBody ? "hidden" : "visible" }}>
-          <div className="content-form-body" style={{ padding: bodyPadding }}>
+          <div className="content-form-body" style={bodyPadding ? { padding: bodyPadding } : undefined}>
             {children}
           </div>
         </div>
@@ -3204,7 +3204,7 @@ function MemberGeneralInfoForm({ member }: { member: Member }) {
   const fieldColSpan = 3;
 
   return (
-    <FormSection title="일반 회원정보" subtitle="20개 항목" icon={<User size={12} />}>
+    <FormSection title="일반 회원정보" subtitle="20개 항목" icon={<User size={12} />} className="content-form-section--member-form">
       <div className="member-form-split">
         <div className="member-form-split__group">
           {renderLeftTable(
@@ -3356,7 +3356,7 @@ function MemberGeneralInfoForm({ member }: { member: Member }) {
 function MemberLoginInfoForm({ member }: { member: Member }) {
   const inputStyle: React.CSSProperties = {
     fontSize: 12,
-    padding: "3px 6px",
+    padding: "3px 8px",
     background: "var(--input-background)",
     border: "none",
     color: "var(--foreground)",
@@ -3452,6 +3452,7 @@ function MemberLoginInfoForm({ member }: { member: Member }) {
     <FormSection
       title="로그인 사용정보"
       icon={<Shield size={12} />}
+      className="content-form-section--member-form"
       headerExtra={<MemberProfileHeader member={member} />}
     >
       <div className="member-login-inline-row">
@@ -3561,7 +3562,7 @@ function MemberInfoBody({
         <MemberGeneralInfoForm member={displayMember} />
 
         {/* 거래은행 정보 */}
-        <FormSection title="거래은행 정보" icon={<CreditCard size={12} />}>
+        <FormSection title="거래은행 정보" icon={<CreditCard size={12} />} className="content-form-section--member-form">
           <div className="member-form-split member-form-split--triple">
             <div className="member-form-split__group">
               <table className="content-form-grid content-form-grid--member content-form-grid--pair" style={{ width: "100%", borderCollapse: "collapse" }}>
@@ -3650,7 +3651,7 @@ function MemberInfoBody({
         </FormSection>
 
         {/* 상위 회원과의 관계 + 소속 그룹 정보 */}
-        <FormSection title="상위 회원과의 관계" icon={<Users size={12} />}>
+        <FormSection title="상위 회원과의 관계" icon={<Users size={12} />} className="content-form-section--member-form">
           <div className="member-relation-row">
             <div className="member-relation-segment">
               <div className="member-relation-group">
@@ -3694,8 +3695,8 @@ function MemberInfoBody({
                   <select
                     key={`center-${formDraftKey}-${memberId}`}
                     defaultValue={isNewDraft ? "" : "본사"}
-                    className="w-full rounded py-1.5 text-sm outline-none appearance-none"
-                    style={{ background: "var(--input-background)", border: "none", color: "var(--foreground)", paddingLeft: 10, paddingRight: 28, fontSize: 13 }}
+                    className="w-full rounded text-sm outline-none appearance-none member-relation-select__input"
+                    style={{ background: "var(--input-background)", border: "none", color: "var(--foreground)" }}
                   >
                     {isNewDraft ? <option value="">선택</option> : null}
                     <option value="본사">본사</option>
@@ -3716,8 +3717,8 @@ function MemberInfoBody({
                   <select
                     key={`rank-${formDraftKey}-${memberId}`}
                     defaultValue={isNewDraft ? "" : "다이아몬드"}
-                    className="w-full rounded py-1.5 text-sm outline-none appearance-none"
-                    style={{ background: "var(--input-background)", border: "none", color: "var(--foreground)", paddingLeft: 10, paddingRight: 28, fontSize: 13 }}
+                    className="w-full rounded text-sm outline-none appearance-none member-relation-select__input"
+                    style={{ background: "var(--input-background)", border: "none", color: "var(--foreground)" }}
                   >
                     {isNewDraft ? <option value="">선택</option> : null}
                     <option value="다이아몬드">다이아몬드</option>
@@ -3735,7 +3736,7 @@ function MemberInfoBody({
         </FormSection>
 
         {/* 기타 회원정보 */}
-        <FormSection title="기타 회원정보" icon={<Info size={12} />}>
+        <FormSection title="기타 회원정보" icon={<Info size={12} />} className="content-form-section--member-form">
           <div className="flex items-center gap-4 flex-wrap">
             {miscCheckboxes.map((item) => (
               <label key={item.label} className="flex items-center gap-1.5 cursor-pointer">
