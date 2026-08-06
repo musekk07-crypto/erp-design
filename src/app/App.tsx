@@ -2127,8 +2127,6 @@ function FormSection({ title, icon, subtitle, headerExtra, children, bodyPadding
           cursor: "pointer",
           background: "var(--content-form-section-header-bg, transparent)",
           borderBottom: open ? "1px solid var(--content-form-section-header-border, var(--border))" : "none",
-          paddingTop: 9,
-          paddingBottom: 9,
         }}
       >
         <span className="content-form-section-icon shrink-0 inline-flex items-center justify-center" style={{ color: "var(--section-icon-color)" }}>
@@ -3355,8 +3353,6 @@ function MemberGeneralInfoForm({ member }: { member: Member }) {
 
 function MemberLoginInfoForm({ member }: { member: Member }) {
   const inputStyle: React.CSSProperties = {
-    fontSize: 12,
-    padding: "3px 8px",
     background: "var(--input-background)",
     border: "none",
     color: "var(--foreground)",
@@ -3465,8 +3461,6 @@ function MemberLoginInfoForm({ member }: { member: Member }) {
             <span
               className="member-login-inline-field__label"
               style={{
-                fontSize: 12,
-                fontWeight: 500,
                 color: field.required ? "var(--required-color, #001673)" : "var(--form-label-color)",
               }}
             >

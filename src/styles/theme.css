@@ -546,11 +546,15 @@ input[type="checkbox"] {
 }
 
 .app-content .content-form-section > button {
-  padding-top: 9px !important;
-  padding-bottom: 9px !important;
+  height: 40px;
+  min-height: 40px;
+  max-height: 40px;
+  padding-top: 0 !important;
+  padding-bottom: 0 !important;
   padding-left: 12px !important;
   padding-right: 12px !important;
-  min-height: 36px;
+  box-sizing: border-box;
+  align-items: center !important;
   background: var(--content-form-section-header-bg) !important;
   border-bottom-color: var(--content-form-section-header-border, var(--border)) !important;
   transition: background 0.15s ease;
@@ -591,7 +595,6 @@ input[type="checkbox"] {
 .app-content .content-form-section--member-form .content-form-body > .member-form-split,
 .app-content .content-form-section--member-form .content-form-body > .member-relation-row {
   align-items: center;
-  min-height: 26px;
   box-sizing: border-box;
 }
 
@@ -601,22 +604,6 @@ input[type="checkbox"] {
 
 .app-content .content-form-section--member-form .member-form-split__group {
   padding: 0 !important;
-}
-
-.app-content .content-form-section--member-form .member-relation-select__input {
-  font-size: 12px !important;
-  padding: 3px 28px 3px 10px !important;
-  line-height: 1.2;
-  box-sizing: border-box;
-}
-
-.app-content .content-form-section--member-form .member-login-inline-field__input,
-.app-content .content-form-section--member-form .member-relation-input-id,
-.app-content .content-form-section--member-form .member-relation-input-name {
-  font-size: 12px !important;
-  padding: 3px 8px !important;
-  line-height: 1.2;
-  box-sizing: border-box;
 }
 
 /* 회원정보·거래은행 폼 — 열 너비 정렬 (4열 기준) */
@@ -806,8 +793,9 @@ input[type="checkbox"] {
   flex: 1.15 1 0;
   min-width: 72px;
   width: auto;
-  font-size: 13px;
+  font-size: 12px;
   padding: 3px 8px;
+  line-height: 1.4;
   background: var(--surface-input-readonly);
   border: none;
   color: var(--foreground);
@@ -818,8 +806,9 @@ input[type="checkbox"] {
   flex: 1 1 0;
   min-width: 56px;
   width: auto;
-  font-size: 13px;
+  font-size: 12px;
   padding: 3px 8px;
+  line-height: 1.4;
   background: var(--surface-input-readonly);
   border: none;
   color: var(--foreground);
