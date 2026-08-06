@@ -1,5 +1,6 @@
 import React, { useEffect, useMemo, useState } from "react";
 import { ChevronDown, Plus, X } from "lucide-react";
+import { BrowserPromptModal } from "./BrowserPromptModal";
 
 type MessageSendPopupProps = {
   open: boolean;
@@ -158,36 +159,24 @@ export function MessageSendPopup({
     </div>
 
     {addPhoneOpen && (
-      <div className="message-add-phone-modal" role="presentation" onClick={() => setAddPhoneOpen(false)}>
-        <div
-          className="message-add-phone-modal__panel"
-          role="dialog"
-          aria-modal="true"
-          aria-label="이동전화 번호 추가"
-          onClick={(event) => event.stopPropagation()}
-        >
-          <p className="message-add-phone-modal__origin">office.binsoft.co.kr:7999 내용:</p>
-          <p className="message-add-phone-modal__prompt">추가할 이동전화 번호를 입력하세요.</p>
-          <input
-            type="text"
-            className="message-add-phone-modal__input"
-            value={newPhone}
-            onChange={(event) => setNewPhone(event.target.value)}
-            autoFocus
-            onKeyDown={(event) => {
-              if (event.key === "Enter") handleAddPhoneConfirm();
-            }}
-          />
-          <div className="message-add-phone-modal__actions">
-            <button type="button" className="message-add-phone-modal__btn message-add-phone-modal__btn--primary" onClick={handleAddPhoneConfirm}>
-              확인
-            </button>
-            <button type="button" className="message-add-phone-modal__btn" onClick={() => setAddPhoneOpen(false)}>
-              취소
-            </button>
-          </div>
-        </div>
-      </div>
+      <BrowserPromptModal
+        open={addPhoneOpen}
+        ariaLabel="이동전화 번호 추가"
+        message="추가할 이동전화 번호를 입력하세요."
+        onConfirm={handleAddPhoneConfirm}
+        onClose={() => setAddPhoneOpen(false)}
+      >
+        <input
+          type="text"
+          className="browser-prompt-modal__input"
+          value={newPhone}
+          onChange={(event) => setNewPhone(event.target.value)}
+          autoFocus
+          onKeyDown={(event) => {
+            if (event.key === "Enter") handleAddPhoneConfirm();
+          }}
+        />
+      </BrowserPromptModal>
     )}
     </>
   );

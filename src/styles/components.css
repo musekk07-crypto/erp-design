@@ -4753,6 +4753,18 @@ textarea.mm2-name-box:focus {
   background: rgba(15, 23, 42, 0.55);
 }
 
+.browser-prompt-modal {
+  position: fixed;
+  inset: 0;
+  z-index: 1210;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+  background: rgba(15, 23, 42, 0.55);
+}
+
+.browser-prompt-modal__panel,
 .message-add-phone-modal__panel {
   width: min(380px, calc(100vw - 48px));
   padding: 24px 24px 20px;
@@ -4762,6 +4774,7 @@ textarea.mm2-name-box:focus {
   box-shadow: 0 20px 48px rgba(15, 23, 42, 0.28);
 }
 
+.browser-prompt-modal__origin,
 .message-add-phone-modal__origin {
   margin: 0 0 10px;
   font-size: 15px;
@@ -4770,6 +4783,7 @@ textarea.mm2-name-box:focus {
   color: #1e2130;
 }
 
+.browser-prompt-modal__message,
 .message-add-phone-modal__prompt {
   margin: 0 0 16px;
   font-size: 15px;
@@ -4777,6 +4791,7 @@ textarea.mm2-name-box:focus {
   color: #1e2130;
 }
 
+.browser-prompt-modal__input,
 .message-add-phone-modal__input {
   width: 100%;
   box-sizing: border-box;
@@ -4789,11 +4804,13 @@ textarea.mm2-name-box:focus {
   outline: none;
 }
 
+.browser-prompt-modal__input:focus,
 .message-add-phone-modal__input:focus {
   border-color: #1d4ed8;
   box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.12);
 }
 
+.browser-prompt-modal__actions,
 .message-add-phone-modal__actions {
   display: flex;
   align-items: center;
@@ -4802,6 +4819,7 @@ textarea.mm2-name-box:focus {
   margin-top: 22px;
 }
 
+.browser-prompt-modal__btn,
 .message-add-phone-modal__btn {
   min-width: 88px;
   height: 40px;
@@ -4815,38 +4833,47 @@ textarea.mm2-name-box:focus {
   cursor: pointer;
 }
 
+.browser-prompt-modal__btn:hover,
 .message-add-phone-modal__btn:hover {
   background: #bfdbfe;
 }
 
+.browser-prompt-modal__btn--primary,
 .message-add-phone-modal__btn--primary {
   background: #1a73e8;
   color: #fff;
 }
 
+.browser-prompt-modal__btn--primary:hover,
 .message-add-phone-modal__btn--primary:hover {
   background: #1557b0;
 }
 
+[data-theme="dark"] .browser-prompt-modal__panel,
 [data-theme="dark"] .message-add-phone-modal__panel {
   background: var(--surface-panel);
 }
 
+[data-theme="dark"] .browser-prompt-modal__origin,
+[data-theme="dark"] .browser-prompt-modal__message,
 [data-theme="dark"] .message-add-phone-modal__origin,
 [data-theme="dark"] .message-add-phone-modal__prompt {
   color: var(--foreground);
 }
 
+[data-theme="dark"] .browser-prompt-modal__input,
 [data-theme="dark"] .message-add-phone-modal__input {
   background: var(--input-background);
   color: var(--foreground);
 }
 
+[data-theme="dark"] .browser-prompt-modal__btn,
 [data-theme="dark"] .message-add-phone-modal__btn {
   background: rgba(59, 130, 246, 0.2);
   color: #bfdbfe;
 }
 
+[data-theme="dark"] .browser-prompt-modal__btn--primary,
 [data-theme="dark"] .message-add-phone-modal__btn--primary {
   background: #2563eb;
   color: #fff;
