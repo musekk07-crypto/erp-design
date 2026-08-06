@@ -650,7 +650,19 @@ span.member-form-action-chip {
 }
 
 .app-content .content-member-header.member-profile-header {
-  margin-bottom: 10px !important;
+  margin-bottom: 0 !important;
+}
+
+.member-login-info-stack {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  width: 100%;
+  min-width: 0;
+}
+
+.member-login-info-stack .member-profile-header {
+  margin-bottom: 0 !important;
 }
 
 .member-profile-header {
@@ -660,7 +672,6 @@ span.member-form-action-chip {
   width: 100%;
   box-sizing: border-box;
   padding: 10px 14px 10px 10px !important;
-  margin-bottom: 10px !important;
 }
 
 .member-profile-header__identity {

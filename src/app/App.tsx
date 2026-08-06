@@ -2945,10 +2945,7 @@ function MemberManagementView({
           <MemberPageChrome activeTab={activeTab} onTabChange={onTabChange} onToolbarAction={handleToolbarAction} />
 
           {isMemberInfoTab ? (
-            <>
-              <MemberProfileHeader member={member} />
-              <MemberInfoBody memberId={memberId} listOpen={listOpen} formColumnWidth={formColumnWidth} member={member} />
-            </>
+            <MemberInfoBody memberId={memberId} listOpen={listOpen} formColumnWidth={formColumnWidth} member={member} />
           ) : activeTab === "주문서내역" ? (
             <div className="flex-1 min-h-0 overflow-hidden">
               <OrderHistoryView memberId={memberId} />
@@ -3352,26 +3349,29 @@ function MemberLoginInfoForm({ member }: { member: Member }) {
 
   return (
     <FormSection title="로그인 사용정보" icon={<Shield size={12} />} bodyPadding="8px 12px 10px">
-      <div className="member-login-inline-row">
-        {fields.map((field) => (
-          <div
-            key={field.key}
-            className="member-login-inline-field"
-            style={{ flex: field.flex }}
-          >
-            <span
-              className="member-login-inline-field__label"
-              style={{
-                fontSize: 12,
-                fontWeight: 500,
-                color: field.required ? "var(--required-color, #001673)" : "var(--form-label-color)",
-              }}
+      <div className="member-login-info-stack">
+        <MemberProfileHeader member={member} />
+        <div className="member-login-inline-row">
+          {fields.map((field) => (
+            <div
+              key={field.key}
+              className="member-login-inline-field"
+              style={{ flex: field.flex }}
             >
-              {field.label}
-            </span>
-            {field.input}
-          </div>
-        ))}
+              <span
+                className="member-login-inline-field__label"
+                style={{
+                  fontSize: 12,
+                  fontWeight: 500,
+                  color: field.required ? "var(--required-color, #001673)" : "var(--form-label-color)",
+                }}
+              >
+                {field.label}
+              </span>
+              {field.input}
+            </div>
+          ))}
+        </div>
       </div>
     </FormSection>
   );
