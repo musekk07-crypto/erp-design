@@ -49,8 +49,8 @@
   --detail-tab-active-top: var(--nav-active-bg);
   --org-grade-badge-bg: #dbeafe;
   --org-grade-badge-fg: var(--nav-active-bg);
-  --member-header-bg: #ffffff;
-  --member-header-border: #e2e8f0;
+  --member-header-bg: #f5f6f8;
+  --member-header-border: #e8eaef;
   --member-header-accent: var(--nav-active-bg);
   --member-header-text: var(--text-body, #1e2130);
   --member-header-text-strong: var(--foreground, #1e2130);
@@ -667,8 +667,8 @@ input[type="checkbox"] {
   box-sizing: border-box;
   padding: 8px 12px 8px 10px !important;
   margin-bottom: 8px !important;
-  background: var(--member-header-bg, #ffffff) !important;
-  border: 1px solid var(--member-header-border, #e2e8f0) !important;
+  background: var(--member-header-bg, #f5f6f8) !important;
+  border: 1px solid var(--member-header-border, #e8eaef) !important;
   border-left: 3px solid var(--member-header-accent, var(--nav-active-bg, #001673)) !important;
   color: var(--member-header-text-strong, #1e2130);
   box-shadow: 0 1px 2px rgba(0, 0, 0, 0.04);
@@ -958,7 +958,7 @@ input[type="checkbox"] {
 }
 
 [data-theme="dark"] {
-  --member-header-bg: var(--surface-panel, #1e2433);
+  --member-header-bg: var(--surface-muted, #262d3d);
   --member-header-border: rgba(255, 255, 255, 0.1);
   --member-header-accent: var(--nav-active-bg);
   --member-header-text: var(--text-body, #e2e8f0);
