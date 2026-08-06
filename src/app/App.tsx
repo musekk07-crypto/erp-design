@@ -3256,14 +3256,15 @@ function MemberGeneralInfoForm({ member }: { member: Member }) {
 }
 
 function MemberLoginInfoForm({ member }: { member: Member }) {
-  const labelTdStyle: React.CSSProperties = { padding: "3px 10px 3px 0", whiteSpace: "nowrap", verticalAlign: "middle" };
-  const fieldTdStyle: React.CSSProperties = { padding: "3px 0 3px 0", verticalAlign: "middle" };
   const inputStyle: React.CSSProperties = {
     fontSize: 12,
-    padding: "3px 8px",
+    padding: "3px 6px",
     background: "var(--input-background)",
     border: "none",
     color: "var(--foreground)",
+    width: "100%",
+    minWidth: 0,
+    boxSizing: "border-box",
   };
   const focusProps = {
     onFocus: (e: React.FocusEvent<HTMLInputElement>) => {
@@ -3274,60 +3275,103 @@ function MemberLoginInfoForm({ member }: { member: Member }) {
     },
   };
 
-  const renderPairTable = (rows: React.ReactNode) => (
-    <table className="content-form-grid content-form-grid--member content-form-grid--pair" style={{ width: "100%", borderCollapse: "collapse" }}>
-      <colgroup>
-        <col className="col-label-1" />
-        <col className="col-field-1" />
-      </colgroup>
-      <tbody>{rows}</tbody>
-    </table>
-  );
+  const fields = [
+    {
+      key: "no",
+      label: "* 회원번호",
+      required: true,
+      flex: "0.95 1 72px",
+      input: (
+        <input
+          type="text"
+          defaultValue={member.no}
+          className="member-login-inline-field__input rounded outline-none transition-all duration-200"
+          style={{ ...inputStyle, fontFamily: "monospace" }}
+          {...focusProps}
+        />
+      ),
+    },
+    {
+      key: "id",
+      label: "* 아이디",
+      required: true,
+      flex: "0.95 1 72px",
+      input: (
+        <input
+          type="text"
+          defaultValue={member.loginId}
+          className="member-login-inline-field__input rounded outline-none transition-all duration-200"
+          style={{ ...inputStyle, fontFamily: "monospace" }}
+          {...focusProps}
+        />
+      ),
+    },
+    {
+      key: "password",
+      label: "비밀번호",
+      flex: "1 1 88px",
+      input: (
+        <input
+          type="password"
+          placeholder="변경 시에만 입력"
+          className="member-login-inline-field__input rounded outline-none transition-all duration-200"
+          style={inputStyle}
+          {...focusProps}
+        />
+      ),
+    },
+    {
+      key: "securePassword",
+      label: "보안 비밀번호",
+      flex: "0.85 1 64px",
+      input: (
+        <input
+          type="password"
+          placeholder="····"
+          className="member-login-inline-field__input rounded outline-none transition-all duration-200"
+          style={inputStyle}
+          {...focusProps}
+        />
+      ),
+    },
+    {
+      key: "email",
+      label: "전자메일주소",
+      flex: "1.35 1 120px",
+      input: (
+        <input
+          type="email"
+          defaultValue={`${member.loginId}@email.com`}
+          className="member-login-inline-field__input rounded outline-none transition-all duration-200"
+          style={inputStyle}
+          {...focusProps}
+        />
+      ),
+    },
+  ] as const;
 
   return (
     <FormSection title="로그인 사용정보" icon={<Shield size={12} />} bodyPadding="8px 12px 10px">
-      <div className="member-form-split member-form-split--triple member-form-split--login member-form-split--login-dual">
-        <div className="member-form-split__group member-form-split__group--login-credentials">
-          {renderPairTable(
-            <>
-              <tr>
-                <td style={labelTdStyle}><span style={{ fontSize: "12px", color: "var(--required-color, #001673)", fontWeight: 500 }}>* 회원번호</span></td>
-                <td style={fieldTdStyle}>
-                  <input type="text" defaultValue={member.no} className="w-full rounded outline-none transition-all duration-200" style={{ ...inputStyle, fontFamily: "monospace" }} {...focusProps} />
-                </td>
-              </tr>
-              <tr>
-                <td style={labelTdStyle}><span style={{ fontSize: "12px", color: "var(--form-label-color)", fontWeight: 500 }}>비밀번호</span></td>
-                <td style={fieldTdStyle}>
-                  <div className="member-login-dual-field">
-                    <input type="password" placeholder="변경 시에만 입력" className="member-login-dual-field__input rounded outline-none transition-all duration-200" style={inputStyle} {...focusProps} />
-                    <span className="member-login-dual-field__label">보안 비밀번호</span>
-                    <input type="password" placeholder="····" className="member-login-dual-field__input rounded outline-none transition-all duration-200" style={inputStyle} {...focusProps} />
-                  </div>
-                </td>
-              </tr>
-            </>,
-          )}
-        </div>
-
-        <div className="member-form-split__group member-form-split__group--login-account">
-          {renderPairTable(
-            <>
-              <tr>
-                <td style={labelTdStyle}><span style={{ fontSize: "12px", color: "var(--required-color, #001673)", fontWeight: 500 }}>* 아이디</span></td>
-                <td style={fieldTdStyle}>
-                  <input type="text" defaultValue={member.loginId} className="w-full rounded outline-none transition-all duration-200" style={{ ...inputStyle, fontFamily: "monospace" }} {...focusProps} />
-                </td>
-              </tr>
-              <tr>
-                <td style={labelTdStyle}><span style={{ fontSize: "12px", color: "var(--form-label-color)", fontWeight: 500 }}>전자메일주소</span></td>
-                <td style={fieldTdStyle}>
-                  <input type="email" defaultValue={`${member.loginId}@email.com`} className="w-full rounded outline-none transition-all duration-200" style={inputStyle} {...focusProps} />
-                </td>
-              </tr>
-            </>,
-          )}
-        </div>
+      <div className="member-login-inline-row">
+        {fields.map((field) => (
+          <div
+            key={field.key}
+            className="member-login-inline-field"
+            style={{ flex: field.flex }}
+          >
+            <span
+              className="member-login-inline-field__label"
+              style={{
+                fontSize: 12,
+                fontWeight: 500,
+                color: field.required ? "var(--required-color, #001673)" : "var(--form-label-color)",
+              }}
+            >
+              {field.label}
+            </span>
+            {field.input}
+          </div>
+        ))}
       </div>
     </FormSection>
   );

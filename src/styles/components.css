@@ -722,6 +722,33 @@ span.member-form-action-chip {
   width: calc(100% - var(--form-label-w, 108px));
 }
 
+.member-login-inline-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  width: 100%;
+  min-width: 0;
+  flex-wrap: nowrap;
+}
+
+.member-login-inline-field {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  min-width: 0;
+}
+
+.member-login-inline-field__label {
+  flex: 0 0 auto;
+  white-space: nowrap;
+  line-height: 1.2;
+}
+
+.member-login-inline-field__input {
+  flex: 1 1 0;
+  min-width: 0;
+}
+
 .member-login-dual-field {
   display: flex;
   align-items: center;
