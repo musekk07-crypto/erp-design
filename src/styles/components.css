@@ -4742,3 +4742,91 @@ textarea.mm2-name-box:focus {
   background: var(--input-background);
 }
 
+.message-add-phone-modal {
+  position: fixed;
+  inset: 0;
+  z-index: 1210;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+  background: rgba(15, 23, 42, 0.42);
+}
+
+.message-add-phone-modal__panel {
+  width: min(360px, calc(100vw - 48px));
+  padding: 22px 22px 18px;
+  background: var(--surface-panel);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  box-shadow: 0 16px 40px rgba(15, 23, 42, 0.24);
+}
+
+.message-add-phone-modal__prompt {
+  margin: 0 0 14px;
+  font-size: 14px;
+  line-height: 1.5;
+  color: var(--foreground);
+}
+
+.message-add-phone-modal__input {
+  width: 100%;
+  box-sizing: border-box;
+  border: 1px solid #2563eb;
+  border-radius: 8px;
+  background: var(--surface-panel);
+  color: var(--foreground);
+  font-size: 14px;
+  padding: 10px 12px;
+  outline: none;
+}
+
+.message-add-phone-modal__input:focus {
+  border-color: #1d4ed8;
+  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.15);
+}
+
+.message-add-phone-modal__actions {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 10px;
+  margin-top: 18px;
+}
+
+.message-add-phone-modal__btn {
+  min-width: 72px;
+  height: 36px;
+  padding: 0 18px;
+  border: none;
+  border-radius: 999px;
+  background: #dbeafe;
+  color: #1e3a8a;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+}
+
+.message-add-phone-modal__btn:hover {
+  background: #bfdbfe;
+}
+
+.message-add-phone-modal__btn--primary {
+  background: #2563eb;
+  color: #fff;
+}
+
+.message-add-phone-modal__btn--primary:hover {
+  background: #1d4ed8;
+}
+
+[data-theme="dark"] .message-add-phone-modal__btn {
+  background: rgba(59, 130, 246, 0.2);
+  color: #bfdbfe;
+}
+
+[data-theme="dark"] .message-add-phone-modal__btn--primary {
+  background: #2563eb;
+  color: #fff;
+}
+

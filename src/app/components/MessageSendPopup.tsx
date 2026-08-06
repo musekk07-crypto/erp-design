@@ -30,10 +30,13 @@ export function MessageSendPopup({
   onConfirm,
 }: MessageSendPopupProps) {
   const [message, setMessage] = useState("");
+  const [recipientOptions, setRecipientOptions] = useState<string[]>([]);
   const [recipient, setRecipient] = useState(defaultPhone ?? phoneOptions[0] ?? "");
   const [timestamp, setTimestamp] = useState(() => formatMessageTimestamp(new Date()));
+  const [addPhoneOpen, setAddPhoneOpen] = useState(false);
+  const [newPhone, setNewPhone] = useState("");
 
-  const options = useMemo(() => {
+  const initialOptions = useMemo(() => {
     const unique = new Set(phoneOptions.filter(Boolean));
     if (defaultPhone) unique.add(defaultPhone);
     return Array.from(unique);
@@ -42,18 +45,24 @@ export function MessageSendPopup({
   useEffect(() => {
     if (!open) return;
     setMessage("");
+    setRecipientOptions(initialOptions);
     setRecipient(defaultPhone ?? phoneOptions[0] ?? "");
     setTimestamp(formatMessageTimestamp(new Date()));
-  }, [open, defaultPhone, phoneOptions]);
+    setAddPhoneOpen(false);
+    setNewPhone("");
+  }, [open, defaultPhone, phoneOptions, initialOptions]);
 
   useEffect(() => {
     if (!open) return;
     function onKeyDown(event: KeyboardEvent) {
-      if (event.key === "Escape") onClose();
+      if (event.key !== "Escape") return;
+      event.stopImmediatePropagation();
+      if (addPhoneOpen) setAddPhoneOpen(false);
+      else onClose();
     }
-    window.addEventListener("keydown", onKeyDown);
-    return () => window.removeEventListener("keydown", onKeyDown);
-  }, [open, onClose]);
+    window.addEventListener("keydown", onKeyDown, true);
+    return () => window.removeEventListener("keydown", onKeyDown, true);
+  }, [open, onClose, addPhoneOpen]);
 
   if (!open) return null;
 
@@ -62,7 +71,20 @@ export function MessageSendPopup({
     onClose();
   }
 
+  function handleAddPhoneConfirm() {
+    const trimmed = newPhone.trim();
+    if (!trimmed) {
+      setAddPhoneOpen(false);
+      return;
+    }
+    setRecipientOptions((prev) => (prev.includes(trimmed) ? prev : [...prev, trimmed]));
+    setRecipient(trimmed);
+    setNewPhone("");
+    setAddPhoneOpen(false);
+  }
+
   return (
+    <>
     <div className="message-send-modal" role="presentation" onClick={onClose}>
       <div
         className="message-send-modal__panel"
@@ -101,7 +123,7 @@ export function MessageSendPopup({
                   value={recipient}
                   onChange={(event) => setRecipient(event.target.value)}
                 >
-                  {options.map((phone) => (
+                  {recipientOptions.map((phone) => (
                     <option key={phone} value={phone}>
                       {phone}
                     </option>
@@ -109,7 +131,12 @@ export function MessageSendPopup({
                 </select>
                 <ChevronDown size={14} className="message-send-modal__select-icon" aria-hidden />
               </div>
-              <button type="button" className="message-send-modal__add-btn" aria-label="받는사람 추가">
+              <button
+                type="button"
+                className="message-send-modal__add-btn"
+                aria-label="받는사람 추가"
+                onClick={() => setAddPhoneOpen(true)}
+              >
                 <Plus size={18} strokeWidth={2.5} />
               </button>
             </div>
@@ -126,5 +153,38 @@ export function MessageSendPopup({
         </div>
       </div>
     </div>
+
+    {addPhoneOpen && (
+      <div className="message-add-phone-modal" role="presentation" onClick={() => setAddPhoneOpen(false)}>
+        <div
+          className="message-add-phone-modal__panel"
+          role="dialog"
+          aria-modal="true"
+          aria-label="이동전화 번호 추가"
+          onClick={(event) => event.stopPropagation()}
+        >
+          <p className="message-add-phone-modal__prompt">추가할 이동전화 번호를 입력하세요.</p>
+          <input
+            type="text"
+            className="message-add-phone-modal__input"
+            value={newPhone}
+            onChange={(event) => setNewPhone(event.target.value)}
+            autoFocus
+            onKeyDown={(event) => {
+              if (event.key === "Enter") handleAddPhoneConfirm();
+            }}
+          />
+          <div className="message-add-phone-modal__actions">
+            <button type="button" className="message-add-phone-modal__btn message-add-phone-modal__btn--primary" onClick={handleAddPhoneConfirm}>
+              확인
+            </button>
+            <button type="button" className="message-add-phone-modal__btn" onClick={() => setAddPhoneOpen(false)}>
+              취소
+            </button>
+          </div>
+        </div>
+      </div>
+    )}
+    </>
   );
 }
