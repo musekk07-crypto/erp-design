@@ -14,6 +14,7 @@ import { MemberOrgChartView } from "./components/MemberOrgChartView";
 import { MessageSendPopup } from "./components/MessageSendPopup";
 import { NewPasswordPopup } from "./components/NewPasswordPopup";
 import { PrintPopup } from "./components/PrintPopup";
+import { MemberSavePopup } from "./components/MemberSavePopup";
 import { OrderManagementView } from "./components/OrderManagementView";
 import { Mm2ProfileCard, buildMm2ProfileFields } from "./components/Mm2ProfileCard";
 import { OrgChartHoverProvider, useOrgChartHover, type OrgMemberDetail } from "./components/OrgMemberHoverPopup";
@@ -2889,6 +2890,7 @@ function MemberManagementView({
   const [messageOpen, setMessageOpen] = useState(false);
   const [newPasswordOpen, setNewPasswordOpen] = useState(false);
   const [printOpen, setPrintOpen] = useState(false);
+  const [saveOpen, setSaveOpen] = useState(false);
   const [messageInitialContent, setMessageInitialContent] = useState("");
 
   const generatedPasswordMessage = "회원님의 새로운 비밀번호는 [HQBP9LDP]입니다. - 주)회사명";
@@ -2909,6 +2911,9 @@ function MemberManagementView({
     }
     if (label === "새비밀번호") {
       setNewPasswordOpen(true);
+    }
+    if (label === "저장") {
+      setSaveOpen(true);
     }
     if (label === "인쇄") {
       setPrintOpen(true);
@@ -2994,6 +2999,20 @@ function MemberManagementView({
       />
 
       <PrintPopup open={printOpen} onClose={() => setPrintOpen(false)} />
+
+      <MemberSavePopup
+        open={saveOpen}
+        member={{
+          name: member.name,
+          loginId: member.loginId,
+          no: member.no,
+          phone: member.phone,
+          ssn: member.ssn,
+          regDate: member.regDate,
+          region: member.region,
+        }}
+        onClose={() => setSaveOpen(false)}
+      />
     </div>
   );
 }
