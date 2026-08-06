@@ -4299,11 +4299,12 @@ interface SidebarProps {
   showMemberNav: boolean;
   activePanel: string | null;
   onPanelToggle: () => void;
+  onNavigateHome?: () => void;
   theme: Theme;
   onThemeChange: (t: Theme) => void;
 }
 
-function Sidebar({ showMemberNav, activePanel, onPanelToggle, theme, onThemeChange }: SidebarProps) {
+function Sidebar({ showMemberNav, activePanel, onPanelToggle, onNavigateHome, theme, onThemeChange }: SidebarProps) {
   const visibleNavItems = showMemberNav
     ? navItems
     : navItems.filter((item) => item.key !== "members");
@@ -4319,7 +4320,13 @@ function Sidebar({ showMemberNav, activePanel, onPanelToggle, theme, onThemeChan
           return (
             <button
               key={item.key}
-              onClick={item.key === "members" ? onPanelToggle : undefined}
+              type="button"
+              title={item.label}
+              aria-label={item.label}
+              onClick={() => {
+                if (item.key === "members") onPanelToggle();
+                else if (item.key === "home") onNavigateHome?.();
+              }}
               className="w-10 h-10 rounded flex items-center justify-center transition-all duration-200 group relative"
               style={{
                 background: isActive ? "var(--sidebar-item-active-bg)" : "transparent",
@@ -4546,6 +4553,12 @@ export default function App() {
     handleMemberSubMenuChange("조직도인쇄");
   }, [handleMemberSubMenuChange]);
 
+  const handleNavigateHome = useCallback(() => {
+    setActiveMainMenu("회원관리");
+    setActiveMemberSubMenu("회원등록");
+    setActiveTab("회원정보");
+  }, []);
+
   const onResizeStart = useCallback((e: React.MouseEvent) => {
     e.preventDefault();
     resizing.current = true;
@@ -4597,6 +4610,7 @@ export default function App() {
           showMemberNav={memberListNavEnabled}
           activePanel={memberListOpen ? "members" : null}
           onPanelToggle={() => setListOpen((v) => !v)}
+          onNavigateHome={handleNavigateHome}
           theme={theme}
           onThemeChange={setTheme}
         />
