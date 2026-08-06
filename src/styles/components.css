@@ -754,6 +754,11 @@ span.member-form-action-chip {
   height: 12px;
 }
 
+.app-content .content-form-section > button .member-profile-header__line .content-member-header-text,
+.app-content .content-form-section > button .member-profile-header__line .content-member-header-no {
+  color: var(--required-color, #001673) !important;
+}
+
 .app-content .content-form-section > button .member-profile-header__line .content-member-header-no {
   font-size: 12px;
 }
