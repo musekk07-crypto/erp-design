@@ -3204,7 +3204,7 @@ function MemberGeneralInfoForm({ member }: { member: Member }) {
   const fieldColSpan = 3;
 
   return (
-    <FormSection title="일반 회원정보" subtitle="20개 항목" icon={<User size={12} />} bodyPadding="8px 12px 10px">
+    <FormSection title="일반 회원정보" subtitle="20개 항목" icon={<User size={12} />}>
       <div className="member-form-split">
         <div className="member-form-split__group">
           {renderLeftTable(
@@ -3452,7 +3452,6 @@ function MemberLoginInfoForm({ member }: { member: Member }) {
     <FormSection
       title="로그인 사용정보"
       icon={<Shield size={12} />}
-      bodyPadding="8px 12px 10px"
       headerExtra={<MemberProfileHeader member={member} />}
     >
       <div className="member-login-inline-row">
@@ -3562,7 +3561,7 @@ function MemberInfoBody({
         <MemberGeneralInfoForm member={displayMember} />
 
         {/* 거래은행 정보 */}
-        <FormSection title="거래은행 정보" icon={<CreditCard size={12} />} bodyPadding="8px 12px 10px">
+        <FormSection title="거래은행 정보" icon={<CreditCard size={12} />}>
           <div className="member-form-split member-form-split--triple">
             <div className="member-form-split__group">
               <table className="content-form-grid content-form-grid--member content-form-grid--pair" style={{ width: "100%", borderCollapse: "collapse" }}>
@@ -3572,18 +3571,18 @@ function MemberInfoBody({
                 </colgroup>
                 <tbody>
                   <tr>
-                    <td style={{ padding: "3px 10px 3px 0", whiteSpace: "nowrap", verticalAlign: "middle" }}>
+                    <td>
                       <span style={{ fontSize: "12px", color: "var(--form-label-color)", fontWeight: 500 }}>은행명</span>
                     </td>
-                    <td style={{ padding: "3px 0 3px 0", verticalAlign: "middle" }}>
+                    <td>
                       <input defaultValue={bankDefaults.bank} className="w-full rounded outline-none transition-all duration-200" style={{ fontSize: 12, padding: "3px 8px", background: "var(--input-background)", border: "none", color: "var(--foreground)" }} onFocus={(e) => { e.target.style.background = "var(--input-focus-bg)"; }} onBlur={(e) => { e.target.style.background = "var(--input-background)"; }} />
                     </td>
                   </tr>
                   <tr>
-                    <td style={{ padding: "3px 10px 3px 0", whiteSpace: "nowrap", verticalAlign: "middle" }}>
+                    <td>
                       <span style={{ fontSize: "12px", color: "var(--form-label-color)", fontWeight: 500 }}>SwiftCode</span>
                     </td>
-                    <td style={{ padding: "3px 0 3px 0", verticalAlign: "middle" }}>
+                    <td>
                       <input defaultValue={bankDefaults.swift} className="w-full rounded outline-none transition-all duration-200" style={{ fontSize: 12, padding: "3px 8px", background: "var(--input-background)", border: "none", color: "var(--foreground)" }} onFocus={(e) => { e.target.style.background = "var(--input-focus-bg)"; }} onBlur={(e) => { e.target.style.background = "var(--input-background)"; }} />
                     </td>
                   </tr>
@@ -3598,18 +3597,18 @@ function MemberInfoBody({
                 </colgroup>
                 <tbody>
                   <tr>
-                    <td style={{ padding: "3px 10px 3px 0", whiteSpace: "nowrap", verticalAlign: "middle" }}>
+                    <td>
                       <span style={{ fontSize: "12px", color: "var(--form-label-color)", fontWeight: 500 }}>계좌번호</span>
                     </td>
-                    <td style={{ padding: "3px 0 3px 0", verticalAlign: "middle" }}>
+                    <td>
                       <input defaultValue={bankDefaults.account} className="w-full rounded outline-none transition-all duration-200" style={{ fontSize: 12, padding: "3px 8px", background: "var(--input-background)", border: "none", color: "var(--foreground)" }} onFocus={(e) => { e.target.style.background = "var(--input-focus-bg)"; }} onBlur={(e) => { e.target.style.background = "var(--input-background)"; }} />
                     </td>
                   </tr>
                   <tr>
-                    <td style={{ padding: "3px 10px 3px 0", whiteSpace: "nowrap", verticalAlign: "middle" }}>
+                    <td>
                       <span style={{ fontSize: "12px", color: "var(--form-label-color)", fontWeight: 500 }}>Branch Number</span>
                     </td>
-                    <td style={{ padding: "3px 0 3px 0", verticalAlign: "middle" }}>
+                    <td>
                       <input defaultValue={bankDefaults.branch} className="w-full rounded outline-none transition-all duration-200" style={{ fontSize: 12, padding: "3px 8px", background: "var(--input-background)", border: "none", color: "var(--foreground)" }} onFocus={(e) => { e.target.style.background = "var(--input-focus-bg)"; }} onBlur={(e) => { e.target.style.background = "var(--input-background)"; }} />
                     </td>
                   </tr>
@@ -3624,18 +3623,18 @@ function MemberInfoBody({
                 </colgroup>
                 <tbody>
                   <tr>
-                    <td style={{ padding: "3px 10px 3px 0", whiteSpace: "nowrap", verticalAlign: "middle" }}>
+                    <td>
                       <span style={{ fontSize: "12px", color: "var(--form-label-color)", fontWeight: 500 }}>예금주</span>
                     </td>
-                    <td style={{ padding: "3px 0 3px 0", verticalAlign: "middle" }}>
+                    <td>
                       <input defaultValue={bankDefaults.holder} className="w-full rounded outline-none transition-all duration-200" style={{ fontSize: 12, padding: "3px 8px", background: "var(--input-background)", border: "none", color: "var(--foreground)" }} onFocus={(e) => { e.target.style.background = "var(--input-focus-bg)"; }} onBlur={(e) => { e.target.style.background = "var(--input-background)"; }} />
                     </td>
                   </tr>
                   <tr>
-                    <td style={{ padding: "3px 10px 3px 0", whiteSpace: "nowrap", verticalAlign: "middle" }}>
+                    <td>
                       <span style={{ fontSize: "12px", color: "var(--form-label-color)", fontWeight: 500 }}>은행통합 거래번호</span>
                     </td>
-                    <td style={{ padding: "3px 0 3px 0", verticalAlign: "middle" }}>
+                    <td>
                       <div className="flex gap-1 items-center">
                         <input defaultValue={bankDefaults.txn} className="flex-1 min-w-0 rounded outline-none transition-all duration-200" style={{ fontSize: 12, padding: "3px 8px", background: "var(--input-background)", border: "none", color: "var(--foreground)" }} onFocus={(e) => { e.target.style.background = "var(--input-focus-bg)"; }} onBlur={(e) => { e.target.style.background = "var(--input-background)"; }} />
                         {!isNewDraft ? (

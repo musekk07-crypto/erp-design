@@ -574,7 +574,10 @@ input[type="checkbox"] {
   font-size: var(--content-text-sm) !important;
 }
 
-.app-content .content-form-body > .flex {
+.app-content .content-form-body > .flex,
+.app-content .content-form-body > .member-login-inline-row,
+.app-content .content-form-body > .member-form-split,
+.app-content .content-form-body > .member-relation-row {
   padding-top: 2px;
   padding-bottom: 2px;
 }
