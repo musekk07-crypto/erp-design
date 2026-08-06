@@ -690,6 +690,7 @@ span.member-form-action-chip {
 .member-profile-header__line {
   display: inline-flex;
   align-items: center;
+  gap: 8px;
   max-width: 100%;
   min-width: 0;
   overflow: hidden;
@@ -698,9 +699,12 @@ span.member-form-action-chip {
   font-size: 14px;
 }
 
-.member-profile-header__sep {
-  color: var(--member-header-text, #1e2130);
+.member-profile-header-divider {
+  display: inline-block;
+  width: 1px;
+  height: 14px;
   flex-shrink: 0;
+  background: var(--member-header-divider, rgba(0, 0, 0, 0.12));
 }
 
 .member-profile-header__line .content-member-header-no {
