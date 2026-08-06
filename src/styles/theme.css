@@ -586,6 +586,13 @@ input[type="checkbox"] {
   padding-bottom: 2px;
 }
 
+.app-content .content-form-section--member-form {
+  --member-form-label-size: var(--content-text-xs, 13px);
+  --member-form-control-size: var(--content-text-sm, 14px);
+  --member-form-control-padding: 3px 8px;
+  --member-form-control-min-height: 26px;
+}
+
 .app-content .content-form-section--member-form .content-form-body {
   padding: 6px 12px 8px !important;
 }
@@ -604,6 +611,33 @@ input[type="checkbox"] {
 
 .app-content .content-form-section--member-form .member-form-split__group {
   padding: 0 !important;
+}
+
+.app-content .content-form-section--member-form .content-form-body input:not([type="checkbox"]),
+.app-content .content-form-section--member-form .content-form-body select,
+.app-content .content-form-section--member-form .content-form-body textarea {
+  font-size: var(--member-form-control-size) !important;
+  padding: var(--member-form-control-padding) !important;
+  line-height: 1.4 !important;
+  min-height: var(--member-form-control-min-height) !important;
+  box-sizing: border-box;
+}
+
+.app-content .content-form-section--member-form .content-form-body select {
+  padding-right: 28px !important;
+}
+
+.app-content .content-form-section--member-form .member-login-inline-field__label,
+.app-content .content-form-section--member-form .member-relation-group > span,
+.app-content .content-form-section--member-form .content-form-body table.content-form-grid span,
+.app-content .content-form-section--member-form .member-form-cell--label span {
+  font-size: var(--member-form-label-size) !important;
+  line-height: 1.4;
+}
+
+.app-content .content-form-section--member-form .content-form-body > .flex label span {
+  font-size: var(--member-form-label-size) !important;
+  line-height: 1.4;
 }
 
 /* 회원정보·거래은행 폼 — 열 너비 정렬 (4열 기준) */
@@ -793,9 +827,6 @@ input[type="checkbox"] {
   flex: 1.15 1 0;
   min-width: 72px;
   width: auto;
-  font-size: 12px;
-  padding: 3px 8px;
-  line-height: 1.4;
   background: var(--surface-input-readonly);
   border: none;
   color: var(--foreground);
@@ -806,9 +837,6 @@ input[type="checkbox"] {
   flex: 1 1 0;
   min-width: 56px;
   width: auto;
-  font-size: 12px;
-  padding: 3px 8px;
-  line-height: 1.4;
   background: var(--surface-input-readonly);
   border: none;
   color: var(--foreground);

@@ -3157,8 +3157,6 @@ function getMemberGeneralInfo(member: Member) {
 function MemberGeneralInfoForm({ member }: { member: Member }) {
   const info = getMemberGeneralInfo(member);
   const inputStyle: React.CSSProperties = {
-    fontSize: 12,
-    padding: "3px 8px",
     background: "var(--input-background)",
     border: "none",
     color: "var(--foreground)",
@@ -3570,7 +3568,7 @@ function MemberInfoBody({
                       <span style={{ fontSize: "12px", color: "var(--form-label-color)", fontWeight: 500 }}>은행명</span>
                     </td>
                     <td>
-                      <input defaultValue={bankDefaults.bank} className="w-full rounded outline-none transition-all duration-200" style={{ fontSize: 12, padding: "3px 8px", background: "var(--input-background)", border: "none", color: "var(--foreground)" }} onFocus={(e) => { e.target.style.background = "var(--input-focus-bg)"; }} onBlur={(e) => { e.target.style.background = "var(--input-background)"; }} />
+                      <input defaultValue={bankDefaults.bank} className="w-full rounded outline-none transition-all duration-200" style={{ background: "var(--input-background)", border: "none", color: "var(--foreground)" }} onFocus={(e) => { e.target.style.background = "var(--input-focus-bg)"; }} onBlur={(e) => { e.target.style.background = "var(--input-background)"; }} />
                     </td>
                   </tr>
                   <tr>
@@ -3578,7 +3576,7 @@ function MemberInfoBody({
                       <span style={{ fontSize: "12px", color: "var(--form-label-color)", fontWeight: 500 }}>SwiftCode</span>
                     </td>
                     <td>
-                      <input defaultValue={bankDefaults.swift} className="w-full rounded outline-none transition-all duration-200" style={{ fontSize: 12, padding: "3px 8px", background: "var(--input-background)", border: "none", color: "var(--foreground)" }} onFocus={(e) => { e.target.style.background = "var(--input-focus-bg)"; }} onBlur={(e) => { e.target.style.background = "var(--input-background)"; }} />
+                      <input defaultValue={bankDefaults.swift} className="w-full rounded outline-none transition-all duration-200" style={{ background: "var(--input-background)", border: "none", color: "var(--foreground)" }} onFocus={(e) => { e.target.style.background = "var(--input-focus-bg)"; }} onBlur={(e) => { e.target.style.background = "var(--input-background)"; }} />
                     </td>
                   </tr>
                 </tbody>
@@ -3596,7 +3594,7 @@ function MemberInfoBody({
                       <span style={{ fontSize: "12px", color: "var(--form-label-color)", fontWeight: 500 }}>계좌번호</span>
                     </td>
                     <td>
-                      <input defaultValue={bankDefaults.account} className="w-full rounded outline-none transition-all duration-200" style={{ fontSize: 12, padding: "3px 8px", background: "var(--input-background)", border: "none", color: "var(--foreground)" }} onFocus={(e) => { e.target.style.background = "var(--input-focus-bg)"; }} onBlur={(e) => { e.target.style.background = "var(--input-background)"; }} />
+                      <input defaultValue={bankDefaults.account} className="w-full rounded outline-none transition-all duration-200" style={{ background: "var(--input-background)", border: "none", color: "var(--foreground)" }} onFocus={(e) => { e.target.style.background = "var(--input-focus-bg)"; }} onBlur={(e) => { e.target.style.background = "var(--input-background)"; }} />
                     </td>
                   </tr>
                   <tr>
@@ -3604,7 +3602,7 @@ function MemberInfoBody({
                       <span style={{ fontSize: "12px", color: "var(--form-label-color)", fontWeight: 500 }}>Branch Number</span>
                     </td>
                     <td>
-                      <input defaultValue={bankDefaults.branch} className="w-full rounded outline-none transition-all duration-200" style={{ fontSize: 12, padding: "3px 8px", background: "var(--input-background)", border: "none", color: "var(--foreground)" }} onFocus={(e) => { e.target.style.background = "var(--input-focus-bg)"; }} onBlur={(e) => { e.target.style.background = "var(--input-background)"; }} />
+                      <input defaultValue={bankDefaults.branch} className="w-full rounded outline-none transition-all duration-200" style={{ background: "var(--input-background)", border: "none", color: "var(--foreground)" }} onFocus={(e) => { e.target.style.background = "var(--input-focus-bg)"; }} onBlur={(e) => { e.target.style.background = "var(--input-background)"; }} />
                     </td>
                   </tr>
                 </tbody>
@@ -3622,7 +3620,7 @@ function MemberInfoBody({
                       <span style={{ fontSize: "12px", color: "var(--form-label-color)", fontWeight: 500 }}>예금주</span>
                     </td>
                     <td>
-                      <input defaultValue={bankDefaults.holder} className="w-full rounded outline-none transition-all duration-200" style={{ fontSize: 12, padding: "3px 8px", background: "var(--input-background)", border: "none", color: "var(--foreground)" }} onFocus={(e) => { e.target.style.background = "var(--input-focus-bg)"; }} onBlur={(e) => { e.target.style.background = "var(--input-background)"; }} />
+                      <input defaultValue={bankDefaults.holder} className="w-full rounded outline-none transition-all duration-200" style={{ background: "var(--input-background)", border: "none", color: "var(--foreground)" }} onFocus={(e) => { e.target.style.background = "var(--input-focus-bg)"; }} onBlur={(e) => { e.target.style.background = "var(--input-background)"; }} />
                     </td>
                   </tr>
                   <tr>
@@ -3631,7 +3629,7 @@ function MemberInfoBody({
                     </td>
                     <td>
                       <div className="flex gap-1 items-center">
-                        <input defaultValue={bankDefaults.txn} className="flex-1 min-w-0 rounded outline-none transition-all duration-200" style={{ fontSize: 12, padding: "3px 8px", background: "var(--input-background)", border: "none", color: "var(--foreground)" }} onFocus={(e) => { e.target.style.background = "var(--input-focus-bg)"; }} onBlur={(e) => { e.target.style.background = "var(--input-background)"; }} />
+                        <input defaultValue={bankDefaults.txn} className="flex-1 min-w-0 rounded outline-none transition-all duration-200" style={{ background: "var(--input-background)", border: "none", color: "var(--foreground)" }} onFocus={(e) => { e.target.style.background = "var(--input-focus-bg)"; }} onBlur={(e) => { e.target.style.background = "var(--input-background)"; }} />
                         {!isNewDraft ? (
                           <span className="member-form-action-chip member-form-action-chip--verified">✓ 인증완료</span>
                         ) : null}

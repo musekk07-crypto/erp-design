@@ -836,50 +836,12 @@ span.member-form-action-chip {
 .member-login-inline-field__label {
   flex: 0 0 auto;
   white-space: nowrap;
-  font-size: 12px;
   font-weight: 500;
-  line-height: 1.4;
 }
 
 .member-login-inline-field__input {
   flex: 1 1 0;
   min-width: 0;
-  font-size: 12px;
-  padding: 3px 8px;
-  line-height: 1.4;
-  box-sizing: border-box;
-}
-
-.app-content .content-form-section--member-form .member-relation-input-id,
-.app-content .content-form-section--member-form .member-relation-input-name,
-.app-content .content-form-section--member-form .member-relation-select__input {
-  font-size: 12px !important;
-  padding: 3px 8px !important;
-  line-height: 1.4 !important;
-  min-height: 24px;
-  box-sizing: border-box;
-}
-
-.app-content .content-form-section--member-form .member-relation-select__input {
-  padding-right: 28px !important;
-}
-
-.app-content .content-form-section--member-form .member-relation-group > span {
-  font-size: 12px !important;
-  line-height: 1.4;
-}
-
-.app-content .content-form-section--member-form .content-form-grid--pair input {
-  font-size: 12px !important;
-  padding: 3px 8px !important;
-  line-height: 1.4 !important;
-  min-height: 24px;
-  box-sizing: border-box;
-}
-
-.app-content .content-form-section--member-form .content-form-grid--pair td:first-child span {
-  font-size: 12px !important;
-  line-height: 1.4;
 }
 
 .member-login-dual-field {
