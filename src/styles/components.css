@@ -4437,3 +4437,114 @@ textarea.mm2-name-box:focus {
   background: var(--surface-muted, var(--input-background));
 }
 
+.org-chart-modal {
+  position: fixed;
+  inset: 0;
+  z-index: 1200;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+  background: rgba(15, 23, 42, 0.38);
+}
+
+.org-chart-modal__panel {
+  width: min(720px, calc(100vw - 48px));
+  max-height: calc(100vh - 48px);
+  display: flex;
+  flex-direction: column;
+  background: var(--surface-panel);
+  border: 1px solid var(--border);
+  border-radius: var(--radius, 6px);
+  box-shadow: 0 12px 36px rgba(15, 23, 42, 0.22);
+  overflow: hidden;
+}
+
+.org-chart-modal__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 12px 16px;
+  border-bottom: 1px solid var(--border);
+  flex-shrink: 0;
+}
+
+.org-chart-modal__title-wrap {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  min-width: 0;
+}
+
+.org-chart-modal__title-icon {
+  flex-shrink: 0;
+  color: var(--text-muted);
+}
+
+.org-chart-modal__title {
+  margin: 0;
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--foreground);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.org-chart-modal__close {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  border: none;
+  border-radius: 4px;
+  background: transparent;
+  color: var(--muted-foreground);
+  cursor: pointer;
+  flex-shrink: 0;
+}
+
+.org-chart-modal__close:hover {
+  background: var(--surface-button-muted);
+  color: var(--foreground);
+}
+
+.org-chart-modal__body {
+  flex: 1;
+  min-height: 0;
+  overflow: auto;
+  padding: 16px 20px 12px;
+}
+
+.org-chart-modal__footer {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 10px;
+  padding: 10px 16px;
+  border-top: 1px solid var(--border);
+  flex-shrink: 0;
+}
+
+.org-chart-modal__close-btn {
+  min-width: 72px;
+  height: 32px;
+  padding: 0 16px;
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  background: var(--surface-panel);
+  color: var(--foreground);
+  font-size: 13px;
+  cursor: pointer;
+}
+
+.org-chart-modal__close-btn:hover {
+  background: var(--surface-button-muted);
+}
+
+[data-theme="dark"] .org-chart-modal__close-btn {
+  background: var(--input-background);
+}
+
