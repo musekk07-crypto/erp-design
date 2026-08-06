@@ -939,6 +939,23 @@ function getMemberById(id: number): Member {
   return members.find((m) => m.id === id) ?? members[0];
 }
 
+function createEmptyMemberDraft(): Member {
+  return {
+    id: 0,
+    no: "",
+    loginId: "",
+    name: "",
+    type: "일반",
+    regDate: "",
+    status: "정상",
+    rank: "",
+    grade: "",
+    phone: "",
+    ssn: "",
+    region: "",
+  };
+}
+
 function shiftOrgDate(dateStr: string, dayOffset: number) {
   const d = new Date(dateStr);
   if (Number.isNaN(d.getTime())) return dateStr;
@@ -2892,8 +2909,14 @@ function MemberManagementView({
   const [printOpen, setPrintOpen] = useState(false);
   const [saveOpen, setSaveOpen] = useState(false);
   const [messageInitialContent, setMessageInitialContent] = useState("");
+  const [isNewMemberDraft, setIsNewMemberDraft] = useState(false);
+  const [formDraftKey, setFormDraftKey] = useState(0);
 
   const generatedPasswordMessage = "회원님의 새로운 비밀번호는 [HQBP9LDP]입니다. - 주)회사명";
+
+  useEffect(() => {
+    setIsNewMemberDraft(false);
+  }, [memberId]);
 
   function handleToolbarAction(label: string) {
     if (label === "조직도") {
@@ -2920,6 +2943,10 @@ function MemberManagementView({
     }
     if (label === "주문서") {
       onNavigateToOrderManagement?.();
+    }
+    if (label === "새로 만들기") {
+      setIsNewMemberDraft(true);
+      setFormDraftKey((key) => key + 1);
     }
   }
 
@@ -2953,7 +2980,14 @@ function MemberManagementView({
           <MemberPageChrome activeTab={activeTab} onTabChange={onTabChange} onToolbarAction={handleToolbarAction} />
 
           {isMemberInfoTab ? (
-            <MemberInfoBody memberId={memberId} listOpen={listOpen} formColumnWidth={formColumnWidth} member={member} />
+            <MemberInfoBody
+              memberId={memberId}
+              listOpen={listOpen}
+              formColumnWidth={formColumnWidth}
+              member={member}
+              isNewDraft={isNewMemberDraft}
+              formDraftKey={formDraftKey}
+            />
           ) : activeTab === "주문서내역" ? (
             <div className="flex-1 min-h-0 overflow-hidden">
               <OrderHistoryView memberId={memberId} />
@@ -3017,7 +3051,40 @@ function MemberManagementView({
   );
 }
 
+function getEmptyMemberGeneralInfo() {
+  return {
+    regDate: "",
+    customerName: "",
+    customerNameExtra1: "",
+    customerNameExtra2: "",
+    koreanName: "",
+    nickName: "",
+    businessName: "",
+    legalName: "",
+    birthDate: "",
+    ssn: "",
+    gender: "남" as const,
+    ssnVerified: false,
+    ein: "",
+    visaType: "() 내국인",
+    stayExpiry: "",
+    address: "",
+    addressDetail: "",
+    city: "",
+    state: "",
+    country: "South Korea",
+    zip: "",
+    contact: "",
+    phone: "",
+    taxId: "",
+    memo: "",
+  };
+}
+
 function getMemberGeneralInfo(member: Member) {
+  if (member.id === 0) {
+    return getEmptyMemberGeneralInfo();
+  }
   if (member.name === "김상경") {
     return {
       regDate: "2025-08-26",
@@ -3360,7 +3427,7 @@ function MemberLoginInfoForm({ member }: { member: Member }) {
       input: (
         <input
           type="email"
-          defaultValue={`${member.loginId}@email.com`}
+          defaultValue={member.loginId ? `${member.loginId}@email.com` : ""}
           className="member-login-inline-field__input rounded outline-none transition-all duration-200"
           style={inputStyle}
           {...focusProps}
@@ -3404,17 +3471,50 @@ function MemberInfoBody({
   listOpen,
   formColumnWidth,
   member,
+  isNewDraft,
+  formDraftKey,
 }: {
   memberId: number;
   listOpen: boolean;
   formColumnWidth: number;
   member: Member;
+  isNewDraft: boolean;
+  formDraftKey: number;
 }) {
   const detailContentWidth = getDetailContentWidth(formColumnWidth);
+  const displayMember = isNewDraft ? createEmptyMemberDraft() : member;
   const [recommenderOpen, setRecommenderOpen] = useState(false);
   const [sponsorOpen, setSponsorOpen] = useState(false);
   const [recommender, setRecommender] = useState({ no: "100012", name: "박민수" });
   const [sponsor, setSponsor] = useState({ no: "100008", name: "이정환" });
+
+  useEffect(() => {
+    if (isNewDraft) {
+      setRecommender({ no: "", name: "" });
+      setSponsor({ no: "", name: "" });
+    } else {
+      setRecommender({ no: "100012", name: "박민수" });
+      setSponsor({ no: "100008", name: "이정환" });
+    }
+  }, [isNewDraft, formDraftKey, member.id]);
+
+  const bankDefaults = isNewDraft
+    ? { bank: "", swift: "", account: "", branch: "", holder: "", txn: "" }
+    : { bank: "신한은행", swift: "SHBKKRSE", account: "110-234-567890", branch: "0234", holder: member.name, txn: "88012345" };
+
+  const miscCheckboxes = isNewDraft
+    ? [
+        { label: "SMS 수신동의", checked: false },
+        { label: "EMail 수신동의", checked: false },
+        { label: "신분증 사본등록", checked: false },
+        { label: "신분증 등록 신청서 접수", checked: false },
+      ]
+    : [
+        { label: "SMS 수신동의", checked: true },
+        { label: "EMail 수신동의", checked: true },
+        { label: "신분증 사본등록", checked: false },
+        { label: "신분증 등록 신청서 접수", checked: false },
+      ];
 
   return (
         <div
@@ -3428,6 +3528,7 @@ function MemberInfoBody({
         >
         {/* 왼쪽 폼 — 최소 1000px 유지, 넓으면 자동 확장 */}
         <div
+          key={`member-form-${formDraftKey}-${memberId}`}
           style={
             listOpen
               ? {
@@ -3442,9 +3543,9 @@ function MemberInfoBody({
                 }
           }
         >
-        <MemberLoginInfoForm member={member} />
+        <MemberLoginInfoForm member={displayMember} />
 
-        <MemberGeneralInfoForm member={member} />
+        <MemberGeneralInfoForm member={displayMember} />
 
         {/* 거래은행 정보 */}
         <FormSection title="거래은행 정보" icon={<CreditCard size={12} />} bodyPadding="8px 12px 10px">
@@ -3461,7 +3562,7 @@ function MemberInfoBody({
                       <span style={{ fontSize: "12px", color: "var(--form-label-color)", fontWeight: 500 }}>은행명</span>
                     </td>
                     <td style={{ padding: "3px 0 3px 0", verticalAlign: "middle" }}>
-                      <input defaultValue="신한은행" className="w-full rounded outline-none transition-all duration-200" style={{ fontSize: 12, padding: "3px 8px", background: "var(--input-background)", border: "none", color: "var(--foreground)" }} onFocus={(e) => { e.target.style.background = "var(--input-focus-bg)"; }} onBlur={(e) => { e.target.style.background = "var(--input-background)"; }} />
+                      <input defaultValue={bankDefaults.bank} className="w-full rounded outline-none transition-all duration-200" style={{ fontSize: 12, padding: "3px 8px", background: "var(--input-background)", border: "none", color: "var(--foreground)" }} onFocus={(e) => { e.target.style.background = "var(--input-focus-bg)"; }} onBlur={(e) => { e.target.style.background = "var(--input-background)"; }} />
                     </td>
                   </tr>
                   <tr>
@@ -3469,7 +3570,7 @@ function MemberInfoBody({
                       <span style={{ fontSize: "12px", color: "var(--form-label-color)", fontWeight: 500 }}>SwiftCode</span>
                     </td>
                     <td style={{ padding: "3px 0 3px 0", verticalAlign: "middle" }}>
-                      <input defaultValue="SHBKKRSE" className="w-full rounded outline-none transition-all duration-200" style={{ fontSize: 12, padding: "3px 8px", background: "var(--input-background)", border: "none", color: "var(--foreground)" }} onFocus={(e) => { e.target.style.background = "var(--input-focus-bg)"; }} onBlur={(e) => { e.target.style.background = "var(--input-background)"; }} />
+                      <input defaultValue={bankDefaults.swift} className="w-full rounded outline-none transition-all duration-200" style={{ fontSize: 12, padding: "3px 8px", background: "var(--input-background)", border: "none", color: "var(--foreground)" }} onFocus={(e) => { e.target.style.background = "var(--input-focus-bg)"; }} onBlur={(e) => { e.target.style.background = "var(--input-background)"; }} />
                     </td>
                   </tr>
                 </tbody>
@@ -3487,7 +3588,7 @@ function MemberInfoBody({
                       <span style={{ fontSize: "12px", color: "var(--form-label-color)", fontWeight: 500 }}>계좌번호</span>
                     </td>
                     <td style={{ padding: "3px 0 3px 0", verticalAlign: "middle" }}>
-                      <input defaultValue="110-234-567890" className="w-full rounded outline-none transition-all duration-200" style={{ fontSize: 12, padding: "3px 8px", background: "var(--input-background)", border: "none", color: "var(--foreground)" }} onFocus={(e) => { e.target.style.background = "var(--input-focus-bg)"; }} onBlur={(e) => { e.target.style.background = "var(--input-background)"; }} />
+                      <input defaultValue={bankDefaults.account} className="w-full rounded outline-none transition-all duration-200" style={{ fontSize: 12, padding: "3px 8px", background: "var(--input-background)", border: "none", color: "var(--foreground)" }} onFocus={(e) => { e.target.style.background = "var(--input-focus-bg)"; }} onBlur={(e) => { e.target.style.background = "var(--input-background)"; }} />
                     </td>
                   </tr>
                   <tr>
@@ -3495,7 +3596,7 @@ function MemberInfoBody({
                       <span style={{ fontSize: "12px", color: "var(--form-label-color)", fontWeight: 500 }}>Branch Number</span>
                     </td>
                     <td style={{ padding: "3px 0 3px 0", verticalAlign: "middle" }}>
-                      <input defaultValue="0234" className="w-full rounded outline-none transition-all duration-200" style={{ fontSize: 12, padding: "3px 8px", background: "var(--input-background)", border: "none", color: "var(--foreground)" }} onFocus={(e) => { e.target.style.background = "var(--input-focus-bg)"; }} onBlur={(e) => { e.target.style.background = "var(--input-background)"; }} />
+                      <input defaultValue={bankDefaults.branch} className="w-full rounded outline-none transition-all duration-200" style={{ fontSize: 12, padding: "3px 8px", background: "var(--input-background)", border: "none", color: "var(--foreground)" }} onFocus={(e) => { e.target.style.background = "var(--input-focus-bg)"; }} onBlur={(e) => { e.target.style.background = "var(--input-background)"; }} />
                     </td>
                   </tr>
                 </tbody>
@@ -3513,7 +3614,7 @@ function MemberInfoBody({
                       <span style={{ fontSize: "12px", color: "var(--form-label-color)", fontWeight: 500 }}>예금주</span>
                     </td>
                     <td style={{ padding: "3px 0 3px 0", verticalAlign: "middle" }}>
-                      <input key={`holder-${member.id}`} defaultValue={member.name} className="w-full rounded outline-none transition-all duration-200" style={{ fontSize: 12, padding: "3px 8px", background: "var(--input-background)", border: "none", color: "var(--foreground)" }} onFocus={(e) => { e.target.style.background = "var(--input-focus-bg)"; }} onBlur={(e) => { e.target.style.background = "var(--input-background)"; }} />
+                      <input defaultValue={bankDefaults.holder} className="w-full rounded outline-none transition-all duration-200" style={{ fontSize: 12, padding: "3px 8px", background: "var(--input-background)", border: "none", color: "var(--foreground)" }} onFocus={(e) => { e.target.style.background = "var(--input-focus-bg)"; }} onBlur={(e) => { e.target.style.background = "var(--input-background)"; }} />
                     </td>
                   </tr>
                   <tr>
@@ -3522,8 +3623,10 @@ function MemberInfoBody({
                     </td>
                     <td style={{ padding: "3px 0 3px 0", verticalAlign: "middle" }}>
                       <div className="flex gap-1 items-center">
-                        <input defaultValue="88012345" className="flex-1 min-w-0 rounded outline-none transition-all duration-200" style={{ fontSize: 12, padding: "3px 8px", background: "var(--input-background)", border: "none", color: "var(--foreground)" }} onFocus={(e) => { e.target.style.background = "var(--input-focus-bg)"; }} onBlur={(e) => { e.target.style.background = "var(--input-background)"; }} />
-                        <span className="member-form-action-chip member-form-action-chip--verified">✓ 인증완료</span>
+                        <input defaultValue={bankDefaults.txn} className="flex-1 min-w-0 rounded outline-none transition-all duration-200" style={{ fontSize: 12, padding: "3px 8px", background: "var(--input-background)", border: "none", color: "var(--foreground)" }} onFocus={(e) => { e.target.style.background = "var(--input-focus-bg)"; }} onBlur={(e) => { e.target.style.background = "var(--input-background)"; }} />
+                        {!isNewDraft ? (
+                          <span className="member-form-action-chip member-form-action-chip--verified">✓ 인증완료</span>
+                        ) : null}
                       </div>
                     </td>
                   </tr>
@@ -3541,7 +3644,7 @@ function MemberInfoBody({
                 <span style={{ fontSize: "12px", color: "var(--required-color, #001673)", fontWeight: 500 }}>* 추천인</span>
                 <input readOnly value={recommender.no} className="member-relation-input-id rounded outline-none" />
                 <input readOnly value={recommender.name} className="member-relation-input-name rounded outline-none" />
-                <span style={{ fontSize: 12, padding: "2px 8px", background: "var(--accent-light)", color: "var(--required-color, #001673)", border: "1px solid var(--accent-border)", borderRadius: 4, whiteSpace: "nowrap" }}>38명</span>
+                <span style={{ fontSize: 12, padding: "2px 8px", background: "var(--accent-light)", color: "var(--required-color, #001673)", border: "1px solid var(--accent-border)", borderRadius: 4, whiteSpace: "nowrap" }}>{isNewDraft ? "0명" : "38명"}</span>
                 <button
                   type="button"
                   className="rounded p-1 flex items-center justify-center"
@@ -3558,7 +3661,7 @@ function MemberInfoBody({
                 <span style={{ fontSize: "12px", color: "var(--required-color, #001673)", fontWeight: 500 }}>* 후원인</span>
                 <input readOnly value={sponsor.no} className="member-relation-input-id rounded outline-none" />
                 <input readOnly value={sponsor.name} className="member-relation-input-name rounded outline-none" />
-                <span style={{ fontSize: 12, padding: "2px 8px", background: "var(--accent-light)", color: "var(--required-color, #001673)", border: "1px solid var(--accent-border)", borderRadius: 4, whiteSpace: "nowrap" }}>12명</span>
+                <span style={{ fontSize: 12, padding: "2px 8px", background: "var(--accent-light)", color: "var(--required-color, #001673)", border: "1px solid var(--accent-border)", borderRadius: 4, whiteSpace: "nowrap" }}>{isNewDraft ? "0명" : "12명"}</span>
                 <button
                   type="button"
                   className="rounded p-1 flex items-center justify-center"
@@ -3576,10 +3679,13 @@ function MemberInfoBody({
                 <span style={{ fontSize: "12px", color: "var(--required-color, #001673)", fontWeight: 500 }}>* 센터</span>
                 <div className="relative member-relation-select">
                   <select
+                    key={`center-${formDraftKey}-${memberId}`}
+                    defaultValue={isNewDraft ? "" : "본사"}
                     className="w-full rounded py-1.5 text-sm outline-none appearance-none"
                     style={{ background: "var(--input-background)", border: "none", color: "var(--foreground)", paddingLeft: 10, paddingRight: 28, fontSize: 13 }}
                   >
-                    <option>본사</option>
+                    {isNewDraft ? <option value="">선택</option> : null}
+                    <option value="본사">본사</option>
                     <option>광주 수완</option>
                     <option>서울 강남</option>
                     <option>부산 해운대</option>
@@ -3595,10 +3701,13 @@ function MemberInfoBody({
                 <span style={{ fontSize: "12px", color: "var(--form-label-color)", fontWeight: 500 }}>직급</span>
                 <div className="relative member-relation-select">
                   <select
+                    key={`rank-${formDraftKey}-${memberId}`}
+                    defaultValue={isNewDraft ? "" : "다이아몬드"}
                     className="w-full rounded py-1.5 text-sm outline-none appearance-none"
                     style={{ background: "var(--input-background)", border: "none", color: "var(--foreground)", paddingLeft: 10, paddingRight: 28, fontSize: 13 }}
                   >
-                    <option>다이아몬드</option>
+                    {isNewDraft ? <option value="">선택</option> : null}
+                    <option value="다이아몬드">다이아몬드</option>
                     <option>플래티넘</option>
                     <option>골드</option>
                     <option>실버</option>
@@ -3615,12 +3724,7 @@ function MemberInfoBody({
         {/* 기타 회원정보 */}
         <FormSection title="기타 회원정보" icon={<Info size={12} />}>
           <div className="flex items-center gap-4 flex-wrap">
-            {[
-              { label: "SMS 수신동의", checked: true },
-              { label: "EMail 수신동의", checked: true },
-              { label: "신분증 사본등록", checked: false },
-              { label: "신분증 등록 신청서 접수", checked: false },
-            ].map((item) => (
+            {miscCheckboxes.map((item) => (
               <label key={item.label} className="flex items-center gap-1.5 cursor-pointer">
                 <input
                   type="checkbox"
@@ -3647,7 +3751,13 @@ function MemberInfoBody({
         {/* 오른쪽: 조직도 카드 — 네임카드·폼과 동일한 행 너비 안에 고정 */}
         <div style={{ flex: `0 0 ${ORG_CHART_WIDTH}px`, width: ORG_CHART_WIDTH, overflow: "hidden" }}>
           <FormSection title="조직도" icon={<GitFork size={12} />} className="content-form-section--org" bodyPadding={`16px ${ORG_CHART_SIDE_PAD}px 12px`} clipBody={true}>
-            <OrgChart memberId={member.id} memberName={member.name} />
+            {isNewDraft ? (
+              <div className="flex items-center justify-center" style={{ minHeight: 120, color: "var(--text-muted)", fontSize: 12 }}>
+                새 회원 등록 후 조직도가 표시됩니다.
+              </div>
+            ) : (
+              <OrgChart memberId={member.id} memberName={member.name} />
+            )}
           </FormSection>
         </div>
 
