@@ -135,7 +135,10 @@ export function MessageSendPopup({
                 type="button"
                 className="message-send-modal__add-btn"
                 aria-label="받는사람 추가"
-                onClick={() => setAddPhoneOpen(true)}
+                onClick={(event) => {
+                  event.stopPropagation();
+                  setAddPhoneOpen(true);
+                }}
               >
                 <Plus size={18} strokeWidth={2.5} />
               </button>
@@ -163,6 +166,7 @@ export function MessageSendPopup({
           aria-label="이동전화 번호 추가"
           onClick={(event) => event.stopPropagation()}
         >
+          <p className="message-add-phone-modal__origin">office.binsoft.co.kr:7999 내용:</p>
           <p className="message-add-phone-modal__prompt">추가할 이동전화 번호를 입력하세요.</p>
           <input
             type="text"
