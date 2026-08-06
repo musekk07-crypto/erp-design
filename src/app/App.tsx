@@ -2058,6 +2058,21 @@ function MemberTypeToggle({ type }: { type: "일반" | "소비자" }) {
   );
 }
 
+function MemberProfileHeader({ member }: { member: Member }) {
+  const memberType = member.type === "소비자" ? "소비자" : "일반";
+  return (
+    <div className="rounded content-member-header member-profile-header">
+      <div className="member-profile-header__identity">
+        <span className="content-member-header-text member-profile-header__name">
+          {member.name} · {member.loginId}
+        </span>
+      </div>
+      <span className="content-member-header-no member-profile-header__no">{member.no}</span>
+      <MemberTypeToggle type={memberType} />
+    </div>
+  );
+}
+
 function StatBento({ label, value, color }: { label: string; value: string; color: string }) {
   return (
     <div
@@ -2930,7 +2945,10 @@ function MemberManagementView({
           <MemberPageChrome activeTab={activeTab} onTabChange={onTabChange} onToolbarAction={handleToolbarAction} />
 
           {isMemberInfoTab ? (
-            <MemberInfoBody memberId={memberId} listOpen={listOpen} formColumnWidth={formColumnWidth} member={member} />
+            <>
+              <MemberProfileHeader member={member} />
+              <MemberInfoBody memberId={memberId} listOpen={listOpen} formColumnWidth={formColumnWidth} member={member} />
+            </>
           ) : activeTab === "주문서내역" ? (
             <div className="flex-1 min-h-0 overflow-hidden">
               <OrderHistoryView memberId={memberId} />
@@ -3238,7 +3256,6 @@ function MemberGeneralInfoForm({ member }: { member: Member }) {
 }
 
 function MemberLoginInfoForm({ member }: { member: Member }) {
-  const memberType = member.type === "소비자" ? "소비자" : "일반";
   const labelTdStyle: React.CSSProperties = { padding: "3px 10px 3px 0", whiteSpace: "nowrap", verticalAlign: "middle" };
   const fieldTdStyle: React.CSSProperties = { padding: "3px 0 3px 0", verticalAlign: "middle" };
   const inputStyle: React.CSSProperties = {
@@ -3269,23 +3286,7 @@ function MemberLoginInfoForm({ member }: { member: Member }) {
 
   return (
     <FormSection title="로그인 사용정보" icon={<Shield size={12} />} bodyPadding="8px 12px 10px">
-      <div className="member-form-split member-form-split--triple member-form-split--login">
-        <div className="member-form-split__group member-form-split__group--login-profile">
-          <div className="rounded content-member-header member-login-profile-box">
-            <div className="member-login-profile-row">
-              <div className="member-login-profile-summary">
-                <span className="content-member-header-text member-login-profile-name" style={{ fontSize: 14 }}>
-                  {member.name} · {member.loginId}
-                </span>
-                <span className="content-member-header-no">{member.no}</span>
-              </div>
-            </div>
-            <div className="member-login-profile-toggle-row">
-              <MemberTypeToggle type={memberType} />
-            </div>
-          </div>
-        </div>
-
+      <div className="member-form-split member-form-split--triple member-form-split--login member-form-split--login-dual">
         <div className="member-form-split__group member-form-split__group--login-credentials">
           {renderPairTable(
             <>
