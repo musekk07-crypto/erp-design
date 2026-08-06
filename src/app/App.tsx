@@ -2061,7 +2061,7 @@ function MemberTypeToggle({ type }: { type: "일반" | "소비자" }) {
 function MemberProfileHeader({ member }: { member: Member }) {
   const memberType = member.type === "소비자" ? "소비자" : "일반";
   return (
-    <div className="content-member-header member-profile-header">
+    <div className="rounded content-member-header member-profile-header">
       <div className="member-profile-header__identity">
         <span className="member-profile-header__line">
           <span className="content-member-header-text">{member.name}</span>

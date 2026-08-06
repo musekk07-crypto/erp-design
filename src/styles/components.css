@@ -654,7 +654,6 @@ span.member-form-action-chip {
   box-shadow: none !important;
   border: none !important;
   background: var(--section-icon-bg, #0284c7) !important;
-  border-radius: 9999px !important;
 }
 
 .member-login-info-stack {
@@ -670,7 +669,6 @@ span.member-form-action-chip {
   background: var(--section-icon-bg, #0284c7) !important;
   border: none !important;
   box-shadow: none !important;
-  border-radius: 9999px !important;
 }
 
 .member-profile-header {
@@ -679,9 +677,8 @@ span.member-form-action-chip {
   gap: 16px;
   width: 100%;
   box-sizing: border-box;
-  padding: 8px 16px !important;
+  padding: 10px 14px !important;
   box-shadow: none !important;
-  border-radius: 9999px !important;
 }
 
 .member-profile-header__identity {
