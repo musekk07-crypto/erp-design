@@ -649,35 +649,17 @@ span.member-form-action-chip {
   --form-label-w: 88px;
 }
 
-.app-content .content-member-header.member-profile-header {
-  margin-bottom: 0 !important;
-  box-shadow: none !important;
-  border: none !important;
-  background: var(--section-icon-bg, #0284c7) !important;
-}
-
-.member-login-info-stack {
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-  width: 100%;
-  min-width: 0;
-}
-
-.member-login-info-stack .member-profile-header {
-  margin-bottom: 0 !important;
-  background: var(--section-icon-bg, #0284c7) !important;
-  border: none !important;
-  box-shadow: none !important;
-}
-
 .member-profile-header {
-  display: flex;
+  display: inline-flex;
   align-items: center;
-  gap: 16px;
-  width: 100%;
+  gap: 10px;
+  width: auto;
+  max-width: min(100%, 560px);
+  min-width: 0;
   box-sizing: border-box;
-  padding: 10px 14px !important;
+  padding: 0 !important;
+  background: transparent !important;
+  border: none !important;
   box-shadow: none !important;
 }
 
@@ -696,24 +678,54 @@ span.member-form-action-chip {
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
-  font-size: 14px;
+  font-size: 12px;
+  font-weight: 600;
 }
 
 .member-profile-header-divider {
   display: inline-block;
   width: 1px;
-  height: 14px;
+  height: 12px;
   flex-shrink: 0;
-  background: var(--member-header-divider, rgba(0, 0, 0, 0.12));
+  background: var(--content-form-section-header-border, rgba(0, 0, 0, 0.12)) !important;
+}
+
+.member-profile-header__line .content-member-header-text {
+  color: var(--foreground) !important;
 }
 
 .member-profile-header__line .content-member-header-no {
   flex-shrink: 0;
+  color: var(--muted-foreground) !important;
+  font-family: monospace;
+  font-size: 11px;
+  font-weight: 500;
 }
 
 .member-profile-header .member-type-toggle {
   flex-shrink: 0;
   margin-left: 0 !important;
+}
+
+.app-content .content-form-section > button .member-profile-header .member-type-toggle {
+  background: rgba(255, 255, 255, 0.72) !important;
+  border-color: var(--content-form-section-header-border, #b8ddf0) !important;
+}
+
+.app-content .content-form-section > button .member-profile-header .member-type-toggle button:not(.is-selected) {
+  color: var(--muted-foreground) !important;
+}
+
+.app-content .content-form-section > button .member-profile-header .member-type-toggle button.is-selected {
+  background: var(--section-icon-bg, #0284c7) !important;
+  color: #ffffff !important;
+}
+
+.member-form-section-header-extra {
+  display: flex;
+  align-items: center;
+  min-width: 0;
+  margin-right: 4px;
 }
 
 .member-login-profile-box.content-member-header {

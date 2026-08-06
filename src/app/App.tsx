@@ -2079,14 +2079,14 @@ function MemberTypeToggle({ type }: { type: "일반" | "소비자" }) {
 function MemberProfileHeader({ member }: { member: Member }) {
   const memberType = member.type === "소비자" ? "소비자" : "일반";
   return (
-    <div className="rounded content-member-header member-profile-header">
+    <div className="member-profile-header">
       <div className="member-profile-header__identity">
         <span className="member-profile-header__line">
-          <span className="content-member-header-text">{member.name}</span>
+          <span className="content-member-header-text">{member.name || "—"}</span>
           <span className="content-member-header-divider member-profile-header-divider" aria-hidden />
-          <span className="content-member-header-text">{member.loginId}</span>
+          <span className="content-member-header-text">{member.loginId || "—"}</span>
           <span className="content-member-header-divider member-profile-header-divider" aria-hidden />
-          <span className="content-member-header-no">{member.no}</span>
+          <span className="content-member-header-no">{member.no || "—"}</span>
         </span>
       </div>
       <MemberTypeToggle type={memberType} />
@@ -2114,8 +2114,8 @@ function StatBento({ label, value, color }: { label: string; value: string; colo
   );
 }
 
-function FormSection({ title, icon, subtitle, children, bodyPadding = "6px 12px 8px", clipBody = true, className = "" }: {
-  title: string; icon: React.ReactNode; subtitle?: string; children: React.ReactNode; bodyPadding?: string; clipBody?: boolean; className?: string;
+function FormSection({ title, icon, subtitle, headerExtra, children, bodyPadding = "6px 12px 8px", clipBody = true, className = "" }: {
+  title: string; icon: React.ReactNode; subtitle?: string; headerExtra?: React.ReactNode; children: React.ReactNode; bodyPadding?: string; clipBody?: boolean; className?: string;
 }) {
   const [open, setOpen] = useState(true);
   return (
@@ -2134,8 +2134,20 @@ function FormSection({ title, icon, subtitle, children, bodyPadding = "6px 12px 
         <span className="content-form-section-icon shrink-0 inline-flex items-center justify-center" style={{ color: "var(--section-icon-color)" }}>
           {icon}
         </span>
-        <span className="text-sm font-semibold" style={{ color: "var(--foreground)" }}>{title}</span>
+        <span className="text-sm font-semibold shrink-0" style={{ color: "var(--foreground)" }}>{title}</span>
+        {subtitle ? (
+          <span className="text-xs shrink-0" style={{ color: "var(--text-muted)" }}>{subtitle}</span>
+        ) : null}
         <div className="flex-1" />
+        {headerExtra ? (
+          <div
+            className="member-form-section-header-extra shrink min-w-0"
+            onClick={(event) => event.stopPropagation()}
+            onKeyDown={(event) => event.stopPropagation()}
+          >
+            {headerExtra}
+          </div>
+        ) : null}
         <ChevronDown
           size={12}
           style={{
@@ -3437,30 +3449,32 @@ function MemberLoginInfoForm({ member }: { member: Member }) {
   ] as const;
 
   return (
-    <FormSection title="로그인 사용정보" icon={<Shield size={12} />} bodyPadding="8px 12px 10px">
-      <div className="member-login-info-stack">
-        <MemberProfileHeader member={member} />
-        <div className="member-login-inline-row">
-          {fields.map((field) => (
-            <div
-              key={field.key}
-              className="member-login-inline-field"
-              style={{ flex: field.flex }}
+    <FormSection
+      title="로그인 사용정보"
+      icon={<Shield size={12} />}
+      bodyPadding="8px 12px 10px"
+      headerExtra={<MemberProfileHeader member={member} />}
+    >
+      <div className="member-login-inline-row">
+        {fields.map((field) => (
+          <div
+            key={field.key}
+            className="member-login-inline-field"
+            style={{ flex: field.flex }}
+          >
+            <span
+              className="member-login-inline-field__label"
+              style={{
+                fontSize: 12,
+                fontWeight: 500,
+                color: field.required ? "var(--required-color, #001673)" : "var(--form-label-color)",
+              }}
             >
-              <span
-                className="member-login-inline-field__label"
-                style={{
-                  fontSize: 12,
-                  fontWeight: 500,
-                  color: field.required ? "var(--required-color, #001673)" : "var(--form-label-color)",
-                }}
-              >
-                {field.label}
-              </span>
-              {field.input}
-            </div>
-          ))}
-        </div>
+              {field.label}
+            </span>
+            {field.input}
+          </div>
+        ))}
       </div>
     </FormSection>
   );
