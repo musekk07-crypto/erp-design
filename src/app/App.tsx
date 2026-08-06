@@ -2869,6 +2869,9 @@ function MemberManagementView({
   const [businessInfoOpen, setBusinessInfoOpen] = useState(false);
   const [messageOpen, setMessageOpen] = useState(false);
   const [newPasswordOpen, setNewPasswordOpen] = useState(false);
+  const [messageInitialContent, setMessageInitialContent] = useState("");
+
+  const generatedPasswordMessage = "회원님의 새로운 비밀번호는 [HQBP9LDP]입니다. - 주)회사명";
 
   function handleToolbarAction(label: string) {
     if (label === "조직도") {
@@ -2881,6 +2884,7 @@ function MemberManagementView({
       setBusinessInfoOpen(true);
     }
     if (label === "메세지") {
+      setMessageInitialContent("");
       setMessageOpen(true);
     }
     if (label === "새비밀번호") {
@@ -2953,10 +2957,18 @@ function MemberManagementView({
         memberName={member.name}
         defaultPhone={member.phone || "010-4355-7783"}
         phoneOptions={[member.phone, "010-4355-7783"].filter(Boolean)}
+        initialMessage={messageInitialContent}
         onClose={() => setMessageOpen(false)}
       />
 
-      <NewPasswordPopup open={newPasswordOpen} onClose={() => setNewPasswordOpen(false)} />
+      <NewPasswordPopup
+        open={newPasswordOpen}
+        onClose={() => setNewPasswordOpen(false)}
+        onConfirm={() => {
+          setMessageInitialContent(generatedPasswordMessage);
+          setMessageOpen(true);
+        }}
+      />
     </div>
   );
 }

@@ -7,6 +7,7 @@ type MessageSendPopupProps = {
   memberName: string;
   phoneOptions?: string[];
   defaultPhone?: string;
+  initialMessage?: string;
   onClose: () => void;
   onConfirm?: (payload: { message: string; recipient: string }) => void;
 };
@@ -27,6 +28,7 @@ export function MessageSendPopup({
   memberName,
   phoneOptions = ["010-4355-7783"],
   defaultPhone,
+  initialMessage = "",
   onClose,
   onConfirm,
 }: MessageSendPopupProps) {
@@ -45,13 +47,13 @@ export function MessageSendPopup({
 
   useEffect(() => {
     if (!open) return;
-    setMessage("");
+    setMessage(initialMessage);
     setRecipientOptions(initialOptions);
     setRecipient(defaultPhone ?? phoneOptions[0] ?? "");
     setTimestamp(formatMessageTimestamp(new Date()));
     setAddPhoneOpen(false);
     setNewPhone("");
-  }, [open, defaultPhone, phoneOptions, initialOptions]);
+  }, [open, defaultPhone, phoneOptions, initialOptions, initialMessage]);
 
   useEffect(() => {
     if (!open) return;
