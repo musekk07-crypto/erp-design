@@ -5466,8 +5466,8 @@ textarea.mm2-name-box:focus {
   align-items: center;
   flex-shrink: 0;
   height: 100%;
-  background: #eceef2;
-  border-right: 1px solid var(--border);
+  background: #0284c7;
+  border-right: 1px solid #0369a1;
 }
 
 .sidebar-rail-slot,
@@ -5478,7 +5478,21 @@ textarea.mm2-name-box:focus {
 }
 
 [data-theme="dark"] .app-members-rail {
-  background: var(--sidebar-bg, #323a4d);
+  background: #0284c7;
+  border-right-color: #0369a1;
+}
+
+.app-members-rail .sidebar-members-toggle-icon {
+  color: #ffffff;
+}
+
+.app-members-rail .sidebar-members-toggle.is-open .sidebar-members-toggle-icon {
+  color: #ffffff;
+}
+
+.app-members-rail .sidebar-members-toggle:hover {
+  background: rgba(255, 255, 255, 0.15);
+  border-color: rgba(255, 255, 255, 0.35);
 }
 
 .sidebar-members-toggle {
