@@ -32,6 +32,7 @@ export function HomeDesktopView({ activeTask, onShortcutClick }: HomeDesktopView
   return (
     <div className="home-desktop">
       <div className="home-desktop-body">
+        <div className="home-desktop-panel">
         {activeTask === "desktop" ? (
           <>
             <div className="home-desktop-brand">
@@ -77,6 +78,7 @@ export function HomeDesktopView({ activeTask, onShortcutClick }: HomeDesktopView
             <span className="home-page-placeholder__desc">화면 준비 중입니다.</span>
           </div>
         )}
+        </div>
       </div>
     </div>
   );
