@@ -24,9 +24,16 @@ const inputStyle: React.CSSProperties = {
   width: "100%",
 };
 
-const readonlyStyle: React.CSSProperties = {
+const compactSelectStyle: React.CSSProperties = {
   ...inputStyle,
-  background: "var(--surface-input-readonly, #f1f5f9)",
+  width: 88,
+  minWidth: 88,
+};
+
+const compactDateStyle: React.CSSProperties = {
+  ...inputStyle,
+  width: 124,
+  minWidth: 124,
 };
 
 const focusProps = {
@@ -307,50 +314,43 @@ export function BasicManagementView() {
             </FormSection>
 
             <FormSection title="상품노출/품절/재고 설정" subtitle="4개 항목" className="content-form-section--member-form">
-              <div className="member-form-split">
-                <div className="member-form-split__group">
-                  <FormGrid>
-                    <FormRow
-                      label="상품노출"
-                      dual
-                      label2="상태"
-                      children2={
-                        <select defaultValue="판매중" className="rounded px-2 py-1.5 outline-none appearance-none" style={inputStyle} {...focusProps}>
+              <FormGrid>
+                <tr>
+                  <td colSpan={4} className="member-form-cell member-form-cell--field basic-mgmt-exposure-row">
+                    <div className="basic-mgmt-exposure-inline">
+                      <div className="basic-mgmt-exposure-item">
+                        <Label>상품노출</Label>
+                        <select defaultValue="노출" className="rounded px-2 py-1.5 outline-none appearance-none" style={compactSelectStyle} {...focusProps}>
+                          <option>노출</option>
+                          <option>비노출</option>
+                        </select>
+                      </div>
+                      <div className="basic-mgmt-exposure-item">
+                        <Label>상태</Label>
+                        <select defaultValue="판매중" className="rounded px-2 py-1.5 outline-none appearance-none" style={compactSelectStyle} {...focusProps}>
                           <option>판매중</option>
                           <option>품절</option>
                         </select>
-                      }
-                    >
-                      <select defaultValue="노출" className="rounded px-2 py-1.5 outline-none appearance-none" style={inputStyle} {...focusProps}>
-                        <option>노출</option>
-                        <option>비노출</option>
-                      </select>
-                    </FormRow>
-                    <FormRow label="노출기간" colSpan={3}>
-                      <div className="flex items-center gap-2">
-                        <input type="date" defaultValue="2025-01-01" className="rounded px-2 py-1.5 outline-none" style={inputStyle} {...focusProps} />
-                        <span style={{ color: "var(--text-muted)" }}>~</span>
-                        <input type="date" defaultValue="2026-12-31" className="rounded px-2 py-1.5 outline-none" style={inputStyle} {...focusProps} />
                       </div>
-                    </FormRow>
-                  </FormGrid>
-                </div>
-                <div className="member-form-split__group">
-                  <FormGrid>
-                    <tr>
-                      <td className={labelCellClass}>
+                      <div className="basic-mgmt-exposure-item basic-mgmt-exposure-item--dates">
+                        <Label>노출기간</Label>
+                        <div className="basic-mgmt-exposure-dates">
+                          <input type="date" defaultValue="2025-01-01" className="rounded px-2 py-1.5 outline-none" style={compactDateStyle} {...focusProps} />
+                          <span style={{ color: "var(--text-muted)" }}>~</span>
+                          <input type="date" defaultValue="2026-12-31" className="rounded px-2 py-1.5 outline-none" style={compactDateStyle} {...focusProps} />
+                        </div>
+                      </div>
+                      <div className="basic-mgmt-exposure-item">
                         <Label>상태표기 아이콘</Label>
-                      </td>
-                      <td className={fieldWideCellClass} colSpan={fieldColSpan}>
                         <label className="inline-flex items-center gap-2" style={{ fontSize: 13 }}>
                           <input type="checkbox" defaultChecked style={{ accentColor: "var(--checkbox-accent)", width: 14, height: 14 }} />
                           사용
                         </label>
-                      </td>
-                    </tr>
-                  </FormGrid>
-                </div>
-              </div>
+                      </div>
+                    </div>
+                  </td>
+                </tr>
+              </FormGrid>
             </FormSection>
 
             <FormSection title="가격정보" subtitle="5개 항목" className="content-form-section--member-form">

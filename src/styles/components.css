@@ -5884,3 +5884,48 @@ textarea.mm2-name-box:focus {
   text-align: center;
 }
 
+.basic-mgmt-exposure-row {
+  padding-top: 8px !important;
+  padding-bottom: 8px !important;
+}
+
+.basic-mgmt-exposure-inline {
+  display: flex;
+  align-items: center;
+  flex-wrap: nowrap;
+  gap: 10px 16px;
+  min-width: 0;
+}
+
+.basic-mgmt-exposure-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  flex: 0 0 auto;
+  min-width: 0;
+}
+
+.basic-mgmt-exposure-item > span:first-child {
+  flex-shrink: 0;
+  white-space: nowrap;
+}
+
+.basic-mgmt-exposure-dates {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  min-width: 0;
+}
+
+.basic-mgmt-exposure-item--dates .basic-mgmt-exposure-dates input {
+  width: 124px !important;
+  min-width: 124px;
+  max-width: 124px;
+}
+
+.basic-mgmt-exposure-item select {
+  width: 88px !important;
+  min-width: 88px;
+  max-width: 88px;
+}
+
