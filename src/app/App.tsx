@@ -4659,7 +4659,7 @@ function Sidebar({ activeNavKey, onNavChange, theme, onThemeChange }: SidebarPro
   return (
     <div
       className="app-sidebar flex flex-col items-center py-4 gap-1"
-      style={{ width: SIDEBAR_WIDTH, minWidth: SIDEBAR_WIDTH, height: "100%", background: "var(--sidebar-bg, #555555)", borderRight: "1px solid var(--nav-border, var(--border))", flexShrink: 0 }}
+      style={{ width: SIDEBAR_WIDTH, minWidth: SIDEBAR_WIDTH, height: "100%", background: "var(--sidebar-bg, #666666)", borderRight: "1px solid var(--nav-border, var(--border))", flexShrink: 0 }}
     >
       <div className="flex flex-col items-center gap-1 flex-1">
         {navItems.map((item) => (
