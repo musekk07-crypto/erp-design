@@ -436,6 +436,7 @@
 
 .member-page-chrome-shell .detail-tab-bar {
   background: var(--surface-page);
+  border-top: 1px solid var(--detail-tab-bar-line);
   border-bottom: 1px solid var(--detail-tab-bar-line);
 }
 
@@ -449,6 +450,7 @@
   color: var(--detail-tab-inactive-fg);
   background: var(--detail-tab-inactive-bg);
   border: 1px solid var(--detail-tab-bar-line);
+  border-top: none;
   border-radius: 0;
   cursor: pointer;
 }
@@ -462,7 +464,7 @@
   font-weight: 600;
   color: var(--detail-tab-active-fg);
   background: var(--surface-panel);
-  border-top: 1px solid var(--detail-tab-bar-line);
+  border-top: none;
   border-right: 1px solid var(--detail-tab-bar-line);
   border-bottom: none;
   border-left: none;
