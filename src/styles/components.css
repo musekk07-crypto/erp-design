@@ -899,6 +899,11 @@ span.member-form-action-chip {
   font-weight: 600;
 }
 
+[data-theme="dark"] .member-profile-header__status-badge {
+  background: rgba(255, 255, 255, 0.1);
+  color: var(--accent-primary, #5ecfff);
+}
+
 .member-form-section-header-extra--grow .member-profile-header {
   width: auto;
   max-width: 100%;
