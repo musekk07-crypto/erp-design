@@ -982,6 +982,20 @@ span.member-form-action-chip {
   color: #ffffff !important;
 }
 
+/* 다크 모드에서는 --section-icon-bg 가 transparent 라 흰 글자가 흰 트랙에 묻힌다 */
+[data-theme="dark"] .app-content .content-form-section > button .member-profile-header .member-type-toggle {
+  background: rgba(255, 255, 255, 0.1) !important;
+}
+
+[data-theme="dark"] .app-content .content-form-section > button .member-profile-header .member-type-toggle button.is-selected {
+  background: var(--accent-primary) !important;
+  color: #0c0e14 !important;
+}
+
+[data-theme="dark"] .app-content .content-form-section > button .member-profile-header .member-type-toggle button:not(.is-selected) {
+  color: var(--text-secondary) !important;
+}
+
 .member-login-profile-box.content-member-header {
   margin-bottom: 0 !important;
   width: 100%;
@@ -2868,13 +2882,13 @@ textarea.mm2-name-box:focus {
   width: fit-content;
   max-width: calc(100% - 4px);
   margin: 0 0 8px 2px;
-  background: #ffffff;
+  background: var(--surface-panel);
   border: 1px solid var(--detail-tab-bar-line, #d8dee6);
   border-radius: var(--order-mgmt-box-radius, 6px);
 }
 
 .order-mgmt-order-toolbar.member-info-toolbar {
-  background: #ffffff;
+  background: var(--surface-panel);
   border: none;
   margin: 0;
   padding: 6px 8px 8px;
@@ -3823,6 +3837,16 @@ textarea.mm2-name-box:focus {
 .visit-history-chip.is-active {
   background: #e8ecf8;
   border-color: rgba(0, 22, 115, 0.28);
+}
+
+[data-theme="dark"] .visit-history-chip.is-active {
+  background: var(--sidebar-item-active-bg, #3a4458);
+  border-color: rgba(94, 207, 255, 0.35);
+}
+
+[data-theme="dark"] .visit-history-chip.is-active .visit-history-chip-name,
+[data-theme="dark"] .visit-history-chip.is-active .visit-history-chip-sep {
+  color: var(--text-muted);
 }
 
 .visit-history-chip-screen {
