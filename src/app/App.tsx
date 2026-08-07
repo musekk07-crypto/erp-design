@@ -4583,13 +4583,11 @@ interface SidebarProps {
 function SidebarNavButton({
   label,
   isActive,
-  disabled,
   onClick,
   children,
 }: {
   label: string;
   isActive: boolean;
-  disabled?: boolean;
   onClick: () => void;
   children: React.ReactNode;
 }) {
@@ -4597,10 +4595,8 @@ function SidebarNavButton({
     <button
       type="button"
       aria-label={label}
-      aria-disabled={disabled || undefined}
-      disabled={disabled}
       onClick={onClick}
-      className={`sidebar-nav-item group relative${isActive ? " is-active" : ""}${disabled ? " is-disabled" : ""}`}
+      className={`sidebar-nav-item group relative${isActive ? " is-active" : ""}`}
     >
       {children}
       <span className="sidebar-nav-tooltip">{label}</span>
@@ -4671,7 +4667,6 @@ function Sidebar({ activeNavKey, onNavChange, theme, onThemeChange }: SidebarPro
             key={item.key}
             label={item.label}
             isActive={activeNavKey === item.key}
-            disabled={item.key === "add-shortcut"}
             onClick={() => onNavChange(item.key)}
           >
             <item.icon size={18} className="sidebar-nav-item-icon" />
