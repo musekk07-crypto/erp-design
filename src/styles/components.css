@@ -725,7 +725,7 @@ span.member-form-action-chip {
 .member-profile-header__identity {
   flex: 1 1 auto;
   min-width: 0;
-  overflow: hidden;
+  overflow: visible;
 }
 
 .member-profile-header__line {
@@ -783,8 +783,50 @@ span.member-form-action-chip {
 .member-form-section-header-extra--grow {
   flex: 1 1 auto;
   min-width: 0;
-  margin-right: 8px;
+  margin-right: 12px;
   justify-content: flex-end;
+  overflow: visible;
+}
+
+.member-profile-header--inline-summary {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  width: 100%;
+  max-width: 100%;
+  min-width: 0;
+}
+
+.member-profile-header__summary-name {
+  flex: 1 1 auto;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--required-color, #001673);
+}
+
+.member-profile-header__summary-no {
+  flex: 0 0 auto;
+  padding-right: 2px;
+  font-size: 12px;
+  font-family: monospace;
+  font-weight: 500;
+  color: var(--required-color, #001673) !important;
+}
+
+.member-profile-header__status-badge {
+  flex: 0 0 auto;
+  font-size: 12px;
+  padding: 2px 10px;
+  background: rgba(255, 255, 255, 0.72);
+  color: var(--required-color, #001673);
+  border: 1px solid var(--content-form-section-header-border, #b8ddf0);
+  border-radius: 12px;
+  white-space: nowrap;
+  font-weight: 600;
 }
 
 .member-form-section-header-extra--grow .member-profile-header {
@@ -797,7 +839,7 @@ span.member-form-action-chip {
   max-height: none;
 }
 
-.app-content .content-form-section > button .member-profile-header {
+.app-content .content-form-section > button .member-profile-header:not(.member-profile-header--inline-summary) {
   gap: 10px;
   max-height: 24px;
 }

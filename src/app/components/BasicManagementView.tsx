@@ -115,28 +115,11 @@ function FormSection({
 
 function ProductProfileHeader() {
   return (
-    <div className="member-profile-header">
-      <div className="member-profile-header__identity">
-        <span className="member-profile-header__line">
-          <span className="content-member-header-text member-profile-header__name">*[오토십] 로얄 골든팩 & 다이어트 쉐이크 세트</span>
-          <span className="content-member-header-divider member-profile-header-divider" aria-hidden />
-          <span className="content-member-header-no">4000000007</span>
-        </span>
-      </div>
-      <span
-        style={{
-          fontSize: 12,
-          padding: "2px 10px",
-          background: "rgba(255, 255, 255, 0.72)",
-          color: "var(--required-color, #001673)",
-          border: "1px solid var(--content-form-section-header-border, #b8ddf0)",
-          borderRadius: 12,
-          whiteSpace: "nowrap",
-          fontWeight: 600,
-        }}
-      >
-        판매중
-      </span>
+    <div className="member-profile-header member-profile-header--inline-summary">
+      <span className="member-profile-header__summary-name">*[오토십] 로얄 골든팩 & 다이어트 쉐이크 세트</span>
+      <span className="member-profile-header-divider" aria-hidden />
+      <span className="content-member-header-no member-profile-header__summary-no">4000000007</span>
+      <span className="member-profile-header__status-badge">판매중</span>
     </div>
   );
 }
