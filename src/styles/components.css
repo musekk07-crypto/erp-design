@@ -867,16 +867,24 @@ span.member-form-action-chip {
   white-space: nowrap;
   font-size: 13px;
   font-weight: 600;
+  line-height: 1.3;
   color: var(--required-color, #001673);
 }
 
 .member-profile-header__summary-no {
   flex: 0 0 auto;
   padding-right: 2px;
-  font-size: 12px;
-  font-family: monospace;
-  font-weight: 500;
+  font-size: 13px;
+  line-height: 1.3;
+  font-family: inherit;
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
   color: var(--required-color, #001673) !important;
+}
+
+.member-profile-header--inline-summary .member-profile-header-divider {
+  height: 13px;
+  align-self: center;
 }
 
 .member-profile-header__status-badge {
