@@ -2474,40 +2474,34 @@ textarea.mm2-name-box:focus {
   overflow: hidden;
 }
 
-.order-mgmt-member-info-rows {
-  display: flex;
-  flex-direction: column;
-}
-
-.order-mgmt-member-info-row {
-  display: flex;
-  align-items: stretch;
-  min-height: 72px;
-}
-
-.order-mgmt-member-info-row + .order-mgmt-member-info-row {
-  border-top: 1px solid var(--border);
+.order-mgmt-member-info-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
 }
 
 .order-mgmt-member-info-field {
-  flex: 1 1 0;
   min-width: 0;
+  min-height: 72px;
   display: flex;
   flex-direction: column;
   justify-content: center;
   gap: 5px;
   padding: 14px 16px;
+  border-right: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
 }
 
-.order-mgmt-member-info-field--wide {
-  flex: 3 1 0;
+.order-mgmt-member-info-field:nth-child(4),
+.order-mgmt-member-info-field:nth-child(6) {
+  border-right: none;
 }
 
-.order-mgmt-member-info-divider {
-  width: 1px;
-  flex-shrink: 0;
-  align-self: stretch;
-  background: var(--border);
+.order-mgmt-member-info-field:nth-child(n + 5) {
+  border-bottom: none;
+}
+
+.order-mgmt-member-info-field--span-3 {
+  grid-column: span 3;
 }
 
 .order-mgmt-member-info-field__label {
