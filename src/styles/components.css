@@ -2604,15 +2604,10 @@ textarea.mm2-name-box:focus {
 
 .order-mgmt-member-info-field__value {
   font-size: 13px;
-  font-weight: 600;
+  font-weight: 400;
   color: var(--text-body);
   line-height: 1.35;
   word-break: break-all;
-}
-
-.order-mgmt-member-info-field__value.is-highlight {
-  color: var(--member-no-color, var(--accent-primary));
-  font-family: monospace;
 }
 
 .order-mgmt-member-info-body p {

@@ -723,12 +723,10 @@ function OmPaymentInfo() {
 function OmMemberInfoField({
   label,
   value,
-  highlight = false,
   span = 1,
 }: {
   label: string;
   value: string;
-  highlight?: boolean;
   span?: 1 | 3;
 }) {
   return (
@@ -736,7 +734,7 @@ function OmMemberInfoField({
       className={`order-mgmt-member-info-field${span === 3 ? " order-mgmt-member-info-field--span-3" : ""}`}
     >
       <span className="order-mgmt-member-info-field__label">{label}</span>
-      <span className={`order-mgmt-member-info-field__value${highlight ? " is-highlight" : ""}`}>{value}</span>
+      <span className="order-mgmt-member-info-field__value">{value}</span>
     </div>
   );
 }
@@ -753,7 +751,7 @@ function OmMemberInfoPanel({ member }: { member: ProfileMember }) {
       <OmMemberInfoTitle name={member.name} memberNo={member.no} />
       <section className="order-mgmt-member-info">
         <div className="order-mgmt-member-info-grid">
-          <OmMemberInfoField label="회원번호" value={member.no} highlight />
+          <OmMemberInfoField label="회원번호" value={member.no} />
           <OmMemberInfoField label="회원명" value={member.name} />
           <OmMemberInfoField label="주민등록번호" value={member.ssn} />
           <OmMemberInfoField label="전화번호" value={member.phone} />
