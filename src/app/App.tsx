@@ -4361,21 +4361,17 @@ function MemberPageChrome({ activeTab, onTabChange, onToolbarAction }: MemberPag
     <div className="member-page-chrome">
       <div className="detail-tab-bar">
         <div className="detail-tab-list">
-          {subTabs.map((tab, i) => {
+          {subTabs.map((tab) => {
             const isActive = tab === activeTab;
-            const prevTab = i > 0 ? subTabs[i - 1] : null;
-            const showDivider = i > 0 && !isActive && prevTab !== activeTab;
             return (
-              <React.Fragment key={tab}>
-                {showDivider && <span className="detail-tab-divider" aria-hidden>|</span>}
-                <button
-                  type="button"
-                  className={`detail-tab${isActive ? " is-active" : ""}`}
-                  onClick={() => onTabChange(tab)}
-                >
-                  {tab}
-                </button>
-              </React.Fragment>
+              <button
+                key={tab}
+                type="button"
+                className={`detail-tab${isActive ? " is-active" : ""}`}
+                onClick={() => onTabChange(tab)}
+              >
+                {tab}
+              </button>
             );
           })}
         </div>

@@ -403,7 +403,7 @@
 .member-page-chrome {
   flex-shrink: 0;
   width: 100%;
-  margin-bottom: 12px;
+  margin-bottom: 0;
   background: transparent;
   border: none;
   border-radius: 0;
@@ -411,30 +411,25 @@
 }
 
 .member-page-chrome .detail-tab-bar {
-  padding: 0 6px;
-  min-height: 32px;
+  padding: 0;
+  min-height: 0;
 }
 
 .member-page-chrome .detail-tab {
-  padding: 6px 12px 5px;
+  padding: 8px 14px 7px;
   font-size: 14px;
 }
 
 .member-page-chrome .detail-tab.is-active {
-  padding-top: 4px;
-}
-
-.member-page-chrome .detail-tab-divider {
-  margin-bottom: 6px;
-  font-size: 13px;
+  padding-bottom: 8px;
 }
 
 .detail-tab-bar {
   display: flex;
   align-items: flex-end;
-  padding: 0 8px;
-  min-height: 34px;
-  background: transparent;
+  padding: 0;
+  min-height: 0;
+  background: var(--detail-tab-bar-bg);
   border-bottom: 1px solid var(--detail-tab-bar-line);
 }
 
@@ -443,51 +438,47 @@
   align-items: flex-end;
   flex-wrap: nowrap;
   min-width: 0;
+  gap: 0;
 }
 
 .detail-tab-divider {
-  align-self: center;
-  padding: 0 3px;
-  font-size: 13px;
-  color: var(--text-subtle);
-  user-select: none;
-  line-height: 1;
-  margin-bottom: 8px;
+  display: none;
 }
 
 .detail-tab {
   position: relative;
+  z-index: 0;
   flex-shrink: 0;
-  padding: 7px 14px 6px;
+  margin: 0 0 -1px;
+  padding: 8px 16px 7px;
   font-size: 14px;
   font-weight: 400;
-  color: var(--text-muted);
-  background: transparent;
-  border: none;
+  color: var(--detail-tab-inactive-fg);
+  background: var(--detail-tab-inactive-bg);
+  border: 1px solid var(--detail-tab-bar-line);
+  border-radius: 0;
   cursor: pointer;
   white-space: nowrap;
-  transition: color 0.15s;
+  transition: color 0.15s, background 0.15s;
+}
+
+.detail-tab + .detail-tab {
+  margin-left: -1px;
 }
 
 .detail-tab:hover:not(.is-active) {
   color: var(--text-body);
-}
-
-[data-theme="dark"] .detail-tab:hover:not(.is-active) {
-  background: var(--surface-tab-hover);
-  border-radius: 3px 3px 0 0;
+  background: var(--detail-tab-inactive-hover-bg);
 }
 
 .detail-tab.is-active {
+  z-index: 1;
   font-weight: 600;
-  color: var(--text-body);
+  color: var(--detail-tab-active-fg);
   background: var(--surface-panel);
-  border: 1px solid var(--detail-tab-bar-line);
-  border-top: 3px solid var(--detail-tab-active-top);
   border-bottom-color: var(--surface-panel);
   margin-bottom: -1px;
-  padding-top: 5px;
-  border-radius: 3px 3px 0 0;
+  padding-bottom: 8px;
 }
 
 /* 회원정보 폼 — 실명인증 / 인증완료 칩 (동일 크기) */
@@ -542,7 +533,9 @@ span.member-form-action-chip {
   gap: 2px;
   padding: 6px 8px 8px;
   background: var(--surface-panel);
-  border-bottom: 1px solid var(--mm2-table-line, var(--org-border));
+  border: 1px solid var(--detail-tab-bar-line);
+  border-top: none;
+  margin-top: -1px;
 }
 
 .member-info-toolbar-item {
