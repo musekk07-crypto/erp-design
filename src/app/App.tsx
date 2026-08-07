@@ -4736,7 +4736,6 @@ export default function App() {
   const [listWidth, setListWidth] = useState(() => clampMemberListWidth(MEMBER_LIST_DEFAULT_WIDTH));
   const [activeTab, setActiveTab] = useState("회원정보");
   const [activeSidebarKey, setActiveSidebarKey] = useState<SidebarNavKey>("home");
-  const [homeOpenTasks, setHomeOpenTasks] = useState<HomeShortcutKey[]>([]);
   const [homeActiveTask, setHomeActiveTask] = useState<"desktop" | HomeShortcutKey>("desktop");
   const [activeMainMenu, setActiveMainMenu] = useState("회원관리");
   const [activeMemberSubMenu, setActiveMemberSubMenu] = useState("회원등록");
@@ -4954,7 +4953,6 @@ export default function App() {
         return;
       case "dashboard":
         setActiveSidebarKey("home");
-        setHomeOpenTasks((prev) => (prev.includes("dashboard") ? prev : [...prev, "dashboard"]));
         setHomeActiveTask("dashboard");
         setListOpen(false);
         return;
@@ -4980,12 +4978,6 @@ export default function App() {
     }
   }, [activeMainMenu, activeMemberSubMenu, activeOrderSubMenu, activeSidebarKey, activeTab]);
 
-  const handleHomeDesktopSelect = useCallback(() => {
-    setActiveSidebarKey("home");
-    setHomeActiveTask("desktop");
-    setListOpen(false);
-  }, []);
-
   const handleHomeShortcut = useCallback((key: HomeShortcutKey) => {
     if (key === "add-shortcut") {
       navigateFromSidebar("add-shortcut");
@@ -4994,7 +4986,6 @@ export default function App() {
 
     if (key === "dashboard") {
       setActiveSidebarKey("home");
-      setHomeOpenTasks((prev) => (prev.includes("dashboard") ? prev : [...prev, "dashboard"]));
       setHomeActiveTask("dashboard");
       setListOpen(false);
       return;
@@ -5016,16 +5007,6 @@ export default function App() {
       navigateFromSidebar("org-chart");
     }
   }, [navigateFromSidebar]);
-
-  const handleHomeTaskSelect = useCallback((key: HomeShortcutKey) => {
-    if (key === "dashboard") {
-      setActiveSidebarKey("home");
-      setHomeActiveTask("dashboard");
-      setListOpen(false);
-      return;
-    }
-    handleHomeShortcut(key);
-  }, [handleHomeShortcut]);
 
   const onResizeStart = useCallback((e: React.MouseEvent) => {
     e.preventDefault();
@@ -5174,10 +5155,7 @@ export default function App() {
           {isHomeView ? (
             <HomeDesktopView
               activeTask={homeActiveTask}
-              openTasks={homeOpenTasks}
               onShortcutClick={handleHomeShortcut}
-              onDesktopSelect={handleHomeDesktopSelect}
-              onTaskSelect={handleHomeTaskSelect}
             />
           ) : isAddShortcutView ? (
             <div className="home-page-placeholder">

@@ -1,5 +1,5 @@
 import React from "react";
-import { Home, Plus } from "lucide-react";
+import { Plus } from "lucide-react";
 
 export type HomeShortcutKey =
   | "dashboard"
@@ -25,19 +25,10 @@ const homeShortcuts: HomeShortcut[] = [
 
 interface HomeDesktopViewProps {
   activeTask: "desktop" | HomeShortcutKey;
-  openTasks: HomeShortcutKey[];
   onShortcutClick: (key: HomeShortcutKey) => void;
-  onDesktopSelect: () => void;
-  onTaskSelect: (key: HomeShortcutKey) => void;
 }
 
-export function HomeDesktopView({
-  activeTask,
-  openTasks,
-  onShortcutClick,
-  onDesktopSelect,
-  onTaskSelect,
-}: HomeDesktopViewProps) {
+export function HomeDesktopView({ activeTask, onShortcutClick }: HomeDesktopViewProps) {
   return (
     <div className="home-desktop">
       <div className="home-desktop-body">
@@ -86,37 +77,6 @@ export function HomeDesktopView({
             <span className="home-page-placeholder__desc">화면 준비 중입니다.</span>
           </div>
         )}
-      </div>
-
-      <div className="home-desktop-taskbar">
-        <button
-          type="button"
-          className={`home-desktop-task${activeTask === "desktop" ? " is-active" : ""}`}
-          onClick={onDesktopSelect}
-        >
-          <Home size={14} />
-          <span>바탕화면</span>
-        </button>
-        {openTasks.map((taskKey) => {
-          const shortcut = homeShortcuts.find((item) => item.key === taskKey);
-          if (!shortcut) return null;
-          return (
-            <button
-              key={taskKey}
-              type="button"
-              className={`home-desktop-task${activeTask === taskKey ? " is-active" : ""}`}
-              onClick={() => onTaskSelect(taskKey)}
-            >
-              <span
-                className="home-desktop-task-glyph"
-                style={{ background: shortcut.bg, color: shortcut.color }}
-              >
-                {shortcut.glyph}
-              </span>
-              <span>{shortcut.label}</span>
-            </button>
-          );
-        })}
       </div>
     </div>
   );
