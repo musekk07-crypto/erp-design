@@ -217,6 +217,15 @@ function OmToolbarButton({
   );
 }
 
+function OmOrderToolbarButton({ icon: Icon, label }: { icon: React.ElementType; label: string }) {
+  return (
+    <button type="button" className="member-info-toolbar-item order-mgmt-order-toolbar__item">
+      <Icon size={18} strokeWidth={1.5} style={{ color: "var(--text-muted)" }} />
+      <span>{label}</span>
+    </button>
+  );
+}
+
 function OmIconToolbarButton({ icon: Icon, label }: { icon: React.ElementType; label: string }) {
   return (
     <button type="button" className="order-mgmt-icon-btn" aria-label={label}>
@@ -836,17 +845,21 @@ export function OrderManagementView({ member }: { member: ProfileMember }) {
 
           <div className="order-mgmt-block-wrap order-mgmt-block-wrap--orders">
             <OmSectionTitle title="주문서 목록" />
+
+            <div className="order-mgmt-order-toolbar-shell">
+              <div className="member-info-toolbar order-mgmt-order-toolbar">
+                <OmOrderToolbarButton icon={FilePlus} label="새로 주문하기" />
+                <OmOrderToolbarButton icon={FileText} label="거래명세서" />
+                <OmOrderToolbarButton icon={RotateCcw} label="반품등록" />
+                <OmOrderToolbarButton icon={Repeat2} label="교환등록" />
+                <OmOrderToolbarButton icon={CheckCircle2} label="주문서승인" />
+                <OmOrderToolbarButton icon={Ban} label="주문서취소" />
+              </div>
+            </div>
+
             <section className="order-mgmt-section order-mgmt-section--orders">
 
             <div className="order-mgmt-toolbar order-mgmt-toolbar--orders">
-              <div className="order-mgmt-order-bar-actions">
-                <OmToolbarButton icon={FilePlus} label="새로 주문하기" />
-                <OmToolbarButton icon={FileText} label="거래명세서" />
-                <OmToolbarButton icon={RotateCcw} label="반품등록" />
-                <OmToolbarButton icon={Repeat2} label="교환등록" />
-                <OmToolbarButton icon={CheckCircle2} label="주문서승인" />
-                <OmToolbarButton icon={Ban} label="주문서취소" />
-              </div>
               <div className="order-mgmt-filter-bar order-mgmt-filter-bar--inline">
                 <span className="order-mgmt-filter-label">검색기간</span>
                 <input type="date" className="order-mgmt-filter-input" defaultValue="2026-05-01" />

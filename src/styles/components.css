@@ -2851,16 +2851,8 @@ textarea.mm2-name-box:focus {
 }
 
 .order-mgmt-toolbar.order-mgmt-toolbar--orders {
-  flex-direction: column;
-  align-items: stretch;
-  gap: 8px;
+  align-items: center;
   min-height: 0;
-}
-
-.order-mgmt-toolbar--orders .order-mgmt-order-bar-actions {
-  width: 100%;
-  flex-wrap: wrap;
-  row-gap: 4px;
 }
 
 .order-mgmt-toolbar--orders .order-mgmt-filter-bar--inline {
@@ -2868,6 +2860,30 @@ textarea.mm2-name-box:focus {
   flex-wrap: wrap;
   row-gap: 6px;
   column-gap: 8px;
+}
+
+.order-mgmt-order-toolbar-shell {
+  box-sizing: border-box;
+  flex-shrink: 0;
+  width: fit-content;
+  max-width: calc(100% - 4px);
+  margin: 0 0 8px 2px;
+  background: #ffffff;
+  border: 1px solid var(--detail-tab-bar-line, #d8dee6);
+  border-radius: var(--order-mgmt-box-radius, 6px);
+}
+
+.order-mgmt-order-toolbar.member-info-toolbar {
+  background: #ffffff;
+  border: none;
+  margin: 0;
+  padding: 6px 8px 8px;
+}
+
+.order-mgmt-order-toolbar .order-mgmt-order-toolbar__item {
+  flex: 0 0 auto;
+  min-width: 88px;
+  box-sizing: border-box;
 }
 
 .order-mgmt-product-bar-title {
@@ -4857,6 +4873,10 @@ textarea.mm2-name-box:focus {
   margin: 10px 0 0 12px;
   background: var(--surface-panel);
   border: 1px solid var(--detail-tab-bar-line);
+}
+
+.member-org-chart-view > .member-org-chart-toolbar-shell {
+  margin: 10px auto 0;
 }
 
 .member-org-chart-toolbar.member-info-toolbar {
