@@ -4572,13 +4572,64 @@ const themes: { key: Theme; color: string; label: string }[] = [
 interface SidebarProps {
   activeNavKey: SidebarNavKey;
   showMembersNav: boolean;
+  memberListOpen: boolean;
   onNavChange: (key: SidebarNavKey) => void;
   theme: Theme;
   onThemeChange: (t: Theme) => void;
 }
 
-function Sidebar({ activeNavKey, showMembersNav, onNavChange, theme, onThemeChange }: SidebarProps) {
-  const visibleNavItems = navItems.filter((item) => item.key !== "members" || showMembersNav);
+function SidebarNavButton({
+  label,
+  isActive,
+  onClick,
+  children,
+}: {
+  label: string;
+  isActive: boolean;
+  onClick: () => void;
+  children: React.ReactNode;
+}) {
+  return (
+    <button
+      type="button"
+      title={label}
+      aria-label={label}
+      onClick={onClick}
+      className={`sidebar-nav-item group relative${isActive ? " is-active" : ""}`}
+    >
+      {children}
+      <span className="sidebar-nav-tooltip">{label}</span>
+    </button>
+  );
+}
+
+function SidebarMembersToggle({
+  isOpen,
+  onClick,
+}: {
+  isOpen: boolean;
+  onClick: () => void;
+}) {
+  return (
+    <button
+      type="button"
+      title="회원목록"
+      aria-label="회원목록"
+      aria-pressed={isOpen}
+      onClick={onClick}
+      className={`sidebar-members-toggle group relative${isOpen ? " is-open" : ""}`}
+    >
+      <span className="sidebar-members-toggle-panel" aria-hidden />
+      <Users size={17} className="sidebar-members-toggle-icon" />
+      <span className="sidebar-nav-tooltip">회원목록</span>
+    </button>
+  );
+}
+
+function Sidebar({ activeNavKey, showMembersNav, memberListOpen, onNavChange, theme, onThemeChange }: SidebarProps) {
+  const primaryNavItems = navItems.filter((item) => item.key !== "members");
+  const leadingNavItems = primaryNavItems.slice(0, 2);
+  const trailingNavItems = primaryNavItems.slice(2);
 
   return (
     <div
@@ -4586,31 +4637,38 @@ function Sidebar({ activeNavKey, showMembersNav, onNavChange, theme, onThemeChan
       style={{ width: SIDEBAR_WIDTH, minWidth: SIDEBAR_WIDTH, height: "100%", background: "var(--sidebar-bg, #eceef2)", borderRight: "1px solid var(--border)", flexShrink: 0 }}
     >
       <div className="flex flex-col items-center gap-1 flex-1">
-        {visibleNavItems.map((item) => {
-          const isActive = activeNavKey === item.key;
-          return (
-            <button
-              key={item.key}
-              type="button"
-              title={item.label}
-              aria-label={item.label}
-              onClick={() => onNavChange(item.key)}
-              className="w-10 h-10 rounded flex items-center justify-center transition-all duration-200 group relative"
-              style={{
-                background: isActive ? "var(--sidebar-item-active-bg)" : "transparent",
-                border: isActive ? "1px solid var(--sidebar-item-active-border, var(--border))" : "1px solid transparent",
-              }}
-            >
-              <item.icon size={18} style={{ color: isActive ? "var(--accent-primary)" : "var(--sidebar-foreground)" }} />
-              <span
-                className="absolute left-10 px-2 py-1 rounded whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity duration-200 pointer-events-none z-50"
-                style={{ background: "var(--tooltip-bg)", color: "var(--tooltip-fg)", fontSize: "12px" }}
-              >
-                {item.label}
-              </span>
-            </button>
-          );
-        })}
+        {leadingNavItems.map((item) => (
+          <SidebarNavButton
+            key={item.key}
+            label={item.label}
+            isActive={activeNavKey === item.key}
+            onClick={() => onNavChange(item.key)}
+          >
+            <item.icon size={18} className="sidebar-nav-item-icon" />
+          </SidebarNavButton>
+        ))}
+
+        {showMembersNav && (
+          <>
+            <div className="sidebar-members-toggle-divider" aria-hidden />
+            <SidebarMembersToggle
+              isOpen={memberListOpen}
+              onClick={() => onNavChange("members")}
+            />
+            <div className="sidebar-members-toggle-divider" aria-hidden />
+          </>
+        )}
+
+        {trailingNavItems.map((item) => (
+          <SidebarNavButton
+            key={item.key}
+            label={item.label}
+            isActive={activeNavKey === item.key}
+            onClick={() => onNavChange(item.key)}
+          >
+            <item.icon size={18} className="sidebar-nav-item-icon" />
+          </SidebarNavButton>
+        ))}
       </div>
 
       <div className="flex flex-col items-center gap-1 mt-auto">
@@ -5003,6 +5061,7 @@ export default function App() {
         <Sidebar
           activeNavKey={sidebarActiveKey}
           showMembersNav={showMembersNav}
+          memberListOpen={memberListOpen}
           onNavChange={navigateFromSidebar}
           theme={theme}
           onThemeChange={setTheme}
