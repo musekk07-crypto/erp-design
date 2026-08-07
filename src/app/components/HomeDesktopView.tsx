@@ -40,12 +40,6 @@ export function HomeDesktopView({ activeTask, onShortcutClick }: HomeDesktopView
     <div className="home-desktop">
       <div className="home-desktop-body">
         {activeTask === "desktop" ? (
-          <>
-            <div className="home-desktop-brand">
-              <div className="home-desktop-logo">midasNet</div>
-              <div className="home-desktop-version">v5.0.0 (build 51)</div>
-            </div>
-
             <div className="home-desktop-shortcuts">
               {homeShortcuts.map((shortcut) => {
                 const Icon = shortcut.icon;
@@ -75,10 +69,9 @@ export function HomeDesktopView({ activeTask, onShortcutClick }: HomeDesktopView
                 <span className="home-desktop-shortcut-icon home-desktop-shortcut-icon--add">
                   <Plus size={28} strokeWidth={1.75} aria-hidden />
                 </span>
-                <span className="home-desktop-shortcut-label">바로가기 추가</span>
-              </button>
+              <span className="home-desktop-shortcut-label">바로가기 추가</span>
+            </button>
             </div>
-          </>
         ) : (
           <div className="home-page-placeholder home-page-placeholder--embedded">
             <span className="home-page-placeholder__title">

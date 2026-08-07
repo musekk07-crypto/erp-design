@@ -5562,29 +5562,8 @@ textarea.mm2-name-box:focus {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  gap: 56px;
   min-height: 0;
   padding: 32px 24px 24px;
-}
-
-.home-desktop-brand {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 6px;
-  user-select: none;
-}
-
-.home-desktop-logo {
-  font-size: 28px;
-  font-weight: 500;
-  letter-spacing: -0.02em;
-  color: #9ca3af;
-}
-
-.home-desktop-version {
-  font-size: 13px;
-  color: #b0b7c3;
 }
 
 .home-desktop-shortcuts {
@@ -5663,11 +5642,6 @@ textarea.mm2-name-box:focus {
   background: #1a1f2b;
 }
 
-[data-theme="dark"] .home-desktop-logo {
-  color: #6b7280;
-}
-
-[data-theme="dark"] .home-desktop-version,
 [data-theme="dark"] .home-desktop-shortcut-label {
   color: #9ca3af;
 }
