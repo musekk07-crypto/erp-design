@@ -4583,11 +4583,13 @@ interface SidebarProps {
 function SidebarNavButton({
   label,
   isActive,
+  disabled,
   onClick,
   children,
 }: {
   label: string;
   isActive: boolean;
+  disabled?: boolean;
   onClick: () => void;
   children: React.ReactNode;
 }) {
@@ -4595,8 +4597,10 @@ function SidebarNavButton({
     <button
       type="button"
       aria-label={label}
+      aria-disabled={disabled || undefined}
+      disabled={disabled}
       onClick={onClick}
-      className={`sidebar-nav-item group relative${isActive ? " is-active" : ""}`}
+      className={`sidebar-nav-item group relative${isActive ? " is-active" : ""}${disabled ? " is-disabled" : ""}`}
     >
       {children}
       <span className="sidebar-nav-tooltip">{label}</span>
@@ -4667,6 +4671,7 @@ function Sidebar({ activeNavKey, onNavChange, theme, onThemeChange }: SidebarPro
             key={item.key}
             label={item.label}
             isActive={activeNavKey === item.key}
+            disabled={item.key === "add-shortcut"}
             onClick={() => onNavChange(item.key)}
           >
             <item.icon size={18} className="sidebar-nav-item-icon" />
@@ -4747,18 +4752,15 @@ export default function App() {
   const resizing = useRef(false);
 
   const isHomeView = activeSidebarKey === "home";
-  const isAddShortcutView = activeSidebarKey === "add-shortcut";
 
   const memberListNavEnabled =
     !isHomeView &&
-    !isAddShortcutView &&
     ((activeMainMenu === "회원관리" && (activeMemberSubMenu === "회원등록" || activeMemberSubMenu === "조직도인쇄")) ||
       (activeMainMenu === "주문관리" && activeOrderSubMenu !== "주문서승인"));
   const memberListOpen = memberListNavEnabled && listOpen;
 
   const showMembersNav =
     !isHomeView &&
-    !isAddShortcutView &&
     ((activeMainMenu === "회원관리" &&
       activeMemberSubMenu === "회원등록" &&
       activeTab === "회원정보") ||
@@ -4900,23 +4902,22 @@ export default function App() {
   }, [handleMemberSubMenuChange]);
 
   const navigateFromSidebar = useCallback((key: SidebarNavKey) => {
+    if (key === "add-shortcut") return;
+
     if (key === "members") {
       const onMemberInfoScreen =
         activeSidebarKey !== "home" &&
-        activeSidebarKey !== "add-shortcut" &&
         activeMainMenu === "회원관리" &&
         activeMemberSubMenu === "회원등록" &&
         activeTab === "회원정보";
 
       const onOrderRegisterScreen =
         activeSidebarKey !== "home" &&
-        activeSidebarKey !== "add-shortcut" &&
         activeMainMenu === "주문관리" &&
         activeOrderSubMenu === "주문서등록";
 
       const onOrgChartScreen =
         activeSidebarKey !== "home" &&
-        activeSidebarKey !== "add-shortcut" &&
         activeMainMenu === "회원관리" &&
         activeMemberSubMenu === "조직도인쇄";
 
@@ -4961,17 +4962,11 @@ export default function App() {
         setActiveMemberSubMenu("조직도인쇄");
         setListOpen(false);
         return;
-      case "add-shortcut":
-        setListOpen(false);
-        return;
     }
   }, [activeMainMenu, activeMemberSubMenu, activeOrderSubMenu, activeSidebarKey, activeTab]);
 
   const handleHomeShortcut = useCallback((key: HomeShortcutKey) => {
-    if (key === "add-shortcut") {
-      navigateFromSidebar("add-shortcut");
-      return;
-    }
+    if (key === "add-shortcut") return;
 
     if (key === "dashboard") {
       setActiveSidebarKey("home");
@@ -5146,11 +5141,6 @@ export default function App() {
               activeTask={homeActiveTask}
               onShortcutClick={handleHomeShortcut}
             />
-          ) : isAddShortcutView ? (
-            <div className="home-page-placeholder">
-              <span className="home-page-placeholder__title">바로가기 추가</span>
-              <span className="home-page-placeholder__desc">바로가기 설정 화면 준비 중입니다.</span>
-            </div>
           ) : isOrderManagement ? (
             activeOrderSubMenu === "주문서등록" ? (
               <OrderManagementView member={getMemberById(selectedMember)} />

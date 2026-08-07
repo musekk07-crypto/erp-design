@@ -63,8 +63,9 @@ export function HomeDesktopView({ activeTask, onShortcutClick }: HomeDesktopView
 
               <button
                 type="button"
-                className="home-desktop-shortcut"
-                onClick={() => onShortcutClick("add-shortcut")}
+                className="home-desktop-shortcut home-desktop-shortcut--disabled"
+                disabled
+                aria-label="바로가기 추가 (준비 중)"
               >
                 <span className="home-desktop-shortcut-icon home-desktop-shortcut-icon--add">
                   <Plus size={28} strokeWidth={1.75} aria-hidden />

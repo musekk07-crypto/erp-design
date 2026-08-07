@@ -5490,13 +5490,30 @@ textarea.mm2-name-box:focus {
   color: var(--sidebar-icon-active-color);
 }
 
-.sidebar-nav-item:hover:not(.is-active) {
+.sidebar-nav-item:hover:not(.is-active):not(.is-disabled):not(:disabled) {
   background: transparent;
   border-color: var(--sidebar-icon-hover-ring);
 }
 
-.sidebar-nav-item:hover:not(.is-active) .sidebar-nav-item-icon {
+.sidebar-nav-item:hover:not(.is-active):not(.is-disabled) .sidebar-nav-item-icon {
   color: var(--sidebar-icon-hover-color);
+}
+
+.sidebar-nav-item.is-disabled,
+.sidebar-nav-item:disabled {
+  cursor: not-allowed;
+  opacity: 0.42;
+}
+
+.sidebar-nav-item.is-disabled:hover,
+.sidebar-nav-item:disabled:hover {
+  background: transparent;
+  border-color: transparent;
+}
+
+.sidebar-nav-item.is-disabled .sidebar-nav-item-icon,
+.sidebar-nav-item:disabled .sidebar-nav-item-icon {
+  color: var(--sidebar-icon-color);
 }
 
 .sidebar-nav-tooltip {
@@ -5617,6 +5634,18 @@ textarea.mm2-name-box:focus {
   border: none;
   background: transparent;
   cursor: pointer;
+}
+
+.home-desktop-shortcut--disabled,
+.home-desktop-shortcut:disabled {
+  cursor: not-allowed;
+  opacity: 0.55;
+}
+
+.home-desktop-shortcut--disabled:hover .home-desktop-shortcut-icon,
+.home-desktop-shortcut:disabled:hover .home-desktop-shortcut-icon {
+  transform: none;
+  box-shadow: none;
 }
 
 .home-desktop-shortcut-icon {
