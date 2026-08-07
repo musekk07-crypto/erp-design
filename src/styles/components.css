@@ -67,7 +67,7 @@
   z-index: 200;
   min-width: 220px;
   padding: 6px 0;
-  background: var(--nav-dropdown-bg, rgba(10, 18, 32, 0.9));
+  background: var(--nav-dropdown-bg, rgba(51, 51, 51, 0.8));
   backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px);
   border: 1px solid var(--nav-dropdown-border, rgba(255, 255, 255, 0.12));
@@ -235,7 +235,7 @@
   z-index: 210;
   min-width: 148px;
   padding: 6px 0;
-  background: var(--nav-dropdown-bg, rgba(10, 18, 32, 0.9));
+  background: var(--nav-dropdown-bg, rgba(51, 51, 51, 0.8));
   backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px);
   border: 1px solid var(--nav-dropdown-border, rgba(255, 255, 255, 0.12));
