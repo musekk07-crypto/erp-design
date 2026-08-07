@@ -3,7 +3,7 @@
 /* ── 딥퍼플 (default) ── */
 :root,
 [data-theme="deep-purple"] {
-  --nav-bg: #0f1d32;
+  --nav-bg: #333333;
   --nav-border: #0a1526;
   --nav-text: #ffffff;
   --nav-text-muted: rgba(255,255,255,0.7);

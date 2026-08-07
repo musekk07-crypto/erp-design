@@ -4426,7 +4426,7 @@ function TopNav({
       {/* Main nav */}
       <div
         className="flex items-stretch flex-nowrap px-4"
-        style={{ background: "var(--nav-bg, #0f1d32)", borderBottom: "1px solid var(--nav-border, #0a1526)", height: 40 }}
+        style={{ background: "var(--nav-bg, #333333)", borderBottom: "1px solid var(--nav-border, #0a1526)", height: 40 }}
       >
         <div className="flex items-center gap-2 mr-6 shrink-0">
           <div
