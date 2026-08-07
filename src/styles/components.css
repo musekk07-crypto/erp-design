@@ -729,16 +729,23 @@ span.member-form-action-chip {
 }
 
 .member-profile-header__line {
-  display: inline-flex;
+  display: flex;
   align-items: center;
   gap: 8px;
   max-width: 100%;
   min-width: 0;
-  overflow: hidden;
-  text-overflow: ellipsis;
+  overflow: visible;
   white-space: nowrap;
   font-size: 12px;
   font-weight: 600;
+}
+
+.member-profile-header__line .member-profile-header__name,
+.member-profile-header__line .content-member-header-text:not(.content-member-header-no) {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  min-width: 0;
+  flex: 1 1 auto;
 }
 
 .member-profile-header-divider {
@@ -770,8 +777,24 @@ span.member-form-action-chip {
   display: flex;
   align-items: center;
   min-width: 0;
-  max-height: 24px;
   margin-right: 4px;
+}
+
+.member-form-section-header-extra--grow {
+  flex: 1 1 auto;
+  min-width: 0;
+  margin-right: 8px;
+  justify-content: flex-end;
+}
+
+.member-form-section-header-extra--grow .member-profile-header {
+  max-width: 100%;
+  width: 100%;
+  justify-content: flex-end;
+}
+
+.app-content .content-form-section > button .member-form-section-header-extra--grow .member-profile-header {
+  max-height: none;
 }
 
 .app-content .content-form-section > button .member-profile-header {

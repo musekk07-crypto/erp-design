@@ -81,16 +81,17 @@ function FormSection({
             {subtitle}
           </span>
         ) : null}
-        <div className="flex-1" />
         {headerExtra ? (
           <div
-            className="member-form-section-header-extra shrink min-w-0"
+            className="member-form-section-header-extra member-form-section-header-extra--grow min-w-0"
             onClick={(event) => event.stopPropagation()}
             onKeyDown={(event) => event.stopPropagation()}
           >
             {headerExtra}
           </div>
-        ) : null}
+        ) : (
+          <div className="flex-1" />
+        )}
         <ChevronDown
           size={12}
           style={{
