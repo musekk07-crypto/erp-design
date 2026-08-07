@@ -4852,49 +4852,19 @@ textarea.mm2-name-box:focus {
   border-top: none;
 }
 
-.member-org-chart-toolbar {
-  display: flex;
-  align-items: stretch;
-  padding: 0;
-  background: var(--surface-page);
-  border-bottom: 1px solid var(--detail-tab-bar-line);
+.member-org-chart-toolbar.member-info-toolbar {
+  background: var(--surface-panel);
+  border: none;
+  margin: 0;
+  padding: 6px 8px 8px;
 }
 
-.member-org-chart-toolbar__item {
-  box-sizing: border-box;
-  display: flex;
+.member-org-chart-toolbar .member-info-toolbar-item {
   flex: 0 0 104px;
   width: 104px;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: 4px;
-  margin: 0 0 -1px -1px;
-  padding: 8px 4px;
-  border: 1px solid var(--detail-tab-bar-line);
-  border-top: none;
-  border-radius: 0;
-  background: var(--detail-tab-inactive-bg);
-  color: var(--detail-tab-inactive-fg);
-  font-size: 12px;
-  line-height: 1.2;
-  white-space: nowrap;
-  cursor: pointer;
-  transition: color 0.15s, background 0.15s;
-}
-
-.member-org-chart-toolbar__item:first-child {
-  margin-left: 0;
-}
-
-.member-org-chart-toolbar__item svg {
-  flex-shrink: 0;
-  color: var(--text-body);
-}
-
-.member-org-chart-toolbar__item:hover {
-  color: var(--text-body);
-  background: var(--detail-tab-inactive-hover-bg);
+  min-width: 104px;
+  max-width: 104px;
+  box-sizing: border-box;
 }
 
 .member-org-chart-toolbar-divider {

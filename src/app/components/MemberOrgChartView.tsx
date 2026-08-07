@@ -58,8 +58,8 @@ function OrgChartToolbarButton({
   label: string;
 }) {
   return (
-    <button type="button" className="member-org-chart-toolbar__item">
-      <Icon size={18} strokeWidth={1.5} />
+    <button type="button" className="member-info-toolbar-item member-org-chart-toolbar__item">
+      <Icon size={18} strokeWidth={1.5} style={{ color: "var(--text-muted)" }} />
       <span>{label}</span>
     </button>
   );
@@ -81,7 +81,7 @@ export function MemberOrgChartView({ member }: MemberOrgChartViewProps) {
   return (
     <div className="member-org-chart-view">
       <div className="member-org-chart-toolbar-shell">
-        <div className="member-org-chart-toolbar">
+        <div className="member-info-toolbar member-org-chart-toolbar">
           <OrgChartToolbarButton icon={Search} label="검색" />
           <OrgChartToolbarButton icon={SlidersHorizontal} label="조직도설정" />
           <OrgChartToolbarButton icon={FileSpreadsheet} label="엑셀 내보내기" />
