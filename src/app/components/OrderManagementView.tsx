@@ -843,20 +843,19 @@ export function OrderManagementView({ member }: { member: ProfileMember }) {
         <div className="order-mgmt-left">
           <OmMemberInfoPanel member={member} />
 
+          <div className="order-mgmt-order-toolbar-shell">
+            <div className="member-info-toolbar order-mgmt-order-toolbar">
+              <OmOrderToolbarButton icon={FilePlus} label="새로 주문하기" />
+              <OmOrderToolbarButton icon={FileText} label="거래명세서" />
+              <OmOrderToolbarButton icon={RotateCcw} label="반품등록" />
+              <OmOrderToolbarButton icon={Repeat2} label="교환등록" />
+              <OmOrderToolbarButton icon={CheckCircle2} label="주문서승인" />
+              <OmOrderToolbarButton icon={Ban} label="주문서취소" />
+            </div>
+          </div>
+
           <div className="order-mgmt-block-wrap order-mgmt-block-wrap--orders">
             <OmSectionTitle title="주문서 목록" />
-
-            <div className="order-mgmt-order-toolbar-shell">
-              <div className="member-info-toolbar order-mgmt-order-toolbar">
-                <OmOrderToolbarButton icon={FilePlus} label="새로 주문하기" />
-                <OmOrderToolbarButton icon={FileText} label="거래명세서" />
-                <OmOrderToolbarButton icon={RotateCcw} label="반품등록" />
-                <OmOrderToolbarButton icon={Repeat2} label="교환등록" />
-                <OmOrderToolbarButton icon={CheckCircle2} label="주문서승인" />
-                <OmOrderToolbarButton icon={Ban} label="주문서취소" />
-              </div>
-            </div>
-
             <section className="order-mgmt-section order-mgmt-section--orders">
 
             <div className="order-mgmt-toolbar order-mgmt-toolbar--orders">
