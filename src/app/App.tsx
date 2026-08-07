@@ -6,7 +6,7 @@ import {
   Pin, Clock, ChevronLeft, ChevronRight, RefreshCw,
   FilePlus, Save, Trash2, Award, Briefcase, MessageCircle, Key, Printer,
   Globe, Landmark, Contact, CheckCircle2, Phone, ExternalLink, Camera, X,
-  LayoutDashboard, UserPlus, Plus,
+  LayoutDashboard, Plus,
 } from "lucide-react";
 import { RecommenderSelectPopup } from "./components/RecommenderSelectPopup";
 import { RankAdjustPopup } from "./components/RankAdjustPopup";
@@ -4545,7 +4545,7 @@ function TopNav({
 type SidebarNavKey =
   | "home"
   | "dashboard"
-  | "member-register"
+  | "members"
   | "order-register"
   | "org-chart"
   | "add-shortcut";
@@ -4553,7 +4553,7 @@ type SidebarNavKey =
 const navItems: { icon: React.ComponentType<{ size?: number; style?: React.CSSProperties }>; label: string; key: SidebarNavKey }[] = [
   { icon: Home, label: "홈", key: "home" },
   { icon: LayoutDashboard, label: "대시보드", key: "dashboard" },
-  { icon: UserPlus, label: "회원등록", key: "member-register" },
+  { icon: Users, label: "회원관리", key: "members" },
   { icon: ShoppingCart, label: "주문서등록", key: "order-register" },
   { icon: GitFork, label: "조직도", key: "org-chart" },
   { icon: Plus, label: "바로가기 추가", key: "add-shortcut" },
@@ -4694,10 +4694,6 @@ export default function App() {
 
   const isHomeView = activeSidebarKey === "home";
   const isAddShortcutView = activeSidebarKey === "add-shortcut";
-  const sidebarActiveKey: SidebarNavKey =
-    activeSidebarKey === "home" && homeActiveTask === "dashboard"
-      ? "dashboard"
-      : activeSidebarKey;
 
   const memberListNavEnabled =
     !isHomeView &&
@@ -4705,6 +4701,13 @@ export default function App() {
     ((activeMainMenu === "회원관리" && (activeMemberSubMenu === "회원등록" || activeMemberSubMenu === "조직도인쇄")) ||
       (activeMainMenu === "주문관리" && activeOrderSubMenu !== "주문서승인"));
   const memberListOpen = memberListNavEnabled && listOpen;
+
+  const sidebarActiveKey: SidebarNavKey =
+    activeSidebarKey === "home" && homeActiveTask === "dashboard"
+      ? "dashboard"
+      : memberListOpen && memberListNavEnabled
+        ? "members"
+        : activeSidebarKey;
 
   const formColumnWidth = useMemo(() => {
     if (!memberListOpen || appContentWidth <= 0) {
@@ -4820,7 +4823,7 @@ export default function App() {
     setActiveMainMenu("회원관리");
     if (item === "회원등록") {
       setActiveTab("회원정보");
-      setActiveSidebarKey("member-register");
+      setActiveSidebarKey("members");
     } else if (item === "조직도인쇄") {
       setActiveSidebarKey("org-chart");
     } else if (item !== "조직도인쇄") {
@@ -4837,6 +4840,24 @@ export default function App() {
   }, [handleMemberSubMenuChange]);
 
   const navigateFromSidebar = useCallback((key: SidebarNavKey) => {
+    if (key === "members") {
+      setActiveSidebarKey("members");
+      const onMemberListScreen =
+        (activeMainMenu === "회원관리" && (activeMemberSubMenu === "회원등록" || activeMemberSubMenu === "조직도인쇄")) ||
+        (activeMainMenu === "주문관리" && activeOrderSubMenu !== "주문서승인");
+
+      if (onMemberListScreen) {
+        setListOpen((open) => !open);
+        return;
+      }
+
+      setActiveMainMenu("회원관리");
+      setActiveMemberSubMenu("회원등록");
+      setActiveTab("회원정보");
+      setListOpen(true);
+      return;
+    }
+
     setActiveSidebarKey(key);
 
     switch (key) {
@@ -4849,12 +4870,6 @@ export default function App() {
         setHomeOpenTasks((prev) => (prev.includes("dashboard") ? prev : [...prev, "dashboard"]));
         setHomeActiveTask("dashboard");
         setListOpen(false);
-        return;
-      case "member-register":
-        setActiveMainMenu("회원관리");
-        setActiveMemberSubMenu("회원등록");
-        setActiveTab("회원정보");
-        setListOpen(true);
         return;
       case "order-register":
         setActiveMainMenu("주문관리");
@@ -4870,7 +4885,7 @@ export default function App() {
         setListOpen(false);
         return;
     }
-  }, []);
+  }, [activeMainMenu, activeMemberSubMenu, activeOrderSubMenu]);
 
   const handleHomeDesktopSelect = useCallback(() => {
     setActiveSidebarKey("home");
@@ -4893,7 +4908,7 @@ export default function App() {
     }
 
     if (key === "member-register") {
-      navigateFromSidebar("member-register");
+      navigateFromSidebar("members");
       return;
     }
     if (key === "order-register") {
