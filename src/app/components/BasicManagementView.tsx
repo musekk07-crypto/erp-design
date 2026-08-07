@@ -1,7 +1,23 @@
 import React, { useState } from "react";
-import { ChevronDown, FilePlus, Save, Trash2 } from "lucide-react";
+import {
+  ChevronDown,
+  FilePlus,
+  Save,
+  Trash2,
+  Package,
+  Eye,
+  DollarSign,
+  Tags,
+  FileText,
+  Layers,
+  ShieldBan,
+  Image as ImageIcon,
+} from "lucide-react";
 
 const DETAIL_PANEL_PAD = 12;
+const DETAIL_CONTENT_GAP = 12;
+const FORM_COLUMN_WIDTH_MIN = 1000;
+const PRODUCT_IMAGE_PANEL_WIDTH = 280;
 
 const productCompositionRows = [
   {
@@ -35,6 +51,113 @@ const focusProps = {
   },
 };
 
+const labelCellClass = "member-form-cell member-form-cell--label";
+const fieldCellClass = "member-form-cell member-form-cell--field";
+const fieldWideCellClass = "member-form-cell member-form-cell--field member-form-cell--field-wide";
+const fieldColSpan = 3;
+
+function FormSection({
+  title,
+  icon,
+  subtitle,
+  headerExtra,
+  children,
+  bodyPadding,
+  clipBody = true,
+  className = "",
+}: {
+  title: string;
+  icon: React.ReactNode;
+  subtitle?: string;
+  headerExtra?: React.ReactNode;
+  children: React.ReactNode;
+  bodyPadding?: string;
+  clipBody?: boolean;
+  className?: string;
+}) {
+  const [open, setOpen] = useState(true);
+  return (
+    <div className={`rounded content-form-section ${className}`.trim()} style={{ background: "var(--surface-panel)", border: "1px solid var(--border)" }}>
+      <button
+        type="button"
+        onClick={() => setOpen((v) => !v)}
+        className="w-full flex items-center gap-2 px-4 transition-all duration-150"
+        style={{
+          cursor: "pointer",
+          background: "var(--content-form-section-header-bg, transparent)",
+          borderBottom: open ? "1px solid var(--content-form-section-header-border, var(--border))" : "none",
+        }}
+      >
+        <span className="content-form-section-icon shrink-0 inline-flex items-center justify-center" style={{ color: "var(--section-icon-color)" }}>
+          {icon}
+        </span>
+        <span className="text-sm font-semibold shrink-0" style={{ color: "var(--foreground)" }}>
+          {title}
+        </span>
+        {subtitle ? (
+          <span className="text-xs shrink-0" style={{ color: "var(--text-muted)" }}>
+            {subtitle}
+          </span>
+        ) : null}
+        <div className="flex-1" />
+        {headerExtra ? (
+          <div
+            className="member-form-section-header-extra shrink min-w-0"
+            onClick={(event) => event.stopPropagation()}
+            onKeyDown={(event) => event.stopPropagation()}
+          >
+            {headerExtra}
+          </div>
+        ) : null}
+        <ChevronDown
+          size={12}
+          style={{
+            color: "var(--muted-foreground)",
+            transform: open ? "rotate(0deg)" : "rotate(-90deg)",
+            transition: "transform 0.2s ease",
+            flexShrink: 0,
+          }}
+        />
+      </button>
+      <div style={{ display: "grid", gridTemplateRows: open ? "1fr" : "0fr", transition: "grid-template-rows 0.25s ease" }}>
+        <div style={{ overflow: clipBody ? "hidden" : "visible" }}>
+          <div className="content-form-body" style={bodyPadding ? { padding: bodyPadding } : undefined}>
+            {children}
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function ProductProfileHeader() {
+  return (
+    <div className="member-profile-header">
+      <div className="member-profile-header__identity">
+        <span className="member-profile-header__line">
+          <span className="content-member-header-text member-profile-header__name">*[오토십] 로얄 골든팩 & 다이어트 쉐이크 세트</span>
+          <span className="content-member-header-divider member-profile-header-divider" aria-hidden />
+          <span className="content-member-header-no">4000000007</span>
+        </span>
+      </div>
+      <span
+        style={{
+          fontSize: 12,
+          padding: "2px 10px",
+          background: "rgba(255, 255, 255, 0.72)",
+          color: "var(--required-color, #001673)",
+          border: "1px solid var(--content-form-section-header-border, #b8ddf0)",
+          borderRadius: 12,
+          whiteSpace: "nowrap",
+          fontWeight: 600,
+        }}
+      >
+        판매중
+      </span>
+    </div>
+  );
+}
+
 function BasicMgmtToolbar() {
   const items = [
     { label: "새로 만들기", icon: FilePlus },
@@ -54,81 +177,6 @@ function BasicMgmtToolbar() {
   );
 }
 
-function BasicMgmtSectionTitle({ title }: { title: string }) {
-  return (
-    <div className="order-mgmt-block-title basic-mgmt-section-title">
-      <span className="order-mgmt-section-bullet" aria-hidden />
-      <span>{title}</span>
-    </div>
-  );
-}
-
-function BasicMgmtFormSection({
-  title,
-  children,
-}: {
-  title: string;
-  children: React.ReactNode;
-}) {
-  const [open, setOpen] = useState(true);
-
-  return (
-    <div className="basic-mgmt-section">
-      <button type="button" className="basic-mgmt-section-header" onClick={() => setOpen((v) => !v)}>
-        <BasicMgmtSectionTitle title={title} />
-        <ChevronDown
-          size={12}
-          style={{
-            color: "var(--muted-foreground)",
-            transform: open ? "rotate(0deg)" : "rotate(-90deg)",
-            transition: "transform 0.2s ease",
-            flexShrink: 0,
-          }}
-        />
-      </button>
-      {open ? <div className="basic-mgmt-section-body">{children}</div> : null}
-    </div>
-  );
-}
-
-function Label({ children, required }: { children: React.ReactNode; required?: boolean }) {
-  return (
-    <span
-      style={{
-        fontSize: 12,
-        color: required ? "var(--required-color, #001673)" : "var(--form-label-color)",
-        fontWeight: 500,
-      }}
-    >
-      {required ? "* " : null}
-      {children}
-    </span>
-  );
-}
-
-function FormRow({
-  label,
-  required,
-  children,
-  colSpan = 1,
-}: {
-  label: React.ReactNode;
-  required?: boolean;
-  children: React.ReactNode;
-  colSpan?: number;
-}) {
-  return (
-    <tr>
-      <td className="member-form-cell member-form-cell--label">
-        <Label required={required}>{label}</Label>
-      </td>
-      <td className="member-form-cell member-form-cell--field" colSpan={colSpan}>
-        {children}
-      </td>
-    </tr>
-  );
-}
-
 function FormGrid({ children }: { children: React.ReactNode }) {
   return (
     <table className="content-form-grid content-form-grid--member member-form-grid--split" style={{ width: "100%", borderCollapse: "collapse" }}>
@@ -140,6 +188,61 @@ function FormGrid({ children }: { children: React.ReactNode }) {
       </colgroup>
       <tbody>{children}</tbody>
     </table>
+  );
+}
+
+function Label({ children, required }: { children: React.ReactNode; required?: boolean }) {
+  return (
+    <span style={{ fontSize: 12, color: required ? "var(--required-color, #001673)" : "var(--form-label-color)", fontWeight: 500 }}>
+      {required ? "* " : null}
+      {children}
+    </span>
+  );
+}
+
+function FormRow({
+  label,
+  required,
+  children,
+  colSpan = fieldColSpan,
+  dual,
+  label2,
+  required2,
+  children2,
+}: {
+  label: React.ReactNode;
+  required?: boolean;
+  children: React.ReactNode;
+  colSpan?: number;
+  dual?: boolean;
+  label2?: React.ReactNode;
+  required2?: boolean;
+  children2?: React.ReactNode;
+}) {
+  if (dual && label2 !== undefined && children2 !== undefined) {
+    return (
+      <tr className="form-row-dual">
+        <td className={labelCellClass}>
+          <Label required={required}>{label}</Label>
+        </td>
+        <td className={fieldCellClass}>{children}</td>
+        <td className={labelCellClass}>
+          <Label required={required2}>{label2}</Label>
+        </td>
+        <td className={fieldCellClass}>{children2}</td>
+      </tr>
+    );
+  }
+
+  return (
+    <tr>
+      <td className={labelCellClass}>
+        <Label required={required}>{label}</Label>
+      </td>
+      <td className={fieldCellClass} colSpan={colSpan}>
+        {children}
+      </td>
+    </tr>
   );
 }
 
@@ -204,141 +307,258 @@ export function BasicManagementView() {
           padding: DETAIL_PANEL_PAD,
         }}
       >
-        <div className="basic-mgmt-stack">
-          <BasicMgmtFormSection title="기본정보 및 이미지">
-            <FormGrid>
-              <FormRow label="제품코드">
-                <input readOnly defaultValue="4000000007" className="rounded px-2 py-1.5 outline-none" style={readonlyStyle} />
-              </FormRow>
-              <FormRow label="제품명" required>
-                <input
-                  defaultValue="*[오토십] 로얄 골든팩 & 다이어트 쉐이크 세트"
-                  className="rounded px-2 py-1.5 outline-none"
-                  style={inputStyle}
-                  {...focusProps}
-                />
-              </FormRow>
-            </FormGrid>
-          </BasicMgmtFormSection>
-
-          <BasicMgmtFormSection title="상품노출/품절/재고 설정">
-            <FormGrid>
-              <FormRow label="상품노출">
-                <select defaultValue="노출" className="rounded px-2 py-1.5 outline-none appearance-none" style={inputStyle} {...focusProps}>
-                  <option>노출</option>
-                  <option>비노출</option>
-                </select>
-              </FormRow>
-              <FormRow label="상태">
-                <select defaultValue="판매중" className="rounded px-2 py-1.5 outline-none appearance-none" style={inputStyle} {...focusProps}>
-                  <option>판매중</option>
-                  <option>품절</option>
-                </select>
-              </FormRow>
-              <FormRow label="노출기간">
-                <div className="flex items-center gap-2">
-                  <input type="date" defaultValue="2025-01-01" className="rounded px-2 py-1.5 outline-none" style={inputStyle} {...focusProps} />
-                  <span style={{ color: "var(--text-muted)" }}>~</span>
-                  <input type="date" defaultValue="2026-12-31" className="rounded px-2 py-1.5 outline-none" style={inputStyle} {...focusProps} />
-                </div>
-              </FormRow>
-              <tr>
-                <td className="member-form-cell member-form-cell--label">
-                  <Label>상태표기 아이콘</Label>
-                </td>
-                <td className="member-form-cell member-form-cell--field" colSpan={3}>
-                  <label className="inline-flex items-center gap-2" style={{ fontSize: 13 }}>
-                    <input type="checkbox" defaultChecked style={{ accentColor: "var(--checkbox-accent)" }} />
-                    사용
-                  </label>
-                </td>
-              </tr>
-            </FormGrid>
-          </BasicMgmtFormSection>
-
-          <BasicMgmtFormSection title="가격정보">
-            <FormGrid>
-              {[
-                ["포인트가", "118,800"],
-                ["판매가", "118,800"],
-                ["소비자가", "118,800"],
-                ["원가", "95,000"],
-                ["마진율", "20.0"],
-              ].map(([label, value]) => (
-                <FormRow key={label} label={label}>
-                  <input defaultValue={value} className="rounded px-2 py-1.5 outline-none text-right" style={inputStyle} {...focusProps} />
+        <div
+          className="flex items-start"
+          style={{
+            width: "100%",
+            minWidth: 0,
+            gap: DETAIL_CONTENT_GAP,
+            boxSizing: "border-box",
+          }}
+        >
+          <div
+            style={{
+              flex: "1 1 0",
+              minWidth: FORM_COLUMN_WIDTH_MIN,
+            }}
+          >
+            <FormSection
+              title="기본정보"
+              subtitle="2개 항목"
+              icon={<Package size={12} />}
+              className="content-form-section--member-form"
+              headerExtra={<ProductProfileHeader />}
+            >
+              <FormGrid>
+                <FormRow label="제품코드">
+                  <input readOnly defaultValue="4000000007" className="rounded px-2 py-1.5 outline-none" style={readonlyStyle} />
                 </FormRow>
-              ))}
-            </FormGrid>
-          </BasicMgmtFormSection>
-
-          <BasicMgmtFormSection title="상품구분 (내부분류)">
-            <FormGrid>
-              {[
-                ["대분류", "건강기능식품", true],
-                ["중분류", "오토십", true],
-                ["소분류", "세트상품", true],
-                ["브랜드", "로얄", false],
-              ].map(([label, value, required]) => (
-                <FormRow key={String(label)} label={String(label)} required={Boolean(required)}>
-                  <select defaultValue={String(value)} className="rounded px-2 py-1.5 outline-none appearance-none" style={inputStyle} {...focusProps}>
-                    <option>{value}</option>
-                  </select>
+                <FormRow label="제품명" required colSpan={3}>
+                  <input
+                    defaultValue="*[오토십] 로얄 골든팩 & 다이어트 쉐이크 세트"
+                    className="rounded px-2 py-1.5 outline-none"
+                    style={inputStyle}
+                    {...focusProps}
+                  />
                 </FormRow>
-              ))}
-            </FormGrid>
-          </BasicMgmtFormSection>
+              </FormGrid>
+            </FormSection>
 
-          <BasicMgmtFormSection title="세부정보">
-            <FormGrid>
-              <FormRow label="사용 거래처">
-                <select defaultValue="[1285915]알앤디피아" className="rounded px-2 py-1.5 outline-none appearance-none" style={inputStyle} {...focusProps}>
-                  <option>[1285915]알앤디피아</option>
-                </select>
-              </FormRow>
-              <FormRow label="모델명">
-                <input defaultValue="RG-DIET-SET" className="rounded px-2 py-1.5 outline-none" style={inputStyle} {...focusProps} />
-              </FormRow>
-              <FormRow label="제조사">
-                <input defaultValue="비아블" className="rounded px-2 py-1.5 outline-none" style={inputStyle} {...focusProps} />
-              </FormRow>
-              <FormRow label="제품규격(가로*세로*높이*무게)">
-                <div className="flex gap-2">
-                  {["120", "80", "60", "450"].map((value) => (
-                    <input key={value} defaultValue={value} className="rounded px-2 py-1.5 outline-none text-center" style={inputStyle} {...focusProps} />
-                  ))}
+            <FormSection title="상품노출/품절/재고 설정" subtitle="4개 항목" icon={<Eye size={12} />} className="content-form-section--member-form">
+              <div className="member-form-split">
+                <div className="member-form-split__group">
+                  <FormGrid>
+                    <FormRow
+                      label="상품노출"
+                      dual
+                      label2="상태"
+                      children2={
+                        <select defaultValue="판매중" className="rounded px-2 py-1.5 outline-none appearance-none" style={inputStyle} {...focusProps}>
+                          <option>판매중</option>
+                          <option>품절</option>
+                        </select>
+                      }
+                    >
+                      <select defaultValue="노출" className="rounded px-2 py-1.5 outline-none appearance-none" style={inputStyle} {...focusProps}>
+                        <option>노출</option>
+                        <option>비노출</option>
+                      </select>
+                    </FormRow>
+                    <FormRow label="노출기간" colSpan={3}>
+                      <div className="flex items-center gap-2">
+                        <input type="date" defaultValue="2025-01-01" className="rounded px-2 py-1.5 outline-none" style={inputStyle} {...focusProps} />
+                        <span style={{ color: "var(--text-muted)" }}>~</span>
+                        <input type="date" defaultValue="2026-12-31" className="rounded px-2 py-1.5 outline-none" style={inputStyle} {...focusProps} />
+                      </div>
+                    </FormRow>
+                  </FormGrid>
                 </div>
-              </FormRow>
-              <FormRow label="제품의 설명" colSpan={3}>
-                <input defaultValue="오토십 전용 골든팩 & 다이어트 쉐이크 세트 상품입니다." className="rounded px-2 py-1.5 outline-none" style={inputStyle} {...focusProps} />
-              </FormRow>
-              <tr>
-                <td className="member-form-cell member-form-cell--label">
-                  <Label>과세대상</Label>
-                </td>
-                <td className="member-form-cell member-form-cell--field" colSpan={3}>
-                  <label className="inline-flex items-center gap-2" style={{ fontSize: 13 }}>
-                    <input type="checkbox" defaultChecked style={{ accentColor: "var(--checkbox-accent)" }} />
-                    과세
-                  </label>
-                </td>
-              </tr>
-            </FormGrid>
-          </BasicMgmtFormSection>
+                <div className="member-form-split__group">
+                  <FormGrid>
+                    <tr>
+                      <td className={labelCellClass}>
+                        <Label>상태표기 아이콘</Label>
+                      </td>
+                      <td className={fieldWideCellClass} colSpan={fieldColSpan}>
+                        <label className="inline-flex items-center gap-2" style={{ fontSize: 13 }}>
+                          <input type="checkbox" defaultChecked style={{ accentColor: "var(--checkbox-accent)", width: 14, height: 14 }} />
+                          사용
+                        </label>
+                      </td>
+                    </tr>
+                  </FormGrid>
+                </div>
+              </div>
+            </FormSection>
 
-          <BasicMgmtFormSection title="상품 구성 관리">
-            <div className="basic-mgmt-table-group">
-              <BasicMgmtTable caption="묶음상품 구성" rows={productCompositionRows} />
-              <BasicMgmtTable caption="옵션상품 구성" rows={productCompositionRows} />
-            </div>
-          </BasicMgmtFormSection>
+            <FormSection title="가격정보" subtitle="5개 항목" icon={<DollarSign size={12} />} className="content-form-section--member-form">
+              <div className="member-form-split">
+                <div className="member-form-split__group">
+                  <FormGrid>
+                    {[
+                      ["포인트가", "118,800"],
+                      ["판매가", "118,800"],
+                      ["소비자가", "118,800"],
+                    ].map(([label, value]) => (
+                      <FormRow key={label} label={label}>
+                        <input defaultValue={value} className="rounded px-2 py-1.5 outline-none text-right" style={inputStyle} {...focusProps} />
+                      </FormRow>
+                    ))}
+                  </FormGrid>
+                </div>
+                <div className="member-form-split__group">
+                  <FormGrid>
+                    {[
+                      ["원가", "95,000"],
+                      ["마진율", "20.0"],
+                    ].map(([label, value]) => (
+                      <FormRow key={label} label={label}>
+                        <input defaultValue={value} className="rounded px-2 py-1.5 outline-none text-right" style={inputStyle} {...focusProps} />
+                      </FormRow>
+                    ))}
+                  </FormGrid>
+                </div>
+              </div>
+            </FormSection>
 
-          <BasicMgmtFormSection title="상품 판매 제약조건 관리">
-            <div className="basic-mgmt-table-group">
-              <BasicMgmtTable caption="등급별 상품 게시" rows={constraintRows} />
-              <BasicMgmtTable caption="직급별 상품 게시" rows={constraintRows} />
+            <FormSection title="상품구분 (내부분류)" subtitle="4개 항목" icon={<Tags size={12} />} className="content-form-section--member-form">
+              <div className="member-form-split">
+                <div className="member-form-split__group">
+                  <FormGrid>
+                    {[
+                      ["대분류", "건강기능식품", true],
+                      ["중분류", "오토십", true],
+                    ].map(([label, value, required]) => (
+                      <FormRow key={String(label)} label={String(label)} required={Boolean(required)}>
+                        <select defaultValue={String(value)} className="rounded px-2 py-1.5 outline-none appearance-none" style={inputStyle} {...focusProps}>
+                          <option>{value}</option>
+                        </select>
+                      </FormRow>
+                    ))}
+                  </FormGrid>
+                </div>
+                <div className="member-form-split__group">
+                  <FormGrid>
+                    {[
+                      ["소분류", "세트상품", true],
+                      ["브랜드", "로얄", false],
+                    ].map(([label, value, required]) => (
+                      <FormRow key={String(label)} label={String(label)} required={Boolean(required)}>
+                        <select defaultValue={String(value)} className="rounded px-2 py-1.5 outline-none appearance-none" style={inputStyle} {...focusProps}>
+                          <option>{value}</option>
+                        </select>
+                      </FormRow>
+                    ))}
+                  </FormGrid>
+                </div>
+              </div>
+            </FormSection>
+
+            <FormSection title="세부정보" subtitle="6개 항목" icon={<FileText size={12} />} className="content-form-section--member-form">
+              <div className="member-form-split">
+                <div className="member-form-split__group">
+                  <FormGrid>
+                    <FormRow label="사용 거래처" colSpan={3}>
+                      <select defaultValue="[1285915]알앤디피아" className="rounded px-2 py-1.5 outline-none appearance-none" style={inputStyle} {...focusProps}>
+                        <option>[1285915]알앤디피아</option>
+                      </select>
+                    </FormRow>
+                    <FormRow
+                      label="모델명"
+                      dual
+                      label2="제조사"
+                      children2={
+                        <input defaultValue="비아블" className="rounded px-2 py-1.5 outline-none" style={inputStyle} {...focusProps} />
+                      }
+                    >
+                      <input defaultValue="RG-DIET-SET" className="rounded px-2 py-1.5 outline-none" style={inputStyle} {...focusProps} />
+                    </FormRow>
+                    <FormRow label="제품규격(가로*세로*높이*무게)" colSpan={3}>
+                      <div className="flex gap-2">
+                        {["120", "80", "60", "450"].map((value) => (
+                          <input key={value} defaultValue={value} className="rounded px-2 py-1.5 outline-none text-center" style={inputStyle} {...focusProps} />
+                        ))}
+                      </div>
+                    </FormRow>
+                  </FormGrid>
+                </div>
+                <div className="member-form-split__group">
+                  <FormGrid>
+                    <FormRow label="제품의 설명" colSpan={3}>
+                      <input defaultValue="오토십 전용 골든팩 & 다이어트 쉐이크 세트 상품입니다." className="rounded px-2 py-1.5 outline-none" style={inputStyle} {...focusProps} />
+                    </FormRow>
+                    <tr>
+                      <td className={labelCellClass}>
+                        <Label>과세대상</Label>
+                      </td>
+                      <td className={fieldWideCellClass} colSpan={fieldColSpan}>
+                        <label className="inline-flex items-center gap-2" style={{ fontSize: 13 }}>
+                          <input type="checkbox" defaultChecked style={{ accentColor: "var(--checkbox-accent)", width: 14, height: 14 }} />
+                          과세
+                        </label>
+                      </td>
+                    </tr>
+                  </FormGrid>
+                </div>
+              </div>
+            </FormSection>
+
+            <FormSection title="상품 구성 관리" icon={<Layers size={12} />} className="content-form-section--member-form">
+              <div className="basic-mgmt-table-group">
+                <BasicMgmtTable caption="묶음상품 구성" rows={productCompositionRows} />
+                <BasicMgmtTable caption="옵션상품 구성" rows={productCompositionRows} />
+              </div>
+            </FormSection>
+
+            <FormSection title="상품 판매 제약조건 관리" icon={<ShieldBan size={12} />} className="content-form-section--member-form">
+              <div className="basic-mgmt-table-group">
+                <BasicMgmtTable caption="등급별 상품 게시" rows={constraintRows} />
+                <BasicMgmtTable caption="직급별 상품 게시" rows={constraintRows} />
+              </div>
+            </FormSection>
+
+            <div className="flex justify-end pt-2 pb-6">
+              <button
+                type="button"
+                className="rounded font-medium transition-all duration-200"
+                style={{ fontSize: 12, padding: "7px 13px", background: "var(--save-btn-bg, #001673)", color: "var(--on-accent)", border: "none" }}
+              >
+                등록/저장
+              </button>
             </div>
-          </BasicMgmtFormSection>
+          </div>
+
+          <div style={{ flex: `0 0 ${PRODUCT_IMAGE_PANEL_WIDTH}px`, width: PRODUCT_IMAGE_PANEL_WIDTH, overflow: "hidden" }}>
+            <FormSection title="상품 이미지" icon={<ImageIcon size={12} />} className="content-form-section--org" bodyPadding="16px 20px 12px">
+              <div
+                className="flex flex-col items-center justify-center gap-3"
+                style={{
+                  minHeight: 240,
+                  border: "1px dashed var(--border)",
+                  borderRadius: 6,
+                  background: "var(--surface-panel)",
+                  color: "var(--text-muted)",
+                  fontSize: 12,
+                }}
+              >
+                <ImageIcon size={32} strokeWidth={1.25} style={{ opacity: 0.45 }} />
+                <span>상품 이미지 미리보기</span>
+                <button
+                  type="button"
+                  style={{
+                    fontSize: 12,
+                    padding: "4px 12px",
+                    background: "var(--surface-button-muted)",
+                    color: "var(--foreground)",
+                    border: "1px solid var(--border)",
+                    borderRadius: 4,
+                  }}
+                >
+                  이미지 등록
+                </button>
+              </div>
+            </FormSection>
+          </div>
         </div>
       </div>
     </div>
