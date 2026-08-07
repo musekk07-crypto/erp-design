@@ -429,11 +429,16 @@
   width: 100%;
   background: var(--surface-panel);
   border: 1px solid var(--detail-tab-bar-line);
+  border-top: none;
 }
 
 .member-page-chrome-shell .detail-tab-bar {
   background: var(--surface-page);
   border-bottom: 1px solid var(--detail-tab-bar-line);
+}
+
+.member-page-chrome-shell .detail-tab {
+  border-top: none;
 }
 
 .member-page-chrome-shell .member-info-toolbar {
