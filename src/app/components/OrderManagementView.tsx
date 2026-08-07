@@ -711,25 +711,27 @@ function OmPaymentInfo() {
   );
 }
 
-function OmMemberInfoCell({
+function OmMemberInfoField({
   label,
   value,
-  mono = false,
-  colSpan,
+  highlight = false,
+  className = "",
 }: {
   label: string;
   value: string;
-  mono?: boolean;
-  colSpan?: number;
+  highlight?: boolean;
+  className?: string;
 }) {
   return (
-    <td className="order-mgmt-member-info-table__cell" colSpan={colSpan}>
-      <span className="order-mgmt-member-info-table__label">{label}:</span>
-      <span className={`order-mgmt-member-info-table__value${mono ? " order-mgmt-member-info-table__value--mono" : ""}`}>
-        {value}
-      </span>
-    </td>
+    <div className={`order-mgmt-member-info-field${className ? ` ${className}` : ""}`}>
+      <span className="order-mgmt-member-info-field__label">{label}</span>
+      <span className={`order-mgmt-member-info-field__value${highlight ? " is-highlight" : ""}`}>{value}</span>
+    </div>
   );
+}
+
+function OmMemberInfoDivider() {
+  return <div className="order-mgmt-member-info-divider" aria-hidden />;
 }
 
 function OmMemberInfoPanel({ member }: { member: ProfileMember }) {
@@ -743,20 +745,22 @@ function OmMemberInfoPanel({ member }: { member: ProfileMember }) {
     <div className="order-mgmt-block-wrap">
       <OmMemberInfoTitle name={member.name} memberNo={member.no} />
       <section className="order-mgmt-member-info">
-        <table className="order-mgmt-member-info-table">
-          <tbody>
-            <tr>
-              <OmMemberInfoCell label="회원번호" value={member.no} mono />
-              <OmMemberInfoCell label="회원명" value={member.name} />
-              <OmMemberInfoCell label="주민등록번호" value={member.ssn} />
-              <OmMemberInfoCell label="전화번호" value={member.phone} />
-            </tr>
-            <tr>
-              <OmMemberInfoCell label="주소지" value={address} colSpan={3} />
-              <OmMemberInfoCell label="센터" value={centerCode} />
-            </tr>
-          </tbody>
-        </table>
+        <div className="order-mgmt-member-info-rows">
+          <div className="order-mgmt-member-info-row">
+            <OmMemberInfoField label="회원번호" value={member.no} highlight />
+            <OmMemberInfoDivider />
+            <OmMemberInfoField label="회원명" value={member.name} />
+            <OmMemberInfoDivider />
+            <OmMemberInfoField label="주민등록번호" value={member.ssn} />
+            <OmMemberInfoDivider />
+            <OmMemberInfoField label="전화번호" value={member.phone} />
+          </div>
+          <div className="order-mgmt-member-info-row">
+            <OmMemberInfoField label="주소지" value={address} className="order-mgmt-member-info-field--wide" />
+            <OmMemberInfoDivider />
+            <OmMemberInfoField label="센터" value={centerCode} />
+          </div>
+        </div>
       </section>
     </div>
   );
