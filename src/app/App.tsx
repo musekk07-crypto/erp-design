@@ -4377,7 +4377,8 @@ function MemberPageChrome({ activeTab, onTabChange, onToolbarAction }: MemberPag
         </div>
       </div>
       {isMemberInfoTab && (
-        <div className="member-info-toolbar">
+        <div className="member-page-chrome-panel">
+          <div className="member-info-toolbar">
           {memberInfoToolbarItems.map((item, i) =>
             item === null ? (
               <div key={`sep-${i}`} className="member-info-toolbar-separator" aria-hidden />
@@ -4388,6 +4389,7 @@ function MemberPageChrome({ activeTab, onTabChange, onToolbarAction }: MemberPag
               </button>
             ),
           )}
+        </div>
         </div>
       )}
     </div>

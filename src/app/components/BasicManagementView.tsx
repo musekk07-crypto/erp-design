@@ -128,12 +128,14 @@ function BasicMgmtToolbar() {
   const items = ["새로 만들기", "저장", "삭제"] as const;
 
   return (
-    <div className="member-info-toolbar">
+    <div className="member-page-chrome-panel member-page-chrome-panel--standalone">
+      <div className="member-info-toolbar">
       {items.map((label) => (
         <button key={label} type="button" className="member-info-toolbar-item">
           <span>{label}</span>
         </button>
       ))}
+      </div>
     </div>
   );
 }

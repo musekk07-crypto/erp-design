@@ -424,6 +424,20 @@
   padding-bottom: 8px;
 }
 
+.member-page-chrome-panel {
+  box-sizing: border-box;
+  width: 100%;
+  background: var(--surface-panel);
+  border: 1px solid var(--detail-tab-bar-line);
+  border-top: none;
+  margin-top: -1px;
+}
+
+.member-page-chrome-panel--standalone {
+  border-top: 1px solid var(--detail-tab-bar-line);
+  margin-top: 0;
+}
+
 .detail-tab-bar {
   display: flex;
   align-items: flex-end;
@@ -532,10 +546,9 @@ span.member-form-action-chip {
   flex-wrap: wrap;
   gap: 2px;
   padding: 6px 8px 8px;
-  background: var(--surface-panel);
-  border: 1px solid var(--detail-tab-bar-line);
-  border-top: none;
-  margin-top: -1px;
+  background: transparent;
+  border: none;
+  margin: 0;
 }
 
 .member-info-toolbar-item {
