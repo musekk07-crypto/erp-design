@@ -4848,9 +4848,8 @@ textarea.mm2-name-box:focus {
   box-sizing: border-box;
   flex-shrink: 0;
   width: fit-content;
-  max-width: calc(100% - 12px);
-  margin-top: 10px;
-  margin-right: 12px;
+  max-width: calc(100% - 24px);
+  margin: 10px auto 0;
   background: var(--surface-panel);
   border: 1px solid var(--detail-tab-bar-line);
 }
