@@ -792,14 +792,16 @@ span.member-form-action-chip {
   display: flex;
   align-items: center;
   gap: 8px;
-  width: 100%;
+  width: auto;
   max-width: 100%;
   min-width: 0;
+  margin-left: auto;
 }
 
 .member-profile-header__summary-name {
-  flex: 1 1 auto;
+  flex: 0 1 auto;
   min-width: 0;
+  max-width: 420px;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
@@ -830,9 +832,26 @@ span.member-form-action-chip {
 }
 
 .member-form-section-header-extra--grow .member-profile-header {
+  width: auto;
   max-width: 100%;
-  width: 100%;
+  margin-left: auto;
   justify-content: flex-end;
+}
+
+.member-form-section-header-extra--grow .member-profile-header__identity {
+  flex: 0 1 auto;
+  min-width: 0;
+}
+
+.member-form-section-header-extra--grow .member-profile-header__line {
+  width: auto;
+  max-width: 100%;
+}
+
+.member-form-section-header-extra--grow .member-profile-header__line .member-profile-header__name,
+.member-form-section-header-extra--grow .member-profile-header__line .content-member-header-text:not(.content-member-header-no) {
+  flex: 0 1 auto;
+  max-width: 320px;
 }
 
 .app-content .content-form-section > button .member-form-section-header-extra--grow .member-profile-header {
