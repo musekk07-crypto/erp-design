@@ -4799,13 +4799,8 @@ export default function App() {
 
   const handleMainMenuChange = useCallback((menu: string) => {
     setActiveMainMenu(menu);
-    const keepsMemberListNav =
-      (menu === "주문관리" && activeOrderSubMenu !== "주문서승인") ||
-      (menu === "회원관리" && (activeMemberSubMenu === "회원등록" || activeMemberSubMenu === "조직도인쇄"));
-    if (!keepsMemberListNav) {
-      setListOpen(false);
-    }
-  }, [activeMemberSubMenu, activeOrderSubMenu]);
+    setListOpen(false);
+  }, []);
 
   const handleOrderSubMenuChange = useCallback((item: string) => {
     setActiveOrderSubMenu(item);
@@ -4813,9 +4808,7 @@ export default function App() {
     if (item === "주문서등록") {
       setActiveSidebarKey("order-register");
     }
-    if (item === "주문서승인") {
-      setListOpen(false);
-    }
+    setListOpen(false);
   }, []);
 
   const handleMemberSubMenuChange = useCallback((item: string) => {
@@ -4826,9 +4819,8 @@ export default function App() {
       setActiveSidebarKey("members");
     } else if (item === "조직도인쇄") {
       setActiveSidebarKey("org-chart");
-    } else if (item !== "조직도인쇄") {
-      setListOpen(false);
     }
+    setListOpen(false);
   }, []);
 
   const handleNavigateToOrderManagement = useCallback(() => {
@@ -4842,11 +4834,12 @@ export default function App() {
   const navigateFromSidebar = useCallback((key: SidebarNavKey) => {
     if (key === "members") {
       setActiveSidebarKey("members");
-      const onMemberListScreen =
-        (activeMainMenu === "회원관리" && (activeMemberSubMenu === "회원등록" || activeMemberSubMenu === "조직도인쇄")) ||
-        (activeMainMenu === "주문관리" && activeOrderSubMenu !== "주문서승인");
+      const onMemberInfoScreen =
+        activeMainMenu === "회원관리" &&
+        activeMemberSubMenu === "회원등록" &&
+        activeTab === "회원정보";
 
-      if (onMemberListScreen) {
+      if (onMemberInfoScreen) {
         setListOpen((open) => !open);
         return;
       }
@@ -4854,7 +4847,7 @@ export default function App() {
       setActiveMainMenu("회원관리");
       setActiveMemberSubMenu("회원등록");
       setActiveTab("회원정보");
-      setListOpen(true);
+      setListOpen(false);
       return;
     }
 
@@ -4874,18 +4867,18 @@ export default function App() {
       case "order-register":
         setActiveMainMenu("주문관리");
         setActiveOrderSubMenu("주문서등록");
-        setListOpen(true);
+        setListOpen(false);
         return;
       case "org-chart":
         setActiveMainMenu("회원관리");
         setActiveMemberSubMenu("조직도인쇄");
-        setListOpen(true);
+        setListOpen(false);
         return;
       case "add-shortcut":
         setListOpen(false);
         return;
     }
-  }, [activeMainMenu, activeMemberSubMenu, activeOrderSubMenu]);
+  }, [activeMainMenu, activeMemberSubMenu, activeTab]);
 
   const handleHomeDesktopSelect = useCallback(() => {
     setActiveSidebarKey("home");
