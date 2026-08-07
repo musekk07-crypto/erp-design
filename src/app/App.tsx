@@ -4696,18 +4696,9 @@ function Sidebar({ activeNavKey, onNavChange, theme, onThemeChange }: SidebarPro
             <button
               key={t.key}
               onClick={() => onThemeChange(t.key)}
-              className="group relative"
-              style={{
-                width: 18,
-                height: 18,
-                borderRadius: "50%",
-                background: t.color,
-                border: theme === t.key ? "2px solid var(--accent-primary)" : "2px solid transparent",
-                outline: theme === t.key ? "2px solid var(--accent-border)" : "none",
-                cursor: "pointer",
-                transition: "all 0.15s",
-                flexShrink: 0,
-              }}
+              className={`sidebar-theme-swatch group relative${theme === t.key ? " is-active" : ""}`}
+              aria-label={t.label}
+              style={{ background: t.color }}
             >
               <span
                 className="absolute left-6 px-2 py-1 rounded whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity duration-200 pointer-events-none z-50"

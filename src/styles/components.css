@@ -5405,6 +5405,31 @@ textarea.mm2-name-box:focus {
 }
 
 /* 앱 사이드바 */
+:root,
+[data-theme="deep-purple"] {
+  --sidebar-icon-color: rgba(255, 255, 255, 0.72);
+  --sidebar-icon-hover-color: #ffffff;
+  --sidebar-icon-active-color: #ffffff;
+  --sidebar-icon-active-bg: #0284c7;
+  --sidebar-icon-hover-ring: rgba(255, 255, 255, 0.24);
+  --sidebar-rail-icon-color: #64748b;
+  --sidebar-rail-icon-hover-color: #0284c7;
+  --sidebar-rail-hover-ring: rgba(0, 0, 0, 0.14);
+  --sidebar-theme-ring: #ffffff;
+}
+
+[data-theme="dark"] {
+  --sidebar-icon-color: rgba(255, 255, 255, 0.58);
+  --sidebar-icon-hover-color: #ffffff;
+  --sidebar-icon-active-color: #ffffff;
+  --sidebar-icon-active-bg: #0284c7;
+  --sidebar-icon-hover-ring: rgba(255, 255, 255, 0.22);
+  --sidebar-rail-icon-color: rgba(255, 255, 255, 0.58);
+  --sidebar-rail-icon-hover-color: #5ecfff;
+  --sidebar-rail-hover-ring: rgba(255, 255, 255, 0.22);
+  --sidebar-theme-ring: rgba(255, 255, 255, 0.88);
+}
+
 .sidebar-nav-item {
   display: inline-flex;
   align-items: center;
@@ -5420,25 +5445,26 @@ textarea.mm2-name-box:focus {
 }
 
 .sidebar-nav-item-icon {
-  color: var(--sidebar-foreground);
+  color: var(--sidebar-icon-color);
   transition: color 0.15s ease;
 }
 
 .sidebar-nav-item.is-active {
-  background: var(--sidebar-item-active-bg);
-  border-color: var(--sidebar-item-active-border, var(--border));
+  background: var(--sidebar-icon-active-bg);
+  border-color: transparent;
 }
 
 .sidebar-nav-item.is-active .sidebar-nav-item-icon {
-  color: var(--sidebar-item-active-fg, var(--accent-primary));
+  color: var(--sidebar-icon-active-color);
 }
 
 .sidebar-nav-item:hover:not(.is-active) {
-  background: rgba(0, 0, 0, 0.04);
+  background: transparent;
+  border-color: var(--sidebar-icon-hover-ring);
 }
 
-[data-theme="deep-purple"] .sidebar-nav-item:hover:not(.is-active) {
-  background: rgba(255, 255, 255, 0.08);
+.sidebar-nav-item:hover:not(.is-active) .sidebar-nav-item-icon {
+  color: var(--sidebar-icon-hover-color);
 }
 
 .sidebar-nav-tooltip {
@@ -5494,32 +5520,31 @@ textarea.mm2-name-box:focus {
 }
 
 .sidebar-members-toggle-icon {
-  color: #64748b;
+  color: var(--sidebar-rail-icon-color);
   transition: color 0.15s ease;
 }
 
 .sidebar-members-toggle:hover {
-  border-color: rgba(0, 0, 0, 0.14);
+  border-color: var(--sidebar-rail-hover-ring);
 }
 
 .sidebar-members-toggle:hover .sidebar-members-toggle-icon {
-  color: var(--accent-primary, #0284c7);
+  color: var(--sidebar-rail-icon-hover-color);
 }
 
-[data-theme="dark"] .sidebar-members-toggle-icon {
-  color: rgba(255, 255, 255, 0.55);
+.sidebar-theme-swatch {
+  position: relative;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  border: 2px solid transparent;
+  cursor: pointer;
+  transition: border-color 0.15s ease;
+  flex-shrink: 0;
 }
 
-[data-theme="dark"] .sidebar-members-toggle:hover {
-  border-color: rgba(255, 255, 255, 0.18);
-}
-
-[data-theme="dark"] .sidebar-members-toggle:hover .sidebar-members-toggle-icon {
-  color: #5ecfff;
-}
-
-[data-theme="dark"] .sidebar-nav-item:hover:not(.is-active) {
-  background: rgba(255, 255, 255, 0.06);
+.sidebar-theme-swatch.is-active {
+  border-color: var(--sidebar-theme-ring);
 }
 
 /* 홈 바탕화면 */
