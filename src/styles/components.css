@@ -5466,8 +5466,8 @@ textarea.mm2-name-box:focus {
   align-items: center;
   flex-shrink: 0;
   height: 100%;
-  background: #0284c7;
-  border-right: 1px solid #0369a1;
+  background: #666666;
+  border-right: 1px solid #555555;
 }
 
 .sidebar-rail-slot,
@@ -5478,8 +5478,8 @@ textarea.mm2-name-box:focus {
 }
 
 [data-theme="dark"] .app-members-rail {
-  background: #0284c7;
-  border-right-color: #0369a1;
+  background: #666666;
+  border-right-color: #555555;
 }
 
 .app-members-rail .sidebar-members-toggle-icon {
