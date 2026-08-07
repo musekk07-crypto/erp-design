@@ -429,8 +429,8 @@
   align-items: flex-end;
   padding: 0;
   min-height: 0;
-  background: var(--detail-tab-bar-bg);
-  border-bottom: 1px solid var(--detail-tab-bar-line);
+  background: transparent;
+  border-bottom: none;
 }
 
 .detail-tab-list {
