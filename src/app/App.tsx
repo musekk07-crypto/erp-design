@@ -31,6 +31,7 @@ type SortDir = "asc" | "desc";
 
 // 레이아웃 고정 너비 — 회원목록 확장 시 컨텐츠 찌그러짐 방지
 const SIDEBAR_WIDTH = 48;
+const MEMBERS_RAIL_WIDTH = 48;
 const MEMBER_LIST_MIN_WIDTH = 320;
 const MEMBER_LIST_PAGE_SIZE = 15;
 const FORM_COLUMN_WIDTH_MIN = 1000;
@@ -4571,8 +4572,6 @@ const themes: { key: Theme; color: string; label: string }[] = [
 
 interface SidebarProps {
   activeNavKey: SidebarNavKey;
-  showMembersNav: boolean;
-  memberListOpen: boolean;
   onNavChange: (key: SidebarNavKey) => void;
   theme: Theme;
   onThemeChange: (t: Theme) => void;
@@ -4625,10 +4624,26 @@ function SidebarMembersToggle({
   );
 }
 
-function Sidebar({ activeNavKey, showMembersNav, memberListOpen, onNavChange, theme, onThemeChange }: SidebarProps) {
+function MembersRailSidebar({
+  memberListOpen,
+  onToggle,
+}: {
+  memberListOpen: boolean;
+  onToggle: () => void;
+}) {
+  return (
+    <aside
+      className="app-members-rail"
+      aria-label="회원목록 패널"
+      style={{ width: MEMBERS_RAIL_WIDTH, minWidth: MEMBERS_RAIL_WIDTH }}
+    >
+      <SidebarMembersToggle isOpen={memberListOpen} onClick={onToggle} />
+    </aside>
+  );
+}
+
+function Sidebar({ activeNavKey, onNavChange, theme, onThemeChange }: SidebarProps) {
   const primaryNavItems = navItems.filter((item) => item.key !== "members");
-  const leadingNavItems = primaryNavItems.slice(0, 2);
-  const trailingNavItems = primaryNavItems.slice(2);
 
   return (
     <div
@@ -4636,29 +4651,7 @@ function Sidebar({ activeNavKey, showMembersNav, memberListOpen, onNavChange, th
       style={{ width: SIDEBAR_WIDTH, minWidth: SIDEBAR_WIDTH, height: "100%", background: "var(--sidebar-bg, #eceef2)", borderRight: "1px solid var(--border)", flexShrink: 0 }}
     >
       <div className="flex flex-col items-center gap-1 flex-1">
-        {leadingNavItems.map((item) => (
-          <SidebarNavButton
-            key={item.key}
-            label={item.label}
-            isActive={activeNavKey === item.key}
-            onClick={() => onNavChange(item.key)}
-          >
-            <item.icon size={18} className="sidebar-nav-item-icon" />
-          </SidebarNavButton>
-        ))}
-
-        {showMembersNav && (
-          <>
-            <div className="sidebar-members-toggle-divider" aria-hidden />
-            <SidebarMembersToggle
-              isOpen={memberListOpen}
-              onClick={() => onNavChange("members")}
-            />
-            <div className="sidebar-members-toggle-divider" aria-hidden />
-          </>
-        )}
-
-        {trailingNavItems.map((item) => (
+        {primaryNavItems.map((item) => (
           <SidebarNavButton
             key={item.key}
             label={item.label}
@@ -4774,9 +4767,7 @@ export default function App() {
   const sidebarActiveKey: SidebarNavKey =
     activeSidebarKey === "home" && homeActiveTask === "dashboard"
       ? "dashboard"
-      : showMembersNav && memberListOpen
-        ? "members"
-        : activeSidebarKey;
+      : activeSidebarKey;
 
   const formColumnWidth = useMemo(() => {
     if (!memberListOpen || appContentWidth <= 0) {
@@ -5016,7 +5007,7 @@ export default function App() {
     setIsListResizing(true);
     function onMove(ev: MouseEvent) {
       if (!resizing.current) return;
-      const sidebarOffset = SIDEBAR_WIDTH;
+      const sidebarOffset = SIDEBAR_WIDTH + (showMembersNav ? MEMBERS_RAIL_WIDTH : 0);
       const newWidth = ev.clientX - sidebarOffset;
       setListWidth(clampMemberListWidth(newWidth));
     }
@@ -5028,7 +5019,7 @@ export default function App() {
     }
     window.addEventListener("mousemove", onMove);
     window.addEventListener("mouseup", onUp);
-  }, []);
+  }, [showMembersNav]);
 
   return (
     <div
@@ -5059,12 +5050,17 @@ export default function App() {
         >
         <Sidebar
           activeNavKey={sidebarActiveKey}
-          showMembersNav={showMembersNav}
-          memberListOpen={memberListOpen}
           onNavChange={navigateFromSidebar}
           theme={theme}
           onThemeChange={setTheme}
         />
+
+        {showMembersNav && (
+          <MembersRailSidebar
+            memberListOpen={memberListOpen}
+            onToggle={() => navigateFromSidebar("members")}
+          />
+        )}
 
         <div
           ref={appContentRef}

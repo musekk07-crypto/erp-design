@@ -5456,11 +5456,21 @@ textarea.mm2-name-box:focus {
   opacity: 1;
 }
 
-.sidebar-members-toggle-divider {
-  width: 24px;
-  height: 1px;
-  margin: 4px 0;
-  background: rgba(0, 22, 115, 0.18);
+.app-members-rail {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  flex-shrink: 0;
+  height: 100%;
+  padding: 16px 0;
+  background: linear-gradient(180deg, rgba(0, 22, 115, 0.06) 0%, rgba(0, 22, 115, 0.02) 100%);
+  border-right: 1px solid var(--border);
+  box-shadow: inset 1px 0 0 rgba(255, 255, 255, 0.65);
+}
+
+[data-theme="dark"] .app-members-rail {
+  background: linear-gradient(180deg, rgba(94, 207, 255, 0.08) 0%, rgba(94, 207, 255, 0.03) 100%);
+  box-shadow: inset 1px 0 0 rgba(255, 255, 255, 0.04);
 }
 
 .sidebar-members-toggle {
@@ -5500,10 +5510,6 @@ textarea.mm2-name-box:focus {
 
 [data-theme="dark"] .sidebar-nav-item:hover:not(.is-active) {
   background: rgba(255, 255, 255, 0.06);
-}
-
-[data-theme="dark"] .sidebar-members-toggle-divider {
-  background: rgba(94, 207, 255, 0.24);
 }
 
 [data-theme="dark"] .sidebar-members-toggle {
