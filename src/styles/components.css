@@ -5413,7 +5413,7 @@ textarea.mm2-name-box:focus {
   height: 40px;
   padding: 0;
   border: 1px solid transparent;
-  border-radius: 8px;
+  border-radius: 50%;
   background: transparent;
   cursor: pointer;
   transition: background 0.15s ease, border-color 0.15s ease, color 0.15s ease;
@@ -5486,7 +5486,7 @@ textarea.mm2-name-box:focus {
   height: 40px;
   padding: 0;
   border: 1px solid transparent;
-  border-radius: 8px;
+  border-radius: 50%;
   background: transparent;
   box-shadow: none;
   cursor: pointer;
