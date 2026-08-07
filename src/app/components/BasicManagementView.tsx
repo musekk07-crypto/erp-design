@@ -1,18 +1,5 @@
 import React, { useState } from "react";
-import {
-  ChevronDown,
-  FilePlus,
-  Save,
-  Trash2,
-  Package,
-  Eye,
-  DollarSign,
-  Tags,
-  FileText,
-  Layers,
-  ShieldBan,
-  Image as ImageIcon,
-} from "lucide-react";
+import { ChevronDown } from "lucide-react";
 
 const DETAIL_PANEL_PAD = 12;
 const DETAIL_CONTENT_GAP = 12;
@@ -58,7 +45,6 @@ const fieldColSpan = 3;
 
 function FormSection({
   title,
-  icon,
   subtitle,
   headerExtra,
   children,
@@ -67,7 +53,6 @@ function FormSection({
   className = "",
 }: {
   title: string;
-  icon: React.ReactNode;
   subtitle?: string;
   headerExtra?: React.ReactNode;
   children: React.ReactNode;
@@ -88,9 +73,6 @@ function FormSection({
           borderBottom: open ? "1px solid var(--content-form-section-header-border, var(--border))" : "none",
         }}
       >
-        <span className="content-form-section-icon shrink-0 inline-flex items-center justify-center" style={{ color: "var(--section-icon-color)" }}>
-          {icon}
-        </span>
         <span className="text-sm font-semibold shrink-0" style={{ color: "var(--foreground)" }}>
           {title}
         </span>
@@ -159,18 +141,13 @@ function ProductProfileHeader() {
 }
 
 function BasicMgmtToolbar() {
-  const items = [
-    { label: "새로 만들기", icon: FilePlus },
-    { label: "저장", icon: Save },
-    { label: "삭제", icon: Trash2 },
-  ] as const;
+  const items = ["새로 만들기", "저장", "삭제"] as const;
 
   return (
     <div className="member-info-toolbar">
-      {items.map((item) => (
-        <button key={item.label} type="button" className="member-info-toolbar-item">
-          <item.icon size={18} strokeWidth={1.5} style={{ color: "var(--text-muted)" }} />
-          <span>{item.label}</span>
+      {items.map((label) => (
+        <button key={label} type="button" className="member-info-toolbar-item">
+          <span>{label}</span>
         </button>
       ))}
     </div>
@@ -325,7 +302,6 @@ export function BasicManagementView() {
             <FormSection
               title="기본정보"
               subtitle="2개 항목"
-              icon={<Package size={12} />}
               className="content-form-section--member-form"
               headerExtra={<ProductProfileHeader />}
             >
@@ -344,7 +320,7 @@ export function BasicManagementView() {
               </FormGrid>
             </FormSection>
 
-            <FormSection title="상품노출/품절/재고 설정" subtitle="4개 항목" icon={<Eye size={12} />} className="content-form-section--member-form">
+            <FormSection title="상품노출/품절/재고 설정" subtitle="4개 항목" className="content-form-section--member-form">
               <div className="member-form-split">
                 <div className="member-form-split__group">
                   <FormGrid>
@@ -391,7 +367,7 @@ export function BasicManagementView() {
               </div>
             </FormSection>
 
-            <FormSection title="가격정보" subtitle="5개 항목" icon={<DollarSign size={12} />} className="content-form-section--member-form">
+            <FormSection title="가격정보" subtitle="5개 항목" className="content-form-section--member-form">
               <div className="member-form-split">
                 <div className="member-form-split__group">
                   <FormGrid>
@@ -421,7 +397,7 @@ export function BasicManagementView() {
               </div>
             </FormSection>
 
-            <FormSection title="상품구분 (내부분류)" subtitle="4개 항목" icon={<Tags size={12} />} className="content-form-section--member-form">
+            <FormSection title="상품구분 (내부분류)" subtitle="4개 항목" className="content-form-section--member-form">
               <div className="member-form-split">
                 <div className="member-form-split__group">
                   <FormGrid>
@@ -454,7 +430,7 @@ export function BasicManagementView() {
               </div>
             </FormSection>
 
-            <FormSection title="세부정보" subtitle="6개 항목" icon={<FileText size={12} />} className="content-form-section--member-form">
+            <FormSection title="세부정보" subtitle="6개 항목" className="content-form-section--member-form">
               <div className="member-form-split">
                 <div className="member-form-split__group">
                   <FormGrid>
@@ -503,14 +479,14 @@ export function BasicManagementView() {
               </div>
             </FormSection>
 
-            <FormSection title="상품 구성 관리" icon={<Layers size={12} />} className="content-form-section--member-form">
+            <FormSection title="상품 구성 관리" className="content-form-section--member-form">
               <div className="basic-mgmt-table-group">
                 <BasicMgmtTable caption="묶음상품 구성" rows={productCompositionRows} />
                 <BasicMgmtTable caption="옵션상품 구성" rows={productCompositionRows} />
               </div>
             </FormSection>
 
-            <FormSection title="상품 판매 제약조건 관리" icon={<ShieldBan size={12} />} className="content-form-section--member-form">
+            <FormSection title="상품 판매 제약조건 관리" className="content-form-section--member-form">
               <div className="basic-mgmt-table-group">
                 <BasicMgmtTable caption="등급별 상품 게시" rows={constraintRows} />
                 <BasicMgmtTable caption="직급별 상품 게시" rows={constraintRows} />
@@ -519,14 +495,13 @@ export function BasicManagementView() {
 
             <div className="flex justify-end pt-2 pb-6">
               <button type="button" className="order-mgmt-save-btn">
-                <Save size={14} />
                 등록/저장
               </button>
             </div>
           </div>
 
           <div style={{ flex: `0 0 ${PRODUCT_IMAGE_PANEL_WIDTH}px`, width: PRODUCT_IMAGE_PANEL_WIDTH, overflow: "hidden" }}>
-            <FormSection title="상품 이미지" icon={<ImageIcon size={12} />} className="content-form-section--org" bodyPadding="16px 20px 12px">
+            <FormSection title="상품 이미지" className="content-form-section--org" bodyPadding="16px 20px 12px">
               <div
                 className="flex flex-col items-center justify-center gap-3"
                 style={{
@@ -538,7 +513,6 @@ export function BasicManagementView() {
                   fontSize: 12,
                 }}
               >
-                <ImageIcon size={32} strokeWidth={1.25} style={{ opacity: 0.45 }} />
                 <span>상품 이미지 미리보기</span>
                 <button
                   type="button"
