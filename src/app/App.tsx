@@ -4345,6 +4345,15 @@ interface MemberPageChromeProps {
   onToolbarAction?: (label: string) => void;
 }
 
+function MainMenuPlaceholder({ title }: { title: string }) {
+  return (
+    <div className="home-page-placeholder home-page-placeholder--embedded" style={{ flex: 1, minHeight: 0, width: "100%" }}>
+      <span className="home-page-placeholder__title">{title}</span>
+      <span className="home-page-placeholder__desc">화면 준비 중입니다.</span>
+    </div>
+  );
+}
+
 function MemberPageChrome({ activeTab, onTabChange, onToolbarAction }: MemberPageChromeProps) {
   const isMemberInfoTab = activeTab === "회원정보";
 
@@ -4750,6 +4759,7 @@ export default function App() {
 
   const isHomeView = activeSidebarKey === "home" && activeMainMenu === "회원관리";
   const isBasicManagement = activeMainMenu === "기초관리";
+  const isMenuPlaceholder = activeMainMenu === "수당관리" || activeMainMenu === "출고관리";
 
   const memberListNavEnabled =
     !isHomeView &&
@@ -5141,6 +5151,8 @@ export default function App() {
             />
           ) : isBasicManagement ? (
             <BasicManagementView />
+          ) : isMenuPlaceholder ? (
+            <MainMenuPlaceholder title={activeMainMenu} />
           ) : isOrderManagement ? (
             activeOrderSubMenu === "주문서등록" ? (
               <OrderManagementView member={getMemberById(selectedMember)} />
