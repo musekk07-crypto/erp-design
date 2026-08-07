@@ -4746,9 +4746,7 @@ export default function App() {
   const [activeOrderSubMenu, setActiveOrderSubMenu] = useState("주문서등록");
   const [theme, setTheme] = useState<Theme>("deep-purple");
   const [historyRailExpanded, setHistoryRailExpanded] = useState(true);
-  const [pinnedPages, setPinnedPages] = useState<PageHistoryItem[]>([
-    { id: "수당내역-1", screen: "수당내역", memberId: 1, memberNo: "N26431021", memberName: "한미채" },
-  ]);
+  const [pinnedPages, setPinnedPages] = useState<PageHistoryItem[]>([]);
   const [recentPages, setRecentPages] = useState<PageHistoryItem[]>([
     { id: "회원정보-1", screen: "회원정보", memberId: 1, memberNo: "N26431021", memberName: "한미채" },
     { id: "주문서내역-1", screen: "주문서내역", memberId: 1, memberNo: "N26431021", memberName: "한미채" },
