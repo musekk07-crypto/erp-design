@@ -5462,10 +5462,16 @@ textarea.mm2-name-box:focus {
   align-items: center;
   flex-shrink: 0;
   height: 100%;
-  padding: 16px 0;
   background: linear-gradient(180deg, rgba(0, 22, 115, 0.06) 0%, rgba(0, 22, 115, 0.02) 100%);
   border-right: 1px solid var(--border);
   box-shadow: inset 1px 0 0 rgba(255, 255, 255, 0.65);
+}
+
+.sidebar-rail-slot,
+.sidebar-nav-slot-spacer {
+  width: 40px;
+  height: 40px;
+  flex-shrink: 0;
 }
 
 [data-theme="dark"] .app-members-rail {

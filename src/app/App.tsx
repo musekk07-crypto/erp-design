@@ -4625,42 +4625,58 @@ function SidebarMembersToggle({
 }
 
 function MembersRailSidebar({
+  anchorKey,
   memberListOpen,
   onToggle,
 }: {
+  anchorKey: SidebarNavKey;
   memberListOpen: boolean;
   onToggle: () => void;
 }) {
   return (
     <aside
-      className="app-members-rail"
+      className="app-members-rail flex flex-col items-center py-4 gap-1"
       aria-label="회원목록 패널"
       style={{ width: MEMBERS_RAIL_WIDTH, minWidth: MEMBERS_RAIL_WIDTH }}
     >
-      <SidebarMembersToggle isOpen={memberListOpen} onClick={onToggle} />
+      <div className="flex flex-col items-center gap-1 flex-1">
+        {navItems.map((item) => (
+          <div key={item.key} className="sidebar-rail-slot">
+            {item.key === anchorKey ? (
+              <SidebarMembersToggle isOpen={memberListOpen} onClick={onToggle} />
+            ) : (
+              <div className="sidebar-nav-slot-spacer" aria-hidden />
+            )}
+          </div>
+        ))}
+      </div>
     </aside>
   );
 }
 
 function Sidebar({ activeNavKey, onNavChange, theme, onThemeChange }: SidebarProps) {
-  const primaryNavItems = navItems.filter((item) => item.key !== "members");
-
   return (
     <div
       className="app-sidebar flex flex-col items-center py-4 gap-1"
       style={{ width: SIDEBAR_WIDTH, minWidth: SIDEBAR_WIDTH, height: "100%", background: "var(--sidebar-bg, #eceef2)", borderRight: "1px solid var(--border)", flexShrink: 0 }}
     >
       <div className="flex flex-col items-center gap-1 flex-1">
-        {primaryNavItems.map((item) => (
-          <SidebarNavButton
-            key={item.key}
-            label={item.label}
-            isActive={activeNavKey === item.key}
-            onClick={() => onNavChange(item.key)}
-          >
-            <item.icon size={18} className="sidebar-nav-item-icon" />
-          </SidebarNavButton>
-        ))}
+        {navItems.map((item) => {
+          if (item.key === "members") {
+            return <div key={item.key} className="sidebar-nav-slot-spacer" aria-hidden />;
+          }
+
+          return (
+            <SidebarNavButton
+              key={item.key}
+              label={item.label}
+              isActive={activeNavKey === item.key}
+              onClick={() => onNavChange(item.key)}
+            >
+              <item.icon size={18} className="sidebar-nav-item-icon" />
+            </SidebarNavButton>
+          );
+        })}
       </div>
 
       <div className="flex flex-col items-center gap-1 mt-auto">
@@ -4763,6 +4779,13 @@ export default function App() {
       activeTab === "회원정보") ||
       (activeMainMenu === "회원관리" && activeMemberSubMenu === "조직도인쇄") ||
       (activeMainMenu === "주문관리" && activeOrderSubMenu === "주문서등록"));
+
+  const membersRailAnchorKey: SidebarNavKey =
+    activeMainMenu === "회원관리" && activeMemberSubMenu === "조직도인쇄"
+      ? "org-chart"
+      : activeMainMenu === "주문관리" && activeOrderSubMenu === "주문서등록"
+        ? "order-register"
+        : "members";
 
   const sidebarActiveKey: SidebarNavKey =
     activeSidebarKey === "home" && homeActiveTask === "dashboard"
@@ -5057,6 +5080,7 @@ export default function App() {
 
         {showMembersNav && (
           <MembersRailSidebar
+            anchorKey={membersRailAnchorKey}
             memberListOpen={memberListOpen}
             onToggle={() => navigateFromSidebar("members")}
           />
