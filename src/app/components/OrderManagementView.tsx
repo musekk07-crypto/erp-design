@@ -234,19 +234,6 @@ function OmSectionTitle({ title }: { title: string }) {
   );
 }
 
-function OmMemberInfoTitle({ name, memberNo }: { name: string; memberNo: string }) {
-  return (
-    <div className="order-mgmt-block-title">
-      <span className="order-mgmt-section-bullet" aria-hidden />
-      <span className="order-mgmt-member-info-title-text">
-        <span className="order-mgmt-member-info-title-name">{name}</span>
-        <span className="order-mgmt-member-info-title-no">({memberNo})</span>
-        <span className="order-mgmt-member-info-title-desc"> 회원의 일반회원정보</span>
-      </span>
-    </div>
-  );
-}
-
 function getCompactColWidth(
   col: OmColumn,
   colIndex: number,
