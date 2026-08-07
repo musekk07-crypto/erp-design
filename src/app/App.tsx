@@ -4571,19 +4571,22 @@ const themes: { key: Theme; color: string; label: string }[] = [
 
 interface SidebarProps {
   activeNavKey: SidebarNavKey;
+  showMembersNav: boolean;
   onNavChange: (key: SidebarNavKey) => void;
   theme: Theme;
   onThemeChange: (t: Theme) => void;
 }
 
-function Sidebar({ activeNavKey, onNavChange, theme, onThemeChange }: SidebarProps) {
+function Sidebar({ activeNavKey, showMembersNav, onNavChange, theme, onThemeChange }: SidebarProps) {
+  const visibleNavItems = navItems.filter((item) => item.key !== "members" || showMembersNav);
+
   return (
     <div
       className="app-sidebar flex flex-col items-center py-4 gap-1"
       style={{ width: SIDEBAR_WIDTH, minWidth: SIDEBAR_WIDTH, height: "100%", background: "var(--sidebar-bg, #eceef2)", borderRight: "1px solid var(--border)", flexShrink: 0 }}
     >
       <div className="flex flex-col items-center gap-1 flex-1">
-        {navItems.map((item) => {
+        {visibleNavItems.map((item) => {
           const isActive = activeNavKey === item.key;
           return (
             <button
@@ -4702,10 +4705,18 @@ export default function App() {
       (activeMainMenu === "주문관리" && activeOrderSubMenu !== "주문서승인"));
   const memberListOpen = memberListNavEnabled && listOpen;
 
+  const showMembersNav =
+    !isHomeView &&
+    !isAddShortcutView &&
+    ((activeMainMenu === "회원관리" &&
+      activeMemberSubMenu === "회원등록" &&
+      activeTab === "회원정보") ||
+      (activeMainMenu === "주문관리" && activeOrderSubMenu === "주문서등록"));
+
   const sidebarActiveKey: SidebarNavKey =
     activeSidebarKey === "home" && homeActiveTask === "dashboard"
       ? "dashboard"
-      : memberListOpen && memberListNavEnabled
+      : showMembersNav && memberListOpen
         ? "members"
         : activeSidebarKey;
 
@@ -4972,6 +4983,7 @@ export default function App() {
         >
         <Sidebar
           activeNavKey={sidebarActiveKey}
+          showMembersNav={showMembersNav}
           onNavChange={navigateFromSidebar}
           theme={theme}
           onThemeChange={setTheme}
