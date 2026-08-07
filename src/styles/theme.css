@@ -18,9 +18,11 @@
   --nav-dropdown-hover-bg: rgba(0, 22, 115, 0.55);
   --nav-divider: rgba(255,255,255,0.3);
   --nav-avatar-bg: rgba(255,255,255,0.2);
-  --sidebar-bg: #eceef2;
-  --sidebar-item-active-bg: #dde1e8;
-  --sidebar-item-active-border: #cfd4dc;
+  --sidebar-bg: var(--nav-bg);
+  --sidebar-foreground: var(--nav-text-muted);
+  --sidebar-item-active-bg: var(--nav-active-bg);
+  --sidebar-item-active-border: transparent;
+  --sidebar-item-active-fg: var(--nav-active-text);
   --accent-primary: #0284c7;
   --accent-light: #e0f2fe;
   --accent-text: var(--nav-active-bg);

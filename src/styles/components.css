@@ -5430,11 +5430,15 @@ textarea.mm2-name-box:focus {
 }
 
 .sidebar-nav-item.is-active .sidebar-nav-item-icon {
-  color: var(--accent-primary);
+  color: var(--sidebar-item-active-fg, var(--accent-primary));
 }
 
 .sidebar-nav-item:hover:not(.is-active) {
   background: rgba(0, 0, 0, 0.04);
+}
+
+[data-theme="deep-purple"] .sidebar-nav-item:hover:not(.is-active) {
+  background: rgba(255, 255, 255, 0.08);
 }
 
 .sidebar-nav-tooltip {
@@ -5462,7 +5466,7 @@ textarea.mm2-name-box:focus {
   align-items: center;
   flex-shrink: 0;
   height: 100%;
-  background: #ffffff;
+  background: #eceef2;
   border-right: 1px solid var(--border);
 }
 
