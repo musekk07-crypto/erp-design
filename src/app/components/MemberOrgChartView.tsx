@@ -80,14 +80,14 @@ export function MemberOrgChartView({ member }: MemberOrgChartViewProps) {
 
   return (
     <div className="member-org-chart-view">
-      <div className="member-org-chart-toolbar">
-        <OrgChartToolbarButton icon={Search} label="검색" />
-        <OrgChartToolbarButton icon={SlidersHorizontal} label="조직도설정" />
-        <OrgChartToolbarButton icon={FileSpreadsheet} label="엑셀 내보내기" />
-        <OrgChartToolbarButton icon={RefreshCw} label="새로고침" />
+      <div className="member-org-chart-toolbar-shell">
+        <div className="member-org-chart-toolbar">
+          <OrgChartToolbarButton icon={Search} label="검색" />
+          <OrgChartToolbarButton icon={SlidersHorizontal} label="조직도설정" />
+          <OrgChartToolbarButton icon={FileSpreadsheet} label="엑셀 내보내기" />
+          <OrgChartToolbarButton icon={RefreshCw} label="새로고침" />
+        </div>
       </div>
-
-      <div className="member-org-chart-toolbar-divider" aria-hidden />
 
       <div className="member-org-chart-canvas">
         <div className="member-org-chart-chain">
