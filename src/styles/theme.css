@@ -18,7 +18,7 @@
   --nav-dropdown-hover-bg: rgba(2, 132, 199, 0.45);
   --nav-divider: rgba(255,255,255,0.3);
   --nav-avatar-bg: rgba(255,255,255,0.2);
-  --sidebar-bg: #444444;
+  --sidebar-bg: #555555;
   --sidebar-foreground: var(--nav-text-muted);
   --sidebar-item-active-bg: var(--nav-active-bg);
   --sidebar-item-active-border: transparent;
