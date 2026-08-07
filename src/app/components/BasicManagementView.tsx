@@ -36,6 +36,11 @@ const compactDateStyle: React.CSSProperties = {
   minWidth: 124,
 };
 
+const readonlyStyle: React.CSSProperties = {
+  ...inputStyle,
+  background: "var(--surface-input-readonly, #f1f5f9)",
+};
+
 const focusProps = {
   onFocus: (e: React.FocusEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => {
     e.target.style.background = "var(--input-focus-bg)";
