@@ -2474,41 +2474,15 @@ textarea.mm2-name-box:focus {
   overflow: hidden;
 }
 
-.order-mgmt-member-info-table {
-  width: 100%;
-  border-collapse: collapse;
-  table-layout: fixed;
-  font-size: var(--order-mgmt-font-size, 14px);
-  line-height: 1.45;
+.order-mgmt-member-profile-wrap {
+  flex-shrink: 0;
 }
 
-.order-mgmt-member-info-table__cell {
-  border: 1px solid rgba(255, 255, 255, 0.22);
-  padding: 7px 10px;
-  vertical-align: middle;
-  text-align: left;
-  word-break: break-all;
+.order-mgmt-member-profile-wrap .mm2-profile-card {
+  border-radius: var(--order-mgmt-box-radius, 6px);
 }
 
-.order-mgmt-member-info-table__label {
-  color: rgba(255, 255, 255, 0.68);
-  font-weight: 500;
-  margin-right: 4px;
-  white-space: nowrap;
-}
-
-.order-mgmt-member-info-table__value {
-  color: rgba(255, 255, 255, 0.95);
-  font-weight: 500;
-}
-
-.order-mgmt-member-info-table__value--mono {
-  font-family: monospace;
-  font-weight: 700;
-  color: #ffffff;
-}
-
-.order-mgmt-member-info-body {
+.order-mgmt-member-info {
   padding: 8px 10px 10px;
   font-size: var(--order-mgmt-font-size, 14px);
   line-height: 1.7;

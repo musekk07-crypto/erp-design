@@ -15,7 +15,7 @@ import {
   Copy,
   FolderOpen,
 } from "lucide-react";
-import type { ProfileMember } from "./Mm2ProfileCard";
+import { buildMm2ProfileFields, Mm2ProfileCard, type ProfileMember } from "./Mm2ProfileCard";
 
 const OM_CHECKBOX_WIDTH = 36;
 const OM_CHECKBOX_PAD_LEFT = 14;
@@ -711,53 +711,10 @@ function OmPaymentInfo() {
   );
 }
 
-function OmMemberInfoCell({
-  label,
-  value,
-  mono = false,
-  colSpan,
-}: {
-  label: string;
-  value: string;
-  mono?: boolean;
-  colSpan?: number;
-}) {
-  return (
-    <td className="order-mgmt-member-info-table__cell" colSpan={colSpan}>
-      <span className="order-mgmt-member-info-table__label">{label}:</span>
-      <span className={`order-mgmt-member-info-table__value${mono ? " order-mgmt-member-info-table__value--mono" : ""}`}>
-        {value}
-      </span>
-    </td>
-  );
-}
-
 function OmMemberInfoPanel({ member }: { member: ProfileMember }) {
-  const centerCode = member.region.includes("서울") ? "NUXIA2359" : member.region;
-  const address =
-    member.region === "서울 강남"
-      ? "경남 김해시 우암로 106 (건영아파트) 301동504호"
-      : `${member.region} (상세주소)`;
-
   return (
-    <div className="order-mgmt-block-wrap">
-      <OmMemberInfoTitle name={member.name} memberNo={member.no} />
-      <section className="order-mgmt-member-info">
-        <table className="order-mgmt-member-info-table">
-          <tbody>
-            <tr>
-              <OmMemberInfoCell label="회원번호" value={member.no} mono />
-              <OmMemberInfoCell label="회원명" value={member.name} />
-              <OmMemberInfoCell label="주민등록번호" value={member.ssn} />
-              <OmMemberInfoCell label="전화번호" value={member.phone} />
-            </tr>
-            <tr>
-              <OmMemberInfoCell label="주소지" value={address} colSpan={3} />
-              <OmMemberInfoCell label="센터" value={centerCode} />
-            </tr>
-          </tbody>
-        </table>
-      </section>
+    <div className="order-mgmt-block-wrap order-mgmt-member-profile-wrap">
+      <Mm2ProfileCard member={member} profileFields={buildMm2ProfileFields(member)} rankBadge={member.grade} />
     </div>
   );
 }
