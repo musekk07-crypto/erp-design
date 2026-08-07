@@ -2482,8 +2482,7 @@ textarea.mm2-name-box:focus {
   line-height: 1.45;
 }
 
-.order-mgmt-member-info-table th,
-.order-mgmt-member-info-table td {
+.order-mgmt-member-info-table__cell {
   border: 1px solid rgba(255, 255, 255, 0.22);
   padding: 7px 10px;
   vertical-align: middle;
@@ -2491,11 +2490,10 @@ textarea.mm2-name-box:focus {
   word-break: break-all;
 }
 
-.order-mgmt-member-info-table th {
-  width: 92px;
-  background: rgba(0, 0, 0, 0.12);
-  color: rgba(255, 255, 255, 0.72);
+.order-mgmt-member-info-table__label {
+  color: rgba(255, 255, 255, 0.68);
   font-weight: 500;
+  margin-right: 4px;
   white-space: nowrap;
 }
 
