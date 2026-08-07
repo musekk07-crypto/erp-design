@@ -8,14 +8,14 @@
   --nav-text: #ffffff;
   --nav-text-muted: rgba(255,255,255,0.7);
   --nav-active-border: #ffffff;
-  --nav-active-bg: #001673;
+  --nav-active-bg: #0284c7;
   --nav-active-text: #ffffff;
-  --nav-hover-bg: #00104d;
+  --nav-hover-bg: #0369a1;
   --nav-hover-text: #ffffff;
   --nav-dropdown-bg: rgba(10, 18, 32, 0.9);
   --nav-dropdown-border: rgba(255, 255, 255, 0.12);
   --nav-dropdown-text: rgba(255, 255, 255, 0.92);
-  --nav-dropdown-hover-bg: rgba(0, 22, 115, 0.55);
+  --nav-dropdown-hover-bg: rgba(2, 132, 199, 0.45);
   --nav-divider: rgba(255,255,255,0.3);
   --nav-avatar-bg: rgba(255,255,255,0.2);
   --sidebar-bg: #333333;
