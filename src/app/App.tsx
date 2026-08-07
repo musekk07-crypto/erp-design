@@ -4711,6 +4711,7 @@ export default function App() {
     ((activeMainMenu === "회원관리" &&
       activeMemberSubMenu === "회원등록" &&
       activeTab === "회원정보") ||
+      (activeMainMenu === "회원관리" && activeMemberSubMenu === "조직도인쇄") ||
       (activeMainMenu === "주문관리" && activeOrderSubMenu === "주문서등록"));
 
   const sidebarActiveKey: SidebarNavKey =
@@ -4857,7 +4858,13 @@ export default function App() {
         activeMainMenu === "주문관리" &&
         activeOrderSubMenu === "주문서등록";
 
-      if (onMemberInfoScreen || onOrderRegisterScreen) {
+      const onOrgChartScreen =
+        activeSidebarKey !== "home" &&
+        activeSidebarKey !== "add-shortcut" &&
+        activeMainMenu === "회원관리" &&
+        activeMemberSubMenu === "조직도인쇄";
+
+      if (onMemberInfoScreen || onOrderRegisterScreen || onOrgChartScreen) {
         setListOpen((open) => !open);
         return;
       }
