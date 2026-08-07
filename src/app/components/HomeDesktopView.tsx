@@ -54,7 +54,7 @@ export function HomeDesktopView({ activeTask, onShortcutClick }: HomeDesktopView
                       className="home-desktop-shortcut-icon"
                       style={{ background: shortcut.bg, color: shortcut.color }}
                     >
-                      <Icon size={28} strokeWidth={1.75} aria-hidden />
+                      <Icon size={32} strokeWidth={1.75} aria-hidden />
                     </span>
                     <span className="home-desktop-shortcut-label">{shortcut.label}</span>
                   </button>
@@ -67,7 +67,7 @@ export function HomeDesktopView({ activeTask, onShortcutClick }: HomeDesktopView
                 onClick={() => onShortcutClick("add-shortcut")}
               >
                 <span className="home-desktop-shortcut-icon home-desktop-shortcut-icon--add">
-                  <Plus size={28} strokeWidth={1.75} aria-hidden />
+                  <Plus size={32} strokeWidth={1.75} aria-hidden />
                 </span>
               <span className="home-desktop-shortcut-label">바로가기 추가</span>
             </button>

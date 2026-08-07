@@ -5592,16 +5592,16 @@ textarea.mm2-name-box:focus {
   flex-wrap: wrap;
   align-items: flex-start;
   justify-content: center;
-  gap: 36px 48px;
-  max-width: 760px;
+  gap: 40px 52px;
+  max-width: 860px;
 }
 
 .home-desktop-shortcut {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 10px;
-  width: 96px;
+  gap: 12px;
+  width: 108px;
   padding: 0;
   border: none;
   background: transparent;
@@ -5612,8 +5612,8 @@ textarea.mm2-name-box:focus {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 72px;
-  height: 72px;
+  width: 84px;
+  height: 84px;
   border-radius: 999px;
   line-height: 1;
   transition: transform 0.15s ease, box-shadow 0.15s ease;
@@ -5631,7 +5631,7 @@ textarea.mm2-name-box:focus {
 }
 
 .home-desktop-shortcut-label {
-  font-size: 13px;
+  font-size: 14px;
   color: #6b7280;
   text-align: center;
   line-height: 1.35;
