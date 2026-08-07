@@ -4847,9 +4847,12 @@ textarea.mm2-name-box:focus {
 .member-org-chart-toolbar-shell {
   box-sizing: border-box;
   flex-shrink: 0;
+  width: fit-content;
+  max-width: calc(100% - 12px);
+  margin-top: 10px;
+  margin-right: 12px;
   background: var(--surface-panel);
   border: 1px solid var(--detail-tab-bar-line);
-  border-top: none;
 }
 
 .member-org-chart-toolbar.member-info-toolbar {
