@@ -4594,7 +4594,6 @@ function SidebarNavButton({
   return (
     <button
       type="button"
-      title={label}
       aria-label={label}
       onClick={onClick}
       className={`sidebar-nav-item group relative${isActive ? " is-active" : ""}`}
@@ -4615,7 +4614,6 @@ function SidebarMembersToggle({
   return (
     <button
       type="button"
-      title="회원목록"
       aria-label="회원목록"
       aria-pressed={isOpen}
       onClick={onClick}
