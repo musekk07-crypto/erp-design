@@ -249,7 +249,7 @@ function BasicMgmtTable({
                     padding: "6px 8px",
                     fontSize: 13,
                     fontWeight: 400,
-                    textAlign: "left",
+                    textAlign: "center",
                     color: "var(--split-table-header-fg, var(--text-muted))",
                     background: "var(--split-table-header-bg, var(--surface-table-header))",
                     borderBottom: "1px solid var(--split-table-header-border, var(--border))",
@@ -263,10 +263,10 @@ function BasicMgmtTable({
           <tbody>
             {rows.map((row) => (
               <tr key={row.no}>
-                <td style={{ padding: "6px 8px", fontSize: 13 }}>{row.no}</td>
-                <td style={{ padding: "6px 8px", fontSize: 13 }}>{row.code}</td>
-                <td style={{ padding: "6px 8px", fontSize: 13 }}>{row.category}</td>
-                <td style={{ padding: "6px 8px", fontSize: 13 }}>{row.name}</td>
+                <td style={{ padding: "6px 8px", fontSize: 13, textAlign: "center" }}>{row.no}</td>
+                <td style={{ padding: "6px 8px", fontSize: 13, textAlign: "center" }}>{row.code}</td>
+                <td style={{ padding: "6px 8px", fontSize: 13, textAlign: "center" }}>{row.category}</td>
+                <td style={{ padding: "6px 8px", fontSize: 13, textAlign: "center" }}>{row.name}</td>
               </tr>
             ))}
           </tbody>
