@@ -149,7 +149,7 @@ interface OrgChartProps {
   memberName: string;
 }
 
-const ORG_SELF_ACCENT = "var(--org-self-accent, var(--org-link, #001673))";
+const ORG_SELF_ACCENT = "var(--org-self-accent, var(--org-link, #0284c7))";
 const LABEL_GRAY = "var(--org-label)";
 const BORDER_GRAY = "var(--org-border)";
 const CARD_W = ORG_CARD_W;

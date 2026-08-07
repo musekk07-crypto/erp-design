@@ -15,9 +15,9 @@
   --detail-tab-active-top: #001673;
   --checkbox-accent: #001673;
   --member-no-color: #001673;
-  --org-self-accent: #001673;
-  --org-link: #001673;
-  --org-grade-badge-fg: #001673;
+  --org-self-accent: var(--nav-active-bg, #0284c7);
+  --org-link: var(--nav-active-bg, #0284c7);
+  --org-grade-badge-fg: var(--nav-active-bg, #0284c7);
   --nav-dropdown-hover-bg: rgba(2, 132, 199, 0.45);
 }
 
@@ -629,7 +629,7 @@ span.member-form-action-chip {
   --split-table-header-border: #bae6fd;
   --split-table-header-fg: #1e2130;
   --org-grade-badge-bg: #dbeafe;
-  --org-grade-badge-fg: var(--nav-active-bg, #001673);
+  --org-grade-badge-fg: var(--nav-active-bg, #0284c7);
   --section-icon-bg: #0284c7;
   --section-icon-color: #ffffff;
 }
@@ -1665,7 +1665,7 @@ span.member-form-action-chip {
 }
 
 .org-chart-tabs__tab.is-active {
-  color: var(--org-self-accent, #001673);
+  color: var(--org-self-accent, #0284c7);
   font-weight: 600;
 }
 
@@ -1678,7 +1678,7 @@ span.member-form-action-chip {
   max-width: 48px;
   height: 2px;
   border-radius: 1px;
-  background: var(--org-self-accent, #001673);
+  background: var(--org-self-accent, #0284c7);
   transform: translateX(-50%);
 }
 
@@ -1717,7 +1717,7 @@ span.member-form-action-chip {
   box-sizing: border-box;
   padding: 14px 16px 12px;
   background: #ffffff;
-  border: 1px solid var(--org-self-accent, #001673);
+  border: 1px solid var(--org-self-accent, #0284c7);
   border-radius: 10px;
   box-shadow: 0 8px 24px rgba(15, 23, 42, 0.12);
   font-size: 12px;
@@ -1733,7 +1733,7 @@ span.member-form-action-chip {
   width: 10px;
   height: 10px;
   background: #ffffff;
-  border: 1px solid var(--org-self-accent, #001673);
+  border: 1px solid var(--org-self-accent, #0284c7);
   transform: translateX(-50%) rotate(45deg);
 }
 
@@ -1836,14 +1836,14 @@ span.member-form-action-chip {
 
 [data-theme="dark"] .org-member-hover-popup {
   background: #1e2433;
-  border-color: var(--org-self-accent, #001673);
+  border-color: var(--org-self-accent, #0284c7);
   color: #e2e8f0;
   box-shadow: 0 10px 28px rgba(0, 0, 0, 0.45);
 }
 
 [data-theme="dark"] .org-member-hover-popup::after {
   background: #1e2433;
-  border-color: var(--org-self-accent, #001673);
+  border-color: var(--org-self-accent, #0284c7);
 }
 
 [data-theme="dark"] .org-member-hover-popup__row {

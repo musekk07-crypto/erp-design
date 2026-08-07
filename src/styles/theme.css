@@ -302,7 +302,7 @@
   --org-link: var(--nav-active-bg, #001673);
   --org-self-accent: var(--nav-active-bg);
   --org-grade-badge-bg: #dbeafe;
-  --org-grade-badge-fg: var(--nav-active-bg, #001673);
+  --org-grade-badge-fg: var(--nav-active-bg, #0284c7);
   --badge-type-general-bg: #f1f5f9;
   --badge-type-general-fg: #64748b;
   --badge-type-consumer-bg: #cffafe;
