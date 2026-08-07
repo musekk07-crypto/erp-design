@@ -115,19 +115,19 @@
   --nav-text: #e2e8f0;
   --nav-text-muted: rgba(226, 232, 240, 0.65);
   --nav-active-border: #5ecfff;
-  --nav-active-bg: #7c3aed;
+  --nav-active-bg: #0369a1;
   --nav-active-text: #ffffff;
-  --nav-hover-bg: #7c3aed;
+  --nav-hover-bg: #075985;
   --nav-hover-text: #ffffff;
   --nav-dropdown-bg: #0c0e14;
   --nav-dropdown-border: rgba(255, 255, 255, 0.1);
   --nav-dropdown-text: rgba(226, 232, 240, 0.92);
-  --nav-dropdown-hover-bg: rgba(124, 58, 237, 0.45);
+  --nav-dropdown-hover-bg: rgba(3, 105, 161, 0.45);
   --nav-divider: rgba(255, 255, 255, 0.12);
   --nav-avatar-bg: rgba(94, 207, 255, 0.2);
   --sidebar-bg: #323a4d;
   --accent-primary: #5ecfff;
-  --accent-light: #2d2650;
+  --accent-light: #0c4a6e;
   --accent-text: #7ee8ff;
   --accent-border: #2d6a8f;
   --accent-gradient: linear-gradient(135deg, #38bdf8, #5ecfff);
@@ -142,7 +142,7 @@
   --toggle-active-bg: linear-gradient(135deg, #38bdf8, #5ecfff);
   --toggle-active-color: #5ecfff;
   --member-no-color: #5ecfff;
-  --logo-bg: #7c3aed;
+  --logo-bg: #0369a1;
 
   /* L0 — 본문 바닥 */
   --background: #0c0e14;
@@ -227,10 +227,10 @@
   --action-btn-danger-bg: #3b1515;
   --action-btn-danger-fg: #f87171;
   --on-accent: #ffffff;
-  --brand-primary: #7c3aed;
-  --brand-gradient: linear-gradient(135deg, #7c3aed, #6366f1);
-  --brand-light: #2d2650;
-  --brand-toggle-track: #252240;
+  --brand-primary: #0284c7;
+  --brand-gradient: linear-gradient(135deg, #0284c7, #0369a1);
+  --brand-light: #0c4a6e;
+  --brand-toggle-track: #1a3045;
   --detail-tab-bar-bg: #1a2030;
   --detail-tab-bar-line: rgba(255, 255, 255, 0.12);
   --detail-tab-inactive-bg: #252a38;

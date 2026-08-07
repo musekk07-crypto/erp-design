@@ -1734,8 +1734,8 @@ span.member-form-action-chip {
 }
 
 [data-theme="dark"] .org-chart-card__grade--purple {
-  background: #4c1d95;
-  color: #e9d5ff;
+  background: #164e63;
+  color: #a5f3fc;
 }
 
 [data-theme="dark"] .org-chart-card__grade--red {
