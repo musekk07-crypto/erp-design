@@ -4589,7 +4589,7 @@ const themes: { key: Theme; color: string; label: string }[] = [
 ];
 
 interface SidebarProps {
-  activeNavKey: SidebarNavKey;
+  activeNavKey: SidebarNavKey | null;
   onNavChange: (key: SidebarNavKey) => void;
   theme: Theme;
   onThemeChange: (t: Theme) => void;
@@ -4785,10 +4785,18 @@ export default function App() {
         ? "order-register"
         : "member-register";
 
-  const sidebarActiveKey: SidebarNavKey =
-    activeSidebarKey === "home" && homeActiveTask === "dashboard"
+  // 사이드바 아이콘은 클릭 이력이 아니라 현재 열려 있는 화면을 따라간다
+  const sidebarActiveKey: SidebarNavKey | null = isHomeView
+    ? homeActiveTask === "dashboard"
       ? "dashboard"
-      : activeSidebarKey;
+      : "home"
+    : activeMainMenu === "주문관리" && activeOrderSubMenu === "주문서등록"
+      ? "order-register"
+      : activeMainMenu === "회원관리" && activeMemberSubMenu === "조직도인쇄"
+        ? "org-chart"
+        : activeMainMenu === "회원관리" && activeMemberSubMenu === "회원등록"
+          ? "member-register"
+          : null;
 
   const formColumnWidth = useMemo(() => {
     if (!memberListOpen || appContentWidth <= 0) {
