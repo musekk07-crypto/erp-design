@@ -5658,3 +5658,64 @@ textarea.mm2-name-box:focus {
   background: transparent;
 }
 
+/* 기초관리 */
+.basic-mgmt-view {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  min-height: 0;
+  background: var(--surface-page);
+}
+
+.basic-mgmt-stack {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  max-width: 1180px;
+}
+
+.basic-mgmt-section {
+  background: var(--surface-panel);
+  border: 1px solid var(--border);
+  border-radius: var(--radius, 6px);
+  overflow: hidden;
+}
+
+.basic-mgmt-section-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  padding: 10px 14px;
+  border: none;
+  background: var(--surface-panel);
+  cursor: pointer;
+}
+
+.basic-mgmt-section-title {
+  margin: 0;
+}
+
+.basic-mgmt-section-body {
+  padding: 0 14px 14px;
+}
+
+.basic-mgmt-table-group {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.basic-mgmt-table-wrap {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.basic-mgmt-table-caption {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--text-body);
+  text-align: center;
+}
+

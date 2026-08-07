@@ -18,6 +18,7 @@ import { PrintPopup } from "./components/PrintPopup";
 import { MemberSavePopup } from "./components/MemberSavePopup";
 import { OrderManagementView } from "./components/OrderManagementView";
 import { HomeDesktopView, type HomeShortcutKey } from "./components/HomeDesktopView";
+import { BasicManagementView } from "./components/BasicManagementView";
 import { Mm2ProfileCard, buildMm2ProfileFields } from "./components/Mm2ProfileCard";
 import { OrgChartHoverProvider, useOrgChartHover, type OrgMemberDetail } from "./components/OrgMemberHoverPopup";
 
@@ -4746,7 +4747,8 @@ export default function App() {
   const appContentRef = useRef<HTMLDivElement>(null);
   const resizing = useRef(false);
 
-  const isHomeView = activeSidebarKey === "home";
+  const isHomeView = activeSidebarKey === "home" && activeMainMenu === "회원관리";
+  const isBasicManagement = activeMainMenu === "기초관리";
 
   const memberListNavEnabled =
     !isHomeView &&
@@ -5136,6 +5138,8 @@ export default function App() {
               activeTask={homeActiveTask}
               onShortcutClick={handleHomeShortcut}
             />
+          ) : isBasicManagement ? (
+            <BasicManagementView />
           ) : isOrderManagement ? (
             activeOrderSubMenu === "주문서등록" ? (
               <OrderManagementView member={getMemberById(selectedMember)} />
