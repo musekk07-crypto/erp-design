@@ -6,7 +6,7 @@ import {
   Pin, Clock, ChevronLeft, ChevronRight, RefreshCw,
   FilePlus, Save, Trash2, Award, Briefcase, MessageCircle, Key, Printer,
   Globe, Landmark, Contact, CheckCircle2, Phone, ExternalLink, Camera, X,
-  LayoutDashboard, Plus,
+  LayoutDashboard, Plus, UserPlus,
 } from "lucide-react";
 import { RecommenderSelectPopup } from "./components/RecommenderSelectPopup";
 import { RankAdjustPopup } from "./components/RankAdjustPopup";
@@ -4546,6 +4546,7 @@ function TopNav({
 type SidebarNavKey =
   | "home"
   | "dashboard"
+  | "member-register"
   | "members"
   | "order-register"
   | "org-chart"
@@ -4554,11 +4555,13 @@ type SidebarNavKey =
 const navItems: { icon: React.ComponentType<{ size?: number; style?: React.CSSProperties }>; label: string; key: SidebarNavKey }[] = [
   { icon: Home, label: "홈", key: "home" },
   { icon: LayoutDashboard, label: "대시보드", key: "dashboard" },
-  { icon: Users, label: "회원관리", key: "members" },
+  { icon: UserPlus, label: "회원등록", key: "member-register" },
   { icon: ShoppingCart, label: "주문서등록", key: "order-register" },
   { icon: GitFork, label: "조직도", key: "org-chart" },
   { icon: Plus, label: "바로가기 추가", key: "add-shortcut" },
 ];
+
+const sidebarRailSlotKeys = navItems.map((item) => item.key);
 
 const bottomItems = [
   { icon: HelpCircle, label: "도움말" },
@@ -4640,9 +4643,9 @@ function MembersRailSidebar({
       style={{ width: MEMBERS_RAIL_WIDTH, minWidth: MEMBERS_RAIL_WIDTH }}
     >
       <div className="flex flex-col items-center gap-1 flex-1">
-        {navItems.map((item) => (
-          <div key={item.key} className="sidebar-rail-slot">
-            {item.key === anchorKey ? (
+        {sidebarRailSlotKeys.map((slotKey) => (
+          <div key={slotKey} className="sidebar-rail-slot">
+            {slotKey === anchorKey ? (
               <SidebarMembersToggle isOpen={memberListOpen} onClick={onToggle} />
             ) : (
               <div className="sidebar-nav-slot-spacer" aria-hidden />
@@ -4661,22 +4664,16 @@ function Sidebar({ activeNavKey, onNavChange, theme, onThemeChange }: SidebarPro
       style={{ width: SIDEBAR_WIDTH, minWidth: SIDEBAR_WIDTH, height: "100%", background: "var(--sidebar-bg, #eceef2)", borderRight: "1px solid var(--border)", flexShrink: 0 }}
     >
       <div className="flex flex-col items-center gap-1 flex-1">
-        {navItems.map((item) => {
-          if (item.key === "members") {
-            return <div key={item.key} className="sidebar-nav-slot-spacer" aria-hidden />;
-          }
-
-          return (
-            <SidebarNavButton
-              key={item.key}
-              label={item.label}
-              isActive={activeNavKey === item.key}
-              onClick={() => onNavChange(item.key)}
-            >
-              <item.icon size={18} className="sidebar-nav-item-icon" />
-            </SidebarNavButton>
-          );
-        })}
+        {navItems.map((item) => (
+          <SidebarNavButton
+            key={item.key}
+            label={item.label}
+            isActive={activeNavKey === item.key}
+            onClick={() => onNavChange(item.key)}
+          >
+            <item.icon size={18} className="sidebar-nav-item-icon" />
+          </SidebarNavButton>
+        ))}
       </div>
 
       <div className="flex flex-col items-center gap-1 mt-auto">
@@ -4785,7 +4782,7 @@ export default function App() {
       ? "org-chart"
       : activeMainMenu === "주문관리" && activeOrderSubMenu === "주문서등록"
         ? "order-register"
-        : "members";
+        : "member-register";
 
   const sidebarActiveKey: SidebarNavKey =
     activeSidebarKey === "home" && homeActiveTask === "dashboard"
@@ -4899,7 +4896,7 @@ export default function App() {
     setActiveMainMenu("회원관리");
     if (item === "회원등록") {
       setActiveTab("회원정보");
-      setActiveSidebarKey("members");
+      setActiveSidebarKey("member-register");
     } else if (item === "조직도인쇄") {
       setActiveSidebarKey("org-chart");
     }
@@ -4940,7 +4937,7 @@ export default function App() {
         return;
       }
 
-      setActiveSidebarKey("members");
+      setActiveSidebarKey("member-register");
       setActiveMainMenu("회원관리");
       setActiveMemberSubMenu("회원등록");
       setActiveTab("회원정보");
@@ -4959,6 +4956,12 @@ export default function App() {
         setActiveSidebarKey("home");
         setHomeOpenTasks((prev) => (prev.includes("dashboard") ? prev : [...prev, "dashboard"]));
         setHomeActiveTask("dashboard");
+        setListOpen(false);
+        return;
+      case "member-register":
+        setActiveMainMenu("회원관리");
+        setActiveMemberSubMenu("회원등록");
+        setActiveTab("회원정보");
         setListOpen(false);
         return;
       case "order-register":
@@ -4998,7 +5001,7 @@ export default function App() {
     }
 
     if (key === "member-register") {
-      setActiveSidebarKey("members");
+      setActiveSidebarKey("member-register");
       setActiveMainMenu("회원관리");
       setActiveMemberSubMenu("회원등록");
       setActiveTab("회원정보");
