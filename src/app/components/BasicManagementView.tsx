@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { ChevronDown } from "lucide-react";
+import { ChevronDown, FilePlus, Save, Trash2 } from "lucide-react";
 
 const DETAIL_PANEL_PAD = 12;
 const DETAIL_CONTENT_GAP = 12;
@@ -136,17 +136,24 @@ function ProductProfileHeader() {
   );
 }
 
-function BasicMgmtToolbar() {
-  const items = ["새로 만들기", "저장", "삭제"] as const;
+const basicMgmtToolbarItems = [
+  { label: "새로 만들기", icon: FilePlus },
+  { label: "저장", icon: Save },
+  { label: "삭제", icon: Trash2 },
+] as const;
 
+function BasicMgmtToolbar() {
   return (
-    <div className="member-page-chrome-shell member-page-chrome-shell--standalone">
-      <div className="member-info-toolbar">
-      {items.map((label) => (
-        <button key={label} type="button" className="member-info-toolbar-item">
-          <span>{label}</span>
-        </button>
-      ))}
+    <div className="basic-mgmt-toolbar-area">
+      <div className="member-org-chart-toolbar-shell">
+        <div className="member-info-toolbar member-org-chart-toolbar">
+          {basicMgmtToolbarItems.map(({ label, icon: Icon }) => (
+            <button key={label} type="button" className="member-info-toolbar-item member-org-chart-toolbar__item">
+              <Icon size={18} strokeWidth={1.5} style={{ color: "var(--text-muted)" }} />
+              <span>{label}</span>
+            </button>
+          ))}
+        </div>
       </div>
     </div>
   );

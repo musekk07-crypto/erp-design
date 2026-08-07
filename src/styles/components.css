@@ -5859,6 +5859,11 @@ textarea.mm2-name-box:focus {
   background: var(--surface-page);
 }
 
+.basic-mgmt-toolbar-area {
+  flex-shrink: 0;
+  background: var(--surface-page);
+}
+
 .basic-mgmt-table-group {
   display: flex;
   flex-direction: column;
