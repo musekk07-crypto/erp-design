@@ -4844,17 +4844,21 @@ export default function App() {
 
   const navigateFromSidebar = useCallback((key: SidebarNavKey) => {
     if (key === "members") {
-      setActiveSidebarKey("members");
       const onMemberInfoScreen =
         activeMainMenu === "회원관리" &&
         activeMemberSubMenu === "회원등록" &&
         activeTab === "회원정보";
 
-      if (onMemberInfoScreen) {
+      const onOrderRegisterScreen =
+        activeMainMenu === "주문관리" &&
+        activeOrderSubMenu === "주문서등록";
+
+      if (onMemberInfoScreen || onOrderRegisterScreen) {
         setListOpen((open) => !open);
         return;
       }
 
+      setActiveSidebarKey("members");
       setActiveMainMenu("회원관리");
       setActiveMemberSubMenu("회원등록");
       setActiveTab("회원정보");
