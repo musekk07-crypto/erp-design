@@ -424,17 +424,34 @@
   padding-bottom: 8px;
 }
 
+.member-page-chrome-shell {
+  box-sizing: border-box;
+  width: 100%;
+  background: var(--surface-panel);
+  border: 1px solid var(--detail-tab-bar-line);
+}
+
+.member-page-chrome-shell .detail-tab-bar {
+  background: var(--surface-page);
+  border-bottom: 1px solid var(--detail-tab-bar-line);
+}
+
+.member-page-chrome-shell .member-info-toolbar {
+  background: var(--surface-panel);
+}
+
+.member-page-chrome-shell--standalone {
+  background: var(--surface-panel);
+}
+
 .member-page-chrome-panel {
   box-sizing: border-box;
   width: 100%;
   background: var(--surface-panel);
   border: 1px solid var(--detail-tab-bar-line);
-  border-top: none;
-  margin-top: -1px;
 }
 
 .member-page-chrome-panel--standalone {
-  border-top: 1px solid var(--detail-tab-bar-line);
   margin-top: 0;
 }
 
@@ -491,8 +508,12 @@
   color: var(--detail-tab-active-fg);
   background: var(--surface-panel);
   border-bottom-color: var(--surface-panel);
-  margin-bottom: -1px;
+  margin-bottom: 0;
   padding-bottom: 8px;
+}
+
+.member-page-chrome-shell .detail-tab.is-active {
+  margin-bottom: -1px;
 }
 
 /* 회원정보 폼 — 실명인증 / 인증완료 칩 (동일 크기) */

@@ -4357,40 +4357,46 @@ function MainMenuPlaceholder({ title }: { title: string }) {
 function MemberPageChrome({ activeTab, onTabChange, onToolbarAction }: MemberPageChromeProps) {
   const isMemberInfoTab = activeTab === "회원정보";
 
+  const tabBar = (
+    <div className="detail-tab-bar">
+      <div className="detail-tab-list">
+        {subTabs.map((tab) => {
+          const isActive = tab === activeTab;
+          return (
+            <button
+              key={tab}
+              type="button"
+              className={`detail-tab${isActive ? " is-active" : ""}`}
+              onClick={() => onTabChange(tab)}
+            >
+              {tab}
+            </button>
+          );
+        })}
+      </div>
+    </div>
+  );
+
   return (
     <div className="member-page-chrome">
-      <div className="detail-tab-bar">
-        <div className="detail-tab-list">
-          {subTabs.map((tab) => {
-            const isActive = tab === activeTab;
-            return (
-              <button
-                key={tab}
-                type="button"
-                className={`detail-tab${isActive ? " is-active" : ""}`}
-                onClick={() => onTabChange(tab)}
-              >
-                {tab}
-              </button>
-            );
-          })}
-        </div>
-      </div>
-      {isMemberInfoTab && (
-        <div className="member-page-chrome-panel">
+      {isMemberInfoTab ? (
+        <div className="member-page-chrome-shell">
+          {tabBar}
           <div className="member-info-toolbar">
-          {memberInfoToolbarItems.map((item, i) =>
-            item === null ? (
-              <div key={`sep-${i}`} className="member-info-toolbar-separator" aria-hidden />
-            ) : (
-              <button key={item.label} type="button" className="member-info-toolbar-item" onClick={() => onToolbarAction?.(item.label)}>
-                <item.icon size={18} strokeWidth={1.5} style={{ color: "var(--text-muted)" }} />
-                <span>{item.label}</span>
-              </button>
-            ),
-          )}
+            {memberInfoToolbarItems.map((item, i) =>
+              item === null ? (
+                <div key={`sep-${i}`} className="member-info-toolbar-separator" aria-hidden />
+              ) : (
+                <button key={item.label} type="button" className="member-info-toolbar-item" onClick={() => onToolbarAction?.(item.label)}>
+                  <item.icon size={18} strokeWidth={1.5} style={{ color: "var(--text-muted)" }} />
+                  <span>{item.label}</span>
+                </button>
+              ),
+            )}
+          </div>
         </div>
-        </div>
+      ) : (
+        tabBar
       )}
     </div>
   );
