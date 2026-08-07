@@ -4759,7 +4759,8 @@ export default function App() {
 
   const isHomeView = activeSidebarKey === "home" && activeMainMenu === "회원관리";
   const isBasicManagement = activeMainMenu === "기초관리";
-  const isMenuPlaceholder = activeMainMenu === "수당관리" || activeMainMenu === "출고관리";
+  const isMenuPlaceholder =
+    activeMainMenu === "수당관리" || activeMainMenu === "출고관리" || activeMainMenu === "옵션";
 
   const memberListNavEnabled =
     !isHomeView &&
@@ -4878,6 +4879,12 @@ export default function App() {
   const handleMainMenuChange = useCallback((menu: string) => {
     setActiveMainMenu(menu);
     setListOpen(false);
+
+    if (menu === "회원관리") {
+      setActiveMemberSubMenu("회원등록");
+      setActiveTab("회원정보");
+      setActiveSidebarKey("member-register");
+    }
   }, []);
 
   const handleOrderSubMenuChange = useCallback((item: string) => {
