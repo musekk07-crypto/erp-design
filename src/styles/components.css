@@ -5485,12 +5485,12 @@ textarea.mm2-name-box:focus {
   width: 40px;
   height: 40px;
   padding: 0;
-  border: 1px solid rgba(0, 0, 0, 0.14);
+  border: 1px solid transparent;
   border-radius: 50%;
   background: transparent;
   box-shadow: none;
   cursor: pointer;
-  transition: color 0.15s ease;
+  transition: border-color 0.15s ease, color 0.15s ease;
 }
 
 .sidebar-members-toggle-icon {
@@ -5498,21 +5498,23 @@ textarea.mm2-name-box:focus {
   transition: color 0.15s ease;
 }
 
-.sidebar-members-toggle:hover .sidebar-members-toggle-icon,
-.sidebar-members-toggle.is-open .sidebar-members-toggle-icon {
-  color: var(--accent-primary, #0284c7);
+.sidebar-members-toggle:hover {
+  border-color: rgba(0, 0, 0, 0.14);
 }
 
-[data-theme="dark"] .sidebar-members-toggle {
-  border-color: rgba(255, 255, 255, 0.18);
+.sidebar-members-toggle:hover .sidebar-members-toggle-icon {
+  color: var(--accent-primary, #0284c7);
 }
 
 [data-theme="dark"] .sidebar-members-toggle-icon {
   color: rgba(255, 255, 255, 0.55);
 }
 
-[data-theme="dark"] .sidebar-members-toggle:hover .sidebar-members-toggle-icon,
-[data-theme="dark"] .sidebar-members-toggle.is-open .sidebar-members-toggle-icon {
+[data-theme="dark"] .sidebar-members-toggle:hover {
+  border-color: rgba(255, 255, 255, 0.18);
+}
+
+[data-theme="dark"] .sidebar-members-toggle:hover .sidebar-members-toggle-icon {
   color: #5ecfff;
 }
 
