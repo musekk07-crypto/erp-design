@@ -4619,7 +4619,6 @@ function SidebarMembersToggle({
       onClick={onClick}
       className={`sidebar-members-toggle group relative${isOpen ? " is-open" : ""}`}
     >
-      <span className="sidebar-members-toggle-panel" aria-hidden />
       <Users size={17} className="sidebar-members-toggle-icon" />
       <span className="sidebar-nav-tooltip">회원목록</span>
     </button>
