@@ -1,5 +1,12 @@
 import React from "react";
-import { Plus } from "lucide-react";
+import {
+  Plus,
+  LayoutDashboard,
+  UserPlus,
+  ShoppingCart,
+  GitFork,
+  type LucideIcon,
+} from "lucide-react";
 
 export type HomeShortcutKey =
   | "dashboard"
@@ -11,16 +18,16 @@ export type HomeShortcutKey =
 interface HomeShortcut {
   key: HomeShortcutKey;
   label: string;
-  glyph: string;
+  icon: LucideIcon;
   bg: string;
   color: string;
 }
 
 const homeShortcuts: HomeShortcut[] = [
-  { key: "dashboard", label: "대시보드", glyph: "대", bg: "#dbeafe", color: "#2563eb" },
-  { key: "member-register", label: "회원등록", glyph: "회", bg: "#fce7f3", color: "#db2777" },
-  { key: "order-register", label: "주문서등록", glyph: "주", bg: "#fee2e2", color: "#dc2626" },
-  { key: "org-chart", label: "조직도", glyph: "조", bg: "#dcfce7", color: "#16a34a" },
+  { key: "dashboard", label: "대시보드", icon: LayoutDashboard, bg: "#93c5fd", color: "#0284c7" },
+  { key: "member-register", label: "회원등록", icon: UserPlus, bg: "#f9a8d4", color: "#db2777" },
+  { key: "order-register", label: "주문서등록", icon: ShoppingCart, bg: "#fca5a5", color: "#dc2626" },
+  { key: "org-chart", label: "조직도", icon: GitFork, bg: "#86efac", color: "#16a34a" },
 ];
 
 interface HomeDesktopViewProps {
@@ -40,22 +47,25 @@ export function HomeDesktopView({ activeTask, onShortcutClick }: HomeDesktopView
             </div>
 
             <div className="home-desktop-shortcuts">
-              {homeShortcuts.map((shortcut) => (
-                <button
-                  key={shortcut.key}
-                  type="button"
-                  className="home-desktop-shortcut"
-                  onClick={() => onShortcutClick(shortcut.key)}
-                >
-                  <span
-                    className="home-desktop-shortcut-icon"
-                    style={{ background: shortcut.bg, color: shortcut.color }}
+              {homeShortcuts.map((shortcut) => {
+                const Icon = shortcut.icon;
+                return (
+                  <button
+                    key={shortcut.key}
+                    type="button"
+                    className="home-desktop-shortcut"
+                    onClick={() => onShortcutClick(shortcut.key)}
                   >
-                    {shortcut.glyph}
-                  </span>
-                  <span className="home-desktop-shortcut-label">{shortcut.label}</span>
-                </button>
-              ))}
+                    <span
+                      className="home-desktop-shortcut-icon"
+                      style={{ background: shortcut.bg, color: shortcut.color }}
+                    >
+                      <Icon size={28} strokeWidth={1.75} aria-hidden />
+                    </span>
+                    <span className="home-desktop-shortcut-label">{shortcut.label}</span>
+                  </button>
+                );
+              })}
 
               <button
                 type="button"
@@ -63,7 +73,7 @@ export function HomeDesktopView({ activeTask, onShortcutClick }: HomeDesktopView
                 onClick={() => onShortcutClick("add-shortcut")}
               >
                 <span className="home-desktop-shortcut-icon home-desktop-shortcut-icon--add">
-                  <Plus size={28} strokeWidth={1.5} />
+                  <Plus size={28} strokeWidth={1.75} aria-hidden />
                 </span>
                 <span className="home-desktop-shortcut-label">바로가기 추가</span>
               </button>
