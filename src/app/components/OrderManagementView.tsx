@@ -722,23 +722,28 @@ function OmMemberInfoPanel({ member }: { member: ProfileMember }) {
     <div className="order-mgmt-block-wrap">
       <OmMemberInfoTitle name={member.name} memberNo={member.no} />
       <section className="order-mgmt-member-info">
-        <div className="order-mgmt-member-info-body">
-          <p className="order-mgmt-member-info-row">
-            <span className="order-mgmt-member-info-label">회원번호 :</span>{" "}
-            <span className="order-mgmt-member-info-link">{member.no}</span>
-            <span className="order-mgmt-member-info-gap" />
-            <span className="order-mgmt-member-info-label">회원명 :</span> {member.name}
-            <span className="order-mgmt-member-info-gap" />
-            <span className="order-mgmt-member-info-label">주민등록번호 :</span> {member.ssn}
-            <span className="order-mgmt-member-info-gap" />
-            <span className="order-mgmt-member-info-label">전화번호 :</span> {member.phone}
-          </p>
-          <p className="order-mgmt-member-info-row">
-            <span className="order-mgmt-member-info-label">주소지 :</span> {address}
-            <span className="order-mgmt-member-info-gap" />
-            <span className="order-mgmt-member-info-label">센터 :</span> {centerCode}
-          </p>
-        </div>
+        <table className="order-mgmt-member-info-table">
+          <tbody>
+            <tr>
+              <th scope="row">회원번호</th>
+              <td className="order-mgmt-member-info-table__value order-mgmt-member-info-table__value--mono">{member.no}</td>
+              <th scope="row">회원명</th>
+              <td className="order-mgmt-member-info-table__value">{member.name}</td>
+              <th scope="row">주민등록번호</th>
+              <td className="order-mgmt-member-info-table__value">{member.ssn}</td>
+              <th scope="row">전화번호</th>
+              <td className="order-mgmt-member-info-table__value">{member.phone}</td>
+            </tr>
+            <tr>
+              <th scope="row">주소지</th>
+              <td className="order-mgmt-member-info-table__value" colSpan={5}>
+                {address}
+              </td>
+              <th scope="row">센터</th>
+              <td className="order-mgmt-member-info-table__value">{centerCode}</td>
+            </tr>
+          </tbody>
+        </table>
       </section>
     </div>
   );
