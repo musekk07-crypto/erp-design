@@ -12,9 +12,9 @@
   --nav-active-text: #ffffff;
   --nav-hover-bg: #0369a1;
   --nav-hover-text: #ffffff;
-  --nav-dropdown-bg: rgba(34, 34, 34, 0.72);
-  --nav-dropdown-blur: 40px;
-  --nav-dropdown-saturate: 160%;
+  --nav-dropdown-bg: rgba(24, 24, 24, 0.9);
+  --nav-dropdown-blur: 56px;
+  --nav-dropdown-saturate: 180%;
   --nav-dropdown-border: rgba(255, 255, 255, 0.12);
   --nav-dropdown-text: rgba(255, 255, 255, 0.92);
   --nav-dropdown-hover-bg: rgba(2, 132, 199, 0.45);
