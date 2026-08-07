@@ -6,6 +6,7 @@ import {
   Pin, Clock, ChevronLeft, ChevronRight, RefreshCw,
   FilePlus, Save, Trash2, Award, Briefcase, MessageCircle, Key, Printer,
   Globe, Landmark, Contact, CheckCircle2, Phone, ExternalLink, Camera, X,
+  LayoutDashboard, UserPlus, Plus,
 } from "lucide-react";
 import { RecommenderSelectPopup } from "./components/RecommenderSelectPopup";
 import { RankAdjustPopup } from "./components/RankAdjustPopup";
@@ -16,6 +17,7 @@ import { NewPasswordPopup } from "./components/NewPasswordPopup";
 import { PrintPopup } from "./components/PrintPopup";
 import { MemberSavePopup } from "./components/MemberSavePopup";
 import { OrderManagementView } from "./components/OrderManagementView";
+import { HomeDesktopView, type HomeShortcutKey } from "./components/HomeDesktopView";
 import { Mm2ProfileCard, buildMm2ProfileFields } from "./components/Mm2ProfileCard";
 import { OrgChartHoverProvider, useOrgChartHover, type OrgMemberDetail } from "./components/OrgMemberHoverPopup";
 
@@ -4540,13 +4542,21 @@ function TopNav({
 // Sidebar
 // ─────────────────────────────────────────────
 
-const navItems = [
+type SidebarNavKey =
+  | "home"
+  | "dashboard"
+  | "member-register"
+  | "order-register"
+  | "org-chart"
+  | "add-shortcut";
+
+const navItems: { icon: React.ComponentType<{ size?: number; style?: React.CSSProperties }>; label: string; key: SidebarNavKey }[] = [
   { icon: Home, label: "홈", key: "home" },
-  { icon: Users, label: "회원관리", key: "members" },
-  { icon: ShoppingCart, label: "주문서", key: "orders" },
-  { icon: BarChart2, label: "수당", key: "stats" },
-  { icon: CreditCard, label: "마일리지", key: "mileage" },
-  { icon: Bell, label: "알림", key: "notifications" },
+  { icon: LayoutDashboard, label: "대시보드", key: "dashboard" },
+  { icon: UserPlus, label: "회원등록", key: "member-register" },
+  { icon: ShoppingCart, label: "주문서등록", key: "order-register" },
+  { icon: GitFork, label: "조직도", key: "org-chart" },
+  { icon: Plus, label: "바로가기 추가", key: "add-shortcut" },
 ];
 
 const bottomItems = [
@@ -4560,37 +4570,28 @@ const themes: { key: Theme; color: string; label: string }[] = [
 ];
 
 interface SidebarProps {
-  showMemberNav: boolean;
-  activePanel: string | null;
-  onPanelToggle: () => void;
-  onNavigateHome?: () => void;
+  activeNavKey: SidebarNavKey;
+  onNavChange: (key: SidebarNavKey) => void;
   theme: Theme;
   onThemeChange: (t: Theme) => void;
 }
 
-function Sidebar({ showMemberNav, activePanel, onPanelToggle, onNavigateHome, theme, onThemeChange }: SidebarProps) {
-  const visibleNavItems = showMemberNav
-    ? navItems
-    : navItems.filter((item) => item.key !== "members");
-
+function Sidebar({ activeNavKey, onNavChange, theme, onThemeChange }: SidebarProps) {
   return (
     <div
       className="app-sidebar flex flex-col items-center py-4 gap-1"
       style={{ width: SIDEBAR_WIDTH, minWidth: SIDEBAR_WIDTH, height: "100%", background: "var(--sidebar-bg, #eceef2)", borderRight: "1px solid var(--border)", flexShrink: 0 }}
     >
       <div className="flex flex-col items-center gap-1 flex-1">
-        {visibleNavItems.map((item) => {
-          const isActive = activePanel === item.key;
+        {navItems.map((item) => {
+          const isActive = activeNavKey === item.key;
           return (
             <button
               key={item.key}
               type="button"
               title={item.label}
               aria-label={item.label}
-              onClick={() => {
-                if (item.key === "members") onPanelToggle();
-                else if (item.key === "home") onNavigateHome?.();
-              }}
+              onClick={() => onNavChange(item.key)}
               className="w-10 h-10 rounded flex items-center justify-center transition-all duration-200 group relative"
               style={{
                 background: isActive ? "var(--sidebar-item-active-bg)" : "transparent",
@@ -4668,6 +4669,9 @@ export default function App() {
   const [isListResizing, setIsListResizing] = useState(false);
   const [listWidth, setListWidth] = useState(() => clampMemberListWidth(MEMBER_LIST_DEFAULT_WIDTH));
   const [activeTab, setActiveTab] = useState("회원정보");
+  const [activeSidebarKey, setActiveSidebarKey] = useState<SidebarNavKey>("home");
+  const [homeOpenTasks, setHomeOpenTasks] = useState<HomeShortcutKey[]>([]);
+  const [homeActiveTask, setHomeActiveTask] = useState<"desktop" | HomeShortcutKey>("desktop");
   const [activeMainMenu, setActiveMainMenu] = useState("회원관리");
   const [activeMemberSubMenu, setActiveMemberSubMenu] = useState("회원등록");
   const [activeOrderSubMenu, setActiveOrderSubMenu] = useState("주문서등록");
@@ -4688,9 +4692,18 @@ export default function App() {
   const appContentRef = useRef<HTMLDivElement>(null);
   const resizing = useRef(false);
 
+  const isHomeView = activeSidebarKey === "home";
+  const isAddShortcutView = activeSidebarKey === "add-shortcut";
+  const sidebarActiveKey: SidebarNavKey =
+    activeSidebarKey === "home" && homeActiveTask === "dashboard"
+      ? "dashboard"
+      : activeSidebarKey;
+
   const memberListNavEnabled =
-    (activeMainMenu === "회원관리" && (activeMemberSubMenu === "회원등록" || activeMemberSubMenu === "조직도인쇄")) ||
-    (activeMainMenu === "주문관리" && activeOrderSubMenu !== "주문서승인");
+    !isHomeView &&
+    !isAddShortcutView &&
+    ((activeMainMenu === "회원관리" && (activeMemberSubMenu === "회원등록" || activeMemberSubMenu === "조직도인쇄")) ||
+      (activeMainMenu === "주문관리" && activeOrderSubMenu !== "주문서승인"));
   const memberListOpen = memberListNavEnabled && listOpen;
 
   const formColumnWidth = useMemo(() => {
@@ -4794,6 +4807,9 @@ export default function App() {
   const handleOrderSubMenuChange = useCallback((item: string) => {
     setActiveOrderSubMenu(item);
     setActiveMainMenu("주문관리");
+    if (item === "주문서등록") {
+      setActiveSidebarKey("order-register");
+    }
     if (item === "주문서승인") {
       setListOpen(false);
     }
@@ -4804,6 +4820,9 @@ export default function App() {
     setActiveMainMenu("회원관리");
     if (item === "회원등록") {
       setActiveTab("회원정보");
+      setActiveSidebarKey("member-register");
+    } else if (item === "조직도인쇄") {
+      setActiveSidebarKey("org-chart");
     } else if (item !== "조직도인쇄") {
       setListOpen(false);
     }
@@ -4817,11 +4836,84 @@ export default function App() {
     handleMemberSubMenuChange("조직도인쇄");
   }, [handleMemberSubMenuChange]);
 
-  const handleNavigateHome = useCallback(() => {
-    setActiveMainMenu("회원관리");
-    setActiveMemberSubMenu("회원등록");
-    setActiveTab("회원정보");
+  const navigateFromSidebar = useCallback((key: SidebarNavKey) => {
+    setActiveSidebarKey(key);
+
+    switch (key) {
+      case "home":
+        setHomeActiveTask("desktop");
+        setListOpen(false);
+        return;
+      case "dashboard":
+        setActiveSidebarKey("home");
+        setHomeOpenTasks((prev) => (prev.includes("dashboard") ? prev : [...prev, "dashboard"]));
+        setHomeActiveTask("dashboard");
+        setListOpen(false);
+        return;
+      case "member-register":
+        setActiveMainMenu("회원관리");
+        setActiveMemberSubMenu("회원등록");
+        setActiveTab("회원정보");
+        setListOpen(true);
+        return;
+      case "order-register":
+        setActiveMainMenu("주문관리");
+        setActiveOrderSubMenu("주문서등록");
+        setListOpen(true);
+        return;
+      case "org-chart":
+        setActiveMainMenu("회원관리");
+        setActiveMemberSubMenu("조직도인쇄");
+        setListOpen(true);
+        return;
+      case "add-shortcut":
+        setListOpen(false);
+        return;
+    }
   }, []);
+
+  const handleHomeDesktopSelect = useCallback(() => {
+    setActiveSidebarKey("home");
+    setHomeActiveTask("desktop");
+    setListOpen(false);
+  }, []);
+
+  const handleHomeShortcut = useCallback((key: HomeShortcutKey) => {
+    if (key === "add-shortcut") {
+      navigateFromSidebar("add-shortcut");
+      return;
+    }
+
+    if (key === "dashboard") {
+      setActiveSidebarKey("home");
+      setHomeOpenTasks((prev) => (prev.includes("dashboard") ? prev : [...prev, "dashboard"]));
+      setHomeActiveTask("dashboard");
+      setListOpen(false);
+      return;
+    }
+
+    if (key === "member-register") {
+      navigateFromSidebar("member-register");
+      return;
+    }
+    if (key === "order-register") {
+      navigateFromSidebar("order-register");
+      return;
+    }
+    if (key === "org-chart") {
+      navigateFromSidebar("org-chart");
+    }
+  }, [navigateFromSidebar]);
+
+  const handleHomeTaskSelect = useCallback((key: HomeShortcutKey) => {
+    if (key === "dashboard") {
+      setActiveSidebarKey("home");
+      setHomeActiveTask("dashboard");
+      setListOpen(false);
+      return;
+    }
+    handleHomeShortcut(key);
+  }, [handleHomeShortcut]);
 
   const onResizeStart = useCallback((e: React.MouseEvent) => {
     e.preventDefault();
@@ -4871,10 +4963,8 @@ export default function App() {
           style={{ flex: 1, display: "flex", minHeight: 0, minWidth: 0, overflow: "hidden" }}
         >
         <Sidebar
-          showMemberNav={memberListNavEnabled}
-          activePanel={memberListOpen ? "members" : null}
-          onPanelToggle={() => setListOpen((v) => !v)}
-          onNavigateHome={handleNavigateHome}
+          activeNavKey={sidebarActiveKey}
+          onNavChange={navigateFromSidebar}
           theme={theme}
           onThemeChange={setTheme}
         />
@@ -4961,7 +5051,20 @@ export default function App() {
             overflow: "hidden",
           }}
         >
-          {isOrderManagement ? (
+          {isHomeView ? (
+            <HomeDesktopView
+              activeTask={homeActiveTask}
+              openTasks={homeOpenTasks}
+              onShortcutClick={handleHomeShortcut}
+              onDesktopSelect={handleHomeDesktopSelect}
+              onTaskSelect={handleHomeTaskSelect}
+            />
+          ) : isAddShortcutView ? (
+            <div className="home-page-placeholder">
+              <span className="home-page-placeholder__title">바로가기 추가</span>
+              <span className="home-page-placeholder__desc">바로가기 설정 화면 준비 중입니다.</span>
+            </div>
+          ) : isOrderManagement ? (
             activeOrderSubMenu === "주문서등록" ? (
               <OrderManagementView member={getMemberById(selectedMember)} />
             ) : (
