@@ -67,7 +67,7 @@
   z-index: 200;
   min-width: 220px;
   padding: 6px 0;
-  background: var(--nav-dropdown-bg, rgba(24, 24, 24, 0.9));
+  background: var(--nav-dropdown-bg, #222222);
   border: 1px solid var(--nav-dropdown-border, rgba(255, 255, 255, 0.12));
   box-shadow: none;
   opacity: 0;
@@ -234,7 +234,7 @@
   z-index: 210;
   min-width: 148px;
   padding: 6px 0;
-  background: var(--nav-dropdown-bg, rgba(24, 24, 24, 0.9));
+  background: var(--nav-dropdown-bg, #222222);
   border: 1px solid var(--nav-dropdown-border, rgba(255, 255, 255, 0.12));
   box-shadow: none;
   opacity: 0;
