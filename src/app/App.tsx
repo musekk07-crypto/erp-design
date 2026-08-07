@@ -4845,11 +4845,15 @@ export default function App() {
   const navigateFromSidebar = useCallback((key: SidebarNavKey) => {
     if (key === "members") {
       const onMemberInfoScreen =
+        activeSidebarKey !== "home" &&
+        activeSidebarKey !== "add-shortcut" &&
         activeMainMenu === "회원관리" &&
         activeMemberSubMenu === "회원등록" &&
         activeTab === "회원정보";
 
       const onOrderRegisterScreen =
+        activeSidebarKey !== "home" &&
+        activeSidebarKey !== "add-shortcut" &&
         activeMainMenu === "주문관리" &&
         activeOrderSubMenu === "주문서등록";
 
@@ -4893,7 +4897,7 @@ export default function App() {
         setListOpen(false);
         return;
     }
-  }, [activeMainMenu, activeMemberSubMenu, activeTab]);
+  }, [activeMainMenu, activeMemberSubMenu, activeOrderSubMenu, activeSidebarKey, activeTab]);
 
   const handleHomeDesktopSelect = useCallback(() => {
     setActiveSidebarKey("home");
@@ -4916,7 +4920,11 @@ export default function App() {
     }
 
     if (key === "member-register") {
-      navigateFromSidebar("members");
+      setActiveSidebarKey("members");
+      setActiveMainMenu("회원관리");
+      setActiveMemberSubMenu("회원등록");
+      setActiveTab("회원정보");
+      setListOpen(false);
       return;
     }
     if (key === "order-register") {
