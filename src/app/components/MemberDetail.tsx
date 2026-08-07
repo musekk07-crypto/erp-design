@@ -168,7 +168,7 @@ function GenderToggleInline() {
 export function MemberDetail({ onClose }: { onClose?: () => void }) {
   return (
     <div className="flex flex-col h-full overflow-hidden">
-      <div className="flex-1 overflow-y-auto p-4" style={{ scrollbarWidth: "none", background: "#f9f9f9" }}>
+      <div className="flex-1 overflow-y-auto p-4" style={{ scrollbarWidth: "none", background: "var(--surface-page, #eef1f4)" }}>
 
         {/* Member Header Card */}
         <div

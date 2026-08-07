@@ -4645,7 +4645,7 @@ textarea.mm2-name-box:focus {
   flex-direction: column;
   flex: 1;
   min-height: 0;
-  background: #eef1f4;
+  background: var(--surface-page, #eef1f4);
 }
 
 .member-org-chart-toolbar {
@@ -5530,7 +5530,7 @@ textarea.mm2-name-box:focus {
   flex-direction: column;
   height: 100%;
   min-height: 0;
-  background: #e8eaee;
+  background: var(--surface-page, #eef1f4);
 }
 
 .home-desktop-body {
@@ -5625,7 +5625,7 @@ textarea.mm2-name-box:focus {
   gap: 8px;
   padding: 32px;
   color: var(--text-muted);
-  background: #e8eaee;
+  background: var(--surface-page, #eef1f4);
 }
 
 .home-page-placeholder__title {
