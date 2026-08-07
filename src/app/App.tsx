@@ -5,7 +5,7 @@ import {
   BarChart2, ShoppingCart, Settings, Bell, HelpCircle, Home,
   Pin, Clock, ChevronLeft, ChevronRight, RefreshCw,
   FilePlus, Save, Trash2, Award, Briefcase, MessageCircle, Key, Printer,
-  Globe, Landmark, Contact, CheckCircle2, Phone, ExternalLink, Camera,
+  Globe, Landmark, Contact, CheckCircle2, Phone, ExternalLink, Camera, X,
 } from "lucide-react";
 import { RecommenderSelectPopup } from "./components/RecommenderSelectPopup";
 import { RankAdjustPopup } from "./components/RankAdjustPopup";
@@ -4392,6 +4392,31 @@ function TopNav({
   onOrderSubMenuChange,
 }: TopNavProps) {
   const workNotificationCount = 3;
+  const [closedDropdownMenu, setClosedDropdownMenu] = useState<string | null>(null);
+
+  const handleDropdownClose = useCallback((menu: string) => {
+    setClosedDropdownMenu(menu);
+  }, []);
+
+  const handleDropdownWrapMouseLeave = useCallback((menu: string) => {
+    setClosedDropdownMenu((current) => (current === menu ? null : current));
+  }, []);
+
+  const handleMemberSubMenuSelect = useCallback(
+    (item: string) => {
+      onMemberSubMenuChange(item);
+      setClosedDropdownMenu("회원관리");
+    },
+    [onMemberSubMenuChange],
+  );
+
+  const handleOrderSubMenuSelect = useCallback(
+    (item: string) => {
+      onOrderSubMenuChange(item);
+      setClosedDropdownMenu("주문관리");
+    },
+    [onOrderSubMenuChange],
+  );
 
   return (
     <div className="top-nav-shell" style={{ flexShrink: 0, minWidth: APP_MIN_WIDTH }}>
@@ -4418,7 +4443,11 @@ function TopNav({
 
             if (isMemberMenu || isOrderMenu) {
               return (
-                <div key={menu} className="main-nav-item-wrap">
+                <div
+                  key={menu}
+                  className={`main-nav-item-wrap${closedDropdownMenu === menu ? " is-dropdown-closed" : ""}`}
+                  onMouseLeave={() => handleDropdownWrapMouseLeave(menu)}
+                >
                   <button
                     type="button"
                     onClick={() => onMainMenuChange(menu)}
@@ -4431,12 +4460,24 @@ function TopNav({
                     className={`main-nav-dropdown${isOrderMenu ? " main-nav-dropdown--order" : " main-nav-dropdown--grouped"}`}
                     role="menu"
                   >
+                    <button
+                      type="button"
+                      className="main-nav-dropdown-close"
+                      aria-label="메뉴 닫기"
+                      onClick={(event) => {
+                        event.preventDefault();
+                        event.stopPropagation();
+                        handleDropdownClose(menu);
+                      }}
+                    >
+                      <X size={14} strokeWidth={2} aria-hidden />
+                    </button>
                     {isMemberMenu ? (
                       memberSubMenuGroups.map((group) => (
                         <MainNavDropdownGroup
                           key={group.title}
                           group={group}
-                          onItemClick={onMemberSubMenuChange}
+                          onItemClick={handleMemberSubMenuSelect}
                         />
                       ))
                     ) : (
@@ -4446,7 +4487,7 @@ function TopNav({
                             <MainNavDropdownGroup
                               key={group.title || group.items[0]}
                               group={group}
-                              onItemClick={onOrderSubMenuChange}
+                              onItemClick={handleOrderSubMenuSelect}
                             />
                           ))}
                         </div>
