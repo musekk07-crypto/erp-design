@@ -5409,8 +5409,8 @@ textarea.mm2-name-box:focus {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 36px;
-  height: 36px;
+  width: 40px;
+  height: 40px;
   padding: 0;
   border: 1px solid transparent;
   border-radius: 50%;
@@ -5482,8 +5482,8 @@ textarea.mm2-name-box:focus {
   align-items: center;
   justify-content: center;
   position: relative;
-  width: 36px;
-  height: 36px;
+  width: 40px;
+  height: 40px;
   padding: 0;
   border: 1px solid transparent;
   border-radius: 50%;
