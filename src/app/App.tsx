@@ -102,7 +102,7 @@ const MM2_ORG_CHART_PANEL_HEIGHT =
 const DETAIL_CONTENT_GAP = 12;
 const DETAIL_PANEL_PAD = 12;
 const HISTORY_BAR_COLLAPSED_HEIGHT = 40;
-const HISTORY_BAR_EXPANDED_HEIGHT = 84;
+const HISTORY_BAR_EXPANDED_HEIGHT = 48;
 const RECENT_HISTORY_MAX = 10;
 
 function getDetailContentWidth(formColumnWidth: number) {
