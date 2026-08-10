@@ -3631,7 +3631,7 @@ textarea.mm2-name-box:focus {
   position: relative;
   flex-shrink: 0;
   width: 100%;
-  background: var(--surface-page);
+  background: var(--surface-panel);
   border-top: 1px solid var(--border);
   transition: height 0.2s ease;
 }
@@ -3704,12 +3704,12 @@ textarea.mm2-name-box:focus {
   min-width: 0;
 }
 
-/* 활성 탭: 바 위쪽 경계선을 뚫고 올라와 본문과 이어진 탭이 된다 */
+/* 활성 탭: 바 위쪽 경계선을 뚫고 올라와 본문과 이어진 탭이 된다 (본문과 같은 배경) */
 .visit-history-tab-group.is-active {
   align-self: stretch;
   margin-top: -7px;
   padding: 0 2px 0 0;
-  background: var(--surface-panel);
+  background: var(--surface-page);
   border: 1px solid var(--border);
   border-bottom: none;
   border-radius: 4px 4px 0 0;
