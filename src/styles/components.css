@@ -3635,13 +3635,14 @@ textarea.mm2-name-box:focus {
   transition: height 0.2s ease;
 }
 
+/* 탭 묶음은 바 전체 기준으로 가운데 정렬하고, 우측 액션은 겹치지 않게 좌우 여백을 대칭으로 확보한다 */
 .visit-history-bar-inner {
+  position: relative;
   display: flex;
-  align-items: stretch;
+  align-items: center;
   justify-content: center;
   height: 100%;
-  padding: 0 10px;
-  gap: 10px;
+  padding: 0 74px;
   min-width: 0;
 }
 
@@ -3655,93 +3656,123 @@ textarea.mm2-name-box:focus {
   box-sizing: border-box;
 }
 
-.visit-history-bar-spacer {
-  flex: 1;
-  min-width: 0;
-}
-
-.visit-history-bar-lead {
+.visit-history-bar-trail {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  right: 10px;
   display: flex;
-  align-items: center;
-  gap: 8px;
-  flex-shrink: 0;
-  padding-right: 2px;
-}
-
-.visit-history-bar-title {
-  display: flex;
-  align-items: center;
-  flex-shrink: 0;
-  padding: 0 4px;
-  font-size: 14px;
-  font-weight: 600;
-  color: var(--text-body);
-  white-space: nowrap;
-}
-
-.visit-history-bar-section {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  min-width: 0;
-  padding: 8px 0;
-}
-
-/* 최근 목록이 먼저 줄어들도록 고정 섹션은 축소하지 않는다 */
-.visit-history-bar-section--pinned {
-  flex: 0 0 auto;
-  max-width: 38%;
-}
-
-.visit-history-bar-section--recent {
-  flex: 0 1 auto;
-}
-
-.visit-history-bar-section-label {
-  display: inline-flex;
   align-items: center;
   gap: 4px;
-  flex-shrink: 0;
-  font-size: 13px;
-  font-weight: 600;
-  color: var(--text-muted);
-  white-space: nowrap;
 }
 
-.visit-history-bar-scroll {
+.visit-history-tab-strip {
   display: flex;
   align-items: center;
-  gap: 0;
+  min-width: 0;
   overflow-x: auto;
   overflow-y: hidden;
-  flex: 0 1 auto;
-  min-width: 0;
   scrollbar-width: none;
-  padding: 2px 0;
 }
 
-.visit-history-bar-scroll::-webkit-scrollbar {
+.visit-history-tab-strip::-webkit-scrollbar {
   display: none;
 }
 
-.visit-history-bar-divider {
+.visit-history-tab-sep {
   width: 1px;
-  align-self: stretch;
-  margin: 10px 0;
+  height: 14px;
+  margin: 0 3px;
   background: var(--border);
   flex-shrink: 0;
 }
 
-.visit-history-bar-divider--lead {
-  margin: 10px 2px;
+/* 활성 탭은 자기 테두리가 구분선 역할을 하므로 양옆 구분선을 감춘다 */
+.visit-history-tab-sep:has(+ .visit-history-tab-group.is-active),
+.visit-history-tab-group.is-active + .visit-history-tab-sep {
+  visibility: hidden;
 }
 
-.visit-history-bar-actions {
-  display: flex;
+.visit-history-tab-group {
+  display: inline-flex;
   align-items: center;
-  gap: 4px;
   flex-shrink: 0;
-  padding-left: 0;
+  min-width: 0;
+}
+
+.visit-history-tab {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  flex-shrink: 0;
+  min-width: 0;
+  max-width: 200px;
+  height: 28px;
+  padding: 0 12px;
+  border: 1px solid transparent;
+  border-radius: 0;
+  background: transparent;
+  color: var(--text-body);
+  white-space: nowrap;
+  cursor: pointer;
+  transition: background 0.15s ease, border-color 0.15s ease;
+}
+
+.visit-history-tab:hover {
+  background: var(--surface-row-hover);
+}
+
+.visit-history-tab.is-active {
+  background: var(--surface-panel);
+  border-color: var(--border);
+}
+
+.visit-history-tab--home {
+  flex-shrink: 0;
+  color: var(--text-muted);
+}
+
+.visit-history-tab-label {
+  font-size: 13px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.visit-history-tab.is-active .visit-history-tab-label {
+  font-weight: 600;
+  color: var(--foreground);
+}
+
+.visit-history-tab-sub {
+  font-size: 12px;
+  color: var(--text-subtle);
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.visit-history-tab-pin {
+  flex-shrink: 0;
+  color: var(--required-color, #001673);
+}
+
+.visit-history-tab-close {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: 28px;
+  height: 28px;
+  margin-left: -1px;
+  border: 1px solid var(--border);
+  background: var(--surface-panel);
+  color: var(--text-muted);
+  cursor: pointer;
+  transition: background 0.15s ease, color 0.15s ease;
+}
+
+.visit-history-tab-close:hover {
+  background: var(--surface-row-hover);
+  color: var(--foreground);
 }
 
 .visit-history-icon-btn {
@@ -3818,120 +3849,6 @@ textarea.mm2-name-box:focus {
   color: var(--text-subtle);
   white-space: nowrap;
   padding: 0 4px;
-}
-
-.visit-history-chip {
-  position: relative;
-  display: inline-flex;
-  flex-direction: row;
-  align-items: center;
-  gap: 6px;
-  flex-shrink: 0;
-  max-width: 240px;
-  height: 30px;
-  padding: 0 10px;
-  border-radius: 0;
-  border: 1px solid transparent;
-  background: transparent;
-  cursor: pointer;
-  text-align: left;
-  transition: background 0.15s ease, border-color 0.15s ease;
-}
-
-/* 탭 사이 얇은 구분선 (활성 탭 주변은 테두리가 대신한다) */
-.visit-history-chip + .visit-history-chip::before {
-  content: "";
-  position: absolute;
-  left: -1px;
-  top: 7px;
-  bottom: 7px;
-  width: 1px;
-  background: var(--border);
-}
-
-.visit-history-chip.is-active::before,
-.visit-history-chip.is-active + .visit-history-chip::before {
-  display: none;
-}
-
-.visit-history-chip:hover {
-  background: var(--surface-row-hover);
-}
-
-.visit-history-chip.is-active {
-  background: var(--surface-panel);
-  border-color: var(--border);
-}
-
-.visit-history-chip-screen {
-  font-size: 13px;
-  font-weight: 500;
-  color: var(--text-body);
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  flex-shrink: 0;
-}
-
-.visit-history-chip.is-active .visit-history-chip-screen {
-  font-weight: 600;
-  color: var(--foreground);
-}
-
-.visit-history-chip-meta {
-  display: inline-flex;
-  align-items: center;
-  gap: 4px;
-  font-size: 12px;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  min-width: 0;
-}
-
-.visit-history-chip-no {
-  font-family: monospace;
-  color: var(--text-muted);
-}
-
-.visit-history-chip-sep {
-  color: var(--text-subtle);
-}
-
-.visit-history-chip-name {
-  color: var(--text-subtle);
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
-
-.visit-history-chip-remove {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  flex-shrink: 0;
-  width: 18px;
-  height: 18px;
-  margin-right: -4px;
-  font-size: 14px;
-  line-height: 1;
-  color: var(--text-muted);
-  border: 1px solid transparent;
-  opacity: 0;
-  transition: opacity 0.15s ease, border-color 0.15s ease;
-}
-
-.visit-history-chip.is-active .visit-history-chip-remove {
-  opacity: 1;
-  border-color: var(--border);
-}
-
-.visit-history-chip:hover .visit-history-chip-remove {
-  opacity: 0.55;
-}
-
-.visit-history-chip-remove:hover {
-  opacity: 1 !important;
-  border-color: var(--border);
 }
 
 .recommender-select-modal {

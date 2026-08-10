@@ -3911,46 +3911,38 @@ function toHistoryItem(screen: string, memberId: number): PageHistoryItem | null
 interface HistoryItemButtonProps {
   item: PageHistoryItem;
   isActive: boolean;
+  isPinned?: boolean;
   onSelect: (item: PageHistoryItem) => void;
   onRemove?: (id: string) => void;
 }
 
-function HistoryItemChip({ item, isActive, onSelect, onRemove }: HistoryItemButtonProps) {
+function HistoryItemChip({ item, isActive, isPinned, onSelect, onRemove }: HistoryItemButtonProps) {
+  const fullLabel = `${item.screen} · ${item.memberNo} · ${item.memberName}`;
+
   return (
-    <button
-      type="button"
-      onClick={() => onSelect(item)}
-      className={`visit-history-chip group${isActive ? " is-active" : ""}`}
-    >
-      <span className="visit-history-chip-screen">{item.screen}</span>
-      <span className="visit-history-chip-meta">
-        <span className="visit-history-chip-no">{item.memberNo}</span>
-        <span className="visit-history-chip-sep">·</span>
-        <span className="visit-history-chip-name">{item.memberName}</span>
-      </span>
-      {onRemove && (
-        <span
-          role="button"
-          tabIndex={0}
-          title="삭제"
+    <span className={`visit-history-tab-group${isActive ? " is-active" : ""}`}>
+      <button
+        type="button"
+        onClick={() => onSelect(item)}
+        title={fullLabel}
+        className={`visit-history-tab${isActive ? " is-active" : ""}`}
+      >
+        {isPinned && <Pin size={11} className="visit-history-tab-pin" />}
+        <span className="visit-history-tab-label">{item.screen}</span>
+        <span className="visit-history-tab-sub">{item.memberName}</span>
+      </button>
+      {onRemove && isActive && (
+        <button
+          type="button"
+          title="닫기"
           aria-label="히스토리에서 삭제"
-          onClick={(e) => {
-            e.stopPropagation();
-            onRemove(item.id);
-          }}
-          onKeyDown={(e) => {
-            if (e.key === "Enter" || e.key === " ") {
-              e.preventDefault();
-              e.stopPropagation();
-              onRemove(item.id);
-            }
-          }}
-          className="visit-history-chip-remove"
+          onClick={() => onRemove(item.id)}
+          className="visit-history-tab-close"
         >
-          ×
-        </span>
+          <X size={12} />
+        </button>
       )}
-    </button>
+    </span>
   );
 }
 
@@ -3964,6 +3956,7 @@ interface VisitHistoryBarProps {
   onPinCurrent: () => void;
   onUnpin: (id: string) => void;
   onRemoveRecent: (id: string) => void;
+  onGoHome: () => void;
 }
 
 function BarTooltip({ label }: { label: string }) {
@@ -4011,6 +4004,7 @@ function VisitHistoryBar({
   onPinCurrent,
   onUnpin,
   onRemoveRecent,
+  onGoHome,
 }: VisitHistoryBarProps) {
   const height = expanded ? HISTORY_BAR_EXPANDED_HEIGHT : HISTORY_BAR_COLLAPSED_HEIGHT;
 
@@ -4054,64 +4048,50 @@ function VisitHistoryBar({
       style={{ height, minHeight: height }}
     >
       <div className="visit-history-bar-inner">
-        <div className="visit-history-bar-lead">
-          <div className="visit-history-bar-actions">
-            <VisitHistoryIconButton label="접기" onClick={onToggleExpand}>
-              <ChevronDown size={14} style={{ color: "var(--text-muted)" }} />
-            </VisitHistoryIconButton>
-            <VisitHistoryIconButton label="현재 화면 고정" onClick={onPinCurrent} accent>
-              <Pin size={12} style={{ color: "var(--required-color, #001673)" }} />
-            </VisitHistoryIconButton>
-          </div>
-          <div className="visit-history-bar-title">방문 기록</div>
-        </div>
+        <button type="button" className="visit-history-tab visit-history-tab--home" onClick={onGoHome}>
+          <Home size={13} />
+          <span className="visit-history-tab-label">바탕화면</span>
+        </button>
 
-        <div className="visit-history-bar-divider visit-history-bar-divider--lead" aria-hidden />
-
-        <div className="visit-history-bar-section visit-history-bar-section--pinned">
-          <span className="visit-history-bar-section-label">
-            <Pin size={11} style={{ color: "var(--required-color, #001673)" }} />
-            고정
-          </span>
-          <div className="visit-history-bar-scroll">
-            {pinned.length === 0 ? (
-              <span className="visit-history-empty">고정된 화면 없음</span>
-            ) : (
-              pinned.map((item) => (
-                <HistoryItemChip
-                  key={item.id}
-                  item={item}
-                  isActive={item.id === activeId}
-                  onSelect={onSelect}
-                  onRemove={onUnpin}
-                />
-              ))
-            )}
-          </div>
-        </div>
-
-        <div className="visit-history-bar-divider" aria-hidden />
-
-        <div className="visit-history-bar-section visit-history-bar-section--recent">
-          <span className="visit-history-bar-section-label">
-            <Clock size={11} style={{ color: "var(--text-muted)" }} />
-            최근
-          </span>
-          <div className="visit-history-bar-scroll">
-            {recent.length === 0 ? (
+        <div className="visit-history-tab-strip">
+          {pinned.map((item) => (
+            <React.Fragment key={item.id}>
+              <span className="visit-history-tab-sep" aria-hidden />
+              <HistoryItemChip
+                item={item}
+                isActive={item.id === activeId}
+                isPinned
+                onSelect={onSelect}
+                onRemove={onUnpin}
+              />
+            </React.Fragment>
+          ))}
+          {recent.map((item) => (
+            <React.Fragment key={item.id}>
+              <span className="visit-history-tab-sep" aria-hidden />
+              <HistoryItemChip
+                item={item}
+                isActive={item.id === activeId}
+                onSelect={onSelect}
+                onRemove={onRemoveRecent}
+              />
+            </React.Fragment>
+          ))}
+          {pinned.length === 0 && recent.length === 0 && (
+            <>
+              <span className="visit-history-tab-sep" aria-hidden />
               <span className="visit-history-empty">방문한 화면이 여기에 표시됩니다</span>
-            ) : (
-              recent.map((item) => (
-                <HistoryItemChip
-                  key={item.id}
-                  item={item}
-                  isActive={item.id === activeId}
-                  onSelect={onSelect}
-                  onRemove={onRemoveRecent}
-                />
-              ))
-            )}
-          </div>
+            </>
+          )}
+        </div>
+
+        <div className="visit-history-bar-trail">
+          <VisitHistoryIconButton label="현재 화면 고정" onClick={onPinCurrent} accent>
+            <Pin size={12} style={{ color: "var(--required-color, #001673)" }} />
+          </VisitHistoryIconButton>
+          <VisitHistoryIconButton label="접기" onClick={onToggleExpand}>
+            <ChevronDown size={14} style={{ color: "var(--text-muted)" }} />
+          </VisitHistoryIconButton>
         </div>
       </div>
     </div>
@@ -5243,6 +5223,7 @@ export default function App() {
           onPinCurrent={handlePinCurrent}
           onUnpin={handleUnpin}
           onRemoveRecent={handleRemoveRecent}
+          onGoHome={() => navigateFromSidebar("home")}
         />
       </div>
       </div>
