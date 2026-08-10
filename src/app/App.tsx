@@ -3932,15 +3932,25 @@ function HistoryItemChip({ item, isActive, isPinned, onSelect, onRemove }: Histo
         <span className="visit-history-tab-sub">{item.memberName}</span>
       </button>
       {onRemove && isActive && (
-        <button
-          type="button"
+        <span
+          role="button"
+          tabIndex={0}
           title="닫기"
-          aria-label="히스토리에서 삭제"
-          onClick={() => onRemove(item.id)}
+          aria-label="탭 닫기"
+          onClick={(e) => {
+            e.stopPropagation();
+            onRemove(item.id);
+          }}
+          onKeyDown={(e) => {
+            if (e.key === "Enter" || e.key === " ") {
+              e.preventDefault();
+              onRemove(item.id);
+            }
+          }}
           className="visit-history-tab-close"
         >
           <X size={12} />
-        </button>
+        </span>
       )}
     </span>
   );
@@ -4053,6 +4063,12 @@ function VisitHistoryBar({
           <span className="visit-history-tab-label">바탕화면</span>
         </button>
 
+        <span className="visit-history-tab-sep" aria-hidden />
+
+        {pinned.length === 0 && recent.length === 0 && (
+          <span className="visit-history-empty">열린 화면 없음</span>
+        )}
+
         <div className="visit-history-tab-strip">
           {pinned.map((item) => (
             <React.Fragment key={item.id}>
@@ -4077,12 +4093,6 @@ function VisitHistoryBar({
               />
             </React.Fragment>
           ))}
-          {pinned.length === 0 && recent.length === 0 && (
-            <>
-              <span className="visit-history-tab-sep" aria-hidden />
-              <span className="visit-history-empty">방문한 화면이 여기에 표시됩니다</span>
-            </>
-          )}
         </div>
 
         <div className="visit-history-bar-trail">
@@ -4727,14 +4737,7 @@ export default function App() {
   const [theme, setTheme] = useState<Theme>("deep-purple");
   const [historyRailExpanded, setHistoryRailExpanded] = useState(true);
   const [pinnedPages, setPinnedPages] = useState<PageHistoryItem[]>([]);
-  const [recentPages, setRecentPages] = useState<PageHistoryItem[]>([
-    { id: "회원정보-1", screen: "회원정보", memberId: 1, memberNo: "N26431021", memberName: "한미채" },
-    { id: "주문서내역-1", screen: "주문서내역", memberId: 1, memberNo: "N26431021", memberName: "한미채" },
-    { id: "수당내역-1", screen: "수당내역", memberId: 1, memberNo: "N26431021", memberName: "한미채" },
-    { id: "로그히스토리-1", screen: "로그히스토리", memberId: 1, memberNo: "N26431021", memberName: "한미채" },
-    { id: "상담내역-1", screen: "상담내역", memberId: 1, memberNo: "N26431021", memberName: "한미채" },
-    { id: "주문서내역-2", screen: "주문서내역", memberId: 2, memberNo: "N26482827", memberName: "황기봉" },
-  ]);
+  const [recentPages, setRecentPages] = useState<PageHistoryItem[]>([]);
   const [appContentWidth, setAppContentWidth] = useState(0);
   const appContentRef = useRef<HTMLDivElement>(null);
   const resizing = useRef(false);
@@ -4815,30 +4818,37 @@ export default function App() {
     ? listWidth + detailPanelMinWidth
     : 0;
 
-  const activePageId = makePageId(activeTab, selectedMember);
+  // 바탕화면에서는 열린 화면이 없으므로 탭을 쌓지 않는다
+  const activePageId = isHomeView ? "" : makePageId(activeTab, selectedMember);
 
   useEffect(() => {
+    if (isHomeView) return;
     const item = toHistoryItem(activeTab, selectedMember);
     if (!item) return;
     setRecentPages((prev) => {
       const filtered = prev.filter((p) => p.id !== item.id);
       return [item, ...filtered].slice(0, RECENT_HISTORY_MAX);
     });
-  }, [activeTab, selectedMember]);
+  }, [activeTab, selectedMember, isHomeView]);
 
+  // 탭이 가리키는 화면은 회원관리 > 회원등록 상세이므로 바탕화면에서도 그 화면으로 빠져나온다
   const handleHistorySelect = useCallback((item: PageHistoryItem) => {
+    setActiveSidebarKey("member-register");
+    setActiveMainMenu("회원관리");
+    setActiveMemberSubMenu("회원등록");
     setActiveTab(item.screen);
     setSelectedMember(item.memberId);
   }, []);
 
   const handlePinCurrent = useCallback(() => {
+    if (isHomeView) return;
     const item = toHistoryItem(activeTab, selectedMember);
     if (!item) return;
     setPinnedPages((prev) => {
       if (prev.some((p) => p.id === item.id)) return prev;
       return [item, ...prev];
     });
-  }, [activeTab, selectedMember]);
+  }, [activeTab, selectedMember, isHomeView]);
 
   const handleUnpin = useCallback((id: string) => {
     setPinnedPages((prev) => prev.filter((p) => p.id !== id));

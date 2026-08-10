@@ -3626,12 +3626,13 @@ textarea.mm2-name-box:focus {
 
 /* ── 하단 방문 기록 바 ── */
 
+/* 활성 탭이 위쪽 경계선을 뚫고 올라오므로 클리핑하지 않는다 */
 .visit-history-bar {
+  position: relative;
   flex-shrink: 0;
   width: 100%;
   background: var(--surface-page);
   border-top: 1px solid var(--border);
-  overflow: hidden;
   transition: height 0.2s ease;
 }
 
@@ -3668,10 +3669,11 @@ textarea.mm2-name-box:focus {
 
 .visit-history-tab-strip {
   display: flex;
-  align-items: center;
+  align-items: stretch;
+  align-self: stretch;
   min-width: 0;
   overflow-x: auto;
-  overflow-y: hidden;
+  overflow-y: visible;
   scrollbar-width: none;
 }
 
@@ -3680,24 +3682,37 @@ textarea.mm2-name-box:focus {
 }
 
 .visit-history-tab-sep {
+  align-self: center;
   width: 1px;
-  height: 14px;
-  margin: 0 3px;
+  height: 15px;
+  margin: 0 7px;
   background: var(--border);
   flex-shrink: 0;
 }
 
-/* 활성 탭은 자기 테두리가 구분선 역할을 하므로 양옆 구분선을 감춘다 */
+/* 활성 탭은 자기 테두리가 경계 역할을 하므로 양옆 구분선을 감춘다 */
 .visit-history-tab-sep:has(+ .visit-history-tab-group.is-active),
 .visit-history-tab-group.is-active + .visit-history-tab-sep {
   visibility: hidden;
 }
 
+/* 비활성 항목은 아무 장식 없는 텍스트, 활성 항목만 탭 모양 */
 .visit-history-tab-group {
   display: inline-flex;
   align-items: center;
   flex-shrink: 0;
   min-width: 0;
+}
+
+/* 활성 탭: 바 위쪽 경계선을 뚫고 올라와 본문과 이어진 탭이 된다 */
+.visit-history-tab-group.is-active {
+  align-self: stretch;
+  margin-top: -7px;
+  padding: 0 2px 0 0;
+  background: var(--surface-panel);
+  border: 1px solid var(--border);
+  border-bottom: none;
+  border-radius: 4px 4px 0 0;
 }
 
 .visit-history-tab {
@@ -3706,25 +3721,30 @@ textarea.mm2-name-box:focus {
   gap: 5px;
   flex-shrink: 0;
   min-width: 0;
-  max-width: 200px;
+  max-width: 190px;
   height: 28px;
-  padding: 0 12px;
-  border: 1px solid transparent;
-  border-radius: 0;
+  padding: 0 10px;
+  border: none;
+  border-radius: 4px;
   background: transparent;
   color: var(--text-body);
   white-space: nowrap;
   cursor: pointer;
-  transition: background 0.15s ease, border-color 0.15s ease;
+  transition: background 0.15s ease;
 }
 
 .visit-history-tab:hover {
   background: var(--surface-row-hover);
 }
 
-.visit-history-tab.is-active {
-  background: var(--surface-panel);
-  border-color: var(--border);
+.visit-history-tab-group.is-active .visit-history-tab {
+  height: 100%;
+  border-radius: 0;
+  padding: 0 8px 0 12px;
+}
+
+.visit-history-tab-group.is-active .visit-history-tab:hover {
+  background: transparent;
 }
 
 .visit-history-tab--home {
@@ -3734,11 +3754,12 @@ textarea.mm2-name-box:focus {
 
 .visit-history-tab-label {
   font-size: 13px;
+  font-weight: 400;
   overflow: hidden;
   text-overflow: ellipsis;
 }
 
-.visit-history-tab.is-active .visit-history-tab-label {
+.visit-history-tab-group.is-active .visit-history-tab-label {
   font-weight: 600;
   color: var(--foreground);
 }
@@ -3760,11 +3781,10 @@ textarea.mm2-name-box:focus {
   align-items: center;
   justify-content: center;
   flex-shrink: 0;
-  width: 28px;
-  height: 28px;
-  margin-left: -1px;
-  border: 1px solid var(--border);
-  background: var(--surface-panel);
+  width: 20px;
+  height: 20px;
+  margin-right: 6px;
+  border-radius: 3px;
   color: var(--text-muted);
   cursor: pointer;
   transition: background 0.15s ease, color 0.15s ease;
@@ -3845,6 +3865,7 @@ textarea.mm2-name-box:focus {
 }
 
 .visit-history-empty {
+  align-self: center;
   font-size: 13px;
   color: var(--text-subtle);
   white-space: nowrap;
