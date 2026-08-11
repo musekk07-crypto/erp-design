@@ -3929,7 +3929,6 @@ function HistoryItemChip({ item, isActive, isPinned, onSelect, onRemove }: Histo
       >
         {isPinned && <Pin size={11} className="visit-history-tab-pin" />}
         <span className="visit-history-tab-label">{item.screen}</span>
-        <span className="visit-history-tab-sub">{item.memberName}</span>
       </button>
       {onRemove && isActive && (
         <span

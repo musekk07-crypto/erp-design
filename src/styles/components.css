@@ -3740,13 +3740,6 @@ textarea.mm2-name-box:focus {
   color: var(--foreground);
 }
 
-.visit-history-tab-sub {
-  font-size: 12px;
-  color: var(--text-subtle);
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
-
 .visit-history-tab-pin {
   flex-shrink: 0;
   color: var(--required-color, #001673);
