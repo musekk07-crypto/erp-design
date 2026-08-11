@@ -3374,6 +3374,8 @@ function MemberLoginInfoForm({ member }: { member: Member }) {
 
   // 두 줄이 같은 3열 리듬을 쓰도록 열별 flex 를 공유한다
   const columnFlex = ["1 1 88px", "0.85 1 64px", "1.35 1 120px"];
+  // 다국어 이름·아이디는 길어질 수 있어 아이디 칸이 남은 두 열을 모두 차지한다
+  const idFlex = "2.2 1 192px";
 
   // 첫 줄은 식별 정보, 둘째 줄은 비밀번호·연락 정보로 나눈다
   const fields = [
@@ -3398,7 +3400,7 @@ function MemberLoginInfoForm({ member }: { member: Member }) {
       row: 0,
       label: "* 아이디",
       required: true,
-      flex: columnFlex[1],
+      flex: idFlex,
       input: (
         <input
           type="text"
@@ -3484,8 +3486,6 @@ function MemberLoginInfoForm({ member }: { member: Member }) {
                 {field.input}
               </div>
             ))}
-          {/* 첫 줄은 두 항목뿐이라 빈 열을 채워 둘째 줄과 열 폭을 맞춘다 */}
-          {rowIndex === 0 && <div style={{ flex: columnFlex[2] }} aria-hidden />}
         </div>
       ))}
     </FormSection>
