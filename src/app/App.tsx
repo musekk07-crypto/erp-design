@@ -161,7 +161,6 @@ const COL_GAP = ORG_COL_GAP;
 
 const ORG_CARD_LABEL_FONT_SIZE = 14;
 const ORG_CARD_META_FONT_SIZE = 14;
-const ORG_CARD_BADGE_FONT_SIZE = 13;
 
 function resolveOrgMemberNo(id: number, fallback?: string) {
   const ref = members.find((m) => m.id === id);
@@ -216,27 +215,20 @@ function buildOrgMemberDetail(id: number, name: string, memberNo: string, grade:
   };
 }
 
-function getOrgGradeClassName(grade: string) {
-  switch (grade) {
-    case "블루":
-      return "org-chart-card__grade org-chart-card__grade--blue";
-    case "퍼플":
-      return "org-chart-card__grade org-chart-card__grade--purple";
-    case "레드":
-      return "org-chart-card__grade org-chart-card__grade--red";
-    case "그린":
-      return "org-chart-card__grade org-chart-card__grade--green";
-    case "실버":
-      return "org-chart-card__grade org-chart-card__grade--silver";
-    case "골드":
-      return "org-chart-card__grade org-chart-card__grade--gold";
-    default:
-      return "org-chart-card__grade org-chart-card__grade--default";
-  }
-}
-
-function OrgGradeBadge({ grade }: { grade: string }) {
-  return <span className={getOrgGradeClassName(grade)}>{grade}</span>;
+/** 조직도 카드 안 행 구분선 — 본문 폼과 같은 톤 */
+function OrgCardRowDivider() {
+  return (
+    <div
+      aria-hidden
+      style={{
+        width: "100%",
+        height: 0,
+        borderTop: "1px solid var(--form-field-divider, rgba(0, 0, 0, 0.1))",
+        margin: "2px 0",
+        flexShrink: 0,
+      }}
+    />
+  );
 }
 
 function Card({
@@ -257,14 +249,16 @@ function Card({
   const metaStyle: React.CSSProperties = {
     fontSize: ORG_CARD_META_FONT_SIZE,
     color: "var(--org-text-muted)",
-    lineHeight: 1.45,
+    lineHeight: 1.35,
     fontWeight: 400,
+    width: "100%",
+    textAlign: "left",
   };
 
   return (
     <div
       ref={rootRef}
-      className={`org-chart-card org-chart-card--interactive${isWithdrawn ? " org-chart-card--withdrawn" : ""}`}
+      className={`org-chart-card org-chart-card--interactive${isSelf ? " org-chart-card--self" : ""}${isWithdrawn ? " org-chart-card--withdrawn" : ""}`}
       onMouseEnter={() => {
         if (!hover || !rootRef.current) return;
         hover.cancelHide();
@@ -275,50 +269,45 @@ function Card({
       width: CARD_W,
       height: CARD_H,
       border: isSelf ? `2px solid ${ORG_SELF_ACCENT}` : `1px solid ${BORDER_GRAY}`,
-      borderRadius: 6,
+      borderRadius: 8,
       overflow: "hidden",
-      background: "var(--org-card-bg)",
+      background: isSelf ? "var(--org-self-bg, rgba(2, 132, 199, 0.08))" : "var(--org-card-bg)",
       display: "flex",
       flexDirection: "column",
-      alignItems: "center",
+      alignItems: "stretch",
       justifyContent: "center",
-      textAlign: "center",
-      padding: "10px 8px",
+      textAlign: "left",
+      padding: "8px 10px",
       position: "relative",
       boxSizing: "border-box",
       flexShrink: 0,
     }}
     >
-      {isSelf && (
-        <span style={{
-          position: "absolute", top: 4, right: 4,
-          background: ORG_SELF_ACCENT, color: "var(--on-accent)",
-          fontSize: ORG_CARD_BADGE_FONT_SIZE, padding: "2px 7px", borderRadius: 10, fontWeight: 700, lineHeight: 1.2,
-        }}>자신</span>
-      )}
-      <div className="org-chart-card__label" style={{ fontSize: ORG_CARD_LABEL_FONT_SIZE, color: LABEL_GRAY, marginBottom: useOrgLayout ? 5 : 6 }}>
+      <div className="org-chart-card__label" style={{ fontSize: ORG_CARD_LABEL_FONT_SIZE, color: LABEL_GRAY, width: "100%", textAlign: "left" }}>
         {isSelf ? "나" : label}
       </div>
+      <OrgCardRowDivider />
       {useOrgLayout ? (
         <>
-          <div className="org-chart-card__name" style={{ fontSize: ORG_CARD_NAME_FONT_SIZE, fontWeight: 700, color: "var(--org-text)", marginBottom: 4 }}>
+          <div className="org-chart-card__name" style={{ fontSize: ORG_CARD_NAME_FONT_SIZE, fontWeight: 700, color: "var(--org-text)", width: "100%", textAlign: "left" }}>
             {name}({displayId ?? id})
           </div>
-          <div className="org-chart-card__meta" style={{ ...metaStyle, marginBottom: 3 }}>{regDate}</div>
-          <div className="org-chart-card__grade-wrap" style={{ marginBottom: 3 }}>
-            <OrgGradeBadge grade={grade} />
-          </div>
+          <OrgCardRowDivider />
+          <div className="org-chart-card__meta" style={metaStyle}>{regDate}</div>
+          <OrgCardRowDivider />
+          <div className="org-chart-card__meta" style={metaStyle}>{grade}</div>
+          <OrgCardRowDivider />
           <div className="org-chart-card__meta" style={metaStyle}>{points}</div>
         </>
       ) : (
         <>
-          <div className="org-chart-card__name" style={{ fontSize: ORG_CARD_NAME_FONT_SIZE, fontWeight: 700, color: "var(--org-text)", marginBottom: 4 }}>
+          <div className="org-chart-card__name" style={{ fontSize: ORG_CARD_NAME_FONT_SIZE, fontWeight: 700, color: "var(--org-text)", width: "100%", textAlign: "left" }}>
             {name}
           </div>
-          <div className="org-chart-card__meta" style={{ ...metaStyle, marginBottom: 6 }}>{memberNo}</div>
-          <div className="org-chart-card__grade-wrap">
-            <OrgGradeBadge grade={grade} />
-          </div>
+          <OrgCardRowDivider />
+          <div className="org-chart-card__meta" style={metaStyle}>{memberNo}</div>
+          <OrgCardRowDivider />
+          <div className="org-chart-card__meta" style={metaStyle}>{grade}</div>
         </>
       )}
     </div>
@@ -345,7 +334,7 @@ function ExtraBox({ label, onClick }: { label: string; onClick?: () => void }) {
       style={{
       width: CARD_W, height: EXTRA_H,
       border: `1px dashed ${BORDER_GRAY}`,
-      borderRadius: 6,
+      borderRadius: 8,
       overflow: "hidden",
       background: "var(--org-extra-bg)",
       display: "flex", alignItems: "center", justifyContent: "center",
@@ -357,7 +346,7 @@ function ExtraBox({ label, onClick }: { label: string; onClick?: () => void }) {
   );
 }
 
-function ChildChip({ name, id, displayId }: { name: string; id: number; displayId?: number }) {
+function ChildChip({ name, id }: { name: string; id: number; displayId?: number }) {
   const hover = useOrgChartHover();
   const rootRef = useRef<HTMLDivElement>(null);
   const memberNo = resolveOrgMemberNo(id);
@@ -377,21 +366,23 @@ function ChildChip({ name, id, displayId }: { name: string; id: number; displayI
       onMouseLeave={() => hover?.scheduleHide()}
       style={{
       border: `1px solid ${BORDER_GRAY}`,
-      borderRadius: 6,
+      borderRadius: 8,
       overflow: "hidden",
       background: "var(--org-card-bg)",
       display: "flex",
       alignItems: "center",
-      justifyContent: "center",
+      justifyContent: "flex-start",
       height: CHILD_CHIP_H,
       width: CARD_W,
+      padding: "0 10px",
       fontSize: ORG_CARD_NAME_FONT_SIZE,
-      fontWeight: 600,
+      fontWeight: 700,
       color: isWithdrawn ? "var(--org-text-withdrawn, #9ca3af)" : "var(--org-text)",
       boxSizing: "border-box",
+      textAlign: "left",
     }}
     >
-      {name} ({displayId ?? id})
+      {name}
     </div>
   );
 }
@@ -461,13 +452,13 @@ function OrgChartSvg({
         <foreignObject x={col1X} y={centerY - CARD_H / 2} width={CARD_W + 2} height={CARD_H + 2}>
           <Card {...parent} />
         </foreignObject>
-        <line x1={col1X + CARD_W} y1={centerY} x2={col2X} y2={centerY} stroke={BORDER_GRAY} strokeWidth={1} />
+        <line x1={col1X + CARD_W} y1={centerY} x2={col2X} y2={centerY} stroke={ORG_SELF_ACCENT} strokeWidth={2} />
         <foreignObject x={col2X} y={centerY - CARD_H / 2} width={CARD_W + 2} height={CARD_H + 2}>
           <Card {...self} isSelf />
         </foreignObject>
         {children[0] && (
           <>
-            <line x1={col2X + CARD_W} y1={centerY} x2={col3X} y2={centerY} stroke={BORDER_GRAY} strokeWidth={1} />
+            <line x1={col2X + CARD_W} y1={centerY} x2={col3X} y2={centerY} stroke={ORG_SELF_ACCENT} strokeWidth={2} />
             <foreignObject x={col3X} y={centerY - CHILD_CHIP_H / 2} width={CARD_W + 2} height={CHILD_CHIP_H + 2}>
               <ChildChip {...children[0]} />
             </foreignObject>
@@ -504,8 +495,9 @@ function OrgChartSvg({
           <foreignObject x={col1X} y={centerY - CARD_H / 2} width={CARD_W + 2} height={CARD_H + 2}>
             <Card {...parent} />
           </foreignObject>
-          <line x1={col1X + CARD_W} y1={centerY} x2={railMid} y2={centerY} stroke={BORDER_GRAY} strokeWidth={1} />
-          <line x1={railMid} y1={centerY} x2={col2X} y2={centerY} stroke={BORDER_GRAY} strokeWidth={1} />
+          {/* 본인 경로: 상위 → 본인 → 첫 하위 */}
+          <line x1={col1X + CARD_W} y1={centerY} x2={railMid} y2={centerY} stroke={ORG_SELF_ACCENT} strokeWidth={2} />
+          <line x1={railMid} y1={centerY} x2={col2X} y2={centerY} stroke={ORG_SELF_ACCENT} strokeWidth={2} />
           <line x1={railMid} y1={centerY} x2={railMid} y2={siblingY} stroke={BORDER_GRAY} strokeWidth={1} />
           <line x1={railMid} y1={siblingY} x2={col2X} y2={siblingY} stroke={BORDER_GRAY} strokeWidth={1} />
           <foreignObject x={col2X} y={centerY - CARD_H / 2} width={CARD_W + 2} height={CARD_H + 2}>
@@ -516,7 +508,7 @@ function OrgChartSvg({
           </foreignObject>
           {childCount > 0 && (
             <>
-              <line x1={col2X + CARD_W} y1={centerY} x2={railRight} y2={centerY} stroke={BORDER_GRAY} strokeWidth={1} />
+              <line x1={col2X + CARD_W} y1={centerY} x2={railRight} y2={centerY} stroke={ORG_SELF_ACCENT} strokeWidth={2} />
               {childCount > 1 && (
                 <line
                   x1={railRight}
@@ -527,9 +519,26 @@ function OrgChartSvg({
                   strokeWidth={1}
                 />
               )}
+              {childYs[0] !== centerY && (
+                <line
+                  x1={railRight}
+                  y1={centerY}
+                  x2={railRight}
+                  y2={childYs[0]}
+                  stroke={ORG_SELF_ACCENT}
+                  strokeWidth={2}
+                />
+              )}
               {children.map((child, i) => (
                 <g key={`${child.id}-${i}`}>
-                  <line x1={railRight} y1={childYs[i]} x2={col3X} y2={childYs[i]} stroke={BORDER_GRAY} strokeWidth={1} />
+                  <line
+                    x1={railRight}
+                    y1={childYs[i]}
+                    x2={col3X}
+                    y2={childYs[i]}
+                    stroke={i === 0 ? ORG_SELF_ACCENT : BORDER_GRAY}
+                    strokeWidth={i === 0 ? 2 : 1}
+                  />
                   <foreignObject x={col3X} y={childYs[i] - CHILD_CHIP_H / 2} width={CARD_W + 2} height={CHILD_CHIP_H + 2}>
                     <ChildChip {...child} />
                   </foreignObject>
@@ -539,7 +548,7 @@ function OrgChartSvg({
           )}
           {childCount === 0 && downline && (
             <>
-              <line x1={col2X + CARD_W} y1={centerY} x2={col3X} y2={centerY} stroke={BORDER_GRAY} strokeWidth={1} />
+              <line x1={col2X + CARD_W} y1={centerY} x2={col3X} y2={centerY} stroke={ORG_SELF_ACCENT} strokeWidth={2} />
               <foreignObject x={col3X} y={centerY - CARD_H / 2} width={CARD_W + 2} height={CARD_H + 2}>
                 <Card {...downline} />
               </foreignObject>
@@ -567,15 +576,16 @@ function OrgChartSvg({
         <foreignObject x={col1X} y={centerY - CARD_H / 2} width={CARD_W + 2} height={CARD_H + 2}>
           <Card {...parent} />
         </foreignObject>
-        <line x1={col1X + CARD_W} y1={centerY} x2={col2X} y2={centerY} stroke={BORDER_GRAY} strokeWidth={1} />
+        <line x1={col1X + CARD_W} y1={centerY} x2={col2X} y2={centerY} stroke={ORG_SELF_ACCENT} strokeWidth={2} />
         <foreignObject x={col2X} y={centerY - CARD_H / 2} width={CARD_W + 2} height={CARD_H + 2}>
           <Card {...self} isSelf />
         </foreignObject>
-        <line x1={col2X + CARD_W} y1={centerY} x2={railRight} y2={centerY} stroke={BORDER_GRAY} strokeWidth={1} />
+        <line x1={col2X + CARD_W} y1={centerY} x2={railRight} y2={centerY} stroke={ORG_SELF_ACCENT} strokeWidth={2} />
         <line x1={railRight} y1={c1y} x2={railRight} y2={c2y} stroke={BORDER_GRAY} strokeWidth={1} />
+        <line x1={railRight} y1={centerY} x2={railRight} y2={c1y} stroke={ORG_SELF_ACCENT} strokeWidth={2} />
         {children[0] && (
           <>
-            <line x1={railRight} y1={c1y} x2={col3X} y2={c1y} stroke={BORDER_GRAY} strokeWidth={1} />
+            <line x1={railRight} y1={c1y} x2={col3X} y2={c1y} stroke={ORG_SELF_ACCENT} strokeWidth={2} />
             <foreignObject x={col3X} y={c1y - CHILD_CHIP_H / 2} width={CARD_W + 2} height={CHILD_CHIP_H + 2}>
               <ChildChip {...children[0]} />
             </foreignObject>
@@ -797,23 +807,38 @@ function OrgChartSvg({
   const svgW = col3X + CARD_W + ORG_FOREIGN_PAD + HPAD;
   const svgH = contentH + yShift + VPAD;
 
+  const firstChildCy = col3Layout.positioned.find((p) => p.entry.kind === "child")?.cy ?? selfCenterY;
+
   return (
     <svg width={svgW} height={svgH} style={{ overflow: "visible", display: "block" }}>
       <g transform={`translate(0, ${yShift})`}>
       <foreignObject x={col1X} y={selfCenterY - CARD_H / 2} width={CARD_W + 2} height={CARD_H + 2}>
         <Card {...parent} />
       </foreignObject>
-      <line x1={col1X + CARD_W} y1={selfCenterY} x2={railMid} y2={selfCenterY} stroke={BORDER_GRAY} strokeWidth={1} />
-      <line
-        x1={railMid}
-        y1={col2Ys[0]}
-        x2={railMid}
-        y2={col2Ys[col2Ys.length - 1]}
-        stroke={BORDER_GRAY}
-        strokeWidth={1}
-      />
+      {/* 본인 경로: 상위 → 레일 → 본인 (파란색) */}
+      <line x1={col1X + CARD_W} y1={selfCenterY} x2={railMid} y2={selfCenterY} stroke={ORG_SELF_ACCENT} strokeWidth={2} />
+      <line x1={railMid} y1={selfCenterY} x2={col2X} y2={selfCenterY} stroke={ORG_SELF_ACCENT} strokeWidth={2} />
+      {/* 형제/외N명 세로 레일은 회색 */}
+      {col2Ys.length > 1 && (
+        <line
+          x1={railMid}
+          y1={col2Ys[0]}
+          x2={railMid}
+          y2={col2Ys[col2Ys.length - 1]}
+          stroke={BORDER_GRAY}
+          strokeWidth={1}
+        />
+      )}
       {col2Ys.map((cy, i) => (
-        <line key={i} x1={railMid} y1={cy} x2={col2X} y2={cy} stroke={BORDER_GRAY} strokeWidth={1} />
+        <line
+          key={i}
+          x1={railMid}
+          y1={cy}
+          x2={col2X}
+          y2={cy}
+          stroke={i === selfIdx ? ORG_SELF_ACCENT : BORDER_GRAY}
+          strokeWidth={i === selfIdx ? 2 : 1}
+        />
       ))}
       {col2Stack.map((item, i) => {
         if (item.kind === "extra") {
@@ -838,31 +863,53 @@ function OrgChartSvg({
       })}
       {col3Layout.positioned.length > 0 && (
         <>
-          <line x1={col2X + CARD_W} y1={selfCenterY} x2={railRight} y2={selfCenterY} stroke={BORDER_GRAY} strokeWidth={1} />
+          {/* 본인 → 하위 레일 (파란색) */}
+          <line x1={col2X + CARD_W} y1={selfCenterY} x2={railRight} y2={selfCenterY} stroke={ORG_SELF_ACCENT} strokeWidth={2} />
           {col3Layout.positioned.length > 1 && (
             <line
               x1={railRight}
-              y1={col3Layout.positioned[0].cy}
+              y1={Math.min(selfCenterY, col3Layout.positioned[0].cy)}
               x2={railRight}
-              y2={col3Layout.positioned[col3Layout.positioned.length - 1].cy}
+              y2={Math.max(selfCenterY, col3Layout.positioned[col3Layout.positioned.length - 1].cy)}
               stroke={BORDER_GRAY}
               strokeWidth={1}
             />
           )}
-          {col3Layout.positioned.map(({ entry, cy }, i) => (
-            <g key={entry.kind === "child" ? `${entry.child.id}-${i}` : `extra-${i}`}>
-              <line x1={railRight} y1={cy} x2={col3X} y2={cy} stroke={BORDER_GRAY} strokeWidth={1} />
-              {entry.kind === "child" ? (
-                <foreignObject x={col3X} y={cy - CHILD_CHIP_H / 2} width={CARD_W + 2} height={CHILD_CHIP_H + 2}>
-                  <ChildChip {...entry.child} />
-                </foreignObject>
-              ) : (
-                <foreignObject x={col3X} y={cy - EXTRA_H / 2} width={CARD_W + 2} height={EXTRA_H + 2}>
-                  <ExtraBox label={entry.label} onClick={entry.onClick} />
-                </foreignObject>
-              )}
-            </g>
-          ))}
+          {/* 본인 높이와 첫 하위 칩을 잇는 구간만 파란색으로 덮어쓴다 */}
+          {firstChildCy !== selfCenterY && (
+            <line
+              x1={railRight}
+              y1={selfCenterY}
+              x2={railRight}
+              y2={firstChildCy}
+              stroke={ORG_SELF_ACCENT}
+              strokeWidth={2}
+            />
+          )}
+          {col3Layout.positioned.map(({ entry, cy }, i) => {
+            const isPrimaryChild = entry.kind === "child" && cy === firstChildCy;
+            return (
+              <g key={entry.kind === "child" ? `${entry.child.id}-${i}` : `extra-${i}`}>
+                <line
+                  x1={railRight}
+                  y1={cy}
+                  x2={col3X}
+                  y2={cy}
+                  stroke={isPrimaryChild ? ORG_SELF_ACCENT : BORDER_GRAY}
+                  strokeWidth={isPrimaryChild ? 2 : 1}
+                />
+                {entry.kind === "child" ? (
+                  <foreignObject x={col3X} y={cy - CHILD_CHIP_H / 2} width={CARD_W + 2} height={CHILD_CHIP_H + 2}>
+                    <ChildChip {...entry.child} />
+                  </foreignObject>
+                ) : (
+                  <foreignObject x={col3X} y={cy - EXTRA_H / 2} width={CARD_W + 2} height={EXTRA_H + 2}>
+                    <ExtraBox label={entry.label} onClick={entry.onClick} />
+                  </foreignObject>
+                )}
+              </g>
+            );
+          })}
         </>
       )}
       </g>
