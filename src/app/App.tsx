@@ -3463,8 +3463,10 @@ function MemberLoginInfoForm({ member }: { member: Member }) {
       title="로그인 사용정보"
       icon={<Shield size={12} />}
       className="content-form-section--member-form"
-      headerExtra={<MemberProfileHeader member={member} />}
     >
+      <div className="member-login-profile-row">
+        <MemberProfileHeader member={member} />
+      </div>
       {[0, 1].map((rowIndex) => (
         <div className="member-login-inline-row" key={rowIndex}>
           {fields

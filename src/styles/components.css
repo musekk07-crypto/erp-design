@@ -1037,6 +1037,17 @@ span.member-form-action-chip {
   width: calc(100% - var(--form-label-w, 108px));
 }
 
+/* 회원 요약은 헤더가 아니라 본문 첫 줄에 별도 블록으로 놓인다 */
+.member-login-profile-row {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  min-width: 0;
+  padding-bottom: 6px;
+  margin-bottom: 6px;
+  border-bottom: 1px solid var(--border);
+}
+
 .member-login-inline-row {
   display: flex;
   align-items: center;
