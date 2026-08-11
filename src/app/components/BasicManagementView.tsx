@@ -82,14 +82,14 @@ function FormSection({
         style={{
           cursor: "pointer",
           background: "var(--content-form-section-header-bg, transparent)",
-          borderBottom: open ? "1px solid var(--content-form-section-header-border, var(--border))" : "none",
+          borderBottom: open ? "1px solid var(--content-form-section-header-bg, var(--border))" : "none",
         }}
       >
-        <span className="text-sm font-semibold shrink-0" style={{ color: "var(--foreground)" }}>
+        <span className="text-sm font-semibold shrink-0" style={{ color: "var(--content-form-section-header-fg, var(--foreground))" }}>
           {title}
         </span>
         {subtitle ? (
-          <span className="text-xs shrink-0" style={{ color: "var(--text-muted)" }}>
+          <span className="text-xs shrink-0" style={{ color: "var(--content-form-section-header-fg-muted, var(--text-muted))" }}>
             {subtitle}
           </span>
         ) : null}
@@ -107,7 +107,7 @@ function FormSection({
         <ChevronDown
           size={12}
           style={{
-            color: "var(--muted-foreground)",
+            color: "var(--content-form-section-header-fg-muted, var(--muted-foreground))",
             transform: open ? "rotate(0deg)" : "rotate(-90deg)",
             transition: "transform 0.2s ease",
             flexShrink: 0,

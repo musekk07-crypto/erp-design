@@ -2130,15 +2130,15 @@ function FormSection({ title, icon, subtitle, headerExtra, children, bodyPadding
         style={{
           cursor: "pointer",
           background: "var(--content-form-section-header-bg, transparent)",
-          borderBottom: open ? "1px solid var(--content-form-section-header-border, var(--border))" : "none",
+          borderBottom: open ? "1px solid var(--content-form-section-header-bg, var(--border))" : "none",
         }}
       >
         <span className="content-form-section-icon shrink-0 inline-flex items-center justify-center" style={{ color: "var(--section-icon-color)" }}>
           {icon}
         </span>
-        <span className="text-sm font-semibold shrink-0" style={{ color: "var(--foreground)" }}>{title}</span>
+        <span className="text-sm font-semibold shrink-0" style={{ color: "var(--content-form-section-header-fg, var(--foreground))" }}>{title}</span>
         {subtitle ? (
-          <span className="text-xs shrink-0" style={{ color: "var(--text-muted)" }}>{subtitle}</span>
+          <span className="text-xs shrink-0" style={{ color: "var(--content-form-section-header-fg-muted, var(--text-muted))" }}>{subtitle}</span>
         ) : null}
         {headerExtra ? (
           <div
@@ -2154,7 +2154,7 @@ function FormSection({ title, icon, subtitle, headerExtra, children, bodyPadding
         <ChevronDown
           size={12}
           style={{
-            color: "var(--muted-foreground)",
+            color: "var(--content-form-section-header-fg-muted, var(--muted-foreground))",
             transform: open ? "rotate(0deg)" : "rotate(-90deg)",
             transition: "transform 0.2s ease",
             flexShrink: 0,

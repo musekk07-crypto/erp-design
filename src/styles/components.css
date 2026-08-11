@@ -945,12 +945,12 @@ span.member-form-action-chip {
 .app-content .content-form-section > button .member-profile-header-divider {
   width: 1px;
   height: 13px;
-  background: rgba(0, 22, 115, 0.55) !important;
+  background: var(--content-form-section-header-fg-muted, rgba(0, 22, 115, 0.55)) !important;
 }
 
 .app-content .content-form-section > button .member-profile-header__line .content-member-header-text,
 .app-content .content-form-section > button .member-profile-header__line .content-member-header-no {
-  color: var(--required-color, #001673) !important;
+  color: var(--content-form-section-header-fg, var(--required-color, #001673)) !important;
 }
 
 .app-content .content-form-section > button .member-profile-header__line .content-member-header-text:not(.content-member-header-no) {

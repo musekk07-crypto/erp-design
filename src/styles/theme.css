@@ -32,9 +32,11 @@
   --checkbox-accent: var(--nav-active-bg);
   --section-icon-bg: #0284c7;
   --section-icon-color: #ffffff;
-  --content-form-section-header-bg: #d6ebf9;
-  --content-form-section-header-hover-bg: #c5e3f6;
+  --content-form-section-header-bg: #1a2c56;
+  --content-form-section-header-hover-bg: #223a6c;
   --content-form-section-header-border: #b8ddf0;
+  --content-form-section-header-fg: #ffffff;
+  --content-form-section-header-fg-muted: rgba(255, 255, 255, 0.72);
   --input-focus-bg: #e0f2fe;
   --toggle-active-bg: linear-gradient(135deg, #0284c7, #0369a1);
   --toggle-active-color: var(--nav-active-bg);
@@ -93,9 +95,11 @@
   --required-color: #332e7e;
   --section-icon-bg: transparent;
   --section-icon-color: #332e7e;
-  --content-form-section-header-bg: #d6ebf9;
-  --content-form-section-header-hover-bg: #c5e3f6;
+  --content-form-section-header-bg: #1a2c56;
+  --content-form-section-header-hover-bg: #223a6c;
   --content-form-section-header-border: #b8ddf0;
+  --content-form-section-header-fg: #ffffff;
+  --content-form-section-header-fg-muted: rgba(255, 255, 255, 0.72);
   --input-focus-bg: #f0eff9;
   --toggle-active-bg: linear-gradient(135deg, #332e7e, #4a44a8);
   --toggle-active-color: #332e7e;
@@ -135,9 +139,11 @@
   --checkbox-accent: var(--accent-primary);
   --section-icon-bg: transparent;
   --section-icon-color: #5ecfff;
-  --content-form-section-header-bg: #1a3045;
-  --content-form-section-header-hover-bg: #1f3850;
+  --content-form-section-header-bg: #1a2c56;
+  --content-form-section-header-hover-bg: #223a6c;
   --content-form-section-header-border: rgba(94, 207, 255, 0.22);
+  --content-form-section-header-fg: #ffffff;
+  --content-form-section-header-fg-muted: rgba(255, 255, 255, 0.72);
   --input-focus-bg: #243548;
   --toggle-active-bg: linear-gradient(135deg, #38bdf8, #5ecfff);
   --toggle-active-color: #5ecfff;
@@ -570,12 +576,17 @@ input[type="checkbox"] {
   box-sizing: border-box;
   align-items: center !important;
   background: var(--content-form-section-header-bg) !important;
-  border-bottom-color: var(--content-form-section-header-border, var(--border)) !important;
+  border-bottom-color: var(--content-form-section-header-bg, var(--border)) !important;
   transition: background 0.15s ease;
 }
 
 .app-content .content-form-section > button:hover {
   background: var(--content-form-section-header-hover-bg, var(--content-form-section-header-bg)) !important;
+}
+
+/* 헤더가 짙은 네이비이므로 테마별 아이콘 색과 무관하게 밝은 글리프를 쓴다 */
+.app-content .content-form-section > button .content-form-section-icon {
+  color: var(--content-form-section-header-fg, var(--section-icon-color)) !important;
 }
 
 .app-content .content-form-body {
