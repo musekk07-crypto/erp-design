@@ -215,22 +215,6 @@ function buildOrgMemberDetail(id: number, name: string, memberNo: string, grade:
   };
 }
 
-/** 조직도 카드 안 행 구분선 — 본문 폼과 같은 톤 */
-function OrgCardRowDivider() {
-  return (
-    <div
-      aria-hidden
-      style={{
-        width: "100%",
-        height: 0,
-        borderTop: "1px solid var(--form-field-divider, rgba(0, 0, 0, 0.1))",
-        margin: "2px 0",
-        flexShrink: 0,
-      }}
-    />
-  );
-}
-
 function Card({
   label,
   name,
@@ -249,7 +233,7 @@ function Card({
   const metaStyle: React.CSSProperties = {
     fontSize: ORG_CARD_META_FONT_SIZE,
     color: "var(--org-text-muted)",
-    lineHeight: 1.35,
+    lineHeight: 1.4,
     fontWeight: 400,
     width: "100%",
     textAlign: "left",
@@ -270,43 +254,89 @@ function Card({
       height: CARD_H,
       border: isSelf ? `2px solid ${ORG_SELF_ACCENT}` : `1px solid ${BORDER_GRAY}`,
       borderRadius: 8,
-      overflow: "hidden",
+      overflow: "visible",
       background: isSelf ? "var(--org-self-bg, rgba(2, 132, 199, 0.08))" : "var(--org-card-bg)",
       display: "flex",
       flexDirection: "column",
       alignItems: "stretch",
       justifyContent: "center",
       textAlign: "left",
-      padding: "8px 10px",
+      padding: "10px 12px",
       position: "relative",
       boxSizing: "border-box",
       flexShrink: 0,
+      gap: 3,
     }}
     >
-      <div className="org-chart-card__label" style={{ fontSize: ORG_CARD_LABEL_FONT_SIZE, color: LABEL_GRAY, width: "100%", textAlign: "left" }}>
+      {/* 본인 카드 상단 테두리에 얹히는 뱃지 */}
+      {isSelf && (
+        <span
+          className="org-chart-card__self-badge"
+          style={{
+            position: "absolute",
+            top: -10,
+            left: "50%",
+            transform: "translateX(-50%)",
+            background: ORG_SELF_ACCENT,
+            color: "#ffffff",
+            fontSize: 11,
+            fontWeight: 700,
+            lineHeight: 1.2,
+            padding: "2px 10px",
+            borderRadius: 999,
+            whiteSpace: "nowrap",
+            zIndex: 2,
+            boxShadow: "0 1px 2px rgba(0,0,0,0.12)",
+          }}
+        >
+          나·자신
+        </span>
+      )}
+      <div
+        className="org-chart-card__label"
+        style={{
+          fontSize: ORG_CARD_LABEL_FONT_SIZE,
+          color: isSelf ? ORG_SELF_ACCENT : LABEL_GRAY,
+          width: "100%",
+          textAlign: "left",
+          fontWeight: isSelf ? 600 : 400,
+        }}
+      >
         {isSelf ? "나" : label}
       </div>
-      <OrgCardRowDivider />
       {useOrgLayout ? (
         <>
-          <div className="org-chart-card__name" style={{ fontSize: ORG_CARD_NAME_FONT_SIZE, fontWeight: 700, color: "var(--org-text)", width: "100%", textAlign: "left" }}>
+          <div
+            className="org-chart-card__name"
+            style={{
+              fontSize: ORG_CARD_NAME_FONT_SIZE,
+              fontWeight: 700,
+              color: isSelf ? ORG_SELF_ACCENT : "var(--org-text)",
+              width: "100%",
+              textAlign: "left",
+            }}
+          >
             {name}({displayId ?? id})
           </div>
-          <OrgCardRowDivider />
           <div className="org-chart-card__meta" style={metaStyle}>{regDate}</div>
-          <OrgCardRowDivider />
           <div className="org-chart-card__meta" style={metaStyle}>{grade}</div>
-          <OrgCardRowDivider />
           <div className="org-chart-card__meta" style={metaStyle}>{points}</div>
         </>
       ) : (
         <>
-          <div className="org-chart-card__name" style={{ fontSize: ORG_CARD_NAME_FONT_SIZE, fontWeight: 700, color: "var(--org-text)", width: "100%", textAlign: "left" }}>
+          <div
+            className="org-chart-card__name"
+            style={{
+              fontSize: ORG_CARD_NAME_FONT_SIZE,
+              fontWeight: 700,
+              color: isSelf ? ORG_SELF_ACCENT : "var(--org-text)",
+              width: "100%",
+              textAlign: "left",
+            }}
+          >
             {name}
           </div>
-          <OrgCardRowDivider />
           <div className="org-chart-card__meta" style={metaStyle}>{memberNo}</div>
-          <OrgCardRowDivider />
           <div className="org-chart-card__meta" style={metaStyle}>{grade}</div>
         </>
       )}
@@ -346,7 +376,7 @@ function ExtraBox({ label, onClick }: { label: string; onClick?: () => void }) {
   );
 }
 
-function ChildChip({ name, id }: { name: string; id: number; displayId?: number }) {
+function ChildChip({ name, id, displayId }: { name: string; id: number; displayId?: number }) {
   const hover = useOrgChartHover();
   const rootRef = useRef<HTMLDivElement>(null);
   const memberNo = resolveOrgMemberNo(id);
@@ -374,7 +404,7 @@ function ChildChip({ name, id }: { name: string; id: number; displayId?: number 
       justifyContent: "flex-start",
       height: CHILD_CHIP_H,
       width: CARD_W,
-      padding: "0 10px",
+      padding: "0 12px",
       fontSize: ORG_CARD_NAME_FONT_SIZE,
       fontWeight: 700,
       color: isWithdrawn ? "var(--org-text-withdrawn, #9ca3af)" : "var(--org-text)",
@@ -382,7 +412,7 @@ function ChildChip({ name, id }: { name: string; id: number; displayId?: number 
       textAlign: "left",
     }}
     >
-      {name}
+      {name} ({displayId ?? id})
     </div>
   );
 }
@@ -412,6 +442,10 @@ type OrgChartSvgProps = {
   selfAtBottom?: boolean;
   downline?: OrgNode;
   extraBelow?: string;
+  /** 본인 아래 형제 카드 (이미지: 형제 → 나 → 형제) */
+  siblingBelow?: OrgNode;
+  /** 본인 아래 형제 쪽 '외 N명' 라벨 */
+  extraSiblingBelow?: string;
   moreChildren?: { name: string; id: number; displayId?: number }[];
   moreSiblings?: OrgNode[];
 };
@@ -428,6 +462,8 @@ function OrgChartSvg({
   selfAtBottom = false,
   downline,
   extraBelow,
+  siblingBelow,
+  extraSiblingBelow,
   moreChildren = [],
   moreSiblings = [],
 }: OrgChartSvgProps) {
@@ -700,7 +736,7 @@ function OrgChartSvg({
     );
   }
 
-  // tree — 상위 → (나 / 형제 / 외 N명 또는 외 N명 / 형제 / 나) → 하위
+  // tree — 첨부 이미지: 상위 → (외N / 형제 / 나·자신 / 형제 / 외N) → (하위칩… / 외N)
   type Col2StackItem =
     | { kind: "self"; node: OrgNode; h: number }
     | { kind: "sibling"; node: OrgNode; h: number }
@@ -726,8 +762,14 @@ function OrgChartSvg({
     return null;
   };
 
+  const extraSiblingBelowItem = (): Col2StackItem | null => {
+    if (!extraSiblingBelow) return null;
+    return { kind: "extra", label: extraSiblingBelow, h: EXTRA_H };
+  };
+
   const col2Stack: Col2StackItem[] = selfAtBottom
     ? (() => {
+        // 본인이 맨 아래: (펼친 형제…) / 외N / 형제 / 나
         const items: Col2StackItem[] = [...revealedSiblingItems];
         const extra = extraAboveItem();
         if (extra) items.push(extra);
@@ -736,13 +778,16 @@ function OrgChartSvg({
         return items;
       })()
     : (() => {
-        const items: Col2StackItem[] = [
-          { kind: "self", node: self, h: CARD_H },
-          { kind: "sibling", node: sibling, h: CARD_H },
-          ...revealedSiblingItems,
-        ];
-        const extra = extraAboveItem();
-        if (extra) items.push(extra);
+        // 첨부 이미지 기본형: 외N → 형제 → 나 → 형제 → 외N
+        const items: Col2StackItem[] = [];
+        const extraTop = extraAboveItem();
+        if (extraTop) items.push(extraTop);
+        items.push(...revealedSiblingItems);
+        items.push({ kind: "sibling", node: sibling, h: CARD_H });
+        items.push({ kind: "self", node: self, h: CARD_H });
+        if (siblingBelow) items.push({ kind: "sibling", node: siblingBelow, h: CARD_H });
+        const extraBottom = extraSiblingBelowItem();
+        if (extraBottom) items.push(extraBottom);
         return items;
       })();
 
@@ -783,10 +828,11 @@ function OrgChartSvg({
     ];
     if (entries.length === 0) return { entries: [], positioned: [] as { entry: Col3Entry; cy: number }[] };
 
-    let y = selfCenterY - entries[0].h / 2;
+    // 하위 목록은 본인 카드 상단과 맞춤 (이미지)
+    let cursorY = selfCenterY - CARD_H / 2;
     const positioned = entries.map((entry) => {
-      const cy = y + entry.h / 2;
-      y += entry.h + GAP;
+      const cy = cursorY + entry.h / 2;
+      cursorY += entry.h + GAP;
       return { entry, cy };
     });
     return { entries, positioned };
@@ -807,7 +853,14 @@ function OrgChartSvg({
   const svgW = col3X + CARD_W + ORG_FOREIGN_PAD + HPAD;
   const svgH = contentH + yShift + VPAD;
 
-  const firstChildCy = col3Layout.positioned.find((p) => p.entry.kind === "child")?.cy ?? selfCenterY;
+  // 세로 레일: 형제 구간은 실선, 외N명 구간만 점선
+  const firstNonExtraIdx = col2Stack.findIndex((item) => item.kind !== "extra");
+  const lastNonExtraIdx = (() => {
+    for (let i = col2Stack.length - 1; i >= 0; i -= 1) {
+      if (col2Stack[i].kind !== "extra") return i;
+    }
+    return -1;
+  })();
 
   return (
     <svg width={svgW} height={svgH} style={{ overflow: "visible", display: "block" }}>
@@ -815,31 +868,53 @@ function OrgChartSvg({
       <foreignObject x={col1X} y={selfCenterY - CARD_H / 2} width={CARD_W + 2} height={CARD_H + 2}>
         <Card {...parent} />
       </foreignObject>
-      {/* 본인 경로: 상위 → 레일 → 본인 (파란색) */}
-      <line x1={col1X + CARD_W} y1={selfCenterY} x2={railMid} y2={selfCenterY} stroke={ORG_SELF_ACCENT} strokeWidth={2} />
-      <line x1={railMid} y1={selfCenterY} x2={col2X} y2={selfCenterY} stroke={ORG_SELF_ACCENT} strokeWidth={2} />
-      {/* 형제/외N명 세로 레일은 회색 */}
-      {col2Ys.length > 1 && (
+      {/* 상위 → 본인: 회색 */}
+      <line x1={col1X + CARD_W} y1={selfCenterY} x2={railMid} y2={selfCenterY} stroke={BORDER_GRAY} strokeWidth={1} />
+      <line x1={railMid} y1={selfCenterY} x2={col2X} y2={selfCenterY} stroke={BORDER_GRAY} strokeWidth={1} />
+      {/* 형제 세로 레일(실선) */}
+      {firstNonExtraIdx >= 0 && lastNonExtraIdx > firstNonExtraIdx && (
         <line
           x1={railMid}
-          y1={col2Ys[0]}
+          y1={col2Ys[firstNonExtraIdx]}
           x2={railMid}
-          y2={col2Ys[col2Ys.length - 1]}
+          y2={col2Ys[lastNonExtraIdx]}
           stroke={BORDER_GRAY}
           strokeWidth={1}
         />
       )}
-      {col2Ys.map((cy, i) => (
-        <line
-          key={i}
-          x1={railMid}
-          y1={cy}
-          x2={col2X}
-          y2={cy}
-          stroke={i === selfIdx ? ORG_SELF_ACCENT : BORDER_GRAY}
-          strokeWidth={i === selfIdx ? 2 : 1}
-        />
-      ))}
+      {/* 외N명 ↔ 인접 노드: 점선 세로 */}
+      {col2Stack.map((item, i) => {
+        if (item.kind !== "extra") return null;
+        const neighborIdx = i === 0 ? 1 : i - 1;
+        if (neighborIdx < 0 || neighborIdx >= col2Ys.length) return null;
+        return (
+          <line
+            key={`rail-extra-${i}`}
+            x1={railMid}
+            y1={col2Ys[i]}
+            x2={railMid}
+            y2={col2Ys[neighborIdx]}
+            stroke={BORDER_GRAY}
+            strokeWidth={1}
+            strokeDasharray="4 3"
+          />
+        );
+      })}
+      {col2Ys.map((cy, i) => {
+        const isExtra = col2Stack[i]?.kind === "extra";
+        return (
+          <line
+            key={i}
+            x1={railMid}
+            y1={cy}
+            x2={col2X}
+            y2={cy}
+            stroke={BORDER_GRAY}
+            strokeWidth={1}
+            strokeDasharray={isExtra ? "4 3" : undefined}
+          />
+        );
+      })}
       {col2Stack.map((item, i) => {
         if (item.kind === "extra") {
           return (
@@ -850,8 +925,16 @@ function OrgChartSvg({
         }
         if (item.kind === "self") {
           return (
-            <foreignObject key={`self-${item.node.id}`} x={col2X} y={col2Ys[i] - CARD_H / 2} width={CARD_W + 2} height={CARD_H + 2}>
-              <Card {...item.node} isSelf />
+            <foreignObject
+              key={`self-${item.node.id}`}
+              x={col2X}
+              y={col2Ys[i] - CARD_H / 2 - 12}
+              width={CARD_W + 2}
+              height={CARD_H + 14}
+            >
+              <div style={{ paddingTop: 12 }}>
+                <Card {...item.node} isSelf />
+              </div>
             </foreignObject>
           );
         }
@@ -863,31 +946,41 @@ function OrgChartSvg({
       })}
       {col3Layout.positioned.length > 0 && (
         <>
-          {/* 본인 → 하위 레일 (파란색) */}
+          {/* 본인 → 하위 레일만 파란색(이미지 강조) */}
           <line x1={col2X + CARD_W} y1={selfCenterY} x2={railRight} y2={selfCenterY} stroke={ORG_SELF_ACCENT} strokeWidth={2} />
-          {col3Layout.positioned.length > 1 && (
-            <line
-              x1={railRight}
-              y1={Math.min(selfCenterY, col3Layout.positioned[0].cy)}
-              x2={railRight}
-              y2={Math.max(selfCenterY, col3Layout.positioned[col3Layout.positioned.length - 1].cy)}
-              stroke={BORDER_GRAY}
-              strokeWidth={1}
-            />
-          )}
-          {/* 본인 높이와 첫 하위 칩을 잇는 구간만 파란색으로 덮어쓴다 */}
-          {firstChildCy !== selfCenterY && (
-            <line
-              x1={railRight}
-              y1={selfCenterY}
-              x2={railRight}
-              y2={firstChildCy}
-              stroke={ORG_SELF_ACCENT}
-              strokeWidth={2}
-            />
-          )}
+          {(() => {
+            const firstCy = col3Layout.positioned[0].cy;
+            const lastCy = col3Layout.positioned[col3Layout.positioned.length - 1].cy;
+            const lastIsExtra = col3Layout.positioned[col3Layout.positioned.length - 1].entry.kind === "extra";
+            const lastChildCy = [...col3Layout.positioned].reverse().find((p) => p.entry.kind === "child")?.cy ?? lastCy;
+            return (
+              <>
+                {col3Layout.positioned.length > 1 && (
+                  <line
+                    x1={railRight}
+                    y1={firstCy}
+                    x2={railRight}
+                    y2={lastChildCy}
+                    stroke={BORDER_GRAY}
+                    strokeWidth={1}
+                  />
+                )}
+                {lastIsExtra && lastCy !== lastChildCy && (
+                  <line
+                    x1={railRight}
+                    y1={lastChildCy}
+                    x2={railRight}
+                    y2={lastCy}
+                    stroke={BORDER_GRAY}
+                    strokeWidth={1}
+                    strokeDasharray="4 3"
+                  />
+                )}
+              </>
+            );
+          })()}
           {col3Layout.positioned.map(({ entry, cy }, i) => {
-            const isPrimaryChild = entry.kind === "child" && cy === firstChildCy;
+            const isExtra = entry.kind === "extra";
             return (
               <g key={entry.kind === "child" ? `${entry.child.id}-${i}` : `extra-${i}`}>
                 <line
@@ -895,8 +988,9 @@ function OrgChartSvg({
                   y1={cy}
                   x2={col3X}
                   y2={cy}
-                  stroke={isPrimaryChild ? ORG_SELF_ACCENT : BORDER_GRAY}
-                  strokeWidth={isPrimaryChild ? 2 : 1}
+                  stroke={BORDER_GRAY}
+                  strokeWidth={1}
+                  strokeDasharray={isExtra ? "4 3" : undefined}
                 />
                 {entry.kind === "child" ? (
                   <foreignObject x={col3X} y={cy - CHILD_CHIP_H / 2} width={CARD_W + 2} height={CHILD_CHIP_H + 2}>
@@ -1014,12 +1108,6 @@ function shiftOrgDate(dateStr: string, dayOffset: number) {
   return d.toISOString().slice(0, 10);
 }
 
-const KIM_SANGKYUNG_MORE_SIBLINGS = [
-  createOrgNode("형제", "김민수", 940, "블루", { displayId: 2, regDate: "2025-08-20", points: "12.50" }),
-  createOrgNode("형제", "이정훈", 941, "레드", { displayId: 3, regDate: "2025-09-01", points: "8.30" }),
-  createOrgNode("형제", "박서준", 942, "블루", { displayId: 4, regDate: "2025-09-10", points: "15.00" }),
-];
-
 const KIM_SANGKYUNG_MORE_CHILDREN = [
   "이수민", "박준호", "최유리", "한지민", "오세훈",
   "장민재", "윤서연", "강도현", "신예린", "조민수",
@@ -1032,11 +1120,25 @@ const KIM_SANGKYUNG_MORE_CHILDREN = [
   displayId: 10 + index,
 }));
 
+/** 첨부 이미지와 동일한 하위 칩 샘플 */
+const ORG_CHART_DEMO_CHILDREN = [
+  { name: "변해숙", id: 951, displayId: 1 },
+  { name: "김송미", id: 952, displayId: 2 },
+  { name: "이정아", id: 953, displayId: 3 },
+  { name: "박소연", id: 954, displayId: 4 },
+  { name: "최민수", id: 955, displayId: 5 },
+  { name: "한지우", id: 956, displayId: 6 },
+  { name: "오세린", id: 957, displayId: 7 },
+  { name: "장도윤", id: 958, displayId: 8 },
+  { name: "윤채원", id: 959, displayId: 9 },
+  { name: "이혜신", id: 960, displayId: 10 },
+];
+
 function buildOrgChartSections(memberId: number, memberName: string, member: Member) {
   if (member.name === "김상경") {
-    const selfNode = createOrgNode("나", member.name, member.id, "블루", {
+    const selfNode = createOrgNode("나", member.name, member.id, "다이아몬드", {
       memberNo: member.no,
-      displayId: 0,
+      displayId: 6,
       regDate: member.regDate,
       points: "10.08",
     });
@@ -1057,10 +1159,15 @@ function buildOrgChartSections(memberId: number, memberName: string, member: Mem
             regDate: "2025-08-26",
             points: "19.21",
           }),
+          siblingBelow: createOrgNode("형제", "김희수", 917, "레드", {
+            displayId: 2,
+            regDate: "2025-09-02",
+            points: "8.40",
+          }),
           self: selfNode,
           extraAbove: "외 3명",
+          extraSiblingBelow: "외 3명",
           extraBelow: "외 22명",
-          moreSiblings: KIM_SANGKYUNG_MORE_SIBLINGS,
           moreChildren: KIM_SANGKYUNG_MORE_CHILDREN,
           children: [
             { name: "홍선영", id: 920, displayId: 0 },
@@ -1081,24 +1188,29 @@ function buildOrgChartSections(memberId: number, memberName: string, member: Mem
         id: "sponsor" as const,
         title: "후원인",
         variant: {
-          layoutType: "sponsor" as const,
-          parent: createOrgNode("상위", "김석현", 910, "퍼플", {
+          // 첨부 이미지와 동일한 좌→우 트리 구성
+          layoutType: "tree" as const,
+          parent: createOrgNode("상위", "박민수", 910, "크라운", {
             displayId: 0,
-            regDate: "2025-08-26",
-            points: "62.61",
+            regDate: "2026-04-09",
+            points: "70.34",
           }),
-          sibling: createOrgNode("형제", "서혜진", 912, "레드", {
-            displayId: 1,
-            regDate: "2025-09-24",
-            points: "28.97",
+          sibling: createOrgNode("형제", "김백성", 912, "다이아몬드", {
+            displayId: 5,
+            regDate: "2026-04-09",
+            points: "12.50",
+          }),
+          siblingBelow: createOrgNode("형제", "최연경", 913, "일반회원", {
+            displayId: 7,
+            regDate: "2026-04-09",
+            points: "8.30",
           }),
           self: selfNode,
-          extraAbove: "",
-          children: [
-            { name: "김태형", id: 913, displayId: 0 },
-            { name: "김지원", id: 914, displayId: 1 },
-          ],
-          showExtra: false,
+          extraAbove: "외 5명",
+          extraSiblingBelow: "외 5명",
+          moreChildren: KIM_SANGKYUNG_MORE_CHILDREN.slice(0, 11),
+          children: ORG_CHART_DEMO_CHILDREN,
+          showExtra: true,
         },
       },
     ];
