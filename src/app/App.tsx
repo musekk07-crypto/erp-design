@@ -3372,12 +3372,17 @@ function MemberLoginInfoForm({ member }: { member: Member }) {
     },
   };
 
+  // 두 줄이 같은 3열 리듬을 쓰도록 열별 flex 를 공유한다
+  const columnFlex = ["1 1 88px", "0.85 1 64px", "1.35 1 120px"];
+
+  // 첫 줄은 식별 정보, 둘째 줄은 비밀번호·연락 정보로 나눈다
   const fields = [
     {
       key: "no",
+      row: 0,
       label: "* 회원번호",
       required: true,
-      flex: "0.95 1 72px",
+      flex: columnFlex[0],
       input: (
         <input
           type="text"
@@ -3390,9 +3395,10 @@ function MemberLoginInfoForm({ member }: { member: Member }) {
     },
     {
       key: "id",
+      row: 0,
       label: "* 아이디",
       required: true,
-      flex: "0.95 1 72px",
+      flex: columnFlex[1],
       input: (
         <input
           type="text"
@@ -3405,8 +3411,9 @@ function MemberLoginInfoForm({ member }: { member: Member }) {
     },
     {
       key: "password",
+      row: 1,
       label: "비밀번호",
-      flex: "1 1 88px",
+      flex: columnFlex[0],
       input: (
         <input
           type="password"
@@ -3419,8 +3426,9 @@ function MemberLoginInfoForm({ member }: { member: Member }) {
     },
     {
       key: "securePassword",
+      row: 1,
       label: "보안 비밀번호",
-      flex: "0.85 1 64px",
+      flex: columnFlex[1],
       input: (
         <input
           type="password"
@@ -3433,8 +3441,9 @@ function MemberLoginInfoForm({ member }: { member: Member }) {
     },
     {
       key: "email",
+      row: 1,
       label: "전자메일주소",
-      flex: "1.35 1 120px",
+      flex: columnFlex[2],
       input: (
         <input
           type="email"
@@ -3454,25 +3463,31 @@ function MemberLoginInfoForm({ member }: { member: Member }) {
       className="content-form-section--member-form"
       headerExtra={<MemberProfileHeader member={member} />}
     >
-      <div className="member-login-inline-row">
-        {fields.map((field) => (
-          <div
-            key={field.key}
-            className="member-login-inline-field"
-            style={{ flex: field.flex }}
-          >
-            <span
-              className="member-login-inline-field__label"
-              style={{
-                color: field.required ? "var(--required-color, #001673)" : "var(--form-label-color)",
-              }}
-            >
-              {field.label}
-            </span>
-            {field.input}
-          </div>
-        ))}
-      </div>
+      {[0, 1].map((rowIndex) => (
+        <div className="member-login-inline-row" key={rowIndex}>
+          {fields
+            .filter((field) => field.row === rowIndex)
+            .map((field) => (
+              <div
+                key={field.key}
+                className="member-login-inline-field"
+                style={{ flex: field.flex }}
+              >
+                <span
+                  className="member-login-inline-field__label"
+                  style={{
+                    color: field.required ? "var(--required-color, #001673)" : "var(--form-label-color)",
+                  }}
+                >
+                  {field.label}
+                </span>
+                {field.input}
+              </div>
+            ))}
+          {/* 첫 줄은 두 항목뿐이라 빈 열을 채워 둘째 줄과 열 폭을 맞춘다 */}
+          {rowIndex === 0 && <div style={{ flex: columnFlex[2] }} aria-hidden />}
+        </div>
+      ))}
     </FormSection>
   );
 }
