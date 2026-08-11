@@ -701,11 +701,42 @@ span.member-form-action-chip {
 }
 
 .member-form-split--triple {
-  gap: 10px;
+  gap: 0;
 }
 
 .member-form-split--triple .member-form-split__group {
   flex: 1 1 0;
+}
+
+/* 거래은행(3단락) · 상위회원관계(2단락) 공통 세로 구분선 */
+.member-form-split--triple .member-form-split__group + .member-form-split__group,
+.member-form-split--dual .member-form-split__group + .member-form-split__group {
+  border-left: 1px solid var(--form-field-divider, rgba(0, 0, 0, 0.1));
+  padding-left: 12px;
+  margin-left: 12px;
+}
+
+.member-form-split--dual {
+  gap: 0;
+}
+
+.member-form-split--dual .member-form-split__group {
+  flex: 1 1 0;
+}
+
+.member-relation-split .member-form-split__group:first-child {
+  flex: 1.25 1 0;
+}
+
+.member-relation-split .member-form-split__group:last-child {
+  flex: 1 1 0;
+}
+
+.member-relation-split .member-form-split__group {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  justify-content: center;
 }
 
 .app-content .content-form-body .member-form-split--triple .content-form-grid--pair td {

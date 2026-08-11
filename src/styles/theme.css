@@ -608,9 +608,7 @@ input[type="checkbox"] {
 
 .app-content .content-form-body > .flex,
 .app-content .content-form-body > .member-login-inline-row,
-.app-content .content-form-body > .member-form-split,
-.app-content .content-form-body > .member-relation-row,
-.app-content .content-form-body > .member-relation-stack {
+.app-content .content-form-body > .member-form-split {
   padding-top: 2px;
   padding-bottom: 2px;
 }
@@ -628,9 +626,7 @@ input[type="checkbox"] {
 
 .app-content .content-form-section--member-form .content-form-body > .flex,
 .app-content .content-form-section--member-form .content-form-body > .member-login-inline-row,
-.app-content .content-form-section--member-form .content-form-body > .member-form-split,
-.app-content .content-form-section--member-form .content-form-body > .member-relation-row,
-.app-content .content-form-section--member-form .content-form-body > .member-relation-stack {
+.app-content .content-form-section--member-form .content-form-body > .member-form-split {
   align-items: center;
   box-sizing: border-box;
 }
@@ -825,38 +821,7 @@ input[type="checkbox"] {
   overflow: hidden;
 }
 
-/* 상위 회원 관계 — 2줄(추천인|소속센터 / 후원인|직급), 세로 구분선으로 그룹 분리 */
-.app-content .member-relation-stack {
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-  width: 100%;
-}
-
-.app-content .member-relation-row {
-  display: grid;
-  width: 100%;
-  align-items: center;
-  column-gap: 0;
-}
-
-.app-content .member-relation-row--pair {
-  grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr);
-  column-gap: 20px;
-}
-
-.app-content .member-relation-row--pair-below {
-  padding-top: 8px;
-  border-top: 1px solid var(--form-field-divider, rgba(15, 23, 42, 0.08));
-}
-
-.app-content .member-relation-segment {
-  min-width: 0;
-  display: flex;
-  align-items: center;
-}
-
-
+/* 상위 회원 관계 — 좌우 2단락 필드 */
 .app-content .member-relation-heading {
   white-space: nowrap;
 }
@@ -867,6 +832,7 @@ input[type="checkbox"] {
   flex-wrap: nowrap;
   gap: 8px;
   width: 100%;
+  min-height: var(--member-form-control-min-height, 26px);
 }
 
 .app-content .member-relation-group > span,
