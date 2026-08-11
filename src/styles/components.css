@@ -3643,7 +3643,7 @@ textarea.mm2-name-box:focus {
   align-items: center;
   justify-content: center;
   height: 100%;
-  padding: 0 74px;
+  padding: 0 12px;
   min-width: 0;
 }
 
@@ -3655,16 +3655,6 @@ textarea.mm2-name-box:focus {
   gap: 8px;
   padding: 5px 10px;
   box-sizing: border-box;
-}
-
-.visit-history-bar-trail {
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  right: 10px;
-  display: flex;
-  align-items: center;
-  gap: 4px;
 }
 
 .visit-history-tab-strip {

@@ -4088,15 +4088,6 @@ function VisitHistoryBar({
             />
           ))}
         </div>
-
-        <div className="visit-history-bar-trail">
-          <VisitHistoryIconButton label="현재 화면 고정" onClick={onPinCurrent} accent>
-            <Pin size={12} style={{ color: "var(--required-color, #001673)" }} />
-          </VisitHistoryIconButton>
-          <VisitHistoryIconButton label="접기" onClick={onToggleExpand}>
-            <ChevronDown size={14} style={{ color: "var(--text-muted)" }} />
-          </VisitHistoryIconButton>
-        </div>
       </div>
     </div>
   );
