@@ -825,7 +825,7 @@ input[type="checkbox"] {
   overflow: hidden;
 }
 
-/* 상위 회원 관계 — 2줄(추천인·후원인 / 소속 그룹) */
+/* 상위 회원 관계 — 2줄(추천인|소속센터 / 후원인|직급), 세로 구분선으로 그룹 분리 */
 .app-content .member-relation-stack {
   display: flex;
   flex-direction: column;
@@ -837,15 +837,14 @@ input[type="checkbox"] {
   display: grid;
   width: 100%;
   align-items: center;
-  column-gap: 20px;
+  column-gap: 0;
 }
 
-.app-content .member-relation-row--links {
-  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+.app-content .member-relation-row--pair {
+  grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr);
 }
 
-.app-content .member-relation-row--group {
-  grid-template-columns: auto minmax(0, 1fr) minmax(0, 1fr);
+.app-content .member-relation-row--pair-below {
   padding-top: 6px;
   border-top: 1px solid var(--form-field-divider, rgba(15, 23, 42, 0.08));
 }
@@ -856,9 +855,10 @@ input[type="checkbox"] {
   align-items: center;
 }
 
-.app-content .member-relation-segment--heading {
-  flex-shrink: 0;
-  padding-right: 4px;
+.app-content .member-relation-segment--affiliation {
+  padding-left: 20px;
+  margin-left: 20px;
+  border-left: 1px solid var(--form-field-divider, rgba(15, 23, 42, 0.08));
 }
 
 .app-content .member-relation-heading {
