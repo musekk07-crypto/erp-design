@@ -2118,8 +2118,8 @@ function StatBento({ label, value, color }: { label: string; value: string; colo
   );
 }
 
-function FormSection({ title, icon, subtitle, headerExtra, children, bodyPadding, clipBody = true, className = "" }: {
-  title: string; icon: React.ReactNode; subtitle?: string; headerExtra?: React.ReactNode; children: React.ReactNode; bodyPadding?: string; clipBody?: boolean; className?: string;
+function FormSection({ title, icon: _icon, subtitle, headerExtra, children, bodyPadding, clipBody = true, className = "" }: {
+  title: string; icon?: React.ReactNode; subtitle?: string; headerExtra?: React.ReactNode; children: React.ReactNode; bodyPadding?: string; clipBody?: boolean; className?: string;
 }) {
   const [open, setOpen] = useState(true);
   return (
@@ -2133,9 +2133,6 @@ function FormSection({ title, icon, subtitle, headerExtra, children, bodyPadding
           borderBottom: open ? "1px solid var(--content-form-section-header-bg, var(--border))" : "none",
         }}
       >
-        <span className="content-form-section-icon shrink-0 inline-flex items-center justify-center" style={{ color: "var(--section-icon-color)" }}>
-          {icon}
-        </span>
         <span className="text-sm font-semibold shrink-0" style={{ color: "var(--content-form-section-header-fg, var(--foreground))" }}>{title}</span>
         {subtitle ? (
           <span className="text-xs shrink-0" style={{ color: "var(--content-form-section-header-fg-muted, var(--text-muted))" }}>{subtitle}</span>
