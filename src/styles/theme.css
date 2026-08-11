@@ -845,6 +845,11 @@ input[type="checkbox"] {
   column-gap: 20px;
 }
 
+.app-content .member-relation-row--pair-below {
+  padding-top: 8px;
+  border-top: 1px solid var(--form-field-divider, rgba(15, 23, 42, 0.08));
+}
+
 .app-content .member-relation-segment {
   min-width: 0;
   display: flex;
