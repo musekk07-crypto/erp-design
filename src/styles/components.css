@@ -1048,6 +1048,16 @@ span.member-form-action-chip {
   border-bottom: 1px solid var(--border);
 }
 
+/* 회원구분 토글은 박스 오른쪽 끝에 붙인다 */
+.member-login-profile-row .member-profile-header {
+  width: 100%;
+  max-width: 100%;
+}
+
+.member-login-profile-row .member-profile-header .member-type-toggle {
+  margin-left: auto;
+}
+
 .member-login-inline-row {
   display: flex;
   align-items: center;
