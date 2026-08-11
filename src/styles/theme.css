@@ -609,7 +609,8 @@ input[type="checkbox"] {
 .app-content .content-form-body > .flex,
 .app-content .content-form-body > .member-login-inline-row,
 .app-content .content-form-body > .member-form-split,
-.app-content .content-form-body > .member-relation-row {
+.app-content .content-form-body > .member-relation-row,
+.app-content .content-form-body > .member-relation-stack {
   padding-top: 2px;
   padding-bottom: 2px;
 }
@@ -628,7 +629,8 @@ input[type="checkbox"] {
 .app-content .content-form-section--member-form .content-form-body > .flex,
 .app-content .content-form-section--member-form .content-form-body > .member-login-inline-row,
 .app-content .content-form-section--member-form .content-form-body > .member-form-split,
-.app-content .content-form-section--member-form .content-form-body > .member-relation-row {
+.app-content .content-form-section--member-form .content-form-body > .member-relation-row,
+.app-content .content-form-section--member-form .content-form-body > .member-relation-stack {
   align-items: center;
   box-sizing: border-box;
 }
@@ -823,19 +825,44 @@ input[type="checkbox"] {
   overflow: hidden;
 }
 
-/* 상위 회원 관계 — 전체 너비 4구역 균등 배치 */
+/* 상위 회원 관계 — 2줄(추천인·후원인 / 소속 그룹) */
+.app-content .member-relation-stack {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  width: 100%;
+}
+
 .app-content .member-relation-row {
   display: grid;
-  grid-template-columns: minmax(0, 1.15fr) minmax(0, 1.15fr) minmax(0, 1fr) minmax(0, 0.85fr);
   width: 100%;
   align-items: center;
   column-gap: 20px;
+}
+
+.app-content .member-relation-row--links {
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+}
+
+.app-content .member-relation-row--group {
+  grid-template-columns: auto minmax(0, 1fr) minmax(0, 1fr);
+  padding-top: 6px;
+  border-top: 1px solid var(--form-field-divider, rgba(15, 23, 42, 0.08));
 }
 
 .app-content .member-relation-segment {
   min-width: 0;
   display: flex;
   align-items: center;
+}
+
+.app-content .member-relation-segment--heading {
+  flex-shrink: 0;
+  padding-right: 4px;
+}
+
+.app-content .member-relation-heading {
+  white-space: nowrap;
 }
 
 .app-content .member-relation-group {
