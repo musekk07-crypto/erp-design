@@ -1043,8 +1043,8 @@ span.member-form-action-chip {
   align-items: center;
   width: 100%;
   min-width: 0;
-  padding-bottom: 6px;
-  margin-bottom: 6px;
+  padding-bottom: 3px;
+  margin-bottom: 3px;
   border-bottom: 1px solid var(--form-field-divider, rgba(0, 0, 0, 0.1));
 }
 
@@ -1073,10 +1073,14 @@ span.member-form-action-chip {
   flex-wrap: nowrap;
 }
 
-/* 아래 본문 테이블과 같은 행 사이 가로 구분선 */
+/* 아래 본문 테이블과 같은 행 사이 가로 구분선·간격(상하 3px) */
+.app-content .content-form-body > .member-login-inline-row:has(+ .member-login-inline-row) {
+  padding-bottom: 3px;
+}
+
 .app-content .content-form-body > .member-login-inline-row + .member-login-inline-row {
-  margin-top: 4px;
-  padding-top: 6px;
+  margin-top: 0;
+  padding-top: 3px;
   border-top: 1px solid var(--form-field-divider, rgba(0, 0, 0, 0.1));
 }
 
