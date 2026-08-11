@@ -1045,7 +1045,7 @@ span.member-form-action-chip {
   min-width: 0;
   padding-bottom: 6px;
   margin-bottom: 6px;
-  border-bottom: 1px solid var(--border);
+  border-bottom: 1px solid var(--form-field-divider, rgba(0, 0, 0, 0.1));
 }
 
 /* 회원구분 토글은 박스 오른쪽 끝에 붙인다 */
@@ -1071,6 +1071,13 @@ span.member-form-action-chip {
   width: 100%;
   min-width: 0;
   flex-wrap: nowrap;
+}
+
+/* 아래 본문 테이블과 같은 행 사이 가로 구분선 */
+.app-content .content-form-body > .member-login-inline-row + .member-login-inline-row {
+  margin-top: 4px;
+  padding-top: 6px;
+  border-top: 1px solid var(--form-field-divider, rgba(0, 0, 0, 0.1));
 }
 
 .member-login-inline-field {
