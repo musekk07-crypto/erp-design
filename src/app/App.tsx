@@ -3868,7 +3868,7 @@ function MemberInfoBody({
             </div>
 
             {/* 2행: 후원인 | 직급 */}
-            <div className="member-relation-row member-relation-row--pair member-relation-row--pair-below">
+            <div className="member-relation-row member-relation-row--pair">
               <div className="member-relation-segment" role="group" aria-label="후원인">
                 <div className="member-relation-group">
                   <span style={{ fontSize: "12px", color: "var(--required-color, #001673)", fontWeight: 500 }}>* 후원인</span>

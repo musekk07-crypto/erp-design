@@ -842,11 +842,7 @@ input[type="checkbox"] {
 
 .app-content .member-relation-row--pair {
   grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr);
-}
-
-.app-content .member-relation-row--pair-below {
-  padding-top: 6px;
-  border-top: 1px solid var(--form-field-divider, rgba(15, 23, 42, 0.08));
+  column-gap: 20px;
 }
 
 .app-content .member-relation-segment {
@@ -855,11 +851,6 @@ input[type="checkbox"] {
   align-items: center;
 }
 
-.app-content .member-relation-segment--affiliation {
-  padding-left: 20px;
-  margin-left: 20px;
-  border-left: 1px solid var(--form-field-divider, rgba(15, 23, 42, 0.08));
-}
 
 .app-content .member-relation-heading {
   white-space: nowrap;
