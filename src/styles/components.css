@@ -1058,6 +1058,12 @@ span.member-form-action-chip {
   margin-left: auto;
 }
 
+/* 이름·아이디·회원번호는 늘어나지 않고 왼쪽에 모여 있어야 한다 */
+.member-login-profile-row .member-profile-header__line .member-profile-header__name,
+.member-login-profile-row .member-profile-header__line .content-member-header-text {
+  flex: 0 1 auto;
+}
+
 .member-login-inline-row {
   display: flex;
   align-items: center;
