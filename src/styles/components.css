@@ -3681,21 +3681,6 @@ textarea.mm2-name-box:focus {
   display: none;
 }
 
-.visit-history-tab-sep {
-  align-self: center;
-  width: 1px;
-  height: 15px;
-  margin: 0 7px;
-  background: var(--border);
-  flex-shrink: 0;
-}
-
-/* 활성 탭은 자기 테두리가 경계 역할을 하므로 양옆 구분선을 감춘다 */
-.visit-history-tab-sep:has(+ .visit-history-tab-group.is-active),
-.visit-history-tab-group.is-active + .visit-history-tab-sep {
-  visibility: hidden;
-}
-
 /* 비활성 항목은 아무 장식 없는 텍스트, 활성 항목만 탭 모양 */
 .visit-history-tab-group {
   display: inline-flex;

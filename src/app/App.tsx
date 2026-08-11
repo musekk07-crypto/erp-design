@@ -4063,35 +4063,29 @@ function VisitHistoryBar({
           <span className="visit-history-tab-label">바탕화면</span>
         </button>
 
-        <span className="visit-history-tab-sep" aria-hidden />
-
         {pinned.length === 0 && recent.length === 0 && (
           <span className="visit-history-empty">열린 화면 없음</span>
         )}
 
         <div className="visit-history-tab-strip">
           {pinned.map((item) => (
-            <React.Fragment key={item.id}>
-              <span className="visit-history-tab-sep" aria-hidden />
-              <HistoryItemChip
-                item={item}
-                isActive={item.id === activeId}
-                isPinned
-                onSelect={onSelect}
-                onRemove={onUnpin}
-              />
-            </React.Fragment>
+            <HistoryItemChip
+              key={item.id}
+              item={item}
+              isActive={item.id === activeId}
+              isPinned
+              onSelect={onSelect}
+              onRemove={onUnpin}
+            />
           ))}
           {recent.map((item) => (
-            <React.Fragment key={item.id}>
-              <span className="visit-history-tab-sep" aria-hidden />
-              <HistoryItemChip
-                item={item}
-                isActive={item.id === activeId}
-                onSelect={onSelect}
-                onRemove={onRemoveRecent}
-              />
-            </React.Fragment>
+            <HistoryItemChip
+              key={item.id}
+              item={item}
+              isActive={item.id === activeId}
+              onSelect={onSelect}
+              onRemove={onRemoveRecent}
+            />
           ))}
         </div>
 
