@@ -3626,17 +3626,17 @@ textarea.mm2-name-box:focus {
 
 /* ── 하단 방문 기록 바 ── */
 
-/* 활성 탭이 위쪽 경계선을 뚫고 올라오므로 클리핑하지 않는다 */
+/* 상단 메인 내비와 같은 배경을 쓰고, 활성 탭이 위쪽 경계선을 뚫고 올라오므로 클리핑하지 않는다 */
 .visit-history-bar {
   position: relative;
   flex-shrink: 0;
   width: 100%;
-  background: var(--surface-panel);
-  border-top: 1px solid var(--border);
+  background: var(--nav-bg, #333333);
+  border-top: 1px solid var(--nav-border, #0a1526);
   transition: height 0.2s ease;
 }
 
-/* 탭 묶음은 바 전체 기준으로 가운데 정렬하고, 우측 액션은 겹치지 않게 좌우 여백을 대칭으로 확보한다 */
+/* 탭 묶음은 바 전체 기준으로 가운데 정렬한다 */
 .visit-history-bar-inner {
   position: relative;
   display: flex;
@@ -3704,14 +3704,31 @@ textarea.mm2-name-box:focus {
   border: none;
   border-radius: 0;
   background: transparent;
-  color: var(--text-body);
+  color: var(--nav-text-muted, rgba(255, 255, 255, 0.7));
   white-space: nowrap;
   cursor: pointer;
-  transition: background 0.15s ease;
+  transition: background 0.15s ease, color 0.15s ease;
 }
 
+/* 호버 음영은 밝은 그레이 박스로 고정하므로 글자색을 어둡게 되돌린다 */
 .visit-history-tab:hover {
   background: var(--surface-page);
+  color: var(--foreground);
+}
+
+/* 밝은 내비 배경 테마는 고정 그레이가 바 색에 묻히므로 한 단계 진한 그레이를 쓴다 */
+[data-theme="light-gray"] .visit-history-tab:hover {
+  background: #e2e4ea;
+}
+
+/* 다크 테마는 바와 본문 배경이 같아 탭 면을 한 단계 밝게 올려야 보인다 */
+[data-theme="dark"] .visit-history-tab:hover {
+  background: rgba(255, 255, 255, 0.09);
+  color: var(--nav-text, #e2e8f0);
+}
+
+[data-theme="dark"] .visit-history-tab-group.is-active {
+  background: var(--surface-panel);
 }
 
 .visit-history-tab-group.is-active .visit-history-tab {
@@ -3725,7 +3742,6 @@ textarea.mm2-name-box:focus {
 
 .visit-history-tab--home {
   flex-shrink: 0;
-  color: var(--text-muted);
 }
 
 .visit-history-tab-label {
@@ -3742,7 +3758,7 @@ textarea.mm2-name-box:focus {
 
 .visit-history-tab-pin {
   flex-shrink: 0;
-  color: var(--required-color, #001673);
+  color: currentColor;
 }
 
 .visit-history-tab-close {
@@ -3836,7 +3852,7 @@ textarea.mm2-name-box:focus {
 .visit-history-empty {
   align-self: center;
   font-size: 13px;
-  color: var(--text-subtle);
+  color: var(--nav-text-muted, rgba(255, 255, 255, 0.7));
   white-space: nowrap;
   padding: 0 4px;
 }
