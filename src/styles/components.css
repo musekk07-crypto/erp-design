@@ -1053,8 +1053,10 @@ span.member-form-action-chip {
   min-width: 0;
 }
 
+/* 라벨 폭을 통일해 두 줄에 걸친 입력창의 왼쪽 선을 맞춘다 */
 .member-login-inline-field__label {
   flex: 0 0 auto;
+  min-width: var(--member-login-label-width, 76px);
   white-space: nowrap;
   font-weight: 500;
 }
