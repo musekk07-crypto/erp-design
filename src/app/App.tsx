@@ -3801,32 +3801,63 @@ function MemberInfoBody({
           </table>
         </FormSection>
 
-        {/* 상위 회원과의 관계 + 소속 그룹 정보 — 2줄 / 좌우 그룹 */}
+        {/* 상위 회원과의 관계 — 거래은행과 동일 열폭, 2행 2열 */}
         <FormSection title="상위 회원과의 관계" icon={<Users size={12} />} className="content-form-section--member-form">
-          <div className="member-relation-stack">
-            {/* 1행: 추천인 | 소속 그룹 정보 · 센터 */}
-            <div className="member-relation-row member-relation-row--pair">
-              <div className="member-relation-segment" role="group" aria-label="추천인">
-                <div className="member-relation-group">
+          <table className="content-form-grid content-form-grid--member member-form-grid--split member-form-grid--relation" style={{ width: "100%", borderCollapse: "collapse" }}>
+            <colgroup>
+              <col className="col-label-1" />
+              <col className="col-field-1" />
+              <col className="col-label-2" />
+              <col className="col-field-2" />
+            </colgroup>
+            <tbody>
+              {/* 1: * 추천인 | 후원인 */}
+              <tr className="form-row-dual">
+                <td className="member-form-cell member-form-cell--label">
                   <span style={{ fontSize: "12px", color: "var(--required-color, #001673)", fontWeight: 500 }}>* 추천인</span>
-                  <input readOnly value={recommender.no} className="member-relation-input-id rounded outline-none" />
-                  <input readOnly value={recommender.name} className="member-relation-input-name rounded outline-none" />
-                  <span style={{ fontSize: 12, padding: "2px 8px", background: "var(--accent-light)", color: "var(--required-color, #001673)", border: "1px solid var(--accent-border)", borderRadius: 4, whiteSpace: "nowrap" }}>{isNewDraft ? "0명" : "38명"}</span>
-                  <button
-                    type="button"
-                    className="rounded p-1 flex items-center justify-center"
-                    style={{ background: "var(--surface-button-muted)", border: "1px solid var(--border)", color: "var(--muted-foreground)" }}
-                    aria-label="추천인 선택"
-                    onClick={() => setRecommenderOpen(true)}
-                  >
-                    <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
-                  </button>
-                </div>
-              </div>
-              <div className="member-relation-segment member-relation-segment--affiliation" role="group" aria-label="소속 그룹 정보">
-                <div className="member-relation-group">
-                  <span className="member-relation-heading" style={{ fontSize: "12px", color: "var(--form-label-color)", fontWeight: 600 }}>소속 그룹 정보</span>
-                  <span style={{ fontSize: "12px", color: "var(--required-color, #001673)", fontWeight: 500 }}>* 센터</span>
+                </td>
+                <td className="member-form-cell member-form-cell--field">
+                  <div className="member-relation-controls">
+                    <input readOnly value={recommender.no} className="member-relation-input-id rounded outline-none" />
+                    <input readOnly value={recommender.name} className="member-relation-input-name rounded outline-none" />
+                    <span className="member-relation-count">{isNewDraft ? "0명" : "38명"}</span>
+                    <button
+                      type="button"
+                      className="member-relation-search-btn rounded p-1 flex items-center justify-center"
+                      style={{ background: "var(--surface-button-muted)", border: "1px solid var(--border)", color: "var(--muted-foreground)" }}
+                      aria-label="추천인 선택"
+                      onClick={() => setRecommenderOpen(true)}
+                    >
+                      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+                    </button>
+                  </div>
+                </td>
+                <td className="member-form-cell member-form-cell--label">
+                  <span style={{ fontSize: "12px", color: "var(--required-color, #001673)", fontWeight: 500 }}>* 후원인</span>
+                </td>
+                <td className="member-form-cell member-form-cell--field">
+                  <div className="member-relation-controls">
+                    <input readOnly value={sponsor.no} className="member-relation-input-id rounded outline-none" />
+                    <input readOnly value={sponsor.name} className="member-relation-input-name rounded outline-none" />
+                    <span className="member-relation-count">{isNewDraft ? "0명" : "12명"}</span>
+                    <button
+                      type="button"
+                      className="member-relation-search-btn rounded p-1 flex items-center justify-center"
+                      style={{ background: "var(--surface-button-muted)", border: "1px solid var(--border)", color: "var(--muted-foreground)" }}
+                      aria-label="후원인 선택"
+                      onClick={() => setSponsorOpen(true)}
+                    >
+                      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+                    </button>
+                  </div>
+                </td>
+              </tr>
+              {/* 2: 센터 | 직급 */}
+              <tr className="form-row-dual">
+                <td className="member-form-cell member-form-cell--label">
+                  <span style={{ fontSize: "12px", color: "var(--form-label-color)", fontWeight: 500 }}>센터</span>
+                </td>
+                <td className="member-form-cell member-form-cell--field">
                   <div className="relative member-relation-select">
                     <select
                       key={`center-${formDraftKey}-${memberId}`}
@@ -3844,32 +3875,11 @@ function MemberInfoBody({
                       <ChevronDown size={13} style={{ color: "var(--muted-foreground)" }} />
                     </div>
                   </div>
-                </div>
-              </div>
-            </div>
-
-            {/* 2행: 후원인 | 직급 */}
-            <div className="member-relation-row member-relation-row--pair member-relation-row--pair-below">
-              <div className="member-relation-segment" role="group" aria-label="후원인">
-                <div className="member-relation-group">
-                  <span style={{ fontSize: "12px", color: "var(--required-color, #001673)", fontWeight: 500 }}>* 후원인</span>
-                  <input readOnly value={sponsor.no} className="member-relation-input-id rounded outline-none" />
-                  <input readOnly value={sponsor.name} className="member-relation-input-name rounded outline-none" />
-                  <span style={{ fontSize: 12, padding: "2px 8px", background: "var(--accent-light)", color: "var(--required-color, #001673)", border: "1px solid var(--accent-border)", borderRadius: 4, whiteSpace: "nowrap" }}>{isNewDraft ? "0명" : "12명"}</span>
-                  <button
-                    type="button"
-                    className="rounded p-1 flex items-center justify-center"
-                    style={{ background: "var(--surface-button-muted)", border: "1px solid var(--border)", color: "var(--muted-foreground)" }}
-                    aria-label="후원인 선택"
-                    onClick={() => setSponsorOpen(true)}
-                  >
-                    <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
-                  </button>
-                </div>
-              </div>
-              <div className="member-relation-segment member-relation-segment--affiliation" role="group" aria-label="직급">
-                <div className="member-relation-group">
+                </td>
+                <td className="member-form-cell member-form-cell--label">
                   <span style={{ fontSize: "12px", color: "var(--form-label-color)", fontWeight: 500 }}>직급</span>
+                </td>
+                <td className="member-form-cell member-form-cell--field">
                   <div className="relative member-relation-select">
                     <select
                       key={`rank-${formDraftKey}-${memberId}`}
@@ -3887,10 +3897,10 @@ function MemberInfoBody({
                       <ChevronDown size={13} style={{ color: "var(--muted-foreground)" }} />
                     </div>
                   </div>
-                </div>
-              </div>
-            </div>
-          </div>
+                </td>
+              </tr>
+            </tbody>
+          </table>
         </FormSection>
 
         {/* 기타 회원정보 */}

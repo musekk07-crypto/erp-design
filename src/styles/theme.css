@@ -841,7 +841,70 @@ input[type="checkbox"] {
   overflow: hidden;
 }
 
-/* 상위 회원 관계 — 2줄(추천인|소속센터 / 후원인|직급), 세로 구분선으로 그룹 분리 */
+/* 상위 회원 관계 — 거래은행/일반회원정보와 동일 표 열폭 사용, 필드 내부 컨트롤만 유지 */
+.app-content .member-relation-controls {
+  display: flex;
+  align-items: center;
+  flex-wrap: nowrap;
+  gap: 4px;
+  width: 100%;
+  min-width: 0;
+}
+
+.app-content .member-relation-controls > span,
+.app-content .member-relation-controls > button {
+  flex-shrink: 0;
+}
+
+.app-content .member-relation-count {
+  font-size: 12px;
+  padding: 2px 8px;
+  background: var(--accent-light);
+  color: var(--required-color, #001673);
+  border: 1px solid var(--accent-border);
+  border-radius: 4px;
+  white-space: nowrap;
+}
+
+.app-content .member-relation-search-btn {
+  flex-shrink: 0;
+}
+
+.app-content .member-relation-input-id {
+  flex: 1.15 1 0;
+  min-width: 0;
+  width: auto;
+  background: var(--surface-input-readonly);
+  border: none;
+  color: var(--foreground);
+  font-family: monospace;
+}
+
+.app-content .member-relation-input-name {
+  flex: 1 1 0;
+  min-width: 0;
+  width: auto;
+  background: var(--surface-input-readonly);
+  border: none;
+  color: var(--foreground);
+}
+
+.app-content .member-form-grid--split .member-relation-controls {
+  width: 100%;
+  min-width: 0;
+}
+
+.app-content .member-form-grid--split .member-relation-select {
+  width: 100%;
+}
+
+.app-content .member-relation-select__input {
+  width: 100%;
+  min-width: 0;
+  box-sizing: border-box;
+}
+
+/* legacy stack (다른 화면 호환) */
 .app-content .member-relation-stack {
   display: flex;
   flex-direction: column;
@@ -872,7 +935,6 @@ input[type="checkbox"] {
   align-items: center;
 }
 
-
 .app-content .member-relation-heading {
   white-space: nowrap;
 }
@@ -888,31 +950,6 @@ input[type="checkbox"] {
 .app-content .member-relation-group > span,
 .app-content .member-relation-group > button {
   flex-shrink: 0;
-}
-
-.app-content .member-relation-input-id {
-  flex: 1.15 1 0;
-  min-width: 72px;
-  width: auto;
-  background: var(--surface-input-readonly);
-  border: none;
-  color: var(--foreground);
-  font-family: monospace;
-}
-
-.app-content .member-relation-input-name {
-  flex: 1 1 0;
-  min-width: 56px;
-  width: auto;
-  background: var(--surface-input-readonly);
-  border: none;
-  color: var(--foreground);
-}
-
-.app-content .member-relation-select {
-  flex: 1 1 0;
-  min-width: 80px;
-  width: auto;
 }
 
 /* 회원 테이블 행 — 테마 대응 */
