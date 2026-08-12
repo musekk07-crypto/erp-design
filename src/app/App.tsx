@@ -2308,7 +2308,7 @@ function FormSection({ title, icon: _icon, subtitle, headerExtra, children, body
           <div className="flex-1" />
         )}
         <ChevronDown
-          size={12}
+          size={15}
           style={{
             color: "var(--content-form-section-header-fg-muted, var(--muted-foreground))",
             transform: open ? "rotate(0deg)" : "rotate(-90deg)",
