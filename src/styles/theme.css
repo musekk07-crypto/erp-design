@@ -48,7 +48,7 @@
   --brand-gradient: linear-gradient(135deg, #007aff, #0066d6);
   --brand-light: var(--accent-light);
   --brand-toggle-track: #e0f2fe;
-  --save-btn-bg: #001673;
+  --save-btn-bg: #007aff;
   --detail-tab-bar-bg: #e4e6ec;
   --detail-tab-bar-line: #bcc4cf;
   --detail-tab-inactive-bg: #eaecef;
@@ -217,7 +217,7 @@
   --org-self-bg: rgba(94, 207, 255, 0.12);
   --org-grade-badge-bg: #0c4a6e;
   --org-grade-badge-fg: #38bdf8;
-  --save-btn-bg: #001673;
+  --save-btn-bg: #007aff;
   --badge-type-general-bg: #262d3d;
   --badge-type-general-fg: #9aa8b8;
   --badge-type-consumer-bg: #0c3540;

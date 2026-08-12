@@ -3926,7 +3926,7 @@ function MemberInfoBody({
         <div className="flex justify-end pt-2 pb-6">
           <button
             className="rounded font-medium transition-all duration-200"
-            style={{ fontSize: 12, padding: "7px 13px", background: "var(--save-btn-bg, #001673)", color: "var(--on-accent)", border: "none" }}
+            style={{ fontSize: 12, padding: "7px 13px", background: "var(--save-btn-bg, #007aff)", color: "var(--on-accent)", border: "none" }}
           >
             등록/저장
           </button>
