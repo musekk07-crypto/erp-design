@@ -149,7 +149,7 @@ interface OrgChartProps {
   memberName: string;
 }
 
-const ORG_SELF_ACCENT = "var(--org-self-accent, var(--org-link, #0284c7))";
+const ORG_SELF_ACCENT = "var(--org-self-accent, var(--org-link, #007aff))";
 const LABEL_GRAY = "var(--org-label)";
 const BORDER_GRAY = "var(--org-border)";
 const CARD_W = ORG_CARD_W;
@@ -255,7 +255,7 @@ function Card({
       border: isSelf ? `2px solid ${ORG_SELF_ACCENT}` : `1px solid ${BORDER_GRAY}`,
       borderRadius: 8,
       overflow: "visible",
-      background: isSelf ? "var(--org-self-bg, rgba(2, 132, 199, 0.08))" : "var(--org-card-bg)",
+      background: isSelf ? "var(--org-self-bg, rgba(0, 122, 255, 0.08))" : "var(--org-card-bg)",
       display: "flex",
       flexDirection: "column",
       alignItems: "stretch",
@@ -4736,7 +4736,7 @@ const bottomItems = [
 ];
 
 const themes: { key: Theme; color: string; label: string }[] = [
-  { key: "deep-purple", color: "#0284c7", label: "라이트" },
+  { key: "deep-purple", color: "#007aff", label: "라이트" },
   { key: "dark",        color: "#0f1117", label: "다크" },
 ];
 

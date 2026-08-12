@@ -24,7 +24,7 @@ interface HomeShortcut {
 }
 
 const homeShortcuts: HomeShortcut[] = [
-  { key: "dashboard", label: "대시보드", icon: LayoutDashboard, bg: "#93c5fd", color: "#0284c7" },
+  { key: "dashboard", label: "대시보드", icon: LayoutDashboard, bg: "#93c5fd", color: "#007aff" },
   { key: "member-register", label: "회원등록", icon: UserPlus, bg: "#f9a8d4", color: "#db2777" },
   { key: "order-register", label: "주문서등록", icon: ShoppingCart, bg: "#fca5a5", color: "#dc2626" },
   { key: "org-chart", label: "조직도", icon: GitFork, bg: "#86efac", color: "#16a34a" },

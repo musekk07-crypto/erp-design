@@ -8,14 +8,14 @@
   --nav-text: #ffffff;
   --nav-text-muted: rgba(255,255,255,0.7);
   --nav-active-border: #ffffff;
-  --nav-active-bg: #0284c7;
+  --nav-active-bg: #007aff;
   --nav-active-text: #ffffff;
-  --nav-hover-bg: #0369a1;
+  --nav-hover-bg: #0066d6;
   --nav-hover-text: #ffffff;
   --nav-dropdown-bg: rgba(51, 51, 51, 0.9);
   --nav-dropdown-border: rgba(255, 255, 255, 0.12);
   --nav-dropdown-text: rgba(255, 255, 255, 0.92);
-  --nav-dropdown-hover-bg: rgba(2, 132, 199, 0.45);
+  --nav-dropdown-hover-bg: rgba(0, 122, 255, 0.45);
   --nav-divider: rgba(255,255,255,0.3);
   --nav-avatar-bg: rgba(255,255,255,0.2);
   --sidebar-bg: #393939;
@@ -23,14 +23,14 @@
   --sidebar-item-active-bg: var(--nav-active-bg);
   --sidebar-item-active-border: transparent;
   --sidebar-item-active-fg: var(--nav-active-text);
-  --accent-primary: #0284c7;
+  --accent-primary: #007aff;
   --accent-light: #e0f2fe;
   --accent-text: var(--nav-active-bg);
   --accent-border: #7dd3fc;
-  --accent-gradient: linear-gradient(135deg, #0284c7, #0369a1);
+  --accent-gradient: linear-gradient(135deg, #007aff, #0066d6);
   --required-color: var(--nav-active-bg);
   --checkbox-accent: var(--nav-active-bg);
-  --section-icon-bg: #0284c7;
+  --section-icon-bg: #007aff;
   --section-icon-color: #ffffff;
   --content-form-section-header-bg: #1a2c56;
   --content-form-section-header-hover-bg: #223a6c;
@@ -38,14 +38,14 @@
   --content-form-section-header-fg: #ffffff;
   --content-form-section-header-fg-muted: rgba(255, 255, 255, 0.72);
   --input-focus-bg: #e0f2fe;
-  --toggle-active-bg: linear-gradient(135deg, #0284c7, #0369a1);
+  --toggle-active-bg: linear-gradient(135deg, #007aff, #0066d6);
   --toggle-active-color: var(--nav-active-bg);
   --member-no-color: var(--nav-active-bg);
-  --logo-bg: #0284c7;
+  --logo-bg: #007aff;
   --org-self-accent: var(--nav-active-bg);
-  --org-self-bg: rgba(2, 132, 199, 0.08);
-  --brand-primary: #0284c7;
-  --brand-gradient: linear-gradient(135deg, #0284c7, #0369a1);
+  --org-self-bg: rgba(0, 122, 255, 0.08);
+  --brand-primary: #007aff;
+  --brand-gradient: linear-gradient(135deg, #007aff, #0066d6);
   --brand-light: var(--accent-light);
   --brand-toggle-track: #e0f2fe;
   --save-btn-bg: #001673;
@@ -58,19 +58,19 @@
   --detail-tab-active-top: var(--nav-active-bg);
   --org-grade-badge-bg: #dbeafe;
   --org-grade-badge-fg: var(--nav-active-bg);
-  --member-header-bg: var(--section-icon-bg, #0284c7);
+  --member-header-bg: var(--section-icon-bg, #007aff);
   --member-header-border: transparent;
-  --member-header-accent: var(--section-icon-bg, #0284c7);
+  --member-header-accent: var(--section-icon-bg, #007aff);
   --member-header-text: rgba(255, 255, 255, 0.88);
   --member-header-text-strong: #ffffff;
   --member-header-no-fg: rgba(255, 255, 255, 0.75);
   --member-header-divider: rgba(255, 255, 255, 0.35);
   --member-header-avatar-bg: #ffffff;
-  --member-header-avatar-fg: var(--section-icon-bg, #0284c7);
+  --member-header-avatar-fg: var(--section-icon-bg, #007aff);
   --member-header-toggle-track: rgba(255, 255, 255, 0.22);
   --member-header-toggle-border: rgba(255, 255, 255, 0.35);
   --member-header-toggle-active-bg: #ffffff;
-  --member-header-toggle-active-fg: var(--section-icon-bg, #0284c7);
+  --member-header-toggle-active-fg: var(--section-icon-bg, #007aff);
   --member-header-toggle-inactive-fg: rgba(255, 255, 255, 0.75);
 }
 
@@ -120,7 +120,7 @@
   --nav-text: #e2e8f0;
   --nav-text-muted: rgba(226, 232, 240, 0.65);
   --nav-active-border: #5ecfff;
-  --nav-active-bg: #0369a1;
+  --nav-active-bg: #0066d6;
   --nav-active-text: #ffffff;
   --nav-hover-bg: #075985;
   --nav-hover-text: #ffffff;
@@ -149,7 +149,7 @@
   --toggle-active-bg: linear-gradient(135deg, #38bdf8, #5ecfff);
   --toggle-active-color: #5ecfff;
   --member-no-color: #5ecfff;
-  --logo-bg: #0369a1;
+  --logo-bg: #0066d6;
 
   /* L0 — 본문 바닥 */
   --background: #0c0e14;
@@ -235,8 +235,8 @@
   --action-btn-danger-bg: #3b1515;
   --action-btn-danger-fg: #f87171;
   --on-accent: #ffffff;
-  --brand-primary: #0284c7;
-  --brand-gradient: linear-gradient(135deg, #0284c7, #0369a1);
+  --brand-primary: #007aff;
+  --brand-gradient: linear-gradient(135deg, #007aff, #0066d6);
   --brand-light: #0c4a6e;
   --brand-toggle-track: #1a3045;
   --detail-tab-bar-bg: #1a2030;
@@ -258,13 +258,13 @@
   --card-foreground: #1e2130;
   --popover: #ffffff;
   --popover-foreground: #1e2130;
-  --primary: #0284c7;
+  --primary: #007aff;
   --primary-foreground: #ffffff;
   --secondary: #e0f2fe;
   --secondary-foreground: #0c4a6e;
   --muted: #f0f1f5;
   --muted-foreground: #8b8fa8;
-  --accent: #0284c7;
+  --accent: #007aff;
   --accent-foreground: #ffffff;
   --destructive: #ef4444;
   --destructive-foreground: #ffffff;
@@ -274,8 +274,8 @@
   --switch-background: #cbd5e1;
   --font-weight-medium: 500;
   --font-weight-normal: 400;
-  --ring: rgba(2, 132, 199, 0.3);
-  --chart-1: #0284c7;
+  --ring: rgba(0, 122, 255, 0.3);
+  --chart-1: #007aff;
   --chart-2: #06b6d4;
   --chart-3: #10b981;
   --chart-4: #f59e0b;
@@ -283,12 +283,12 @@
   --radius: 6px;
   --sidebar: #ffffff;
   --sidebar-foreground: #6b7280;
-  --sidebar-primary: #0284c7;
+  --sidebar-primary: #007aff;
   --sidebar-primary-foreground: #ffffff;
   --sidebar-accent: #e4e7ec;
   --sidebar-accent-foreground: #1e2130;
   --sidebar-border: rgba(0, 0, 0, 0.06);
-  --sidebar-ring: rgba(2, 132, 199, 0.3);
+  --sidebar-ring: rgba(0, 122, 255, 0.3);
 
   --surface-page: #eef1f4;
   --surface-panel: #ffffff;
@@ -317,9 +317,9 @@
   --org-text-withdrawn: #9ca3af;
   --org-link: var(--nav-active-bg, #001673);
   --org-self-accent: var(--nav-active-bg);
-  --org-self-bg: rgba(2, 132, 199, 0.08);
+  --org-self-bg: rgba(0, 122, 255, 0.08);
   --org-grade-badge-bg: #dbeafe;
-  --org-grade-badge-fg: var(--nav-active-bg, #0284c7);
+  --org-grade-badge-fg: var(--nav-active-bg, #007aff);
   --badge-type-general-bg: #f1f5f9;
   --badge-type-general-fg: #64748b;
   --badge-type-consumer-bg: #cffafe;
@@ -344,8 +344,8 @@
   --detail-tab-inactive-bg: #eaecef;
   --detail-tab-inactive-fg: #777777;
   --detail-tab-inactive-hover-bg: #f2f3f6;
-  --detail-tab-active-fg: var(--nav-active-bg, #0284c7);
-  --detail-tab-active-top: var(--nav-active-bg, #0284c7);
+  --detail-tab-active-fg: var(--nav-active-bg, #007aff);
+  --detail-tab-active-top: var(--nav-active-bg, #007aff);
   --member-search-input-bg: #fff9e6;
   --member-search-wildcard-bg: #dbeafe;
 }
@@ -758,7 +758,7 @@ input[type="checkbox"] {
   box-sizing: border-box;
   padding: 8px 12px !important;
   margin-bottom: 8px !important;
-  background: var(--member-header-bg, var(--section-icon-bg, #0284c7)) !important;
+  background: var(--member-header-bg, var(--section-icon-bg, #007aff)) !important;
   border: none !important;
   color: var(--member-header-text-strong, #fff);
   box-shadow: none !important;
@@ -1064,9 +1064,9 @@ input[type="checkbox"] {
 }
 
 [data-theme="dark"] {
-  --member-header-bg: var(--section-icon-bg, var(--brand-primary, #0284c7));
+  --member-header-bg: var(--section-icon-bg, var(--brand-primary, #007aff));
   --member-header-border: transparent;
-  --member-header-accent: var(--section-icon-bg, var(--brand-primary, #0284c7));
+  --member-header-accent: var(--section-icon-bg, var(--brand-primary, #007aff));
   --member-header-text: rgba(255, 255, 255, 0.88);
   --member-header-text-strong: #ffffff;
   --member-header-no-fg: rgba(255, 255, 255, 0.75);
@@ -1074,7 +1074,7 @@ input[type="checkbox"] {
   --member-header-toggle-track: rgba(255, 255, 255, 0.22);
   --member-header-toggle-border: rgba(255, 255, 255, 0.35);
   --member-header-toggle-active-bg: #ffffff;
-  --member-header-toggle-active-fg: var(--section-icon-bg, var(--brand-primary, #0284c7));
+  --member-header-toggle-active-fg: var(--section-icon-bg, var(--brand-primary, #007aff));
   --member-header-toggle-inactive-fg: rgba(255, 255, 255, 0.75);
 }
 

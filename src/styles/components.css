@@ -3,11 +3,11 @@
 /* 딥퍼플 테마 핵심 변수 — theme.css purge 대비 */
 :root,
 [data-theme="deep-purple"] {
-  --nav-active-bg: #0284c7;
-  --nav-hover-bg: #0369a1;
+  --nav-active-bg: #007aff;
+  --nav-hover-bg: #0066d6;
   --required-color: #001673;
   --save-btn-bg: #001673;
-  --member-header-bg: var(--section-icon-bg, #0284c7);
+  --member-header-bg: var(--section-icon-bg, #007aff);
   --member-header-border: transparent;
   --member-header-accent: #001673;
   --member-header-avatar-fg: #001673;
@@ -15,10 +15,10 @@
   --detail-tab-active-top: #001673;
   --checkbox-accent: #001673;
   --member-no-color: #001673;
-  --org-self-accent: var(--nav-active-bg, #0284c7);
-  --org-link: var(--nav-active-bg, #0284c7);
-  --org-grade-badge-fg: var(--nav-active-bg, #0284c7);
-  --nav-dropdown-hover-bg: rgba(2, 132, 199, 0.45);
+  --org-self-accent: var(--nav-active-bg, #007aff);
+  --org-link: var(--nav-active-bg, #007aff);
+  --org-grade-badge-fg: var(--nav-active-bg, #007aff);
+  --nav-dropdown-hover-bg: rgba(0, 122, 255, 0.45);
 }
 
 /* GNB 메인 메뉴 — 선택·호버 시 파란 배경, nav 높이 꽉 채움 */
@@ -662,11 +662,11 @@ span.member-form-action-chip {
   flex-direction: column;
   gap: 12px;
   overflow-x: hidden;
-  --accent-primary: #0284c7;
+  --accent-primary: #007aff;
   --accent-light: #e0f2fe;
   --accent-border: #bae6fd;
   --member-no-color: var(--nav-active-bg, #001673);
-  --section-icon-bg: #0284c7;
+  --section-icon-bg: #007aff;
   --section-icon-color: #ffffff;
 }
 
@@ -675,7 +675,7 @@ span.member-form-action-chip {
   --mm2-sidebar-width: 218px;
   --mm2-body-gap: 12px;
   --mm2-detail-panel-width: calc(var(--mm2-info-group-width) - var(--mm2-sidebar-width) - var(--mm2-body-gap));
-  --accent-primary: #0284c7;
+  --accent-primary: #007aff;
   --accent-light: #e0f2fe;
   --accent-border: #bae6fd;
   --member-no-color: var(--nav-active-bg, #001673);
@@ -683,8 +683,8 @@ span.member-form-action-chip {
   --split-table-header-border: #bae6fd;
   --split-table-header-fg: #1e2130;
   --org-grade-badge-bg: #dbeafe;
-  --org-grade-badge-fg: var(--nav-active-bg, #0284c7);
-  --section-icon-bg: #0284c7;
+  --org-grade-badge-fg: var(--nav-active-bg, #007aff);
+  --section-icon-bg: #007aff;
   --section-icon-color: #ffffff;
 }
 
@@ -983,7 +983,7 @@ span.member-form-action-chip {
 }
 
 .app-content .content-form-section > button .member-profile-header .member-type-toggle button.is-selected {
-  background: var(--section-icon-bg, #0284c7) !important;
+  background: var(--section-icon-bg, #007aff) !important;
   color: #ffffff !important;
 }
 
@@ -1011,7 +1011,7 @@ span.member-form-action-chip {
   gap: 8px;
   padding: 10px 12px 10px 10px !important;
   box-sizing: border-box;
-  background: var(--section-icon-bg, #0284c7) !important;
+  background: var(--section-icon-bg, #007aff) !important;
   border: none !important;
   box-shadow: none !important;
 }
@@ -1620,7 +1620,7 @@ span.member-form-action-chip {
   background: var(--surface-panel);
   border: 1px solid var(--border);
   border-radius: var(--radius, 6px);
-  --mm2-detail-surface: #0284c7;
+  --mm2-detail-surface: #007aff;
   --mm2-detail-header-fg: #ffffff;
 }
 
@@ -1639,7 +1639,7 @@ span.member-form-action-chip {
   display: flex;
   flex-direction: column;
   height: 100%;
-  --accent-primary: #0284c7;
+  --accent-primary: #007aff;
   --accent-light: #e0f2fe;
   --accent-border: #bae6fd;
   --mm2-table-line: var(--org-border);
@@ -1654,7 +1654,7 @@ span.member-form-action-chip {
   gap: 8px;
   padding: 8px 12px !important;
   min-height: 38px;
-  background: var(--mm2-detail-surface, #0284c7) !important;
+  background: var(--mm2-detail-surface, #007aff) !important;
   border-bottom: 1px solid var(--mm2-table-line, var(--org-border)) !important;
   border-top-left-radius: var(--radius, 6px);
   border-top-right-radius: var(--radius, 6px);
@@ -1879,7 +1879,7 @@ span.member-form-action-chip {
 }
 
 .org-chart-tabs__tab.is-active {
-  color: var(--org-self-accent, #0284c7);
+  color: var(--org-self-accent, #007aff);
   font-weight: 600;
 }
 
@@ -1892,7 +1892,7 @@ span.member-form-action-chip {
   max-width: 48px;
   height: 2px;
   border-radius: 1px;
-  background: var(--org-self-accent, #0284c7);
+  background: var(--org-self-accent, #007aff);
   transform: translateX(-50%);
 }
 
@@ -1931,7 +1931,7 @@ span.member-form-action-chip {
   box-sizing: border-box;
   padding: 14px 16px 12px;
   background: #ffffff;
-  border: 1px solid var(--org-self-accent, #0284c7);
+  border: 1px solid var(--org-self-accent, #007aff);
   border-radius: 10px;
   box-shadow: 0 8px 24px rgba(15, 23, 42, 0.12);
   font-size: 12px;
@@ -1947,7 +1947,7 @@ span.member-form-action-chip {
   width: 10px;
   height: 10px;
   background: #ffffff;
-  border: 1px solid var(--org-self-accent, #0284c7);
+  border: 1px solid var(--org-self-accent, #007aff);
   transform: translateX(-50%) rotate(45deg);
 }
 
@@ -2050,14 +2050,14 @@ span.member-form-action-chip {
 
 [data-theme="dark"] .org-member-hover-popup {
   background: #1e2433;
-  border-color: var(--org-self-accent, #0284c7);
+  border-color: var(--org-self-accent, #007aff);
   color: #e2e8f0;
   box-shadow: 0 10px 28px rgba(0, 0, 0, 0.45);
 }
 
 [data-theme="dark"] .org-member-hover-popup::after {
   background: #1e2433;
-  border-color: var(--org-self-accent, #0284c7);
+  border-color: var(--org-self-accent, #007aff);
 }
 
 [data-theme="dark"] .org-member-hover-popup__row {
@@ -2139,7 +2139,7 @@ span.member-form-action-chip {
   --mm2-table-line: var(--org-border);
   --mm2-detail-label-width: 140px;
   --mm2-detail-row-height: 40px;
-  --mm2-detail-surface: #0284c7;
+  --mm2-detail-surface: #007aff;
   --mm2-detail-header-fg: #ffffff;
   --mm2-detail-font-size: 15px;
   --mm2-detail-font-size-lg: 16px;
@@ -2159,7 +2159,7 @@ span.member-form-action-chip {
   padding: 0 12px;
   box-sizing: border-box;
   border-bottom: 1px solid var(--mm2-table-line, var(--org-border));
-  background: var(--mm2-detail-surface, #0284c7);
+  background: var(--mm2-detail-surface, #007aff);
   flex-shrink: 0;
 }
 
@@ -2565,7 +2565,7 @@ textarea.mm2-name-box:focus {
   --order-mgmt-font-size-lg: 15px;
   --order-mgmt-font-size-toolbar: 13px;
   --surface-row-selected: #e8eaef;
-  --accent-primary: #0284c7;
+  --accent-primary: #007aff;
   --order-mgmt-member-info-bg: var(--nav-active-bg, #001673);
   --order-mgmt-save-btn-bg: #001673;
   --order-mgmt-right-width: 980px;
@@ -5543,7 +5543,7 @@ textarea.mm2-name-box:focus {
   width: 15px;
   height: 15px;
   flex-shrink: 0;
-  accent-color: var(--checkbox-accent, #0284c7);
+  accent-color: var(--checkbox-accent, #007aff);
   cursor: pointer;
 }
 
@@ -5832,10 +5832,10 @@ textarea.mm2-name-box:focus {
   --sidebar-icon-color: rgba(255, 255, 255, 0.72);
   --sidebar-icon-hover-color: #ffffff;
   --sidebar-icon-active-color: #ffffff;
-  --sidebar-icon-active-bg: #0284c7;
+  --sidebar-icon-active-bg: #007aff;
   --sidebar-icon-hover-ring: rgba(255, 255, 255, 0.24);
   --sidebar-rail-icon-color: #64748b;
-  --sidebar-rail-icon-hover-color: #0284c7;
+  --sidebar-rail-icon-hover-color: #007aff;
   --sidebar-rail-hover-ring: rgba(0, 0, 0, 0.14);
   --sidebar-theme-ring: #ffffff;
 }
@@ -5844,7 +5844,7 @@ textarea.mm2-name-box:focus {
   --sidebar-icon-color: rgba(255, 255, 255, 0.58);
   --sidebar-icon-hover-color: #ffffff;
   --sidebar-icon-active-color: #ffffff;
-  --sidebar-icon-active-bg: #0284c7;
+  --sidebar-icon-active-bg: #007aff;
   --sidebar-icon-hover-ring: rgba(255, 255, 255, 0.22);
   --sidebar-rail-icon-color: rgba(255, 255, 255, 0.58);
   --sidebar-rail-icon-hover-color: #5ecfff;
@@ -5968,9 +5968,9 @@ textarea.mm2-name-box:focus {
 }
 
 [data-theme="dark"] .sidebar-members-toggle {
-  --sidebar-members-tab-bg: #0284c7;
-  --sidebar-members-tab-bg-hover: #0369a1;
-  --sidebar-members-tab-bg-open: #075985;
+  --sidebar-members-tab-bg: #007aff;
+  --sidebar-members-tab-bg-hover: #0066d6;
+  --sidebar-members-tab-bg-open: #0057b8;
   border-color: rgba(125, 211, 252, 0.35);
 }
 

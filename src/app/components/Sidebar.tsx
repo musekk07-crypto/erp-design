@@ -109,7 +109,7 @@ export function Sidebar({ activePanel, onPanelToggle, theme, onThemeChange }: Si
 
         <div
           className="w-9 h-9 rounded flex items-center justify-center mt-1 cursor-pointer"
-          style={{ background: "linear-gradient(135deg, #0ea5e9, #0369a1)" }}
+          style={{ background: "linear-gradient(135deg, #0ea5e9, #0066d6)" }}
         >
           <span className="text-white text-xs font-semibold">관</span>
         </div>
