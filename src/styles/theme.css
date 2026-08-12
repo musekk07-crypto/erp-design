@@ -871,10 +871,10 @@ input[type="checkbox"] {
 }
 
 .app-content .member-relation-input-id {
-  flex: 0 0 108px;
-  width: 108px;
-  max-width: 108px;
-  min-width: 108px;
+  flex: 0 0 308px;
+  width: 308px;
+  max-width: 308px;
+  min-width: 308px;
   background: var(--surface-input-readonly);
   border: none;
   color: var(--foreground);
