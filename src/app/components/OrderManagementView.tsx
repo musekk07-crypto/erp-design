@@ -940,7 +940,14 @@ export function OrderManagementView({ member }: { member: ProfileMember }) {
           aria-orientation="vertical"
           aria-label="주문관리 패널 크기 조절"
           onMouseDown={onSplitResizeStart}
-        />
+        >
+          <span className="panel-splitter__line" aria-hidden />
+          <span className="panel-splitter__grip" aria-hidden>
+            <span />
+            <span />
+            <span />
+          </span>
+        </div>
 
         <aside
           ref={rightScrollRef}

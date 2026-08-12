@@ -2642,7 +2642,7 @@ textarea.mm2-name-box:focus {
   height: 100%;
   min-height: 0;
   min-width: 0;
-  padding: 12px 22px;
+  padding: 12px;
   box-sizing: border-box;
   overflow: hidden;
   background: var(--surface-page);
@@ -2852,67 +2852,33 @@ textarea.mm2-name-box:focus {
 }
 
 .order-mgmt-splitter {
-  flex: 0 0 10px;
-  width: 10px;
+  /* 그립 중심 좌우 여백 — 본문 padding과 별개 */
+  flex: 0 0 22px;
+  width: 22px;
   align-self: stretch;
+  position: relative;
   cursor: col-resize;
   background: transparent;
   border: none;
-  position: relative;
   z-index: 5;
   padding: 0;
   margin: 0;
   touch-action: none;
 }
 
-.order-mgmt-splitter::before {
-  content: "";
-  position: absolute;
-  left: 50%;
-  top: 0;
-  bottom: 0;
-  width: 2px;
-  margin-left: -1px;
-  background: var(--accent-primary, #007aff);
-  opacity: 0.35;
-  border-radius: 1px;
-  transition: opacity 0.15s ease;
-  pointer-events: none;
-}
-
-.order-mgmt-splitter::after {
-  content: "";
-  position: absolute;
-  left: 50%;
-  top: 50%;
-  width: 6px;
-  height: 28px;
-  margin: -14px 0 0 -3px;
-  border-radius: 3px;
-  background:
-    radial-gradient(circle, var(--accent-primary, #007aff) 1px, transparent 1.2px) center 6px / 100% 8px no-repeat,
-    radial-gradient(circle, var(--accent-primary, #007aff) 1px, transparent 1.2px) center 14px / 100% 8px no-repeat,
-    radial-gradient(circle, var(--accent-primary, #007aff) 1px, transparent 1.2px) center 22px / 100% 8px no-repeat,
-    var(--surface-panel, #fff);
-  box-shadow: 0 0 0 1px rgba(0, 122, 255, 0.28);
-  opacity: 0.9;
-  transition: box-shadow 0.15s ease, background-color 0.15s ease, opacity 0.15s ease;
-  pointer-events: none;
-}
-
-.order-mgmt-splitter:hover::before,
-.order-mgmt-view.is-resizing .order-mgmt-splitter::before {
+.order-mgmt-splitter:hover .panel-splitter__line,
+.order-mgmt-view.is-resizing .order-mgmt-splitter .panel-splitter__line {
   opacity: 1;
 }
 
-.order-mgmt-splitter:hover::after,
-.order-mgmt-view.is-resizing .order-mgmt-splitter::after {
+.order-mgmt-splitter:hover .panel-splitter__grip,
+.order-mgmt-view.is-resizing .order-mgmt-splitter .panel-splitter__grip {
   box-shadow: 0 0 0 1px var(--accent-primary, #007aff);
-  background:
-    radial-gradient(circle, var(--accent-primary, #007aff) 1px, transparent 1.2px) center 6px / 100% 8px no-repeat,
-    radial-gradient(circle, var(--accent-primary, #007aff) 1px, transparent 1.2px) center 14px / 100% 8px no-repeat,
-    radial-gradient(circle, var(--accent-primary, #007aff) 1px, transparent 1.2px) center 22px / 100% 8px no-repeat,
-    var(--accent-light, #e8f2ff);
+  background: var(--accent-light, #e8f2ff);
+}
+
+.order-mgmt-splitter:hover .panel-splitter__grip span,
+.order-mgmt-view.is-resizing .order-mgmt-splitter .panel-splitter__grip span {
   opacity: 1;
 }
 
