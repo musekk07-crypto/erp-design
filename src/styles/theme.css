@@ -871,13 +871,15 @@ input[type="checkbox"] {
 }
 
 .app-content .member-relation-input-id {
-  flex: 1.15 1 0;
-  min-width: 0;
-  width: auto;
+  flex: 0 0 108px;
+  width: 108px;
+  max-width: 108px;
+  min-width: 108px;
   background: var(--surface-input-readonly);
   border: none;
   color: var(--foreground);
   font-family: monospace;
+  box-sizing: border-box;
 }
 
 .app-content .member-relation-input-name {
