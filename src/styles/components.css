@@ -4,7 +4,7 @@
 :root,
 [data-theme="deep-purple"] {
   --nav-active-bg: #007aff;
-  --nav-hover-bg: #0066d6;
+  --nav-hover-bg: #0369a1;
   --required-color: #001673;
   --save-btn-bg: #001673;
   --member-header-bg: var(--section-icon-bg, #007aff);
@@ -5860,7 +5860,7 @@ textarea.mm2-name-box:focus {
   height: 40px;
   padding: 0;
   border: 1px solid transparent;
-  border-radius: 50%;
+  border-radius: 6px;
   background: transparent;
   cursor: pointer;
   transition: background 0.15s ease, border-color 0.15s ease, color 0.15s ease;
@@ -5969,8 +5969,8 @@ textarea.mm2-name-box:focus {
 
 [data-theme="dark"] .sidebar-members-toggle {
   --sidebar-members-tab-bg: #007aff;
-  --sidebar-members-tab-bg-hover: #0066d6;
-  --sidebar-members-tab-bg-open: #0057b8;
+  --sidebar-members-tab-bg-hover: #0369a1;
+  --sidebar-members-tab-bg-open: #075985;
   border-color: rgba(125, 211, 252, 0.35);
 }
 
