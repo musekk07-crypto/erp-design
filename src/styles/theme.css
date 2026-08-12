@@ -620,15 +620,19 @@ input[type="checkbox"] {
   --member-form-control-size: var(--content-text-sm, 14px);
   --member-form-control-padding: 3px 8px;
   --member-form-control-min-height: 26px;
-  /* 일반「우편번호」왼쪽 입력 폭 = 로그인「회원번호·비밀번호」입력 폭 */
-  --member-login-label-width: 92px;
+  /*
+   * 로그인 사용정보 + 일반 회원정보 왼쪽 라벨 공통 폭
+   * 기준: 가장 긴 라벨 (* 회원 등록일자 / * 주민등록번호 / * 고객 이름/성)
+   */
+  --member-form-label-width: 120px;
+  --member-login-label-width: var(--member-form-label-width);
   --member-left-col-gap: 8px;
   --member-left-field-gutter: 20px;
   --member-login-label-gap: 5px;
-  /* 본문/테이블 폭 기준. 우편번호 실입력 = 50% - 라벨 - col-gap - gutter */
-  --member-left-field-col: calc(50% - var(--member-login-label-width) - var(--member-left-col-gap));
+  /* 본문/테이블 폭 기준. 왼쪽 실입력 = 50% - 라벨 - col-gap - gutter */
+  --member-left-field-col: calc(50% - var(--member-form-label-width) - var(--member-left-col-gap));
   --member-left-input-width: calc(
-    50% - var(--member-login-label-width) - var(--member-left-col-gap) - var(--member-left-field-gutter)
+    50% - var(--member-form-label-width) - var(--member-left-col-gap) - var(--member-left-field-gutter)
   );
 }
 

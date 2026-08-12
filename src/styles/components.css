@@ -1089,11 +1089,11 @@ span.member-form-action-chip {
   flex: 0 1 auto;
 }
 
-/* 라벨 폭을 고정해 행·열에 걸친 입력창 시작선을 맞춘다 */
+/* 라벨 폭을 고정해 로그인·일반 회원정보 입력 시작선을 맞춘다 */
 .member-login-inline-field__label {
-  flex: 0 0 var(--member-login-label-width, 92px);
-  width: var(--member-login-label-width, 92px);
-  min-width: var(--member-login-label-width, 92px);
+  flex: 0 0 var(--member-form-label-width, var(--member-login-label-width, 120px));
+  width: var(--member-form-label-width, var(--member-login-label-width, 120px));
+  min-width: var(--member-form-label-width, var(--member-login-label-width, 120px));
   white-space: nowrap;
   font-weight: 500;
 }
@@ -1113,15 +1113,15 @@ span.member-form-action-chip {
   .member-login-inline-field:first-child {
   flex: 0 0 auto;
   box-sizing: border-box;
-  /* 라벨 + gap + 우편번호와 같은 입력폭 */
+  /* 라벨 + gap + 왼쪽 입력폭(일반 회원정보 왼쪽 필드와 동일 계산) */
   width: calc(
-    var(--member-login-label-width, 92px) + var(--member-login-label-gap, 5px) +
-      (50% - var(--member-login-label-width, 92px) - var(--member-left-col-gap, 8px) -
+    var(--member-form-label-width, 120px) + var(--member-login-label-gap, 5px) +
+      (50% - var(--member-form-label-width, 120px) - var(--member-left-col-gap, 8px) -
         var(--member-left-field-gutter, 20px))
   );
   max-width: calc(
-    var(--member-login-label-width, 92px) + var(--member-login-label-gap, 5px) +
-      (50% - var(--member-login-label-width, 92px) - var(--member-left-col-gap, 8px) -
+    var(--member-form-label-width, 120px) + var(--member-login-label-gap, 5px) +
+      (50% - var(--member-form-label-width, 120px) - var(--member-left-col-gap, 8px) -
         var(--member-left-field-gutter, 20px))
   );
 }
@@ -1254,12 +1254,12 @@ span.member-form-action-chip {
   border-bottom: 1px solid var(--form-field-divider, rgba(0, 0, 0, 0.1));
 }
 
-/* 일반회원정보 — 왼쪽 열(우편번호 등) 기준, 오른쪽은 나머지 */
+/* 일반회원정보 — 왼쪽 라벨은 로그인과 동일(--member-form-label-width), 오른쪽은 나머지 */
 .app-content .content-form-body table.content-form-grid--member.member-form-grid--split {
   table-layout: fixed;
   width: 100%;
-  --mf-split-label-1: var(--member-login-label-width, 92px);
-  /* 열 폭 = 우편번호 입력폭 + gutter. 입력은 padding으로 gutter만큼 줄어듦 */
+  --mf-split-label-1: var(--member-form-label-width, 120px);
+  /* 열 폭 = 왼쪽 입력폭 + gutter. 입력은 padding으로 gutter만큼 줄어듦 */
   --mf-split-field-1: calc(
     50% - var(--mf-split-label-1) - var(--member-left-col-gap, 8px)
   );
