@@ -3353,13 +3353,14 @@ function MemberGeneralInfoForm({ member }: { member: Member }) {
             <td className={fieldCellClass}><input defaultValue={info.koreanName || info.customerName} className="w-full rounded outline-none transition-all duration-200" style={inputStyle} {...focusProps} /></td>
           </tr>
 
-          {/* 2: 고객 이름/성 (전체 폭) */}
+          {/* 2: 고객 이름/성 (전체 폭, 입력 3칸) */}
           <tr>
             <td className={labelCellClass}><span style={{ fontSize: "12px", color: "var(--required-color, #001673)", fontWeight: 500 }}>* 고객 이름/성</span></td>
             <td className={fieldWideCellClass} colSpan={fieldColSpan}>
-              <div className="member-form-name-pair">
-                <input defaultValue={info.customerNameExtra1 || info.customerName} placeholder="이름" className="member-form-name-pair__input rounded outline-none transition-all duration-200" style={inputStyle} {...focusProps} />
-                <input defaultValue={info.customerNameExtra2 || "Kim"} placeholder="성" className="member-form-name-pair__input rounded outline-none transition-all duration-200" style={inputStyle} {...focusProps} />
+              <div className="member-form-name-pair member-form-name-pair--triple">
+                <input defaultValue={info.customerName} className="member-form-name-pair__input member-form-customer-name-primary rounded outline-none transition-all duration-200" style={inputStyle} {...focusProps} />
+                <input defaultValue={info.customerNameExtra1} placeholder="Kim" className="member-form-name-pair__input rounded outline-none transition-all duration-200" style={inputStyle} {...focusProps} />
+                <input defaultValue={info.customerNameExtra2} placeholder="Sang-kyung" className="member-form-name-pair__input rounded outline-none transition-all duration-200" style={inputStyle} {...focusProps} />
               </div>
             </td>
           </tr>

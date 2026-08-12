@@ -708,6 +708,15 @@ span.member-form-action-chip {
   min-width: 0;
 }
 
+.member-form-name-pair--triple .member-form-name-pair__input {
+  flex: 1 1 0;
+}
+
+.member-form-name-pair--triple .member-form-customer-name-primary {
+  flex: 0.9 1 0;
+  max-width: 160px;
+}
+
 .member-form-name-pair__input {
   flex: 1 1 0;
   min-width: 0;
