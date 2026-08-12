@@ -3701,93 +3701,104 @@ function MemberInfoBody({
 
         <MemberGeneralInfoForm member={displayMember} />
 
-        {/* 거래은행 정보 */}
+        {/* 거래은행 정보 — 일반 회원정보와 동일 열폭, 3행 2열 */}
         <FormSection title="거래은행 정보" icon={<CreditCard size={12} />} className="content-form-section--member-form">
-          <div className="member-form-split member-form-split--triple">
-            <div className="member-form-split__group">
-              <table className="content-form-grid content-form-grid--member content-form-grid--pair" style={{ width: "100%", borderCollapse: "collapse" }}>
-                <colgroup>
-                  <col className="col-label-1" />
-                  <col className="col-field-1" />
-                </colgroup>
-                <tbody>
-                  <tr>
-                    <td>
-                      <span style={{ fontSize: "12px", color: "var(--form-label-color)", fontWeight: 500 }}>은행명</span>
-                    </td>
-                    <td>
-                      <input defaultValue={bankDefaults.bank} className="w-full rounded outline-none transition-all duration-200" style={{ background: "var(--input-background)", border: "none", color: "var(--foreground)" }} onFocus={(e) => { e.target.style.background = "var(--input-focus-bg)"; }} onBlur={(e) => { e.target.style.background = "var(--input-background)"; }} />
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>
-                      <span style={{ fontSize: "12px", color: "var(--form-label-color)", fontWeight: 500 }}>SwiftCode</span>
-                    </td>
-                    <td>
-                      <input defaultValue={bankDefaults.swift} className="w-full rounded outline-none transition-all duration-200" style={{ background: "var(--input-background)", border: "none", color: "var(--foreground)" }} onFocus={(e) => { e.target.style.background = "var(--input-focus-bg)"; }} onBlur={(e) => { e.target.style.background = "var(--input-background)"; }} />
-                    </td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
-            <div className="member-form-split__group">
-              <table className="content-form-grid content-form-grid--member content-form-grid--pair" style={{ width: "100%", borderCollapse: "collapse" }}>
-                <colgroup>
-                  <col className="col-label-1" />
-                  <col className="col-field-1" />
-                </colgroup>
-                <tbody>
-                  <tr>
-                    <td>
-                      <span style={{ fontSize: "12px", color: "var(--form-label-color)", fontWeight: 500 }}>계좌번호</span>
-                    </td>
-                    <td>
-                      <input defaultValue={bankDefaults.account} className="w-full rounded outline-none transition-all duration-200" style={{ background: "var(--input-background)", border: "none", color: "var(--foreground)" }} onFocus={(e) => { e.target.style.background = "var(--input-focus-bg)"; }} onBlur={(e) => { e.target.style.background = "var(--input-background)"; }} />
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>
-                      <span style={{ fontSize: "12px", color: "var(--form-label-color)", fontWeight: 500 }}>Branch Number</span>
-                    </td>
-                    <td>
-                      <input defaultValue={bankDefaults.branch} className="w-full rounded outline-none transition-all duration-200" style={{ background: "var(--input-background)", border: "none", color: "var(--foreground)" }} onFocus={(e) => { e.target.style.background = "var(--input-focus-bg)"; }} onBlur={(e) => { e.target.style.background = "var(--input-background)"; }} />
-                    </td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
-            <div className="member-form-split__group">
-              <table className="content-form-grid content-form-grid--member content-form-grid--pair" style={{ width: "100%", borderCollapse: "collapse" }}>
-                <colgroup>
-                  <col className="col-label-1" />
-                  <col className="col-field-1" />
-                </colgroup>
-                <tbody>
-                  <tr>
-                    <td>
-                      <span style={{ fontSize: "12px", color: "var(--form-label-color)", fontWeight: 500 }}>예금주</span>
-                    </td>
-                    <td>
-                      <input defaultValue={bankDefaults.holder} className="w-full rounded outline-none transition-all duration-200" style={{ background: "var(--input-background)", border: "none", color: "var(--foreground)" }} onFocus={(e) => { e.target.style.background = "var(--input-focus-bg)"; }} onBlur={(e) => { e.target.style.background = "var(--input-background)"; }} />
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>
-                      <span style={{ fontSize: "12px", color: "var(--form-label-color)", fontWeight: 500 }}>은행통합 거래번호</span>
-                    </td>
-                    <td>
-                      <div className="flex gap-1 items-center">
-                        <input defaultValue={bankDefaults.txn} className="flex-1 min-w-0 rounded outline-none transition-all duration-200" style={{ background: "var(--input-background)", border: "none", color: "var(--foreground)" }} onFocus={(e) => { e.target.style.background = "var(--input-focus-bg)"; }} onBlur={(e) => { e.target.style.background = "var(--input-background)"; }} />
-                        {!isNewDraft ? (
-                          <span className="member-form-action-chip member-form-action-chip--verified">✓ 인증완료</span>
-                        ) : null}
-                      </div>
-                    </td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
-          </div>
+          <table className="content-form-grid content-form-grid--member member-form-grid--split member-form-grid--bank" style={{ width: "100%", borderCollapse: "collapse" }}>
+            <colgroup>
+              <col className="col-label-1" />
+              <col className="col-field-1" />
+              <col className="col-label-2" />
+              <col className="col-field-2" />
+            </colgroup>
+            <tbody>
+              {/* 1: 은행명 | 계좌번호 */}
+              <tr className="form-row-dual">
+                <td className="member-form-cell member-form-cell--label">
+                  <span style={{ fontSize: "12px", color: "var(--form-label-color)", fontWeight: 500 }}>은행명</span>
+                </td>
+                <td className="member-form-cell member-form-cell--field">
+                  <input
+                    defaultValue={bankDefaults.bank}
+                    className="w-full rounded outline-none transition-all duration-200"
+                    style={{ background: "var(--input-background)", border: "none", color: "var(--foreground)", width: "100%", minWidth: 0, boxSizing: "border-box" }}
+                    onFocus={(e) => { e.target.style.background = "var(--input-focus-bg)"; }}
+                    onBlur={(e) => { e.target.style.background = "var(--input-background)"; }}
+                  />
+                </td>
+                <td className="member-form-cell member-form-cell--label">
+                  <span style={{ fontSize: "12px", color: "var(--form-label-color)", fontWeight: 500 }}>계좌번호</span>
+                </td>
+                <td className="member-form-cell member-form-cell--field">
+                  <input
+                    defaultValue={bankDefaults.account}
+                    className="w-full rounded outline-none transition-all duration-200"
+                    style={{ background: "var(--input-background)", border: "none", color: "var(--foreground)", width: "100%", minWidth: 0, boxSizing: "border-box" }}
+                    onFocus={(e) => { e.target.style.background = "var(--input-focus-bg)"; }}
+                    onBlur={(e) => { e.target.style.background = "var(--input-background)"; }}
+                  />
+                </td>
+              </tr>
+              {/* 2: 예금주 | SwiftCode */}
+              <tr className="form-row-dual">
+                <td className="member-form-cell member-form-cell--label">
+                  <span style={{ fontSize: "12px", color: "var(--form-label-color)", fontWeight: 500 }}>예금주</span>
+                </td>
+                <td className="member-form-cell member-form-cell--field">
+                  <input
+                    defaultValue={bankDefaults.holder}
+                    className="w-full rounded outline-none transition-all duration-200"
+                    style={{ background: "var(--input-background)", border: "none", color: "var(--foreground)", width: "100%", minWidth: 0, boxSizing: "border-box" }}
+                    onFocus={(e) => { e.target.style.background = "var(--input-focus-bg)"; }}
+                    onBlur={(e) => { e.target.style.background = "var(--input-background)"; }}
+                  />
+                </td>
+                <td className="member-form-cell member-form-cell--label">
+                  <span style={{ fontSize: "12px", color: "var(--form-label-color)", fontWeight: 500 }}>SwiftCode</span>
+                </td>
+                <td className="member-form-cell member-form-cell--field">
+                  <input
+                    defaultValue={bankDefaults.swift}
+                    className="w-full rounded outline-none transition-all duration-200"
+                    style={{ background: "var(--input-background)", border: "none", color: "var(--foreground)", width: "100%", minWidth: 0, boxSizing: "border-box" }}
+                    onFocus={(e) => { e.target.style.background = "var(--input-focus-bg)"; }}
+                    onBlur={(e) => { e.target.style.background = "var(--input-background)"; }}
+                  />
+                </td>
+              </tr>
+              {/* 3: Branch Number | 은행통합 거래번호 */}
+              <tr className="form-row-dual">
+                <td className="member-form-cell member-form-cell--label">
+                  <span style={{ fontSize: "12px", color: "var(--form-label-color)", fontWeight: 500 }}>Branch Number</span>
+                </td>
+                <td className="member-form-cell member-form-cell--field">
+                  <input
+                    defaultValue={bankDefaults.branch}
+                    className="w-full rounded outline-none transition-all duration-200"
+                    style={{ background: "var(--input-background)", border: "none", color: "var(--foreground)", width: "100%", minWidth: 0, boxSizing: "border-box" }}
+                    onFocus={(e) => { e.target.style.background = "var(--input-focus-bg)"; }}
+                    onBlur={(e) => { e.target.style.background = "var(--input-background)"; }}
+                  />
+                </td>
+                <td className="member-form-cell member-form-cell--label">
+                  <span style={{ fontSize: "12px", color: "var(--form-label-color)", fontWeight: 500 }}>은행통합 거래번호</span>
+                </td>
+                <td className="member-form-cell member-form-cell--field">
+                  <div className="flex gap-1 items-center" style={{ width: "100%", minWidth: 0 }}>
+                    <input
+                      defaultValue={bankDefaults.txn}
+                      className="flex-1 min-w-0 rounded outline-none transition-all duration-200"
+                      style={{ background: "var(--input-background)", border: "none", color: "var(--foreground)", minWidth: 0, boxSizing: "border-box" }}
+                      onFocus={(e) => { e.target.style.background = "var(--input-focus-bg)"; }}
+                      onBlur={(e) => { e.target.style.background = "var(--input-background)"; }}
+                    />
+                    {!isNewDraft ? (
+                      <span className="member-form-action-chip member-form-action-chip--verified">✓ 인증완료</span>
+                    ) : null}
+                  </div>
+                </td>
+              </tr>
+            </tbody>
+          </table>
         </FormSection>
 
         {/* 상위 회원과의 관계 + 소속 그룹 정보 — 2줄 / 좌우 그룹 */}
