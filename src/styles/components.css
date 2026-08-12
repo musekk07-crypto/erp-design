@@ -1221,26 +1221,33 @@ span.member-form-action-chip {
   border-bottom: 1px solid var(--form-field-divider, rgba(0, 0, 0, 0.1));
 }
 
-/* 일반회원정보 split — 4열 그리드 정렬 (theme 비대칭 col 덮어쓰기) */
+/* 일반회원정보 — 왼쪽 입력폭을 로그인「회원번호」와 동일하게, 오른쪽은 나머지 */
 .app-content .content-form-body table.content-form-grid--member.member-form-grid--split {
   table-layout: fixed;
   width: 100%;
-  --mf-split-label-1: 108px;
-  --mf-split-label-2: 112px;
-  --mf-split-field: calc((100% - var(--mf-split-label-1) - var(--mf-split-label-2)) / 2);
+  --mf-login-label: var(--member-login-label-width, 92px);
+  --mf-login-gap: 8px;
+  /* 로그인 2열 중 한 칸: 50% - 라벨 - gap = 회원번호 입력 폭 */
+  --mf-split-label-1: var(--mf-login-label);
+  --mf-split-field-1: calc(50% - var(--mf-login-label) - var(--mf-login-gap));
+  --mf-split-label-2: 120px;
+  --mf-split-field-2: calc(50% - var(--mf-split-label-2) - 12px);
 }
 
 .app-content .content-form-body table.content-form-grid--member.member-form-grid--split col.col-label-1 {
   width: var(--mf-split-label-1) !important;
 }
 
+.app-content .content-form-body table.content-form-grid--member.member-form-grid--split col.col-field-1 {
+  width: var(--mf-split-field-1) !important;
+}
+
 .app-content .content-form-body table.content-form-grid--member.member-form-grid--split col.col-label-2 {
   width: var(--mf-split-label-2) !important;
 }
 
-.app-content .content-form-body table.content-form-grid--member.member-form-grid--split col.col-field-1,
 .app-content .content-form-body table.content-form-grid--member.member-form-grid--split col.col-field-2 {
-  width: var(--mf-split-field) !important;
+  width: var(--mf-split-field-2) !important;
 }
 
 .app-content .content-form-body table.content-form-grid--member.member-form-grid--split td {
