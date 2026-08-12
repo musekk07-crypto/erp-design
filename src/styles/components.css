@@ -1098,7 +1098,7 @@ span.member-form-action-chip {
   font-weight: 500;
 }
 
-/* 2열 쌍 행은 같은 비율로 나눠 아이디·보안비밀번호 세로 정렬 */
+/* 2열 쌍 행 — 왼쪽(회원번호·비밀번호)은 등록일자 입력폭, 오른쪽은 나머지 */
 .member-login-inline-row {
   display: flex;
   align-items: center;
@@ -1106,6 +1106,31 @@ span.member-form-action-chip {
   width: 100%;
   min-width: 0;
   flex-wrap: nowrap;
+}
+
+.member-login-inline-row:has(.member-login-inline-field + .member-login-inline-field)
+  .member-login-inline-field:first-child {
+  flex: 0 0 auto;
+  width: calc(
+    var(--member-login-label-width, 92px) + 5px + var(--member-left-input-width)
+  );
+  max-width: calc(
+    var(--member-login-label-width, 92px) + 5px + var(--member-left-input-width)
+  );
+}
+
+.member-login-inline-row:has(.member-login-inline-field + .member-login-inline-field)
+  .member-login-inline-field:first-child
+  .member-login-inline-field__input {
+  flex: 0 0 var(--member-left-input-width);
+  width: var(--member-left-input-width);
+  max-width: var(--member-left-input-width);
+}
+
+.member-login-inline-row:has(.member-login-inline-field + .member-login-inline-field)
+  .member-login-inline-field:last-child {
+  flex: 1 1 0;
+  min-width: 0;
 }
 
 /* 아래 본문 테이블과 같은 행 사이 가로 구분선·간격(상하 3px) */
@@ -1221,15 +1246,13 @@ span.member-form-action-chip {
   border-bottom: 1px solid var(--form-field-divider, rgba(0, 0, 0, 0.1));
 }
 
-/* 일반회원정보 — 왼쪽 입력폭을 로그인「회원번호」와 동일하게, 오른쪽은 나머지 */
+/* 일반회원정보 — 왼쪽 열은 등록일자 기준, 오른쪽은 나머지 */
 .app-content .content-form-body table.content-form-grid--member.member-form-grid--split {
   table-layout: fixed;
   width: 100%;
-  --mf-login-label: var(--member-login-label-width, 92px);
-  --mf-login-gap: 8px;
-  /* 로그인 2열 중 한 칸: 50% - 라벨 - gap = 회원번호 입력 폭 */
-  --mf-split-label-1: var(--mf-login-label);
-  --mf-split-field-1: calc(50% - var(--mf-login-label) - var(--mf-login-gap));
+  --mf-split-label-1: var(--member-login-label-width, 92px);
+  /* 열 폭 = 입력폭 + 좌·우 열 간격(gutter). 입력은 padding으로 gutter만큼 줄어듦 */
+  --mf-split-field-1: var(--member-left-field-col, calc(50% - 92px - 8px));
   --mf-split-label-2: 120px;
   --mf-split-field-2: calc(50% - var(--mf-split-label-2) - 12px);
 }
@@ -1278,7 +1301,7 @@ span.member-form-action-chip {
 }
 
 .app-content .content-form-body table.content-form-grid--member.member-form-grid--split tr.form-row-dual td.member-form-cell--field:nth-child(2) {
-  padding-right: 20px !important;
+  padding-right: var(--member-left-field-gutter, 20px) !important;
 }
 
 .member-form-split .member-form-cell--label {
