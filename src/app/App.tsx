@@ -4730,6 +4730,8 @@ const navItems: { icon: React.ComponentType<{ size?: number; style?: React.CSSPr
   { icon: Plus, label: "바로가기 추가", key: "add-shortcut" },
 ];
 
+const sidebarRailSlotKeys = navItems.map((item) => item.key);
+
 const bottomItems = [
   { icon: HelpCircle, label: "도움말" },
   { icon: Settings, label: "설정" },
@@ -4793,9 +4795,11 @@ function SidebarMembersToggle({
 }
 
 function MembersRailSidebar({
+  anchorKey,
   memberListOpen,
   onToggle,
 }: {
+  anchorKey: SidebarNavKey;
   memberListOpen: boolean;
   onToggle: () => void;
 }) {
@@ -4805,7 +4809,20 @@ function MembersRailSidebar({
       aria-label="회원목록 패널"
       style={{ width: MEMBERS_RAIL_WIDTH, minWidth: MEMBERS_RAIL_WIDTH }}
     >
-      <SidebarMembersToggle isOpen={memberListOpen} onClick={onToggle} />
+      <div className="app-members-rail__slots">
+        {sidebarRailSlotKeys.map((slotKey) => (
+          <div
+            key={slotKey}
+            className={`sidebar-rail-slot${slotKey === anchorKey ? " is-anchor" : ""}`}
+          >
+            {slotKey === anchorKey ? (
+              <SidebarMembersToggle isOpen={memberListOpen} onClick={onToggle} />
+            ) : (
+              <div className="sidebar-nav-slot-spacer" aria-hidden />
+            )}
+          </div>
+        ))}
+      </div>
     </aside>
   );
 }
@@ -4910,6 +4927,13 @@ export default function App() {
       activeTab === "회원정보") ||
       (activeMainMenu === "회원관리" && activeMemberSubMenu === "조직도인쇄") ||
       (activeMainMenu === "주문관리" && activeOrderSubMenu === "주문서등록"));
+
+  const membersRailAnchorKey: SidebarNavKey =
+    activeMainMenu === "회원관리" && activeMemberSubMenu === "조직도인쇄"
+      ? "org-chart"
+      : activeMainMenu === "주문관리" && activeOrderSubMenu === "주문서등록"
+        ? "order-register"
+        : "member-register";
 
   // 사이드바 아이콘은 클릭 이력이 아니라 현재 열려 있는 화면을 따라간다
   const sidebarActiveKey: SidebarNavKey | null = isHomeView
@@ -5206,6 +5230,7 @@ export default function App() {
 
         {showMembersNav && (
           <MembersRailSidebar
+            anchorKey={membersRailAnchorKey}
             memberListOpen={memberListOpen}
             onToggle={() => navigateFromSidebar("members")}
           />
