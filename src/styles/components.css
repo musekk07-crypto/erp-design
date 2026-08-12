@@ -53,8 +53,7 @@
   align-self: stretch;
 }
 
-.main-nav-item-wrap:hover .main-nav-item,
-.main-nav-item-wrap:focus-within .main-nav-item {
+.main-nav-item-wrap.is-dropdown-open .main-nav-item {
   font-weight: 600;
   color: var(--nav-active-text, #ffffff);
   background: var(--nav-active-bg, #001673);
@@ -78,21 +77,12 @@
   overflow: hidden;
 }
 
-.main-nav-item-wrap:hover .main-nav-dropdown,
-.main-nav-item-wrap:focus-within .main-nav-dropdown {
+/* 클릭 토글로만 열림 (호버/포커스 자동 오픈 제거) */
+.main-nav-item-wrap.is-dropdown-open .main-nav-dropdown {
   opacity: 1;
   visibility: visible;
   pointer-events: auto;
   transform: translateY(0);
-}
-
-.main-nav-item-wrap.is-dropdown-closed .main-nav-dropdown,
-.main-nav-item-wrap.is-dropdown-closed:hover .main-nav-dropdown,
-.main-nav-item-wrap.is-dropdown-closed:focus-within .main-nav-dropdown {
-  opacity: 0;
-  visibility: hidden;
-  pointer-events: none;
-  transform: translateY(4px);
 }
 
 .main-nav-dropdown-close {

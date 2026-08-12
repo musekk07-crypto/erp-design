@@ -4558,30 +4558,56 @@ function TopNav({
   onOrderSubMenuChange,
 }: TopNavProps) {
   const workNotificationCount = 3;
-  const [closedDropdownMenu, setClosedDropdownMenu] = useState<string | null>(null);
+  const [openDropdownMenu, setOpenDropdownMenu] = useState<string | null>(null);
+  const navMenusRef = useRef<HTMLDivElement>(null);
 
-  const handleDropdownClose = useCallback((menu: string) => {
-    setClosedDropdownMenu(menu);
+  const closeDropdown = useCallback(() => {
+    setOpenDropdownMenu(null);
   }, []);
 
-  const handleDropdownWrapMouseLeave = useCallback((menu: string) => {
-    setClosedDropdownMenu((current) => (current === menu ? null : current));
+  const toggleDropdown = useCallback((menu: string) => {
+    setOpenDropdownMenu((current) => (current === menu ? null : menu));
   }, []);
+
+  useEffect(() => {
+    if (!openDropdownMenu) return;
+
+    const onPointerDown = (event: MouseEvent) => {
+      const root = navMenusRef.current;
+      if (!root) return;
+      if (event.target instanceof Node && !root.contains(event.target)) {
+        closeDropdown();
+      }
+    };
+
+    const onKeyDown = (event: KeyboardEvent) => {
+      if (event.key === "Escape") {
+        closeDropdown();
+      }
+    };
+
+    document.addEventListener("mousedown", onPointerDown);
+    document.addEventListener("keydown", onKeyDown);
+    return () => {
+      document.removeEventListener("mousedown", onPointerDown);
+      document.removeEventListener("keydown", onKeyDown);
+    };
+  }, [openDropdownMenu, closeDropdown]);
 
   const handleMemberSubMenuSelect = useCallback(
     (item: string) => {
       onMemberSubMenuChange(item);
-      setClosedDropdownMenu("회원관리");
+      closeDropdown();
     },
-    [onMemberSubMenuChange],
+    [onMemberSubMenuChange, closeDropdown],
   );
 
   const handleOrderSubMenuSelect = useCallback(
     (item: string) => {
       onOrderSubMenuChange(item);
-      setClosedDropdownMenu("주문관리");
+      closeDropdown();
     },
-    [onOrderSubMenuChange],
+    [onOrderSubMenuChange, closeDropdown],
   );
 
   return (
@@ -4601,24 +4627,28 @@ function TopNav({
           <span style={{ fontSize: 14, fontWeight: 600, color: "var(--nav-text, #fff)" }}>(주)비아블</span>
           <span style={{ fontSize: 12, color: "var(--nav-text-muted, rgba(255,255,255,0.6))", marginLeft: 4 }}>ERP</span>
         </div>
-        <div className="flex items-stretch flex-1 min-w-0 self-stretch">
+        <div ref={navMenusRef} className="flex items-stretch flex-1 min-w-0 self-stretch">
           {mainMenus.map((menu) => {
             const isActive = menu === activeMainMenu;
             const isMemberMenu = menu === "회원관리";
             const isOrderMenu = menu === "주문관리";
+            const isDropdownOpen = openDropdownMenu === menu;
 
             if (isMemberMenu || isOrderMenu) {
               return (
                 <div
                   key={menu}
-                  className={`main-nav-item-wrap${closedDropdownMenu === menu ? " is-dropdown-closed" : ""}`}
-                  onMouseLeave={() => handleDropdownWrapMouseLeave(menu)}
+                  className={`main-nav-item-wrap${isDropdownOpen ? " is-dropdown-open" : ""}`}
                 >
                   <button
                     type="button"
-                    onClick={() => onMainMenuChange(menu)}
+                    onClick={() => {
+                      onMainMenuChange(menu);
+                      toggleDropdown(menu);
+                    }}
                     className={`main-nav-item${isActive ? " is-active" : ""}`}
                     aria-haspopup="menu"
+                    aria-expanded={isDropdownOpen}
                   >
                     {menu}
                   </button>
@@ -4633,7 +4663,7 @@ function TopNav({
                       onClick={(event) => {
                         event.preventDefault();
                         event.stopPropagation();
-                        handleDropdownClose(menu);
+                        closeDropdown();
                       }}
                     >
                       <X size={14} strokeWidth={2} aria-hidden />
@@ -4668,7 +4698,10 @@ function TopNav({
               <button
                 key={menu}
                 type="button"
-                onClick={() => onMainMenuChange(menu)}
+                onClick={() => {
+                  closeDropdown();
+                  onMainMenuChange(menu);
+                }}
                 className={`main-nav-item${isActive ? " is-active" : ""}`}
               >
                 {menu}
