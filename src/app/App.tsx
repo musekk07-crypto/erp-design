@@ -3333,179 +3333,148 @@ function MemberGeneralInfoForm({ member }: { member: Member }) {
   const labelCellClass = "member-form-cell member-form-cell--label";
   const fieldCellClass = "member-form-cell member-form-cell--field";
   const fieldWideCellClass = "member-form-cell member-form-cell--field member-form-cell--field-wide";
-
-  const renderLeftTable = (rows: React.ReactNode) => (
-    <table className="content-form-grid content-form-grid--member member-form-grid--split" style={{ width: "100%", borderCollapse: "collapse" }}>
-      <colgroup>
-        <col className="col-label-1" />
-        <col className="col-field-1" />
-        <col className="col-label-2" />
-        <col className="col-field-2" />
-      </colgroup>
-      <tbody>{rows}</tbody>
-    </table>
-  );
-
-  const renderRightTable = (rows: React.ReactNode) => (
-    <table className="content-form-grid content-form-grid--member member-form-grid--split" style={{ width: "100%", borderCollapse: "collapse" }}>
-      <colgroup>
-        <col className="col-label-1" />
-        <col className="col-field-1" />
-        <col className="col-label-2" />
-        <col className="col-field-2" />
-      </colgroup>
-      <tbody>{rows}</tbody>
-    </table>
-  );
-
   const fieldColSpan = 3;
 
   return (
     <FormSection title="일반 회원정보" icon={<User size={12} />} className="content-form-section--member-form">
-      <div className="member-form-split">
-        <div className="member-form-split__group">
-          {renderLeftTable(
-            <>
-              <tr>
-                <td className={labelCellClass}><span style={{ fontSize: "12px", color: "var(--required-color, #001673)", fontWeight: 500 }}>* 회원 등록일자</span></td>
-                <td className={fieldWideCellClass} colSpan={fieldColSpan}><input type="date" key={`reg-${member.id}`} defaultValue={info.regDate} className="w-full rounded outline-none transition-all duration-200" style={inputStyle} {...focusProps} /></td>
-              </tr>
-              <tr>
-                <td className={labelCellClass}><span style={{ fontSize: "12px", color: "var(--required-color, #001673)", fontWeight: 500 }}>* 고객 이름/성</span></td>
-                <td className={fieldWideCellClass} colSpan={fieldColSpan}>
-                  <div className="flex gap-2">
-                    <input defaultValue={info.customerName} className="member-form-customer-name-primary rounded outline-none transition-all duration-200" style={inputStyle} {...focusProps} />
-                    <input defaultValue={info.customerNameExtra1} className="flex-1 min-w-0 rounded outline-none transition-all duration-200" style={inputStyle} {...focusProps} />
-                    <input defaultValue={info.customerNameExtra2} className="flex-1 min-w-0 rounded outline-none transition-all duration-200" style={inputStyle} {...focusProps} />
-                  </div>
-                </td>
-              </tr>
-              <tr className="form-row-dual">
-                <td className={labelCellClass}><span style={{ fontSize: "12px", color: "var(--form-label-color)", fontWeight: 500 }}>한글명</span></td>
-                <td className={fieldCellClass}><input defaultValue={info.koreanName} className="w-full rounded outline-none transition-all duration-200" style={inputStyle} {...focusProps} /></td>
-                <td className={labelCellClass}><span style={{ fontSize: "12px", color: "var(--form-label-color)", fontWeight: 500 }}>Nick Name</span></td>
-                <td className={fieldCellClass}><input defaultValue={info.nickName} placeholder="닉네임" className="w-full rounded outline-none transition-all duration-200" style={inputStyle} {...focusProps} /></td>
-              </tr>
-              <tr className="form-row-dual">
-                <td className={labelCellClass}><span style={{ fontSize: "12px", color: "var(--form-label-color)", fontWeight: 500 }}>Business Name</span></td>
-                <td className={fieldCellClass}><input defaultValue={info.businessName} placeholder="사업자명" className="w-full rounded outline-none transition-all duration-200" style={inputStyle} {...focusProps} /></td>
-                <td className={labelCellClass}><span style={{ fontSize: "12px", color: "var(--form-label-color)", fontWeight: 500 }}>Legal Name</span></td>
-                <td className={fieldCellClass}><input defaultValue={info.legalName} placeholder="법적 이름" className="w-full rounded outline-none transition-all duration-200" style={inputStyle} {...focusProps} /></td>
-              </tr>
-              <tr>
-                <td className={labelCellClass}><span style={{ fontSize: "12px", color: "var(--form-label-color)", fontWeight: 500 }}>생년월일</span></td>
-                <td className={fieldWideCellClass} colSpan={fieldColSpan}><input type="date" defaultValue={info.birthDate} className="w-full rounded outline-none transition-all duration-200" style={inputStyle} {...focusProps} /></td>
-              </tr>
-              <tr>
-                <td className={labelCellClass}>
-                  <span style={{ fontSize: "12px", color: "var(--form-label-color)", fontWeight: 500, display: "inline-flex", alignItems: "center", gap: 4 }}>
-                    {info.ssnVerified ? <CheckCircle2 size={12} style={{ color: "var(--accent-primary)" }} /> : null}
-                    주민등록번호
-                  </span>
-                </td>
-                <td className={fieldWideCellClass} colSpan={fieldColSpan}>
-                  <div className="member-form-ssn-row">
-                    <input key={`ssn-${member.id}`} defaultValue={info.ssn} className="member-form-ssn-row__input rounded outline-none transition-all duration-200" style={inputStyle} {...focusProps} />
-                    <div className="member-form-ssn-row__gender relative shrink-0">
-                      <select defaultValue={info.gender} className="rounded outline-none appearance-none" style={{ ...inputStyle, width: 54, minWidth: 54, padding: "4px 22px 4px 8px" }} {...focusProps}>
-                        <option value="남">남</option>
-                        <option value="여">여</option>
-                      </select>
-                      <ChevronDown size={12} style={{ position: "absolute", right: 7, top: "50%", transform: "translateY(-50%)", color: "var(--muted-foreground)", pointerEvents: "none" }} />
-                    </div>
-                    {info.ssnVerified ? (
-                      <span className="member-form-action-chip member-form-action-chip--verified member-form-ssn-row__chip">✓ 실명인증</span>
-                    ) : (
-                      <button type="button" className="member-form-action-chip member-form-action-chip--auth member-form-ssn-row__chip">✓ 실명인증</button>
-                    )}
-                  </div>
-                </td>
-              </tr>
-              <tr className="form-row-dual">
-                <td className={labelCellClass}><span style={{ fontSize: "12px", color: "var(--form-label-color)", fontWeight: 500 }}>비자종류</span></td>
-                <td className={fieldCellClass}>
-                  <div className="relative" style={{ display: "inline-block", width: "100%" }}>
-                    <select defaultValue={info.visaType} className="w-full rounded outline-none appearance-none" style={{ ...inputStyle, padding: "4px 28px 4px 8px" }} {...focusProps}>
-                      <option>() 내국인</option>
-                      <option>F-2 거주</option>
-                      <option>F-4 재외동포</option>
-                      <option>F-6 결혼이민</option>
-                    </select>
-                    <ChevronDown size={12} style={{ position: "absolute", right: 7, top: "50%", transform: "translateY(-50%)", color: "var(--muted-foreground)", pointerEvents: "none" }} />
-                  </div>
-                </td>
-                <td className={labelCellClass}><span style={{ fontSize: "12px", color: "var(--form-label-color)", fontWeight: 500 }}>체류기간 만료일자</span></td>
-                <td className={fieldCellClass}><input type="date" defaultValue={info.stayExpiry} className="w-full rounded outline-none transition-all duration-200" style={inputStyle} {...focusProps} /></td>
-              </tr>
-            </>,
-          )}
-        </div>
+      <table className="content-form-grid content-form-grid--member member-form-grid--split member-form-grid--general" style={{ width: "100%", borderCollapse: "collapse" }}>
+        <colgroup>
+          <col className="col-label-1" />
+          <col className="col-field-1" />
+          <col className="col-label-2" />
+          <col className="col-field-2" />
+        </colgroup>
+        <tbody>
+          {/* 1: 회원 등록일자 | 한국명 */}
+          <tr className="form-row-dual">
+            <td className={labelCellClass}><span style={{ fontSize: "12px", color: "var(--required-color, #001673)", fontWeight: 500 }}>* 회원 등록일자</span></td>
+            <td className={fieldCellClass}><input type="date" key={`reg-${member.id}`} defaultValue={info.regDate} className="w-full rounded outline-none transition-all duration-200" style={inputStyle} {...focusProps} /></td>
+            <td className={labelCellClass}><span style={{ fontSize: "12px", color: "var(--form-label-color)", fontWeight: 500 }}>한국명</span></td>
+            <td className={fieldCellClass}><input defaultValue={info.koreanName || info.customerName} className="w-full rounded outline-none transition-all duration-200" style={inputStyle} {...focusProps} /></td>
+          </tr>
 
-        <div className="member-form-split__group">
-          {renderRightTable(
-            <>
-              <tr className="form-row-dual">
-                <td className={labelCellClass}><span style={{ fontSize: "12px", color: "var(--form-label-color)", fontWeight: 500 }}>세금신고번호</span></td>
-                <td className={fieldCellClass}><input defaultValue={info.taxId} className="w-full rounded outline-none transition-all duration-200" style={inputStyle} {...focusProps} /></td>
-                <td className={labelCellClass}><span style={{ fontSize: "12px", color: "var(--form-label-color)", fontWeight: 500 }}>EIN Number</span></td>
-                <td className={fieldCellClass}><input defaultValue={info.ein} placeholder="미국 사업자 번호" className="w-full rounded outline-none transition-all duration-200" style={inputStyle} {...focusProps} /></td>
-              </tr>
-              <tr>
-                <td className={labelCellClass}><span style={{ fontSize: "12px", color: "var(--form-label-color)", fontWeight: 500 }}>주소지</span></td>
-                <td className={fieldWideCellClass} colSpan={fieldColSpan}>
-                  <div className="member-form-address-stack">
-                    <div className="flex gap-2">
-                      <input key={`addr-${member.id}`} defaultValue={info.address} className="flex-1 min-w-0 rounded outline-none transition-all duration-200" style={inputStyle} {...focusProps} />
-                      <button type="button" className="shrink-0" style={{ fontSize: 12, padding: "3px 10px", background: "var(--surface-button-muted)", color: "var(--foreground)", border: "1px solid var(--border)", borderRadius: 4 }}>...</button>
-                    </div>
-                    <div className="member-form-address-stack__divider" aria-hidden />
-                    <input defaultValue={info.addressDetail} className="member-form-address-stack__detail w-full rounded outline-none transition-all duration-200" style={inputStyle} {...focusProps} />
-                  </div>
-                </td>
-              </tr>
-              <tr className="form-row-dual">
-                <td className={labelCellClass}><span style={{ fontSize: "12px", color: "var(--form-label-color)", fontWeight: 500 }}>우편번호</span></td>
-                <td className={fieldCellClass}><input defaultValue={info.zip} className="w-full rounded outline-none transition-all duration-200" style={inputStyle} {...focusProps} /></td>
-                <td className={labelCellClass}><span style={{ fontSize: "12px", color: "var(--form-label-color)", fontWeight: 500 }}>국가</span></td>
-                <td className={fieldCellClass}>
-                  <div className="relative" style={{ display: "inline-block", width: "100%" }}>
-                    <select defaultValue={info.country} className="w-full rounded outline-none appearance-none" style={{ ...inputStyle, padding: "4px 28px 4px 8px" }} {...focusProps}>
-                      <option value="South Korea">South Korea</option>
-                      <option value="United States">United States</option>
-                      <option value="Japan">Japan</option>
-                    </select>
-                    <ChevronDown size={12} style={{ position: "absolute", right: 7, top: "50%", transform: "translateY(-50%)", color: "var(--muted-foreground)", pointerEvents: "none" }} />
-                  </div>
-                </td>
-              </tr>
-              <tr className="form-row-dual">
-                <td className={labelCellClass}><span style={{ fontSize: "12px", color: "var(--form-label-color)", fontWeight: 500 }}>city</span></td>
-                <td className={fieldCellClass}><input defaultValue={info.city} className="w-full rounded outline-none transition-all duration-200" style={inputStyle} {...focusProps} /></td>
-                <td className={labelCellClass}><span style={{ fontSize: "12px", color: "var(--form-label-color)", fontWeight: 500 }}>state</span></td>
-                <td className={fieldCellClass}><input defaultValue={info.state} className="w-full rounded outline-none transition-all duration-200" style={inputStyle} {...focusProps} /></td>
-              </tr>
-              <tr className="form-row-dual">
-                <td className={labelCellClass}><span style={{ fontSize: "12px", color: "var(--form-label-color)", fontWeight: 500 }}>연락처</span></td>
-                <td className={fieldCellClass}><input defaultValue={info.contact} className="w-full rounded outline-none transition-all duration-200" style={inputStyle} {...focusProps} /></td>
-                <td className={labelCellClass}><span style={{ fontSize: "12px", color: "var(--form-label-color)", fontWeight: 500 }}>휴대폰번호</span></td>
-                <td className={fieldCellClass}><input key={`phone-${member.id}`} defaultValue={info.phone} className="w-full rounded outline-none transition-all duration-200" style={inputStyle} {...focusProps} /></td>
-              </tr>
-              <tr>
-                <td className={labelCellClass}><span style={{ fontSize: "12px", color: "var(--form-label-color)", fontWeight: 500 }}>메모</span></td>
-                <td className={fieldWideCellClass} colSpan={fieldColSpan}>
-                  <input
-                    key={`memo-${member.id}`}
-                    defaultValue={info.memo}
-                    className="w-full rounded outline-none transition-all duration-200"
-                    style={inputStyle}
-                    {...focusProps}
-                  />
-                </td>
-              </tr>
-            </>,
-          )}
-        </div>
-      </div>
+          {/* 2: 고객 이름/성 (전체 폭) */}
+          <tr>
+            <td className={labelCellClass}><span style={{ fontSize: "12px", color: "var(--required-color, #001673)", fontWeight: 500 }}>* 고객 이름/성</span></td>
+            <td className={fieldWideCellClass} colSpan={fieldColSpan}>
+              <div className="member-form-name-pair">
+                <input defaultValue={info.customerNameExtra1 || info.customerName} placeholder="이름" className="member-form-name-pair__input rounded outline-none transition-all duration-200" style={inputStyle} {...focusProps} />
+                <input defaultValue={info.customerNameExtra2 || "Kim"} placeholder="성" className="member-form-name-pair__input rounded outline-none transition-all duration-200" style={inputStyle} {...focusProps} />
+              </div>
+            </td>
+          </tr>
+
+          {/* 3: Nick Name | Business Name */}
+          <tr className="form-row-dual">
+            <td className={labelCellClass}><span style={{ fontSize: "12px", color: "var(--form-label-color)", fontWeight: 500 }}>Nick Name</span></td>
+            <td className={fieldCellClass}><input defaultValue={info.nickName} placeholder="닉네임" className="w-full rounded outline-none transition-all duration-200" style={inputStyle} {...focusProps} /></td>
+            <td className={labelCellClass}><span style={{ fontSize: "12px", color: "var(--form-label-color)", fontWeight: 500 }}>Business Name</span></td>
+            <td className={fieldCellClass}><input defaultValue={info.businessName} placeholder="사업자명" className="w-full rounded outline-none transition-all duration-200" style={inputStyle} {...focusProps} /></td>
+          </tr>
+
+          {/* 4: Legal Name | 생년월일 */}
+          <tr className="form-row-dual">
+            <td className={labelCellClass}><span style={{ fontSize: "12px", color: "var(--form-label-color)", fontWeight: 500 }}>Legal Name</span></td>
+            <td className={fieldCellClass}><input defaultValue={info.legalName} placeholder="법적 이름" className="w-full rounded outline-none transition-all duration-200" style={inputStyle} {...focusProps} /></td>
+            <td className={labelCellClass}><span style={{ fontSize: "12px", color: "var(--form-label-color)", fontWeight: 500 }}>생년월일</span></td>
+            <td className={fieldCellClass}><input type="date" defaultValue={info.birthDate} className="w-full rounded outline-none transition-all duration-200" style={inputStyle} {...focusProps} /></td>
+          </tr>
+
+          {/* 5: 주민등록번호 | EIN Number */}
+          <tr className="form-row-dual">
+            <td className={labelCellClass}>
+              <span style={{ fontSize: "12px", color: "var(--required-color, #001673)", fontWeight: 500, display: "inline-flex", alignItems: "center", gap: 4 }}>
+                * 주민등록번호
+              </span>
+            </td>
+            <td className={fieldCellClass}>
+              <div className="member-form-ssn-row">
+                <input key={`ssn-${member.id}`} defaultValue={info.ssn} className="member-form-ssn-row__input rounded outline-none transition-all duration-200" style={inputStyle} {...focusProps} />
+                <div className="member-form-ssn-row__gender relative shrink-0">
+                  <select defaultValue={info.gender} className="rounded outline-none appearance-none" style={{ ...inputStyle, width: 54, minWidth: 54, padding: "4px 22px 4px 8px" }} {...focusProps}>
+                    <option value="남">남</option>
+                    <option value="여">여</option>
+                  </select>
+                  <ChevronDown size={12} style={{ position: "absolute", right: 7, top: "50%", transform: "translateY(-50%)", color: "var(--muted-foreground)", pointerEvents: "none" }} />
+                </div>
+                {info.ssnVerified ? (
+                  <span className="member-form-action-chip member-form-action-chip--verified member-form-ssn-row__chip">✓ 인증완료</span>
+                ) : (
+                  <button type="button" className="member-form-action-chip member-form-action-chip--auth member-form-ssn-row__chip">✓ 실명인증</button>
+                )}
+              </div>
+            </td>
+            <td className={labelCellClass}><span style={{ fontSize: "12px", color: "var(--form-label-color)", fontWeight: 500 }}>EIN Number</span></td>
+            <td className={fieldCellClass}><input defaultValue={info.ein} placeholder="미국 사업자 번호" className="w-full rounded outline-none transition-all duration-200" style={inputStyle} {...focusProps} /></td>
+          </tr>
+
+          {/* 6: 비자종류 | 체류기간 만료일자 */}
+          <tr className="form-row-dual">
+            <td className={labelCellClass}><span style={{ fontSize: "12px", color: "var(--form-label-color)", fontWeight: 500 }}>비자종류</span></td>
+            <td className={fieldCellClass}>
+              <div className="relative" style={{ display: "inline-block", width: "100%" }}>
+                <select defaultValue={info.visaType} className="w-full rounded outline-none appearance-none" style={{ ...inputStyle, padding: "4px 28px 4px 8px" }} {...focusProps}>
+                  <option>() 내국인</option>
+                  <option>F-2 거주</option>
+                  <option>F-4 재외동포</option>
+                  <option>F-6 결혼이민</option>
+                </select>
+                <ChevronDown size={12} style={{ position: "absolute", right: 7, top: "50%", transform: "translateY(-50%)", color: "var(--muted-foreground)", pointerEvents: "none" }} />
+              </div>
+            </td>
+            <td className={labelCellClass}><span style={{ fontSize: "12px", color: "var(--form-label-color)", fontWeight: 500 }}>체류기간 만료일자</span></td>
+            <td className={fieldCellClass}><input type="date" defaultValue={info.stayExpiry} className="w-full rounded outline-none transition-all duration-200" style={inputStyle} {...focusProps} /></td>
+          </tr>
+
+          {/* 7: 주소지 (전체 폭) */}
+          <tr>
+            <td className={labelCellClass}><span style={{ fontSize: "12px", color: "var(--form-label-color)", fontWeight: 500 }}>주소지</span></td>
+            <td className={fieldWideCellClass} colSpan={fieldColSpan}>
+              <div className="flex gap-2 items-center">
+                <input
+                  key={`addr-${member.id}`}
+                  defaultValue={[info.address, info.addressDetail].filter(Boolean).join(" ")}
+                  className="flex-1 min-w-0 rounded outline-none transition-all duration-200"
+                  style={inputStyle}
+                  {...focusProps}
+                />
+                <button type="button" className="shrink-0" style={{ fontSize: 12, padding: "3px 10px", background: "var(--surface-button-muted)", color: "var(--foreground)", border: "1px solid var(--border)", borderRadius: 4 }}>검색</button>
+              </div>
+            </td>
+          </tr>
+
+          {/* 8: 우편번호 | 연락처 */}
+          <tr className="form-row-dual">
+            <td className={labelCellClass}><span style={{ fontSize: "12px", color: "var(--form-label-color)", fontWeight: 500 }}>우편번호</span></td>
+            <td className={fieldCellClass}><input defaultValue={info.zip} className="w-full rounded outline-none transition-all duration-200" style={inputStyle} {...focusProps} /></td>
+            <td className={labelCellClass}><span style={{ fontSize: "12px", color: "var(--form-label-color)", fontWeight: 500 }}>연락처</span></td>
+            <td className={fieldCellClass}><input defaultValue={info.contact} className="w-full rounded outline-none transition-all duration-200" style={inputStyle} {...focusProps} /></td>
+          </tr>
+
+          {/* 9: 휴대폰번호 | 세금신고번호 */}
+          <tr className="form-row-dual">
+            <td className={labelCellClass}><span style={{ fontSize: "12px", color: "var(--form-label-color)", fontWeight: 500 }}>휴대폰번호</span></td>
+            <td className={fieldCellClass}><input key={`phone-${member.id}`} defaultValue={info.phone} className="w-full rounded outline-none transition-all duration-200" style={inputStyle} {...focusProps} /></td>
+            <td className={labelCellClass}><span style={{ fontSize: "12px", color: "var(--form-label-color)", fontWeight: 500 }}>세금신고번호</span></td>
+            <td className={fieldCellClass}><input defaultValue={info.taxId} className="w-full rounded outline-none transition-all duration-200" style={inputStyle} {...focusProps} /></td>
+          </tr>
+
+          {/* 10: 메모 (전체 폭) */}
+          <tr>
+            <td className={labelCellClass}><span style={{ fontSize: "12px", color: "var(--form-label-color)", fontWeight: 500 }}>메모</span></td>
+            <td className={fieldWideCellClass} colSpan={fieldColSpan}>
+              <textarea
+                key={`memo-${member.id}`}
+                defaultValue={info.memo || "VIP 회원. 2024년 4분기 우수판매자 선정. 분기 정산 우선 처리 요망. 사업자 등록 갱신 예정(2026-03)."}
+                rows={3}
+                className="member-form-memo w-full rounded outline-none transition-all duration-200"
+                style={{ ...inputStyle, resize: "vertical", minHeight: 64, lineHeight: 1.45 }}
+                {...focusProps}
+              />
+            </td>
+          </tr>
+        </tbody>
+      </table>
     </FormSection>
   );
 }
