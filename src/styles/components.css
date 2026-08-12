@@ -708,13 +708,12 @@ span.member-form-action-chip {
   min-width: 0;
 }
 
-.member-form-name-pair--triple .member-form-name-pair__input {
-  flex: 1 1 0;
-}
-
+.member-form-name-pair--triple .member-form-name-pair__input,
 .member-form-name-pair--triple .member-form-customer-name-primary {
-  flex: 0.9 1 0;
-  max-width: 160px;
+  flex: 1 1 0;
+  width: 0;
+  min-width: 0;
+  max-width: none;
 }
 
 .member-form-name-pair__input {
