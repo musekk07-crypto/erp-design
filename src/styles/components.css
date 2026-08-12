@@ -2642,7 +2642,7 @@ textarea.mm2-name-box:focus {
   height: 100%;
   min-height: 0;
   min-width: 0;
-  padding: 12px 18px;
+  padding: 12px 22px;
   box-sizing: border-box;
   overflow: hidden;
   background: var(--surface-page);
