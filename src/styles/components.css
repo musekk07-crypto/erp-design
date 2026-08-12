@@ -5933,7 +5933,7 @@ textarea.mm2-name-box:focus {
   padding: 12px 4px 14px;
   border: 1px solid rgba(0, 22, 90, 0.35);
   border-radius: 0 6px 6px 0;
-  background: var(--sidebar-members-tab-bg, #007aff);
+  background: var(--sidebar-members-tab-bg, #393939);
   color: #ffffff;
   box-shadow: none;
   cursor: pointer;
@@ -5958,20 +5958,20 @@ textarea.mm2-name-box:focus {
 }
 
 .sidebar-members-toggle:hover {
-  background: var(--sidebar-members-tab-bg-hover, #0066d6);
+  background: var(--sidebar-members-tab-bg-hover, #007aff);
   box-shadow: none;
 }
 
 .sidebar-members-toggle.is-open {
-  background: var(--sidebar-members-tab-bg-open, #0057b8);
+  background: var(--sidebar-members-tab-bg-open, #007aff);
   box-shadow: none;
 }
 
 [data-theme="dark"] .sidebar-members-toggle {
-  --sidebar-members-tab-bg: #007aff;
-  --sidebar-members-tab-bg-hover: #0369a1;
-  --sidebar-members-tab-bg-open: #075985;
-  border-color: rgba(125, 211, 252, 0.35);
+  --sidebar-members-tab-bg: #393939;
+  --sidebar-members-tab-bg-hover: #007aff;
+  --sidebar-members-tab-bg-open: #007aff;
+  border-color: rgba(255, 255, 255, 0.12);
 }
 
 .sidebar-theme-swatch {
