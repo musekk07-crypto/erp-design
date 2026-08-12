@@ -3431,7 +3431,7 @@ function MemberGeneralInfoForm({ member }: { member: Member }) {
           <tr>
             <td className={labelCellClass}><span style={{ fontSize: "12px", color: "var(--form-label-color)", fontWeight: 500 }}>주소지</span></td>
             <td className={fieldWideCellClass} colSpan={fieldColSpan}>
-              <div className="flex gap-2 items-center">
+              <div className="flex gap-1 items-center">
                 <input
                   key={`addr-${member.id}`}
                   defaultValue={[info.address, info.addressDetail].filter(Boolean).join(" ")}
