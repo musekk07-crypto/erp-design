@@ -620,12 +620,16 @@ input[type="checkbox"] {
   --member-form-control-size: var(--content-text-sm, 14px);
   --member-form-control-padding: 3px 8px;
   --member-form-control-min-height: 26px;
-  /* 일반「회원 등록일자」입력 폭 = 로그인「회원번호·비밀번호」입력 폭 */
+  /* 일반「우편번호」왼쪽 입력 폭 = 로그인「회원번호·비밀번호」입력 폭 */
   --member-login-label-width: 92px;
   --member-left-col-gap: 8px;
   --member-left-field-gutter: 20px;
+  --member-login-label-gap: 5px;
+  /* 본문/테이블 폭 기준. 우편번호 실입력 = 50% - 라벨 - col-gap - gutter */
   --member-left-field-col: calc(50% - var(--member-login-label-width) - var(--member-left-col-gap));
-  --member-left-input-width: calc(var(--member-left-field-col) - var(--member-left-field-gutter));
+  --member-left-input-width: calc(
+    50% - var(--member-login-label-width) - var(--member-left-col-gap) - var(--member-left-field-gutter)
+  );
 }
 
 .app-content .content-form-section--member-form .content-form-body {

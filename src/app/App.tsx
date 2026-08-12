@@ -3499,7 +3499,7 @@ function MemberLoginInfoForm({ member }: { member: Member }) {
   };
 
   // 4행: 회원정보 / 회원번호·아이디 / 비밀번호·보안비밀번호 / 전자메일주소
-  // 왼쪽(회원번호·비밀번호) 입력폭은 CSS에서 회원 등록일자와 동일, 오른쪽은 나머지
+  // 왼쪽(회원번호·비밀번호) 입력폭은 CSS에서 우편번호와 동일, 오른쪽은 나머지
   const pairFlex = "1 1 0";
 
   const fields = [

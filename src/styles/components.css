@@ -1098,7 +1098,8 @@ span.member-form-action-chip {
   font-weight: 500;
 }
 
-/* 2열 쌍 행 — 왼쪽(회원번호·비밀번호)은 등록일자 입력폭, 오른쪽은 나머지 */
+/* 2열 쌍 행 — 왼쪽(회원번호·비밀번호) = 우편번호 입력폭, 오른쪽은 나머지
+   %는 flex item(행의 자식) width에서 행 기준으로 해석되게 둠 */
 .member-login-inline-row {
   display: flex;
   align-items: center;
@@ -1111,20 +1112,27 @@ span.member-form-action-chip {
 .member-login-inline-row:has(.member-login-inline-field + .member-login-inline-field)
   .member-login-inline-field:first-child {
   flex: 0 0 auto;
+  box-sizing: border-box;
+  /* 라벨 + gap + 우편번호와 같은 입력폭 */
   width: calc(
-    var(--member-login-label-width, 92px) + 5px + var(--member-left-input-width)
+    var(--member-login-label-width, 92px) + var(--member-login-label-gap, 5px) +
+      (50% - var(--member-login-label-width, 92px) - var(--member-left-col-gap, 8px) -
+        var(--member-left-field-gutter, 20px))
   );
   max-width: calc(
-    var(--member-login-label-width, 92px) + 5px + var(--member-left-input-width)
+    var(--member-login-label-width, 92px) + var(--member-login-label-gap, 5px) +
+      (50% - var(--member-login-label-width, 92px) - var(--member-left-col-gap, 8px) -
+        var(--member-left-field-gutter, 20px))
   );
 }
 
 .member-login-inline-row:has(.member-login-inline-field + .member-login-inline-field)
   .member-login-inline-field:first-child
   .member-login-inline-field__input {
-  flex: 0 0 var(--member-left-input-width);
-  width: var(--member-left-input-width);
-  max-width: var(--member-left-input-width);
+  flex: 1 1 0;
+  width: auto;
+  min-width: 0;
+  max-width: none;
 }
 
 .member-login-inline-row:has(.member-login-inline-field + .member-login-inline-field)
@@ -1246,13 +1254,15 @@ span.member-form-action-chip {
   border-bottom: 1px solid var(--form-field-divider, rgba(0, 0, 0, 0.1));
 }
 
-/* 일반회원정보 — 왼쪽 열은 등록일자 기준, 오른쪽은 나머지 */
+/* 일반회원정보 — 왼쪽 열(우편번호 등) 기준, 오른쪽은 나머지 */
 .app-content .content-form-body table.content-form-grid--member.member-form-grid--split {
   table-layout: fixed;
   width: 100%;
   --mf-split-label-1: var(--member-login-label-width, 92px);
-  /* 열 폭 = 입력폭 + 좌·우 열 간격(gutter). 입력은 padding으로 gutter만큼 줄어듦 */
-  --mf-split-field-1: var(--member-left-field-col, calc(50% - 92px - 8px));
+  /* 열 폭 = 우편번호 입력폭 + gutter. 입력은 padding으로 gutter만큼 줄어듦 */
+  --mf-split-field-1: calc(
+    50% - var(--mf-split-label-1) - var(--member-left-col-gap, 8px)
+  );
   --mf-split-label-2: 120px;
   --mf-split-field-2: calc(50% - var(--mf-split-label-2) - 12px);
 }
