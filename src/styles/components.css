@@ -1264,6 +1264,16 @@ span.member-form-action-chip {
   padding-right: 0 !important;
 }
 
+/* 라벨↔입력 여백 (로그인 사용정보 gap과 동일 계열) */
+.app-content .content-form-body table.content-form-grid--member.member-form-grid--split td.member-form-cell--label {
+  white-space: nowrap;
+  padding-right: 8px !important;
+}
+
+.app-content .content-form-body table.content-form-grid--member.member-form-grid--split tr.form-row-dual td.member-form-cell--field:nth-child(2) {
+  padding-right: 20px !important;
+}
+
 .member-form-split .member-form-cell--label {
   white-space: nowrap;
   padding-right: 10px !important;
