@@ -3361,7 +3361,7 @@ function MemberGeneralInfoForm({ member }: { member: Member }) {
   const fieldColSpan = 3;
 
   return (
-    <FormSection title="일반 회원정보" subtitle="20개 항목" icon={<User size={12} />} className="content-form-section--member-form">
+    <FormSection title="일반 회원정보" icon={<User size={12} />} className="content-form-section--member-form">
       <div className="member-form-split">
         <div className="member-form-split__group">
           {renderLeftTable(
