@@ -813,7 +813,7 @@ span.member-form-action-chip {
   min-width: 0;
   overflow: visible;
   white-space: nowrap;
-  font-size: 12px;
+  font-size: 13px;
   font-weight: 600;
 }
 
@@ -828,13 +828,13 @@ span.member-form-action-chip {
 .member-profile-header-divider {
   display: inline-block;
   width: 1px;
-  height: 12px;
+  height: 13px;
   flex-shrink: 0;
-  background: var(--content-form-section-header-border, rgba(0, 0, 0, 0.12)) !important;
+  background: rgba(0, 122, 255, 0.35) !important;
 }
 
 .member-profile-header__line .content-member-header-text {
-  color: var(--foreground) !important;
+  color: var(--accent-primary, #007aff) !important;
 }
 
 .member-profile-header__line .content-member-header-text,
@@ -844,7 +844,7 @@ span.member-form-action-chip {
 
 .member-profile-header__line .content-member-header-no {
   flex-shrink: 0;
-  color: var(--muted-foreground) !important;
+  color: var(--accent-primary, #007aff) !important;
   font-size: inherit;
   font-weight: inherit;
   font-family: inherit;
