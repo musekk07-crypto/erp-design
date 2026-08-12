@@ -1098,6 +1098,15 @@ span.member-form-action-chip {
   font-weight: 500;
 }
 
+/* 오른쪽 라벨(아이디·보안비밀번호) — 최장 라벨(체류기간 만료일자) 기준 */
+.member-login-inline-row:has(.member-login-inline-field + .member-login-inline-field)
+  .member-login-inline-field:last-child
+  .member-login-inline-field__label {
+  flex: 0 0 var(--member-form-label-width-right, 136px);
+  width: var(--member-form-label-width-right, 136px);
+  min-width: var(--member-form-label-width-right, 136px);
+}
+
 /* 2열 쌍 행 — 왼쪽(회원번호·비밀번호) = 우편번호 입력폭, 오른쪽은 나머지
    %는 flex item(행의 자식) width에서 행 기준으로 해석되게 둠 */
 .member-login-inline-row {
@@ -1254,7 +1263,7 @@ span.member-form-action-chip {
   border-bottom: 1px solid var(--form-field-divider, rgba(0, 0, 0, 0.1));
 }
 
-/* 일반회원정보 — 왼쪽 라벨은 로그인과 동일(--member-form-label-width), 오른쪽은 나머지 */
+/* 일반회원정보 — 좌/우 라벨은 각 최장 라벨 기준, 입력은 남은 폭 */
 .app-content .content-form-body table.content-form-grid--member.member-form-grid--split {
   table-layout: fixed;
   width: 100%;
@@ -1263,7 +1272,7 @@ span.member-form-action-chip {
   --mf-split-field-1: calc(
     50% - var(--mf-split-label-1) - var(--member-left-col-gap, 8px)
   );
-  --mf-split-label-2: 120px;
+  --mf-split-label-2: var(--member-form-label-width-right, 136px);
   --mf-split-field-2: calc(50% - var(--mf-split-label-2) - 12px);
 }
 

@@ -621,10 +621,12 @@ input[type="checkbox"] {
   --member-form-control-padding: 3px 8px;
   --member-form-control-min-height: 26px;
   /*
-   * 로그인 사용정보 + 일반 회원정보 왼쪽 라벨 공통 폭
-   * 기준: 가장 긴 라벨 (* 회원 등록일자 / * 주민등록번호 / * 고객 이름/성)
+   * 로그인 사용정보 + 일반 회원정보 라벨 공통 폭
+   * 왼쪽 기준: * 회원 등록일자 / * 주민등록번호 / * 고객 이름/성
+   * 오른쪽 기준: 체류기간 만료일자
    */
   --member-form-label-width: 120px;
+  --member-form-label-width-right: 136px;
   --member-login-label-width: var(--member-form-label-width);
   --member-left-col-gap: 8px;
   --member-left-field-gutter: 20px;
