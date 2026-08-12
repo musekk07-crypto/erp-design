@@ -5932,7 +5932,7 @@ textarea.mm2-name-box:focus {
   min-height: 112px;
   padding: 12px 4px 14px;
   border: 1px solid rgba(0, 22, 90, 0.35);
-  border-radius: 6px;
+  border-radius: 0 6px 6px 0;
   background: var(--sidebar-members-tab-bg, #007aff);
   color: #ffffff;
   box-shadow: 2px 2px 8px rgba(15, 23, 42, 0.18);
