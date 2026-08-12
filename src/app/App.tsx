@@ -3528,19 +3528,17 @@ function MemberLoginInfoForm({ member }: { member: Member }) {
     },
   };
 
-  // 두 줄이 같은 3열 리듬을 쓰도록 열별 flex 를 공유한다
-  const columnFlex = ["1 1 88px", "0.85 1 64px", "1.35 1 120px"];
-  // 다국어 이름·아이디는 길어질 수 있어 아이디 칸이 남은 두 열을 모두 차지한다
-  const idFlex = "2.2 1 192px";
+  // 4행: 회원정보 / 회원번호·아이디 / 비밀번호·보안비밀번호 / 전자메일주소
+  const pairFlex = "1 1 0";
+  const idFlex = "1.35 1 0";
 
-  // 첫 줄은 식별 정보, 둘째 줄은 비밀번호·연락 정보로 나눈다
   const fields = [
     {
       key: "no",
       row: 0,
       label: "* 회원번호",
       required: true,
-      flex: columnFlex[0],
+      flex: pairFlex,
       input: (
         <input
           type="text"
@@ -3571,7 +3569,7 @@ function MemberLoginInfoForm({ member }: { member: Member }) {
       key: "password",
       row: 1,
       label: "비밀번호",
-      flex: columnFlex[0],
+      flex: pairFlex,
       input: (
         <input
           type="password"
@@ -3585,8 +3583,8 @@ function MemberLoginInfoForm({ member }: { member: Member }) {
     {
       key: "securePassword",
       row: 1,
-      label: "보안 비밀번호",
-      flex: columnFlex[1],
+      label: "보안비밀번호",
+      flex: pairFlex,
       input: (
         <input
           type="password"
@@ -3599,9 +3597,9 @@ function MemberLoginInfoForm({ member }: { member: Member }) {
     },
     {
       key: "email",
-      row: 1,
+      row: 2,
       label: "전자메일주소",
-      flex: columnFlex[2],
+      flex: "1 1 0",
       input: (
         <input
           type="email"
@@ -3620,10 +3618,12 @@ function MemberLoginInfoForm({ member }: { member: Member }) {
       icon={<Shield size={12} />}
       className="content-form-section--member-form"
     >
+      {/* 1행: 회원정보 */}
       <div className="member-login-profile-row">
         <MemberProfileHeader member={member} />
       </div>
-      {[0, 1].map((rowIndex) => (
+      {/* 2~4행: 회원번호·아이디 / 비밀번호·보안비밀번호 / 전자메일주소 */}
+      {[0, 1, 2].map((rowIndex) => (
         <div className="member-login-inline-row" key={rowIndex}>
           {fields
             .filter((field) => field.row === rowIndex)
