@@ -588,7 +588,7 @@ span.member-form-action-chip {
 /* 회원정보 탭 전용 — 아이콘 툴바 (참고 UI) */
 .member-info-toolbar {
   display: flex;
-  align-items: flex-start;
+  align-items: center;
   flex-wrap: wrap;
   gap: 2px;
   padding: 6px 8px 8px;
@@ -598,13 +598,13 @@ span.member-form-action-chip {
 }
 
 .member-info-toolbar-item {
-  display: flex;
-  flex-direction: column;
+  display: inline-flex;
+  flex-direction: row;
   align-items: center;
   justify-content: center;
-  gap: 4px;
-  min-width: 54px;
-  padding: 4px 8px;
+  gap: 6px;
+  min-width: 0;
+  padding: 6px 10px;
   border: none;
   border-radius: 4px;
   background: transparent;
@@ -626,8 +626,8 @@ span.member-form-action-chip {
 
 .member-info-toolbar-separator {
   width: 1px;
-  height: 38px;
-  margin: 2px 6px 0;
+  height: 20px;
+  margin: 0 6px;
   background: var(--border);
   flex-shrink: 0;
   align-self: center;
@@ -3100,7 +3100,7 @@ textarea.mm2-name-box:focus {
 
 .order-mgmt-order-toolbar .order-mgmt-order-toolbar__item {
   flex: 0 0 auto;
-  min-width: 88px;
+  min-width: 0;
   box-sizing: border-box;
 }
 
@@ -5047,10 +5047,10 @@ textarea.mm2-name-box:focus {
 }
 
 .member-org-chart-toolbar .member-info-toolbar-item {
-  flex: 0 0 104px;
-  width: 104px;
-  min-width: 104px;
-  max-width: 104px;
+  flex: 0 0 auto;
+  width: auto;
+  min-width: 0;
+  max-width: none;
   box-sizing: border-box;
 }
 
