@@ -268,30 +268,6 @@ function Card({
       gap: 3,
     }}
     >
-      {/* 본인 카드 상단 테두리에 얹히는 뱃지 */}
-      {isSelf && (
-        <span
-          className="org-chart-card__self-badge"
-          style={{
-            position: "absolute",
-            top: -10,
-            left: "50%",
-            transform: "translateX(-50%)",
-            background: ORG_SELF_ACCENT,
-            color: "#ffffff",
-            fontSize: 11,
-            fontWeight: 700,
-            lineHeight: 1.2,
-            padding: "2px 10px",
-            borderRadius: 999,
-            whiteSpace: "nowrap",
-            zIndex: 2,
-            boxShadow: "0 1px 2px rgba(0,0,0,0.12)",
-          }}
-        >
-          나·자신
-        </span>
-      )}
       <div
         className="org-chart-card__label"
         style={{
@@ -300,9 +276,30 @@ function Card({
           width: "100%",
           textAlign: "left",
           fontWeight: isSelf ? 600 : 400,
+          display: "flex",
+          alignItems: "center",
+          gap: 6,
         }}
       >
-        {isSelf ? "나" : label}
+        <span>{isSelf ? "나" : label}</span>
+        {isSelf && (
+          <span
+            className="org-chart-card__self-badge"
+            style={{
+              background: ORG_SELF_ACCENT,
+              color: "#ffffff",
+              fontSize: 11,
+              fontWeight: 700,
+              lineHeight: 1.2,
+              padding: "1px 8px",
+              borderRadius: 0,
+              whiteSpace: "nowrap",
+              flexShrink: 0,
+            }}
+          >
+            나·자신
+          </span>
+        )}
       </div>
       {useOrgLayout ? (
         <>
