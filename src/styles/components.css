@@ -1096,6 +1096,9 @@ span.member-form-action-chip {
   min-width: var(--member-form-label-width, var(--member-login-label-width, 120px));
   white-space: nowrap;
   font-weight: 500;
+  box-sizing: border-box;
+  /* 일반 회원정보 라벨 td padding-right 8px 와 동일 → 입력 시작선 일치 */
+  padding-right: 8px;
 }
 
 /* 오른쪽 라벨(아이디·보안비밀번호) — 최장 라벨(체류기간 만료일자) 기준 */
@@ -1107,12 +1110,12 @@ span.member-form-action-chip {
   min-width: var(--member-form-label-width-right, 136px);
 }
 
-/* 2열 쌍 행 — 왼쪽(회원번호·비밀번호) = 우편번호 입력폭, 오른쪽은 나머지
-   %는 flex item(행의 자식) width에서 행 기준으로 해석되게 둠 */
+/* 2열 쌍 행 — 일반 회원정보 4열(라벨1·필드1·라벨2·필드2)과 같은 시작선
+   왼쪽 블록 폭 = label1 + field1 = 50% - col-gap → 아이디/보안비번 = 한국명 시작 */
 .member-login-inline-row {
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: 0;
   width: 100%;
   min-width: 0;
   flex-wrap: nowrap;
@@ -1122,17 +1125,11 @@ span.member-form-action-chip {
   .member-login-inline-field:first-child {
   flex: 0 0 auto;
   box-sizing: border-box;
-  /* 라벨 + gap + 왼쪽 입력폭(일반 회원정보 왼쪽 필드와 동일 계산) */
-  width: calc(
-    var(--member-form-label-width, 120px) + var(--member-login-label-gap, 5px) +
-      (50% - var(--member-form-label-width, 120px) - var(--member-left-col-gap, 8px) -
-        var(--member-left-field-gutter, 20px))
-  );
-  max-width: calc(
-    var(--member-form-label-width, 120px) + var(--member-login-label-gap, 5px) +
-      (50% - var(--member-form-label-width, 120px) - var(--member-left-col-gap, 8px) -
-        var(--member-left-field-gutter, 20px))
-  );
+  /* 일반 표: label1 + field1 = 50% - 8px, field1 안 gutter 20px */
+  width: calc(50% - var(--member-left-col-gap, 8px));
+  max-width: calc(50% - var(--member-left-col-gap, 8px));
+  padding-right: var(--member-left-field-gutter, 20px);
+  gap: 0;
 }
 
 .member-login-inline-row:has(.member-login-inline-field + .member-login-inline-field)
@@ -1148,6 +1145,7 @@ span.member-form-action-chip {
   .member-login-inline-field:last-child {
   flex: 1 1 0;
   min-width: 0;
+  gap: 0;
 }
 
 /* 아래 본문 테이블과 같은 행 사이 가로 구분선·간격(상하 3px) */
@@ -1164,7 +1162,7 @@ span.member-form-action-chip {
 .member-login-inline-field {
   display: flex;
   align-items: center;
-  gap: 5px;
+  gap: 0;
   min-width: 0;
   flex: 1 1 0;
 }
