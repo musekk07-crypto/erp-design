@@ -3801,7 +3801,7 @@ function MemberInfoBody({
           </table>
         </FormSection>
 
-        {/* 상위 회원과의 관계 — 거래은행과 동일 열폭, 2행 2열 */}
+        {/* 상위 회원과의 관계 — 거래은행과 동일 열폭, 3행 */}
         <FormSection title="상위 회원과의 관계" icon={<Users size={12} />} className="content-form-section--member-form">
           <table className="content-form-grid content-form-grid--member member-form-grid--split member-form-grid--relation" style={{ width: "100%", borderCollapse: "collapse" }}>
             <colgroup>
@@ -3811,12 +3811,12 @@ function MemberInfoBody({
               <col className="col-field-2" />
             </colgroup>
             <tbody>
-              {/* 1: * 추천인 | 후원인 */}
-              <tr className="form-row-dual">
+              {/* 1: * 추천인 (전체 폭) */}
+              <tr>
                 <td className="member-form-cell member-form-cell--label">
                   <span style={{ fontSize: "12px", color: "var(--required-color, #001673)", fontWeight: 500 }}>* 추천인</span>
                 </td>
-                <td className="member-form-cell member-form-cell--field">
+                <td className="member-form-cell member-form-cell--field member-form-cell--field-wide" colSpan={3}>
                   <div className="member-relation-controls">
                     <input readOnly value={recommender.no} className="member-relation-input-id rounded outline-none" />
                     <input readOnly value={recommender.name} className="member-relation-input-name rounded outline-none" />
@@ -3832,10 +3832,13 @@ function MemberInfoBody({
                     </button>
                   </div>
                 </td>
+              </tr>
+              {/* 2: * 후원인 (전체 폭) */}
+              <tr>
                 <td className="member-form-cell member-form-cell--label">
                   <span style={{ fontSize: "12px", color: "var(--required-color, #001673)", fontWeight: 500 }}>* 후원인</span>
                 </td>
-                <td className="member-form-cell member-form-cell--field">
+                <td className="member-form-cell member-form-cell--field member-form-cell--field-wide" colSpan={3}>
                   <div className="member-relation-controls">
                     <input readOnly value={sponsor.no} className="member-relation-input-id rounded outline-none" />
                     <input readOnly value={sponsor.name} className="member-relation-input-name rounded outline-none" />
@@ -3852,7 +3855,7 @@ function MemberInfoBody({
                   </div>
                 </td>
               </tr>
-              {/* 2: 센터 | 직급 */}
+              {/* 3: 센터 | 직급 */}
               <tr className="form-row-dual">
                 <td className="member-form-cell member-form-cell--label">
                   <span style={{ fontSize: "12px", color: "var(--form-label-color)", fontWeight: 500 }}>센터</span>
