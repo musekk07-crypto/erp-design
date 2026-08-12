@@ -41,10 +41,18 @@
 }
 
 .main-nav-item.is-active,
-.main-nav-item:not(.is-active):hover {
+.main-nav-item:not(.is-active):not(:disabled):hover {
   font-weight: 600;
   color: var(--nav-active-text, #ffffff);
   background: var(--nav-active-bg, #001673);
+}
+
+.main-nav-item:disabled {
+  color: rgba(255, 255, 255, 0.28);
+  background: transparent;
+  cursor: not-allowed;
+  font-weight: 400;
+  opacity: 1;
 }
 
 .main-nav-item-wrap {

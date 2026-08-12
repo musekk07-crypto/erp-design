@@ -3979,6 +3979,7 @@ function MemberInfoBody({
 // ─────────────────────────────────────────────
 
 const mainMenus = ["기초관리", "회원관리", "주문관리", "수당관리", "출고관리", "옵션", "회원관리2"];
+const disabledMainMenus = new Set(["기초관리", "회원관리2"]);
 
 type NavSubMenuGroup = {
   title: string;
@@ -4698,7 +4699,10 @@ function TopNav({
               <button
                 key={menu}
                 type="button"
+                disabled={disabledMainMenus.has(menu)}
+                title={disabledMainMenus.has(menu) ? "준비 중" : undefined}
                 onClick={() => {
+                  if (disabledMainMenus.has(menu)) return;
                   closeDropdown();
                   onMainMenuChange(menu);
                 }}
