@@ -3529,8 +3529,8 @@ function MemberLoginInfoForm({ member }: { member: Member }) {
   };
 
   // 4행: 회원정보 / 회원번호·아이디 / 비밀번호·보안비밀번호 / 전자메일주소
+  // 2열 너비를 같게 맞춰 아이디 ↔ 보안비밀번호 세로 정렬
   const pairFlex = "1 1 0";
-  const idFlex = "1.35 1 0";
 
   const fields = [
     {
@@ -3554,7 +3554,7 @@ function MemberLoginInfoForm({ member }: { member: Member }) {
       row: 0,
       label: "* 아이디",
       required: true,
-      flex: idFlex,
+      flex: pairFlex,
       input: (
         <input
           type="text"
@@ -3599,7 +3599,7 @@ function MemberLoginInfoForm({ member }: { member: Member }) {
       key: "email",
       row: 2,
       label: "전자메일주소",
-      flex: "1 1 0",
+      flex: pairFlex,
       input: (
         <input
           type="email"
