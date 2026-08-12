@@ -32,7 +32,7 @@ type SortDir = "asc" | "desc";
 
 // 레이아웃 고정 너비 — 회원목록 확장 시 컨텐츠 찌그러짐 방지
 const SIDEBAR_WIDTH = 48;
-const MEMBERS_RAIL_WIDTH = 48;
+const MEMBERS_RAIL_WIDTH = 36;
 const MEMBER_LIST_MIN_WIDTH = 320;
 const MEMBER_LIST_PAGE_SIZE = 15;
 const FORM_COLUMN_WIDTH_MIN = 1000;
@@ -4730,8 +4730,6 @@ const navItems: { icon: React.ComponentType<{ size?: number; style?: React.CSSPr
   { icon: Plus, label: "바로가기 추가", key: "add-shortcut" },
 ];
 
-const sidebarRailSlotKeys = navItems.map((item) => item.key);
-
 const bottomItems = [
   { icon: HelpCircle, label: "도움말" },
   { icon: Settings, label: "설정" },
@@ -4783,43 +4781,31 @@ function SidebarMembersToggle({
   return (
     <button
       type="button"
-      aria-label="회원목록"
+      aria-label="회원검색"
       aria-pressed={isOpen}
       onClick={onClick}
-      className={`sidebar-members-toggle group relative${isOpen ? " is-open" : ""}`}
+      className={`sidebar-members-toggle${isOpen ? " is-open" : ""}`}
     >
-      <Users size={17} className="sidebar-members-toggle-icon" />
-      <span className="sidebar-nav-tooltip">회원목록</span>
+      <Search size={14} className="sidebar-members-toggle__icon" strokeWidth={2.4} aria-hidden />
+      <span className="sidebar-members-toggle__label">회원검색</span>
     </button>
   );
 }
 
 function MembersRailSidebar({
-  anchorKey,
   memberListOpen,
   onToggle,
 }: {
-  anchorKey: SidebarNavKey;
   memberListOpen: boolean;
   onToggle: () => void;
 }) {
   return (
     <aside
-      className="app-members-rail flex flex-col items-center py-4 gap-1"
+      className="app-members-rail"
       aria-label="회원목록 패널"
       style={{ width: MEMBERS_RAIL_WIDTH, minWidth: MEMBERS_RAIL_WIDTH }}
     >
-      <div className="flex flex-col items-center gap-1 flex-1">
-        {sidebarRailSlotKeys.map((slotKey) => (
-          <div key={slotKey} className="sidebar-rail-slot">
-            {slotKey === anchorKey ? (
-              <SidebarMembersToggle isOpen={memberListOpen} onClick={onToggle} />
-            ) : (
-              <div className="sidebar-nav-slot-spacer" aria-hidden />
-            )}
-          </div>
-        ))}
-      </div>
+      <SidebarMembersToggle isOpen={memberListOpen} onClick={onToggle} />
     </aside>
   );
 }
@@ -4924,13 +4910,6 @@ export default function App() {
       activeTab === "회원정보") ||
       (activeMainMenu === "회원관리" && activeMemberSubMenu === "조직도인쇄") ||
       (activeMainMenu === "주문관리" && activeOrderSubMenu === "주문서등록"));
-
-  const membersRailAnchorKey: SidebarNavKey =
-    activeMainMenu === "회원관리" && activeMemberSubMenu === "조직도인쇄"
-      ? "org-chart"
-      : activeMainMenu === "주문관리" && activeOrderSubMenu === "주문서등록"
-        ? "order-register"
-        : "member-register";
 
   // 사이드바 아이콘은 클릭 이력이 아니라 현재 열려 있는 화면을 따라간다
   const sidebarActiveKey: SidebarNavKey | null = isHomeView
@@ -5227,7 +5206,6 @@ export default function App() {
 
         {showMembersNav && (
           <MembersRailSidebar
-            anchorKey={membersRailAnchorKey}
             memberListOpen={memberListOpen}
             onToggle={() => navigateFromSidebar("members")}
           />

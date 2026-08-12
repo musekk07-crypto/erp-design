@@ -5912,46 +5912,66 @@ textarea.mm2-name-box:focus {
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: center;
   flex-shrink: 0;
   height: 100%;
+  padding: 12px 0;
   background: transparent;
   border-right: none;
-}
-
-.sidebar-rail-slot,
-.sidebar-nav-slot-spacer {
-  width: 40px;
-  height: 40px;
-  flex-shrink: 0;
+  position: relative;
+  z-index: 2;
 }
 
 .sidebar-members-toggle {
   display: inline-flex;
+  flex-direction: column;
   align-items: center;
-  justify-content: center;
-  position: relative;
-  width: 40px;
-  height: 40px;
-  padding: 0;
-  border: 1px solid transparent;
-  border-radius: 50%;
-  background: transparent;
-  box-shadow: none;
+  justify-content: flex-start;
+  gap: 8px;
+  width: 32px;
+  min-height: 112px;
+  padding: 12px 4px 14px;
+  border: 1px solid rgba(0, 22, 90, 0.35);
+  border-radius: 14px 0 0 14px;
+  background: var(--sidebar-members-tab-bg, #007aff);
+  color: #ffffff;
+  box-shadow: -2px 2px 8px rgba(15, 23, 42, 0.18);
   cursor: pointer;
-  transition: border-color 0.15s ease, color 0.15s ease;
+  transition: background 0.15s ease, box-shadow 0.15s ease, transform 0.15s ease;
 }
 
-.sidebar-members-toggle-icon {
-  color: var(--sidebar-rail-icon-color);
-  transition: color 0.15s ease;
+.sidebar-members-toggle__icon {
+  flex-shrink: 0;
+  color: #ffffff;
+}
+
+.sidebar-members-toggle__label {
+  writing-mode: vertical-rl;
+  text-orientation: upright;
+  letter-spacing: 0.12em;
+  font-size: 12px;
+  font-weight: 700;
+  line-height: 1;
+  color: #ffffff;
+  white-space: nowrap;
+  user-select: none;
 }
 
 .sidebar-members-toggle:hover {
-  border-color: var(--sidebar-rail-hover-ring);
+  background: var(--sidebar-members-tab-bg-hover, #0066d6);
+  box-shadow: -3px 3px 10px rgba(15, 23, 42, 0.22);
 }
 
-.sidebar-members-toggle:hover .sidebar-members-toggle-icon {
-  color: var(--sidebar-rail-icon-hover-color);
+.sidebar-members-toggle.is-open {
+  background: var(--sidebar-members-tab-bg-open, #0057b8);
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.18);
+}
+
+[data-theme="dark"] .sidebar-members-toggle {
+  --sidebar-members-tab-bg: #0284c7;
+  --sidebar-members-tab-bg-hover: #0369a1;
+  --sidebar-members-tab-bg-open: #075985;
+  border-color: rgba(125, 211, 252, 0.35);
 }
 
 .sidebar-theme-swatch {
