@@ -2773,15 +2773,96 @@ textarea.mm2-name-box:focus {
   overflow: hidden;
 }
 
+/* 패널 스플리터 — 상시 얇은 선 + 중앙 그립, 호버/드래그 시 강조 */
+.panel-splitter {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 10px;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  border: none;
+  background: transparent;
+  cursor: col-resize;
+  z-index: 20;
+  touch-action: none;
+}
+
+.panel-splitter__line {
+  position: absolute;
+  left: 50%;
+  top: 0;
+  bottom: 0;
+  width: 2px;
+  margin-left: -1px;
+  background: var(--accent-primary, #007aff);
+  opacity: 0.35;
+  border-radius: 1px;
+  transition: opacity 0.15s ease, background-color 0.15s ease;
+  pointer-events: none;
+}
+
+.panel-splitter__grip {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 6px;
+  height: 28px;
+  margin: -14px 0 0 -3px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 3px;
+  border-radius: 3px;
+  background: var(--surface-panel, #fff);
+  box-shadow: 0 0 0 1px rgba(0, 122, 255, 0.28);
+  pointer-events: none;
+  transition: box-shadow 0.15s ease, background-color 0.15s ease;
+}
+
+.panel-splitter__grip span {
+  display: block;
+  width: 2px;
+  height: 2px;
+  border-radius: 50%;
+  background: var(--accent-primary, #007aff);
+  opacity: 0.55;
+  transition: opacity 0.15s ease;
+}
+
+.panel-splitter:hover .panel-splitter__line,
+.panel-splitter.is-active .panel-splitter__line,
+.member-list-panel.is-resizing .panel-splitter__line {
+  opacity: 1;
+}
+
+.panel-splitter:hover .panel-splitter__grip,
+.panel-splitter.is-active .panel-splitter__grip,
+.member-list-panel.is-resizing .panel-splitter__grip {
+  box-shadow: 0 0 0 1px var(--accent-primary, #007aff);
+  background: var(--accent-light, #e8f2ff);
+}
+
+.panel-splitter:hover .panel-splitter__grip span,
+.panel-splitter.is-active .panel-splitter__grip span,
+.member-list-panel.is-resizing .panel-splitter__grip span {
+  opacity: 1;
+}
+
 .order-mgmt-splitter {
-  flex: 0 0 21px;
-  width: 21px;
+  flex: 0 0 10px;
+  width: 10px;
   align-self: stretch;
   cursor: col-resize;
   background: transparent;
   border: none;
   position: relative;
   z-index: 5;
+  padding: 0;
+  margin: 0;
+  touch-action: none;
 }
 
 .order-mgmt-splitter::before {
@@ -2792,13 +2873,46 @@ textarea.mm2-name-box:focus {
   bottom: 0;
   width: 2px;
   margin-left: -1px;
-  background: var(--accent-primary);
-  opacity: 0.45;
-  transition: opacity 0.15s, background-color 0.15s;
+  background: var(--accent-primary, #007aff);
+  opacity: 0.35;
+  border-radius: 1px;
+  transition: opacity 0.15s ease;
+  pointer-events: none;
+}
+
+.order-mgmt-splitter::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 6px;
+  height: 28px;
+  margin: -14px 0 0 -3px;
+  border-radius: 3px;
+  background:
+    radial-gradient(circle, var(--accent-primary, #007aff) 1px, transparent 1.2px) center 6px / 100% 8px no-repeat,
+    radial-gradient(circle, var(--accent-primary, #007aff) 1px, transparent 1.2px) center 14px / 100% 8px no-repeat,
+    radial-gradient(circle, var(--accent-primary, #007aff) 1px, transparent 1.2px) center 22px / 100% 8px no-repeat,
+    var(--surface-panel, #fff);
+  box-shadow: 0 0 0 1px rgba(0, 122, 255, 0.28);
+  opacity: 0.9;
+  transition: box-shadow 0.15s ease, background-color 0.15s ease, opacity 0.15s ease;
+  pointer-events: none;
 }
 
 .order-mgmt-splitter:hover::before,
 .order-mgmt-view.is-resizing .order-mgmt-splitter::before {
+  opacity: 1;
+}
+
+.order-mgmt-splitter:hover::after,
+.order-mgmt-view.is-resizing .order-mgmt-splitter::after {
+  box-shadow: 0 0 0 1px var(--accent-primary, #007aff);
+  background:
+    radial-gradient(circle, var(--accent-primary, #007aff) 1px, transparent 1.2px) center 6px / 100% 8px no-repeat,
+    radial-gradient(circle, var(--accent-primary, #007aff) 1px, transparent 1.2px) center 14px / 100% 8px no-repeat,
+    radial-gradient(circle, var(--accent-primary, #007aff) 1px, transparent 1.2px) center 22px / 100% 8px no-repeat,
+    var(--accent-light, #e8f2ff);
   opacity: 1;
 }
 

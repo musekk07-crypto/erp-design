@@ -5249,7 +5249,7 @@ export default function App() {
         {/* 왼쪽 회원목록 패널 — 회원등록 화면에서만 */}
         {memberListNavEnabled && (
         <div
-          className="member-list-panel"
+          className={`member-list-panel${isListResizing ? " is-resizing" : ""}`}
           style={{
             width: memberListOpen ? listWidth : 0,
             minWidth: memberListOpen ? listWidth : 0,
@@ -5272,16 +5272,19 @@ export default function App() {
           </div>
           {memberListOpen && (
             <div
+              className={`panel-splitter${isListResizing ? " is-active" : ""}`}
+              role="separator"
+              aria-orientation="vertical"
+              aria-label="회원목록 패널 크기 조절"
               onMouseDown={onResizeStart}
-              style={{
-                position: "absolute", top: 0, right: 0,
-                width: 5, height: "100%",
-                cursor: "col-resize", background: "transparent", zIndex: 20,
-                borderRight: "2px solid var(--border)", transition: "border-color 0.15s",
-              }}
-              onMouseEnter={(e) => (e.currentTarget.style.borderColor = "var(--accent-primary)")}
-              onMouseLeave={(e) => (e.currentTarget.style.borderColor = "var(--border)")}
-            />
+            >
+              <span className="panel-splitter__line" aria-hidden />
+              <span className="panel-splitter__grip" aria-hidden>
+                <span />
+                <span />
+                <span />
+              </span>
+            </div>
           )}
         </div>
         )}
