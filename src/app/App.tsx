@@ -253,7 +253,7 @@ function Card({
       width: CARD_W,
       height: CARD_H,
       border: isSelf ? `2px solid ${ORG_SELF_ACCENT}` : `1px solid ${BORDER_GRAY}`,
-      borderRadius: 8,
+      borderRadius: 0,
       overflow: "visible",
       background: isSelf ? "var(--org-self-bg, rgba(0, 122, 255, 0.08))" : "var(--org-card-bg)",
       display: "flex",
@@ -364,7 +364,7 @@ function ExtraBox({ label, onClick }: { label: string; onClick?: () => void }) {
       style={{
       width: CARD_W, height: EXTRA_H,
       border: `1px dashed ${BORDER_GRAY}`,
-      borderRadius: 8,
+      borderRadius: 0,
       overflow: "hidden",
       background: "var(--org-extra-bg)",
       display: "flex", alignItems: "center", justifyContent: "center",
@@ -396,7 +396,7 @@ function ChildChip({ name, id, displayId }: { name: string; id: number; displayI
       onMouseLeave={() => hover?.scheduleHide()}
       style={{
       border: `1px solid ${BORDER_GRAY}`,
-      borderRadius: 8,
+      borderRadius: 0,
       overflow: "hidden",
       background: "var(--org-card-bg)",
       display: "flex",

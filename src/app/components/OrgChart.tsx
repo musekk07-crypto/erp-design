@@ -23,7 +23,7 @@ function Card({ label, name, id, date, rank, score, isSelf = false }: {
       width: CARD_W,
       height: CARD_H,
       border: isSelf ? `2px solid ${BORDER_BLUE}` : `1px solid ${BORDER_GRAY}`,
-      borderRadius: 6,
+      borderRadius: 0,
       background: "#fff",
       textAlign: "center",
       padding: "8px 6px 6px",
@@ -56,7 +56,7 @@ function ExtraBox({ label }: { label: string }) {
     <div style={{
       width: CARD_W, height: EXTRA_H,
       border: `1px dashed ${BORDER_GRAY}`,
-      borderRadius: 6, background: "#f8fafc",
+      borderRadius: 0, background: "#f8fafc",
       display: "flex", alignItems: "center", justifyContent: "center",
       fontSize: 12, color: LABEL_GRAY, boxSizing: "border-box", flexShrink: 0,
     }}>
@@ -144,7 +144,7 @@ export function OrgChart({ memberId, memberName }: OrgChartProps) {
         {/* Child text node */}
         <foreignObject x={col3X} y={selfCenterY - 16} width={CARD_W + 2} height={34}>
           <div style={{
-            border: `1px solid ${BORDER_GRAY}`, borderRadius: 6,
+            border: `1px solid ${BORDER_GRAY}`, borderRadius: 0,
             background: "#fff", display: "flex", alignItems: "center", justifyContent: "center",
             height: 32, fontSize: 13, fontWeight: 600, color: "#1e2130",
           }}>

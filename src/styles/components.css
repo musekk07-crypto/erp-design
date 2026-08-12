@@ -1796,7 +1796,7 @@ span.member-form-action-chip {
 }
 
 .mm2-org-chart .org-chart-card {
-  border-radius: 6px;
+  border-radius: 0;
   overflow: hidden;
   box-shadow: none;
 }
@@ -2005,6 +2005,7 @@ span.member-form-action-chip {
 
 .app-content .org-chart-card {
   box-shadow: none !important;
+  border-radius: 0 !important;
 }
 
 .org-member-hover-popup {
