@@ -3460,16 +3460,16 @@ function MemberGeneralInfoForm({ member }: { member: Member }) {
             <td className={fieldCellClass}><input defaultValue={info.taxId} className="w-full rounded outline-none transition-all duration-200" style={inputStyle} {...focusProps} /></td>
           </tr>
 
-          {/* 10: 메모 (전체 폭) */}
+          {/* 10: 메모 (전체 폭, 1줄) */}
           <tr>
             <td className={labelCellClass}><span style={{ fontSize: "12px", color: "var(--form-label-color)", fontWeight: 500 }}>메모</span></td>
             <td className={fieldWideCellClass} colSpan={fieldColSpan}>
-              <textarea
+              <input
                 key={`memo-${member.id}`}
+                type="text"
                 defaultValue={info.memo || "VIP 회원. 2024년 4분기 우수판매자 선정. 분기 정산 우선 처리 요망. 사업자 등록 갱신 예정(2026-03)."}
-                rows={3}
                 className="member-form-memo w-full rounded outline-none transition-all duration-200"
-                style={{ ...inputStyle, resize: "vertical", minHeight: 64, lineHeight: 1.45 }}
+                style={inputStyle}
                 {...focusProps}
               />
             </td>
