@@ -1380,10 +1380,10 @@ export function OrderManagementView({ member }: { member: ProfileMember | null }
               <OmSectionTitle title="구입제품 목록" />
               <div className="order-mgmt-order-toolbar-shell">
                 <div className="member-info-toolbar order-mgmt-order-toolbar">
-                  <OmIconToolbarButton icon={FileText} label="문서" />
-                  <OmIconToolbarButton icon={Pencil} label="수정" />
-                  <OmIconToolbarButton icon={Trash2} label="삭제" />
-                  <OmIconToolbarButton icon={RefreshCw} label="새로고침" />
+                  <OmOrderToolbarButton icon={FileText} label="문서" />
+                  <OmOrderToolbarButton icon={Pencil} label="수정" />
+                  <OmOrderToolbarButton icon={Trash2} label="삭제" />
+                  <OmOrderToolbarButton icon={RefreshCw} label="새로고침" />
                 </div>
               </div>
               <section className="order-mgmt-section order-mgmt-section--products">
