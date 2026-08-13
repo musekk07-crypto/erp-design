@@ -3005,13 +3005,13 @@ textarea.mm2-name-box:focus {
 .order-mgmt-block-wrap--orders {
   min-height: 0;
   overflow: hidden;
-  gap: 2px;
+  gap: 0;
 }
 
 .order-mgmt-block-wrap--products {
   min-height: 0;
   overflow: hidden;
-  gap: 2px;
+  gap: 0;
 }
 
 .order-mgmt-left-lists .order-mgmt-section {
@@ -3189,8 +3189,9 @@ textarea.mm2-name-box:focus {
   flex-shrink: 0;
   width: 100%;
   max-width: 100%;
-  margin: 0 0 4px;
-  height: var(--order-mgmt-toolbar-head-height, 40px);
+  margin: 0;
+  height: auto;
+  min-height: var(--order-mgmt-control-height, 28px);
   background: transparent;
   border: none;
   border-radius: 0;
@@ -3206,7 +3207,8 @@ textarea.mm2-name-box:focus {
   border: none;
   margin: 0;
   width: 100%;
-  height: 100%;
+  height: auto;
+  min-height: var(--order-mgmt-control-height, 28px);
   padding: 0 2px;
   gap: 6px;
 }
