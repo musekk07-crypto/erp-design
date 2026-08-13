@@ -74,7 +74,8 @@ const orderListColumns: OmColumn[] = [
   { key: "note", label: "비고", width: 96 },
 ];
 
-function buildOrderListRows(member: ProfileMember) {
+function buildOrderListRows(member: ProfileMember | null) {
+  if (!member) return [];
   return [
     {
       no: 1,
@@ -243,14 +244,21 @@ function OmSectionTitle({ title }: { title: string }) {
   );
 }
 
-function OmMemberInfoTitle({ name, memberNo }: { name: string; memberNo: string }) {
+function OmMemberInfoTitle({ name, memberNo }: { name?: string; memberNo?: string }) {
+  const hasMember = Boolean(name && memberNo);
   return (
     <div className="order-mgmt-block-title">
       <span className="order-mgmt-section-bullet" aria-hidden />
       <span className="order-mgmt-member-info-title-text">
-        <span className="order-mgmt-member-info-title-name">{name}</span>
-        <span className="order-mgmt-member-info-title-no">({memberNo})</span>
-        <span className="order-mgmt-member-info-title-desc"> 회원의 일반회원정보</span>
+        {hasMember ? (
+          <>
+            <span className="order-mgmt-member-info-title-name">{name}</span>
+            <span className="order-mgmt-member-info-title-no">({memberNo})</span>
+            <span className="order-mgmt-member-info-title-desc"> 회원의 일반회원정보</span>
+          </>
+        ) : (
+          <span className="order-mgmt-member-info-title-desc">회원의 일반회원정보</span>
+        )}
       </span>
     </div>
   );
@@ -553,8 +561,12 @@ function OmFormSelectInline({ label, value, options }: { label: string; value: s
   );
 }
 
-function OmShippingInfo({ member }: { member: ProfileMember }) {
-  const address = member.region.includes("서울") ? "서울특별시 강남구 테헤란로 123" : member.region;
+function OmShippingInfo({ member }: { member: ProfileMember | null }) {
+  const address = member
+    ? member.region.includes("서울")
+      ? "서울특별시 강남구 테헤란로 123"
+      : member.region
+    : "";
 
   return (
     <div className="order-mgmt-block-wrap">
@@ -564,11 +576,11 @@ function OmShippingInfo({ member }: { member: ProfileMember }) {
           <div className="order-mgmt-shipping-detail">
             <div className="order-mgmt-shipping-detail-row order-mgmt-shipping-detail-row--divider">
               <OmFormSelectInline label="배송방법" value="직접수령" options={["직접수령", "택배", "퀵서비스"]} />
-              <OmFormFieldInline label="인수자명" value={member.name} />
+              <OmFormFieldInline label="인수자명" value={member?.name ?? ""} />
             </div>
             <div className="order-mgmt-shipping-detail-row order-mgmt-shipping-detail-row--divider">
-              <OmFormFieldInline label="인수자연락처" value="02-583-9201" />
-              <OmFormFieldInline label="핸드폰번호" value={member.phone} />
+              <OmFormFieldInline label="인수자연락처" value={member ? "02-583-9201" : ""} />
+              <OmFormFieldInline label="핸드폰번호" value={member?.phone ?? ""} />
             </div>
 
             <div className="order-mgmt-shipping-detail-row order-mgmt-shipping-detail-row--full order-mgmt-shipping-detail-row--divider">
@@ -616,8 +628,12 @@ function OmShippingInfo({ member }: { member: ProfileMember }) {
   );
 }
 
-function OmOrderBasicInfo({ member }: { member: ProfileMember }) {
-  const centerCode = member.region.includes("서울") ? "NUXIA2359" : "NUXIA2359";
+function OmOrderBasicInfo({ member }: { member: ProfileMember | null }) {
+  const centerCode = member
+    ? member.region.includes("서울")
+      ? "NUXIA2359"
+      : "NUXIA2359"
+    : "";
   const txnTypes = ["구매", "교환", "교환구매", "교환반품", "포인트", "반품"];
 
   return (
@@ -643,7 +659,11 @@ function OmOrderBasicInfo({ member }: { member: ProfileMember }) {
               ※주문일자는 매출집계에 사용되며 수당적용일이 수당계산에 사용됩니다.
             </p>
             <div className="order-mgmt-shipping-detail-row order-mgmt-shipping-detail-row--divider">
-              <OmFormSelectInline label="센터" value={centerCode} options={[centerCode]} />
+              <OmFormSelectInline
+                label="센터"
+                value={centerCode || "NUXIA2359"}
+                options={centerCode ? [centerCode] : ["NUXIA2359"]}
+              />
               <OmFormSelectInline label="고객유형" value="판매원" options={["판매원", "소비자", "일반"]} />
             </div>
             <div className="order-mgmt-shipping-detail-row order-mgmt-shipping-detail-row--divider">
@@ -729,22 +749,27 @@ function OmMemberInfoField({ label, value }: { label: string; value: string }) {
   );
 }
 
-function OmMemberInfoPanel({ member }: { member: ProfileMember }) {
-  const centerCode = member.region.includes("서울") ? "NUXIA2359" : member.region;
-  const address =
-    member.region === "서울 강남"
+function OmMemberInfoPanel({ member }: { member: ProfileMember | null }) {
+  const centerCode = member
+    ? member.region.includes("서울")
+      ? "NUXIA2359"
+      : member.region
+    : "";
+  const address = member
+    ? member.region === "서울 강남"
       ? "경남 김해시 우암로 106 (건영아파트) 301동504호"
-      : `${member.region} (상세주소)`;
+      : `${member.region} (상세주소)`
+    : "";
 
   return (
     <div className="order-mgmt-block-wrap">
-      <OmMemberInfoTitle name={member.name} memberNo={member.no} />
+      <OmMemberInfoTitle name={member?.name} memberNo={member?.no} />
       <section className="order-mgmt-member-info">
         <div className="order-mgmt-member-info-grid">
-          <OmMemberInfoField label="회원번호" value={member.no} />
-          <OmMemberInfoField label="회원명" value={member.name} />
-          <OmMemberInfoField label="주민등록번호" value={member.ssn} />
-          <OmMemberInfoField label="전화번호" value={member.phone} />
+          <OmMemberInfoField label="회원번호" value={member?.no ?? ""} />
+          <OmMemberInfoField label="회원명" value={member?.name ?? ""} />
+          <OmMemberInfoField label="주민등록번호" value={member?.ssn ?? ""} />
+          <OmMemberInfoField label="전화번호" value={member?.phone ?? ""} />
           <OmMemberInfoField label="센터" value={centerCode} />
           <OmMemberInfoField label="주소지" value={address} />
         </div>
@@ -753,12 +778,27 @@ function OmMemberInfoPanel({ member }: { member: ProfileMember }) {
   );
 }
 
-export function OrderManagementView({ member }: { member: ProfileMember }) {
+export function OrderManagementView({ member }: { member: ProfileMember | null }) {
   const [selectedOrder, setSelectedOrder] = useState(1);
   const [isRightDragging, setIsRightDragging] = useState(false);
   const [rightPanelWidth, setRightPanelWidth] = useState(ORDER_MGMT_RIGHT_DEFAULT);
   const [isPanelResizing, setIsPanelResizing] = useState(false);
   const orderListRows = buildOrderListRows(member);
+  const activeProductRows = member ? productListRows : [];
+  const productSummaryRow = member
+    ? {
+        no: "",
+        code: "",
+        product: "합계",
+        point: "8,000",
+        salePrice: "113,000",
+        consumerPrice: "125,000",
+        price4: "107,000",
+        price5: "102,000",
+        price6: "98,000",
+        price7: "94,000",
+      }
+    : undefined;
   const bodyRef = useRef<HTMLDivElement>(null);
   const rightScrollRef = useRef<HTMLElement>(null);
   const rightDragState = useRef({ dragging: false, startY: 0, scrollTop: 0 });
@@ -853,7 +893,7 @@ export function OrderManagementView({ member }: { member: ProfileMember }) {
                 <span className="order-mgmt-filter-sep">~</span>
                 <input type="date" className="order-mgmt-filter-input" defaultValue="2026-06-08" />
                 <span className="order-mgmt-filter-label">인수자명</span>
-                <input type="text" className="order-mgmt-filter-input order-mgmt-filter-input--text" defaultValue={member.name} />
+                <input type="text" className="order-mgmt-filter-input order-mgmt-filter-input--text" defaultValue={member?.name ?? ""} />
                 <select className="order-mgmt-filter-input order-mgmt-filter-select" defaultValue="전체">
                   <option value="전체">전체</option>
                   <option value="출고완료">출고완료</option>
@@ -904,21 +944,10 @@ export function OrderManagementView({ member }: { member: ProfileMember }) {
 
             <OmDataTable
               columns={productListColumns}
-              rows={productListRows}
+              rows={activeProductRows}
               layout="compact"
               showFullText
-              summaryRow={{
-                no: "",
-                code: "",
-                product: "합계",
-                point: "8,000",
-                salePrice: "113,000",
-                consumerPrice: "125,000",
-                price4: "107,000",
-                price5: "102,000",
-                price6: "98,000",
-                price7: "94,000",
-              }}
+              summaryRow={productSummaryRow}
             />
             </section>
           </div>

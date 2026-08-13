@@ -4920,6 +4920,7 @@ function Sidebar({ activeNavKey, onNavChange, theme, onThemeChange }: SidebarPro
 
 export default function App() {
   const [selectedMember, setSelectedMember] = useState(20);
+  const [orderSelectedMemberId, setOrderSelectedMemberId] = useState<number | null>(null);
   const [listOpen, setListOpen] = useState(false);
   const [isListResizing, setIsListResizing] = useState(false);
   const [listWidth, setListWidth] = useState(() => clampMemberListWidth(MEMBER_LIST_DEFAULT_WIDTH));
@@ -5087,6 +5088,7 @@ export default function App() {
     setActiveMainMenu("주문관리");
     if (item === "주문서등록") {
       setActiveSidebarKey("order-register");
+      setOrderSelectedMemberId(null);
     }
     setListOpen(false);
   }, []);
@@ -5104,8 +5106,22 @@ export default function App() {
   }, []);
 
   const handleNavigateToOrderManagement = useCallback(() => {
-    handleOrderSubMenuChange("주문서등록");
-  }, [handleOrderSubMenuChange]);
+    setActiveOrderSubMenu("주문서등록");
+    setActiveMainMenu("주문관리");
+    setActiveSidebarKey("order-register");
+    setOrderSelectedMemberId(selectedMember);
+    setListOpen(false);
+  }, [selectedMember]);
+
+  const handleMemberTableSelect = useCallback(
+    (id: number) => {
+      setSelectedMember(id);
+      if (activeMainMenu === "주문관리" && activeOrderSubMenu === "주문서등록") {
+        setOrderSelectedMemberId(id);
+      }
+    },
+    [activeMainMenu, activeOrderSubMenu],
+  );
 
   const handleNavigateToOrgChart = useCallback(() => {
     handleMemberSubMenuChange("조직도인쇄");
@@ -5165,6 +5181,7 @@ export default function App() {
       case "order-register":
         setActiveMainMenu("주문관리");
         setActiveOrderSubMenu("주문서등록");
+        setOrderSelectedMemberId(null);
         setListOpen(false);
         return;
       case "org-chart":
@@ -5298,8 +5315,12 @@ export default function App() {
         >
           <div style={{ width: memberListOpen ? listWidth : MEMBER_LIST_MAX_WIDTH, height: "100%" }}>
             <MemberTable
-              selectedId={selectedMember}
-              onSelect={setSelectedMember}
+              selectedId={
+                activeMainMenu === "주문관리" && activeOrderSubMenu === "주문서등록"
+                  ? orderSelectedMemberId ?? -1
+                  : selectedMember
+              }
+              onSelect={handleMemberTableSelect}
               listOpen={memberListOpen}
               listWidth={listWidth}
             />
@@ -5360,7 +5381,14 @@ export default function App() {
             <MainMenuPlaceholder title={activeMainMenu} />
           ) : isOrderManagement ? (
             activeOrderSubMenu === "주문서등록" ? (
-              <OrderManagementView member={getMemberById(selectedMember)} />
+              <OrderManagementView
+                key={orderSelectedMemberId ?? "order-empty"}
+                member={
+                  orderSelectedMemberId == null
+                    ? null
+                    : getMemberById(orderSelectedMemberId)
+                }
+              />
             ) : (
               <div
                 className="member-subpage-placeholder"
