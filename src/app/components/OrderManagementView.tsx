@@ -852,7 +852,9 @@ function OmPaymentInfo() {
         <div className="order-mgmt-payment-table">
           <OmDataTable columns={paymentListColumns} rows={paymentListRows} layout="compact" spreadTailFrom={3} disableFiller />
         </div>
+      </section>
 
+      <section className="order-mgmt-form-box order-mgmt-cash-receipt-box" aria-label="현금영수증">
         <div className="order-mgmt-form-body order-mgmt-payment-form">
           <div className="order-mgmt-shipping-detail">
             <div className="order-mgmt-shipping-detail-row order-mgmt-shipping-detail-row--full">
