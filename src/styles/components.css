@@ -2689,44 +2689,31 @@ textarea.mm2-name-box:focus {
 }
 
 .order-mgmt-member-info-grid {
-  display: flex;
-  flex-direction: column;
-  padding: 4px 0;
-}
-
-.order-mgmt-member-info-line {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  gap: 0;
-  min-height: 36px;
-  padding: 6px 12px;
-}
-
-.order-mgmt-member-info-line + .order-mgmt-member-info-line {
-  border-top: 1px solid var(--form-field-divider, rgba(0, 0, 0, 0.1));
+  display: grid;
+  grid-template-columns: minmax(168px, 30%) minmax(0, 1fr);
 }
 
 .order-mgmt-member-info-field {
   min-width: 0;
+  min-height: 36px;
   display: flex;
   flex-direction: row;
   align-items: baseline;
   justify-content: flex-start;
   gap: 8px;
-  flex: 1 1 0;
+  padding: 8px 12px;
 }
 
-.order-mgmt-member-info-divider {
-  width: 1px;
-  height: 14px;
-  margin: 0 12px;
-  background: var(--form-field-divider, rgba(0, 0, 0, 0.15));
-  flex-shrink: 0;
-  align-self: center;
+.order-mgmt-member-info-field:nth-child(2n) {
+  border-left: 1px solid var(--form-field-divider, rgba(0, 0, 0, 0.12));
+}
+
+.order-mgmt-member-info-field:nth-child(n + 3) {
+  border-top: 1px solid var(--form-field-divider, rgba(0, 0, 0, 0.1));
 }
 
 .order-mgmt-member-info-field__label {
+  flex-shrink: 0;
   font-size: 12px;
   font-weight: 500;
   color: var(--text-muted);
@@ -2735,6 +2722,7 @@ textarea.mm2-name-box:focus {
 }
 
 .order-mgmt-member-info-field__value {
+  min-width: 0;
   font-size: 13px;
   font-weight: 400;
   color: var(--text-body);
