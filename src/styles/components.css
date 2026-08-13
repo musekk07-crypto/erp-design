@@ -2683,7 +2683,7 @@ textarea.mm2-name-box:focus {
 .order-mgmt-member-info {
   flex-shrink: 0;
   background: var(--surface-panel);
-  border: 1px solid var(--accent-primary, #007aff);
+  border: 1px solid var(--detail-tab-bar-line, #bcc4cf);
   border-radius: var(--order-mgmt-box-radius, 6px);
   overflow: hidden;
 }
