@@ -3162,6 +3162,47 @@ textarea.mm2-name-box:focus {
   border-radius: var(--order-mgmt-box-radius, 6px);
 }
 
+.order-mgmt-order-toolbar-shell--flat {
+  width: 100%;
+  max-width: 100%;
+  margin: 0 0 2px;
+  padding: 0 2px;
+  background: transparent;
+  border: none;
+}
+
+.order-mgmt-order-toolbar-shell--flat .order-mgmt-order-toolbar.member-info-toolbar {
+  background: transparent;
+  padding: 2px 0 4px;
+  gap: 4px;
+}
+
+.order-mgmt-orders-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px 16px;
+  flex-wrap: wrap;
+  flex-shrink: 0;
+  padding: 0 2px 6px;
+  min-width: 0;
+}
+
+.order-mgmt-orders-header .order-mgmt-block-title {
+  flex-shrink: 0;
+  padding: 0;
+}
+
+.order-mgmt-orders-header .order-mgmt-filter-bar--inline {
+  flex: 1 1 auto;
+  justify-content: flex-end;
+  flex-wrap: wrap;
+  row-gap: 6px;
+  column-gap: 8px;
+  min-width: 0;
+  width: auto;
+}
+
 .order-mgmt-order-toolbar.member-info-toolbar {
   background: var(--surface-panel);
   border: none;
