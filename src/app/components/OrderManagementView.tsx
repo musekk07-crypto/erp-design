@@ -22,18 +22,26 @@ const OM_CHECKBOX_PAD_LEFT = 14;
 const OM_ROW_PAD_Y = 6;
 const OM_DEFAULT_ALIGN: NonNullable<OmColumn["align"]> = "center";
 const ORDER_MGMT_SPLITTER_WIDTH = 21;
-/** 오른쪽 폼 영역 — 회원목록이 열려도 기본 너비 유지(축소 금지) */
+/** 오른쪽 폼 기본 너비 — 회원목록 오픈 시에도 레이아웃 최소폭 기준으로 사용 */
 const ORDER_MGMT_RIGHT_DEFAULT = 1000;
-const ORDER_MGMT_RIGHT_MIN = 1000;
+/** 스플리터로 오른쪽을 줄일 수 있는 최소폭 */
+const ORDER_MGMT_RIGHT_MIN = 560;
 /** 왼쪽은 표 가로스크롤로 대응하므로 최소만 보장 */
 const ORDER_MGMT_LEFT_MIN = 360;
 
 export const ORDER_MGMT_DETAIL_MIN_WIDTH =
   ORDER_MGMT_LEFT_MIN + ORDER_MGMT_SPLITTER_WIDTH + ORDER_MGMT_RIGHT_DEFAULT;
 
-function clampOrderMgmtRightWidth(width: number) {
-  // body 폭이 줄어도 오른쪽은 1000 미만으로 줄이지 않는다
-  return Math.max(ORDER_MGMT_RIGHT_MIN, width);
+function clampOrderMgmtRightWidth(width: number, bodyWidth?: number) {
+  let next = Math.max(ORDER_MGMT_RIGHT_MIN, width);
+  if (bodyWidth && bodyWidth > 0) {
+    const max = Math.max(
+      ORDER_MGMT_RIGHT_MIN,
+      bodyWidth - ORDER_MGMT_LEFT_MIN - ORDER_MGMT_SPLITTER_WIDTH,
+    );
+    next = Math.min(next, max);
+  }
+  return next;
 }
 
 type OmColumn = {
@@ -1028,8 +1036,10 @@ export function OrderManagementView({ member }: { member: ProfileMember | null }
     const startWidth = rightPanelWidth;
 
     function onMove(ev: MouseEvent) {
+      const bodyW = bodyRef.current?.clientWidth ?? 0;
       const delta = startX - ev.clientX;
-      setRightPanelWidth(clampOrderMgmtRightWidth(startWidth + delta));
+      // 스플리터를 오른쪽으로 끌면 오른쪽 폭이 줄어들고, 왼쪽이 넓어진다
+      setRightPanelWidth(clampOrderMgmtRightWidth(startWidth + delta, bodyW));
     }
 
     function onUp() {
