@@ -754,10 +754,10 @@ function OmMemberInfoPanel({ member }: { member: ProfileMember }) {
             <OmMemberInfoField label="주민등록번호" value={member.ssn} />
             <OmMemberInfoDivider />
             <OmMemberInfoField label="전화번호" value={member.phone} />
-            <OmMemberInfoDivider />
-            <OmMemberInfoField label="센터" value={centerCode} />
           </div>
           <div className="order-mgmt-member-info-line">
+            <OmMemberInfoField label="센터" value={centerCode} />
+            <OmMemberInfoDivider />
             <OmMemberInfoField label="주소지" value={address} />
           </div>
         </div>
