@@ -2765,7 +2765,8 @@ textarea.mm2-name-box:focus {
   min-width: 0;
   display: flex;
   gap: 0;
-  overflow: hidden;
+  overflow-x: auto;
+  overflow-y: hidden;
 }
 
 /* 패널 스플리터 — 상시 얇은 선 + 중앙 그립, 호버/드래그 시 강조 */

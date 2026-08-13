@@ -16,7 +16,7 @@ import { MessageSendPopup } from "./components/MessageSendPopup";
 import { NewPasswordPopup } from "./components/NewPasswordPopup";
 import { PrintPopup } from "./components/PrintPopup";
 import { MemberSavePopup } from "./components/MemberSavePopup";
-import { OrderManagementView } from "./components/OrderManagementView";
+import { OrderManagementView, ORDER_MGMT_DETAIL_MIN_WIDTH } from "./components/OrderManagementView";
 import { HomeDesktopView, type HomeShortcutKey } from "./components/HomeDesktopView";
 import { BasicManagementView } from "./components/BasicManagementView";
 import { Mm2ProfileCard, buildMm2ProfileFields } from "./components/Mm2ProfileCard";
@@ -4991,7 +4991,11 @@ export default function App() {
   const isMemberInfoTab = activeMainMenu === "회원관리" && activeTab === "회원정보";
 
   const detailPanelMinWidth = useMemo(() => {
-    if (isOrderManagement || isOrgChartScreen) {
+    if (isOrderManagement) {
+      // 회원목록이 열려도 오른쪽 폼 1000px + 왼쪽 최소폭 유지
+      return ORDER_MGMT_DETAIL_MIN_WIDTH;
+    }
+    if (isOrgChartScreen) {
       return 0;
     }
     if (isMm2MemberInfoTab) {
@@ -5354,11 +5358,13 @@ export default function App() {
                 ? detailPanelMinWidth
                 : "100%",
             minWidth: memberListOpen
-              ? isOrderManagement || isOrgChartScreen
-                ? 0
-                : isFixedDetailWidth
-                  ? ORDER_PANEL_MIN_WIDTH
-                  : detailPanelMinWidth
+              ? isOrderManagement
+                ? ORDER_MGMT_DETAIL_MIN_WIDTH
+                : isOrgChartScreen
+                  ? 0
+                  : isFixedDetailWidth
+                    ? ORDER_PANEL_MIN_WIDTH
+                    : detailPanelMinWidth
               : 0,
             flexShrink: memberListOpen ? 0 : 1,
             flexGrow: memberListOpen ? (isFixedDetailWidth ? 1 : 0) : 1,
