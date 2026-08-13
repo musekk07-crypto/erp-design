@@ -755,11 +755,17 @@ function OmShippingInfo({ member }: { member: ProfileMember | null }) {
 }
 
 function OmOrderBasicInfo({ member }: { member: ProfileMember | null }) {
-  const centerCode = member
+  const centerOptions = ["NUXIA2359", "김해", "서울"];
+  const centerValue = member
     ? member.region.includes("서울")
       ? "NUXIA2359"
-      : "NUXIA2359"
-    : "";
+      : member.region.includes("김해")
+        ? "김해"
+        : member.region || "NUXIA2359"
+    : "NUXIA2359";
+  const centerSelectOptions = centerOptions.includes(centerValue)
+    ? centerOptions
+    : [centerValue, ...centerOptions];
   const txnTypes = ["구매", "교환", "교환구매", "교환반품", "포인트", "반품"];
 
   return (
@@ -786,15 +792,35 @@ function OmOrderBasicInfo({ member }: { member: ProfileMember | null }) {
             </p>
             <div className="order-mgmt-shipping-detail-row order-mgmt-shipping-detail-row--divider">
               <OmFormSelectInline
+                label="국가"
+                value="South Korea"
+                options={["South Korea", "United States", "Japan"]}
+              />
+              <OmFormSelectInline
                 label="센터"
-                value={centerCode || "NUXIA2359"}
-                options={centerCode ? [centerCode] : ["NUXIA2359"]}
+                value={centerValue}
+                options={centerSelectOptions}
+              />
+            </div>
+            <div className="order-mgmt-shipping-detail-row order-mgmt-shipping-detail-row--divider">
+              <OmFormSelectInline
+                label="영업소"
+                value="영업소"
+                options={["영업소", "본사", "지점"]}
               />
               <OmFormSelectInline label="고객유형" value="판매원" options={["판매원", "소비자", "일반"]} />
             </div>
             <div className="order-mgmt-shipping-detail-row order-mgmt-shipping-detail-row--divider">
-              <OmFormSelectInline label="접수구분" value="방문" options={["방문", "전화", "온라인"]} />
-              <OmFormFieldInline label="주문서상태" value="주문승인" readOnly />
+              <OmFormSelectInline
+                label="접수구분"
+                value="방문"
+                options={["방문", "전화", "온라인", "오토십"]}
+              />
+              <OmFormSelectInline
+                label="주문서상태"
+                value="주문승인"
+                options={["주문승인", "구매확정", "주문접수"]}
+              />
             </div>
             <div className="order-mgmt-shipping-detail-row order-mgmt-shipping-detail-row--full">
               <OmFormFieldInline label="메모" value="" />
