@@ -3168,38 +3168,36 @@ textarea.mm2-name-box:focus {
   box-sizing: border-box;
   flex-shrink: 0;
   width: fit-content;
-  max-width: calc(100% - 4px);
-  margin: 0 0 8px 2px;
-  background: var(--surface-panel);
-  border: 1px solid var(--detail-tab-bar-line, #d8dee6);
-  border-radius: var(--order-mgmt-box-radius, 6px);
-}
-
-.order-mgmt-order-toolbar-shell--flat {
-  width: 100%;
   max-width: 100%;
-  margin: 0 0 2px;
-  padding: 0 2px;
-  background: transparent;
-  border: none;
-}
-
-.order-mgmt-order-toolbar-shell--flat .order-mgmt-order-toolbar.member-info-toolbar {
-  background: transparent;
-  padding: 2px 0 4px;
-  gap: 4px;
+  margin: 0 0 4px;
+  height: var(--order-mgmt-toolbar-head-height, 40px);
+  background: var(--surface-panel);
+  border: 1px solid var(--detail-tab-bar-line, #bcc4cf);
+  border-radius: var(--order-mgmt-box-radius, 6px);
+  overflow: hidden;
 }
 
 .order-mgmt-order-toolbar.member-info-toolbar {
-  background: var(--surface-panel);
+  display: flex;
+  align-items: center;
+  flex-wrap: nowrap;
+  background: transparent;
   border: none;
   margin: 0;
-  padding: 6px 8px 8px;
+  height: 100%;
+  padding: 0 6px;
+  gap: 2px;
 }
 
 .order-mgmt-order-toolbar .order-mgmt-order-toolbar__item {
   flex: 0 0 auto;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
   min-width: 0;
+  height: var(--order-mgmt-control-height, 28px);
+  padding: 0 8px;
+  gap: 6px;
   box-sizing: border-box;
 }
 
