@@ -720,27 +720,17 @@ function OmPaymentInfo() {
   );
 }
 
-function OmMemberInfoField({
-  label,
-  value,
-  span,
-}: {
-  label: string;
-  value: string;
-  span?: "half" | "full";
-}) {
-  const spanClass =
-    span === "half"
-      ? " order-mgmt-member-info-field--half"
-      : span === "full"
-        ? " order-mgmt-member-info-field--full"
-        : "";
+function OmMemberInfoField({ label, value }: { label: string; value: string }) {
   return (
-    <div className={`order-mgmt-member-info-field${spanClass}`}>
+    <div className="order-mgmt-member-info-field">
       <span className="order-mgmt-member-info-field__label">{label}</span>
       <span className="order-mgmt-member-info-field__value">{value}</span>
     </div>
   );
+}
+
+function OmMemberInfoDivider() {
+  return <span className="order-mgmt-member-info-divider" aria-hidden />;
 }
 
 function OmMemberInfoPanel({ member }: { member: ProfileMember }) {
@@ -755,12 +745,21 @@ function OmMemberInfoPanel({ member }: { member: ProfileMember }) {
       <OmMemberInfoTitle name={member.name} memberNo={member.no} />
       <section className="order-mgmt-member-info">
         <div className="order-mgmt-member-info-grid">
-          <OmMemberInfoField label="회원번호" value={member.no} span="half" />
-          <OmMemberInfoField label="회원명" value={member.name} span="half" />
-          <OmMemberInfoField label="주민등록번호" value={member.ssn} />
-          <OmMemberInfoField label="전화번호" value={member.phone} />
-          <OmMemberInfoField label="센터" value={centerCode} />
-          <OmMemberInfoField label="주소지" value={address} span="full" />
+          <div className="order-mgmt-member-info-line">
+            <OmMemberInfoField label="회원번호" value={member.no} />
+            <OmMemberInfoDivider />
+            <OmMemberInfoField label="회원명" value={member.name} />
+          </div>
+          <div className="order-mgmt-member-info-line">
+            <OmMemberInfoField label="주민등록번호" value={member.ssn} />
+            <OmMemberInfoDivider />
+            <OmMemberInfoField label="전화번호" value={member.phone} />
+            <OmMemberInfoDivider />
+            <OmMemberInfoField label="센터" value={centerCode} />
+          </div>
+          <div className="order-mgmt-member-info-line">
+            <OmMemberInfoField label="주소지" value={address} />
+          </div>
         </div>
       </section>
     </div>

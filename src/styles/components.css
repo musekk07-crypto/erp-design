@@ -2689,40 +2689,41 @@ textarea.mm2-name-box:focus {
 }
 
 .order-mgmt-member-info-grid {
-  display: grid;
-  grid-template-columns: repeat(6, minmax(0, 1fr));
+  display: flex;
+  flex-direction: column;
+  padding: 4px 0;
+}
+
+.order-mgmt-member-info-line {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0;
+  min-height: 36px;
+  padding: 6px 12px;
+}
+
+.order-mgmt-member-info-line + .order-mgmt-member-info-line {
+  border-top: 1px solid var(--form-field-divider, rgba(0, 0, 0, 0.1));
 }
 
 .order-mgmt-member-info-field {
   min-width: 0;
-  min-height: 40px;
   display: flex;
   flex-direction: row;
   align-items: baseline;
   justify-content: flex-start;
   gap: 8px;
-  padding: 8px 10px;
-  grid-column: span 2;
-  border-right: 1px solid var(--accent-primary, #007aff);
-  border-bottom: 1px solid var(--accent-primary, #007aff);
+  flex: 1 1 0;
 }
 
-.order-mgmt-member-info-field--half {
-  grid-column: span 3;
-}
-
-.order-mgmt-member-info-field--full {
-  grid-column: span 6;
-}
-
-.order-mgmt-member-info-field:nth-child(2),
-.order-mgmt-member-info-field:nth-child(5),
-.order-mgmt-member-info-field:nth-child(6) {
-  border-right: none;
-}
-
-.order-mgmt-member-info-field:nth-child(6) {
-  border-bottom: none;
+.order-mgmt-member-info-divider {
+  width: 1px;
+  height: 14px;
+  margin: 0 12px;
+  background: var(--form-field-divider, rgba(0, 0, 0, 0.15));
+  flex-shrink: 0;
+  align-self: center;
 }
 
 .order-mgmt-member-info-field__label {
