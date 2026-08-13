@@ -723,16 +723,20 @@ function OmPaymentInfo() {
 function OmMemberInfoField({
   label,
   value,
-  span = 1,
+  span,
 }: {
   label: string;
   value: string;
-  span?: 1 | 3;
+  span?: "half" | "full";
 }) {
+  const spanClass =
+    span === "half"
+      ? " order-mgmt-member-info-field--half"
+      : span === "full"
+        ? " order-mgmt-member-info-field--full"
+        : "";
   return (
-    <div
-      className={`order-mgmt-member-info-field${span === 3 ? " order-mgmt-member-info-field--span-3" : ""}`}
-    >
+    <div className={`order-mgmt-member-info-field${spanClass}`}>
       <span className="order-mgmt-member-info-field__label">{label}</span>
       <span className="order-mgmt-member-info-field__value">{value}</span>
     </div>
@@ -754,9 +758,9 @@ function OmMemberInfoPanel({ member }: { member: ProfileMember }) {
           <OmMemberInfoField label="회원번호" value={member.no} />
           <OmMemberInfoField label="회원명" value={member.name} />
           <OmMemberInfoField label="주민등록번호" value={member.ssn} />
-          <OmMemberInfoField label="전화번호" value={member.phone} />
-          <OmMemberInfoField label="주소지" value={address} span={3} />
-          <OmMemberInfoField label="센터" value={centerCode} />
+          <OmMemberInfoField label="전화번호" value={member.phone} span="half" />
+          <OmMemberInfoField label="센터" value={centerCode} span="half" />
+          <OmMemberInfoField label="주소지" value={address} span="full" />
         </div>
       </section>
     </div>

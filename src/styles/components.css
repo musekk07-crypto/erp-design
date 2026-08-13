@@ -2690,7 +2690,7 @@ textarea.mm2-name-box:focus {
 
 .order-mgmt-member-info-grid {
   display: grid;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
+  grid-template-columns: repeat(6, minmax(0, 1fr));
 }
 
 .order-mgmt-member-info-field {
@@ -2701,21 +2701,27 @@ textarea.mm2-name-box:focus {
   justify-content: center;
   gap: 2px;
   padding: 8px 10px;
+  grid-column: span 2;
   border-right: 1px solid var(--accent-primary, #007aff);
   border-bottom: 1px solid var(--accent-primary, #007aff);
 }
 
-.order-mgmt-member-info-field:nth-child(4),
+.order-mgmt-member-info-field--half {
+  grid-column: span 3;
+}
+
+.order-mgmt-member-info-field--full {
+  grid-column: span 6;
+}
+
+.order-mgmt-member-info-field:nth-child(3),
+.order-mgmt-member-info-field:nth-child(5),
 .order-mgmt-member-info-field:nth-child(6) {
   border-right: none;
 }
 
-.order-mgmt-member-info-field:nth-child(n + 5) {
+.order-mgmt-member-info-field:nth-child(6) {
   border-bottom: none;
-}
-
-.order-mgmt-member-info-field--span-3 {
-  grid-column: span 3;
 }
 
 .order-mgmt-member-info-field__label {
