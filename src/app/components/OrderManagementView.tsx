@@ -144,16 +144,16 @@ function buildOrderListRows(member: ProfileMember | null) {
 }
 
 const productListColumns: OmColumn[] = [
-  { key: "no", label: "No", width: 40 },
-  { key: "code", label: "번호", width: 120, cellType: "product-code" },
-  { key: "product", label: "상품정보", width: 280 },
-  { key: "point", label: "포인트", width: 88 },
-  { key: "salePrice", label: "판매가격", width: 96 },
-  { key: "consumerPrice", label: "소비자가", width: 96 },
-  { key: "price4", label: "가격4", width: 88 },
-  { key: "price5", label: "가격5", width: 88 },
-  { key: "price6", label: "가격6", width: 88 },
-  { key: "price7", label: "가격7", width: 88 },
+  { key: "no", label: "No", width: 40, align: "left" },
+  { key: "code", label: "번호", width: 120, align: "left", cellType: "product-code" },
+  { key: "product", label: "상품정보", width: 280, align: "left" },
+  { key: "point", label: "포인트", width: 88, align: "left" },
+  { key: "salePrice", label: "판매가격", width: 96, align: "left" },
+  { key: "consumerPrice", label: "소비자가", width: 96, align: "left" },
+  { key: "price4", label: "가격4", width: 88, align: "left" },
+  { key: "price5", label: "가격5", width: 88, align: "left" },
+  { key: "price6", label: "가격6", width: 88, align: "left" },
+  { key: "price7", label: "가격7", width: 88, align: "left" },
 ];
 
 const paymentListColumns: OmColumn[] = [
