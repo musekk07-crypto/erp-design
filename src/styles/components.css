@@ -2949,7 +2949,7 @@ textarea.mm2-name-box:focus {
   min-height: 0;
   display: flex;
   flex-direction: column;
-  gap: 0;
+  gap: 8px;
   overflow: hidden;
 }
 
