@@ -59,7 +59,7 @@ function getOmTableMinWidth(columns: OmColumn[]) {
   return OM_CHECKBOX_WIDTH + columns.reduce((sum, col) => sum + col.width, 0);
 }
 
-const OM_MONO_KEYS = new Set(["deductNo", "orderNo", "code", "paymentNo"]);
+const OM_MONO_KEYS = new Set(["deductNo", "orderNo", "code", "paymentNo", "accountNo", "approveNo"]);
 const OM_LINK_KEYS = new Set(["orderNo", "recipient"]);
 const OM_BOLD_KEYS = new Set(["recipient"]);
 
@@ -160,26 +160,60 @@ const productListColumns: OmColumn[] = [
 ];
 
 const paymentListColumns: OmColumn[] = [
-  { key: "no", label: "No", width: 40 },
-  { key: "code", label: "번호", width: 48 },
-  { key: "pg", label: "PG", width: 56 },
-  { key: "paymentNo", label: "결제번호", width: 140 },
-  { key: "collectionType", label: "수금구분명", width: 88 },
+  { key: "no", label: "No", width: 40, align: "left" },
+  { key: "code", label: "번호", width: 48, align: "left" },
+  { key: "pg", label: "PG", width: 72, align: "left" },
+  { key: "paymentNo", label: "결제번호", width: 140, align: "left" },
+  { key: "collectionType", label: "수금구분명", width: 88, align: "left" },
   { key: "includeAmount", label: "금액포함", width: 72, cellType: "checkbox" },
-  { key: "accountName", label: "계정명", width: 80 },
-  { key: "accountNo", label: "계정번호", width: 100 },
+  { key: "accountName", label: "계정명", width: 120, align: "left" },
+  { key: "accountNo", label: "계정번호", width: 140, align: "left" },
+  { key: "amount", label: "금액", width: 88, align: "left" },
+  { key: "installment", label: "할부개월수", width: 80, align: "left" },
+  { key: "approveNo", label: "승인번호", width: 72, align: "left" },
+  { key: "approveDate", label: "승인일자", width: 96, align: "left" },
+  { key: "expireDate", label: "만료일자", width: 96, align: "left" },
+  { key: "ownerName", label: "소유자명", width: 72, align: "left" },
+  { key: "manualSlip", label: "수기전표", width: 72, cellType: "checkbox" },
+  { key: "memo", label: "메모", width: 180, align: "left" },
 ];
 
 const paymentListRows = [
   {
     no: 1,
     code: 2,
+    pg: "카드수기",
+    paymentNo: "26041006190544",
+    collectionType: "일반",
+    includeAmount: true,
+    accountName: "신한(엘지)카드",
+    accountNo: "5155-****-****-4997",
+    amount: "159,000",
+    installment: 0,
+    approveNo: "3",
+    approveDate: "2026-04-10",
+    expireDate: "",
+    ownerName: "이광오",
+    manualSlip: true,
+    memo: "TID - 2026041017C2783760",
+  },
+  {
+    no: 2,
+    code: 3,
     pg: "현금",
     paymentNo: "26061743198512",
     collectionType: "일반",
     includeAmount: true,
     accountName: "",
     accountNo: "",
+    amount: "50,000",
+    installment: 0,
+    approveNo: "",
+    approveDate: "2026-06-17",
+    expireDate: "",
+    ownerName: "",
+    manualSlip: false,
+    memo: "",
   },
 ];
 
@@ -850,7 +884,12 @@ function OmPaymentInfo() {
         </div>
 
         <div className="order-mgmt-payment-table">
-          <OmDataTable columns={paymentListColumns} rows={paymentListRows} layout="compact" spreadTailFrom={3} disableFiller />
+          <OmDataTable
+            columns={paymentListColumns}
+            rows={paymentListRows}
+            layout="compact"
+            showFullText
+          />
         </div>
       </section>
 
