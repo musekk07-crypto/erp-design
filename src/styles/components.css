@@ -3167,7 +3167,7 @@ textarea.mm2-name-box:focus {
 .order-mgmt-order-toolbar-shell {
   box-sizing: border-box;
   flex-shrink: 0;
-  width: fit-content;
+  width: 100%;
   max-width: 100%;
   margin: 0 0 4px;
   height: var(--order-mgmt-toolbar-head-height, 40px);
@@ -3184,13 +3184,14 @@ textarea.mm2-name-box:focus {
   background: transparent;
   border: none;
   margin: 0;
+  width: 100%;
   height: 100%;
   padding: 0 6px;
   gap: 2px;
 }
 
 .order-mgmt-order-toolbar .order-mgmt-order-toolbar__item {
-  flex: 0 0 auto;
+  flex: 1 1 0;
   flex-direction: row;
   align-items: center;
   justify-content: center;
@@ -3199,6 +3200,12 @@ textarea.mm2-name-box:focus {
   padding: 0 8px;
   gap: 6px;
   box-sizing: border-box;
+}
+
+.order-mgmt-order-toolbar .order-mgmt-order-toolbar__item span {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 .order-mgmt-product-bar-title {
