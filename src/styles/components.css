@@ -3639,7 +3639,6 @@ textarea.mm2-name-box:focus {
 .order-mgmt-payment-box {
   display: flex;
   flex-direction: column;
-  padding-bottom: 12px;
 }
 
 .order-mgmt-block-wrap--payment .order-mgmt-cash-receipt-box {
@@ -3665,14 +3664,11 @@ textarea.mm2-name-box:focus {
   width: 100%;
   min-width: 0;
   min-height: 0;
-  padding: 0 0 8px;
 }
 
 .order-mgmt-payment-table .order-mgmt-table-wrap {
   flex: 1 1 auto;
-  /* 주문서 목록처럼 행 아래 빈 여백이 보이도록 최소 높이 확보 */
-  min-height: 168px;
-  max-height: 240px;
+  max-height: 200px;
   width: 100%;
   min-width: 0;
 }
@@ -3681,7 +3677,11 @@ textarea.mm2-name-box:focus {
 .order-mgmt-payment-table .order-mgmt-table-wrap--scroll-x > div {
   overflow-x: auto !important;
   overflow-y: auto !important;
-  min-height: 100%;
+}
+
+/* 스크롤바 아래가 아니라 표(tbody) 아래에만 여백 */
+.order-mgmt-payment-table .order-mgmt-table-wrap table {
+  margin-bottom: 24px;
 }
 
 .order-mgmt-payment-form {
