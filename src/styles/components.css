@@ -3348,13 +3348,20 @@ textarea.mm2-name-box:focus {
   box-sizing: border-box;
   width: 14px;
   height: 14px;
+  padding: 0;
   border: 1px solid var(--border, #c5ccd6);
+  border-radius: 0;
   background: var(--surface-panel, #fff);
   color: var(--text-body, #1e2130);
   font-size: 12px;
   font-weight: 600;
   line-height: 1;
+  cursor: pointer;
   user-select: none;
+}
+
+.order-mgmt-product-tree-toggle:hover {
+  background: var(--surface-row-hover, #f1f5f9);
 }
 
 .order-mgmt-product-code--child {

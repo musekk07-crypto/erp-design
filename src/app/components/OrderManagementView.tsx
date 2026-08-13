@@ -44,6 +44,7 @@ type OmColumn = {
 
 type OmProductRow = Record<string, string | number | boolean | undefined> & {
   depth?: 0 | 1;
+  groupId?: string;
   lineNo?: string;
   expandable?: boolean;
 };
@@ -194,6 +195,7 @@ const productListRows: OmProductRow[] = [
     price6: "170,000",
     price7: "165,000",
     depth: 0,
+    groupId: "set-1",
     expandable: true,
   },
   {
@@ -209,6 +211,7 @@ const productListRows: OmProductRow[] = [
     price6: "85,000",
     price7: "82,500",
     depth: 1,
+    groupId: "set-1",
   },
   {
     no: 3,
@@ -222,6 +225,7 @@ const productListRows: OmProductRow[] = [
     price6: "600,000",
     price7: "580,000",
     depth: 0,
+    groupId: "set-3",
     expandable: true,
   },
   {
@@ -237,16 +241,55 @@ const productListRows: OmProductRow[] = [
     price6: "300,000",
     price7: "290,000",
     depth: 1,
+    groupId: "set-3",
   },
 ];
 
-function OmProductCodeCell({ row }: { row: OmProductRow }) {
+function filterProductRowsByExpand(
+  rows: OmProductRow[],
+  expandedGroups: Record<string, boolean>,
+) {
+  const visible: OmProductRow[] = [];
+  let currentGroup: string | null = null;
+
+  for (const row of rows) {
+    if (row.depth === 0) {
+      currentGroup = row.groupId ?? null;
+      visible.push(row);
+      continue;
+    }
+    if (currentGroup && expandedGroups[currentGroup] !== false) {
+      visible.push(row);
+    }
+  }
+
+  return visible;
+}
+
+function OmProductCodeCell({
+  row,
+  expanded = true,
+  onToggle,
+}: {
+  row: OmProductRow;
+  expanded?: boolean;
+  onToggle?: () => void;
+}) {
   if (row.depth === 0 && row.expandable) {
     return (
       <span className="order-mgmt-product-code order-mgmt-product-code--parent">
-        <span className="order-mgmt-product-tree-toggle" aria-label="구성품 접기">
-          −
-        </span>
+        <button
+          type="button"
+          className="order-mgmt-product-tree-toggle"
+          aria-expanded={expanded}
+          aria-label={expanded ? "구성품 접기" : "구성품 펼치기"}
+          onClick={(e) => {
+            e.stopPropagation();
+            onToggle?.();
+          }}
+        >
+          {expanded ? "−" : "+"}
+        </button>
       </span>
     );
   }
@@ -355,6 +398,8 @@ function OmDataTable({
   spreadTailFrom,
   disableFiller = false,
   showFullText = false,
+  expandedGroups,
+  onToggleGroup,
 }: {
   columns: OmColumn[];
   rows: OmProductRow[];
@@ -365,6 +410,8 @@ function OmDataTable({
   spreadTailFrom?: number;
   disableFiller?: boolean;
   showFullText?: boolean;
+  expandedGroups?: Record<string, boolean>;
+  onToggleGroup?: (groupId: string) => void;
 }) {
   const isCompact = layout === "compact";
   const useEdgeSpread = isCompact && spreadTailFrom !== undefined && !showFullText;
@@ -506,7 +553,19 @@ function OmDataTable({
                           style={{ accentColor: "var(--checkbox-accent)", cursor: "pointer" }}
                         />
                       ) : col.cellType === "product-code" ? (
-                        <OmProductCodeCell row={row} />
+                        <OmProductCodeCell
+                          row={row}
+                          expanded={
+                            row.groupId
+                              ? expandedGroups?.[row.groupId] !== false
+                              : true
+                          }
+                          onToggle={
+                            row.groupId
+                              ? () => onToggleGroup?.(row.groupId!)
+                              : undefined
+                          }
+                        />
                       ) : (
                         row[col.key] ?? ""
                       )}
@@ -848,8 +907,14 @@ export function OrderManagementView({ member }: { member: ProfileMember | null }
   const [isRightDragging, setIsRightDragging] = useState(false);
   const [rightPanelWidth, setRightPanelWidth] = useState(ORDER_MGMT_RIGHT_DEFAULT);
   const [isPanelResizing, setIsPanelResizing] = useState(false);
+  const [expandedProductGroups, setExpandedProductGroups] = useState<Record<string, boolean>>({
+    "set-1": true,
+    "set-3": true,
+  });
   const orderListRows = buildOrderListRows(member);
-  const activeProductRows = member ? productListRows : [];
+  const activeProductRows = member
+    ? filterProductRowsByExpand(productListRows, expandedProductGroups)
+    : [];
   const productSummaryRow = member
     ? {
         no: "",
@@ -864,6 +929,13 @@ export function OrderManagementView({ member }: { member: ProfileMember | null }
         price7: "745,000",
       }
     : undefined;
+
+  const toggleProductGroup = useCallback((groupId: string) => {
+    setExpandedProductGroups((prev) => ({
+      ...prev,
+      [groupId]: prev[groupId] === false,
+    }));
+  }, []);
   const bodyRef = useRef<HTMLDivElement>(null);
   const rightScrollRef = useRef<HTMLElement>(null);
   const rightDragState = useRef({ dragging: false, startY: 0, scrollTop: 0 });
@@ -1013,6 +1085,8 @@ export function OrderManagementView({ member }: { member: ProfileMember | null }
               layout="compact"
               showFullText
               summaryRow={productSummaryRow}
+              expandedGroups={expandedProductGroups}
+              onToggleGroup={toggleProductGroup}
             />
             </section>
           </div>
