@@ -723,9 +723,18 @@ function OmFormSelectInline({ label, value, options }: { label: string; value: s
 
 function OmShippingInfo({ member }: { member: ProfileMember | null }) {
   const address = member
-    ? member.region.includes("서울")
+    ? member.region === "서울 강남"
       ? "서울특별시 강남구 테헤란로 123"
-      : member.region
+      : member.region.includes("김해") || member.region.includes("경남")
+        ? "경남 김해시 우암로 106 (건영아파트) 301동 504호"
+        : `${member.region} (상세주소)`
+    : "";
+  const zipCode = member
+    ? member.region.includes("김해") || member.region.includes("경남")
+      ? "50949"
+      : member.region.includes("서울")
+        ? "06236"
+        : ""
     : "";
 
   return (
@@ -734,13 +743,11 @@ function OmShippingInfo({ member }: { member: ProfileMember | null }) {
       <section className="order-mgmt-form-box order-mgmt-shipping-box">
         <div className="order-mgmt-form-body order-mgmt-shipping-form">
           <div className="order-mgmt-shipping-detail">
-            <div className="order-mgmt-shipping-detail-row order-mgmt-shipping-detail-row--divider">
-              <OmFormSelectInline label="배송방법" value="직접수령" options={["직접수령", "택배", "퀵서비스"]} />
+            <div className="order-mgmt-shipping-detail-row order-mgmt-shipping-detail-row--quad order-mgmt-shipping-detail-row--divider">
+              <OmFormSelectInline label="배송방법" value="택배" options={["직접수령", "택배", "퀵서비스"]} />
               <OmFormFieldInline label="인수자명" value={member?.name ?? ""} />
-            </div>
-            <div className="order-mgmt-shipping-detail-row order-mgmt-shipping-detail-row--divider">
-              <OmFormFieldInline label="인수자연락처" value={member ? "02-583-9201" : ""} />
-              <OmFormFieldInline label="핸드폰번호" value={member?.phone ?? ""} />
+              <OmFormFieldInline label="인수자연락처" value="" />
+              <OmFormFieldInline label="인수자핸드폰번호" value={member?.phone ?? ""} />
             </div>
 
             <div className="order-mgmt-shipping-detail-row order-mgmt-shipping-detail-row--full order-mgmt-shipping-detail-row--divider">
@@ -761,7 +768,7 @@ function OmShippingInfo({ member }: { member: ProfileMember | null }) {
             </div>
             <div className="order-mgmt-shipping-detail-row order-mgmt-shipping-detail-row--divider">
               <OmFormSelectInline label="배송국가" value="South Korea" options={["South Korea", "United States", "Japan"]} />
-              <OmFormFieldInline label="우편번호" value="" readOnly />
+              <OmFormFieldInline label="우편번호" value={zipCode} readOnly />
             </div>
             <div className="order-mgmt-shipping-detail-row order-mgmt-shipping-detail-row--divider">
               <OmFormFieldInline label="세금" value="0" />

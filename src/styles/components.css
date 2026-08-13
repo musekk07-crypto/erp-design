@@ -3522,6 +3522,14 @@ textarea.mm2-name-box:focus {
   grid-template-columns: 1fr;
 }
 
+.order-mgmt-shipping-detail-row--quad {
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+}
+
+.order-mgmt-shipping-form {
+  --order-mgmt-shipping-label-width: 96px;
+}
+
 .order-mgmt-shipping-detail-row--divider {
   padding-bottom: 8px;
   border-bottom: 1px solid var(--border);
