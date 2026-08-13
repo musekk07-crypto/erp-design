@@ -3171,10 +3171,10 @@ textarea.mm2-name-box:focus {
   max-width: 100%;
   margin: 0 0 4px;
   height: var(--order-mgmt-toolbar-head-height, 40px);
-  background: var(--surface-panel);
-  border: 1px solid var(--detail-tab-bar-line, #bcc4cf);
-  border-radius: var(--order-mgmt-box-radius, 6px);
-  overflow: hidden;
+  background: transparent;
+  border: none;
+  border-radius: 0;
+  overflow: visible;
 }
 
 .order-mgmt-order-toolbar.member-info-toolbar {
