@@ -677,9 +677,9 @@ span.member-form-action-chip {
   --accent-light: #e0f2fe;
   --accent-border: #bae6fd;
   --member-no-color: var(--nav-active-bg, #001673);
-  --split-table-header-bg: #e0f2fe;
-  --split-table-header-border: #bae6fd;
-  --split-table-header-fg: #1e2130;
+  --split-table-header-bg: #5a6270;
+  --split-table-header-border: #4a515c;
+  --split-table-header-fg: #f8fafc;
   --org-grade-badge-bg: #dbeafe;
   --org-grade-badge-fg: var(--nav-active-bg, #007aff);
   --section-icon-bg: #007aff;
@@ -1442,14 +1442,14 @@ span.member-form-action-chip {
 }
 
 .member-split-panel-view {
-  --split-table-header-bg: #e0f2fe;
-  --split-table-header-border: #bae6fd;
-  --split-table-header-fg: #1e2130;
+  --split-table-header-bg: #5a6270;
+  --split-table-header-border: #4a515c;
+  --split-table-header-fg: #f8fafc;
 }
 
 [data-theme="dark"] .member-split-panel-view {
-  --split-table-header-bg: #0c4a6e;
-  --split-table-header-border: #075985;
+  --split-table-header-bg: #3f4654;
+  --split-table-header-border: #2f3540;
   --split-table-header-fg: #e2e8f0;
 }
 
@@ -1468,8 +1468,8 @@ span.member-form-action-chip {
   --member-no-color: #38bdf8;
   --org-grade-badge-bg: #0c4a6e;
   --org-grade-badge-fg: #38bdf8;
-  --split-table-header-bg: #0c4a6e;
-  --split-table-header-border: #075985;
+  --split-table-header-bg: #3f4654;
+  --split-table-header-border: #2f3540;
   --split-table-header-fg: #e2e8f0;
 }
 
@@ -2660,9 +2660,9 @@ textarea.mm2-name-box:focus {
   --order-mgmt-summary-bg: #e8f5e9;
   --order-mgmt-summary-fg: #1e2130;
   --order-mgmt-summary-border: var(--border);
-  --split-table-header-bg: #e0f2fe;
-  --split-table-header-border: #bae6fd;
-  --split-table-header-fg: #1e2130;
+  --split-table-header-bg: #5a6270;
+  --split-table-header-border: #4a515c;
+  --split-table-header-fg: #f8fafc;
 }
 
 [data-theme="dark"] .order-mgmt-view {
@@ -2675,8 +2675,8 @@ textarea.mm2-name-box:focus {
   --order-mgmt-summary-fg: #ffffff;
   --order-mgmt-summary-border: var(--order-mgmt-member-info-bg);
   --surface-row-selected: #3a4458;
-  --split-table-header-bg: #0c4a6e;
-  --split-table-header-border: #075985;
+  --split-table-header-bg: #3f4654;
+  --split-table-header-border: #2f3540;
   --split-table-header-fg: #e2e8f0;
 }
 
@@ -4258,13 +4258,13 @@ textarea.mm2-name-box:focus {
 }
 
 .recommender-select-modal__table thead tr {
-  background: var(--split-table-header-bg, #e0f2fe);
-  border-bottom: 1px solid var(--split-table-header-border, #bae6fd);
+  background: var(--split-table-header-bg, #5a6270);
+  border-bottom: 1px solid var(--split-table-header-border, #4a515c);
 }
 
 .recommender-select-modal__table th {
   font-weight: 500;
-  color: var(--split-table-header-fg, #1e2130);
+  color: var(--split-table-header-fg, #f8fafc);
 }
 
 .recommender-select-modal__col-check {
