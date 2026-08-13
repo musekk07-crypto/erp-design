@@ -755,11 +755,11 @@ function OmMemberInfoPanel({ member }: { member: ProfileMember }) {
       <OmMemberInfoTitle name={member.name} memberNo={member.no} />
       <section className="order-mgmt-member-info">
         <div className="order-mgmt-member-info-grid">
-          <OmMemberInfoField label="회원번호" value={member.no} />
-          <OmMemberInfoField label="회원명" value={member.name} />
+          <OmMemberInfoField label="회원번호" value={member.no} span="half" />
+          <OmMemberInfoField label="회원명" value={member.name} span="half" />
           <OmMemberInfoField label="주민등록번호" value={member.ssn} />
-          <OmMemberInfoField label="전화번호" value={member.phone} span="half" />
-          <OmMemberInfoField label="센터" value={centerCode} span="half" />
+          <OmMemberInfoField label="전화번호" value={member.phone} />
+          <OmMemberInfoField label="센터" value={centerCode} />
           <OmMemberInfoField label="주소지" value={address} span="full" />
         </div>
       </section>

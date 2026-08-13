@@ -2715,7 +2715,7 @@ textarea.mm2-name-box:focus {
   grid-column: span 6;
 }
 
-.order-mgmt-member-info-field:nth-child(3),
+.order-mgmt-member-info-field:nth-child(2),
 .order-mgmt-member-info-field:nth-child(5),
 .order-mgmt-member-info-field:nth-child(6) {
   border-right: none;
