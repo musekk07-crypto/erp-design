@@ -1300,9 +1300,10 @@ export function OrderManagementView({ member }: { member: ProfileMember | null }
               className="order-mgmt-block-wrap order-mgmt-block-wrap--orders"
               style={{ flex: `${ordersListShare} 1 0` }}
             >
-              <div className="order-mgmt-orders-header">
-                <OmSectionTitle title="주문서 목록" />
-                <div className="order-mgmt-orders-header__filters">
+              <OmSectionTitle title="주문서 목록" />
+              <section className="order-mgmt-section order-mgmt-section--orders">
+              <div className="order-mgmt-toolbar order-mgmt-toolbar--compact order-mgmt-toolbar--orders">
+                <div className="order-mgmt-orders-filter-row">
                   <span className="order-mgmt-filter-label">검색기간</span>
                   <input type="date" className="order-mgmt-filter-input" defaultValue="2026-05-01" />
                   <span className="order-mgmt-filter-sep">~</span>
@@ -1323,7 +1324,6 @@ export function OrderManagementView({ member }: { member: ProfileMember | null }
                   </button>
                 </div>
               </div>
-              <section className="order-mgmt-section order-mgmt-section--orders">
               <OmDataTable
                 columns={orderListColumns}
                 rows={orderListRows}
