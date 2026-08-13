@@ -3005,11 +3005,13 @@ textarea.mm2-name-box:focus {
 .order-mgmt-block-wrap--orders {
   min-height: 0;
   overflow: hidden;
+  gap: 2px;
 }
 
 .order-mgmt-block-wrap--products {
   min-height: 0;
   overflow: hidden;
+  gap: 2px;
 }
 
 .order-mgmt-left-lists .order-mgmt-section {
@@ -3180,15 +3182,6 @@ textarea.mm2-name-box:focus {
 
 .order-mgmt-toolbar--product .order-mgmt-order-toolbar__item {
   flex: 0 0 auto;
-}
-
-.order-mgmt-block-wrap--orders > .order-mgmt-block-title {
-  margin-bottom: 2px;
-}
-
-.order-mgmt-block-wrap--orders > .order-mgmt-order-toolbar-shell {
-  margin-top: 6px;
-  margin-bottom: 4px;
 }
 
 .order-mgmt-order-toolbar-shell {
