@@ -783,18 +783,18 @@ function OmShippingInfo({ member }: { member: ProfileMember | null }) {
             </div>
           </div>
         </div>
-
-        <div className="order-mgmt-shipping-footer">
-          <div className="order-mgmt-meta order-mgmt-meta--shipping">
-            <span>생성일시: 2026-06-17 09:12:33 .myoffice</span>
-            <span>수정일시: 2026-06-17 14:28:01 .myoffice</span>
-          </div>
-          <button type="button" className="order-mgmt-save-btn">
-            <Save size={14} />
-            등록/저장
-          </button>
-        </div>
       </section>
+
+      <div className="order-mgmt-shipping-footer">
+        <div className="order-mgmt-meta order-mgmt-meta--shipping">
+          <span>생성일시: 2026-06-17 09:12:33 .myoffice</span>
+          <span>수정일시: 2026-06-17 14:28:01 .myoffice</span>
+        </div>
+        <button type="button" className="order-mgmt-save-btn">
+          <Save size={14} />
+          등록/저장
+        </button>
+      </div>
     </div>
   );
 }
