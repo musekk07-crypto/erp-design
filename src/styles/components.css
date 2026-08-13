@@ -3005,13 +3005,13 @@ textarea.mm2-name-box:focus {
 .order-mgmt-block-wrap--orders {
   min-height: 0;
   overflow: hidden;
-  gap: 0;
+  gap: 10px;
 }
 
 .order-mgmt-block-wrap--products {
   min-height: 0;
   overflow: hidden;
-  gap: 0;
+  gap: 10px;
 }
 
 .order-mgmt-left-lists .order-mgmt-section {
