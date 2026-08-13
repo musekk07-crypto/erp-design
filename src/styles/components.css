@@ -3393,6 +3393,11 @@ textarea.mm2-name-box:focus {
   padding-right: 8px;
 }
 
+.order-mgmt-filter-select--period {
+  min-width: 88px;
+  flex: 0 0 auto;
+}
+
 .order-mgmt-filter-sep {
   font-size: var(--order-mgmt-font-size, 14px);
   color: var(--text-muted);

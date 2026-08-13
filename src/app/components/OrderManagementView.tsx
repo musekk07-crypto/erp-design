@@ -1304,9 +1304,31 @@ export function OrderManagementView({ member }: { member: ProfileMember | null }
               <div className="order-mgmt-toolbar order-mgmt-toolbar--compact order-mgmt-toolbar--orders">
                 <div className="order-mgmt-orders-filter-row">
                   <span className="order-mgmt-filter-label">검색기간</span>
-                  <input type="date" className="order-mgmt-filter-input" defaultValue="2026-05-01" />
-                  <span className="order-mgmt-filter-sep">~</span>
-                  <input type="date" className="order-mgmt-filter-input" defaultValue="2026-06-08" />
+                  <select
+                    className="order-mgmt-filter-input order-mgmt-filter-select order-mgmt-filter-select--period"
+                    defaultValue="올해*"
+                  >
+                    <option value="오늘*">오늘*</option>
+                    <option value="7일내">7일내</option>
+                    <option value="14일내">14일내</option>
+                    <option value="한달내">한달내</option>
+                    <option value="1년내">1년내</option>
+                    <option value="이번주*">이번주*</option>
+                    <option value="이번달*">이번달*</option>
+                    <option value="올해*">올해*</option>
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                    <option value="5">5</option>
+                    <option value="6">6</option>
+                    <option value="7">7</option>
+                    <option value="8">8</option>
+                    <option value="9">9</option>
+                    <option value="10">10</option>
+                    <option value="11">11</option>
+                    <option value="12">12</option>
+                  </select>
                   <span className="order-mgmt-filter-label">인수자명</span>
                   <input
                     type="text"
