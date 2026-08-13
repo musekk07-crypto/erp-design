@@ -3135,14 +3135,13 @@ textarea.mm2-name-box:focus {
   justify-content: space-between;
   gap: 12px;
   box-sizing: border-box;
-  min-height: var(--order-mgmt-toolbar-head-height, 60px);
+  min-height: 0;
   padding: 6px 10px 8px;
   background: var(--surface-panel);
 }
 
 .order-mgmt-toolbar.order-mgmt-toolbar--orders {
   align-items: center;
-  min-height: 0;
   width: 100%;
 }
 
