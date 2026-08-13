@@ -23,7 +23,7 @@ const OM_ROW_PAD_Y = 6;
 const OM_DEFAULT_ALIGN: NonNullable<OmColumn["align"]> = "center";
 const ORDER_MGMT_SPLITTER_WIDTH = 21;
 /** 오른쪽 폼 영역 — 왼쪽 표가 넓어져도 우선 확보 */
-const ORDER_MGMT_RIGHT_DEFAULT = 980;
+const ORDER_MGMT_RIGHT_DEFAULT = 1000;
 const ORDER_MGMT_RIGHT_MIN = 560;
 /** 왼쪽은 표 가로스크롤로 대응하므로 최소만 보장 */
 const ORDER_MGMT_LEFT_MIN = 360;
