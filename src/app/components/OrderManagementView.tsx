@@ -22,12 +22,20 @@ const OM_CHECKBOX_PAD_LEFT = 14;
 const OM_ROW_PAD_Y = 6;
 const OM_DEFAULT_ALIGN: NonNullable<OmColumn["align"]> = "center";
 const ORDER_MGMT_SPLITTER_WIDTH = 21;
+const ORDER_MGMT_H_SPLITTER_HEIGHT = 12;
 /** 오른쪽 폼 기본 너비 — 회원목록 오픈 시에도 레이아웃 최소폭 기준으로 사용 */
 const ORDER_MGMT_RIGHT_DEFAULT = 1000;
 /** 스플리터로 오른쪽을 줄일 수 있는 최소폭 */
 const ORDER_MGMT_RIGHT_MIN = 560;
 /** 왼쪽은 표 가로스크롤로 대응하므로 최소만 보장 */
 const ORDER_MGMT_LEFT_MIN = 360;
+const ORDER_MGMT_ORDERS_SHARE_DEFAULT = 0.55;
+const ORDER_MGMT_ORDERS_SHARE_MIN = 0.28;
+const ORDER_MGMT_ORDERS_SHARE_MAX = 0.72;
+
+function clampOrdersListShare(share: number) {
+  return Math.max(ORDER_MGMT_ORDERS_SHARE_MIN, Math.min(ORDER_MGMT_ORDERS_SHARE_MAX, share));
+}
 
 export const ORDER_MGMT_DETAIL_MIN_WIDTH =
   ORDER_MGMT_LEFT_MIN + ORDER_MGMT_SPLITTER_WIDTH + ORDER_MGMT_RIGHT_DEFAULT;
@@ -995,6 +1003,8 @@ export function OrderManagementView({ member }: { member: ProfileMember | null }
   const [isRightDragging, setIsRightDragging] = useState(false);
   const [rightPanelWidth, setRightPanelWidth] = useState(ORDER_MGMT_RIGHT_DEFAULT);
   const [isPanelResizing, setIsPanelResizing] = useState(false);
+  const [isListSplitResizing, setIsListSplitResizing] = useState(false);
+  const [ordersListShare, setOrdersListShare] = useState(ORDER_MGMT_ORDERS_SHARE_DEFAULT);
   const [expandedProductGroups, setExpandedProductGroups] = useState<Record<string, boolean>>({
     "set-1": true,
     "set-3": true,
@@ -1025,6 +1035,7 @@ export function OrderManagementView({ member }: { member: ProfileMember | null }
     }));
   }, []);
   const bodyRef = useRef<HTMLDivElement>(null);
+  const listsStackRef = useRef<HTMLDivElement>(null);
   const rightScrollRef = useRef<HTMLElement>(null);
   const rightDragState = useRef({ dragging: false, startY: 0, scrollTop: 0 });
 
@@ -1052,13 +1063,39 @@ export function OrderManagementView({ member }: { member: ProfileMember | null }
     window.addEventListener("mouseup", onUp);
   }, [rightPanelWidth]);
 
+  const onListSplitResizeStart = useCallback((e: React.MouseEvent) => {
+    e.preventDefault();
+    e.stopPropagation();
+    const stack = listsStackRef.current;
+    if (!stack) return;
+
+    setIsListSplitResizing(true);
+    const startY = e.clientY;
+    const startShare = ordersListShare;
+    const usable = Math.max(1, stack.clientHeight - ORDER_MGMT_H_SPLITTER_HEIGHT);
+
+    function onMove(ev: MouseEvent) {
+      const deltaShare = (ev.clientY - startY) / usable;
+      setOrdersListShare(clampOrdersListShare(startShare + deltaShare));
+    }
+
+    function onUp() {
+      setIsListSplitResizing(false);
+      window.removeEventListener("mousemove", onMove);
+      window.removeEventListener("mouseup", onUp);
+    }
+
+    window.addEventListener("mousemove", onMove);
+    window.addEventListener("mouseup", onUp);
+  }, [ordersListShare]);
+
   const isRightDragTarget = (target: EventTarget | null) => {
     if (!(target instanceof HTMLElement)) return false;
     return !target.closest("input, select, textarea, button, a, label, option");
   };
 
   const onRightMouseDown = (e: React.MouseEvent<HTMLElement>) => {
-    if (isPanelResizing || e.button !== 0 || !isRightDragTarget(e.target)) return;
+    if (isPanelResizing || isListSplitResizing || e.button !== 0 || !isRightDragTarget(e.target)) return;
     rightDragState.current = {
       dragging: true,
       startY: e.clientY,
@@ -1079,8 +1116,14 @@ export function OrderManagementView({ member }: { member: ProfileMember | null }
     setIsRightDragging(false);
   };
 
+  const viewResizingClass = isPanelResizing
+    ? " is-resizing"
+    : isListSplitResizing
+      ? " is-h-resizing"
+      : "";
+
   return (
-    <div className={`order-mgmt-view${isPanelResizing ? " is-resizing" : ""}`}>
+    <div className={`order-mgmt-view${viewResizingClass}`}>
       <div className="order-mgmt-body" ref={bodyRef}>
         <div className="order-mgmt-left">
           <OmMemberInfoPanel member={member} />
@@ -1096,76 +1139,99 @@ export function OrderManagementView({ member }: { member: ProfileMember | null }
             </div>
           </div>
 
-          <div className="order-mgmt-block-wrap order-mgmt-block-wrap--orders">
-            <OmSectionTitle title="주문서 목록" />
-            <section className="order-mgmt-section order-mgmt-section--orders">
+          <div className="order-mgmt-left-lists" ref={listsStackRef}>
+            <div
+              className="order-mgmt-block-wrap order-mgmt-block-wrap--orders"
+              style={{ flex: `${ordersListShare} 1 0` }}
+            >
+              <OmSectionTitle title="주문서 목록" />
+              <section className="order-mgmt-section order-mgmt-section--orders">
 
-            <div className="order-mgmt-toolbar order-mgmt-toolbar--orders">
-              <div className="order-mgmt-filter-bar order-mgmt-filter-bar--inline">
-                <span className="order-mgmt-filter-label">검색기간</span>
-                <input type="date" className="order-mgmt-filter-input" defaultValue="2026-05-01" />
-                <span className="order-mgmt-filter-sep">~</span>
-                <input type="date" className="order-mgmt-filter-input" defaultValue="2026-06-08" />
-                <span className="order-mgmt-filter-label">인수자명</span>
-                <input type="text" className="order-mgmt-filter-input order-mgmt-filter-input--text" defaultValue={member?.name ?? ""} />
-                <select className="order-mgmt-filter-input order-mgmt-filter-select" defaultValue="전체">
-                  <option value="전체">전체</option>
-                  <option value="출고완료">출고완료</option>
-                  <option value="주문접수">주문접수</option>
-                </select>
-                <button type="button" className="order-mgmt-filter-btn" aria-label="새로고침">
-                  <RefreshCw size={14} />
-                </button>
+              <div className="order-mgmt-toolbar order-mgmt-toolbar--orders">
+                <div className="order-mgmt-filter-bar order-mgmt-filter-bar--inline">
+                  <span className="order-mgmt-filter-label">검색기간</span>
+                  <input type="date" className="order-mgmt-filter-input" defaultValue="2026-05-01" />
+                  <span className="order-mgmt-filter-sep">~</span>
+                  <input type="date" className="order-mgmt-filter-input" defaultValue="2026-06-08" />
+                  <span className="order-mgmt-filter-label">인수자명</span>
+                  <input type="text" className="order-mgmt-filter-input order-mgmt-filter-input--text" defaultValue={member?.name ?? ""} />
+                  <select className="order-mgmt-filter-input order-mgmt-filter-select" defaultValue="전체">
+                    <option value="전체">전체</option>
+                    <option value="출고완료">출고완료</option>
+                    <option value="주문접수">주문접수</option>
+                  </select>
+                  <button type="button" className="order-mgmt-filter-btn" aria-label="새로고침">
+                    <RefreshCw size={14} />
+                  </button>
+                </div>
               </div>
+
+              <OmDataTable
+                columns={orderListColumns}
+                rows={orderListRows}
+                layout="compact"
+                showFullText
+                selectedRow={selectedOrder}
+                onSelectRow={setSelectedOrder}
+              />
+              </section>
             </div>
 
-            <OmDataTable
-              columns={orderListColumns}
-              rows={orderListRows}
-              layout="compact"
-              showFullText
-              selectedRow={selectedOrder}
-              onSelectRow={setSelectedOrder}
-            />
-            </section>
-          </div>
-
-          <div className="order-mgmt-block-wrap order-mgmt-block-wrap--products">
-            <OmSectionTitle title="구입제품 목록" />
-            <section className="order-mgmt-section order-mgmt-section--products">
-
-            <div className="order-mgmt-toolbar order-mgmt-toolbar--compact order-mgmt-toolbar--product">
-              <span className="order-mgmt-product-bar-title">주문서 구입제품</span>
-              <div className="order-mgmt-product-bar-actions">
-                <span className="order-mgmt-inline-label">구매수량</span>
-                <input type="number" className="order-mgmt-qty-input" defaultValue={1} min={1} />
-                <OmToolbarButton icon={ShoppingCart} label="장바구니 추가" inline />
-                <div className="order-mgmt-toolbar-separator" aria-hidden />
-                <button type="button" className="order-mgmt-icon-btn" aria-label="문서">
-                  <FileText size={16} />
-                </button>
-                <button type="button" className="order-mgmt-icon-btn" aria-label="수정">
-                  <Pencil size={16} />
-                </button>
-                <button type="button" className="order-mgmt-icon-btn" aria-label="삭제">
-                  <Trash2 size={16} />
-                </button>
-                <button type="button" className="order-mgmt-icon-btn" aria-label="새로고침">
-                  <RefreshCw size={16} />
-                </button>
-              </div>
+            <div
+              className="order-mgmt-splitter order-mgmt-splitter--horizontal"
+              role="separator"
+              aria-orientation="horizontal"
+              aria-label="주문서·구입제품 목록 높이 조절"
+              onMouseDown={onListSplitResizeStart}
+            >
+              <span className="panel-splitter__line" aria-hidden />
+              <span className="panel-splitter__grip" aria-hidden>
+                <span />
+                <span />
+                <span />
+              </span>
             </div>
 
-            <OmDataTable
-              columns={productListColumns}
-              rows={activeProductRows}
-              layout="compact"
-              showFullText
-              summaryRow={productSummaryRow}
-              expandedGroups={expandedProductGroups}
-              onToggleGroup={toggleProductGroup}
-            />
-            </section>
+            <div
+              className="order-mgmt-block-wrap order-mgmt-block-wrap--products"
+              style={{ flex: `${1 - ordersListShare} 1 0` }}
+            >
+              <OmSectionTitle title="구입제품 목록" />
+              <section className="order-mgmt-section order-mgmt-section--products">
+
+              <div className="order-mgmt-toolbar order-mgmt-toolbar--compact order-mgmt-toolbar--product">
+                <span className="order-mgmt-product-bar-title">주문서 구입제품</span>
+                <div className="order-mgmt-product-bar-actions">
+                  <span className="order-mgmt-inline-label">구매수량</span>
+                  <input type="number" className="order-mgmt-qty-input" defaultValue={1} min={1} />
+                  <OmToolbarButton icon={ShoppingCart} label="장바구니 추가" inline />
+                  <div className="order-mgmt-toolbar-separator" aria-hidden />
+                  <button type="button" className="order-mgmt-icon-btn" aria-label="문서">
+                    <FileText size={16} />
+                  </button>
+                  <button type="button" className="order-mgmt-icon-btn" aria-label="수정">
+                    <Pencil size={16} />
+                  </button>
+                  <button type="button" className="order-mgmt-icon-btn" aria-label="삭제">
+                    <Trash2 size={16} />
+                  </button>
+                  <button type="button" className="order-mgmt-icon-btn" aria-label="새로고침">
+                    <RefreshCw size={16} />
+                  </button>
+                </div>
+              </div>
+
+              <OmDataTable
+                columns={productListColumns}
+                rows={activeProductRows}
+                layout="compact"
+                showFullText
+                summaryRow={productSummaryRow}
+                expandedGroups={expandedProductGroups}
+                onToggleGroup={toggleProductGroup}
+              />
+              </section>
+            </div>
           </div>
         </div>
 
