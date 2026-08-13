@@ -3401,6 +3401,10 @@ textarea.mm2-name-box:focus {
   font-weight: 600;
 }
 
+.order-mgmt-view .member-table-row.is-danger td {
+  color: #dc2626;
+}
+
 /* 구입제품: 상위 세트 안 구성품 — 번호는 하위에만 표시 */
 .order-mgmt-product-code {
   display: inline-flex;
