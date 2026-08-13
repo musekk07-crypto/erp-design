@@ -2634,6 +2634,221 @@ textarea.mm2-name-box:focus {
   flex-shrink: 0;
 }
 
+/* ── 주문서관리(집계) ── */
+.order-list-manage {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  min-height: 0;
+  min-width: 0;
+  padding: 10px 12px 8px;
+  box-sizing: border-box;
+  gap: 8px;
+  overflow: hidden;
+  background: var(--surface-page);
+}
+
+.order-list-manage__search {
+  flex-shrink: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 10px 12px;
+  background: var(--surface-panel);
+  border: 1px solid var(--detail-tab-bar-line, #bcc4cf);
+}
+
+.order-list-manage__search-row {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px;
+  min-width: 0;
+}
+
+.order-list-manage__label {
+  flex-shrink: 0;
+  min-width: 64px;
+  font-size: 13px;
+  color: var(--text-muted);
+  white-space: nowrap;
+}
+
+.order-list-manage__sep {
+  color: var(--text-muted);
+  font-size: 13px;
+}
+
+.order-list-manage__control {
+  box-sizing: border-box;
+  height: 28px;
+  padding: 0 8px;
+  font-size: 13px;
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  background: var(--input-background, #fff);
+  color: var(--foreground);
+}
+
+.order-list-manage__control--period {
+  min-width: 88px;
+}
+
+.order-list-manage__control--keyword {
+  flex: 1 1 220px;
+  min-width: 160px;
+}
+
+.order-list-manage__search-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  height: 28px;
+  padding: 0 14px;
+  border: none;
+  border-radius: 4px;
+  background: #2563eb;
+  color: #fff;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+.order-list-manage__search-btn:hover {
+  background: #1d4ed8;
+}
+
+.order-list-manage__chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.order-list-manage__chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  min-width: 0;
+  height: 28px;
+  padding: 0 10px;
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  background: var(--surface-panel);
+  cursor: pointer;
+  font-size: 12px;
+}
+
+.order-list-manage__chip-label {
+  color: var(--text-muted);
+  white-space: nowrap;
+}
+
+.order-list-manage__chip-value {
+  color: var(--text-body);
+  white-space: nowrap;
+}
+
+.order-list-manage__tables {
+  flex: 1;
+  min-height: 0;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: 6px;
+}
+
+.order-list-manage__pane {
+  min-width: 0;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  background: var(--surface-panel);
+  border: 1px solid var(--detail-tab-bar-line, #bcc4cf);
+  overflow: hidden;
+}
+
+.order-list-manage__table-scroll {
+  flex: 1;
+  min-height: 0;
+  overflow: auto;
+}
+
+.order-list-manage__table {
+  width: max-content;
+  min-width: 100%;
+  border-collapse: collapse;
+  table-layout: auto;
+}
+
+.order-list-manage__table th,
+.order-list-manage__table td {
+  padding: 6px 8px;
+  font-size: 12px;
+  border-bottom: 1px solid var(--border);
+  white-space: nowrap;
+  text-align: center;
+}
+
+.order-list-manage__table th {
+  position: sticky;
+  top: 0;
+  z-index: 1;
+  background: var(--split-table-header-bg, #5a6270);
+  color: var(--split-table-header-fg, #f8fafc);
+  font-weight: 500;
+}
+
+.order-list-manage__table td.is-check,
+.order-list-manage__table th.is-check {
+  text-align: left;
+  padding-left: 12px;
+  width: 36px;
+}
+
+.order-list-manage__table td.is-num {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+.order-list-manage__table tbody tr {
+  cursor: pointer;
+  background: var(--surface-panel);
+}
+
+.order-list-manage__table tbody tr:hover {
+  background: var(--surface-row-hover, #f3f4f6);
+}
+
+.order-list-manage__table tbody tr.is-selected {
+  background: #ffe566;
+}
+
+.order-list-manage__table tbody tr.is-selected:hover {
+  background: #ffdf4d;
+}
+
+.order-list-manage__table tbody tr.is-empty {
+  cursor: default;
+}
+
+.order-list-manage__table tbody tr.is-empty td {
+  padding: 24px 12px;
+  color: var(--text-muted);
+  text-align: center;
+}
+
+.order-list-manage__actions {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  min-height: 28px;
+}
+
+.order-list-manage__actions .order-mgmt-order-toolbar {
+  width: auto;
+}
+
 /* ── 주문관리 ── */
 .order-mgmt-view {
   display: flex;

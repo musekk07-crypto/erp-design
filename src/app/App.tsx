@@ -17,6 +17,7 @@ import { NewPasswordPopup } from "./components/NewPasswordPopup";
 import { PrintPopup } from "./components/PrintPopup";
 import { MemberSavePopup } from "./components/MemberSavePopup";
 import { OrderManagementView, ORDER_MGMT_DETAIL_MIN_WIDTH } from "./components/OrderManagementView";
+import { OrderListManageView } from "./components/OrderListManageView";
 import { HomeDesktopView, type HomeShortcutKey } from "./components/HomeDesktopView";
 import { BasicManagementView } from "./components/BasicManagementView";
 import { Mm2ProfileCard, buildMm2ProfileFields } from "./components/Mm2ProfileCard";
@@ -4946,7 +4947,7 @@ export default function App() {
   const memberListNavEnabled =
     !isHomeView &&
     ((activeMainMenu === "회원관리" && (activeMemberSubMenu === "회원등록" || activeMemberSubMenu === "조직도인쇄")) ||
-      (activeMainMenu === "주문관리" && activeOrderSubMenu !== "주문서승인"));
+      (activeMainMenu === "주문관리" && activeOrderSubMenu === "주문서등록"));
   const memberListOpen = memberListNavEnabled && listOpen;
 
   const showMembersNav =
@@ -4991,7 +4992,7 @@ export default function App() {
   const isMemberInfoTab = activeMainMenu === "회원관리" && activeTab === "회원정보";
 
   const detailPanelMinWidth = useMemo(() => {
-    if (isOrderManagement) {
+    if (isOrderManagement && activeOrderSubMenu === "주문서등록") {
       // 회원목록이 열려도 오른쪽 폼 1000px + 왼쪽 최소폭 유지
       return ORDER_MGMT_DETAIL_MIN_WIDTH;
     }
@@ -5005,11 +5006,11 @@ export default function App() {
       return getDetailPanelWidth(formColumnWidth);
     }
     return ORDER_PANEL_MIN_WIDTH;
-  }, [isOrderManagement, isOrgChartScreen, isMm2MemberInfoTab, isMemberInfoTab, formColumnWidth]);
+  }, [isOrderManagement, activeOrderSubMenu, isOrgChartScreen, isMm2MemberInfoTab, isMemberInfoTab, formColumnWidth]);
 
   const isFixedDetailWidth =
     memberListOpen &&
-    (isOrderManagement ||
+    ((isOrderManagement && activeOrderSubMenu === "주문서등록") ||
       isOrgChartScreen ||
       (activeMainMenu === "회원관리" && !isMemberInfoTab) ||
       (activeMainMenu === "회원관리2" && !isMm2MemberInfoTab));
@@ -5395,6 +5396,8 @@ export default function App() {
                     : getMemberById(orderSelectedMemberId)
                 }
               />
+            ) : activeOrderSubMenu === "주문서관리" ? (
+              <OrderListManageView />
             ) : (
               <div
                 className="member-subpage-placeholder"
