@@ -3681,7 +3681,7 @@ textarea.mm2-name-box:focus {
 
 /* 스크롤바 아래가 아니라 표(tbody) 아래에만 여백 */
 .order-mgmt-payment-table .order-mgmt-table-wrap table {
-  margin-bottom: 24px;
+  margin-bottom: 40px;
 }
 
 .order-mgmt-payment-form {
