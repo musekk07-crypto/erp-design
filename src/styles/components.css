@@ -3179,21 +3179,28 @@ textarea.mm2-name-box:focus {
 
 .order-mgmt-orders-header {
   display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 10px 16px;
-  flex-wrap: wrap;
+  flex-direction: column;
+  gap: 6px;
   flex-shrink: 0;
   padding: 0 2px 6px;
   min-width: 0;
 }
 
-.order-mgmt-orders-header .order-mgmt-block-title {
+.order-mgmt-orders-header__top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px 16px;
+  flex-wrap: wrap;
+  min-width: 0;
+}
+
+.order-mgmt-orders-header__top .order-mgmt-block-title {
   flex-shrink: 0;
   padding: 0;
 }
 
-.order-mgmt-orders-header .order-mgmt-filter-bar--inline {
+.order-mgmt-orders-header__top .order-mgmt-filter-bar--inline {
   flex: 1 1 auto;
   justify-content: flex-end;
   flex-wrap: wrap;
@@ -3201,6 +3208,22 @@ textarea.mm2-name-box:focus {
   column-gap: 8px;
   min-width: 0;
   width: auto;
+}
+
+.order-mgmt-orders-header__bottom {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 8px;
+  min-width: 0;
+  width: 100%;
+}
+
+.order-mgmt-orders-header__bottom .order-mgmt-filter-input--recipient {
+  flex: 1 1 auto;
+  width: auto;
+  min-width: 140px;
+  max-width: none;
 }
 
 .order-mgmt-order-toolbar.member-info-toolbar {

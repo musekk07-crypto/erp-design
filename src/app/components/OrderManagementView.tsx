@@ -1301,14 +1301,22 @@ export function OrderManagementView({ member }: { member: ProfileMember | null }
               style={{ flex: `${ordersListShare} 1 0` }}
             >
               <div className="order-mgmt-orders-header">
-                <OmSectionTitle title="주문서 목록" />
-                <div className="order-mgmt-filter-bar order-mgmt-filter-bar--inline">
-                  <span className="order-mgmt-filter-label">검색기간</span>
-                  <input type="date" className="order-mgmt-filter-input" defaultValue="2026-05-01" />
-                  <span className="order-mgmt-filter-sep">~</span>
-                  <input type="date" className="order-mgmt-filter-input" defaultValue="2026-06-08" />
+                <div className="order-mgmt-orders-header__top">
+                  <OmSectionTitle title="주문서 목록" />
+                  <div className="order-mgmt-filter-bar order-mgmt-filter-bar--inline">
+                    <span className="order-mgmt-filter-label">검색기간</span>
+                    <input type="date" className="order-mgmt-filter-input" defaultValue="2026-05-01" />
+                    <span className="order-mgmt-filter-sep">~</span>
+                    <input type="date" className="order-mgmt-filter-input" defaultValue="2026-06-08" />
+                  </div>
+                </div>
+                <div className="order-mgmt-orders-header__bottom">
                   <span className="order-mgmt-filter-label">인수자명</span>
-                  <input type="text" className="order-mgmt-filter-input order-mgmt-filter-input--text" defaultValue={member?.name ?? ""} />
+                  <input
+                    type="text"
+                    className="order-mgmt-filter-input order-mgmt-filter-input--text order-mgmt-filter-input--recipient"
+                    defaultValue={member?.name ?? ""}
+                  />
                   <select className="order-mgmt-filter-input order-mgmt-filter-select" defaultValue="전체">
                     <option value="전체">전체</option>
                     <option value="출고완료">출고완료</option>
