@@ -3182,6 +3182,15 @@ textarea.mm2-name-box:focus {
   flex: 0 0 auto;
 }
 
+.order-mgmt-block-wrap--orders > .order-mgmt-block-title {
+  margin-bottom: 2px;
+}
+
+.order-mgmt-block-wrap--orders > .order-mgmt-order-toolbar-shell {
+  margin-top: 6px;
+  margin-bottom: 4px;
+}
+
 .order-mgmt-order-toolbar-shell {
   box-sizing: border-box;
   flex-shrink: 0;
