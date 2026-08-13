@@ -62,7 +62,7 @@ const OM_BOLD_KEYS = new Set(["recipient"]);
 
 const orderListColumns: OmColumn[] = [
   { key: "no", label: "No", width: 36, align: "left" },
-  { key: "deductNo", label: "공제번호", width: 88, align: "left" },
+  { key: "deductNo", label: "공제번호", width: 156, align: "left" },
   { key: "deductStatus", label: "공제신고상태명", width: 100, align: "left" },
   { key: "orderNo", label: "주문서번호", width: 96, align: "left" },
   { key: "orderDate", label: "주문일자", width: 84, align: "left" },
@@ -85,7 +85,7 @@ function buildOrderListRows(member: ProfileMember | null) {
   return [
     {
       no: 1,
-      deductNo: "D202605001",
+      deductNo: "45972605060200251",
       deductStatus: "신고완료",
       orderNo: "O20260512001",
       orderDate: "2026-05-12",
@@ -104,7 +104,7 @@ function buildOrderListRows(member: ProfileMember | null) {
     },
     {
       no: 2,
-      deductNo: "D202605002",
+      deductNo: "",
       deductStatus: "신고대기",
       orderNo: "O20260513002",
       orderDate: "2026-05-13",
@@ -123,7 +123,7 @@ function buildOrderListRows(member: ProfileMember | null) {
     },
     {
       no: 3,
-      deductNo: "D202605003",
+      deductNo: "45972604050200020",
       deductStatus: "신고완료",
       orderNo: "O20260514003",
       orderDate: "2026-05-14",
