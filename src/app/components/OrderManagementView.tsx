@@ -1284,15 +1284,13 @@ export function OrderManagementView({ member }: { member: ProfileMember | null }
         <div className="order-mgmt-left">
           <OmMemberInfoPanel member={member} />
 
-          
-
           <div className="order-mgmt-left-lists" ref={listsStackRef}>
             <div
               className="order-mgmt-block-wrap order-mgmt-block-wrap--orders"
               style={{ flex: `${ordersListShare} 1 0` }}
             >
               <OmSectionTitle title="주문서 목록" />
-                            <div className="order-mgmt-order-toolbar-shell">
+              <div className="order-mgmt-order-toolbar-shell">
                 <div className="member-info-toolbar order-mgmt-order-toolbar">
                   <OmOrderToolbarButton icon={FilePlus} label="새로 주문하기" />
                   <OmOrderToolbarButton icon={FileText} label="거래명세서" />
