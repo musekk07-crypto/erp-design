@@ -1301,16 +1301,12 @@ export function OrderManagementView({ member }: { member: ProfileMember | null }
               style={{ flex: `${ordersListShare} 1 0` }}
             >
               <div className="order-mgmt-orders-header">
-                <div className="order-mgmt-orders-header__top">
-                  <OmSectionTitle title="주문서 목록" />
-                  <div className="order-mgmt-filter-bar order-mgmt-filter-bar--inline">
-                    <span className="order-mgmt-filter-label">검색기간</span>
-                    <input type="date" className="order-mgmt-filter-input" defaultValue="2026-05-01" />
-                    <span className="order-mgmt-filter-sep">~</span>
-                    <input type="date" className="order-mgmt-filter-input" defaultValue="2026-06-08" />
-                  </div>
-                </div>
-                <div className="order-mgmt-orders-header__bottom">
+                <OmSectionTitle title="주문서 목록" />
+                <div className="order-mgmt-orders-header__filters">
+                  <span className="order-mgmt-filter-label">검색기간</span>
+                  <input type="date" className="order-mgmt-filter-input" defaultValue="2026-05-01" />
+                  <span className="order-mgmt-filter-sep">~</span>
+                  <input type="date" className="order-mgmt-filter-input" defaultValue="2026-06-08" />
                   <span className="order-mgmt-filter-label">인수자명</span>
                   <input
                     type="text"
