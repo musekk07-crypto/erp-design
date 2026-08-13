@@ -39,7 +39,13 @@ type OmColumn = {
   label: string;
   width: number;
   align?: "left" | "right" | "center";
-  cellType?: "checkbox";
+  cellType?: "checkbox" | "product-code";
+};
+
+type OmProductRow = Record<string, string | number | boolean | undefined> & {
+  depth?: 0 | 1;
+  lineNo?: string;
+  expandable?: boolean;
 };
 
 function getOmColumnAlign(col: OmColumn) {
@@ -139,8 +145,8 @@ function buildOrderListRows(member: ProfileMember | null) {
 
 const productListColumns: OmColumn[] = [
   { key: "no", label: "No", width: 40 },
-  { key: "code", label: "번호", width: 76 },
-  { key: "product", label: "상품정보", width: 148 },
+  { key: "code", label: "번호", width: 120, cellType: "product-code" },
+  { key: "product", label: "상품정보", width: 280 },
   { key: "point", label: "포인트", width: 88 },
   { key: "salePrice", label: "판매가격", width: 96 },
   { key: "consumerPrice", label: "소비자가", width: 96 },
@@ -174,32 +180,89 @@ const paymentListRows = [
   },
 ];
 
-const productListRows = [
+/** 상위(세트) 안에 하위 구성품이 포함된 데모 — 번호(lineNo)는 하위에만 표시 */
+const productListRows: OmProductRow[] = [
   {
     no: 1,
-    code: "6489175",
-    product: "[6489175] 테스트상품 A",
-    point: "3,000",
-    salePrice: "45,000",
-    consumerPrice: "50,000",
-    price4: "42,000",
-    price5: "40,000",
-    price6: "38,000",
-    price7: "36,000",
+    code: "",
+    product: "[1000000051_2] 뉴시아 혈당케어+ 생유산균 2박스 (총 60포입)",
+    point: "31,500",
+    salePrice: "189,000",
+    consumerPrice: "210,000",
+    price4: "180,000",
+    price5: "175,000",
+    price6: "170,000",
+    price7: "165,000",
+    depth: 0,
+    expandable: true,
   },
   {
-    no: 2,
-    code: "6489176",
-    product: "[6489176] 오메가3 캡슐",
-    point: "5,000",
-    salePrice: "68,000",
-    consumerPrice: "75,000",
-    price4: "65,000",
-    price5: "62,000",
-    price6: "60,000",
-    price7: "58,000",
+    no: "",
+    code: "260401235",
+    lineNo: "260401235",
+    product: "[0000000041] 뉴시아 혈당케어 플러스 생유산균 1박스 (30포)",
+    point: "15,750",
+    salePrice: "94,500",
+    consumerPrice: "105,000",
+    price4: "90,000",
+    price5: "87,500",
+    price6: "85,000",
+    price7: "82,500",
+    depth: 1,
+  },
+  {
+    no: 3,
+    code: "",
+    product: "[1000000051_3] 뉴시아 혈당케어+ 생유산균 선물세트 (30포입 x 4박스)",
+    point: "111,600",
+    salePrice: "669,600",
+    consumerPrice: "744,000",
+    price4: "640,000",
+    price5: "620,000",
+    price6: "600,000",
+    price7: "580,000",
+    depth: 0,
+    expandable: true,
+  },
+  {
+    no: "",
+    code: "260401236",
+    lineNo: "260401236",
+    product: "[0000000042] 뉴시아 혈당케어 플러스 생유산균 4박스 (120포)",
+    point: "55,800",
+    salePrice: "334,800",
+    consumerPrice: "372,000",
+    price4: "320,000",
+    price5: "310,000",
+    price6: "300,000",
+    price7: "290,000",
+    depth: 1,
   },
 ];
+
+function OmProductCodeCell({ row }: { row: OmProductRow }) {
+  if (row.depth === 0 && row.expandable) {
+    return (
+      <span className="order-mgmt-product-code order-mgmt-product-code--parent">
+        <span className="order-mgmt-product-tree-toggle" aria-label="구성품 접기">
+          −
+        </span>
+      </span>
+    );
+  }
+
+  if (row.depth === 1) {
+    const lineNo = String(row.lineNo ?? row.code ?? "");
+    return (
+      <span className="order-mgmt-product-code order-mgmt-product-code--child">
+        <span className="order-mgmt-product-tree-branch" aria-hidden />
+        <span className="order-mgmt-product-line-no">{lineNo}</span>
+      </span>
+    );
+  }
+
+  return <>{row.code ?? ""}</>;
+}
 
 function OmToolbarButton({
   icon: Icon,
@@ -294,7 +357,7 @@ function OmDataTable({
   showFullText = false,
 }: {
   columns: OmColumn[];
-  rows: Record<string, string | number>[];
+  rows: OmProductRow[];
   selectedRow?: number;
   onSelectRow?: (index: number) => void;
   summaryRow?: Record<string, string | number>;
@@ -442,6 +505,8 @@ function OmDataTable({
                           defaultChecked={Boolean(row[col.key])}
                           style={{ accentColor: "var(--checkbox-accent)", cursor: "pointer" }}
                         />
+                      ) : col.cellType === "product-code" ? (
+                        <OmProductCodeCell row={row} />
                       ) : (
                         row[col.key] ?? ""
                       )}
@@ -790,13 +855,13 @@ export function OrderManagementView({ member }: { member: ProfileMember | null }
         no: "",
         code: "",
         product: "합계",
-        point: "8,000",
-        salePrice: "113,000",
-        consumerPrice: "125,000",
-        price4: "107,000",
-        price5: "102,000",
-        price6: "98,000",
-        price7: "94,000",
+        point: "143,100",
+        salePrice: "858,600",
+        consumerPrice: "954,000",
+        price4: "820,000",
+        price5: "795,000",
+        price6: "770,000",
+        price7: "745,000",
       }
     : undefined;
   const bodyRef = useRef<HTMLDivElement>(null);
