@@ -1378,6 +1378,14 @@ export function OrderManagementView({ member }: { member: ProfileMember | null }
               style={{ flex: `${1 - ordersListShare} 1 0` }}
             >
               <OmSectionTitle title="구입제품 목록" />
+              <div className="order-mgmt-order-toolbar-shell">
+                <div className="member-info-toolbar order-mgmt-order-toolbar">
+                  <OmIconToolbarButton icon={FileText} label="문서" />
+                  <OmIconToolbarButton icon={Pencil} label="수정" />
+                  <OmIconToolbarButton icon={Trash2} label="삭제" />
+                  <OmIconToolbarButton icon={RefreshCw} label="새로고침" />
+                </div>
+              </div>
               <section className="order-mgmt-section order-mgmt-section--products">
               <div className="order-mgmt-toolbar order-mgmt-toolbar--compact order-mgmt-toolbar--product">
                 <div className="order-mgmt-product-filter-row">
@@ -1399,18 +1407,6 @@ export function OrderManagementView({ member }: { member: ProfileMember | null }
                   <span className="order-mgmt-filter-label">구입수량</span>
                   <input type="number" className="order-mgmt-qty-input" defaultValue={1} min={1} />
                   <OmOrderToolbarButton icon={ShoppingCart} label="장바구니 추가" />
-                  <button type="button" className="order-mgmt-icon-btn" aria-label="문서">
-                    <FileText size={16} />
-                  </button>
-                  <button type="button" className="order-mgmt-icon-btn" aria-label="수정">
-                    <Pencil size={16} />
-                  </button>
-                  <button type="button" className="order-mgmt-icon-btn" aria-label="삭제">
-                    <Trash2 size={16} />
-                  </button>
-                  <button type="button" className="order-mgmt-icon-btn" aria-label="새로고침">
-                    <RefreshCw size={16} />
-                  </button>
                 </div>
               </div>
 
