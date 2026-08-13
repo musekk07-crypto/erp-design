@@ -743,9 +743,13 @@ function OmShippingInfo({ member }: { member: ProfileMember | null }) {
       <section className="order-mgmt-form-box order-mgmt-shipping-box">
         <div className="order-mgmt-form-body order-mgmt-shipping-form">
           <div className="order-mgmt-shipping-detail">
-            <div className="order-mgmt-shipping-detail-row order-mgmt-shipping-detail-row--quad order-mgmt-shipping-detail-row--divider">
+            <div className="order-mgmt-shipping-detail-row order-mgmt-shipping-detail-row--divider">
               <OmFormSelectInline label="배송방법" value="택배" options={["직접수령", "택배", "퀵서비스"]} />
+            </div>
+            <div className="order-mgmt-shipping-detail-row order-mgmt-shipping-detail-row--full order-mgmt-shipping-detail-row--divider">
               <OmFormFieldInline label="인수자명" value={member?.name ?? ""} />
+            </div>
+            <div className="order-mgmt-shipping-detail-row order-mgmt-shipping-detail-row--divider">
               <OmFormFieldInline label="인수자연락처" value="" />
               <OmFormFieldInline label="인수자핸드폰번호" value={member?.phone ?? ""} />
             </div>
