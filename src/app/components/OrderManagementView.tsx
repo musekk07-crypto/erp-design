@@ -14,6 +14,7 @@ import {
   Save,
   Copy,
   FolderOpen,
+  Ellipsis,
 } from "lucide-react";
 import type { ProfileMember } from "./Mm2ProfileCard";
 
@@ -1378,14 +1379,26 @@ export function OrderManagementView({ member }: { member: ProfileMember | null }
             >
               <OmSectionTitle title="구입제품 목록" />
               <section className="order-mgmt-section order-mgmt-section--products">
-
               <div className="order-mgmt-toolbar order-mgmt-toolbar--compact order-mgmt-toolbar--product">
-                <span className="order-mgmt-product-bar-title">주문서 구입제품</span>
-                <div className="order-mgmt-product-bar-actions">
-                  <span className="order-mgmt-inline-label">구매수량</span>
+                <div className="order-mgmt-product-filter-row">
+                  <span className="order-mgmt-filter-label">주문서 구입제품</span>
+                  <input
+                    type="text"
+                    className="order-mgmt-filter-input order-mgmt-product-code-input"
+                    aria-label="제품코드"
+                  />
+                  <input
+                    type="text"
+                    className="order-mgmt-filter-input order-mgmt-product-name-input"
+                    aria-label="제품명"
+                    readOnly
+                  />
+                  <button type="button" className="order-mgmt-filter-btn" aria-label="제품검색">
+                    <Ellipsis size={14} />
+                  </button>
+                  <span className="order-mgmt-filter-label">구입수량</span>
                   <input type="number" className="order-mgmt-qty-input" defaultValue={1} min={1} />
-                  <OmToolbarButton icon={ShoppingCart} label="장바구니 추가" inline />
-                  <div className="order-mgmt-toolbar-separator" aria-hidden />
+                  <OmOrderToolbarButton icon={ShoppingCart} label="장바구니 추가" />
                   <button type="button" className="order-mgmt-icon-btn" aria-label="문서">
                     <FileText size={16} />
                   </button>
