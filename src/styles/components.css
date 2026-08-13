@@ -2954,6 +2954,11 @@ textarea.mm2-name-box:focus {
 
 .order-mgmt-block-wrap--payment {
   flex-shrink: 0;
+  gap: 0;
+}
+
+.order-mgmt-block-wrap--payment > .order-mgmt-block-title {
+  margin-bottom: 4px;
 }
 
 .order-mgmt-right > .order-mgmt-block-wrap--payment {
@@ -3664,7 +3669,8 @@ textarea.mm2-name-box:focus {
 }
 
 .order-mgmt-block-wrap--payment .order-mgmt-cash-receipt-box {
-  margin-top: 8px;
+  margin-top: 0;
+  border-top: none;
 }
 
 .order-mgmt-cash-receipt-box .order-mgmt-payment-form {
