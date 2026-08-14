@@ -1300,6 +1300,8 @@ export function OrderManagementView({ member }: { member: ProfileMember | null }
                   <OmOrderToolbarButton icon={Repeat2} label="교환등록" />
                   <OmOrderToolbarButton icon={CheckCircle2} label="주문서승인" />
                   <OmOrderToolbarButton icon={Ban} label="주문서취소" />
+                  <span className="order-mgmt-order-toolbar__break" aria-hidden="true" />
+                  <OmOrderToolbarButton icon={FilePlus} label="New Order" />
                 </div>
               </div>
               <section className="order-mgmt-section order-mgmt-section--orders">
