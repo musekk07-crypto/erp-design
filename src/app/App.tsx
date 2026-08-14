@@ -5749,6 +5749,15 @@ export default function App() {
       (activeMainMenu === "회원관리" && activeMemberSubMenu === "조직도인쇄") ||
       (activeMainMenu === "주문관리" && activeOrderSubMenu === "주문서등록"));
 
+  useEffect(() => {
+    if (!memberListOpen) return;
+    const onKeyDown = (event: KeyboardEvent) => {
+      if (event.key === "Escape") setListOpen(false);
+    };
+    window.addEventListener("keydown", onKeyDown);
+    return () => window.removeEventListener("keydown", onKeyDown);
+  }, [memberListOpen]);
+
   const membersRailAnchorKey: SidebarNavKey =
     activeMainMenu === "회원관리" && activeMemberSubMenu === "조직도인쇄"
       ? "org-chart"
@@ -5915,6 +5924,7 @@ export default function App() {
       if (activeMainMenu === "주문관리" && activeOrderSubMenu === "주문서등록") {
         setOrderSelectedMemberId(id);
       }
+      setListOpen(false);
     },
     [activeMainMenu, activeOrderSubMenu],
   );
@@ -6083,7 +6093,7 @@ export default function App() {
         <div
           ref={appContentRef}
           className="app-content"
-          style={{ flex: 1, overflowX: memberListOpen ? "auto" : "hidden", overflowY: "hidden", minHeight: 0, minWidth: 0 }}
+          style={{ flex: 1, overflowX: "hidden", overflowY: "hidden", minHeight: 0, minWidth: 0 }}
         >
           <div
             className="app-content-row"
@@ -6091,78 +6101,19 @@ export default function App() {
               display: "flex",
               height: "100%",
               width: "100%",
-              minWidth: memberListOpen ? contentRowMinWidth : 0,
+              minWidth: 0,
               flexShrink: 0,
             }}
           >
 
-        {/* 왼쪽 회원목록 패널 — 회원등록 화면에서만 */}
-        {memberListNavEnabled && (
-        <div
-          className={`member-list-panel${isListResizing ? " is-resizing" : ""}`}
-          style={{
-            width: memberListOpen ? listWidth : 0,
-            minWidth: memberListOpen ? listWidth : 0,
-            flexShrink: 0,
-            flexGrow: 0,
-            overflow: "hidden",
-            transition: isListResizing ? "none" : LAYOUT_TRANSITION,
-            background: "var(--surface-panel)",
-            position: "relative",
-            height: "100%",
-          }}
-        >
-          <div style={{ width: memberListOpen ? listWidth : MEMBER_LIST_MAX_WIDTH, height: "100%" }}>
-            <MemberTable
-              selectedId={
-                activeMainMenu === "주문관리" && activeOrderSubMenu === "주문서등록"
-                  ? orderSelectedMemberId ?? -1
-                  : selectedMember
-              }
-              onSelect={handleMemberTableSelect}
-              listOpen={memberListOpen}
-              listWidth={listWidth}
-            />
-          </div>
-          {memberListOpen && (
-            <div
-              className={`panel-splitter${isListResizing ? " is-active" : ""}`}
-              role="separator"
-              aria-orientation="vertical"
-              aria-label="회원목록 패널 크기 조절"
-              onMouseDown={onResizeStart}
-            >
-              <span className="panel-splitter__line" aria-hidden />
-              <span className="panel-splitter__grip" aria-hidden>
-                <span />
-                <span />
-                <span />
-              </span>
-            </div>
-          )}
-        </div>
-        )}
-
-        {/* 오른쪽 상세 패널 — 절대 축소 불가 */}
+        {/* 오른쪽 상세 패널 */}
         <div
           className="app-content-detail"
           style={{
-            width: isFixedDetailWidth
-              ? "100%"
-              : memberListOpen
-                ? detailPanelMinWidth
-                : "100%",
-            minWidth: memberListOpen
-              ? isOrderManagement
-                ? ORDER_MGMT_DETAIL_MIN_WIDTH
-                : isOrgChartScreen
-                  ? 0
-                  : isFixedDetailWidth
-                    ? ORDER_PANEL_MIN_WIDTH
-                    : detailPanelMinWidth
-              : 0,
-            flexShrink: memberListOpen ? 0 : 1,
-            flexGrow: memberListOpen ? (isFixedDetailWidth ? 1 : 0) : 1,
+            width: "100%",
+            minWidth: 0,
+            flexShrink: 1,
+            flexGrow: 1,
             display: "flex",
             flexDirection: "column",
             height: "100%",
@@ -6214,7 +6165,7 @@ export default function App() {
           ) : activeMainMenu === "회원관리2" ? (
             <MemberManagement2View
               memberId={selectedMember}
-              listOpen={memberListOpen}
+              listOpen={false}
               activeTab={activeTab}
               onTabChange={setActiveTab}
             />
@@ -6240,7 +6191,7 @@ export default function App() {
           ) : (
             <MemberManagementView
               memberId={selectedMember}
-              listOpen={memberListOpen}
+              listOpen={false}
               formColumnWidth={formColumnWidth}
               activeTab={activeTab}
               onTabChange={setActiveTab}
@@ -6252,6 +6203,47 @@ export default function App() {
           </div>
         </div>
         </div>
+
+        {memberListNavEnabled && memberListOpen ? (
+          <div
+            className="member-search-modal"
+            role="dialog"
+            aria-modal="true"
+            aria-label="회원검색"
+          >
+            <button
+              type="button"
+              className="member-search-modal__backdrop"
+              aria-label="회원검색 닫기"
+              onClick={() => setListOpen(false)}
+            />
+            <div className="member-search-modal__panel">
+              <header className="member-search-modal__header">
+                <h2 className="member-search-modal__title">회원검색</h2>
+                <button
+                  type="button"
+                  className="member-search-modal__close"
+                  aria-label="닫기"
+                  onClick={() => setListOpen(false)}
+                >
+                  <X size={16} />
+                </button>
+              </header>
+              <div className="member-search-modal__body">
+                <MemberTable
+                  selectedId={
+                    activeMainMenu === "주문관리" && activeOrderSubMenu === "주문서등록"
+                      ? orderSelectedMemberId ?? -1
+                      : selectedMember
+                  }
+                  onSelect={handleMemberTableSelect}
+                  listOpen
+                  listWidth={MEMBER_LIST_MAX_WIDTH}
+                />
+              </div>
+            </div>
+          </div>
+        ) : null}
 
         <VisitHistoryBar
           expanded={historyRailExpanded}
