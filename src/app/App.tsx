@@ -5694,21 +5694,23 @@ function Sidebar({
               isActive={activeNavKey === item.key}
               expanded={expanded}
               onClick={() => handleNavClick(item.key)}
-              onRemove={() => onRemoveShortcut(item.key)}
+              onRemove={expanded ? () => onRemoveShortcut(item.key) : undefined}
             >
               <item.icon size={18} className="sidebar-nav-item-icon" />
             </SidebarNavButton>
           );
         })}
 
-        <SidebarNavButton
-          label="바로가기 추가"
-          isActive={false}
-          expanded={expanded}
-          onClick={() => handleNavClick("add-shortcut")}
-        >
-          <Plus size={18} className="sidebar-nav-item-icon" />
-        </SidebarNavButton>
+        {expanded ? (
+          <SidebarNavButton
+            label="바로가기 추가"
+            isActive={false}
+            expanded={expanded}
+            onClick={() => handleNavClick("add-shortcut")}
+          >
+            <Plus size={18} className="sidebar-nav-item-icon" />
+          </SidebarNavButton>
+        ) : null}
       </div>
 
       <div className={`app-sidebar__bottom${expanded ? " is-expanded" : ""}`}>

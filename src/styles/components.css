@@ -7559,6 +7559,10 @@ textarea.mm2-name-box:focus {
 }
 
 .sidebar-nav-item-wrap:hover .sidebar-nav-item-remove {
+  display: none;
+}
+
+.app-sidebar.is-expanded .sidebar-nav-item-wrap:hover .sidebar-nav-item-remove {
   display: inline-flex;
 }
 
