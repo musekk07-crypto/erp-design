@@ -6981,7 +6981,7 @@ textarea.mm2-name-box:focus {
 
 .sidebar-nav-tooltip {
   position: absolute;
-  left: 44px;
+  left: calc(100% + 4px);
   top: 50%;
   transform: translateY(-50%);
   padding: 5px 9px;
@@ -7006,10 +7006,9 @@ textarea.mm2-name-box:focus {
   display: none;
 }
 
-.sidebar-theme-swatch .sidebar-nav-tooltip,
 .sidebar-theme-tooltip {
   position: absolute;
-  left: 44px;
+  left: calc(100% + 4px);
   top: 50%;
   transform: translateY(-50%);
   padding: 5px 9px;
