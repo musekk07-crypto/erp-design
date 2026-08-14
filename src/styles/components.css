@@ -6725,6 +6725,7 @@ textarea.mm2-name-box:focus {
   align-items: center;
   justify-content: center;
   position: relative;
+  box-sizing: border-box;
   width: 40px;
   height: 40px;
   padding: 0;
@@ -6869,28 +6870,31 @@ textarea.mm2-name-box:focus {
   font-weight: 500;
 }
 
-/* 회원검색 — 메뉴 아이템이 아닌 검색창 스타일 */
+/* 회원검색 — 메뉴 아이템과 동일한 40×40 / 1px 테두리 박스 */
 .sidebar-member-search {
   display: inline-flex;
   align-items: center;
   justify-content: center;
+  position: relative;
+  box-sizing: border-box;
   gap: 8px;
   width: 40px;
-  height: 36px;
-  margin: 0 0 8px;
+  height: 40px;
+  margin: 0 0 4px;
   padding: 0;
-  border: none;
+  border: 1px solid transparent;
   border-radius: 0;
   background: #ffe566;
   color: #1e2130;
   cursor: pointer;
   flex-shrink: 0;
-  transition: background 0.15s ease, border-color 0.15s ease, box-shadow 0.15s ease;
+  transition: background 0.15s ease, border-color 0.15s ease, width 0.18s ease;
 }
 
 .app-sidebar.is-expanded .sidebar-member-search {
   width: 100%;
   justify-content: flex-start;
+  gap: 10px;
   padding: 0 10px;
 }
 
@@ -6909,10 +6913,12 @@ textarea.mm2-name-box:focus {
 
 .sidebar-member-search:hover {
   background: #ffdf4d;
+  border-color: transparent;
 }
 
 .sidebar-member-search.is-open {
   background: #ffdf4d;
+  border-color: transparent;
   box-shadow: none;
 }
 
@@ -6981,7 +6987,8 @@ textarea.mm2-name-box:focus {
 
 .sidebar-nav-tooltip {
   position: absolute;
-  left: calc(100% + 4px);
+  /* padding edge(100%) + 1px border + 4px gap */
+  left: calc(100% + 5px);
   top: 50%;
   transform: translateY(-50%);
   padding: 5px 9px;
@@ -7008,7 +7015,7 @@ textarea.mm2-name-box:focus {
 
 .sidebar-theme-tooltip {
   position: absolute;
-  left: calc(100% + 4px);
+  left: calc(100% + 5px);
   top: 50%;
   transform: translateY(-50%);
   padding: 5px 9px;
