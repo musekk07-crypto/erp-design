@@ -3025,8 +3025,8 @@ textarea.mm2-name-box:focus {
 
 .order-mgmt-member-info-grid {
   display: grid;
-  /* 왼쪽(주민번호)이 잘리지 않게 최소폭·비율 확보, 오른쪽은 소폭만 */
-  grid-template-columns: minmax(268px, 1.25fr) minmax(200px, 1.1fr);
+  /* 왼쪽(회원번호·주민번호·센터)은 최소폭만, 오른쪽(회원명·전화·주소)을 넓게 */
+  grid-template-columns: minmax(248px, 0.85fr) minmax(260px, 1.4fr);
 }
 
 .order-mgmt-member-info-field {
