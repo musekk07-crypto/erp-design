@@ -6724,6 +6724,7 @@ textarea.mm2-name-box:focus {
   display: inline-flex;
   align-items: center;
   justify-content: center;
+  position: relative;
   width: 40px;
   height: 40px;
   padding: 0;
@@ -6732,6 +6733,12 @@ textarea.mm2-name-box:focus {
   background: transparent;
   cursor: pointer;
   transition: background 0.15s ease, border-color 0.15s ease, color 0.15s ease, width 0.18s ease;
+}
+
+.app-sidebar:not(.is-expanded) .sidebar-nav-item:hover,
+.app-sidebar:not(.is-expanded) .sidebar-member-search:hover,
+.app-sidebar:not(.is-expanded) .sidebar-theme-swatch:hover {
+  z-index: 90;
 }
 
 .app-sidebar {
@@ -6778,6 +6785,13 @@ textarea.mm2-name-box:focus {
   margin-top: auto;
   padding-top: 4px;
   overflow: hidden;
+}
+
+/* 접힘: 아이콘 호버 검정 툴팁이 nav/bottom에서 잘리지 않도록 */
+.app-sidebar:not(.is-expanded) .app-sidebar__nav,
+.app-sidebar:not(.is-expanded) .app-sidebar__bottom,
+.app-sidebar:not(.is-expanded) .app-sidebar__themes {
+  overflow: visible;
 }
 
 .app-sidebar__nav.is-expanded,
