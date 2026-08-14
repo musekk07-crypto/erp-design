@@ -3563,8 +3563,8 @@ textarea.mm2-name-box:focus {
   height: auto;
   min-height: var(--order-mgmt-control-height, 28px);
   padding: 0 2px;
-  gap: 8px;
-  row-gap: 8px;
+  gap: 6px;
+  row-gap: 6px;
 }
 
 .order-mgmt-order-toolbar .order-mgmt-order-toolbar__item,
