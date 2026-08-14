@@ -1168,13 +1168,7 @@ function OmMemberInfoPanel({ member }: { member: ProfileMember | null }) {
   );
 }
 
-export function OrderManagementView({
-  member,
-  onOpenMemberSearch,
-}: {
-  member: ProfileMember | null;
-  onOpenMemberSearch?: () => void;
-}) {
+export function OrderManagementView({ member }: { member: ProfileMember | null }) {
   const [selectedOrder, setSelectedOrder] = useState(1);
   const [isRightDragging, setIsRightDragging] = useState(false);
   const [rightPanelWidth, setRightPanelWidth] = useState(ORDER_MGMT_RIGHT_DEFAULT);
@@ -1312,7 +1306,6 @@ export function OrderManagementView({
               <OmSectionTitle title="주문서 목록" />
               <div className="order-mgmt-order-toolbar-shell">
                 <div className="member-info-toolbar order-mgmt-order-toolbar">
-                  <OmOrderToolbarButton icon={Search} label="회원검색" onClick={onOpenMemberSearch} />
                   <OmOrderToolbarButton icon={FilePlus} label="새로 주문하기" />
                   <OmOrderToolbarButton icon={FileText} label="거래명세서" />
                   <OmOrderToolbarButton icon={RotateCcw} label="반품등록" />

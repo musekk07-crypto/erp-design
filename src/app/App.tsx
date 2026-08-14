@@ -3788,7 +3788,6 @@ function MemberManagementView({
   onTabChange,
   onNavigateToOrderManagement,
   onNavigateToOrgChart,
-  onOpenMemberSearch,
 }: {
   memberId: number;
   listOpen: boolean;
@@ -3797,7 +3796,6 @@ function MemberManagementView({
   onTabChange: (tab: string) => void;
   onNavigateToOrderManagement?: () => void;
   onNavigateToOrgChart?: () => void;
-  onOpenMemberSearch?: () => void;
 }) {
   const member = getMemberById(memberId);
   const isMemberInfoTab = activeTab === "회원정보";
@@ -3820,10 +3818,6 @@ function MemberManagementView({
   }, [memberId]);
 
   function handleToolbarAction(label: string) {
-    if (label === "회원검색") {
-      onOpenMemberSearch?.();
-      return;
-    }
     if (label === "조직도") {
       onNavigateToOrgChart?.();
     }
@@ -4784,7 +4778,6 @@ const orderSubMenuColumns: NavSubMenuColumn[] = [
 const subTabs = ["회원정보", "주문서내역", "수당내역", "로그히스토리", "상담내역", "마일리지", "사용자설정", "마이페이지"];
 
 const memberInfoToolbarItems = [
-  { label: "회원검색", icon: Search },
   { label: "새로 만들기", icon: FilePlus },
   { label: "저장", icon: Save },
   { label: "삭제", icon: Trash2 },
@@ -5555,6 +5548,27 @@ function SidebarNavButton({
   );
 }
 
+function MemberSearchEdgeTab({
+  isOpen,
+  onClick,
+}: {
+  isOpen: boolean;
+  onClick: () => void;
+}) {
+  return (
+    <button
+      type="button"
+      aria-label="회원검색"
+      aria-pressed={isOpen}
+      onClick={onClick}
+      className={`member-search-edge-tab${isOpen ? " is-open" : ""}`}
+    >
+      <Search size={15} className="member-search-edge-tab__icon" strokeWidth={2.4} aria-hidden />
+      <span className="member-search-edge-tab__label">회원검색</span>
+    </button>
+  );
+}
+
 function Sidebar({
   activeNavKey,
   onNavChange,
@@ -6019,8 +6033,22 @@ export default function App() {
         <div
           ref={appContentRef}
           className="app-content"
-          style={{ flex: 1, overflowX: "hidden", overflowY: "hidden", minHeight: 0, minWidth: 0 }}
+          style={{
+            flex: 1,
+            overflowX: "hidden",
+            overflowY: "hidden",
+            minHeight: 0,
+            minWidth: 0,
+            position: "relative",
+          }}
         >
+          {memberListNavEnabled ? (
+            <MemberSearchEdgeTab
+              isOpen={memberListOpen}
+              onClick={() => setListOpen((open) => !open)}
+            />
+          ) : null}
+
           <div
             className="app-content-row"
             style={{
@@ -6067,7 +6095,6 @@ export default function App() {
                     ? null
                     : getMemberById(orderSelectedMemberId)
                 }
-                onOpenMemberSearch={() => setListOpen(true)}
               />
             ) : activeOrderSubMenu === "주문서관리" ? (
               <OrderListManageView />
@@ -6097,10 +6124,7 @@ export default function App() {
               onTabChange={setActiveTab}
             />
           ) : activeMainMenu === "회원관리" && activeMemberSubMenu === "조직도인쇄" ? (
-            <MemberOrgChartView
-              member={getMemberById(selectedMember)}
-              onOpenMemberSearch={() => setListOpen(true)}
-            />
+            <MemberOrgChartView member={getMemberById(selectedMember)} />
           ) : activeMainMenu === "회원관리" && activeMemberSubMenu !== "회원등록" ? (
             <div
               className="member-subpage-placeholder"
@@ -6127,7 +6151,6 @@ export default function App() {
               onTabChange={setActiveTab}
               onNavigateToOrderManagement={handleNavigateToOrderManagement}
               onNavigateToOrgChart={handleNavigateToOrgChart}
-              onOpenMemberSearch={() => setListOpen(true)}
             />
           )}
         </div>
