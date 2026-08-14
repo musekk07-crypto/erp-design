@@ -3225,6 +3225,10 @@ textarea.mm2-name-box:focus {
   height: 3px;
 }
 
+.member-split-panel-view .order-mgmt-splitter--horizontal {
+  margin: 6px 0;
+}
+
 .order-mgmt-splitter--horizontal:hover .panel-splitter__line,
 .order-mgmt-view.is-h-resizing .order-mgmt-splitter--horizontal .panel-splitter__line,
 .member-split-panel-view.is-h-resizing .order-mgmt-splitter--horizontal .panel-splitter__line {
