@@ -5614,9 +5614,14 @@ function Sidebar({
   onToggleExpand,
   width,
 }: SidebarProps) {
+  const handleNavClick = (key: SidebarNavKey) => {
+    if (!expanded) onToggleExpand();
+    onNavChange(key);
+  };
+
   return (
-    <div
-      className={`app-sidebar flex flex-col py-3 gap-1${expanded ? " is-expanded" : ""}`}
+    <aside
+      className={`app-sidebar${expanded ? " is-expanded" : ""}`}
       style={{
         width,
         minWidth: width,
@@ -5626,32 +5631,37 @@ function Sidebar({
         flexShrink: 0,
       }}
     >
-      <div className={`app-sidebar__nav flex flex-col gap-1 flex-1${expanded ? "" : " items-center"}`}>
+      <button
+        type="button"
+        className={`sidebar-expand-toggle${expanded ? " is-expanded" : ""}`}
+        aria-label={expanded ? "사이드바 접기" : "사이드바 펼치기"}
+        aria-pressed={expanded}
+        title={expanded ? "메뉴 접기" : "메뉴 펼치기"}
+        onClick={(e) => {
+          e.preventDefault();
+          e.stopPropagation();
+          onToggleExpand();
+        }}
+      >
+        {expanded ? <ChevronLeft size={16} /> : <ChevronRight size={16} />}
+        {expanded ? <span className="sidebar-expand-toggle__label">메뉴 접기</span> : null}
+      </button>
+
+      <div className={`app-sidebar__nav${expanded ? " is-expanded" : ""}`}>
         {navItems.map((item) => (
           <SidebarNavButton
             key={item.key}
             label={item.label}
             isActive={activeNavKey === item.key}
             expanded={expanded}
-            onClick={() => onNavChange(item.key)}
+            onClick={() => handleNavClick(item.key)}
           >
             <item.icon size={18} className="sidebar-nav-item-icon" />
           </SidebarNavButton>
         ))}
       </div>
 
-      <div className={`app-sidebar__bottom flex flex-col gap-1 mt-auto${expanded ? "" : " items-center"}`}>
-        <button
-          type="button"
-          className={`sidebar-expand-toggle${expanded ? " is-expanded" : ""}`}
-          aria-label={expanded ? "사이드바 접기" : "사이드바 펼치기"}
-          aria-pressed={expanded}
-          onClick={onToggleExpand}
-        >
-          {expanded ? <ChevronLeft size={16} /> : <ChevronRight size={16} />}
-          {expanded ? <span className="sidebar-expand-toggle__label">메뉴 접기</span> : null}
-        </button>
-
+      <div className={`app-sidebar__bottom${expanded ? " is-expanded" : ""}`}>
         {bottomItems.map((item) => (
           <button
             key={item.label}
@@ -5668,10 +5678,11 @@ function Sidebar({
           </button>
         ))}
 
-        <div className={`flex gap-1.5 mt-2 mb-1${expanded ? " px-3 justify-start" : " flex-col items-center"}`}>
+        <div className={`app-sidebar__themes${expanded ? " is-expanded" : ""}`}>
           {themes.map((t) => (
             <button
               key={t.key}
+              type="button"
               onClick={() => onThemeChange(t.key)}
               className={`sidebar-theme-swatch group relative${theme === t.key ? " is-active" : ""}`}
               aria-label={t.label}
@@ -5689,7 +5700,7 @@ function Sidebar({
           ))}
         </div>
       </div>
-    </div>
+    </aside>
   );
 }
 

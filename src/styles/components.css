@@ -6642,16 +6642,63 @@ textarea.mm2-name-box:focus {
   transition: background 0.15s ease, border-color 0.15s ease, color 0.15s ease, width 0.18s ease;
 }
 
+.app-sidebar {
+  position: relative;
+  z-index: 30;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  padding: 12px 0;
+  box-sizing: border-box;
+  overflow-x: hidden;
+  overflow-y: auto;
+  transition: width 0.18s ease, min-width 0.18s ease;
+}
+
 .app-sidebar.is-expanded {
   align-items: stretch;
   padding-left: 8px;
   padding-right: 8px;
-  box-sizing: border-box;
 }
 
-.app-sidebar.is-expanded .app-sidebar__nav,
-.app-sidebar.is-expanded .app-sidebar__bottom {
+.app-sidebar__nav,
+.app-sidebar__bottom {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
   width: 100%;
+}
+
+.app-sidebar__nav {
+  flex: 1;
+  min-height: 0;
+}
+
+.app-sidebar__bottom {
+  margin-top: auto;
+  padding-top: 8px;
+}
+
+.app-sidebar__nav.is-expanded,
+.app-sidebar__bottom.is-expanded {
+  align-items: stretch;
+}
+
+.app-sidebar__themes {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  margin-top: 8px;
+  margin-bottom: 4px;
+}
+
+.app-sidebar__themes.is-expanded {
+  flex-direction: row;
+  justify-content: flex-start;
+  padding: 0 10px;
 }
 
 .sidebar-expand-toggle {
@@ -6660,13 +6707,13 @@ textarea.mm2-name-box:focus {
   justify-content: center;
   gap: 8px;
   width: 40px;
-  height: 32px;
-  margin: 0 0 6px;
+  height: 36px;
+  margin: 0 0 4px;
   padding: 0;
-  border: 1px solid transparent;
+  border: 1px solid rgba(255, 255, 255, 0.22);
   border-radius: 0;
-  background: transparent;
-  color: var(--sidebar-icon-color);
+  background: rgba(255, 255, 255, 0.08);
+  color: #fff;
   cursor: pointer;
   flex-shrink: 0;
 }
@@ -6675,11 +6722,10 @@ textarea.mm2-name-box:focus {
   width: 100%;
   justify-content: flex-start;
   padding: 0 10px;
-  color: rgba(255, 255, 255, 0.85);
 }
 
 .sidebar-expand-toggle:hover {
-  background: rgba(255, 255, 255, 0.08);
+  background: rgba(255, 255, 255, 0.16);
   color: #fff;
 }
 
