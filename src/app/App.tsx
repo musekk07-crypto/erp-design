@@ -6034,49 +6034,6 @@ export default function App() {
               flexShrink: 0,
             }}
           >
-        {memberListNavEnabled && memberListOpen ? (
-          <aside
-            className={`member-search-panel${isListResizing ? " is-resizing" : ""}`}
-            aria-label="회원검색"
-            style={{
-              width: listWidth,
-              minWidth: listWidth,
-              maxWidth: MEMBER_LIST_MAX_WIDTH,
-              flexShrink: 0,
-            }}
-          >
-            <header className="member-search-panel__header">
-              <h2 className="member-search-panel__title">회원검색</h2>
-              <button
-                type="button"
-                className="member-search-panel__close"
-                aria-label="닫기"
-                onClick={() => setListOpen(false)}
-              >
-                <X size={16} />
-              </button>
-            </header>
-            <div className="member-search-panel__body">
-              <MemberTable
-                selectedId={
-                  activeMainMenu === "주문관리" && activeOrderSubMenu === "주문서등록"
-                    ? orderSelectedMemberId ?? -1
-                    : selectedMember
-                }
-                onSelect={handleMemberTableSelect}
-                listOpen
-                listWidth={listWidth}
-              />
-            </div>
-            <div
-              className="panel-splitter member-search-panel__splitter"
-              onMouseDown={onResizeStart}
-              role="separator"
-              aria-orientation="vertical"
-              aria-label="회원검색 패널 너비 조절"
-            />
-          </aside>
-        ) : null}
 
         {/* 오른쪽 상세 패널 */}
         <div
@@ -6137,7 +6094,7 @@ export default function App() {
           ) : activeMainMenu === "회원관리2" ? (
             <MemberManagement2View
               memberId={selectedMember}
-              listOpen={memberListOpen}
+              listOpen={false}
               activeTab={activeTab}
               onTabChange={setActiveTab}
             />
@@ -6163,7 +6120,7 @@ export default function App() {
           ) : (
             <MemberManagementView
               memberId={selectedMember}
-              listOpen={memberListOpen}
+              listOpen={false}
               formColumnWidth={formColumnWidth}
               activeTab={activeTab}
               onTabChange={setActiveTab}
@@ -6173,6 +6130,47 @@ export default function App() {
           )}
         </div>
           </div>
+
+        {memberListNavEnabled && memberListOpen ? (
+          <div
+            className="member-search-modal"
+            role="dialog"
+            aria-modal="true"
+            aria-label="회원검색"
+          >
+            <button
+              type="button"
+              className="member-search-modal__backdrop"
+              aria-label="회원검색 닫기"
+              onClick={() => setListOpen(false)}
+            />
+            <div className="member-search-modal__panel">
+              <header className="member-search-modal__header">
+                <h2 className="member-search-modal__title">회원검색</h2>
+                <button
+                  type="button"
+                  className="member-search-modal__close"
+                  aria-label="닫기"
+                  onClick={() => setListOpen(false)}
+                >
+                  <X size={16} />
+                </button>
+              </header>
+              <div className="member-search-modal__body">
+                <MemberTable
+                  selectedId={
+                    activeMainMenu === "주문관리" && activeOrderSubMenu === "주문서등록"
+                      ? orderSelectedMemberId ?? -1
+                      : selectedMember
+                  }
+                  onSelect={handleMemberTableSelect}
+                  listOpen
+                  listWidth={MEMBER_LIST_MAX_WIDTH}
+                />
+              </div>
+            </div>
+          </div>
+        ) : null}
         </div>
         </div>
 

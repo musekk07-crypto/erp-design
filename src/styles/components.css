@@ -4668,18 +4668,52 @@ textarea.mm2-name-box:focus {
   background: rgba(15, 23, 42, 0.38);
 }
 
-.member-search-panel {
-  position: relative;
+.member-search-modal {
+  position: absolute;
+  inset: 0;
+  z-index: 1200;
   display: flex;
-  flex-direction: column;
-  height: 100%;
-  min-height: 0;
-  background: var(--surface-panel);
-  border-right: 1px solid var(--border);
-  overflow: hidden;
+  align-items: stretch;
+  justify-content: flex-start;
+  padding: 0;
 }
 
-.member-search-panel__header {
+.member-search-modal__backdrop {
+  position: absolute;
+  inset: 0;
+  border: none;
+  padding: 0;
+  margin: 0;
+  background: rgba(15, 23, 42, 0.28);
+  cursor: pointer;
+}
+
+.member-search-modal__panel {
+  position: relative;
+  z-index: 1;
+  width: min(720px, calc(100% - 32px));
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  background: var(--surface-panel);
+  border: none;
+  border-right: 1px solid var(--border);
+  border-radius: 0;
+  box-shadow: 8px 0 28px rgba(15, 23, 42, 0.18);
+  overflow: hidden;
+  animation: member-search-drawer-in 0.2s ease-out;
+}
+
+@keyframes member-search-drawer-in {
+  from {
+    transform: translateX(-100%);
+  }
+  to {
+    transform: translateX(0);
+  }
+}
+
+.member-search-modal__header {
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -4687,17 +4721,16 @@ textarea.mm2-name-box:focus {
   padding: 10px 14px;
   border-bottom: 1px solid var(--border);
   flex-shrink: 0;
-  background: var(--surface-panel);
 }
 
-.member-search-panel__title {
+.member-search-modal__title {
   margin: 0;
   font-size: var(--font-size-lg);
   font-weight: 700;
   color: var(--foreground);
 }
 
-.member-search-panel__close {
+.member-search-modal__close {
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -4710,35 +4743,21 @@ textarea.mm2-name-box:focus {
   cursor: pointer;
 }
 
-.member-search-panel__close:hover {
+.member-search-modal__close:hover {
   background: var(--surface-button-muted);
   color: var(--foreground);
 }
 
-.member-search-panel__body {
+.member-search-modal__body {
   flex: 1;
   min-height: 0;
   overflow: hidden;
 }
 
-.member-search-panel__body > div {
+.member-search-modal__body > div {
   max-width: none !important;
   width: 100% !important;
   height: 100%;
-}
-
-.member-search-panel__splitter {
-  position: absolute;
-  top: 0;
-  right: -3px;
-  width: 6px;
-  height: 100%;
-  z-index: 5;
-}
-
-/* legacy modal class kept as no-op alias during transition */
-.member-search-modal {
-  display: none;
 }
 
 .recommender-select-modal__panel {
