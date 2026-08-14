@@ -256,13 +256,13 @@
    * sm 13 — 라벨·툴바·본문·버튼
    * md 13 — 입력·내비
    * lg 14 — 섹션 제목
-   * xl 16 — 페이지 제목
+   * xl 17 — 페이지 제목
    */
   --font-size-xs: 13px;
   --font-size-sm: 13px;
   --font-size-md: 13px;
   --font-size-lg: 14px;
-  --font-size-xl: 16px;
+  --font-size-xl: 17px;
   --font-size: var(--font-size-md);
   --background: #eef1f4;
   --foreground: #1e2130;
