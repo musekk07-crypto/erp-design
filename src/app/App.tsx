@@ -5493,7 +5493,6 @@ const navItems: { icon: React.ComponentType<{ size?: number; style?: React.CSSPr
   { icon: Home, label: "홈", key: "home" },
   { icon: LayoutDashboard, label: "대시보드", key: "dashboard" },
   { icon: UserPlus, label: "회원등록", key: "member-register" },
-  { icon: Search, label: "회원검색", key: "members" },
   { icon: ShoppingCart, label: "주문서등록", key: "order-register" },
   { icon: GitFork, label: "조직도", key: "org-chart" },
   { icon: Plus, label: "바로가기 추가", key: "add-shortcut" },
@@ -5550,6 +5549,34 @@ function SidebarNavButton({
   );
 }
 
+function SidebarMemberSearchButton({
+  expanded,
+  isOpen,
+  onClick,
+}: {
+  expanded: boolean;
+  isOpen: boolean;
+  onClick: () => void;
+}) {
+  return (
+    <button
+      type="button"
+      aria-label="회원검색"
+      aria-pressed={isOpen}
+      onClick={onClick}
+      className={`sidebar-member-search group relative${expanded ? " is-expanded" : ""}${isOpen ? " is-open" : ""}`}
+      title={expanded ? undefined : "회원검색"}
+    >
+      <Search size={expanded ? 15 : 18} className="sidebar-member-search__icon" strokeWidth={2.2} aria-hidden />
+      {expanded ? (
+        <span className="sidebar-member-search__label">회원검색</span>
+      ) : (
+        <span className="sidebar-nav-tooltip">회원검색</span>
+      )}
+    </button>
+  );
+}
+
 function Sidebar({
   activeNavKey,
   onNavChange,
@@ -5593,12 +5620,18 @@ function Sidebar({
         {expanded ? <span className="sidebar-expand-toggle__label">메뉴 접기</span> : null}
       </button>
 
+      <SidebarMemberSearchButton
+        expanded={expanded}
+        isOpen={memberSearchOpen}
+        onClick={() => handleNavClick("members")}
+      />
+
       <div className={`app-sidebar__nav${expanded ? " is-expanded" : ""}`}>
         {navItems.map((item) => (
           <SidebarNavButton
             key={item.key}
             label={item.label}
-            isActive={item.key === "members" ? memberSearchOpen : activeNavKey === item.key}
+            isActive={activeNavKey === item.key}
             expanded={expanded}
             onClick={() => handleNavClick(item.key)}
           >
