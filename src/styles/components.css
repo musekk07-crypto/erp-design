@@ -687,12 +687,15 @@ span.member-form-action-chip {
 }
 
 .app-content .split-table-head th {
-  padding-top: 6px !important;
-  padding-bottom: 6px !important;
+  padding-top: 8px !important;
+  padding-bottom: 8px !important;
   padding-left: 8px !important;
   padding-right: 8px !important;
+  height: 34px;
+  box-sizing: border-box;
   font-size: 12px !important;
   font-weight: 500 !important;
+  line-height: 1.35 !important;
   text-align: center !important;
   color: var(--split-table-header-fg, #f8fafc) !important;
   background: var(--split-table-header-bg, #5a6270) !important;
@@ -2862,15 +2865,20 @@ textarea.mm2-name-box:focus {
 .order-list-manage__table td {
   padding: 6px 8px;
   font-size: 12px;
+  line-height: 1.35;
   border-bottom: 1px solid var(--border);
   white-space: nowrap;
   text-align: center;
+  box-sizing: border-box;
 }
 
 .order-list-manage__table th {
   position: sticky;
   top: 0;
   z-index: 1;
+  height: 34px;
+  padding-top: 8px;
+  padding-bottom: 8px;
   background: var(--split-table-header-bg, #5a6270);
   color: var(--split-table-header-fg, #f8fafc);
   font-weight: 500;
