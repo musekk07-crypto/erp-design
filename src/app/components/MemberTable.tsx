@@ -99,10 +99,10 @@ export function MemberTable({ selectedId, onSelect }: MemberTableProps) {
   }
 
 function SortIcon({ col }: { col: string }) {
-    if (sortKey !== col) return <ChevronsUpDown size={11} style={{ color: "#cbd5e1", flexShrink: 0 }} />;
+    if (sortKey !== col) return <ChevronsUpDown size={11} style={{ color: "rgba(248,250,252,0.45)", flexShrink: 0 }} />;
     return sortDir === "asc"
-      ? <ChevronUp size={11} style={{ color: "var(--accent-primary)", flexShrink: 0 }} />
-      : <ChevronDown size={11} style={{ color: "var(--accent-primary)", flexShrink: 0 }} />;
+      ? <ChevronUp size={11} style={{ color: "#ffffff", flexShrink: 0 }} />
+      : <ChevronDown size={11} style={{ color: "#ffffff", flexShrink: 0 }} />;
   }
 
   return (
@@ -143,8 +143,8 @@ function SortIcon({ col }: { col: string }) {
             {columns.map((c) => <col key={c.key} style={{ width: c.width }} />)}
           </colgroup>
           <thead style={{ position: "sticky", top: 0, zIndex: 10 }}>
-            <tr style={{ background: "#f9f9f9", borderBottom: "1px solid var(--border)" }}>
-              <th style={{ width: 40, padding: "8px 12px", textAlign: "center" }}>
+            <tr style={{ background: "var(--split-table-header-bg, #5a6270)", borderBottom: "1px solid var(--split-table-header-border, #4a515c)" }}>
+              <th style={{ width: 40, padding: "6px 8px", textAlign: "center", background: "var(--split-table-header-bg, #5a6270)" }}>
                 <input
                   type="checkbox"
                   checked={checked.size === sorted.length && sorted.length > 0}
@@ -158,17 +158,18 @@ function SortIcon({ col }: { col: string }) {
                   onClick={() => toggleSort(col.key)}
                   onMouseDown={(e) => e.stopPropagation()}
                   style={{
-                    padding: "8px 10px",
-                    textAlign: "left",
-                    fontSize: 13,
-                    fontWeight: 600,
-                    color: sortKey === col.key ? "var(--accent-primary)" : "#64748b",
+                    padding: "6px 8px",
+                    textAlign: "center",
+                    fontSize: 12,
+                    fontWeight: 500,
+                    color: sortKey === col.key ? "#ffffff" : "var(--split-table-header-fg, #f8fafc)",
+                    background: "var(--split-table-header-bg, #5a6270)",
                     cursor: "pointer",
                     userSelect: "none",
                     whiteSpace: "nowrap",
                   }}
                 >
-                  <span className="flex items-center gap-1">
+                  <span className="flex items-center justify-center gap-1">
                     {col.label}
                     <SortIcon col={col.key} />
                   </span>
@@ -180,39 +181,39 @@ function SortIcon({ col }: { col: string }) {
             {sorted.map((member) => {
               const isSelected = selectedId === member.id;
               const isChecked = checked.has(member.id);
-              const cellBase: React.CSSProperties = { padding: "7px 10px", whiteSpace: "nowrap" };
+              const cellBase: React.CSSProperties = { padding: "6px 8px", whiteSpace: "nowrap", fontSize: 12, borderBottom: "1px solid var(--border)" };
               return (
                 <tr
                   key={member.id}
+                  className={isSelected ? "is-selected" : undefined}
                   onClick={() => onSelect(member.id)}
                   style={{
-                    background: isSelected ? "var(--surface-row-selected)" : isChecked ? "var(--surface-row-checked)" : "transparent",
-                    borderBottom: "1px solid #f1f5f9",
+                    background: isSelected ? "#ffe566" : isChecked ? "var(--surface-row-checked)" : "transparent",
                     cursor: "pointer",
                     transition: "background 0.1s",
                   }}
-                  onMouseEnter={(e) => { if (!isSelected) (e.currentTarget as HTMLElement).style.background = "#f8f9fa"; }}
-                  onMouseLeave={(e) => { (e.currentTarget as HTMLElement).style.background = isSelected ? "var(--surface-row-selected)" : isChecked ? "var(--surface-row-checked)" : "transparent"; }}
+                  onMouseEnter={(e) => { if (!isSelected) (e.currentTarget as HTMLElement).style.background = "var(--surface-row-hover, #f3f4f6)"; }}
+                  onMouseLeave={(e) => { (e.currentTarget as HTMLElement).style.background = isSelected ? "#ffe566" : isChecked ? "var(--surface-row-checked)" : "transparent"; }}
                 >
-                  <td style={{ padding: "7px 12px", textAlign: "center" }} onClick={(e) => e.stopPropagation()}>
+                  <td style={{ ...cellBase, textAlign: "center" }} onClick={(e) => e.stopPropagation()}>
                     <input type="checkbox" checked={isChecked} onChange={() => toggleOne(member.id)} style={{ accentColor: "var(--checkbox-accent)", cursor: "pointer" }} />
                   </td>
-                  <td style={{ ...cellBase, fontSize: 13, color: "#94a3b8" }}>{member.id}</td>
-                  <td style={{ ...cellBase, fontSize: 13, fontFamily: "monospace", color: isSelected ? "var(--accent-primary)" : "#1e2130", fontWeight: isSelected ? 600 : 400 }}>{member.no}</td>
-                  <td style={{ ...cellBase, fontSize: 13, color: "#475569" }}>{member.loginId}</td>
-                  <td style={{ ...cellBase, fontSize: 13, color: isSelected ? "var(--accent-primary)" : "#1e2130", fontWeight: isSelected ? 600 : 500 }}>{member.name}</td>
-                  <td style={{ ...cellBase }}>
-                    <span style={{ fontSize: 13, padding: "2px 7px", borderRadius: 4, background: member.type === "소비자" ? "#cffafe" : "#f1f5f9", color: member.type === "소비자" ? "#0891b2" : "#64748b" }}>{member.type}</span>
+                  <td style={{ ...cellBase, textAlign: "center", color: "#64748b" }}>{member.id}</td>
+                  <td style={{ ...cellBase, textAlign: "left", fontFamily: "monospace", color: isSelected ? "var(--accent-primary)" : "#1e2130", fontWeight: isSelected ? 600 : 400 }}>{member.no}</td>
+                  <td style={{ ...cellBase, textAlign: "left", color: "#475569" }}>{member.loginId}</td>
+                  <td style={{ ...cellBase, textAlign: "left", color: isSelected ? "var(--accent-primary)" : "#1e2130", fontWeight: isSelected ? 600 : 500 }}>{member.name}</td>
+                  <td style={{ ...cellBase, textAlign: "center" }}>
+                    <span style={{ fontSize: 12, padding: "2px 7px", borderRadius: 4, background: member.type === "소비자" ? "#cffafe" : "#f1f5f9", color: member.type === "소비자" ? "#0891b2" : "#64748b" }}>{member.type}</span>
                   </td>
-                  <td style={{ ...cellBase, fontSize: 13, color: "#64748b" }}>{member.regDate}</td>
-                  <td style={{ ...cellBase }}>
-                    <span style={{ fontSize: 13, padding: "2px 7px", borderRadius: 4, background: member.status === "탈퇴" ? "#fee2e2" : "#dcfce7", color: member.status === "탈퇴" ? "#dc2626" : "#16a34a" }}>{member.status}</span>
+                  <td style={{ ...cellBase, textAlign: "center", color: "#64748b" }}>{member.regDate}</td>
+                  <td style={{ ...cellBase, textAlign: "center" }}>
+                    <span style={{ fontSize: 12, padding: "2px 7px", borderRadius: 4, background: member.status === "탈퇴" ? "#fee2e2" : "#dcfce7", color: member.status === "탈퇴" ? "#dc2626" : "#16a34a" }}>{member.status}</span>
                   </td>
-                  <td style={{ ...cellBase, fontSize: 13, color: "#475569" }}>{member.rank}</td>
-                  <td style={{ ...cellBase, fontSize: 13, color: "#475569" }}>{member.grade}</td>
-                  <td style={{ ...cellBase, fontSize: 13, color: "#475569", fontFamily: "monospace" }}>{member.phone}</td>
-                  <td style={{ ...cellBase, fontSize: 13, color: "#94a3b8", fontFamily: "monospace" }}>{member.ssn}</td>
-                  <td style={{ ...cellBase, fontSize: 13, color: "#475569" }}>{member.region}</td>
+                  <td style={{ ...cellBase, textAlign: "center", color: "#475569" }}>{member.rank}</td>
+                  <td style={{ ...cellBase, textAlign: "center", color: "#475569" }}>{member.grade}</td>
+                  <td style={{ ...cellBase, textAlign: "left", color: "#475569", fontFamily: "monospace" }}>{member.phone}</td>
+                  <td style={{ ...cellBase, textAlign: "left", color: "#94a3b8", fontFamily: "monospace" }}>{member.ssn}</td>
+                  <td style={{ ...cellBase, textAlign: "left", color: "#475569" }}>{member.region}</td>
                 </tr>
               );
             })}

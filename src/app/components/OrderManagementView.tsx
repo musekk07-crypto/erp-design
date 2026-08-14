@@ -81,21 +81,21 @@ const OM_LINK_KEYS = new Set(["orderNo", "recipient"]);
 const OM_BOLD_KEYS = new Set(["recipient"]);
 
 const orderListColumns: OmColumn[] = [
-  { key: "no", label: "No", width: 36, align: "left" },
+  { key: "no", label: "No", width: 36, align: "center" },
   { key: "deductNo", label: "공제번호", width: 156, align: "left" },
   { key: "deductStatus", label: "공제신고상태명", width: 100, align: "left" },
   { key: "orderNo", label: "주문서번호", width: 96, align: "left" },
-  { key: "orderDate", label: "주문일자", width: 84, align: "left" },
-  { key: "allowanceDate", label: "수당적용일자", width: 92, align: "left" },
+  { key: "orderDate", label: "주문일자", width: 84, align: "center" },
+  { key: "allowanceDate", label: "수당적용일자", width: 92, align: "center" },
   { key: "plan", label: "플랜명", width: 72, align: "left" },
   { key: "purchaseType", label: "구매구분명", width: 80, align: "left" },
   { key: "orderStatus", label: "주문서상태명", width: 88, align: "left" },
-  { key: "cash", label: "현금", width: 64, align: "left" },
-  { key: "online", label: "온라인", width: 64, align: "left" },
-  { key: "card", label: "카드", width: 64, align: "left" },
-  { key: "pointTotal", label: "포인트합", width: 72, align: "left" },
-  { key: "supplyTotal", label: "공급가합", width: 72, align: "left" },
-  { key: "salesTotal", label: "매출금액합", width: 80, align: "left" },
+  { key: "cash", label: "현금", width: 64, align: "right" },
+  { key: "online", label: "온라인", width: 64, align: "right" },
+  { key: "card", label: "카드", width: 64, align: "right" },
+  { key: "pointTotal", label: "포인트합", width: 72, align: "right" },
+  { key: "supplyTotal", label: "공급가합", width: 72, align: "right" },
+  { key: "salesTotal", label: "매출금액합", width: 80, align: "right" },
   { key: "recipient", label: "인수자명", width: 72, align: "left" },
   { key: "note", label: "비고", width: 96, align: "left" },
 ];
@@ -319,32 +319,32 @@ const orderListSummaryRow = {
 };
 
 const productListColumns: OmColumn[] = [
-  { key: "no", label: "No", width: 40, align: "left" },
+  { key: "no", label: "No", width: 40, align: "center" },
   { key: "code", label: "번호", width: 120, align: "left", cellType: "product-code" },
   { key: "product", label: "상품정보", width: 280, align: "left" },
-  { key: "point", label: "포인트", width: 88, align: "left" },
-  { key: "salePrice", label: "판매가격", width: 96, align: "left" },
-  { key: "consumerPrice", label: "소비자가", width: 96, align: "left" },
-  { key: "price4", label: "가격4", width: 88, align: "left" },
-  { key: "price5", label: "가격5", width: 88, align: "left" },
-  { key: "price6", label: "가격6", width: 88, align: "left" },
-  { key: "price7", label: "가격7", width: 88, align: "left" },
+  { key: "point", label: "포인트", width: 88, align: "right" },
+  { key: "salePrice", label: "판매가격", width: 96, align: "right" },
+  { key: "consumerPrice", label: "소비자가", width: 96, align: "right" },
+  { key: "price4", label: "가격4", width: 88, align: "right" },
+  { key: "price5", label: "가격5", width: 88, align: "right" },
+  { key: "price6", label: "가격6", width: 88, align: "right" },
+  { key: "price7", label: "가격7", width: 88, align: "right" },
 ];
 
 const paymentListColumns: OmColumn[] = [
-  { key: "no", label: "No", width: 40, align: "left" },
-  { key: "code", label: "번호", width: 48, align: "left" },
+  { key: "no", label: "No", width: 40, align: "center" },
+  { key: "code", label: "번호", width: 48, align: "center" },
   { key: "pg", label: "PG", width: 72, align: "left" },
   { key: "paymentNo", label: "결제번호", width: 140, align: "left" },
   { key: "collectionType", label: "수금구분명", width: 88, align: "left" },
   { key: "includeAmount", label: "금액포함", width: 72, cellType: "checkbox" },
   { key: "accountName", label: "계정명", width: 120, align: "left" },
   { key: "accountNo", label: "계정번호", width: 140, align: "left" },
-  { key: "amount", label: "금액", width: 88, align: "left" },
-  { key: "installment", label: "할부개월수", width: 80, align: "left" },
+  { key: "amount", label: "금액", width: 88, align: "right" },
+  { key: "installment", label: "할부개월수", width: 80, align: "right" },
   { key: "approveNo", label: "승인번호", width: 72, align: "left" },
-  { key: "approveDate", label: "승인일자", width: 96, align: "left" },
-  { key: "expireDate", label: "만료일자", width: 96, align: "left" },
+  { key: "approveDate", label: "승인일자", width: 96, align: "center" },
+  { key: "expireDate", label: "만료일자", width: 96, align: "center" },
   { key: "ownerName", label: "소유자명", width: 72, align: "left" },
   { key: "manualSlip", label: "수기전표", width: 72, cellType: "checkbox" },
   { key: "memo", label: "메모", width: 180, align: "left" },
@@ -627,12 +627,12 @@ function OmDataTable({
   const useFixedMinScroll = !useEdgeSpread;
   const enableHorizontalScroll = useFixedMinScroll;
   const tableMinWidth = getOmTableMinWidth(columns);
-  const cellPadX = isCompact ? 4 : 8;
+  const cellPadX = 8;
   const checkboxPadLeft = isCompact ? 10 : OM_CHECKBOX_PAD_LEFT;
 
   const cellStyle: React.CSSProperties = {
     padding: `${OM_ROW_PAD_Y}px ${cellPadX}px`,
-    fontSize: 13,
+    fontSize: 12,
     color: "var(--text-body)",
     whiteSpace: "nowrap",
     ...(showFullText
@@ -643,7 +643,7 @@ function OmDataTable({
   const checkboxCellStyle: React.CSSProperties = {
     padding: `${OM_ROW_PAD_Y}px ${cellPadX}px ${OM_ROW_PAD_Y}px ${checkboxPadLeft}px`,
     textAlign: "left",
-    fontSize: 13,
+    fontSize: 12,
     color: "var(--text-body)",
     whiteSpace: "nowrap",
     ...(showFullText
@@ -659,6 +659,7 @@ function OmDataTable({
   const getDataCellStyle = (col: OmColumn): React.CSSProperties => ({
     ...cellStyle,
     textAlign: getOmColumnAlign(col),
+    fontVariantNumeric: getOmColumnAlign(col) === "right" ? "tabular-nums" : undefined,
     fontFamily: OM_MONO_KEYS.has(col.key) ? "monospace" : undefined,
     color: OM_LINK_KEYS.has(col.key) ? "var(--accent-primary)" : cellStyle.color,
     fontWeight: OM_BOLD_KEYS.has(col.key) ? 600 : 400,
@@ -726,9 +727,9 @@ function OmDataTable({
                   key={col.key}
                   style={{
                     ...cellStyle,
-                    textAlign: getOmColumnAlign(col),
-                    fontWeight: 400,
-                    color: "var(--split-table-header-fg, var(--text-muted))",
+                    textAlign: "center",
+                    fontWeight: 500,
+                    color: "var(--split-table-header-fg, #f8fafc)",
                     background: "var(--split-table-header-bg, var(--surface-table-header))",
                   }}
                 >

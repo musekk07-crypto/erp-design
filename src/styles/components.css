@@ -689,6 +689,39 @@ span.member-form-action-chip {
 .app-content .split-table-head th {
   padding-top: 6px !important;
   padding-bottom: 6px !important;
+  padding-left: 8px !important;
+  padding-right: 8px !important;
+  font-size: 12px !important;
+  font-weight: 500 !important;
+  text-align: center !important;
+  color: var(--split-table-header-fg, #f8fafc) !important;
+  background: var(--split-table-header-bg, #5a6270) !important;
+  border-bottom: 1px solid var(--split-table-header-border, #4a515c) !important;
+  white-space: nowrap;
+}
+
+.app-content .split-table-block td {
+  padding-top: 6px !important;
+  padding-bottom: 6px !important;
+  padding-left: 8px !important;
+  padding-right: 8px !important;
+  font-size: 12px !important;
+  border-bottom: 1px solid var(--border);
+  white-space: nowrap;
+}
+
+.app-content .split-table-block tbody tr.member-table-row.is-selected,
+.app-content .split-table-block tbody tr.is-selected {
+  background: #ffe566;
+}
+
+.app-content .split-table-block tbody tr.member-table-row.is-selected:hover,
+.app-content .split-table-block tbody tr.is-selected:hover {
+  background: #ffdf4d;
+}
+
+.app-content .split-table-block tbody tr:hover:not(.is-selected):not(.is-danger) {
+  background: var(--surface-row-hover, #f3f4f6);
 }
 
 /* 일반회원정보 2열 그룹 */
@@ -1434,11 +1467,6 @@ span.member-form-action-chip {
   min-width: 0;
   width: 100%;
   box-sizing: border-box;
-}
-
-.app-content .split-table-block td {
-  padding-top: 6px !important;
-  padding-bottom: 6px !important;
 }
 
 .member-split-panel-view {
@@ -3833,38 +3861,23 @@ textarea.mm2-name-box:focus {
   border: none !important;
 }
 
-.app-content .order-mgmt-view .order-mgmt-table-wrap--compact .split-table-head th,
-.app-content .order-mgmt-view .order-mgmt-table-wrap--compact td {
-  padding-left: 4px !important;
-  padding-right: 4px !important;
-}
-
-.app-content .order-mgmt-view .order-mgmt-table-wrap--compact .split-table-head th:first-child,
-.app-content .order-mgmt-view .order-mgmt-table-wrap--compact td:first-child {
-  padding-left: 10px !important;
-}
-
-.app-content .order-mgmt-view .order-mgmt-table-wrap--compact .split-table-head th:last-child,
-.app-content .order-mgmt-view .order-mgmt-table-wrap--compact td:last-child {
-  padding-right: 20px !important;
-}
-
 .app-content .order-mgmt-view .order-mgmt-table-wrap .split-table-head th,
 .app-content .order-mgmt-view .order-mgmt-table-wrap td {
   padding-top: 6px !important;
   padding-bottom: 6px !important;
+  padding-left: 8px !important;
   padding-right: 8px !important;
-  font-size: var(--order-mgmt-font-size, 14px) !important;
+  font-size: 12px !important;
 }
 
 .app-content .order-mgmt-view .order-mgmt-table-wrap .split-table-head th:first-child,
 .app-content .order-mgmt-view .order-mgmt-table-wrap td:first-child {
-  padding-left: 14px !important;
+  padding-left: 12px !important;
 }
 
-.app-content .order-mgmt-view .order-mgmt-table-wrap .split-table-head th:not(:first-child),
-.app-content .order-mgmt-view .order-mgmt-table-wrap td:not(:first-child) {
-  padding-left: 8px !important;
+.app-content .order-mgmt-view .order-mgmt-table-wrap .split-table-head th {
+  text-align: center !important;
+  font-weight: 500 !important;
 }
 
 .app-content .order-mgmt-view input,

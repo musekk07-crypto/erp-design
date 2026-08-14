@@ -1822,7 +1822,7 @@ function getSplitColumnAlign(col: SplitTableColumn) {
 }
 
 const SPLIT_TABLE_CHECKBOX_WIDTH = 36;
-const SPLIT_TABLE_CHECKBOX_PAD_LEFT = 14;
+const SPLIT_TABLE_CHECKBOX_PAD_LEFT = 12;
 const SPLIT_TABLE_HEADER_PAD_Y = 6;
 
 function getSplitTableWeight(columns: SplitTableColumn[]) {
@@ -1852,7 +1852,7 @@ function SplitTableBlock({
 
   const cellStyle: React.CSSProperties = {
     padding: `${SPLIT_TABLE_HEADER_PAD_Y}px 8px`,
-    fontSize: 13,
+    fontSize: 12,
     color: "var(--text-body)",
     whiteSpace: "nowrap",
     overflow: "hidden",
@@ -1882,10 +1882,10 @@ function SplitTableBlock({
                   key={col.key}
                   style={{
                     padding: `${SPLIT_TABLE_HEADER_PAD_Y}px 8px`,
-                    textAlign: getSplitColumnAlign(col),
-                    fontSize: 13,
-                    fontWeight: 400,
-                    color: "var(--split-table-header-fg, var(--text-muted))",
+                    textAlign: "center",
+                    fontSize: 12,
+                    fontWeight: 500,
+                    color: "var(--split-table-header-fg, #f8fafc)",
                     whiteSpace: "nowrap",
                     overflow: "hidden",
                     textOverflow: "ellipsis",
@@ -1909,6 +1909,7 @@ function SplitTableBlock({
                     style={{
                       ...cellStyle,
                       textAlign: getSplitColumnAlign(col),
+                      fontVariantNumeric: getSplitColumnAlign(col) === "right" ? "tabular-nums" : undefined,
                       fontFamily: ["memberNo", "providerNo", "allowanceTypeNo", "deductNo", "orderNo", "bundleNo", "productCode", "uniqueNo"].includes(col.key)
                         ? "monospace"
                         : undefined,
@@ -1986,38 +1987,38 @@ function DetailSplitPanelView({
 // ─────────────────────────────────────────────
 
 const orderHeaderColumns: SplitTableColumn[] = [
-  { key: "no", label: "No", width: 36 },
-  { key: "deductNo", label: "공제번호", width: 88 },
-  { key: "deductStatus", label: "공제신고상태명", width: 100 },
-  { key: "orderNo", label: "주문서번호", width: 96 },
-  { key: "orderDate", label: "주문일자", width: 84 },
-  { key: "allowanceDate", label: "수당적용일자", width: 92 },
-  { key: "plan", label: "플랜명", width: 72 },
-  { key: "purchaseType", label: "구매구분명", width: 80 },
-  { key: "orderStatus", label: "주문서상태명", width: 88 },
-  { key: "cash", label: "현금", width: 64 },
-  { key: "online", label: "온라인", width: 64 },
-  { key: "card", label: "카드", width: 64 },
-  { key: "pointTotal", label: "포인트합", width: 72 },
-  { key: "supplyTotal", label: "공급가합", width: 72 },
-  { key: "salesTotal", label: "매출금액합", width: 80 },
-  { key: "recipient", label: "인수자명", width: 72 },
-  { key: "note", label: "비고", width: 96 },
+  { key: "no", label: "No", width: 36, align: "center" },
+  { key: "deductNo", label: "공제번호", width: 88, align: "left" },
+  { key: "deductStatus", label: "공제신고상태명", width: 100, align: "left" },
+  { key: "orderNo", label: "주문서번호", width: 96, align: "left" },
+  { key: "orderDate", label: "주문일자", width: 84, align: "center" },
+  { key: "allowanceDate", label: "수당적용일자", width: 92, align: "center" },
+  { key: "plan", label: "플랜명", width: 72, align: "left" },
+  { key: "purchaseType", label: "구매구분명", width: 80, align: "left" },
+  { key: "orderStatus", label: "주문서상태명", width: 88, align: "left" },
+  { key: "cash", label: "현금", width: 64, align: "right" },
+  { key: "online", label: "온라인", width: 64, align: "right" },
+  { key: "card", label: "카드", width: 64, align: "right" },
+  { key: "pointTotal", label: "포인트합", width: 72, align: "right" },
+  { key: "supplyTotal", label: "공급가합", width: 72, align: "right" },
+  { key: "salesTotal", label: "매출금액합", width: 80, align: "right" },
+  { key: "recipient", label: "인수자명", width: 72, align: "left" },
+  { key: "note", label: "비고", width: 96, align: "left" },
 ];
 
 const orderLineColumns: SplitTableColumn[] = [
-  { key: "no", label: "No", width: 36 },
-  { key: "bundleNo", label: "묶음번호", width: 88 },
-  { key: "orderStatus", label: "주문서상태", width: 80 },
-  { key: "shipType", label: "발송구분", width: 72 },
-  { key: "deliveryType", label: "배송구분", width: 72 },
-  { key: "warehouse", label: "출고지역", width: 80 },
-  { key: "shipDate", label: "출고예정일자", width: 92 },
-  { key: "productCode", label: "상품코드", width: 88 },
-  { key: "productName", label: "상품명", width: 120 },
-  { key: "uniqueNo", label: "고유번호", width: 88 },
-  { key: "price", label: "가격", width: 72 },
-  { key: "qty", label: "수량", width: 56 },
+  { key: "no", label: "No", width: 36, align: "center" },
+  { key: "bundleNo", label: "묶음번호", width: 88, align: "left" },
+  { key: "orderStatus", label: "주문서상태", width: 80, align: "left" },
+  { key: "shipType", label: "발송구분", width: 72, align: "left" },
+  { key: "deliveryType", label: "배송구분", width: 72, align: "left" },
+  { key: "warehouse", label: "출고지역", width: 80, align: "left" },
+  { key: "shipDate", label: "출고예정일자", width: 92, align: "center" },
+  { key: "productCode", label: "상품코드", width: 88, align: "left" },
+  { key: "productName", label: "상품명", width: 120, align: "left" },
+  { key: "uniqueNo", label: "고유번호", width: 88, align: "left" },
+  { key: "price", label: "가격", width: 72, align: "right" },
+  { key: "qty", label: "수량", width: 56, align: "right" },
 ];
 
 function buildOrderSampleData(member: Member) {
