@@ -5779,7 +5779,8 @@ export default function App() {
   const resizing = useRef(false);
 
   const sidebarWidth = sidebarExpanded ? SIDEBAR_EXPANDED_WIDTH : SIDEBAR_COLLAPSED_WIDTH;
-  const isHomeView = activeSidebarKey === "home" && activeMainMenu === "회원관리";
+  // 홈/대시보드는 activeSidebarKey만으로 판별 (주문관리 등에서 홈 클릭 시 mainMenu가 남아도 이동되게)
+  const isHomeView = activeSidebarKey === "home";
   const isBasicManagement = activeMainMenu === "기초관리";
   const isMenuPlaceholder =
     activeMainMenu === "수당관리" || activeMainMenu === "출고관리" || activeMainMenu === "옵션";
@@ -6029,11 +6030,13 @@ export default function App() {
 
     switch (key) {
       case "home":
+        setActiveMainMenu("회원관리");
         setHomeActiveTask("desktop");
         setListOpen(false);
         return;
       case "dashboard":
         setActiveSidebarKey("home");
+        setActiveMainMenu("회원관리");
         setHomeActiveTask("dashboard");
         setListOpen(false);
         return;
@@ -6065,6 +6068,7 @@ export default function App() {
 
     if (key === "dashboard") {
       setActiveSidebarKey("home");
+      setActiveMainMenu("회원관리");
       setHomeActiveTask("dashboard");
       setListOpen(false);
       return;
