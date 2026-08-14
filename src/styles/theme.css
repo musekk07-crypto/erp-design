@@ -252,17 +252,17 @@
 
 :root {
   /* 통일 타이포 스케일
-   * xs 12 — 테이블·배지·컴팩트 메타
+   * xs 13 — 테이블·배지
    * sm 13 — 라벨·툴바·본문·버튼
-   * md 14 — 입력·내비
-   * lg 15 — 섹션 제목
-   * xl 18 — 페이지 제목
+   * md 13 — 입력·내비
+   * lg 14 — 섹션 제목
+   * xl 16 — 페이지 제목
    */
-  --font-size-xs: 12px;
+  --font-size-xs: 13px;
   --font-size-sm: 13px;
-  --font-size-md: 14px;
-  --font-size-lg: 15px;
-  --font-size-xl: 18px;
+  --font-size-md: 13px;
+  --font-size-lg: 14px;
+  --font-size-xl: 16px;
   --font-size: var(--font-size-md);
   --background: #eef1f4;
   --foreground: #1e2130;
@@ -510,10 +510,10 @@
 
 /* 본문 컨텐츠 영역 — 탑 메뉴 제외, 조밀하게 */
 .app-content {
-  --content-text-xs: var(--font-size-xs);   /* 12 테이블 */
+  --content-text-xs: var(--font-size-xs);   /* 13 테이블 */
   --content-text-sm: var(--font-size-sm);   /* 13 라벨·본문 */
-  --content-text-base: var(--font-size-md); /* 14 입력 기준 본문 영역 */
-  --content-text-lg: var(--font-size-lg);   /* 15 제목 */
+  --content-text-base: var(--font-size-md); /* 13 입력 */
+  --content-text-lg: var(--font-size-lg);   /* 14 제목 */
   font-size: var(--font-size-sm);
 }
 
