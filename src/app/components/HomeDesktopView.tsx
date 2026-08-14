@@ -1,13 +1,14 @@
 import React, { useState } from "react";
 import {
-  Star,
-  User,
-  Building2,
+  ChevronLeft,
+  ChevronRight,
+  Package,
+  PlayCircle,
+  type LucideIcon,
   LayoutDashboard,
   UserPlus,
   ShoppingCart,
   GitFork,
-  type LucideIcon,
 } from "lucide-react";
 
 export type HomeShortcutKey =
@@ -16,35 +17,6 @@ export type HomeShortcutKey =
   | "order-register"
   | "org-chart"
   | "add-shortcut";
-
-type FavoriteTab = "process" | "screen";
-
-type FavoriteItem = {
-  key: HomeShortcutKey;
-  label: string;
-  badge: string;
-  icon: LucideIcon;
-  accent: string;
-};
-
-const processFavorites: FavoriteItem[] = [
-  { key: "order-register", label: "구매", badge: "구매", icon: ShoppingCart, accent: "#16a34a" },
-  { key: "member-register", label: "회원등록", badge: "회원", icon: UserPlus, accent: "#db2777" },
-  { key: "order-register", label: "주문서등록", badge: "주문", icon: ShoppingCart, accent: "#dc2626" },
-];
-
-const screenFavorites: FavoriteItem[] = [
-  { key: "dashboard", label: "대시보드", badge: "화면", icon: LayoutDashboard, accent: "#007aff" },
-  { key: "org-chart", label: "조직도", badge: "회원", icon: GitFork, accent: "#16a34a" },
-  { key: "member-register", label: "회원정보", badge: "회원", icon: UserPlus, accent: "#db2777" },
-];
-
-const noticeItems = [
-  { id: 1, title: "2026년 상반기 수당 정산 안내", date: "2026-08-12" },
-  { id: 2, title: "주문서 승인 프로세스 변경 공지", date: "2026-08-08" },
-  { id: 3, title: "조직도 인쇄 화면 업데이트", date: "2026-08-01" },
-  { id: 4, title: "시스템 정기 점검 일정 안내", date: "2026-07-28" },
-];
 
 export type HomeDesktopMember = {
   name: string;
@@ -60,16 +32,98 @@ interface HomeDesktopViewProps {
   member?: HomeDesktopMember;
 }
 
-export function HomeDesktopView({ activeTask, onShortcutClick, member }: HomeDesktopViewProps) {
-  const [favoriteTab, setFavoriteTab] = useState<FavoriteTab>("process");
-  const favorites = favoriteTab === "process" ? processFavorites : screenFavorites;
-  const profile = member ?? {
-    name: "김상경",
-    loginId: "charm0123",
-    no: "10000015",
-    rank: "블루",
-    region: "영업부",
-  };
+type MetricCard = {
+  label: string;
+  value: string;
+  unit: string;
+};
+
+type DonutSlice = {
+  label: string;
+  percent: number;
+  color: string;
+};
+
+type VisitStat = {
+  label: string;
+  percent: number;
+  color: string;
+};
+
+type TopProduct = {
+  no: number;
+  name: string;
+  qty: string;
+  price: string;
+};
+
+const metrics: MetricCard[] = [
+  { label: "매출합계", value: "2,305,070", unit: "원" },
+  { label: "주문합계", value: "1,652,400", unit: "원" },
+  { label: "주문서 건수", value: "135", unit: "건" },
+  { label: "신규 회원", value: "18", unit: "명" },
+];
+
+const paymentSlices: DonutSlice[] = [
+  { label: "카드", percent: 68, color: "#007aff" },
+  { label: "온라인", percent: 22, color: "#38bdf8" },
+  { label: "현금", percent: 10, color: "#f59e0b" },
+];
+
+const orderSlices: DonutSlice[] = [
+  { label: "일반구매", percent: 54, color: "#007aff" },
+  { label: "교환", percent: 18, color: "#22c55e" },
+  { label: "반품", percent: 12, color: "#f97316" },
+  { label: "기타", percent: 16, color: "#94a3b8" },
+];
+
+const visitStats: VisitStat[] = [
+  { label: "서울센터", percent: 42, color: "#007aff" },
+  { label: "부산센터", percent: 24, color: "#38bdf8" },
+  { label: "대구센터", percent: 18, color: "#22c55e" },
+  { label: "광주센터", percent: 10, color: "#f59e0b" },
+  { label: "기타", percent: 6, color: "#94a3b8" },
+];
+
+const topProducts: TopProduct[] = [
+  { no: 1, name: "비타민 종합세트", qty: "128", price: "280,000" },
+  { no: 2, name: "오메가3 캡슐", qty: "96", price: "220,000" },
+  { no: 3, name: "콜라겐 앰플", qty: "84", price: "180,000" },
+  { no: 4, name: "프리미엄 케어세트", qty: "71", price: "450,000" },
+  { no: 5, name: "프로바이오틱스", qty: "65", price: "50,000" },
+  { no: 6, name: "헬스케어 멀티팩", qty: "58", price: "260,000" },
+  { no: 7, name: "스킨케어 토너", qty: "52", price: "69,999" },
+  { no: 8, name: "수분크림", qty: "47", price: "70,000" },
+  { no: 9, name: "뉴트리션 바", qty: "41", price: "35,000" },
+  { no: 10, name: "프리미엄 기프트박스", qty: "36", price: "380,000" },
+];
+
+const quickLinks: { key: HomeShortcutKey; label: string; icon: LucideIcon }[] = [
+  { key: "dashboard", label: "대시보드", icon: LayoutDashboard },
+  { key: "member-register", label: "회원등록", icon: UserPlus },
+  { key: "order-register", label: "주문서등록", icon: ShoppingCart },
+  { key: "org-chart", label: "조직도", icon: GitFork },
+];
+
+function buildDonutBackground(slices: DonutSlice[]) {
+  let cursor = 0;
+  const stops = slices.map((slice) => {
+    const start = cursor;
+    cursor += slice.percent;
+    return `${slice.color} ${start}% ${cursor}%`;
+  });
+  return `conic-gradient(${stops.join(", ")})`;
+}
+
+function formatTodayLabel(date: Date) {
+  const weekdays = ["일", "월", "화", "수", "목", "금", "토"];
+  return `${date.getFullYear()}년 ${date.getMonth() + 1}월 ${date.getDate()}일 ${weekdays[date.getDay()]}요일`;
+}
+
+export function HomeDesktopView({ activeTask, onShortcutClick }: HomeDesktopViewProps) {
+  const [dayOffset, setDayOffset] = useState(0);
+  const viewDate = new Date();
+  viewDate.setDate(viewDate.getDate() + dayOffset);
 
   if (activeTask !== "desktop") {
     return (
@@ -86,94 +140,159 @@ export function HomeDesktopView({ activeTask, onShortcutClick, member }: HomeDes
 
   return (
     <div className="home-desktop">
-      <div className="home-desktop-body home-desktop-body--portal">
-        <div className="home-portal">
-          <aside className="home-portal-left">
-            <section className="home-profile-card">
-              <div className="home-profile-card__banner" aria-hidden />
-              <div className="home-profile-card__avatar" aria-hidden>
-                <User size={36} strokeWidth={1.5} />
-              </div>
-              <div className="home-profile-card__body">
-                <h2 className="home-profile-card__name">{profile.name}</h2>
-                <p className="home-profile-card__meta">
-                  <User size={14} strokeWidth={1.75} aria-hidden />
-                  <span>{profile.loginId}</span>
-                </p>
-                <p className="home-profile-card__meta home-profile-card__meta--dept">
-                  <Building2 size={14} strokeWidth={1.75} aria-hidden />
-                  <span>{profile.rank} · {profile.region}</span>
-                </p>
-              </div>
-            </section>
+      <div className="home-desktop-body home-desktop-body--dashboard">
+        <div className="home-dash">
+          <header className="home-dash-date">
+            <button
+              type="button"
+              className="home-dash-date__nav"
+              aria-label="이전 날짜"
+              onClick={() => setDayOffset((v) => v - 1)}
+            >
+              <ChevronLeft size={16} />
+            </button>
+            <span className="home-dash-date__label">{formatTodayLabel(viewDate)}</span>
+            <button
+              type="button"
+              className="home-dash-date__nav"
+              aria-label="다음 날짜"
+              onClick={() => setDayOffset((v) => v + 1)}
+            >
+              <ChevronRight size={16} />
+            </button>
+          </header>
 
-            <section className="home-favorite-card">
-              <header className="home-favorite-card__head">
-                <Star size={16} strokeWidth={1.75} aria-hidden />
-                <h3>즐겨찾기</h3>
-              </header>
+          <section className="home-dash-metrics">
+            {metrics.map((metric) => (
+              <article key={metric.label} className="home-dash-metric">
+                <div className="home-dash-metric__label">{metric.label}</div>
+                <div className="home-dash-metric__value">
+                  <strong>{metric.value}</strong>
+                  <span>{metric.unit}</span>
+                </div>
+              </article>
+            ))}
+          </section>
 
-              <div className="home-favorite-card__tabs" role="tablist" aria-label="즐겨찾기 구분">
-                <button
-                  type="button"
-                  role="tab"
-                  aria-selected={favoriteTab === "process"}
-                  className={`home-favorite-card__tab${favoriteTab === "process" ? " is-active" : ""}`}
-                  onClick={() => setFavoriteTab("process")}
-                >
-                  프로세스
-                </button>
-                <button
-                  type="button"
-                  role="tab"
-                  aria-selected={favoriteTab === "screen"}
-                  className={`home-favorite-card__tab${favoriteTab === "screen" ? " is-active" : ""}`}
-                  onClick={() => setFavoriteTab("screen")}
-                >
-                  화면
-                </button>
-              </div>
-
-              <ul className="home-favorite-card__list">
-                {favorites.map((item, index) => {
-                  const Icon = item.icon;
-                  return (
-                    <li key={`${item.key}-${item.label}-${index}`}>
-                      <button
-                        type="button"
-                        className="home-favorite-card__item"
-                        onClick={() => onShortcutClick(item.key)}
-                      >
-                        <span
-                          className="home-favorite-card__item-icon"
-                          style={{ color: item.accent, background: `${item.accent}18` }}
-                        >
-                          <Icon size={16} strokeWidth={1.75} aria-hidden />
-                        </span>
-                        <span className="home-favorite-card__item-text">
-                          <span className="home-favorite-card__item-badge">[{item.badge}]</span>
-                          {item.label}
-                        </span>
-                      </button>
+          <section className="home-dash-charts">
+            <article className="home-dash-card">
+              <h3 className="home-dash-card__title">결제 수단별 매출</h3>
+              <div className="home-dash-donut-row">
+                <div
+                  className="home-dash-donut"
+                  style={{ background: buildDonutBackground(paymentSlices) }}
+                  aria-hidden
+                />
+                <ul className="home-dash-legend">
+                  {paymentSlices.map((slice) => (
+                    <li key={slice.label}>
+                      <span className="home-dash-legend__swatch" style={{ background: slice.color }} />
+                      <span className="home-dash-legend__label">{slice.label}</span>
+                      <span className="home-dash-legend__value">{slice.percent}%</span>
                     </li>
+                  ))}
+                </ul>
+              </div>
+            </article>
+
+            <article className="home-dash-card">
+              <h3 className="home-dash-card__title">주문/구매 구분 매출</h3>
+              <div className="home-dash-donut-row">
+                <div
+                  className="home-dash-donut"
+                  style={{ background: buildDonutBackground(orderSlices) }}
+                  aria-hidden
+                />
+                <ul className="home-dash-legend">
+                  {orderSlices.map((slice) => (
+                    <li key={slice.label}>
+                      <span className="home-dash-legend__swatch" style={{ background: slice.color }} />
+                      <span className="home-dash-legend__label">{slice.label}</span>
+                      <span className="home-dash-legend__value">{slice.percent}%</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            </article>
+          </section>
+
+          <section className="home-dash-bottom">
+            <article className="home-dash-card">
+              <h3 className="home-dash-card__title">센터별 출고 통계</h3>
+              <ul className="home-dash-bars">
+                {visitStats.map((stat) => (
+                  <li key={stat.label} className="home-dash-bar">
+                    <span className="home-dash-bar__label">{stat.label}</span>
+                    <div className="home-dash-bar__track">
+                      <div
+                        className="home-dash-bar__fill"
+                        style={{ width: `${stat.percent}%`, background: stat.color }}
+                      />
+                    </div>
+                    <span className="home-dash-bar__value">{stat.percent}%</span>
+                  </li>
+                ))}
+              </ul>
+            </article>
+
+            <article className="home-dash-card home-dash-card--table">
+              <h3 className="home-dash-card__title">판매량 TOP 상품</h3>
+              <div className="home-dash-table-wrap">
+                <table className="home-dash-table">
+                  <thead>
+                    <tr>
+                      <th>No</th>
+                      <th>상품명</th>
+                      <th>수량</th>
+                      <th>가격</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {topProducts.map((row) => (
+                      <tr key={row.no}>
+                        <td>{row.no}</td>
+                        <td>{row.name}</td>
+                        <td>{row.qty}</td>
+                        <td>{row.price}</td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+            </article>
+
+            <article className="home-dash-card home-dash-card--promo">
+              <Package size={42} strokeWidth={1.4} aria-hidden />
+              <p className="home-dash-promo__text">
+                자주 쓰는 화면은 바로가기에서
+                <br />
+                빠르게 이동할 수 있습니다.
+              </p>
+              <div className="home-dash-promo__links">
+                {quickLinks.map((link) => {
+                  const Icon = link.icon;
+                  return (
+                    <button
+                      key={link.key}
+                      type="button"
+                      className="home-dash-promo__link"
+                      onClick={() => onShortcutClick(link.key)}
+                    >
+                      <Icon size={14} strokeWidth={1.75} aria-hidden />
+                      {link.label}
+                    </button>
                   );
                 })}
-              </ul>
-            </section>
-          </aside>
-
-          <section className="home-notice-card">
-            <header className="home-notice-card__head">
-              <h3>공지사항</h3>
-            </header>
-            <ul className="home-notice-card__list">
-              {noticeItems.map((item) => (
-                <li key={item.id} className="home-notice-card__item">
-                  <span className="home-notice-card__title">{item.title}</span>
-                  <span className="home-notice-card__date">{item.date}</span>
-                </li>
-              ))}
-            </ul>
+              </div>
+              <button
+                type="button"
+                className="home-dash-promo__cta"
+                onClick={() => onShortcutClick("order-register")}
+              >
+                <PlayCircle size={15} strokeWidth={1.75} aria-hidden />
+                주문서등록 바로가기
+              </button>
+            </article>
           </section>
         </div>
       </div>
