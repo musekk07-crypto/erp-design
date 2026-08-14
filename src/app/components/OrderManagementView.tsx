@@ -1129,9 +1129,17 @@ function OmPaymentInfo() {
   );
 }
 
-function OmMemberInfoField({ label, value }: { label: string; value: string }) {
+function OmMemberInfoField({
+  label,
+  value,
+  variant,
+}: {
+  label: string;
+  value: string;
+  variant?: "ssn";
+}) {
   return (
-    <div className="order-mgmt-member-info-field">
+    <div className={`order-mgmt-member-info-field${variant === "ssn" ? " order-mgmt-member-info-field--ssn" : ""}`}>
       <span className="order-mgmt-member-info-field__label">{label}</span>
       <span className="order-mgmt-member-info-field__value">{value}</span>
     </div>
@@ -1157,7 +1165,7 @@ function OmMemberInfoPanel({ member }: { member: ProfileMember | null }) {
         <div className="order-mgmt-member-info-grid">
           <OmMemberInfoField label="회원번호" value={member?.no ?? ""} />
           <OmMemberInfoField label="회원명" value={member?.name ?? ""} />
-          <OmMemberInfoField label="주민등록번호" value={member?.ssn ?? ""} />
+          <OmMemberInfoField label="주민등록번호" value={member?.ssn ?? ""} variant="ssn" />
           <OmMemberInfoField label="전화번호" value={member?.phone ?? ""} />
           <OmMemberInfoField label="센터" value={centerCode} />
           <OmMemberInfoField label="주소지" value={address} />

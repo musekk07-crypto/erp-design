@@ -3025,7 +3025,8 @@ textarea.mm2-name-box:focus {
 
 .order-mgmt-member-info-grid {
   display: grid;
-  grid-template-columns: minmax(168px, 30%) minmax(0, 1fr);
+  /* 주민번호(왼쪽) 우선 확보, 오른쪽 폼은 상대적으로 좁혀도 됨 */
+  grid-template-columns: minmax(248px, 1.25fr) minmax(0, 1fr);
 }
 
 .order-mgmt-member-info-field {
@@ -3063,6 +3064,15 @@ textarea.mm2-name-box:focus {
   color: var(--text-body);
   line-height: 1.35;
   word-break: break-all;
+}
+
+.order-mgmt-member-info-field--ssn .order-mgmt-member-info-field__value {
+  flex: 0 0 auto;
+  min-width: max-content;
+  white-space: nowrap;
+  word-break: normal;
+  overflow: visible;
+  text-overflow: clip;
 }
 
 .order-mgmt-member-info-body p {
