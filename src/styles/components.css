@@ -2877,11 +2877,24 @@ textarea.mm2-name-box:focus {
   top: 0;
   z-index: 1;
   height: 34px;
+  min-height: 34px;
   padding-top: 8px;
   padding-bottom: 8px;
   background: var(--split-table-header-bg, #5a6270);
   color: var(--split-table-header-fg, #f8fafc);
   font-weight: 500;
+}
+
+.order-list-manage__table td {
+  height: 30px;
+  min-height: 30px;
+}
+
+.order-list-manage__pane .order-list-manage__table th {
+  height: 34px;
+  min-height: 34px;
+  padding-top: 8px;
+  padding-bottom: 8px;
 }
 
 .order-list-manage__table td.is-check,
@@ -3876,6 +3889,8 @@ textarea.mm2-name-box:focus {
   padding-left: 8px !important;
   padding-right: 8px !important;
   font-size: 12px !important;
+  line-height: 1.35 !important;
+  box-sizing: border-box;
 }
 
 .app-content .order-mgmt-view .order-mgmt-table-wrap .split-table-head th:first-child,
@@ -3884,6 +3899,9 @@ textarea.mm2-name-box:focus {
 }
 
 .app-content .order-mgmt-view .order-mgmt-table-wrap .split-table-head th {
+  padding-top: 8px !important;
+  padding-bottom: 8px !important;
+  height: 34px;
   text-align: center !important;
   font-weight: 500 !important;
 }
