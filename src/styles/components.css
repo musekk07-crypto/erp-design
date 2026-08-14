@@ -6810,6 +6810,16 @@ textarea.mm2-name-box:focus {
   color: #fff;
   cursor: pointer;
   flex-shrink: 0;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.15s ease, background 0.15s ease;
+}
+
+.app-sidebar:not(.is-expanded):hover .sidebar-expand-toggle,
+.app-sidebar:not(.is-expanded):focus-within .sidebar-expand-toggle,
+.sidebar-expand-toggle:focus-visible {
+  opacity: 1;
+  pointer-events: auto;
 }
 
 .sidebar-expand-toggle:hover {
