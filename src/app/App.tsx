@@ -32,7 +32,9 @@ type SortKey = string | null;
 type SortDir = "asc" | "desc";
 
 // 레이아웃 고정 너비 — 회원목록 확장 시 컨텐츠 찌그러짐 방지
-const SIDEBAR_WIDTH = 48;
+const SIDEBAR_COLLAPSED_WIDTH = 48;
+const SIDEBAR_EXPANDED_WIDTH = 176;
+const SIDEBAR_WIDTH = SIDEBAR_COLLAPSED_WIDTH;
 const MEMBERS_RAIL_WIDTH = 36;
 const MEMBER_LIST_MIN_WIDTH = 320;
 const MEMBER_LIST_PAGE_SIZE = 15;
@@ -5514,17 +5516,22 @@ interface SidebarProps {
   onNavChange: (key: SidebarNavKey) => void;
   theme: Theme;
   onThemeChange: (t: Theme) => void;
+  expanded: boolean;
+  onToggleExpand: () => void;
+  width: number;
 }
 
 function SidebarNavButton({
   label,
   isActive,
   onClick,
+  expanded,
   children,
 }: {
   label: string;
   isActive: boolean;
   onClick: () => void;
+  expanded: boolean;
   children: React.ReactNode;
 }) {
   return (
@@ -5532,10 +5539,14 @@ function SidebarNavButton({
       type="button"
       aria-label={label}
       onClick={onClick}
-      className={`sidebar-nav-item group relative${isActive ? " is-active" : ""}`}
+      className={`sidebar-nav-item group relative${isActive ? " is-active" : ""}${expanded ? " is-expanded" : ""}`}
     >
       {children}
-      <span className="sidebar-nav-tooltip">{label}</span>
+      {expanded ? (
+        <span className="sidebar-nav-item-label">{label}</span>
+      ) : (
+        <span className="sidebar-nav-tooltip">{label}</span>
+      )}
     </button>
   );
 }
@@ -5594,18 +5605,34 @@ function MembersRailSidebar({
   );
 }
 
-function Sidebar({ activeNavKey, onNavChange, theme, onThemeChange }: SidebarProps) {
+function Sidebar({
+  activeNavKey,
+  onNavChange,
+  theme,
+  onThemeChange,
+  expanded,
+  onToggleExpand,
+  width,
+}: SidebarProps) {
   return (
     <div
-      className="app-sidebar flex flex-col items-center py-4 gap-1"
-      style={{ width: SIDEBAR_WIDTH, minWidth: SIDEBAR_WIDTH, height: "100%", background: "var(--sidebar-bg, #393939)", borderRight: "1px solid var(--nav-border, var(--border))", flexShrink: 0 }}
+      className={`app-sidebar flex flex-col py-3 gap-1${expanded ? " is-expanded" : ""}`}
+      style={{
+        width,
+        minWidth: width,
+        height: "100%",
+        background: "var(--sidebar-bg, #393939)",
+        borderRight: "1px solid var(--nav-border, var(--border))",
+        flexShrink: 0,
+      }}
     >
-      <div className="flex flex-col items-center gap-1 flex-1">
+      <div className={`app-sidebar__nav flex flex-col gap-1 flex-1${expanded ? "" : " items-center"}`}>
         {navItems.map((item) => (
           <SidebarNavButton
             key={item.key}
             label={item.label}
             isActive={activeNavKey === item.key}
+            expanded={expanded}
             onClick={() => onNavChange(item.key)}
           >
             <item.icon size={18} className="sidebar-nav-item-icon" />
@@ -5613,24 +5640,35 @@ function Sidebar({ activeNavKey, onNavChange, theme, onThemeChange }: SidebarPro
         ))}
       </div>
 
-      <div className="flex flex-col items-center gap-1 mt-auto">
+      <div className={`app-sidebar__bottom flex flex-col gap-1 mt-auto${expanded ? "" : " items-center"}`}>
+        <button
+          type="button"
+          className={`sidebar-expand-toggle${expanded ? " is-expanded" : ""}`}
+          aria-label={expanded ? "사이드바 접기" : "사이드바 펼치기"}
+          aria-pressed={expanded}
+          onClick={onToggleExpand}
+        >
+          {expanded ? <ChevronLeft size={16} /> : <ChevronRight size={16} />}
+          {expanded ? <span className="sidebar-expand-toggle__label">메뉴 접기</span> : null}
+        </button>
+
         {bottomItems.map((item) => (
           <button
             key={item.label}
-            className="w-10 h-10 rounded flex items-center justify-center transition-all duration-200 group relative"
+            type="button"
+            className={`sidebar-nav-item group relative${expanded ? " is-expanded" : ""}`}
+            aria-label={item.label}
           >
-            <item.icon size={18} style={{ color: "var(--sidebar-foreground)" }} />
-            <span
-              className="absolute left-10 px-2 py-1 rounded whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity duration-200 pointer-events-none z-50"
-              style={{ background: "var(--tooltip-bg)", color: "var(--tooltip-fg)", fontSize: "var(--font-size-xs)" }}
-            >
-              {item.label}
-            </span>
+            <item.icon size={18} className="sidebar-nav-item-icon" />
+            {expanded ? (
+              <span className="sidebar-nav-item-label">{item.label}</span>
+            ) : (
+              <span className="sidebar-nav-tooltip">{item.label}</span>
+            )}
           </button>
         ))}
 
-        {/* 테마 전환 버튼 */}
-        <div className="flex flex-col items-center gap-1.5 mt-2 mb-1">
+        <div className={`flex gap-1.5 mt-2 mb-1${expanded ? " px-3 justify-start" : " flex-col items-center"}`}>
           {themes.map((t) => (
             <button
               key={t.key}
@@ -5639,12 +5677,14 @@ function Sidebar({ activeNavKey, onNavChange, theme, onThemeChange }: SidebarPro
               aria-label={t.label}
               style={{ background: t.color }}
             >
-              <span
-                className="absolute left-6 px-2 py-1 rounded whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity duration-200 pointer-events-none z-50"
-                style={{ background: "var(--tooltip-bg)", color: "var(--tooltip-fg)", fontSize: "var(--font-size-xs)" }}
-              >
-                {t.label}
-              </span>
+              {!expanded ? (
+                <span
+                  className="absolute left-6 px-2 py-1 whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity duration-200 pointer-events-none z-50"
+                  style={{ background: "var(--tooltip-bg)", color: "var(--tooltip-fg)", fontSize: "var(--font-size-xs)", borderRadius: 0 }}
+                >
+                  {t.label}
+                </span>
+              ) : null}
             </button>
           ))}
         </div>
@@ -5665,6 +5705,7 @@ export default function App() {
   const [listWidth, setListWidth] = useState(() => clampMemberListWidth(MEMBER_LIST_DEFAULT_WIDTH));
   const [activeTab, setActiveTab] = useState("회원정보");
   const [activeSidebarKey, setActiveSidebarKey] = useState<SidebarNavKey>("home");
+  const [sidebarExpanded, setSidebarExpanded] = useState(false);
   const [homeActiveTask, setHomeActiveTask] = useState<"desktop" | HomeShortcutKey>("desktop");
   const [activeMainMenu, setActiveMainMenu] = useState("회원관리");
   const [activeMemberSubMenu, setActiveMemberSubMenu] = useState("회원등록");
@@ -5677,6 +5718,7 @@ export default function App() {
   const appContentRef = useRef<HTMLDivElement>(null);
   const resizing = useRef(false);
 
+  const sidebarWidth = sidebarExpanded ? SIDEBAR_EXPANDED_WIDTH : SIDEBAR_COLLAPSED_WIDTH;
   const isHomeView = activeSidebarKey === "home" && activeMainMenu === "회원관리";
   const isBasicManagement = activeMainMenu === "기초관리";
   const isMenuPlaceholder =
@@ -5968,7 +6010,7 @@ export default function App() {
     setIsListResizing(true);
     function onMove(ev: MouseEvent) {
       if (!resizing.current) return;
-      const sidebarOffset = SIDEBAR_WIDTH + (showMembersNav ? MEMBERS_RAIL_WIDTH : 0);
+      const sidebarOffset = sidebarWidth + (showMembersNav ? MEMBERS_RAIL_WIDTH : 0);
       const newWidth = ev.clientX - sidebarOffset;
       setListWidth(clampMemberListWidth(newWidth));
     }
@@ -5980,7 +6022,7 @@ export default function App() {
     }
     window.addEventListener("mousemove", onMove);
     window.addEventListener("mouseup", onUp);
-  }, [showMembersNav]);
+  }, [showMembersNav, sidebarWidth]);
 
   return (
     <div
@@ -6014,6 +6056,9 @@ export default function App() {
           onNavChange={navigateFromSidebar}
           theme={theme}
           onThemeChange={setTheme}
+          expanded={sidebarExpanded}
+          onToggleExpand={() => setSidebarExpanded((v) => !v)}
+          width={sidebarWidth}
         />
 
         {showMembersNav && (
