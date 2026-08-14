@@ -5206,7 +5206,6 @@ function MemberPageChrome({ activeTab, onTabChange, onToolbarAction, memberId }:
         {subTabs.map((tab) => {
           const isActive = tab === activeTab;
           const count = memberId != null ? getMemberDetailTabCount(tab, memberId) : null;
-          const label = count != null && count > 0 ? `${tab}(${count})` : tab;
           return (
             <button
               key={tab}
@@ -5214,7 +5213,10 @@ function MemberPageChrome({ activeTab, onTabChange, onToolbarAction, memberId }:
               className={`detail-tab${isActive ? " is-active" : ""}`}
               onClick={() => onTabChange(tab)}
             >
-              {label}
+              <span className="detail-tab__label">{tab}</span>
+              {count != null && count > 0 ? (
+                <span className="detail-tab__count">({count})</span>
+              ) : null}
             </button>
           );
         })}

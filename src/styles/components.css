@@ -512,6 +512,7 @@
   box-sizing: border-box;
   margin: 0 0 -1px;
   padding: 8px 14px;
+  font-family: "Malgun Gothic", "Apple SD Gothic Neo", "Noto Sans KR", "Segoe UI", sans-serif;
   font-size: var(--font-size-md);
   font-weight: 400;
   color: var(--detail-tab-inactive-fg);
@@ -521,6 +522,20 @@
   cursor: pointer;
   white-space: nowrap;
   transition: color 0.15s, background 0.15s;
+}
+
+.detail-tab__label,
+.detail-tab__count {
+  font: inherit;
+  font-size: 1em;
+  font-weight: inherit;
+  line-height: inherit;
+  letter-spacing: inherit;
+  vertical-align: baseline;
+}
+
+.detail-tab__count {
+  font-variant-numeric: lining-nums;
 }
 
 .detail-tab + .detail-tab {
