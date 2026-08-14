@@ -3226,23 +3226,28 @@ textarea.mm2-name-box:focus {
 }
 
 .order-mgmt-splitter--horizontal:hover .panel-splitter__line,
-.order-mgmt-view.is-h-resizing .order-mgmt-splitter--horizontal .panel-splitter__line {
+.order-mgmt-view.is-h-resizing .order-mgmt-splitter--horizontal .panel-splitter__line,
+.member-split-panel-view.is-h-resizing .order-mgmt-splitter--horizontal .panel-splitter__line {
   opacity: 1;
 }
 
 .order-mgmt-splitter--horizontal:hover .panel-splitter__grip,
-.order-mgmt-view.is-h-resizing .order-mgmt-splitter--horizontal .panel-splitter__grip {
+.order-mgmt-view.is-h-resizing .order-mgmt-splitter--horizontal .panel-splitter__grip,
+.member-split-panel-view.is-h-resizing .order-mgmt-splitter--horizontal .panel-splitter__grip {
   box-shadow: 0 0 0 1px var(--accent-primary, #007aff);
   background: var(--accent-light, #e8f2ff);
 }
 
 .order-mgmt-splitter--horizontal:hover .panel-splitter__grip span,
-.order-mgmt-view.is-h-resizing .order-mgmt-splitter--horizontal .panel-splitter__grip span {
+.order-mgmt-view.is-h-resizing .order-mgmt-splitter--horizontal .panel-splitter__grip span,
+.member-split-panel-view.is-h-resizing .order-mgmt-splitter--horizontal .panel-splitter__grip span {
   opacity: 1;
 }
 
 .order-mgmt-view.is-h-resizing,
-.order-mgmt-view.is-h-resizing * {
+.order-mgmt-view.is-h-resizing *,
+.member-split-panel-view.is-h-resizing,
+.member-split-panel-view.is-h-resizing * {
   cursor: row-resize !important;
   user-select: none !important;
 }

@@ -1943,10 +1943,42 @@ function DetailSplitPanelView({
   bottomRows?: Record<string, string | number>[];
 }) {
   const unifiedMinWidth = Math.max(getSplitTableWeight(topColumns), getSplitTableWeight(bottomColumns));
+  const stackRef = useRef<HTMLDivElement>(null);
+  const [topShare, setTopShare] = useState(0.48);
+  const [isSplitResizing, setIsSplitResizing] = useState(false);
+
+  const onSplitResizeStart = useCallback(
+    (e: React.MouseEvent) => {
+      e.preventDefault();
+      e.stopPropagation();
+      const stack = stackRef.current;
+      if (!stack) return;
+
+      setIsSplitResizing(true);
+      const startY = e.clientY;
+      const startShare = topShare;
+      const usable = Math.max(1, stack.clientHeight - 12);
+
+      function onMove(ev: MouseEvent) {
+        const deltaShare = (ev.clientY - startY) / usable;
+        setTopShare(Math.max(0.22, Math.min(0.78, startShare + deltaShare)));
+      }
+
+      function onUp() {
+        setIsSplitResizing(false);
+        window.removeEventListener("mousemove", onMove);
+        window.removeEventListener("mouseup", onUp);
+      }
+
+      window.addEventListener("mousemove", onMove);
+      window.addEventListener("mouseup", onUp);
+    },
+    [topShare],
+  );
 
   return (
     <div
-      className="flex flex-col h-full min-h-0 w-full overflow-hidden member-split-panel-view"
+      className={`flex flex-col h-full min-h-0 w-full overflow-hidden member-split-panel-view${isSplitResizing ? " is-h-resizing" : ""}`}
       style={{ background: "var(--surface-page)" }}
     >
       <button
@@ -1969,12 +2001,32 @@ function DetailSplitPanelView({
       <div className="flex-1 min-h-0 flex flex-col overflow-hidden" style={{ width: "100%" }}>
         <div className="flex-1 min-h-0 overflow-x-auto overflow-y-hidden flex flex-col">
           <div
+            ref={stackRef}
             className="flex flex-col flex-1 min-h-0"
             style={{ width: "100%", minWidth: unifiedMinWidth }}
           >
-            <SplitTableBlock columns={topColumns} rows={topRows} />
-            <div style={{ height: 6, background: "var(--border)", flexShrink: 0 }} />
-            <SplitTableBlock columns={bottomColumns} rows={bottomRows} />
+            <div className="min-h-0 flex flex-col" style={{ flex: `${topShare} 1 0` }}>
+              <SplitTableBlock columns={topColumns} rows={topRows} />
+            </div>
+
+            <div
+              className="order-mgmt-splitter order-mgmt-splitter--horizontal"
+              role="separator"
+              aria-orientation="horizontal"
+              aria-label="상·하단 테이블 높이 조절"
+              onMouseDown={onSplitResizeStart}
+            >
+              <span className="panel-splitter__line" aria-hidden />
+              <span className="panel-splitter__grip" aria-hidden>
+                <span />
+                <span />
+                <span />
+              </span>
+            </div>
+
+            <div className="min-h-0 flex flex-col" style={{ flex: `${1 - topShare} 1 0` }}>
+              <SplitTableBlock columns={bottomColumns} rows={bottomRows} />
+            </div>
           </div>
         </div>
       </div>
