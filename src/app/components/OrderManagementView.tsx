@@ -24,7 +24,7 @@ const OM_DEFAULT_ALIGN: NonNullable<OmColumn["align"]> = "center";
 const ORDER_MGMT_SPLITTER_WIDTH = 21;
 const ORDER_MGMT_H_SPLITTER_HEIGHT = 12;
 /** 오른쪽 폼 기본 너비 — 회원목록 오픈 시에도 레이아웃 최소폭 기준으로 사용 */
-const ORDER_MGMT_RIGHT_DEFAULT = 1000;
+const ORDER_MGMT_RIGHT_DEFAULT = 900;
 /** 스플리터로 오른쪽을 줄일 수 있는 최소폭 */
 const ORDER_MGMT_RIGHT_MIN = 560;
 /** 왼쪽은 표 가로스크롤로 대응하므로 최소만 보장 */
