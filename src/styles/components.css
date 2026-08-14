@@ -6651,8 +6651,7 @@ textarea.mm2-name-box:focus {
   gap: 4px;
   padding: 12px 0;
   box-sizing: border-box;
-  overflow-x: hidden;
-  overflow-y: auto;
+  overflow: hidden;
   transition: width 0.18s ease, min-width 0.18s ease;
 }
 
@@ -6672,13 +6671,16 @@ textarea.mm2-name-box:focus {
 }
 
 .app-sidebar__nav {
-  flex: 1;
+  flex: 1 1 auto;
   min-height: 0;
+  overflow: hidden;
 }
 
 .app-sidebar__bottom {
+  flex: 0 0 auto;
   margin-top: auto;
-  padding-top: 8px;
+  padding-top: 4px;
+  overflow: hidden;
 }
 
 .app-sidebar__nav.is-expanded,
