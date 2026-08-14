@@ -49,6 +49,7 @@ function buildOrgChartChain(member: MemberOrgChartMember): MemberOrgChartNode[] 
 
 type MemberOrgChartViewProps = {
   member: MemberOrgChartMember;
+  onOpenMemberSearch?: () => void;
 };
 
 function OrgChartToolbarButton({
@@ -82,7 +83,7 @@ function OrgChartNodeBox({ node }: { node: MemberOrgChartNode }) {
   );
 }
 
-export function MemberOrgChartView({ member }: MemberOrgChartViewProps) {
+export function MemberOrgChartView({ member, onOpenMemberSearch }: MemberOrgChartViewProps) {
   const chain = useMemo(() => buildOrgChartChain(member), [member]);
   const [settingsOpen, setSettingsOpen] = useState(false);
 
@@ -90,7 +91,7 @@ export function MemberOrgChartView({ member }: MemberOrgChartViewProps) {
     <div className="member-org-chart-view">
       <div className="member-org-chart-toolbar-shell">
         <div className="member-info-toolbar member-org-chart-toolbar">
-          <OrgChartToolbarButton icon={Search} label="검색" />
+          <OrgChartToolbarButton icon={Search} label="회원검색" onClick={onOpenMemberSearch} />
           <OrgChartToolbarButton
             icon={SlidersHorizontal}
             label="조직도설정"

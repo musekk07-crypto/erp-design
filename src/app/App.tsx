@@ -35,7 +35,6 @@ type SortDir = "asc" | "desc";
 const SIDEBAR_COLLAPSED_WIDTH = 48;
 const SIDEBAR_EXPANDED_WIDTH = 176;
 const SIDEBAR_WIDTH = SIDEBAR_COLLAPSED_WIDTH;
-const MEMBERS_RAIL_WIDTH = 36;
 const MEMBER_LIST_MIN_WIDTH = 320;
 const MEMBER_LIST_PAGE_SIZE = 15;
 const FORM_COLUMN_WIDTH_MIN = 1000;
@@ -3789,6 +3788,7 @@ function MemberManagementView({
   onTabChange,
   onNavigateToOrderManagement,
   onNavigateToOrgChart,
+  onOpenMemberSearch,
 }: {
   memberId: number;
   listOpen: boolean;
@@ -3797,6 +3797,7 @@ function MemberManagementView({
   onTabChange: (tab: string) => void;
   onNavigateToOrderManagement?: () => void;
   onNavigateToOrgChart?: () => void;
+  onOpenMemberSearch?: () => void;
 }) {
   const member = getMemberById(memberId);
   const isMemberInfoTab = activeTab === "회원정보";
@@ -3819,6 +3820,10 @@ function MemberManagementView({
   }, [memberId]);
 
   function handleToolbarAction(label: string) {
+    if (label === "회원검색") {
+      onOpenMemberSearch?.();
+      return;
+    }
     if (label === "조직도") {
       onNavigateToOrgChart?.();
     }
@@ -4779,6 +4784,7 @@ const orderSubMenuColumns: NavSubMenuColumn[] = [
 const subTabs = ["회원정보", "주문서내역", "수당내역", "로그히스토리", "상담내역", "마일리지", "사용자설정", "마이페이지"];
 
 const memberInfoToolbarItems = [
+  { label: "회원검색", icon: Search },
   { label: "새로 만들기", icon: FilePlus },
   { label: "저장", icon: Save },
   { label: "삭제", icon: Trash2 },
@@ -5499,8 +5505,6 @@ const navItems: { icon: React.ComponentType<{ size?: number; style?: React.CSSPr
   { icon: Plus, label: "바로가기 추가", key: "add-shortcut" },
 ];
 
-const sidebarRailSlotKeys = navItems.map((item) => item.key);
-
 const bottomItems = [
   { icon: HelpCircle, label: "도움말" },
   { icon: Settings, label: "설정" },
@@ -5548,60 +5552,6 @@ function SidebarNavButton({
         <span className="sidebar-nav-tooltip">{label}</span>
       )}
     </button>
-  );
-}
-
-function SidebarMembersToggle({
-  isOpen,
-  onClick,
-}: {
-  isOpen: boolean;
-  onClick: () => void;
-}) {
-  return (
-    <button
-      type="button"
-      aria-label="회원검색"
-      aria-pressed={isOpen}
-      onClick={onClick}
-      className={`sidebar-members-toggle${isOpen ? " is-open" : ""}`}
-    >
-      <Search size={14} className="sidebar-members-toggle__icon" strokeWidth={2.4} aria-hidden />
-      <span className="sidebar-members-toggle__label">회원검색</span>
-    </button>
-  );
-}
-
-function MembersRailSidebar({
-  anchorKey,
-  memberListOpen,
-  onToggle,
-}: {
-  anchorKey: SidebarNavKey;
-  memberListOpen: boolean;
-  onToggle: () => void;
-}) {
-  return (
-    <aside
-      className="app-members-rail"
-      aria-label="회원목록 패널"
-      style={{ width: MEMBERS_RAIL_WIDTH, minWidth: MEMBERS_RAIL_WIDTH }}
-    >
-      <div className="app-members-rail__slots">
-        {sidebarRailSlotKeys.map((slotKey) => (
-          <div
-            key={slotKey}
-            className={`sidebar-rail-slot${slotKey === anchorKey ? " is-anchor" : ""}`}
-          >
-            {slotKey === anchorKey ? (
-              <SidebarMembersToggle isOpen={memberListOpen} onClick={onToggle} />
-            ) : (
-              <div className="sidebar-nav-slot-spacer" aria-hidden />
-            )}
-          </div>
-        ))}
-      </div>
-    </aside>
   );
 }
 
@@ -5716,7 +5666,7 @@ export default function App() {
   const [listWidth, setListWidth] = useState(() => clampMemberListWidth(MEMBER_LIST_DEFAULT_WIDTH));
   const [activeTab, setActiveTab] = useState("회원정보");
   const [activeSidebarKey, setActiveSidebarKey] = useState<SidebarNavKey>("home");
-  const [sidebarExpanded, setSidebarExpanded] = useState(false);
+  const [sidebarExpanded, setSidebarExpanded] = useState(true);
   const [homeActiveTask, setHomeActiveTask] = useState<"desktop" | HomeShortcutKey>("desktop");
   const [activeMainMenu, setActiveMainMenu] = useState("회원관리");
   const [activeMemberSubMenu, setActiveMemberSubMenu] = useState("회원등록");
@@ -5741,14 +5691,6 @@ export default function App() {
       (activeMainMenu === "주문관리" && activeOrderSubMenu === "주문서등록"));
   const memberListOpen = memberListNavEnabled && listOpen;
 
-  const showMembersNav =
-    !isHomeView &&
-    ((activeMainMenu === "회원관리" &&
-      activeMemberSubMenu === "회원등록" &&
-      activeTab === "회원정보") ||
-      (activeMainMenu === "회원관리" && activeMemberSubMenu === "조직도인쇄") ||
-      (activeMainMenu === "주문관리" && activeOrderSubMenu === "주문서등록"));
-
   useEffect(() => {
     if (!memberListOpen) return;
     const onKeyDown = (event: KeyboardEvent) => {
@@ -5757,13 +5699,6 @@ export default function App() {
     window.addEventListener("keydown", onKeyDown);
     return () => window.removeEventListener("keydown", onKeyDown);
   }, [memberListOpen]);
-
-  const membersRailAnchorKey: SidebarNavKey =
-    activeMainMenu === "회원관리" && activeMemberSubMenu === "조직도인쇄"
-      ? "org-chart"
-      : activeMainMenu === "주문관리" && activeOrderSubMenu === "주문서등록"
-        ? "order-register"
-        : "member-register";
 
   // 사이드바 아이콘은 클릭 이력이 아니라 현재 열려 있는 화면을 따라간다
   const sidebarActiveKey: SidebarNavKey | null = isHomeView
@@ -6031,8 +5966,7 @@ export default function App() {
     setIsListResizing(true);
     function onMove(ev: MouseEvent) {
       if (!resizing.current) return;
-      const sidebarOffset = sidebarWidth + (showMembersNav ? MEMBERS_RAIL_WIDTH : 0);
-      const newWidth = ev.clientX - sidebarOffset;
+      const newWidth = ev.clientX - sidebarWidth;
       setListWidth(clampMemberListWidth(newWidth));
     }
     function onUp() {
@@ -6043,7 +5977,7 @@ export default function App() {
     }
     window.addEventListener("mousemove", onMove);
     window.addEventListener("mouseup", onUp);
-  }, [showMembersNav, sidebarWidth]);
+  }, [sidebarWidth]);
 
   return (
     <div
@@ -6081,14 +6015,6 @@ export default function App() {
           onToggleExpand={() => setSidebarExpanded((v) => !v)}
           width={sidebarWidth}
         />
-
-        {showMembersNav && (
-          <MembersRailSidebar
-            anchorKey={membersRailAnchorKey}
-            memberListOpen={memberListOpen}
-            onToggle={() => navigateFromSidebar("members")}
-          />
-        )}
 
         <div
           ref={appContentRef}
@@ -6141,6 +6067,7 @@ export default function App() {
                     ? null
                     : getMemberById(orderSelectedMemberId)
                 }
+                onOpenMemberSearch={() => setListOpen(true)}
               />
             ) : activeOrderSubMenu === "주문서관리" ? (
               <OrderListManageView />
@@ -6170,7 +6097,10 @@ export default function App() {
               onTabChange={setActiveTab}
             />
           ) : activeMainMenu === "회원관리" && activeMemberSubMenu === "조직도인쇄" ? (
-            <MemberOrgChartView member={getMemberById(selectedMember)} />
+            <MemberOrgChartView
+              member={getMemberById(selectedMember)}
+              onOpenMemberSearch={() => setListOpen(true)}
+            />
           ) : activeMainMenu === "회원관리" && activeMemberSubMenu !== "회원등록" ? (
             <div
               className="member-subpage-placeholder"
@@ -6197,6 +6127,7 @@ export default function App() {
               onTabChange={setActiveTab}
               onNavigateToOrderManagement={handleNavigateToOrderManagement}
               onNavigateToOrgChart={handleNavigateToOrgChart}
+              onOpenMemberSearch={() => setListOpen(true)}
             />
           )}
         </div>

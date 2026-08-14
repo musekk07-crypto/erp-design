@@ -532,9 +532,21 @@ function OmToolbarButton({
   );
 }
 
-function OmOrderToolbarButton({ icon: Icon, label }: { icon: React.ElementType; label: string }) {
+function OmOrderToolbarButton({
+  icon: Icon,
+  label,
+  onClick,
+}: {
+  icon: React.ElementType;
+  label: string;
+  onClick?: () => void;
+}) {
   return (
-    <button type="button" className="member-info-toolbar-item order-mgmt-order-toolbar__item">
+    <button
+      type="button"
+      className="member-info-toolbar-item order-mgmt-order-toolbar__item"
+      onClick={onClick}
+    >
       <Icon size={18} strokeWidth={1.5} style={{ color: "var(--text-muted)" }} />
       <span>{label}</span>
     </button>
@@ -1156,7 +1168,13 @@ function OmMemberInfoPanel({ member }: { member: ProfileMember | null }) {
   );
 }
 
-export function OrderManagementView({ member }: { member: ProfileMember | null }) {
+export function OrderManagementView({
+  member,
+  onOpenMemberSearch,
+}: {
+  member: ProfileMember | null;
+  onOpenMemberSearch?: () => void;
+}) {
   const [selectedOrder, setSelectedOrder] = useState(1);
   const [isRightDragging, setIsRightDragging] = useState(false);
   const [rightPanelWidth, setRightPanelWidth] = useState(ORDER_MGMT_RIGHT_DEFAULT);
@@ -1294,6 +1312,7 @@ export function OrderManagementView({ member }: { member: ProfileMember | null }
               <OmSectionTitle title="주문서 목록" />
               <div className="order-mgmt-order-toolbar-shell">
                 <div className="member-info-toolbar order-mgmt-order-toolbar">
+                  <OmOrderToolbarButton icon={Search} label="회원검색" onClick={onOpenMemberSearch} />
                   <OmOrderToolbarButton icon={FilePlus} label="새로 주문하기" />
                   <OmOrderToolbarButton icon={FileText} label="거래명세서" />
                   <OmOrderToolbarButton icon={RotateCcw} label="반품등록" />
