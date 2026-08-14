@@ -1,12 +1,6 @@
 import React, { useMemo, useState } from "react";
 import {
   Search,
-  FilePlus,
-  FileText,
-  RotateCcw,
-  Repeat2,
-  CheckCircle2,
-  Ban,
   ChevronLeft,
   ChevronRight,
   Percent,
@@ -417,17 +411,6 @@ export function OrderListManageView() {
               </tbody>
             </table>
           </div>
-        </div>
-      </div>
-
-      <div className="order-list-manage__actions">
-        <div className="member-info-toolbar order-mgmt-order-toolbar">
-          <ActionButton icon={FilePlus} label="새로 주문하기" />
-          <ActionButton icon={FileText} label="거래명세서" />
-          <ActionButton icon={RotateCcw} label="반품등록" />
-          <ActionButton icon={Repeat2} label="교환등록" />
-          <ActionButton icon={CheckCircle2} label="주문서승인" />
-          <ActionButton icon={Ban} label="주문서취소" />
         </div>
       </div>
     </div>
