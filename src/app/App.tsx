@@ -3650,7 +3650,7 @@ function MemberManagement2View({
             boxSizing: "border-box",
           }}
         >
-          <MemberPageChrome activeTab={activeTab} onTabChange={onTabChange} />
+          <MemberPageChrome activeTab={activeTab} onTabChange={onTabChange} memberId={memberId} />
 
           {isMemberInfoTab ? (
             <div className="mm2-content-row" style={{ gap: DETAIL_CONTENT_GAP }}>
@@ -3837,7 +3837,7 @@ function MemberManagementView({
             boxSizing: "border-box",
           }}
         >
-          <MemberPageChrome activeTab={activeTab} onTabChange={onTabChange} onToolbarAction={handleToolbarAction} />
+          <MemberPageChrome activeTab={activeTab} onTabChange={onTabChange} onToolbarAction={handleToolbarAction} memberId={memberId} />
 
           {isMemberInfoTab ? (
             <MemberInfoBody
