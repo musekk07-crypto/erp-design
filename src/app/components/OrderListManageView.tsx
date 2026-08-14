@@ -155,15 +155,6 @@ function buildDetailRows(date: string): DetailRow[] {
   }));
 }
 
-function ActionButton({ icon: Icon, label }: { icon: React.ElementType; label: string }) {
-  return (
-    <button type="button" className="member-info-toolbar-item order-mgmt-order-toolbar__item">
-      <Icon size={18} strokeWidth={1.5} style={{ color: "var(--text-muted)" }} />
-      <span>{label}</span>
-    </button>
-  );
-}
-
 export function OrderListManageView() {
   const [period, setPeriod] = useState("올해*");
   const [dateFrom, setDateFrom] = useState("2026-01-01");
@@ -260,6 +251,12 @@ export function OrderListManageView() {
               className="order-list-manage__control order-list-manage__control--keyword"
               value={keyword}
               onChange={(e) => setKeyword(e.target.value)}
+              onKeyDown={(e) => {
+                if (e.key === "Enter") {
+                  e.preventDefault();
+                  onSearch();
+                }
+              }}
               placeholder=""
             />
             <button
