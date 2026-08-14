@@ -5517,6 +5517,7 @@ interface SidebarProps {
   onToggleExpand: () => void;
   width: number;
   memberSearchOpen?: boolean;
+  memberSearchVisible?: boolean;
 }
 
 function SidebarNavButton({
@@ -5586,6 +5587,7 @@ function Sidebar({
   onToggleExpand,
   width,
   memberSearchOpen = false,
+  memberSearchVisible = false,
 }: SidebarProps) {
   const handleNavClick = (key: SidebarNavKey) => {
     if (key !== "members" && !expanded) onToggleExpand();
@@ -5620,11 +5622,13 @@ function Sidebar({
         {expanded ? <span className="sidebar-expand-toggle__label">메뉴 접기</span> : null}
       </button>
 
-      <SidebarMemberSearchButton
-        expanded={expanded}
-        isOpen={memberSearchOpen}
-        onClick={() => handleNavClick("members")}
-      />
+      {memberSearchVisible ? (
+        <SidebarMemberSearchButton
+          expanded={expanded}
+          isOpen={memberSearchOpen}
+          onClick={() => handleNavClick("members")}
+        />
+      ) : null}
 
       <div className={`app-sidebar__nav${expanded ? " is-expanded" : ""}`}>
         {navItems.map((item) => (
