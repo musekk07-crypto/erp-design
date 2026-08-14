@@ -6868,13 +6868,11 @@ textarea.mm2-name-box:focus {
 
 .sidebar-member-search:hover {
   background: #ffdf4d;
-  border-color: rgba(0, 0, 0, 0.28);
 }
 
 .sidebar-member-search.is-open {
   background: #ffdf4d;
-  border-color: rgba(0, 90, 180, 0.45);
-  box-shadow: 0 0 0 1px rgba(0, 122, 255, 0.35);
+  box-shadow: none;
 }
 
 .sidebar-member-search.is-open .sidebar-member-search__label,
