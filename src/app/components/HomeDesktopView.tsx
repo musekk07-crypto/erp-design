@@ -4,19 +4,16 @@ import {
   ChevronRight,
   Package,
   PlayCircle,
-  type LucideIcon,
-  LayoutDashboard,
-  UserPlus,
-  ShoppingCart,
-  GitFork,
+  Plus,
+  X,
 } from "lucide-react";
+import {
+  getShortcutMeta,
+  SHORTCUT_CATALOG,
+  type ShortcutKey,
+} from "./shortcutCatalog";
 
-export type HomeShortcutKey =
-  | "dashboard"
-  | "member-register"
-  | "order-register"
-  | "org-chart"
-  | "add-shortcut";
+export type HomeShortcutKey = ShortcutKey | "add-shortcut";
 
 export type HomeDesktopMember = {
   name: string;
@@ -27,8 +24,11 @@ export type HomeDesktopMember = {
 };
 
 interface HomeDesktopViewProps {
-  activeTask: "desktop" | HomeShortcutKey;
+  activeTask: "desktop" | ShortcutKey;
+  shortcuts: ShortcutKey[];
   onShortcutClick: (key: HomeShortcutKey) => void;
+  onOpenAddShortcut: () => void;
+  onRemoveShortcut: (key: ShortcutKey) => void;
   member?: HomeDesktopMember;
 }
 
@@ -98,13 +98,6 @@ const topProducts: TopProduct[] = [
   { no: 10, name: "프리미엄 기프트박스", qty: "36", price: "380,000" },
 ];
 
-const quickLinks: { key: HomeShortcutKey; label: string; icon: LucideIcon }[] = [
-  { key: "dashboard", label: "대시보드", icon: LayoutDashboard },
-  { key: "member-register", label: "회원등록", icon: UserPlus },
-  { key: "order-register", label: "주문서등록", icon: ShoppingCart },
-  { key: "org-chart", label: "조직도", icon: GitFork },
-];
-
 function buildDonutBackground(slices: DonutSlice[]) {
   let cursor = 0;
   const stops = slices.map((slice) => {
@@ -120,7 +113,103 @@ function formatTodayLabel(date: Date) {
   return `${date.getFullYear()}년 ${date.getMonth() + 1}월 ${date.getDate()}일 ${weekdays[date.getDay()]}요일`;
 }
 
-export function HomeDesktopView({ activeTask, onShortcutClick }: HomeDesktopViewProps) {
+export function ShortcutAddModal({
+  open,
+  shortcuts,
+  onClose,
+  onAdd,
+  onRemove,
+}: {
+  open: boolean;
+  shortcuts: ShortcutKey[];
+  onClose: () => void;
+  onAdd: (key: ShortcutKey) => void;
+  onRemove: (key: ShortcutKey) => void;
+}) {
+  if (!open) return null;
+
+  const available = SHORTCUT_CATALOG.filter((item) => !shortcuts.includes(item.key));
+  const current = shortcuts.map((key) => getShortcutMeta(key));
+
+  return (
+    <div className="shortcut-add-modal" role="dialog" aria-modal="true" aria-label="바로가기 관리">
+      <button type="button" className="shortcut-add-modal__backdrop" aria-label="닫기" onClick={onClose} />
+      <div className="shortcut-add-modal__panel">
+        <header className="shortcut-add-modal__header">
+          <h2 className="shortcut-add-modal__title">바로가기 관리</h2>
+          <button type="button" className="shortcut-add-modal__close" aria-label="닫기" onClick={onClose}>
+            <X size={16} />
+          </button>
+        </header>
+
+        <div className="shortcut-add-modal__body">
+          <section className="shortcut-add-modal__section">
+            <h3 className="shortcut-add-modal__section-title">추가 가능한 화면</h3>
+            {available.length === 0 ? (
+              <p className="shortcut-add-modal__empty">추가할 수 있는 화면이 없습니다.</p>
+            ) : (
+              <ul className="shortcut-add-modal__list">
+                {available.map((item) => {
+                  const Icon = item.icon;
+                  return (
+                    <li key={item.key}>
+                      <button
+                        type="button"
+                        className="shortcut-add-modal__item"
+                        onClick={() => onAdd(item.key)}
+                      >
+                        <Icon size={16} strokeWidth={1.75} aria-hidden />
+                        <span>{item.label}</span>
+                        <Plus size={14} aria-hidden />
+                      </button>
+                    </li>
+                  );
+                })}
+              </ul>
+            )}
+          </section>
+
+          <section className="shortcut-add-modal__section">
+            <h3 className="shortcut-add-modal__section-title">현재 바로가기</h3>
+            {current.length === 0 ? (
+              <p className="shortcut-add-modal__empty">등록된 바로가기가 없습니다.</p>
+            ) : (
+              <ul className="shortcut-add-modal__list">
+                {current.map((item) => {
+                  const Icon = item.icon;
+                  return (
+                    <li key={item.key}>
+                      <div className="shortcut-add-modal__item shortcut-add-modal__item--current">
+                        <Icon size={16} strokeWidth={1.75} aria-hidden />
+                        <span>{item.label}</span>
+                        <button
+                          type="button"
+                          className="shortcut-add-modal__remove"
+                          aria-label={`${item.label} 삭제`}
+                          onClick={() => onRemove(item.key)}
+                        >
+                          <X size={14} />
+                        </button>
+                      </div>
+                    </li>
+                  );
+                })}
+              </ul>
+            )}
+          </section>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+export function HomeDesktopView({
+  activeTask,
+  shortcuts,
+  onShortcutClick,
+  onOpenAddShortcut,
+  onRemoveShortcut,
+}: HomeDesktopViewProps) {
   const [dayOffset, setDayOffset] = useState(0);
   const viewDate = new Date();
   viewDate.setDate(viewDate.getDate() + dayOffset);
@@ -137,6 +226,11 @@ export function HomeDesktopView({ activeTask, onShortcutClick }: HomeDesktopView
       </div>
     );
   }
+
+  const ctaKey = shortcuts.includes("order-register")
+    ? "order-register"
+    : shortcuts[0];
+  const ctaMeta = ctaKey ? getShortcutMeta(ctaKey) : null;
 
   return (
     <div className="home-desktop">
@@ -269,29 +363,49 @@ export function HomeDesktopView({ activeTask, onShortcutClick }: HomeDesktopView
                 빠르게 이동할 수 있습니다.
               </p>
               <div className="home-dash-promo__links">
-                {quickLinks.map((link) => {
+                {shortcuts.map((key) => {
+                  const link = getShortcutMeta(key);
                   const Icon = link.icon;
                   return (
-                    <button
-                      key={link.key}
-                      type="button"
-                      className="home-dash-promo__link"
-                      onClick={() => onShortcutClick(link.key)}
-                    >
-                      <Icon size={14} strokeWidth={1.75} aria-hidden />
-                      {link.label}
-                    </button>
+                    <div key={link.key} className="home-dash-promo__link-wrap">
+                      <button
+                        type="button"
+                        className="home-dash-promo__link"
+                        onClick={() => onShortcutClick(link.key)}
+                      >
+                        <Icon size={14} strokeWidth={1.75} aria-hidden />
+                        {link.label}
+                      </button>
+                      <button
+                        type="button"
+                        className="home-dash-promo__remove"
+                        aria-label={`${link.label} 바로가기 삭제`}
+                        onClick={() => onRemoveShortcut(link.key)}
+                      >
+                        <X size={12} />
+                      </button>
+                    </div>
                   );
                 })}
+                <button
+                  type="button"
+                  className="home-dash-promo__link home-dash-promo__link--add"
+                  onClick={onOpenAddShortcut}
+                >
+                  <Plus size={14} strokeWidth={1.75} aria-hidden />
+                  추가
+                </button>
               </div>
-              <button
-                type="button"
-                className="home-dash-promo__cta"
-                onClick={() => onShortcutClick("order-register")}
-              >
-                <PlayCircle size={15} strokeWidth={1.75} aria-hidden />
-                주문서등록 바로가기
-              </button>
+              {ctaMeta ? (
+                <button
+                  type="button"
+                  className="home-dash-promo__cta"
+                  onClick={() => onShortcutClick(ctaMeta.key)}
+                >
+                  <PlayCircle size={15} strokeWidth={1.75} aria-hidden />
+                  {ctaMeta.label} 바로가기
+                </button>
+              ) : null}
             </article>
           </section>
         </div>

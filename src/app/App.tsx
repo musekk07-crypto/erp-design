@@ -6,7 +6,7 @@ import {
   Pin, Clock, ChevronLeft, ChevronRight, RefreshCw,
   FilePlus, Save, Trash2, Award, Briefcase, MessageCircle, Key, Printer,
   Globe, Landmark, Contact, CheckCircle2, Phone, ExternalLink, Camera, X,
-  LayoutDashboard, Plus, UserPlus,
+  Plus,
 } from "lucide-react";
 import { RecommenderSelectPopup } from "./components/RecommenderSelectPopup";
 import { RankAdjustPopup } from "./components/RankAdjustPopup";
@@ -18,7 +18,13 @@ import { PrintPopup } from "./components/PrintPopup";
 import { MemberSavePopup } from "./components/MemberSavePopup";
 import { OrderManagementView, ORDER_MGMT_DETAIL_MIN_WIDTH } from "./components/OrderManagementView";
 import { OrderListManageView } from "./components/OrderListManageView";
-import { HomeDesktopView, type HomeShortcutKey } from "./components/HomeDesktopView";
+import { HomeDesktopView, ShortcutAddModal, type HomeShortcutKey } from "./components/HomeDesktopView";
+import {
+  getShortcutMeta,
+  loadShortcuts,
+  saveShortcuts,
+  type ShortcutKey,
+} from "./components/shortcutCatalog";
 import { BasicManagementView } from "./components/BasicManagementView";
 import { Mm2ProfileCard, buildMm2ProfileFields } from "./components/Mm2ProfileCard";
 import { OrgChartHoverProvider, useOrgChartHover, type OrgMemberDetail } from "./components/OrgMemberHoverPopup";
@@ -5489,14 +5495,7 @@ type SidebarNavKey =
   | "org-chart"
   | "add-shortcut";
 
-const navItems: { icon: React.ComponentType<{ size?: number; style?: React.CSSProperties }>; label: string; key: SidebarNavKey }[] = [
-  { icon: Home, label: "홈", key: "home" },
-  { icon: LayoutDashboard, label: "대시보드", key: "dashboard" },
-  { icon: UserPlus, label: "회원등록", key: "member-register" },
-  { icon: ShoppingCart, label: "주문서등록", key: "order-register" },
-  { icon: GitFork, label: "조직도", key: "org-chart" },
-  { icon: Plus, label: "바로가기 추가", key: "add-shortcut" },
-];
+const fixedHomeNav = { icon: Home, label: "홈", key: "home" as const };
 
 const bottomItems = [
   { icon: HelpCircle, label: "도움말" },
@@ -5518,6 +5517,9 @@ interface SidebarProps {
   width: number;
   memberSearchOpen?: boolean;
   memberSearchVisible?: boolean;
+  shortcuts: ShortcutKey[];
+  onRemoveShortcut: (key: ShortcutKey) => void;
+  onOpenAddShortcut: () => void;
 }
 
 function SidebarNavButton({
@@ -5525,15 +5527,17 @@ function SidebarNavButton({
   isActive,
   onClick,
   expanded,
+  onRemove,
   children,
 }: {
   label: string;
   isActive: boolean;
   onClick: () => void;
   expanded: boolean;
+  onRemove?: () => void;
   children: React.ReactNode;
 }) {
-  return (
+  const button = (
     <button
       type="button"
       aria-label={label}
@@ -5547,6 +5551,26 @@ function SidebarNavButton({
         <span className="sidebar-nav-tooltip">{label}</span>
       )}
     </button>
+  );
+
+  if (!onRemove) return button;
+
+  return (
+    <div className={`sidebar-nav-item-wrap group relative${expanded ? " is-expanded" : ""}`}>
+      {button}
+      <button
+        type="button"
+        className="sidebar-nav-item-remove"
+        aria-label={`${label} 바로가기 삭제`}
+        onClick={(event) => {
+          event.preventDefault();
+          event.stopPropagation();
+          onRemove();
+        }}
+      >
+        <X size={12} />
+      </button>
+    </div>
   );
 }
 
@@ -5587,8 +5611,15 @@ function Sidebar({
   width,
   memberSearchOpen = false,
   memberSearchVisible = false,
+  shortcuts,
+  onRemoveShortcut,
+  onOpenAddShortcut,
 }: SidebarProps) {
   const handleNavClick = (key: SidebarNavKey) => {
+    if (key === "add-shortcut") {
+      onOpenAddShortcut();
+      return;
+    }
     if (key !== "members" && !expanded) onToggleExpand();
     onNavChange(key);
   };
@@ -5645,17 +5676,39 @@ function Sidebar({
       ) : null}
 
       <div className={`app-sidebar__nav${expanded ? " is-expanded" : ""}`}>
-        {navItems.map((item) => (
-          <SidebarNavButton
-            key={item.key}
-            label={item.label}
-            isActive={activeNavKey === item.key}
-            expanded={expanded}
-            onClick={() => handleNavClick(item.key)}
-          >
-            <item.icon size={18} className="sidebar-nav-item-icon" />
-          </SidebarNavButton>
-        ))}
+        <SidebarNavButton
+          label={fixedHomeNav.label}
+          isActive={activeNavKey === fixedHomeNav.key}
+          expanded={expanded}
+          onClick={() => handleNavClick(fixedHomeNav.key)}
+        >
+          <fixedHomeNav.icon size={18} className="sidebar-nav-item-icon" />
+        </SidebarNavButton>
+
+        {shortcuts.map((key) => {
+          const item = getShortcutMeta(key);
+          return (
+            <SidebarNavButton
+              key={item.key}
+              label={item.label}
+              isActive={activeNavKey === item.key}
+              expanded={expanded}
+              onClick={() => handleNavClick(item.key)}
+              onRemove={() => onRemoveShortcut(item.key)}
+            >
+              <item.icon size={18} className="sidebar-nav-item-icon" />
+            </SidebarNavButton>
+          );
+        })}
+
+        <SidebarNavButton
+          label="바로가기 추가"
+          isActive={false}
+          expanded={expanded}
+          onClick={() => handleNavClick("add-shortcut")}
+        >
+          <Plus size={18} className="sidebar-nav-item-icon" />
+        </SidebarNavButton>
       </div>
 
       <div className={`app-sidebar__bottom${expanded ? " is-expanded" : ""}`}>
@@ -5711,7 +5764,7 @@ export default function App() {
   const [activeTab, setActiveTab] = useState("회원정보");
   const [activeSidebarKey, setActiveSidebarKey] = useState<SidebarNavKey>("home");
   const [sidebarExpanded, setSidebarExpanded] = useState(true);
-  const [homeActiveTask, setHomeActiveTask] = useState<"desktop" | HomeShortcutKey>("desktop");
+  const [homeActiveTask, setHomeActiveTask] = useState<"desktop" | ShortcutKey>("desktop");
   const [activeMainMenu, setActiveMainMenu] = useState("회원관리");
   const [activeMemberSubMenu, setActiveMemberSubMenu] = useState("회원등록");
   const [activeOrderSubMenu, setActiveOrderSubMenu] = useState("주문서등록");
@@ -5719,6 +5772,8 @@ export default function App() {
   const [historyRailExpanded, setHistoryRailExpanded] = useState(true);
   const [pinnedPages, setPinnedPages] = useState<PageHistoryItem[]>([]);
   const [recentPages, setRecentPages] = useState<PageHistoryItem[]>([]);
+  const [userShortcuts, setUserShortcuts] = useState<ShortcutKey[]>(() => loadShortcuts());
+  const [shortcutAddOpen, setShortcutAddOpen] = useState(false);
   const [appContentWidth, setAppContentWidth] = useState(0);
   const appContentRef = useRef<HTMLDivElement>(null);
   const resizing = useRef(false);
@@ -5736,13 +5791,18 @@ export default function App() {
   const memberListOpen = memberListNavEnabled && listOpen;
 
   useEffect(() => {
-    if (!memberListOpen) return;
+    if (!memberListOpen && !shortcutAddOpen) return;
     const onKeyDown = (event: KeyboardEvent) => {
-      if (event.key === "Escape") setListOpen(false);
+      if (event.key !== "Escape") return;
+      if (shortcutAddOpen) {
+        setShortcutAddOpen(false);
+        return;
+      }
+      if (memberListOpen) setListOpen(false);
     };
     window.addEventListener("keydown", onKeyDown);
     return () => window.removeEventListener("keydown", onKeyDown);
-  }, [memberListOpen]);
+  }, [memberListOpen, shortcutAddOpen]);
 
   // 사이드바 아이콘은 클릭 이력이 아니라 현재 열려 있는 화면을 따라간다
   const sidebarActiveKey: SidebarNavKey | null = isHomeView
@@ -5912,8 +5972,29 @@ export default function App() {
     handleMemberSubMenuChange("조직도인쇄");
   }, [handleMemberSubMenuChange]);
 
+  const handleAddShortcut = useCallback((key: ShortcutKey) => {
+    setUserShortcuts((prev) => {
+      if (prev.includes(key)) return prev;
+      const next = [...prev, key];
+      saveShortcuts(next);
+      return next;
+    });
+  }, []);
+
+  const handleRemoveShortcut = useCallback((key: ShortcutKey) => {
+    setUserShortcuts((prev) => {
+      const next = prev.filter((item) => item !== key);
+      saveShortcuts(next);
+      return next;
+    });
+    setHomeActiveTask((task) => (task === key ? "desktop" : task));
+  }, []);
+
   const navigateFromSidebar = useCallback((key: SidebarNavKey) => {
-    if (key === "add-shortcut") return;
+    if (key === "add-shortcut") {
+      setShortcutAddOpen(true);
+      return;
+    }
 
     if (key === "members") {
       const onMemberRegisterScreen =
@@ -5977,7 +6058,10 @@ export default function App() {
   }, [activeMainMenu, activeMemberSubMenu, activeOrderSubMenu, activeSidebarKey, activeTab]);
 
   const handleHomeShortcut = useCallback((key: HomeShortcutKey) => {
-    if (key === "add-shortcut") return;
+    if (key === "add-shortcut") {
+      setShortcutAddOpen(true);
+      return;
+    }
 
     if (key === "dashboard") {
       setActiveSidebarKey("home");
@@ -6059,6 +6143,9 @@ export default function App() {
           width={sidebarWidth}
           memberSearchOpen={memberListOpen}
           memberSearchVisible={memberListNavEnabled}
+          shortcuts={userShortcuts}
+          onRemoveShortcut={handleRemoveShortcut}
+          onOpenAddShortcut={() => setShortcutAddOpen(true)}
         />
 
         <div
@@ -6103,7 +6190,10 @@ export default function App() {
           {isHomeView ? (
             <HomeDesktopView
               activeTask={homeActiveTask}
+              shortcuts={userShortcuts}
               onShortcutClick={handleHomeShortcut}
+              onOpenAddShortcut={() => setShortcutAddOpen(true)}
+              onRemoveShortcut={handleRemoveShortcut}
               member={getMemberById(selectedMember)}
             />
           ) : isBasicManagement ? (
@@ -6237,6 +6327,14 @@ export default function App() {
         />
       </div>
       </div>
+
+      <ShortcutAddModal
+        open={shortcutAddOpen}
+        shortcuts={userShortcuts}
+        onClose={() => setShortcutAddOpen(false)}
+        onAdd={handleAddShortcut}
+        onRemove={handleRemoveShortcut}
+      />
     </div>
   );
 }
