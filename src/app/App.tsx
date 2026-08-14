@@ -5566,7 +5566,6 @@ function SidebarMemberSearchButton({
       aria-pressed={isOpen}
       onClick={onClick}
       className={`sidebar-member-search group relative${expanded ? " is-expanded" : ""}${isOpen ? " is-open" : ""}`}
-      title={expanded ? undefined : "회원검색"}
     >
       <Search size={expanded ? 15 : 18} className="sidebar-member-search__icon" strokeWidth={2.2} aria-hidden />
       {expanded ? (
@@ -5612,7 +5611,6 @@ function Sidebar({
           className="sidebar-expand-toggle"
           aria-label="사이드바 펼치기"
           aria-pressed={false}
-          title="메뉴 펼치기"
           onClick={(e) => {
             e.preventDefault();
             e.stopPropagation();
@@ -5627,7 +5625,6 @@ function Sidebar({
           className="sidebar-collapse-link"
           aria-label="사이드바 접기"
           aria-pressed={true}
-          title="메뉴 접기"
           onClick={(e) => {
             e.preventDefault();
             e.stopPropagation();
