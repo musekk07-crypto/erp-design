@@ -43,7 +43,7 @@ function StatBento({ label, value, color }: { label: string; value: string; colo
         minWidth: 90,
       }}
     >
-      <span style={{ fontSize: "var(--font-size-sm)", fontWeight: 600, color, fontFamily: "monospace" }}>
+      <span style={{ fontSize: "var(--font-size-sm)", fontWeight: 600, color, fontFamily: "var(--font-mono)" }}>
         {value}
       </span>
       <span className="mt-0.5" style={{ fontSize: "var(--font-size-sm)", color: "var(--muted-foreground)" }}>
@@ -103,7 +103,7 @@ function FormField({ label, value, placeholder, type = "text", full = false, mon
           background: "var(--input-background)",
           border: "none",
           color: "var(--foreground)",
-          fontFamily: mono ? "monospace" : undefined,
+          fontFamily: mono ? "var(--font-mono)" : undefined,
         }}
         onFocus={(e) => {
           e.target.style.background = "var(--input-focus-bg)";
@@ -474,7 +474,7 @@ export function MemberDetail({ onClose }: { onClose?: () => void }) {
           <div className="flex items-center gap-4">
             {/* 추천인 */}
             <span className="shrink-0" style={{ fontSize: "var(--font-size-sm)", color: "var(--required-color)", fontWeight: 500 }}>* 추천인</span>
-            <input readOnly value="100012" className="rounded px-2 py-1 outline-none" style={{ fontSize: "var(--font-size-sm)", width: 72, background: "#f1f5f9", border: "none", color: "var(--foreground)", fontFamily: "monospace" }} />
+            <input readOnly value="100012" className="rounded px-2 py-1 outline-none" style={{ fontSize: "var(--font-size-sm)", width: 72, background: "#f1f5f9", border: "none", color: "var(--foreground)", fontFamily: "var(--font-mono)" }} />
             <input readOnly value="박민수" className="rounded px-2 py-1 outline-none" style={{ fontSize: "var(--font-size-sm)", width: 60, background: "#f1f5f9", border: "none", color: "var(--foreground)" }} />
             <span style={{ fontSize: "var(--font-size-sm)", padding: "2px 8px", background: "var(--accent-light)", color: "var(--required-color)", border: "1px solid var(--accent-border)", borderRadius: 4, whiteSpace: "nowrap" }}>38명</span>
             <button className="rounded p-1 flex items-center justify-center" style={{ background: "#f5f6fa", border: "1px solid var(--border)", color: "var(--muted-foreground)" }}>
@@ -483,7 +483,7 @@ export function MemberDetail({ onClose }: { onClose?: () => void }) {
             <div style={{ width: 1, height: 20, background: "var(--border)", margin: "0 4px" }} />
             {/* 후원인 */}
             <span className="shrink-0" style={{ fontSize: "var(--font-size-sm)", color: "var(--required-color)", fontWeight: 500 }}>* 후원인</span>
-            <input readOnly value="100008" className="rounded px-2 py-1 outline-none" style={{ fontSize: "var(--font-size-sm)", width: 72, background: "#f1f5f9", border: "none", color: "var(--foreground)", fontFamily: "monospace" }} />
+            <input readOnly value="100008" className="rounded px-2 py-1 outline-none" style={{ fontSize: "var(--font-size-sm)", width: 72, background: "#f1f5f9", border: "none", color: "var(--foreground)", fontFamily: "var(--font-mono)" }} />
             <input readOnly value="이정환" className="rounded px-2 py-1 outline-none" style={{ fontSize: "var(--font-size-sm)", width: 60, background: "#f1f5f9", border: "none", color: "var(--foreground)" }} />
             <span style={{ fontSize: "var(--font-size-sm)", padding: "2px 8px", background: "var(--accent-light)", color: "var(--required-color)", border: "1px solid var(--accent-border)", borderRadius: 4, whiteSpace: "nowrap" }}>12명</span>
             <button className="rounded p-1 flex items-center justify-center" style={{ background: "#f5f6fa", border: "1px solid var(--border)", color: "var(--muted-foreground)" }}>

@@ -1689,7 +1689,7 @@ function MemberTable({ selectedId, onSelect, listOpen = false, listWidth = MEMBE
                     <input type="checkbox" checked={isChecked} onChange={() => toggleOne(member.id)} style={{ accentColor: "var(--checkbox-accent)", cursor: "pointer" }} />
                   </td>
                   <td style={{ ...cellBase, fontSize: "var(--font-size-xs)", color: "var(--text-subtle)" }}>{member.id}</td>
-                  <td style={{ ...cellBase, fontSize: "var(--font-size-xs)", fontFamily: "monospace", color: isSelected ? "var(--accent-primary)" : "var(--text-body)", fontWeight: isSelected ? 600 : 400 }}>{member.no}</td>
+                  <td style={{ ...cellBase, fontSize: "var(--font-size-xs)", fontFamily: "var(--font-mono)", color: isSelected ? "var(--accent-primary)" : "var(--text-body)", fontWeight: isSelected ? 600 : 400 }}>{member.no}</td>
                   <td style={{ ...cellBase, fontSize: "var(--font-size-xs)", color: "var(--text-secondary)" }}>{member.loginId}</td>
                   <td style={{ ...cellBase, fontSize: "var(--font-size-xs)", color: isSelected ? "var(--accent-primary)" : "var(--text-body)", fontWeight: isSelected ? 600 : 500 }}>{member.name}</td>
                   <td style={{ ...cellBase }}>
@@ -1701,8 +1701,8 @@ function MemberTable({ selectedId, onSelect, listOpen = false, listWidth = MEMBE
                   </td>
                   <td style={{ ...cellBase, fontSize: "var(--font-size-xs)", color: "var(--text-secondary)" }}>{member.rank}</td>
                   <td style={{ ...cellBase, fontSize: "var(--font-size-xs)", color: "var(--text-secondary)" }}>{member.grade}</td>
-                  <td style={{ ...cellBase, fontSize: "var(--font-size-xs)", color: "var(--text-secondary)", fontFamily: "monospace" }}>{member.phone}</td>
-                  <td style={{ ...cellBase, fontSize: "var(--font-size-xs)", color: "var(--text-subtle)", fontFamily: "monospace" }}>{member.ssn}</td>
+                  <td style={{ ...cellBase, fontSize: "var(--font-size-xs)", color: "var(--text-secondary)", fontFamily: "var(--font-mono)" }}>{member.phone}</td>
+                  <td style={{ ...cellBase, fontSize: "var(--font-size-xs)", color: "var(--text-subtle)", fontFamily: "var(--font-mono)" }}>{member.ssn}</td>
                   <td style={{ ...cellBase, fontSize: "var(--font-size-xs)", color: "var(--text-secondary)" }}>{member.region}</td>
                 </tr>
               );
@@ -1911,7 +1911,7 @@ function SplitTableBlock({
                       textAlign: getSplitColumnAlign(col),
                       fontVariantNumeric: getSplitColumnAlign(col) === "right" ? "tabular-nums" : undefined,
                       fontFamily: ["memberNo", "providerNo", "allowanceTypeNo", "deductNo", "orderNo", "bundleNo", "productCode", "uniqueNo"].includes(col.key)
-                        ? "monospace"
+                        ? "var(--font-mono)"
                         : undefined,
                       color: ["memberNo", "memberName", "recipient", "orderNo"].includes(col.key)
                         ? "var(--accent-primary)"
@@ -2266,7 +2266,7 @@ function StatBento({ label, value, color }: { label: string; value: string; colo
         minWidth: 90,
       }}
     >
-      <span style={{ fontSize: "var(--font-size-xs)", fontWeight: 600, color, fontFamily: "monospace" }}>
+      <span style={{ fontSize: "var(--font-size-xs)", fontWeight: 600, color, fontFamily: "var(--font-mono)" }}>
         {value}
       </span>
       <span className="mt-0.5" style={{ fontSize: "var(--font-size-xs)", color: "var(--muted-foreground)" }}>
@@ -2342,7 +2342,7 @@ function FormField({ label, value, placeholder, type = "text", full = false, mon
           background: "var(--input-background)",
           border: "none",
           color: "var(--foreground)",
-          fontFamily: mono ? "monospace" : undefined,
+          fontFamily: mono ? "var(--font-mono)" : undefined,
         }}
         onFocus={(e) => {
           e.target.style.background = "var(--input-focus-bg)";
@@ -3513,7 +3513,7 @@ function MemberLoginInfoForm({ member }: { member: Member }) {
           type="text"
           defaultValue={member.no}
           className="member-login-inline-field__input rounded outline-none transition-all duration-200"
-          style={{ ...inputStyle, fontFamily: "monospace" }}
+          style={{ ...inputStyle, fontFamily: "var(--font-mono)" }}
           {...focusProps}
         />
       ),
@@ -3529,7 +3529,7 @@ function MemberLoginInfoForm({ member }: { member: Member }) {
           type="text"
           defaultValue={member.loginId}
           className="member-login-inline-field__input rounded outline-none transition-all duration-200"
-          style={{ ...inputStyle, fontFamily: "monospace" }}
+          style={{ ...inputStyle, fontFamily: "var(--font-mono)" }}
           {...focusProps}
         />
       ),

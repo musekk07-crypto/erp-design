@@ -1619,7 +1619,7 @@ span.member-form-action-chip {
   background: var(--tooltip-bg);
   color: var(--tooltip-fg);
   font-size: var(--font-size-xs);
-  font-family: monospace;
+  font-family: var(--font-mono);
   z-index: 50;
   pointer-events: none;
 }
@@ -3064,7 +3064,7 @@ textarea.mm2-name-box:focus {
 
 .order-mgmt-member-info-link {
   color: #ffffff;
-  font-family: monospace;
+  font-family: var(--font-mono);
   font-weight: 700;
 }
 
@@ -3438,7 +3438,7 @@ textarea.mm2-name-box:focus {
 .order-mgmt-member-info-title-no {
   font-size: inherit;
   font-weight: inherit;
-  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  font-family: var(--font-mono);
   color: var(--member-no-color, var(--accent-primary));
 }
 
@@ -3820,7 +3820,7 @@ textarea.mm2-name-box:focus {
   align-items: center;
   gap: 6px;
   min-height: 18px;
-  font-family: monospace;
+  font-family: var(--font-mono);
   font-size: var(--font-size-xs);
   line-height: 1;
 }
@@ -4798,7 +4798,7 @@ textarea.mm2-name-box:focus {
 }
 
 .recommender-select-modal__mono {
-  font-family: monospace;
+  font-family: var(--font-mono);
 }
 
 .recommender-select-modal__row {

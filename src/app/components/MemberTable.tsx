@@ -199,7 +199,7 @@ function SortIcon({ col }: { col: string }) {
                     <input type="checkbox" checked={isChecked} onChange={() => toggleOne(member.id)} style={{ accentColor: "var(--checkbox-accent)", cursor: "pointer" }} />
                   </td>
                   <td style={{ ...cellBase, textAlign: "center", color: "#64748b" }}>{member.id}</td>
-                  <td style={{ ...cellBase, textAlign: "left", fontFamily: "monospace", color: isSelected ? "var(--accent-primary)" : "#1e2130", fontWeight: isSelected ? 600 : 400 }}>{member.no}</td>
+                  <td style={{ ...cellBase, textAlign: "left", fontFamily: "var(--font-mono)", color: isSelected ? "var(--accent-primary)" : "#1e2130", fontWeight: isSelected ? 600 : 400 }}>{member.no}</td>
                   <td style={{ ...cellBase, textAlign: "left", color: "#475569" }}>{member.loginId}</td>
                   <td style={{ ...cellBase, textAlign: "left", color: isSelected ? "var(--accent-primary)" : "#1e2130", fontWeight: isSelected ? 600 : 500 }}>{member.name}</td>
                   <td style={{ ...cellBase, textAlign: "center" }}>
@@ -211,8 +211,8 @@ function SortIcon({ col }: { col: string }) {
                   </td>
                   <td style={{ ...cellBase, textAlign: "center", color: "#475569" }}>{member.rank}</td>
                   <td style={{ ...cellBase, textAlign: "center", color: "#475569" }}>{member.grade}</td>
-                  <td style={{ ...cellBase, textAlign: "left", color: "#475569", fontFamily: "monospace" }}>{member.phone}</td>
-                  <td style={{ ...cellBase, textAlign: "left", color: "#94a3b8", fontFamily: "monospace" }}>{member.ssn}</td>
+                  <td style={{ ...cellBase, textAlign: "left", color: "#475569", fontFamily: "var(--font-mono)" }}>{member.phone}</td>
+                  <td style={{ ...cellBase, textAlign: "left", color: "#94a3b8", fontFamily: "var(--font-mono)" }}>{member.ssn}</td>
                   <td style={{ ...cellBase, textAlign: "left", color: "#475569" }}>{member.region}</td>
                 </tr>
               );

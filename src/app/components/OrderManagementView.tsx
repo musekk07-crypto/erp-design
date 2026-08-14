@@ -660,7 +660,7 @@ function OmDataTable({
     ...cellStyle,
     textAlign: getOmColumnAlign(col),
     fontVariantNumeric: getOmColumnAlign(col) === "right" ? "tabular-nums" : undefined,
-    fontFamily: OM_MONO_KEYS.has(col.key) ? "monospace" : undefined,
+    fontFamily: OM_MONO_KEYS.has(col.key) ? "var(--font-mono)" : undefined,
     color: OM_LINK_KEYS.has(col.key) ? "var(--accent-primary)" : cellStyle.color,
     fontWeight: OM_BOLD_KEYS.has(col.key) ? 600 : 400,
   });

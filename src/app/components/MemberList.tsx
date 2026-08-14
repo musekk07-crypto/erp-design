@@ -94,7 +94,7 @@ export function MemberList({ selectedId, onSelect }: MemberListProps) {
                     <div className="text-xs font-semibold truncate" style={{ color: isSelected ? "var(--accent-primary)" : "var(--foreground)" }}>
                       {member.name}
                     </div>
-                    <div className="text-xs truncate mt-0.5" style={{ color: "var(--muted-foreground)", fontFamily: "monospace", fontSize: "var(--font-size-sm)" }}>
+                    <div className="text-xs truncate mt-0.5" style={{ color: "var(--muted-foreground)", fontFamily: "var(--font-mono)", fontSize: "var(--font-size-sm)" }}>
                       {member.no}
                     </div>
                   </div>
@@ -138,7 +138,7 @@ export function MemberList({ selectedId, onSelect }: MemberListProps) {
                   >
                     <div className="flex items-center gap-1.5 mb-1.5">
                       <Phone size={10} style={{ color: "var(--accent-primary)" }} />
-                      <span className="text-xs" style={{ color: "var(--foreground)", fontFamily: "monospace", fontSize: "var(--font-size-xs)" }}>
+                      <span className="text-xs" style={{ color: "var(--foreground)", fontFamily: "var(--font-mono)", fontSize: "var(--font-size-xs)" }}>
                         {member.phone}
                       </span>
                     </div>
@@ -152,7 +152,7 @@ export function MemberList({ selectedId, onSelect }: MemberListProps) {
                       className="text-xs mt-2 pt-2"
                       style={{ color: "var(--muted-foreground)", borderTop: "1px solid var(--accent-border)", fontSize: "var(--font-size-xs)" }}
                     >
-                      가입일 <span style={{ color: "var(--accent-primary)", fontFamily: "monospace" }}>{member.joinDate}</span>
+                      가입일 <span style={{ color: "var(--accent-primary)", fontFamily: "var(--font-mono)" }}>{member.joinDate}</span>
                     </div>
                   </div>
                 </div>
