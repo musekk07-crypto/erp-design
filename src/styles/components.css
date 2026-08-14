@@ -535,7 +535,9 @@
 }
 
 .detail-tab__count {
-  font-variant-numeric: lining-nums;
+  letter-spacing: -0.04em;
+  font-variant-numeric: tabular-nums;
+  font-feature-settings: "tnum" 1;
 }
 
 .detail-tab + .detail-tab {
