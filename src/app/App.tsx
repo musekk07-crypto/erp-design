@@ -6119,6 +6119,7 @@ export default function App() {
             <HomeDesktopView
               activeTask={homeActiveTask}
               onShortcutClick={handleHomeShortcut}
+              member={getMemberById(selectedMember)}
             />
           ) : isBasicManagement ? (
             <BasicManagementView />
