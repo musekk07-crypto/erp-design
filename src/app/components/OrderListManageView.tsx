@@ -296,26 +296,26 @@ export function OrderListManageView() {
                   <th className="is-check">
                     <input type="checkbox" readOnly />
                   </th>
-                  <th>No</th>
-                  <th>집계일자</th>
-                  <th>주문서 갯수</th>
-                  <th>현금</th>
-                  <th>온라인</th>
-                  <th>카드</th>
-                  <th>여신</th>
-                  <th>쇼핑포인트</th>
-                  <th>기간수수료</th>
-                  <th>매출금액합</th>
-                  <th>세금</th>
-                  <th>배송료</th>
-                  <th>구입포인트합</th>
-                  <th>구입공급가합</th>
-                  <th>교환포인트</th>
-                  <th>교환금액</th>
-                  <th>회수포인트</th>
-                  <th>회수매출액</th>
-                  <th>포인트합</th>
-                  <th>공급가합</th>
+                  <th className="is-center">No</th>
+                  <th className="is-center">집계일자</th>
+                  <th className="is-right">주문서 갯수</th>
+                  <th className="is-right">현금</th>
+                  <th className="is-right">온라인</th>
+                  <th className="is-right">카드</th>
+                  <th className="is-right">여신</th>
+                  <th className="is-right">쇼핑포인트</th>
+                  <th className="is-right">기간수수료</th>
+                  <th className="is-right">매출금액합</th>
+                  <th className="is-right">세금</th>
+                  <th className="is-right">배송료</th>
+                  <th className="is-right">구입포인트합</th>
+                  <th className="is-right">구입공급가합</th>
+                  <th className="is-right">교환포인트</th>
+                  <th className="is-right">교환금액</th>
+                  <th className="is-right">회수포인트</th>
+                  <th className="is-right">회수매출액</th>
+                  <th className="is-right">포인트합</th>
+                  <th className="is-right">공급가합</th>
                 </tr>
               </thead>
               <tbody>
@@ -329,8 +329,8 @@ export function OrderListManageView() {
                       <td className="is-check">
                         <input type="checkbox" readOnly checked={selectedSummaryId === row.id} />
                       </td>
-                      <td>{row.id}</td>
-                      <td>{row.date}</td>
+                      <td className="is-center">{row.id}</td>
+                      <td className="is-center">{row.date}</td>
                       <td className="is-num">{row.orderCount}</td>
                       <td className="is-num">{formatAmount(row.cash)}</td>
                       <td className="is-num">{formatAmount(row.online)}</td>
@@ -369,15 +369,15 @@ export function OrderListManageView() {
                   <th className="is-check">
                     <input type="checkbox" readOnly />
                   </th>
-                  <th>No</th>
-                  <th>주문서번호</th>
-                  <th>주문일자</th>
-                  <th>수당적용일자</th>
-                  <th>원본주문일자</th>
-                  <th>회원명</th>
-                  <th>주문회원구분명</th>
-                  <th>구매구분명</th>
-                  <th>접수구분</th>
+                  <th className="is-center">No</th>
+                  <th className="is-left">주문서번호</th>
+                  <th className="is-center">주문일자</th>
+                  <th className="is-center">수당적용일자</th>
+                  <th className="is-center">원본주문일자</th>
+                  <th className="is-left">회원명</th>
+                  <th className="is-center">주문회원구분명</th>
+                  <th className="is-center">구매구분명</th>
+                  <th className="is-center">접수구분</th>
                 </tr>
               </thead>
               <tbody>
@@ -387,15 +387,15 @@ export function OrderListManageView() {
                       <td className="is-check">
                         <input type="checkbox" readOnly />
                       </td>
-                      <td>{row.id}</td>
-                      <td>{row.orderNo}</td>
-                      <td>{row.orderDate}</td>
-                      <td>{row.allowanceDate}</td>
-                      <td>{row.originalDate}</td>
-                      <td>{row.memberName}</td>
-                      <td>{row.memberType}</td>
-                      <td>{row.purchaseType}</td>
-                      <td>{row.receiptType}</td>
+                      <td className="is-center">{row.id}</td>
+                      <td className="is-left">{row.orderNo}</td>
+                      <td className="is-center">{row.orderDate}</td>
+                      <td className="is-center">{row.allowanceDate}</td>
+                      <td className="is-center">{row.originalDate}</td>
+                      <td className="is-left">{row.memberName}</td>
+                      <td className="is-center">{row.memberType}</td>
+                      <td className="is-center">{row.purchaseType}</td>
+                      <td className="is-center">{row.receiptType}</td>
                     </tr>
                   ))
                 ) : (

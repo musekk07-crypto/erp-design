@@ -696,7 +696,6 @@ span.member-form-action-chip {
   font-size: 12px !important;
   font-weight: 500 !important;
   line-height: 1.35 !important;
-  text-align: center !important;
   color: var(--split-table-header-fg, #f8fafc) !important;
   background: var(--split-table-header-bg, #5a6270) !important;
   border-bottom: 1px solid var(--split-table-header-border, #4a515c) !important;
@@ -2868,7 +2867,7 @@ textarea.mm2-name-box:focus {
   line-height: 1.35;
   border-bottom: 1px solid var(--border);
   white-space: nowrap;
-  text-align: center;
+  text-align: left;
   box-sizing: border-box;
 }
 
@@ -2890,23 +2889,25 @@ textarea.mm2-name-box:focus {
   min-height: 30px;
 }
 
-.order-list-manage__pane .order-list-manage__table th {
-  height: 34px;
-  min-height: 34px;
-  padding-top: 8px;
-  padding-bottom: 8px;
+.order-list-manage__table .is-center {
+  text-align: center;
+}
+
+.order-list-manage__table .is-left {
+  text-align: left;
+}
+
+.order-list-manage__table .is-num,
+.order-list-manage__table .is-right {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
 }
 
 .order-list-manage__table td.is-check,
 .order-list-manage__table th.is-check {
-  text-align: left;
+  text-align: center;
   padding-left: 12px;
   width: 36px;
-}
-
-.order-list-manage__table td.is-num {
-  text-align: right;
-  font-variant-numeric: tabular-nums;
 }
 
 .order-list-manage__table tbody tr {
@@ -3893,6 +3894,11 @@ textarea.mm2-name-box:focus {
   box-sizing: border-box;
 }
 
+.app-content .order-mgmt-view .order-mgmt-table-wrap td {
+  height: 30px;
+  min-height: 30px;
+}
+
 .app-content .order-mgmt-view .order-mgmt-table-wrap .split-table-head th:first-child,
 .app-content .order-mgmt-view .order-mgmt-table-wrap td:first-child {
   padding-left: 12px !important;
@@ -3902,7 +3908,7 @@ textarea.mm2-name-box:focus {
   padding-top: 8px !important;
   padding-bottom: 8px !important;
   height: 34px;
-  text-align: center !important;
+  min-height: 34px;
   font-weight: 500 !important;
 }
 

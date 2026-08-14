@@ -1882,7 +1882,7 @@ function SplitTableBlock({
                   key={col.key}
                   style={{
                     padding: `${SPLIT_TABLE_HEADER_PAD_Y}px 8px`,
-                    textAlign: "center",
+                    textAlign: getSplitColumnAlign(col),
                     fontSize: 12,
                     fontWeight: 500,
                     color: "var(--split-table-header-fg, #f8fafc)",
@@ -1989,13 +1989,13 @@ function DetailSplitPanelView({
 const orderHeaderColumns: SplitTableColumn[] = [
   { key: "no", label: "No", width: 36, align: "center" },
   { key: "deductNo", label: "공제번호", width: 88, align: "left" },
-  { key: "deductStatus", label: "공제신고상태명", width: 100, align: "left" },
+  { key: "deductStatus", label: "공제신고상태명", width: 100, align: "center" },
   { key: "orderNo", label: "주문서번호", width: 96, align: "left" },
   { key: "orderDate", label: "주문일자", width: 84, align: "center" },
   { key: "allowanceDate", label: "수당적용일자", width: 92, align: "center" },
-  { key: "plan", label: "플랜명", width: 72, align: "left" },
-  { key: "purchaseType", label: "구매구분명", width: 80, align: "left" },
-  { key: "orderStatus", label: "주문서상태명", width: 88, align: "left" },
+  { key: "plan", label: "플랜명", width: 72, align: "center" },
+  { key: "purchaseType", label: "구매구분명", width: 80, align: "center" },
+  { key: "orderStatus", label: "주문서상태명", width: 88, align: "center" },
   { key: "cash", label: "현금", width: 64, align: "right" },
   { key: "online", label: "온라인", width: 64, align: "right" },
   { key: "card", label: "카드", width: 64, align: "right" },
