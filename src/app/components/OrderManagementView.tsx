@@ -1,7 +1,6 @@
 import React, { useCallback, useRef, useState } from "react";
 import {
   RefreshCw,
-  Search,
   FilePlus,
   FileText,
   RotateCcw,
