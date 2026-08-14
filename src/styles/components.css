@@ -6747,6 +6747,11 @@ textarea.mm2-name-box:focus {
   transition: width 0.18s ease, min-width 0.18s ease;
 }
 
+/* 접힘: 아이콘 호버 시 검정 툴팁이 잘리지 않도록 */
+.app-sidebar:not(.is-expanded) {
+  overflow: visible;
+}
+
 .app-sidebar.is-expanded {
   align-items: stretch;
   padding-left: 8px;
@@ -6810,16 +6815,6 @@ textarea.mm2-name-box:focus {
   color: #fff;
   cursor: pointer;
   flex-shrink: 0;
-  opacity: 0;
-  pointer-events: none;
-  transition: opacity 0.15s ease, background 0.15s ease;
-}
-
-.app-sidebar:not(.is-expanded):hover .sidebar-expand-toggle,
-.app-sidebar:not(.is-expanded):focus-within .sidebar-expand-toggle,
-.sidebar-expand-toggle:focus-visible {
-  opacity: 1;
-  pointer-events: auto;
 }
 
 .sidebar-expand-toggle:hover {
@@ -6973,16 +6968,20 @@ textarea.mm2-name-box:focus {
 .sidebar-nav-tooltip {
   position: absolute;
   left: 44px;
-  padding: 4px 8px;
+  top: 50%;
+  transform: translateY(-50%);
+  padding: 5px 9px;
   border-radius: 0;
-  background: var(--tooltip-bg);
-  color: var(--tooltip-fg);
+  background: #1e2130;
+  color: #ffffff;
   font-size: var(--font-size-xs);
+  font-weight: 500;
   white-space: nowrap;
   opacity: 0;
   pointer-events: none;
-  transition: opacity 0.2s ease;
-  z-index: 50;
+  transition: opacity 0.15s ease;
+  z-index: 80;
+  box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.28);
 }
 
 .group:hover .sidebar-nav-tooltip {
@@ -6991,6 +6990,30 @@ textarea.mm2-name-box:focus {
 
 .app-sidebar.is-expanded .sidebar-nav-tooltip {
   display: none;
+}
+
+.sidebar-theme-swatch .sidebar-nav-tooltip,
+.sidebar-theme-tooltip {
+  position: absolute;
+  left: 44px;
+  top: 50%;
+  transform: translateY(-50%);
+  padding: 5px 9px;
+  border-radius: 0;
+  background: #1e2130;
+  color: #ffffff;
+  font-size: var(--font-size-xs);
+  font-weight: 500;
+  white-space: nowrap;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.15s ease;
+  z-index: 80;
+  box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.28);
+}
+
+.sidebar-theme-swatch.group:hover .sidebar-theme-tooltip {
+  opacity: 1;
 }
 
 .app-members-rail {

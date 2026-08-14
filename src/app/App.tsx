@@ -5689,10 +5689,7 @@ function Sidebar({
               style={{ background: t.color }}
             >
               {!expanded ? (
-                <span
-                  className="absolute left-6 px-2 py-1 whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity duration-200 pointer-events-none z-50"
-                  style={{ background: "var(--tooltip-bg)", color: "var(--tooltip-fg)", fontSize: "var(--font-size-xs)", borderRadius: 0 }}
-                >
+                <span className="sidebar-theme-tooltip">
                   {t.label}
                 </span>
               ) : null}
