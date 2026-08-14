@@ -6095,12 +6095,18 @@ export default function App() {
 
   const onResizeStart = useCallback((e: React.MouseEvent) => {
     e.preventDefault();
+    e.stopPropagation();
     resizing.current = true;
     setIsListResizing(true);
     function onMove(ev: MouseEvent) {
       if (!resizing.current) return;
+      const maxByContent =
+        appContentWidth > 0
+          ? Math.max(MEMBER_LIST_MIN_WIDTH, appContentWidth - 24)
+          : MEMBER_LIST_MAX_WIDTH;
+      const maxW = Math.min(MEMBER_LIST_MAX_WIDTH, maxByContent);
       const newWidth = ev.clientX - sidebarWidth;
-      setListWidth(clampMemberListWidth(newWidth));
+      setListWidth(Math.max(MEMBER_LIST_MIN_WIDTH, Math.min(maxW, newWidth)));
     }
     function onUp() {
       resizing.current = false;
@@ -6110,7 +6116,7 @@ export default function App() {
     }
     window.addEventListener("mousemove", onMove);
     window.addEventListener("mouseup", onUp);
-  }, [sidebarWidth]);
+  }, [sidebarWidth, appContentWidth]);
 
   return (
     <div
@@ -6289,7 +6295,10 @@ export default function App() {
               aria-label="회원검색 닫기"
               onClick={() => setListOpen(false)}
             />
-            <div className="member-search-modal__panel">
+            <div
+              className={`member-search-modal__panel${isListResizing ? " is-resizing" : ""}`}
+              style={{ width: listWidth }}
+            >
               <header className="member-search-modal__header">
                 <h2 className="member-search-modal__title">회원검색</h2>
                 <button
@@ -6310,8 +6319,22 @@ export default function App() {
                   }
                   onSelect={handleMemberTableSelect}
                   listOpen
-                  listWidth={MEMBER_LIST_MAX_WIDTH}
+                  listWidth={listWidth}
                 />
+              </div>
+              <div
+                className={`panel-splitter${isListResizing ? " is-active" : ""}`}
+                role="separator"
+                aria-orientation="vertical"
+                aria-label="회원검색 너비 조절"
+                onMouseDown={onResizeStart}
+              >
+                <span className="panel-splitter__line" aria-hidden />
+                <span className="panel-splitter__grip" aria-hidden>
+                  <span />
+                  <span />
+                  <span />
+                </span>
               </div>
             </div>
           </div>

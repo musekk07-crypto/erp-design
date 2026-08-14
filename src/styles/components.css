@@ -3165,20 +3165,23 @@ textarea.mm2-name-box:focus {
 
 .panel-splitter:hover .panel-splitter__line,
 .panel-splitter.is-active .panel-splitter__line,
-.member-list-panel.is-resizing .panel-splitter__line {
+.member-list-panel.is-resizing .panel-splitter__line,
+.member-search-modal__panel.is-resizing .panel-splitter__line {
   opacity: 1;
 }
 
 .panel-splitter:hover .panel-splitter__grip,
 .panel-splitter.is-active .panel-splitter__grip,
-.member-list-panel.is-resizing .panel-splitter__grip {
+.member-list-panel.is-resizing .panel-splitter__grip,
+.member-search-modal__panel.is-resizing .panel-splitter__grip {
   box-shadow: 0 0 0 1px var(--accent-primary, #007aff);
   background: var(--accent-light, #e8f2ff);
 }
 
 .panel-splitter:hover .panel-splitter__grip span,
 .panel-splitter.is-active .panel-splitter__grip span,
-.member-list-panel.is-resizing .panel-splitter__grip span {
+.member-list-panel.is-resizing .panel-splitter__grip span,
+.member-search-modal__panel.is-resizing .panel-splitter__grip span {
   opacity: 1;
 }
 
@@ -4691,7 +4694,8 @@ textarea.mm2-name-box:focus {
 .member-search-modal__panel {
   position: relative;
   z-index: 1;
-  width: min(720px, calc(100% - 32px));
+  width: auto;
+  max-width: calc(100% - 24px);
   height: 100%;
   display: flex;
   flex-direction: column;
@@ -4702,6 +4706,14 @@ textarea.mm2-name-box:focus {
   box-shadow: 8px 0 28px rgba(15, 23, 42, 0.18);
   overflow: hidden;
   animation: member-search-drawer-in 0.2s ease-out;
+}
+
+.member-search-modal__panel.is-resizing {
+  user-select: none;
+}
+
+.member-search-modal__panel .panel-splitter {
+  right: 0;
 }
 
 @keyframes member-search-drawer-in {
