@@ -4668,41 +4668,18 @@ textarea.mm2-name-box:focus {
   background: rgba(15, 23, 42, 0.38);
 }
 
-.member-search-modal {
-  position: fixed;
-  inset: 0;
-  z-index: 1200;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 24px;
-}
-
-.member-search-modal__backdrop {
-  position: absolute;
-  inset: 0;
-  border: none;
-  padding: 0;
-  margin: 0;
-  background: rgba(15, 23, 42, 0.38);
-  cursor: pointer;
-}
-
-.member-search-modal__panel {
+.member-search-panel {
   position: relative;
-  z-index: 1;
-  width: min(1120px, calc(100vw - 48px));
-  height: min(720px, calc(100vh - 48px));
   display: flex;
   flex-direction: column;
+  height: 100%;
+  min-height: 0;
   background: var(--surface-panel);
-  border: 1px solid var(--border);
-  border-radius: 0;
-  box-shadow: 0 12px 36px rgba(15, 23, 42, 0.22);
+  border-right: 1px solid var(--border);
   overflow: hidden;
 }
 
-.member-search-modal__header {
+.member-search-panel__header {
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -4710,16 +4687,17 @@ textarea.mm2-name-box:focus {
   padding: 10px 14px;
   border-bottom: 1px solid var(--border);
   flex-shrink: 0;
+  background: var(--surface-panel);
 }
 
-.member-search-modal__title {
+.member-search-panel__title {
   margin: 0;
   font-size: var(--font-size-lg);
   font-weight: 700;
   color: var(--foreground);
 }
 
-.member-search-modal__close {
+.member-search-panel__close {
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -4732,21 +4710,35 @@ textarea.mm2-name-box:focus {
   cursor: pointer;
 }
 
-.member-search-modal__close:hover {
+.member-search-panel__close:hover {
   background: var(--surface-button-muted);
   color: var(--foreground);
 }
 
-.member-search-modal__body {
+.member-search-panel__body {
   flex: 1;
   min-height: 0;
   overflow: hidden;
 }
 
-.member-search-modal__body > div {
+.member-search-panel__body > div {
   max-width: none !important;
   width: 100% !important;
   height: 100%;
+}
+
+.member-search-panel__splitter {
+  position: absolute;
+  top: 0;
+  right: -3px;
+  width: 6px;
+  height: 100%;
+  z-index: 5;
+}
+
+/* legacy modal class kept as no-op alias during transition */
+.member-search-modal {
+  display: none;
 }
 
 .recommender-select-modal__panel {
@@ -6941,65 +6933,9 @@ textarea.mm2-name-box:focus {
   z-index: 1;
 }
 
-/* 본문 왼쪽 가장자리에 튀어 나오는 회원검색 탭 (레이아웃 비침범) */
+/* 본문 왼쪽 가장자리에 튀어 나오는 회원검색 탭 (레이아웃 비침범) — 사이드바 메뉴로 대체됨 */
 .member-search-edge-tab {
-  position: absolute;
-  left: 0;
-  top: 104px;
-  z-index: 30;
-  display: inline-flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: flex-start;
-  gap: 8px;
-  width: 34px;
-  min-height: 118px;
-  padding: 12px 4px 14px;
-  border: none;
-  border-radius: 0 10px 10px 0;
-  background: var(--accent-primary, #007aff);
-  color: #ffffff;
-  box-shadow: 2px 2px 10px rgba(0, 70, 160, 0.28);
-  cursor: pointer;
-  transition: background 0.15s ease, box-shadow 0.15s ease, transform 0.15s ease;
-}
-
-.member-search-edge-tab__icon {
-  flex-shrink: 0;
-  color: #ffffff;
-}
-
-.member-search-edge-tab__label {
-  writing-mode: vertical-rl;
-  text-orientation: upright;
-  letter-spacing: 0.14em;
-  font-size: var(--font-size-xs);
-  font-weight: 700;
-  line-height: 1;
-  color: #ffffff;
-  white-space: nowrap;
-  user-select: none;
-}
-
-.member-search-edge-tab:hover {
-  background: #0066d6;
-  box-shadow: 3px 3px 14px rgba(0, 70, 160, 0.36);
-  transform: translateX(2px);
-}
-
-.member-search-edge-tab.is-open {
-  background: #005bb8;
-  box-shadow: 3px 3px 14px rgba(0, 70, 160, 0.4);
-}
-
-[data-theme="dark"] .member-search-edge-tab {
-  background: #3b82f6;
-  box-shadow: 2px 2px 12px rgba(0, 0, 0, 0.45);
-}
-
-[data-theme="dark"] .member-search-edge-tab:hover,
-[data-theme="dark"] .member-search-edge-tab.is-open {
-  background: #2563eb;
+  display: none;
 }
 
 .sidebar-members-toggle {

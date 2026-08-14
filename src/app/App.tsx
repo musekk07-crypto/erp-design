@@ -5493,6 +5493,7 @@ const navItems: { icon: React.ComponentType<{ size?: number; style?: React.CSSPr
   { icon: Home, label: "홈", key: "home" },
   { icon: LayoutDashboard, label: "대시보드", key: "dashboard" },
   { icon: UserPlus, label: "회원등록", key: "member-register" },
+  { icon: Search, label: "회원검색", key: "members" },
   { icon: ShoppingCart, label: "주문서등록", key: "order-register" },
   { icon: GitFork, label: "조직도", key: "org-chart" },
   { icon: Plus, label: "바로가기 추가", key: "add-shortcut" },
@@ -5516,6 +5517,7 @@ interface SidebarProps {
   expanded: boolean;
   onToggleExpand: () => void;
   width: number;
+  memberSearchOpen?: boolean;
 }
 
 function SidebarNavButton({
@@ -5548,27 +5550,6 @@ function SidebarNavButton({
   );
 }
 
-function MemberSearchEdgeTab({
-  isOpen,
-  onClick,
-}: {
-  isOpen: boolean;
-  onClick: () => void;
-}) {
-  return (
-    <button
-      type="button"
-      aria-label="회원검색"
-      aria-pressed={isOpen}
-      onClick={onClick}
-      className={`member-search-edge-tab${isOpen ? " is-open" : ""}`}
-    >
-      <Search size={15} className="member-search-edge-tab__icon" strokeWidth={2.4} aria-hidden />
-      <span className="member-search-edge-tab__label">회원검색</span>
-    </button>
-  );
-}
-
 function Sidebar({
   activeNavKey,
   onNavChange,
@@ -5577,9 +5558,10 @@ function Sidebar({
   expanded,
   onToggleExpand,
   width,
+  memberSearchOpen = false,
 }: SidebarProps) {
   const handleNavClick = (key: SidebarNavKey) => {
-    if (!expanded) onToggleExpand();
+    if (key !== "members" && !expanded) onToggleExpand();
     onNavChange(key);
   };
 
@@ -5616,7 +5598,7 @@ function Sidebar({
           <SidebarNavButton
             key={item.key}
             label={item.label}
-            isActive={activeNavKey === item.key}
+            isActive={item.key === "members" ? memberSearchOpen : activeNavKey === item.key}
             expanded={expanded}
             onClick={() => handleNavClick(item.key)}
           >
@@ -5886,11 +5868,10 @@ export default function App() {
     if (key === "add-shortcut") return;
 
     if (key === "members") {
-      const onMemberInfoScreen =
+      const onMemberRegisterScreen =
         activeSidebarKey !== "home" &&
         activeMainMenu === "회원관리" &&
-        activeMemberSubMenu === "회원등록" &&
-        activeTab === "회원정보";
+        activeMemberSubMenu === "회원등록";
 
       const onOrderRegisterScreen =
         activeSidebarKey !== "home" &&
@@ -5902,7 +5883,7 @@ export default function App() {
         activeMainMenu === "회원관리" &&
         activeMemberSubMenu === "조직도인쇄";
 
-      if (onMemberInfoScreen || onOrderRegisterScreen || onOrgChartScreen) {
+      if (onMemberRegisterScreen || onOrderRegisterScreen || onOrgChartScreen) {
         setListOpen((open) => !open);
         return;
       }
@@ -5911,7 +5892,7 @@ export default function App() {
       setActiveMainMenu("회원관리");
       setActiveMemberSubMenu("회원등록");
       setActiveTab("회원정보");
-      setListOpen(false);
+      setListOpen(true);
       return;
     }
 
@@ -6028,6 +6009,7 @@ export default function App() {
           expanded={sidebarExpanded}
           onToggleExpand={() => setSidebarExpanded((v) => !v)}
           width={sidebarWidth}
+          memberSearchOpen={memberListOpen}
         />
 
         <div
@@ -6042,13 +6024,6 @@ export default function App() {
             position: "relative",
           }}
         >
-          {memberListNavEnabled ? (
-            <MemberSearchEdgeTab
-              isOpen={memberListOpen}
-              onClick={() => setListOpen((open) => !open)}
-            />
-          ) : null}
-
           <div
             className="app-content-row"
             style={{
@@ -6059,6 +6034,49 @@ export default function App() {
               flexShrink: 0,
             }}
           >
+        {memberListNavEnabled && memberListOpen ? (
+          <aside
+            className={`member-search-panel${isListResizing ? " is-resizing" : ""}`}
+            aria-label="회원검색"
+            style={{
+              width: listWidth,
+              minWidth: listWidth,
+              maxWidth: MEMBER_LIST_MAX_WIDTH,
+              flexShrink: 0,
+            }}
+          >
+            <header className="member-search-panel__header">
+              <h2 className="member-search-panel__title">회원검색</h2>
+              <button
+                type="button"
+                className="member-search-panel__close"
+                aria-label="닫기"
+                onClick={() => setListOpen(false)}
+              >
+                <X size={16} />
+              </button>
+            </header>
+            <div className="member-search-panel__body">
+              <MemberTable
+                selectedId={
+                  activeMainMenu === "주문관리" && activeOrderSubMenu === "주문서등록"
+                    ? orderSelectedMemberId ?? -1
+                    : selectedMember
+                }
+                onSelect={handleMemberTableSelect}
+                listOpen
+                listWidth={listWidth}
+              />
+            </div>
+            <div
+              className="panel-splitter member-search-panel__splitter"
+              onMouseDown={onResizeStart}
+              role="separator"
+              aria-orientation="vertical"
+              aria-label="회원검색 패널 너비 조절"
+            />
+          </aside>
+        ) : null}
 
         {/* 오른쪽 상세 패널 */}
         <div
@@ -6119,7 +6137,7 @@ export default function App() {
           ) : activeMainMenu === "회원관리2" ? (
             <MemberManagement2View
               memberId={selectedMember}
-              listOpen={false}
+              listOpen={memberListOpen}
               activeTab={activeTab}
               onTabChange={setActiveTab}
             />
@@ -6145,7 +6163,7 @@ export default function App() {
           ) : (
             <MemberManagementView
               memberId={selectedMember}
-              listOpen={false}
+              listOpen={memberListOpen}
               formColumnWidth={formColumnWidth}
               activeTab={activeTab}
               onTabChange={setActiveTab}
@@ -6157,47 +6175,6 @@ export default function App() {
           </div>
         </div>
         </div>
-
-        {memberListNavEnabled && memberListOpen ? (
-          <div
-            className="member-search-modal"
-            role="dialog"
-            aria-modal="true"
-            aria-label="회원검색"
-          >
-            <button
-              type="button"
-              className="member-search-modal__backdrop"
-              aria-label="회원검색 닫기"
-              onClick={() => setListOpen(false)}
-            />
-            <div className="member-search-modal__panel">
-              <header className="member-search-modal__header">
-                <h2 className="member-search-modal__title">회원검색</h2>
-                <button
-                  type="button"
-                  className="member-search-modal__close"
-                  aria-label="닫기"
-                  onClick={() => setListOpen(false)}
-                >
-                  <X size={16} />
-                </button>
-              </header>
-              <div className="member-search-modal__body">
-                <MemberTable
-                  selectedId={
-                    activeMainMenu === "주문관리" && activeOrderSubMenu === "주문서등록"
-                      ? orderSelectedMemberId ?? -1
-                      : selectedMember
-                  }
-                  onSelect={handleMemberTableSelect}
-                  listOpen
-                  listWidth={MEMBER_LIST_MAX_WIDTH}
-                />
-              </div>
-            </div>
-          </div>
-        ) : null}
 
         <VisitHistoryBar
           expanded={historyRailExpanded}
