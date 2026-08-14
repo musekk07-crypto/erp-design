@@ -2769,6 +2769,117 @@ function AllowanceHistoryView({ memberId }: { memberId: number }) {
 }
 
 // ─────────────────────────────────────────────
+// LogHistoryView
+// ─────────────────────────────────────────────
+
+const logHistoryColumns: SplitTableColumn[] = [
+  { key: "no", label: "No", width: 44, align: "center" },
+  { key: "createdAt", label: "생성일시", width: 140, align: "center" },
+  { key: "createdBy", label: "생성자", width: 96, align: "left" },
+  { key: "hostName", label: "호스트명", width: 160, align: "left" },
+  { key: "memberNo", label: "회원번호", width: 96, align: "left" },
+  { key: "name", label: "이름", width: 80, align: "left" },
+  { key: "typeNo", label: "구분번호", width: 72, align: "center" },
+  { key: "subNo", label: "서브번호", width: 72, align: "center" },
+  { key: "description", label: "설명", width: 360, align: "left" },
+];
+
+const LOG_HISTORY_CREATORS = ["빈소프트", "System", "Autoship", "myoffice", "김민석전무", "빈소프트", "System"] as const;
+const LOG_HISTORY_DESCRIPTIONS = [
+  "주문서 승인; 주문서번호=2608140001",
+  "주문서 저장; 주문서번호=2608140001",
+  "사용자설정 삭제; 설정키=notify.sms",
+  "사용자설정 변경; 설정키=notify.email",
+  "회원정보 수정; 필드=휴대폰번호",
+  "로그인 성공",
+  "비밀번호 변경",
+  "수당 게시; 대상월=2026-05",
+  "주문서 취소; 주문서번호=2604100005",
+  "배송정보 수정; 운송장갱신",
+  "포인트 조정; 수량=1000",
+  "상담내역 등록",
+  "마이페이지 접속",
+  "권한 변경; 역할=일반",
+  "파일 다운로드; 거래명세서",
+] as const;
+
+function buildLogHistorySampleData(member: Member) {
+  const rows: Record<string, string | number>[] = [];
+  const base = new Date("2026-08-14T15:42:18");
+
+  for (let i = 0; i < 59; i++) {
+    const created = new Date(base.getTime() - i * 37 * 60 * 1000);
+    const yyyy = created.getFullYear();
+    const mm = String(created.getMonth() + 1).padStart(2, "0");
+    const dd = String(created.getDate()).padStart(2, "0");
+    const hh = String(created.getHours()).padStart(2, "0");
+    const mi = String(created.getMinutes()).padStart(2, "0");
+    const ss = String(created.getSeconds()).padStart(2, "0");
+
+    rows.push({
+      no: i + 1,
+      createdAt: `${yyyy}-${mm}-${dd} ${hh}:${mi}:${ss}`,
+      createdBy: LOG_HISTORY_CREATORS[i % LOG_HISTORY_CREATORS.length],
+      hostName: "WIN-5BUCOQ1U7ML",
+      memberNo: member.no,
+      name: member.name,
+      typeNo: String((i % 9) + 1),
+      subNo: String(i % 7 === 0 ? 0 : 190 + (i % 20)),
+      description: LOG_HISTORY_DESCRIPTIONS[i % LOG_HISTORY_DESCRIPTIONS.length],
+    });
+  }
+
+  return rows;
+}
+
+function DetailSinglePanelView({
+  columns,
+  rows,
+}: {
+  columns: SplitTableColumn[];
+  rows?: Record<string, string | number>[];
+}) {
+  const minWidth = getSplitTableWeight(columns);
+
+  return (
+    <div
+      className="flex flex-col h-full min-h-0 w-full overflow-hidden member-split-panel-view"
+      style={{ background: "var(--surface-page)" }}
+    >
+      <button
+        type="button"
+        className="flex items-center gap-1.5 shrink-0 self-start rounded transition-colors"
+        style={{
+          fontSize: "var(--font-size-sm)",
+          color: "var(--text-body)",
+          padding: "4px 8px",
+          marginBottom: 6,
+          background: "transparent",
+          border: "none",
+          cursor: "pointer",
+        }}
+      >
+        <RefreshCw size={13} style={{ color: "var(--muted-foreground)" }} />
+        새로고침
+      </button>
+
+      <div className="flex-1 min-h-0 overflow-x-auto overflow-y-hidden flex flex-col" style={{ width: "100%" }}>
+        <div className="flex flex-col flex-1 min-h-0" style={{ width: "100%", minWidth }}>
+          <SplitTableBlock columns={columns} rows={rows} />
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function LogHistoryView({ memberId }: { memberId: number }) {
+  const member = getMemberById(memberId);
+  const rows = buildLogHistorySampleData(member);
+
+  return <DetailSinglePanelView columns={logHistoryColumns} rows={rows} />;
+}
+
+// ─────────────────────────────────────────────
 // MemberDetail
 // ─────────────────────────────────────────────
 
@@ -3607,6 +3718,10 @@ function MemberManagement2View({
             <div className="flex-1 min-h-0 overflow-hidden">
               <AllowanceHistoryView memberId={memberId} />
             </div>
+          ) : activeTab === "로그히스토리" ? (
+            <div className="flex-1 min-h-0 overflow-hidden">
+              <LogHistoryView memberId={memberId} />
+            </div>
           ) : (
             <div className="flex items-center justify-center flex-1" style={{ color: "var(--text-muted)", fontSize: "var(--font-size-md)", minHeight: 200 }}>
               {activeTab} 화면 준비 중입니다.
@@ -3732,6 +3847,10 @@ function MemberManagementView({
           ) : activeTab === "수당내역" ? (
             <div className="flex-1 min-h-0 overflow-hidden">
               <AllowanceHistoryView memberId={memberId} />
+            </div>
+          ) : activeTab === "로그히스토리" ? (
+            <div className="flex-1 min-h-0 overflow-hidden">
+              <LogHistoryView memberId={memberId} />
             </div>
           ) : (
             <div className="flex items-center justify-center flex-1" style={{ color: "var(--text-muted)", fontSize: "var(--font-size-md)", minHeight: 200 }}>

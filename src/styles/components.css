@@ -711,6 +711,10 @@ span.member-form-action-chip {
   white-space: nowrap;
 }
 
+.app-content .split-table-block tbody tr.member-table-row:nth-child(even):not(.is-selected) {
+  background: #f5f6f8;
+}
+
 .app-content .split-table-block tbody tr.member-table-row.is-selected,
 .app-content .split-table-block tbody tr.is-selected {
   background: #ffe566;
