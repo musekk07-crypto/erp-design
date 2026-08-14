@@ -6047,6 +6047,7 @@ export default function App() {
           onToggleExpand={() => setSidebarExpanded((v) => !v)}
           width={sidebarWidth}
           memberSearchOpen={memberListOpen}
+          memberSearchVisible={memberListNavEnabled}
         />
 
         <div
