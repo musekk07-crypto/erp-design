@@ -5606,21 +5606,38 @@ function Sidebar({
         flexShrink: 0,
       }}
     >
-      <button
-        type="button"
-        className={`sidebar-expand-toggle${expanded ? " is-expanded" : ""}`}
-        aria-label={expanded ? "사이드바 접기" : "사이드바 펼치기"}
-        aria-pressed={expanded}
-        title={expanded ? "메뉴 접기" : "메뉴 펼치기"}
-        onClick={(e) => {
-          e.preventDefault();
-          e.stopPropagation();
-          onToggleExpand();
-        }}
-      >
-        {expanded ? <ChevronLeft size={16} /> : <ChevronRight size={16} />}
-        {expanded ? <span className="sidebar-expand-toggle__label">메뉴 접기</span> : null}
-      </button>
+      {!expanded ? (
+        <button
+          type="button"
+          className="sidebar-expand-toggle"
+          aria-label="사이드바 펼치기"
+          aria-pressed={false}
+          title="메뉴 펼치기"
+          onClick={(e) => {
+            e.preventDefault();
+            e.stopPropagation();
+            onToggleExpand();
+          }}
+        >
+          <ChevronRight size={16} />
+        </button>
+      ) : (
+        <button
+          type="button"
+          className="sidebar-collapse-link"
+          aria-label="사이드바 접기"
+          aria-pressed={true}
+          title="메뉴 접기"
+          onClick={(e) => {
+            e.preventDefault();
+            e.stopPropagation();
+            onToggleExpand();
+          }}
+        >
+          <ChevronLeft size={16} />
+          <span className="sidebar-collapse-link__label">메뉴 접기</span>
+        </button>
+      )}
 
       {memberSearchVisible ? (
         <SidebarMemberSearchButton
