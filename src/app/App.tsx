@@ -2879,6 +2879,14 @@ function LogHistoryView({ memberId }: { memberId: number }) {
   return <DetailSinglePanelView columns={logHistoryColumns} rows={rows} />;
 }
 
+function getMemberDetailTabCount(tab: string, memberId: number): number | null {
+  const member = getMemberById(memberId);
+  if (tab === "주문서내역") return buildOrderSampleData(member).headerRows.length;
+  if (tab === "수당내역") return buildAllowanceSampleData(member).headerRows.length;
+  if (tab === "로그히스토리") return buildLogHistorySampleData(member).length;
+  return null;
+}
+
 // ─────────────────────────────────────────────
 // MemberDetail
 // ─────────────────────────────────────────────
@@ -5177,6 +5185,7 @@ interface MemberPageChromeProps {
   activeTab: string;
   onTabChange: (tab: string) => void;
   onToolbarAction?: (label: string) => void;
+  memberId?: number;
 }
 
 function MainMenuPlaceholder({ title }: { title: string }) {
@@ -5188,7 +5197,7 @@ function MainMenuPlaceholder({ title }: { title: string }) {
   );
 }
 
-function MemberPageChrome({ activeTab, onTabChange, onToolbarAction }: MemberPageChromeProps) {
+function MemberPageChrome({ activeTab, onTabChange, onToolbarAction, memberId }: MemberPageChromeProps) {
   const isMemberInfoTab = activeTab === "회원정보";
 
   const tabBar = (
@@ -5196,6 +5205,8 @@ function MemberPageChrome({ activeTab, onTabChange, onToolbarAction }: MemberPag
       <div className="detail-tab-list">
         {subTabs.map((tab) => {
           const isActive = tab === activeTab;
+          const count = memberId != null ? getMemberDetailTabCount(tab, memberId) : null;
+          const label = count != null && count > 0 ? `${tab}(${count})` : tab;
           return (
             <button
               key={tab}
@@ -5203,7 +5214,7 @@ function MemberPageChrome({ activeTab, onTabChange, onToolbarAction }: MemberPag
               className={`detail-tab${isActive ? " is-active" : ""}`}
               onClick={() => onTabChange(tab)}
             >
-              {tab}
+              {label}
             </button>
           );
         })}
