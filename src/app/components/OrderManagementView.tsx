@@ -632,7 +632,7 @@ function OmDataTable({
 
   const cellStyle: React.CSSProperties = {
     padding: `${OM_ROW_PAD_Y}px ${cellPadX}px`,
-    fontSize: 12,
+    fontSize: "var(--font-size-xs)",
     color: "var(--text-body)",
     whiteSpace: "nowrap",
     ...(showFullText
@@ -643,7 +643,7 @@ function OmDataTable({
   const checkboxCellStyle: React.CSSProperties = {
     padding: `${OM_ROW_PAD_Y}px ${cellPadX}px ${OM_ROW_PAD_Y}px ${checkboxPadLeft}px`,
     textAlign: "left",
-    fontSize: 12,
+    fontSize: "var(--font-size-xs)",
     color: "var(--text-body)",
     whiteSpace: "nowrap",
     ...(showFullText

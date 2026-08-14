@@ -51,7 +51,7 @@ export function Sidebar({ activePanel, onPanelToggle, theme, onThemeChange }: Si
               <item.icon size={18} style={{ color: isActive ? "var(--accent-primary)" : "var(--sidebar-foreground)" }} />
               <span
                 className="absolute left-10 px-2 py-1 rounded whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity duration-200 pointer-events-none z-50"
-                style={{ background: "#1e2130", color: "#fff", fontSize: "11px" }}
+                style={{ background: "#1e2130", color: "#fff", fontSize: "var(--font-size-sm)" }}
               >
                 {item.label}
               </span>
@@ -70,7 +70,7 @@ export function Sidebar({ activePanel, onPanelToggle, theme, onThemeChange }: Si
             <item.icon size={18} style={{ color: "var(--sidebar-foreground)" }} />
             <span
               className="absolute left-10 px-2 py-1 rounded whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity duration-200 pointer-events-none z-50"
-              style={{ background: "#1e2130", color: "#fff", fontSize: "11px" }}
+              style={{ background: "#1e2130", color: "#fff", fontSize: "var(--font-size-sm)" }}
             >
               {item.label}
             </span>
@@ -99,7 +99,7 @@ export function Sidebar({ activePanel, onPanelToggle, theme, onThemeChange }: Si
             >
               <span
                 className="absolute left-6 px-2 py-1 rounded whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity duration-200 pointer-events-none z-50"
-                style={{ background: "#1e2130", color: "#fff", fontSize: "11px" }}
+                style={{ background: "#1e2130", color: "#fff", fontSize: "var(--font-size-sm)" }}
               >
                 {t.label}
               </span>

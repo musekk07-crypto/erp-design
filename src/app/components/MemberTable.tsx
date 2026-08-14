@@ -119,10 +119,10 @@ function SortIcon({ col }: { col: string }) {
             placeholder="이름 또는 회원번호 검색"
             value={search}
             onChange={(e) => setSearch(e.target.value)}
-            style={{ fontSize: "13px", color: "var(--foreground)" }}
+            style={{ fontSize: "var(--font-size-sm)", color: "var(--foreground)" }}
           />
         </div>
-        <span style={{ fontSize: "13px", color: "var(--muted-foreground)" }}>
+        <span style={{ fontSize: "var(--font-size-sm)", color: "var(--muted-foreground)" }}>
           총 <strong style={{ color: "var(--foreground)" }}>{sorted.length}</strong>명
         </span>
       </div>
@@ -160,7 +160,7 @@ function SortIcon({ col }: { col: string }) {
                   style={{
                     padding: "6px 8px",
                     textAlign: "center",
-                    fontSize: 12,
+                    fontSize: "var(--font-size-xs)",
                     fontWeight: 500,
                     color: sortKey === col.key ? "#ffffff" : "var(--split-table-header-fg, #f8fafc)",
                     background: "var(--split-table-header-bg, #5a6270)",
@@ -181,7 +181,7 @@ function SortIcon({ col }: { col: string }) {
             {sorted.map((member) => {
               const isSelected = selectedId === member.id;
               const isChecked = checked.has(member.id);
-              const cellBase: React.CSSProperties = { padding: "6px 8px", whiteSpace: "nowrap", fontSize: 12, borderBottom: "1px solid var(--border)" };
+              const cellBase: React.CSSProperties = { padding: "6px 8px", whiteSpace: "nowrap", fontSize: "var(--font-size-xs)", borderBottom: "1px solid var(--border)" };
               return (
                 <tr
                   key={member.id}
@@ -203,11 +203,11 @@ function SortIcon({ col }: { col: string }) {
                   <td style={{ ...cellBase, textAlign: "left", color: "#475569" }}>{member.loginId}</td>
                   <td style={{ ...cellBase, textAlign: "left", color: isSelected ? "var(--accent-primary)" : "#1e2130", fontWeight: isSelected ? 600 : 500 }}>{member.name}</td>
                   <td style={{ ...cellBase, textAlign: "center" }}>
-                    <span style={{ fontSize: 12, padding: "2px 7px", borderRadius: 4, background: member.type === "소비자" ? "#cffafe" : "#f1f5f9", color: member.type === "소비자" ? "#0891b2" : "#64748b" }}>{member.type}</span>
+                    <span style={{ fontSize: "var(--font-size-xs)", padding: "2px 7px", borderRadius: 4, background: member.type === "소비자" ? "#cffafe" : "#f1f5f9", color: member.type === "소비자" ? "#0891b2" : "#64748b" }}>{member.type}</span>
                   </td>
                   <td style={{ ...cellBase, textAlign: "center", color: "#64748b" }}>{member.regDate}</td>
                   <td style={{ ...cellBase, textAlign: "center" }}>
-                    <span style={{ fontSize: 12, padding: "2px 7px", borderRadius: 4, background: member.status === "탈퇴" ? "#fee2e2" : "#dcfce7", color: member.status === "탈퇴" ? "#dc2626" : "#16a34a" }}>{member.status}</span>
+                    <span style={{ fontSize: "var(--font-size-xs)", padding: "2px 7px", borderRadius: 4, background: member.status === "탈퇴" ? "#fee2e2" : "#dcfce7", color: member.status === "탈퇴" ? "#dc2626" : "#16a34a" }}>{member.status}</span>
                   </td>
                   <td style={{ ...cellBase, textAlign: "center", color: "#475569" }}>{member.rank}</td>
                   <td style={{ ...cellBase, textAlign: "center", color: "#475569" }}>{member.grade}</td>

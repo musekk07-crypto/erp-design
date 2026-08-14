@@ -251,7 +251,19 @@
 }
 
 :root {
-  --font-size: 15px;
+  /* 통일 타이포 스케일
+   * xs 12 — 테이블·배지·컴팩트 메타
+   * sm 13 — 라벨·툴바·본문·버튼
+   * md 14 — 입력·내비
+   * lg 15 — 섹션 제목
+   * xl 18 — 페이지 제목
+   */
+  --font-size-xs: 12px;
+  --font-size-sm: 13px;
+  --font-size-md: 14px;
+  --font-size-lg: 15px;
+  --font-size-xl: 18px;
+  --font-size: var(--font-size-md);
   --background: #eef1f4;
   --foreground: #1e2130;
   --card: #ffffff;
@@ -388,12 +400,12 @@
 }
 
 @theme inline {
-  --text-xs: 13px;
-  --text-sm: 15px;
-  --text-base: 17px;
-  --text-lg: 19px;
-  --text-xl: 21px;
-  --text-2xl: 25px;
+  --text-xs: var(--font-size-xs);
+  --text-sm: var(--font-size-sm);
+  --text-base: var(--font-size-md);
+  --text-lg: var(--font-size-lg);
+  --text-xl: var(--font-size-xl);
+  --text-2xl: 22px;
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   --color-card: var(--card);
@@ -498,37 +510,55 @@
 
 /* 본문 컨텐츠 영역 — 탑 메뉴 제외, 조밀하게 */
 .app-content {
-  --content-text-xs: 13px;
-  --content-text-sm: 14px;
-  --content-text-base: 15px;
-  font-size: var(--content-text-base);
+  --content-text-xs: var(--font-size-xs);   /* 12 테이블 */
+  --content-text-sm: var(--font-size-sm);   /* 13 라벨·본문 */
+  --content-text-base: var(--font-size-md); /* 14 입력 기준 본문 영역 */
+  --content-text-lg: var(--font-size-lg);   /* 15 제목 */
+  font-size: var(--font-size-sm);
 }
 
 .app-content .text-sm {
-  font-size: var(--content-text-sm) !important;
+  font-size: var(--font-size-sm) !important;
   line-height: 1.3;
 }
 
 .app-content .text-xs {
-  font-size: var(--content-text-xs) !important;
+  font-size: var(--font-size-xs) !important;
+  line-height: 1.3;
+}
+
+.app-content .text-base {
+  font-size: var(--font-size-md) !important;
+  line-height: 1.3;
+}
+
+.app-content .text-lg {
+  font-size: var(--font-size-lg) !important;
   line-height: 1.3;
 }
 
 .app-content input,
 .app-content select,
 .app-content textarea {
-  font-size: 14px !important;
+  font-size: var(--font-size-md) !important;
+}
+
+.app-content button,
+.app-content .btn,
+.app-content [role="button"] {
+  font-size: var(--font-size-sm);
 }
 
 .app-content table th,
 .app-content table td {
   padding-top: 3px !important;
   padding-bottom: 3px !important;
+  font-size: var(--font-size-xs) !important;
 }
 
 .app-content .member-list-panel td,
 .app-content .member-table-row td {
-  font-size: var(--content-text-xs) !important;
+  font-size: var(--font-size-xs) !important;
 }
 
 .app-content .content-form-section {
@@ -597,13 +627,13 @@ input[type="checkbox"] {
 }
 
 .app-content .content-form-body table.content-form-grid span {
-  font-size: var(--content-text-xs) !important;
+  font-size: var(--font-size-sm) !important;
 }
 
 .app-content .content-form-body table.content-form-grid input,
 .app-content .content-form-body table.content-form-grid select,
 .app-content .content-form-body table.content-form-grid textarea {
-  font-size: var(--content-text-sm) !important;
+  font-size: var(--font-size-md) !important;
 }
 
 .app-content .content-form-body > .flex,
@@ -616,8 +646,8 @@ input[type="checkbox"] {
 }
 
 .app-content .content-form-section--member-form {
-  --member-form-label-size: var(--content-text-xs, 13px);
-  --member-form-control-size: var(--content-text-sm, 14px);
+  --member-form-label-size: var(--font-size-sm);
+  --member-form-control-size: var(--font-size-md);
   --member-form-control-padding: 3px 8px;
   --member-form-control-min-height: 26px;
   /*
@@ -788,7 +818,7 @@ input[type="checkbox"] {
 .app-content .content-member-header .content-member-header-no {
   color: var(--member-header-no-fg, #6b7280);
   font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
-  font-size: 13px !important;
+  font-size: var(--font-size-sm) !important;
   font-weight: 500 !important;
 }
 
@@ -857,7 +887,7 @@ input[type="checkbox"] {
 }
 
 .app-content .member-relation-count {
-  font-size: 12px;
+  font-size: var(--font-size-xs);
   padding: 2px 8px;
   background: var(--accent-light);
   color: var(--required-color, #001673);
@@ -990,7 +1020,7 @@ input[type="checkbox"] {
   border-bottom: 1px solid var(--border-strong, #94a3b8);
   background: transparent;
   padding: 4px 22px 6px 2px;
-  font-size: 13px;
+  font-size: var(--font-size-sm);
   font-weight: 500;
   color: var(--foreground);
   cursor: pointer;
@@ -1027,7 +1057,7 @@ input[type="checkbox"] {
   align-items: center;
   justify-content: center;
   flex: 0 0 22px;
-  font-size: 13px;
+  font-size: var(--font-size-sm);
   font-weight: 600;
   color: var(--accent-primary, #001673);
   background: var(--member-search-wildcard-bg, #dbeafe);
@@ -1040,7 +1070,7 @@ input[type="checkbox"] {
   outline: none;
   background: transparent;
   padding: 0 4px;
-  font-size: 13px;
+  font-size: var(--font-size-sm);
   color: var(--foreground);
 }
 
@@ -1069,7 +1099,7 @@ input[type="checkbox"] {
 }
 
 .member-list-search__submit span {
-  font-size: 12px;
+  font-size: var(--font-size-xs);
   font-weight: 600;
   line-height: 1;
 }
@@ -1081,7 +1111,7 @@ input[type="checkbox"] {
 .member-list-search__total {
   flex: 0 0 auto;
   white-space: nowrap;
-  font-size: 12px;
+  font-size: var(--font-size-xs);
   color: var(--muted-foreground);
   padding-bottom: 6px;
 }

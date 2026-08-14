@@ -175,7 +175,7 @@ function FormGrid({ children }: { children: React.ReactNode }) {
 
 function Label({ children, required }: { children: React.ReactNode; required?: boolean }) {
   return (
-    <span style={{ fontSize: 12, color: required ? "var(--required-color, #001673)" : "var(--form-label-color)", fontWeight: 500 }}>
+    <span style={{ fontSize: "var(--font-size-xs)", color: required ? "var(--required-color, #001673)" : "var(--form-label-color)", fontWeight: 500 }}>
       {required ? "* " : null}
       {children}
     </span>
@@ -247,7 +247,7 @@ function BasicMgmtTable({
                   key={head}
                   style={{
                     padding: "6px 8px",
-                    fontSize: 13,
+                    fontSize: "var(--font-size-sm)",
                     fontWeight: 400,
                     textAlign: "center",
                     color: "var(--split-table-header-fg, var(--text-muted))",
@@ -263,10 +263,10 @@ function BasicMgmtTable({
           <tbody>
             {rows.map((row) => (
               <tr key={row.no}>
-                <td style={{ padding: "6px 8px", fontSize: 13, textAlign: "center" }}>{row.no}</td>
-                <td style={{ padding: "6px 8px", fontSize: 13, textAlign: "center" }}>{row.code}</td>
-                <td style={{ padding: "6px 8px", fontSize: 13, textAlign: "center" }}>{row.category}</td>
-                <td style={{ padding: "6px 8px", fontSize: 13, textAlign: "center" }}>{row.name}</td>
+                <td style={{ padding: "6px 8px", fontSize: "var(--font-size-sm)", textAlign: "center" }}>{row.no}</td>
+                <td style={{ padding: "6px 8px", fontSize: "var(--font-size-sm)", textAlign: "center" }}>{row.code}</td>
+                <td style={{ padding: "6px 8px", fontSize: "var(--font-size-sm)", textAlign: "center" }}>{row.category}</td>
+                <td style={{ padding: "6px 8px", fontSize: "var(--font-size-sm)", textAlign: "center" }}>{row.name}</td>
               </tr>
             ))}
           </tbody>
@@ -354,7 +354,7 @@ export function BasicManagementView() {
                       </div>
                       <div className="basic-mgmt-exposure-item">
                         <Label>상태표기 아이콘</Label>
-                        <label className="inline-flex items-center gap-2" style={{ fontSize: 13 }}>
+                        <label className="inline-flex items-center gap-2" style={{ fontSize: "var(--font-size-sm)" }}>
                           <input type="checkbox" defaultChecked style={{ accentColor: "var(--checkbox-accent)", width: 14, height: 14 }} />
                           사용
                         </label>
@@ -466,7 +466,7 @@ export function BasicManagementView() {
                         <Label>과세대상</Label>
                       </td>
                       <td className={fieldWideCellClass} colSpan={fieldColSpan}>
-                        <label className="inline-flex items-center gap-2" style={{ fontSize: 13 }}>
+                        <label className="inline-flex items-center gap-2" style={{ fontSize: "var(--font-size-sm)" }}>
                           <input type="checkbox" defaultChecked style={{ accentColor: "var(--checkbox-accent)", width: 14, height: 14 }} />
                           과세
                         </label>
@@ -508,14 +508,14 @@ export function BasicManagementView() {
                   borderRadius: 6,
                   background: "var(--surface-panel)",
                   color: "var(--text-muted)",
-                  fontSize: 12,
+                  fontSize: "var(--font-size-xs)",
                 }}
               >
                 <span>상품 이미지 미리보기</span>
                 <button
                   type="button"
                   style={{
-                    fontSize: 12,
+                    fontSize: "var(--font-size-xs)",
                     padding: "4px 12px",
                     background: "var(--surface-button-muted)",
                     color: "var(--foreground)",

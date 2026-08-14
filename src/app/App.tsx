@@ -97,7 +97,7 @@ const MM2_ORG_CHART_SCALE = 686 / ORG_CHART_WIDTH;
 const MM2_ORG_CHART_CONTENT_W = Math.ceil(ORG_CHART_WIDTH * MM2_ORG_CHART_SCALE);
 const MM2_ORG_CHART_CONTENT_H = Math.ceil(ORG_CHART_TABBED_CONTENT_HEIGHT * MM2_ORG_CHART_SCALE);
 const MM2_ORG_CHART_WIDTH = MM2_ORG_CHART_CONTENT_W + 2;
-const ORG_CARD_NAME_FONT_SIZE = 16 / MM2_ORG_CHART_SCALE;
+const ORG_CARD_NAME_FONT_SIZE = 15 / MM2_ORG_CHART_SCALE;
 const MM2_ORG_CHART_PANEL_HEIGHT =
   ORG_CHART_SECTION_HEADER_H + ORG_CHART_BODY_PAD_V + MM2_ORG_CHART_CONTENT_H + 2;
 const DETAIL_CONTENT_GAP = 12;
@@ -160,8 +160,8 @@ const EXTRA_H = 34;
 const GAP = 7;
 const COL_GAP = ORG_COL_GAP;
 
-const ORG_CARD_LABEL_FONT_SIZE = 14;
-const ORG_CARD_META_FONT_SIZE = 14;
+const ORG_CARD_LABEL_FONT_SIZE = 13;
+const ORG_CARD_META_FONT_SIZE = 13;
 
 function resolveOrgMemberNo(id: number, fallback?: string) {
   const ref = members.find((m) => m.id === id);
@@ -289,7 +289,7 @@ function Card({
             style={{
               background: ORG_SELF_ACCENT,
               color: "#ffffff",
-              fontSize: 11,
+              fontSize: "var(--font-size-sm)",
               fontWeight: 700,
               lineHeight: 1.2,
               padding: "1px 8px",
@@ -1651,7 +1651,7 @@ function MemberTable({ selectedId, onSelect, listOpen = false, listWidth = MEMBE
                   style={{
                     padding: "6px 5px",
                     textAlign: "left",
-                    fontSize: 12,
+                    fontSize: "var(--font-size-xs)",
                     fontWeight: 600,
                     color: sortKey === col.key ? "var(--accent-primary)" : "var(--text-muted)",
                     cursor: "pointer",
@@ -1688,22 +1688,22 @@ function MemberTable({ selectedId, onSelect, listOpen = false, listWidth = MEMBE
                   <td style={{ padding: "5px 5px", textAlign: "center" }} onClick={(e) => e.stopPropagation()}>
                     <input type="checkbox" checked={isChecked} onChange={() => toggleOne(member.id)} style={{ accentColor: "var(--checkbox-accent)", cursor: "pointer" }} />
                   </td>
-                  <td style={{ ...cellBase, fontSize: 12, color: "var(--text-subtle)" }}>{member.id}</td>
-                  <td style={{ ...cellBase, fontSize: 12, fontFamily: "monospace", color: isSelected ? "var(--accent-primary)" : "var(--text-body)", fontWeight: isSelected ? 600 : 400 }}>{member.no}</td>
-                  <td style={{ ...cellBase, fontSize: 12, color: "var(--text-secondary)" }}>{member.loginId}</td>
-                  <td style={{ ...cellBase, fontSize: 12, color: isSelected ? "var(--accent-primary)" : "var(--text-body)", fontWeight: isSelected ? 600 : 500 }}>{member.name}</td>
+                  <td style={{ ...cellBase, fontSize: "var(--font-size-xs)", color: "var(--text-subtle)" }}>{member.id}</td>
+                  <td style={{ ...cellBase, fontSize: "var(--font-size-xs)", fontFamily: "monospace", color: isSelected ? "var(--accent-primary)" : "var(--text-body)", fontWeight: isSelected ? 600 : 400 }}>{member.no}</td>
+                  <td style={{ ...cellBase, fontSize: "var(--font-size-xs)", color: "var(--text-secondary)" }}>{member.loginId}</td>
+                  <td style={{ ...cellBase, fontSize: "var(--font-size-xs)", color: isSelected ? "var(--accent-primary)" : "var(--text-body)", fontWeight: isSelected ? 600 : 500 }}>{member.name}</td>
                   <td style={{ ...cellBase }}>
-                    <span style={{ fontSize: 12, padding: "2px 7px", borderRadius: 4, background: member.type === "소비자" ? "var(--badge-type-consumer-bg)" : "var(--badge-type-general-bg)", color: member.type === "소비자" ? "var(--badge-type-consumer-fg)" : "var(--badge-type-general-fg)" }}>{member.type}</span>
+                    <span style={{ fontSize: "var(--font-size-xs)", padding: "2px 7px", borderRadius: 4, background: member.type === "소비자" ? "var(--badge-type-consumer-bg)" : "var(--badge-type-general-bg)", color: member.type === "소비자" ? "var(--badge-type-consumer-fg)" : "var(--badge-type-general-fg)" }}>{member.type}</span>
                   </td>
-                  <td style={{ ...cellBase, fontSize: 12, color: "var(--text-muted)" }}>{member.regDate}</td>
+                  <td style={{ ...cellBase, fontSize: "var(--font-size-xs)", color: "var(--text-muted)" }}>{member.regDate}</td>
                   <td style={{ ...cellBase }}>
-                    <span style={{ fontSize: 12, padding: "2px 7px", borderRadius: 4, background: member.status === "탈퇴" ? "var(--badge-status-withdraw-bg)" : "var(--badge-status-active-bg)", color: member.status === "탈퇴" ? "var(--badge-status-withdraw-fg)" : "var(--badge-status-active-fg)" }}>{member.status}</span>
+                    <span style={{ fontSize: "var(--font-size-xs)", padding: "2px 7px", borderRadius: 4, background: member.status === "탈퇴" ? "var(--badge-status-withdraw-bg)" : "var(--badge-status-active-bg)", color: member.status === "탈퇴" ? "var(--badge-status-withdraw-fg)" : "var(--badge-status-active-fg)" }}>{member.status}</span>
                   </td>
-                  <td style={{ ...cellBase, fontSize: 12, color: "var(--text-secondary)" }}>{member.rank}</td>
-                  <td style={{ ...cellBase, fontSize: 12, color: "var(--text-secondary)" }}>{member.grade}</td>
-                  <td style={{ ...cellBase, fontSize: 12, color: "var(--text-secondary)", fontFamily: "monospace" }}>{member.phone}</td>
-                  <td style={{ ...cellBase, fontSize: 12, color: "var(--text-subtle)", fontFamily: "monospace" }}>{member.ssn}</td>
-                  <td style={{ ...cellBase, fontSize: 12, color: "var(--text-secondary)" }}>{member.region}</td>
+                  <td style={{ ...cellBase, fontSize: "var(--font-size-xs)", color: "var(--text-secondary)" }}>{member.rank}</td>
+                  <td style={{ ...cellBase, fontSize: "var(--font-size-xs)", color: "var(--text-secondary)" }}>{member.grade}</td>
+                  <td style={{ ...cellBase, fontSize: "var(--font-size-xs)", color: "var(--text-secondary)", fontFamily: "monospace" }}>{member.phone}</td>
+                  <td style={{ ...cellBase, fontSize: "var(--font-size-xs)", color: "var(--text-subtle)", fontFamily: "monospace" }}>{member.ssn}</td>
+                  <td style={{ ...cellBase, fontSize: "var(--font-size-xs)", color: "var(--text-secondary)" }}>{member.region}</td>
                 </tr>
               );
             })}
@@ -1725,7 +1725,7 @@ function MemberTable({ selectedId, onSelect, listOpen = false, listWidth = MEMBE
             style={{
               width: 24,
               height: 24,
-              fontSize: 16,
+              fontSize: "var(--font-size-lg)",
               lineHeight: 1,
               border: "1px solid var(--border)",
               background: "var(--surface-button-muted)",
@@ -1748,7 +1748,7 @@ function MemberTable({ selectedId, onSelect, listOpen = false, listWidth = MEMBE
                   minWidth: 24,
                   height: 24,
                   padding: "0 6px",
-                  fontSize: 12,
+                  fontSize: "var(--font-size-xs)",
                   fontWeight: isActive ? 600 : 400,
                   border: isActive ? "1px solid var(--accent-border)" : "1px solid var(--border)",
                   background: isActive ? "var(--accent-light)" : "var(--surface-button-muted)",
@@ -1768,7 +1768,7 @@ function MemberTable({ selectedId, onSelect, listOpen = false, listWidth = MEMBE
             style={{
               width: 24,
               height: 24,
-              fontSize: 16,
+              fontSize: "var(--font-size-lg)",
               lineHeight: 1,
               border: "1px solid var(--border)",
               background: "var(--surface-button-muted)",
@@ -1852,7 +1852,7 @@ function SplitTableBlock({
 
   const cellStyle: React.CSSProperties = {
     padding: `${SPLIT_TABLE_HEADER_PAD_Y}px 8px`,
-    fontSize: 12,
+    fontSize: "var(--font-size-xs)",
     color: "var(--text-body)",
     whiteSpace: "nowrap",
     overflow: "hidden",
@@ -1883,7 +1883,7 @@ function SplitTableBlock({
                   style={{
                     padding: `${SPLIT_TABLE_HEADER_PAD_Y}px 8px`,
                     textAlign: getSplitColumnAlign(col),
-                    fontSize: 12,
+                    fontSize: "var(--font-size-xs)",
                     fontWeight: 500,
                     color: "var(--split-table-header-fg, #f8fafc)",
                     whiteSpace: "nowrap",
@@ -1953,7 +1953,7 @@ function DetailSplitPanelView({
         type="button"
         className="flex items-center gap-1.5 shrink-0 self-start rounded transition-colors"
         style={{
-          fontSize: 13,
+          fontSize: "var(--font-size-sm)",
           color: "var(--text-body)",
           padding: "4px 8px",
           marginBottom: 6,
@@ -2220,7 +2220,7 @@ function MemberTypeToggle({ type }: { type: "일반" | "소비자" }) {
           className={selected === t ? "is-selected" : undefined}
           onClick={() => setSelected(t)}
           style={{
-            fontSize: "12px",
+            fontSize: "var(--font-size-xs)",
             padding: "2px 10px",
             borderRadius: 20,
             border: "none",
@@ -2266,10 +2266,10 @@ function StatBento({ label, value, color }: { label: string; value: string; colo
         minWidth: 90,
       }}
     >
-      <span style={{ fontSize: 12, fontWeight: 600, color, fontFamily: "monospace" }}>
+      <span style={{ fontSize: "var(--font-size-xs)", fontWeight: 600, color, fontFamily: "monospace" }}>
         {value}
       </span>
-      <span className="mt-0.5" style={{ fontSize: "12px", color: "var(--muted-foreground)" }}>
+      <span className="mt-0.5" style={{ fontSize: "var(--font-size-xs)", color: "var(--muted-foreground)" }}>
         {label}
       </span>
     </div>
@@ -2332,7 +2332,7 @@ function FormField({ label, value, placeholder, type = "text", full = false, mon
 }) {
   return (
     <div className={full ? "col-span-2" : ""}>
-      <label className="block mb-1" style={{ fontSize: "12px", color: "var(--form-label-color)" }}>{label}</label>
+      <label className="block mb-1" style={{ fontSize: "var(--font-size-xs)", color: "var(--form-label-color)" }}>{label}</label>
       <input
         type={type}
         defaultValue={value}
@@ -2359,7 +2359,7 @@ function GenderToggle() {
   const [selected, setSelected] = useState("남");
   return (
     <div>
-      <label className="block mb-1.5" style={{ fontSize: "12px", color: "var(--form-label-color)" }}>성별</label>
+      <label className="block mb-1.5" style={{ fontSize: "var(--font-size-xs)", color: "var(--form-label-color)" }}>성별</label>
       <div className="flex gap-2">
         {["남", "여"].map((g) => (
           <button
@@ -2390,7 +2390,7 @@ function GenderToggleInline() {
           onClick={() => setSelected(g)}
           className="rounded font-medium transition-all duration-200"
           style={{
-            fontSize: 12,
+            fontSize: "var(--font-size-xs)",
             padding: "2px 12px",
             background: selected === g ? "var(--accent-gradient)" : "var(--input-background)",
             color: selected === g ? "var(--on-accent)" : "var(--muted-foreground)",
@@ -3041,7 +3041,7 @@ function MemberManagement2View({
               <AllowanceHistoryView memberId={memberId} />
             </div>
           ) : (
-            <div className="flex items-center justify-center flex-1" style={{ color: "var(--text-muted)", fontSize: 14, minHeight: 200 }}>
+            <div className="flex items-center justify-center flex-1" style={{ color: "var(--text-muted)", fontSize: "var(--font-size-md)", minHeight: 200 }}>
               {activeTab} 화면 준비 중입니다.
             </div>
           )}
@@ -3167,7 +3167,7 @@ function MemberManagementView({
               <AllowanceHistoryView memberId={memberId} />
             </div>
           ) : (
-            <div className="flex items-center justify-center flex-1" style={{ color: "var(--text-muted)", fontSize: 14, minHeight: 200 }}>
+            <div className="flex items-center justify-center flex-1" style={{ color: "var(--text-muted)", fontSize: "var(--font-size-md)", minHeight: 200 }}>
               {activeTab} 화면 준비 중입니다.
             </div>
           )}
@@ -3346,15 +3346,15 @@ function MemberGeneralInfoForm({ member }: { member: Member }) {
         <tbody>
           {/* 1: 회원 등록일자 | 한국명 */}
           <tr className="form-row-dual">
-            <td className={labelCellClass}><span style={{ fontSize: "12px", color: "var(--required-color, #001673)", fontWeight: 500 }}>* 회원 등록일자</span></td>
+            <td className={labelCellClass}><span style={{ fontSize: "var(--font-size-xs)", color: "var(--required-color, #001673)", fontWeight: 500 }}>* 회원 등록일자</span></td>
             <td className={fieldCellClass}><input type="date" key={`reg-${member.id}`} defaultValue={info.regDate} className="w-full rounded outline-none transition-all duration-200" style={inputStyle} {...focusProps} /></td>
-            <td className={labelCellClass}><span style={{ fontSize: "12px", color: "var(--form-label-color)", fontWeight: 500 }}>한국명</span></td>
+            <td className={labelCellClass}><span style={{ fontSize: "var(--font-size-xs)", color: "var(--form-label-color)", fontWeight: 500 }}>한국명</span></td>
             <td className={fieldCellClass}><input defaultValue={info.koreanName || info.customerName} className="w-full rounded outline-none transition-all duration-200" style={inputStyle} {...focusProps} /></td>
           </tr>
 
           {/* 2: 고객 이름/성 (전체 폭, 입력 3칸) */}
           <tr>
-            <td className={labelCellClass}><span style={{ fontSize: "12px", color: "var(--required-color, #001673)", fontWeight: 500 }}>* 고객 이름/성</span></td>
+            <td className={labelCellClass}><span style={{ fontSize: "var(--font-size-xs)", color: "var(--required-color, #001673)", fontWeight: 500 }}>* 고객 이름/성</span></td>
             <td className={fieldWideCellClass} colSpan={fieldColSpan}>
               <div className="member-form-name-pair member-form-name-pair--triple">
                 <input defaultValue={info.customerName} className="member-form-name-pair__input member-form-customer-name-primary rounded outline-none transition-all duration-200" style={inputStyle} {...focusProps} />
@@ -3366,24 +3366,24 @@ function MemberGeneralInfoForm({ member }: { member: Member }) {
 
           {/* 3: Nick Name | Business Name */}
           <tr className="form-row-dual">
-            <td className={labelCellClass}><span style={{ fontSize: "12px", color: "var(--form-label-color)", fontWeight: 500 }}>Nick Name</span></td>
+            <td className={labelCellClass}><span style={{ fontSize: "var(--font-size-xs)", color: "var(--form-label-color)", fontWeight: 500 }}>Nick Name</span></td>
             <td className={fieldCellClass}><input defaultValue={info.nickName} placeholder="닉네임" className="w-full rounded outline-none transition-all duration-200" style={inputStyle} {...focusProps} /></td>
-            <td className={labelCellClass}><span style={{ fontSize: "12px", color: "var(--form-label-color)", fontWeight: 500 }}>Business Name</span></td>
+            <td className={labelCellClass}><span style={{ fontSize: "var(--font-size-xs)", color: "var(--form-label-color)", fontWeight: 500 }}>Business Name</span></td>
             <td className={fieldCellClass}><input defaultValue={info.businessName} placeholder="사업자명" className="w-full rounded outline-none transition-all duration-200" style={inputStyle} {...focusProps} /></td>
           </tr>
 
           {/* 4: Legal Name | 생년월일 */}
           <tr className="form-row-dual">
-            <td className={labelCellClass}><span style={{ fontSize: "12px", color: "var(--form-label-color)", fontWeight: 500 }}>Legal Name</span></td>
+            <td className={labelCellClass}><span style={{ fontSize: "var(--font-size-xs)", color: "var(--form-label-color)", fontWeight: 500 }}>Legal Name</span></td>
             <td className={fieldCellClass}><input defaultValue={info.legalName} placeholder="법적 이름" className="w-full rounded outline-none transition-all duration-200" style={inputStyle} {...focusProps} /></td>
-            <td className={labelCellClass}><span style={{ fontSize: "12px", color: "var(--form-label-color)", fontWeight: 500 }}>생년월일</span></td>
+            <td className={labelCellClass}><span style={{ fontSize: "var(--font-size-xs)", color: "var(--form-label-color)", fontWeight: 500 }}>생년월일</span></td>
             <td className={fieldCellClass}><input type="date" defaultValue={info.birthDate} className="w-full rounded outline-none transition-all duration-200" style={inputStyle} {...focusProps} /></td>
           </tr>
 
           {/* 5: 주민등록번호 | EIN Number */}
           <tr className="form-row-dual">
             <td className={labelCellClass}>
-              <span style={{ fontSize: "12px", color: "var(--required-color, #001673)", fontWeight: 500, display: "inline-flex", alignItems: "center", gap: 4 }}>
+              <span style={{ fontSize: "var(--font-size-xs)", color: "var(--required-color, #001673)", fontWeight: 500, display: "inline-flex", alignItems: "center", gap: 4 }}>
                 * 주민등록번호
               </span>
             </td>
@@ -3404,13 +3404,13 @@ function MemberGeneralInfoForm({ member }: { member: Member }) {
                 )}
               </div>
             </td>
-            <td className={labelCellClass}><span style={{ fontSize: "12px", color: "var(--form-label-color)", fontWeight: 500 }}>EIN Number</span></td>
+            <td className={labelCellClass}><span style={{ fontSize: "var(--font-size-xs)", color: "var(--form-label-color)", fontWeight: 500 }}>EIN Number</span></td>
             <td className={fieldCellClass}><input defaultValue={info.ein} placeholder="미국 사업자 번호" className="w-full rounded outline-none transition-all duration-200" style={inputStyle} {...focusProps} /></td>
           </tr>
 
           {/* 6: 비자종류 | 체류기간 만료일자 */}
           <tr className="form-row-dual">
-            <td className={labelCellClass}><span style={{ fontSize: "12px", color: "var(--form-label-color)", fontWeight: 500 }}>비자종류</span></td>
+            <td className={labelCellClass}><span style={{ fontSize: "var(--font-size-xs)", color: "var(--form-label-color)", fontWeight: 500 }}>비자종류</span></td>
             <td className={fieldCellClass}>
               <div className="relative" style={{ display: "inline-block", width: "100%" }}>
                 <select defaultValue={info.visaType} className="w-full rounded outline-none appearance-none" style={{ ...inputStyle, padding: "4px 28px 4px 8px" }} {...focusProps}>
@@ -3422,13 +3422,13 @@ function MemberGeneralInfoForm({ member }: { member: Member }) {
                 <ChevronDown size={12} style={{ position: "absolute", right: 7, top: "50%", transform: "translateY(-50%)", color: "var(--muted-foreground)", pointerEvents: "none" }} />
               </div>
             </td>
-            <td className={labelCellClass}><span style={{ fontSize: "12px", color: "var(--form-label-color)", fontWeight: 500 }}>체류기간 만료일자</span></td>
+            <td className={labelCellClass}><span style={{ fontSize: "var(--font-size-xs)", color: "var(--form-label-color)", fontWeight: 500 }}>체류기간 만료일자</span></td>
             <td className={fieldCellClass}><input type="date" defaultValue={info.stayExpiry} className="w-full rounded outline-none transition-all duration-200" style={inputStyle} {...focusProps} /></td>
           </tr>
 
           {/* 7: 주소지 (전체 폭) */}
           <tr>
-            <td className={labelCellClass}><span style={{ fontSize: "12px", color: "var(--form-label-color)", fontWeight: 500 }}>주소지</span></td>
+            <td className={labelCellClass}><span style={{ fontSize: "var(--font-size-xs)", color: "var(--form-label-color)", fontWeight: 500 }}>주소지</span></td>
             <td className={fieldWideCellClass} colSpan={fieldColSpan}>
               <div className="flex gap-1 items-center">
                 <input
@@ -3438,30 +3438,30 @@ function MemberGeneralInfoForm({ member }: { member: Member }) {
                   style={inputStyle}
                   {...focusProps}
                 />
-                <button type="button" className="shrink-0" style={{ fontSize: 12, padding: "3px 10px", background: "var(--surface-button-muted)", color: "var(--foreground)", border: "1px solid var(--border)", borderRadius: 4 }}>검색</button>
+                <button type="button" className="shrink-0" style={{ fontSize: "var(--font-size-xs)", padding: "3px 10px", background: "var(--surface-button-muted)", color: "var(--foreground)", border: "1px solid var(--border)", borderRadius: 4 }}>검색</button>
               </div>
             </td>
           </tr>
 
           {/* 8: 우편번호 | 연락처 */}
           <tr className="form-row-dual">
-            <td className={labelCellClass}><span style={{ fontSize: "12px", color: "var(--form-label-color)", fontWeight: 500 }}>우편번호</span></td>
+            <td className={labelCellClass}><span style={{ fontSize: "var(--font-size-xs)", color: "var(--form-label-color)", fontWeight: 500 }}>우편번호</span></td>
             <td className={fieldCellClass}><input defaultValue={info.zip} className="w-full rounded outline-none transition-all duration-200" style={inputStyle} {...focusProps} /></td>
-            <td className={labelCellClass}><span style={{ fontSize: "12px", color: "var(--form-label-color)", fontWeight: 500 }}>연락처</span></td>
+            <td className={labelCellClass}><span style={{ fontSize: "var(--font-size-xs)", color: "var(--form-label-color)", fontWeight: 500 }}>연락처</span></td>
             <td className={fieldCellClass}><input defaultValue={info.contact} className="w-full rounded outline-none transition-all duration-200" style={inputStyle} {...focusProps} /></td>
           </tr>
 
           {/* 9: 휴대폰번호 | 세금신고번호 */}
           <tr className="form-row-dual">
-            <td className={labelCellClass}><span style={{ fontSize: "12px", color: "var(--form-label-color)", fontWeight: 500 }}>휴대폰번호</span></td>
+            <td className={labelCellClass}><span style={{ fontSize: "var(--font-size-xs)", color: "var(--form-label-color)", fontWeight: 500 }}>휴대폰번호</span></td>
             <td className={fieldCellClass}><input key={`phone-${member.id}`} defaultValue={info.phone} className="w-full rounded outline-none transition-all duration-200" style={inputStyle} {...focusProps} /></td>
-            <td className={labelCellClass}><span style={{ fontSize: "12px", color: "var(--form-label-color)", fontWeight: 500 }}>세금신고번호</span></td>
+            <td className={labelCellClass}><span style={{ fontSize: "var(--font-size-xs)", color: "var(--form-label-color)", fontWeight: 500 }}>세금신고번호</span></td>
             <td className={fieldCellClass}><input defaultValue={info.taxId} className="w-full rounded outline-none transition-all duration-200" style={inputStyle} {...focusProps} /></td>
           </tr>
 
           {/* 10: 메모 (전체 폭, 1줄) */}
           <tr>
-            <td className={labelCellClass}><span style={{ fontSize: "12px", color: "var(--form-label-color)", fontWeight: 500 }}>메모</span></td>
+            <td className={labelCellClass}><span style={{ fontSize: "var(--font-size-xs)", color: "var(--form-label-color)", fontWeight: 500 }}>메모</span></td>
             <td className={fieldWideCellClass} colSpan={fieldColSpan}>
               <input
                 key={`memo-${member.id}`}
@@ -3713,7 +3713,7 @@ function MemberInfoBody({
               {/* 1: 은행명 | 계좌번호 */}
               <tr className="form-row-dual">
                 <td className="member-form-cell member-form-cell--label">
-                  <span style={{ fontSize: "12px", color: "var(--form-label-color)", fontWeight: 500 }}>은행명</span>
+                  <span style={{ fontSize: "var(--font-size-xs)", color: "var(--form-label-color)", fontWeight: 500 }}>은행명</span>
                 </td>
                 <td className="member-form-cell member-form-cell--field">
                   <input
@@ -3725,7 +3725,7 @@ function MemberInfoBody({
                   />
                 </td>
                 <td className="member-form-cell member-form-cell--label">
-                  <span style={{ fontSize: "12px", color: "var(--form-label-color)", fontWeight: 500 }}>계좌번호</span>
+                  <span style={{ fontSize: "var(--font-size-xs)", color: "var(--form-label-color)", fontWeight: 500 }}>계좌번호</span>
                 </td>
                 <td className="member-form-cell member-form-cell--field">
                   <input
@@ -3740,7 +3740,7 @@ function MemberInfoBody({
               {/* 2: 예금주 | SwiftCode */}
               <tr className="form-row-dual">
                 <td className="member-form-cell member-form-cell--label">
-                  <span style={{ fontSize: "12px", color: "var(--form-label-color)", fontWeight: 500 }}>예금주</span>
+                  <span style={{ fontSize: "var(--font-size-xs)", color: "var(--form-label-color)", fontWeight: 500 }}>예금주</span>
                 </td>
                 <td className="member-form-cell member-form-cell--field">
                   <input
@@ -3752,7 +3752,7 @@ function MemberInfoBody({
                   />
                 </td>
                 <td className="member-form-cell member-form-cell--label">
-                  <span style={{ fontSize: "12px", color: "var(--form-label-color)", fontWeight: 500 }}>SwiftCode</span>
+                  <span style={{ fontSize: "var(--font-size-xs)", color: "var(--form-label-color)", fontWeight: 500 }}>SwiftCode</span>
                 </td>
                 <td className="member-form-cell member-form-cell--field">
                   <input
@@ -3767,7 +3767,7 @@ function MemberInfoBody({
               {/* 3: Branch Number | 은행통합 거래번호 */}
               <tr className="form-row-dual">
                 <td className="member-form-cell member-form-cell--label">
-                  <span style={{ fontSize: "12px", color: "var(--form-label-color)", fontWeight: 500 }}>Branch Number</span>
+                  <span style={{ fontSize: "var(--font-size-xs)", color: "var(--form-label-color)", fontWeight: 500 }}>Branch Number</span>
                 </td>
                 <td className="member-form-cell member-form-cell--field">
                   <input
@@ -3779,7 +3779,7 @@ function MemberInfoBody({
                   />
                 </td>
                 <td className="member-form-cell member-form-cell--label">
-                  <span style={{ fontSize: "12px", color: "var(--form-label-color)", fontWeight: 500 }}>은행통합 거래번호</span>
+                  <span style={{ fontSize: "var(--font-size-xs)", color: "var(--form-label-color)", fontWeight: 500 }}>은행통합 거래번호</span>
                 </td>
                 <td className="member-form-cell member-form-cell--field">
                   <div className="flex gap-1 items-center" style={{ width: "100%", minWidth: 0 }}>
@@ -3813,7 +3813,7 @@ function MemberInfoBody({
               {/* 1: * 추천인 (전체 폭) */}
               <tr>
                 <td className="member-form-cell member-form-cell--label">
-                  <span style={{ fontSize: "12px", color: "var(--required-color, #001673)", fontWeight: 500 }}>* 추천인</span>
+                  <span style={{ fontSize: "var(--font-size-xs)", color: "var(--required-color, #001673)", fontWeight: 500 }}>* 추천인</span>
                 </td>
                 <td className="member-form-cell member-form-cell--field member-form-cell--field-wide" colSpan={3}>
                   <div className="member-relation-controls">
@@ -3835,7 +3835,7 @@ function MemberInfoBody({
               {/* 2: * 후원인 (전체 폭) */}
               <tr>
                 <td className="member-form-cell member-form-cell--label">
-                  <span style={{ fontSize: "12px", color: "var(--required-color, #001673)", fontWeight: 500 }}>* 후원인</span>
+                  <span style={{ fontSize: "var(--font-size-xs)", color: "var(--required-color, #001673)", fontWeight: 500 }}>* 후원인</span>
                 </td>
                 <td className="member-form-cell member-form-cell--field member-form-cell--field-wide" colSpan={3}>
                   <div className="member-relation-controls">
@@ -3857,7 +3857,7 @@ function MemberInfoBody({
               {/* 3: 센터 | 직급 */}
               <tr className="form-row-dual">
                 <td className="member-form-cell member-form-cell--label">
-                  <span style={{ fontSize: "12px", color: "var(--form-label-color)", fontWeight: 500 }}>센터</span>
+                  <span style={{ fontSize: "var(--font-size-xs)", color: "var(--form-label-color)", fontWeight: 500 }}>센터</span>
                 </td>
                 <td className="member-form-cell member-form-cell--field">
                   <div className="relative member-relation-select">
@@ -3879,7 +3879,7 @@ function MemberInfoBody({
                   </div>
                 </td>
                 <td className="member-form-cell member-form-cell--label">
-                  <span style={{ fontSize: "12px", color: "var(--form-label-color)", fontWeight: 500 }}>직급</span>
+                  <span style={{ fontSize: "var(--font-size-xs)", color: "var(--form-label-color)", fontWeight: 500 }}>직급</span>
                 </td>
                 <td className="member-form-cell member-form-cell--field">
                   <div className="relative member-relation-select">
@@ -3915,7 +3915,7 @@ function MemberInfoBody({
                   defaultChecked={item.checked}
                   style={{ accentColor: "var(--checkbox-accent)", width: 14, height: 14, cursor: "pointer" }}
                 />
-                <span style={{ fontSize: 12, color: "var(--foreground)" }}>{item.label}</span>
+                <span style={{ fontSize: "var(--font-size-xs)", color: "var(--foreground)" }}>{item.label}</span>
               </label>
             ))}
           </div>
@@ -3925,7 +3925,7 @@ function MemberInfoBody({
         <div className="flex justify-end pb-6" style={{ paddingTop: 3 }}>
           <button
             className="rounded font-medium transition-all duration-200"
-            style={{ fontSize: 12, padding: "7px 13px", background: "var(--save-btn-bg, #007aff)", color: "var(--on-accent)", border: "none" }}
+            style={{ fontSize: "var(--font-size-xs)", padding: "7px 13px", background: "var(--save-btn-bg, #007aff)", color: "var(--on-accent)", border: "none" }}
           >
             등록/저장
           </button>
@@ -3936,7 +3936,7 @@ function MemberInfoBody({
         <div style={{ flex: `0 0 ${ORG_CHART_WIDTH}px`, width: ORG_CHART_WIDTH, overflow: "hidden" }}>
           <FormSection title="조직도" icon={<GitFork size={12} />} className="content-form-section--org" bodyPadding={`16px ${ORG_CHART_SIDE_PAD}px 12px`} clipBody={true}>
             {isNewDraft ? (
-              <div className="flex items-center justify-center" style={{ minHeight: 120, color: "var(--text-muted)", fontSize: 12 }}>
+              <div className="flex items-center justify-center" style={{ minHeight: 120, color: "var(--text-muted)", fontSize: "var(--font-size-xs)" }}>
                 새 회원 등록 후 조직도가 표시됩니다.
               </div>
             ) : (
@@ -4146,7 +4146,7 @@ function BarTooltip({ label }: { label: string }) {
   return (
     <span
       className="visit-history-tooltip"
-      style={{ background: "var(--tooltip-bg)", color: "var(--tooltip-fg)", fontSize: "13px" }}
+      style={{ background: "var(--tooltip-bg)", color: "var(--tooltip-fg)", fontSize: "var(--font-size-sm)" }}
     >
       {label}
     </span>
@@ -4620,12 +4620,12 @@ function TopNav({
         <div className="flex items-center gap-2 mr-6 shrink-0">
           <div
             className="flex items-center justify-center rounded"
-            style={{ width: 28, height: 28, background: "var(--logo-bg, #001673)", fontSize: 12, fontWeight: 700, color: "var(--on-accent)" }}
+            style={{ width: 28, height: 28, background: "var(--logo-bg, #001673)", fontSize: "var(--font-size-xs)", fontWeight: 700, color: "var(--on-accent)" }}
           >
             VB
           </div>
-          <span style={{ fontSize: 14, fontWeight: 600, color: "var(--nav-text, #fff)" }}>(주)비아블</span>
-          <span style={{ fontSize: 12, color: "var(--nav-text-muted, rgba(255,255,255,0.6))", marginLeft: 4 }}>ERP</span>
+          <span style={{ fontSize: "var(--font-size-md)", fontWeight: 600, color: "var(--nav-text, #fff)" }}>(주)비아블</span>
+          <span style={{ fontSize: "var(--font-size-xs)", color: "var(--nav-text-muted, rgba(255,255,255,0.6))", marginLeft: 4 }}>ERP</span>
         </div>
         <div ref={navMenusRef} className="flex items-stretch flex-1 min-w-0 self-stretch">
           {mainMenus.map((menu) => {
@@ -4729,7 +4729,7 @@ function TopNav({
               </span>
             )}
           </button>
-          <span style={{ fontSize: 14, color: "var(--nav-text, #fff)" }}>디자인</span>
+          <span style={{ fontSize: "var(--font-size-md)", color: "var(--nav-text, #fff)" }}>디자인</span>
           <button type="button" className="nav-logout-btn">로그아웃</button>
           <NavLocaleMenu />
         </div>
@@ -4885,7 +4885,7 @@ function Sidebar({ activeNavKey, onNavChange, theme, onThemeChange }: SidebarPro
             <item.icon size={18} style={{ color: "var(--sidebar-foreground)" }} />
             <span
               className="absolute left-10 px-2 py-1 rounded whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity duration-200 pointer-events-none z-50"
-              style={{ background: "var(--tooltip-bg)", color: "var(--tooltip-fg)", fontSize: "12px" }}
+              style={{ background: "var(--tooltip-bg)", color: "var(--tooltip-fg)", fontSize: "var(--font-size-xs)" }}
             >
               {item.label}
             </span>
@@ -4904,7 +4904,7 @@ function Sidebar({ activeNavKey, onNavChange, theme, onThemeChange }: SidebarPro
             >
               <span
                 className="absolute left-6 px-2 py-1 rounded whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity duration-200 pointer-events-none z-50"
-                style={{ background: "var(--tooltip-bg)", color: "var(--tooltip-fg)", fontSize: "12px" }}
+                style={{ background: "var(--tooltip-bg)", color: "var(--tooltip-fg)", fontSize: "var(--font-size-xs)" }}
               >
                 {t.label}
               </span>
@@ -5413,8 +5413,8 @@ export default function App() {
                   color: "var(--text-muted)",
                 }}
               >
-                <span style={{ fontSize: 18, fontWeight: 600, color: "var(--text-body)" }}>{activeOrderSubMenu}</span>
-                <span style={{ fontSize: 14 }}>화면 준비 중입니다.</span>
+                <span style={{ fontSize: "var(--font-size-xl)", fontWeight: 600, color: "var(--text-body)" }}>{activeOrderSubMenu}</span>
+                <span style={{ fontSize: "var(--font-size-md)" }}>화면 준비 중입니다.</span>
               </div>
             )
           ) : activeMainMenu === "회원관리2" ? (
@@ -5440,8 +5440,8 @@ export default function App() {
                 color: "var(--text-muted)",
               }}
             >
-              <span style={{ fontSize: 18, fontWeight: 600, color: "var(--text-body)" }}>{activeMemberSubMenu}</span>
-              <span style={{ fontSize: 14 }}>화면 준비 중입니다.</span>
+              <span style={{ fontSize: "var(--font-size-xl)", fontWeight: 600, color: "var(--text-body)" }}>{activeMemberSubMenu}</span>
+              <span style={{ fontSize: "var(--font-size-md)" }}>화면 준비 중입니다.</span>
             </div>
           ) : (
             <MemberManagementView
