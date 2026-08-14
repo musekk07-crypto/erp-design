@@ -2694,9 +2694,58 @@ textarea.mm2-name-box:focus {
   min-width: 88px;
 }
 
+.order-list-manage__control--search-type {
+  min-width: 140px;
+}
+
 .order-list-manage__control--keyword {
   flex: 1 1 220px;
   min-width: 160px;
+  padding-right: 34px;
+}
+
+.order-list-manage__keyword-wrap {
+  position: relative;
+  display: flex;
+  flex: 1 1 220px;
+  min-width: 160px;
+  align-items: center;
+}
+
+.order-list-manage__keyword-wrap .order-list-manage__control--keyword {
+  width: 100%;
+  flex: 1 1 auto;
+}
+
+.order-list-manage__percent-btn {
+  position: absolute;
+  right: 4px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 22px;
+  border: none;
+  border-radius: 3px;
+  background: #2563eb;
+  color: #fff;
+  cursor: pointer;
+}
+
+.order-list-manage__nav-btn,
+.order-list-manage__filter-icon-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+  width: 28px;
+  height: 28px;
+  padding: 0;
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  background: var(--surface-panel);
+  color: var(--text-muted);
+  cursor: pointer;
 }
 
 .order-list-manage__search-btn {
