@@ -6838,10 +6838,10 @@ textarea.mm2-name-box:focus {
   height: 36px;
   margin: 0 0 8px;
   padding: 0;
-  border: 1px solid rgba(255, 255, 255, 0.72);
+  border: 1px solid rgba(0, 0, 0, 0.18);
   border-radius: 4px;
-  background: rgba(0, 0, 0, 0.22);
-  color: #ffffff;
+  background: #ffe566;
+  color: #1e2130;
   cursor: pointer;
   flex-shrink: 0;
   transition: background 0.15s ease, border-color 0.15s ease, box-shadow 0.15s ease;
@@ -6855,30 +6855,31 @@ textarea.mm2-name-box:focus {
 
 .sidebar-member-search__icon {
   flex-shrink: 0;
-  color: #ffffff;
+  color: #1e2130;
 }
 
 .sidebar-member-search__label {
   font-size: var(--font-size-sm);
-  font-weight: 500;
-  color: rgba(255, 255, 255, 0.88);
+  font-weight: 600;
+  color: #1e2130;
   white-space: nowrap;
   letter-spacing: -0.01em;
 }
 
 .sidebar-member-search:hover {
-  background: rgba(0, 122, 255, 0.18);
-  border-color: #ffffff;
+  background: #ffdf4d;
+  border-color: rgba(0, 0, 0, 0.28);
 }
 
 .sidebar-member-search.is-open {
-  background: rgba(0, 122, 255, 0.28);
-  border-color: #5eb1ff;
+  background: #ffdf4d;
+  border-color: rgba(0, 90, 180, 0.45);
   box-shadow: 0 0 0 1px rgba(0, 122, 255, 0.35);
 }
 
-.sidebar-member-search.is-open .sidebar-member-search__label {
-  color: #ffffff;
+.sidebar-member-search.is-open .sidebar-member-search__label,
+.sidebar-member-search.is-open .sidebar-member-search__icon {
+  color: #1e2130;
 }
 
 .sidebar-nav-item.is-expanded {
