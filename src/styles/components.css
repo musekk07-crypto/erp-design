@@ -729,21 +729,32 @@ span.member-form-action-chip {
 }
 
 .app-content .split-table-block tbody tr.member-table-row:nth-child(even):not(.is-selected) {
-  background: #f5f6f8;
+  background: var(--surface-row-alt, #f5f6f8);
 }
 
 .app-content .split-table-block tbody tr.member-table-row.is-selected,
 .app-content .split-table-block tbody tr.is-selected {
-  background: #ffe566;
+  background: var(--surface-row-selected, #ffe566);
 }
 
 .app-content .split-table-block tbody tr.member-table-row.is-selected:hover,
 .app-content .split-table-block tbody tr.is-selected:hover {
-  background: #ffdf4d;
+  background: var(--surface-row-selected, #ffdf4d);
 }
 
 .app-content .split-table-block tbody tr:hover:not(.is-selected):not(.is-danger) {
   background: var(--surface-row-hover, #f3f4f6);
+}
+
+[data-theme="dark"] .app-content .split-table-block tbody tr.member-table-row:nth-child(even):not(.is-selected) {
+  background: var(--surface-row-alt, #262d3d);
+}
+
+[data-theme="dark"] .app-content .split-table-block tbody tr.member-table-row.is-selected,
+[data-theme="dark"] .app-content .split-table-block tbody tr.is-selected,
+[data-theme="dark"] .app-content .split-table-block tbody tr.member-table-row.is-selected:hover,
+[data-theme="dark"] .app-content .split-table-block tbody tr.is-selected:hover {
+  background: var(--surface-row-selected, #3a4458);
 }
 
 /* 일반회원정보 2열 그룹 */
@@ -2940,11 +2951,11 @@ textarea.mm2-name-box:focus {
 }
 
 .order-list-manage__table tbody tr.is-selected {
-  background: #ffe566;
+  background: var(--surface-row-selected, #ffe566);
 }
 
 .order-list-manage__table tbody tr.is-selected:hover {
-  background: #ffdf4d;
+  background: var(--surface-row-selected, #ffdf4d);
 }
 
 .order-list-manage__table tbody tr.is-empty {
@@ -3010,6 +3021,7 @@ textarea.mm2-name-box:focus {
   --order-mgmt-summary-fg: #ffffff;
   --order-mgmt-summary-border: var(--order-mgmt-member-info-bg);
   --surface-row-selected: #3a4458;
+  --surface-row-alt: #262d3d;
   --split-table-header-bg: #3f4654;
   --split-table-header-border: #2f3540;
   --split-table-header-fg: #e2e8f0;
