@@ -734,12 +734,12 @@ span.member-form-action-chip {
 
 .app-content .split-table-block tbody tr.member-table-row.is-selected,
 .app-content .split-table-block tbody tr.is-selected {
-  background: var(--surface-row-selected, #ffe566);
+  background: #ffe566;
 }
 
 .app-content .split-table-block tbody tr.member-table-row.is-selected:hover,
 .app-content .split-table-block tbody tr.is-selected:hover {
-  background: var(--surface-row-selected, #ffdf4d);
+  background: #ffdf4d;
 }
 
 .app-content .split-table-block tbody tr:hover:not(.is-selected):not(.is-danger) {
@@ -2951,11 +2951,11 @@ textarea.mm2-name-box:focus {
 }
 
 .order-list-manage__table tbody tr.is-selected {
-  background: var(--surface-row-selected, #ffe566);
+  background: #ffe566;
 }
 
 .order-list-manage__table tbody tr.is-selected:hover {
-  background: var(--surface-row-selected, #ffdf4d);
+  background: #ffdf4d;
 }
 
 .order-list-manage__table tbody tr.is-empty {
@@ -2993,7 +2993,7 @@ textarea.mm2-name-box:focus {
   --order-mgmt-font-size: var(--font-size-sm);
   --order-mgmt-font-size-lg: var(--font-size-lg);
   --order-mgmt-font-size-toolbar: var(--font-size-sm);
-  --surface-row-selected: #e8eaef;
+  --surface-row-selected: #ffe566;
   --accent-primary: #007aff;
   --order-mgmt-member-info-bg: var(--nav-active-bg, #001673);
   --order-mgmt-save-btn-bg: #007aff;

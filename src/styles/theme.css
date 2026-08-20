@@ -1133,9 +1133,13 @@ input[type="checkbox"] {
   background: var(--surface-row-hover);
 }
 .member-table-row.is-selected {
-  background: var(--surface-row-selected);
+  background: #ffe566;
 }
 .member-table-row.is-selected:hover {
+  background: #ffdf4d;
+}
+[data-theme="dark"] .member-table-row.is-selected,
+[data-theme="dark"] .member-table-row.is-selected:hover {
   background: var(--surface-row-selected);
 }
 .member-table-row.is-checked:not(.is-selected) {
