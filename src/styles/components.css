@@ -726,6 +726,7 @@ span.member-form-action-chip {
   font-size: var(--font-size-xs) !important;
   border-bottom: 1px solid var(--border);
   white-space: nowrap;
+  outline: none;
 }
 
 .app-content .split-table-block tbody tr.member-table-row:nth-child(even):not(.is-selected) {

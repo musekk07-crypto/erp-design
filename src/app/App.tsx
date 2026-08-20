@@ -1844,6 +1844,7 @@ function SplitTableBlock({
   columns: SplitTableColumn[];
   rows?: Record<string, string | number>[];
 }) {
+  const [selectedRow, setSelectedRow] = useState(0);
   const checkboxWidth = SPLIT_TABLE_CHECKBOX_WIDTH;
   const columnsWeight = columns.reduce((sum, col) => sum + col.width, 0);
   const dataColumnsWeight = columnsWeight;
@@ -1907,7 +1908,12 @@ function SplitTableBlock({
           </thead>
           <tbody>
             {rows.map((row, index) => (
-              <tr key={index} className="member-table-row">
+              <tr
+                key={index}
+                className={`member-table-row${selectedRow === index ? " is-selected" : ""}`}
+                onClick={() => setSelectedRow(index)}
+                style={{ cursor: "pointer" }}
+              >
                 <td style={{ ...cellStyle, ...checkboxCellStyle }}>
                   <input type="checkbox" readOnly style={{ accentColor: "var(--checkbox-accent)", cursor: "pointer" }} />
                 </td>
